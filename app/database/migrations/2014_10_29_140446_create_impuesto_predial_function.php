@@ -50,7 +50,6 @@ class CreateImpuestoPredialFunction extends Migration {
           RETURN impuesto;
     END;
     $$ LANGUAGE plpgsql;
-	";
 FinFunc;
         DB::connection()->getPdo()->exec($sql);
     }
@@ -61,7 +60,7 @@ FinFunc;
 	 */
 	public function down()
 	{
-        $sql = "DROP PROCEDURE IF EXISTS impuesto_predial";
+        $sql = "DROP FUNCTION IF EXISTS impuesto_predial(varchar, double precision, int, int);";
         DB::connection()->getPdo()->exec($sql);
 	}
 

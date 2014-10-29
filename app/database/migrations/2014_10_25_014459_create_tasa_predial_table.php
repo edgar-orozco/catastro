@@ -18,7 +18,7 @@ class CreateTasaPredialTable extends Migration {
             $table->integer('anio');
             $table->integer('mes');
             $table->decimal('limite_inferior', 10, 2);
-            $table->decimal('limite_superior', 10, 2);
+            $table->decimal('limite_superior', 14, 2);
             $table->decimal('cuota_fija', 10, 2);
             $table->decimal('pct_excedente', 6, 2);
 			$table->timestamps();
