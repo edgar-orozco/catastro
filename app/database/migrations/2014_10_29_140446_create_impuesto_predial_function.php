@@ -1,6 +1,5 @@
 <?php
 
-use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
 class CreateImpuestoPredialFunction extends Migration {
@@ -62,7 +61,7 @@ FinFunc;
 	 */
 	public function down()
 	{
-        $sql = "DROP PROCEDURE IF EXISTS sp_insert_tag";
+        $sql = "DROP PROCEDURE IF EXISTS impuesto_predial";
         DB::connection()->getPdo()->exec($sql);
 	}
 
