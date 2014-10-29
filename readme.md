@@ -1,6 +1,6 @@
 ## Catastro
 
-Es un sistema de gestión catastral escalable y adaptable
+Sistema de gestión catastral
 
 ## Documentación
 
