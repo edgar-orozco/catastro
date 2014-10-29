@@ -2,10 +2,13 @@
 
 Sistema de gestión catastral
 
-## Documentación
+## Instalación
 
-1. Instalación
-2. Operación
+git clone https://github.com/edgar-orozco/catastro.git
+
+cd catastro
+
+composer install
 
 ### Licencia
 
