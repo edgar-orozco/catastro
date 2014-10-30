@@ -19,11 +19,11 @@ class CreateSmvTable extends Migration {
             //Año de vigencia
             $table->integer('anio');
             //Clave de la entidad federativa
-            $table->string('entidad');
+            $table->string('entidad')->nullable();
             //ID del municipio
-            $table->integer('municipio');
+            $table->integer('municipio')->nullable();
             //Area de aplicación
-            $table->integer('area');
+            $table->string('area');
             //Monto del salario minimo vigente
             $table->decimal('monto',8,2);
 
