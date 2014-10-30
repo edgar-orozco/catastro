@@ -13,8 +13,7 @@
 
 Route::get('/', function()
 {
-	//return View::make('hello');
-    return "Jelou guorld";
+	return View::make('hello');
 });
 
 Route::resource('admin/tasa-predial','AdminTasaPredialController');
