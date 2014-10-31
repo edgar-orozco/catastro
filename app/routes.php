@@ -18,3 +18,8 @@ Route::get('/', function()
 
 Route::resource('admin/tasa-predial','AdminTasaPredialController');
 
+/**
+ * Rutas para el administrado del Salario Mínimo Vigente
+ */
+Route::resource('admin/smv','SalarioMinimoVigenteController');
+
