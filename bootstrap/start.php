@@ -70,4 +70,10 @@ require $framework.'/Illuminate/Foundation/start.php';
 |
 */
 
+
+/*
+ * Registro IoC del validador de usuarios de catastro
+ */
+App::bind('confide.user_validator', 'CatastroUserValidator');
+
 return $app;

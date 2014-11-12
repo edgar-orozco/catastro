@@ -8,6 +8,9 @@
         "zizaco/confide": "~4.0@dev",
         "zizaco/entrust": "1.2.*@dev"
 	},
+    "require-dev": {
+        "way/generators": "~2.0"
+    },
 	"autoload": {
 		"classmap": [
 			"app/commands",

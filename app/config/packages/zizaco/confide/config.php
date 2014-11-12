@@ -25,7 +25,7 @@ return array(
     | Default: email
     |
     */
-    'login_cache_field' => 'email',
+    'login_cache_field' => 'username',
 
     /*
     |--------------------------------------------------------------------------
@@ -46,8 +46,8 @@ return array(
     |
     |
     */
-    'login_form' =>             'confide::login',
-    'signup_form' =>            'confide::signup',
+    'login_form' =>             'users.login',
+    'signup_form' =>            'users.signup',
     'forgot_password_form' =>   'confide::forgot_password',
     'reset_password_form' =>    'confide::reset_password',
 

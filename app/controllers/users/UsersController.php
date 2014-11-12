@@ -9,52 +9,6 @@
  */
 class UsersController extends Controller
 {
-
-    /**
-     * Displays the form for account creation
-     *
-     * @return  Illuminate\Http\Response
-     */
-    public function getCreate()
-    {
-        return View::make(Config::get('confide::signup_form'));
-    }
-
-    /**
-     * Stores new account
-     *
-     * @return  Illuminate\Http\Response
-     */
-    public function postIndex()
-    {
-        $repo = App::make('UserRepository');
-        $user = $repo->signup(Input::all());
-
-        if ($user->id) {
-            if (Config::get('confide::signup_email')) {
-                Mail::queueOn(
-                    Config::get('confide::email_queue'),
-                    Config::get('confide::email_account_confirmation'),
-                    compact('user'),
-                    function ($message) use ($user) {
-                        $message
-                            ->to($user->email, $user->username)
-                            ->subject(Lang::get('confide::confide.email.account_confirmation.subject'));
-                    }
-                );
-            }
-
-            return Redirect::action('UsersController@getLogin')
-                ->with('notice', Lang::get('confide::confide.alerts.account_created'));
-        } else {
-            $error = $user->errors()->all(':message');
-
-            return Redirect::action('UsersController@getCreate')
-                ->withInput(Input::except('password'))
-                ->with('error', $error);
-        }
-    }
-
     /**
      * Displays the login form
      *

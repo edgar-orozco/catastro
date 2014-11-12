@@ -52,7 +52,7 @@ return array(
 	|
 	*/
 
-	'locale' => 'es',
+	'locale' => 'es_MX',
 
 	/*
 	|--------------------------------------------------------------------------
@@ -123,8 +123,7 @@ return array(
 		'Illuminate\Workbench\WorkbenchServiceProvider',
         'Zizaco\Confide\ServiceProvider',
         'Zizaco\Entrust\EntrustServiceProvider',
-
-
+        'Way\Generators\GeneratorsServiceProvider',
 	),
 
 	/*
