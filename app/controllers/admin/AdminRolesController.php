@@ -34,7 +34,6 @@ class AdminRolesController extends AdminController
      */
     public function __construct(User $user, Role $role, Permission $permission)
     {
-        parent::__construct();
         $this->user = $user;
         $this->role = $role;
         $this->permission = $permission;
@@ -49,8 +48,20 @@ class AdminRolesController extends AdminController
     {
         // Title
         $title = "Administrador de roles del sistema";
-        $roles = $this->role;
-        return View::make('admin/role/index', compact('roles', 'title'));
+
+        //Título de sección:
+        $title_section = "Administrador de roles. ";
+
+        //Subtítulo de sección:
+        $subtitle_section = "Crear, modificar, asignar permisos.";
+
+        //La instancia
+        $role = $this->role;
+
+        //Los roles disponibles
+        $roles = Role::all();
+
+        return View::make('admin/role/index', compact('role','roles', 'title', 'title_section', 'subtitle_section'));
     }
 
     /**
@@ -84,14 +95,21 @@ class AdminRolesController extends AdminController
         // Get all the available permissions
         $permissions = $this->permission->all();
 
-        // Selected permissions
-        $selectedPermissions = Input::old('permissions', array());
-
         // Title
-        $title = Lang::get('admin/role/title.create_a_new_role');
+        $title = "Administrador de roles del sistema";
 
+        //Título de sección:
+        $title_section = "Administrador de roles. ";
+
+        //Subtítulo de sección:
+        $subtitle_section = "Crear, modificar, asignar permisos.";
+
+        //Todos los roles
+        $roles = Role::all();
+
+        $role = $this->role;
         // Show the page
-        return View::make('admin/role/create', compact('permissions', 'selectedPermissions', 'title'));
+        return View::make('admin/role/create', compact('roles', 'role', 'permissions', 'selectedPermissions', 'title', 'title_section', 'subtitle_section'));
     }
 
     /**
@@ -101,39 +119,19 @@ class AdminRolesController extends AdminController
      */
     public function store()
     {
-        // Validate the inputs
-        $rules = array(
-            'name'=> 'required|alpha_dash|unique:roles,name',
-            'description'=> 'required'
-            );
+        //Llenamos los parametros que vienen de la forma
+        $this->role->fill(Input::all());
 
-        // Validate the inputs
-        $validator = Validator::make(Input::all(), $rules);
-        // Check if the form validates with success
-        if ($validator->passes()) {
-            // Get the inputs, with some exceptions
-            $inputs = Input::except('csrf_token');
-
-            $this->role->name = $inputs['name'];
-            $this->role->description = $inputs['description'];
-            $this->role->save($rules);
-
-            if ($this->role->id) {
-                // Save permissions
-                $this->role->perms()->sync($this->permission->preparePermissionsForSave($inputs['permissions']));
-
-                // Redirect to the new role page
-                return Redirect::to('admin/roles/' . $this->role->id . '/edit')->with('success', Lang::get('admin/role/messages.create.success'));
-
-            } else {
-                // Redirect to the role create page
-                //var_dump($this->role);
-                return Redirect::to('admin/roles/create')->with('error', Lang::get('admin/role/messages.create.error'));
-            }
-        } else {
-            // Form validation failed
-            return Redirect::to('admin/roles/create')->withInput()->withErrors($validator);
+        //Si no puede guardarse entonces mostramos errores en pantalla
+        if ( ! $this->role->save()) {
+            return Redirect::back()->withErrors($this->role->errors());
         }
+
+        //Si pasa la validación entonces guardamos los permisos relacionados con el rol
+        $this->role->savePermissions(Input::get( 'permissions' ));
+
+        //Dado que fue exitosa la actualización mostramos la salida al usaurio.
+        return Redirect::to('admin/role/create')->with('success','¡Se ha creado correctamente el rol: '. $this->role->name. " !");
     }
 
     /**
@@ -142,74 +140,52 @@ class AdminRolesController extends AdminController
      * @param $role
      * @return Response
      */
-    public function edit($role)
+    public function edit($id)
     {
-        if ($role) {
-            $permissions = $this->permission->preparePermissionsForDisplay($role->perms()->get());
-        } else {
-            // Redirect to the role management page
-            return Redirect::to('admin/roles')->with('error', Lang::get('admin/role/messages.does_not_exist'));
-        }
+        $role = Role::find($id);
+        $roles = $this->role->all();
+        $permissions = Permission::all();
 
         // Title
         $title = Lang::get('admin/role/title.role_update');
 
+        //Título de sección:
+        $title_section = "Modificar rol: ";
+
+        //Subtítulo de sección:
+        $subtitle_section = $role->name;
+
         // Show the page
-        return View::make('admin/role/edit', compact('role', 'permissions', 'title'));
+        return View::make('admin/role/edit', compact('role', 'roles', 'permissions', 'title', 'title_section', 'subtitle_section'));
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param $role
+     * @param $id
      * @return Response
      */
-    public function update($role)
+    public function update($id)
     {
-        // If the 'admin' role is being updated, the name of this role will have been
-        // disabled in the form, and so won't be present in the form POST values.
-        // We'll change the rules here accordingly. The admin role cannot be renamed
-        // or deleted.
+        //Buscamos el rol original relacionado con el id
+        $this->role = Role::find($id);
+        //Llenamos los parametros que vienen de la forma
+        $this->role->fill(Input::all());
 
-        if ($role->name == 'admin') {
-            $rules = array(
-                'description' => 'required'
-            );
-        } else {
-            $rules = array(
-                'name'=> 'required|alpha_dash|unique:roles,name,' . $role->id,
-                'description' => 'required'
-            );
+        //Si no puede guardarse entonces mostramos errores en pantalla
+        if ( ! $this->role->save()) {
+            return Redirect::back()->withErrors($this->role->errors());
         }
 
-        // Validate the inputs
-        $validator = Validator::make(Input::all(), $rules);
+        //Si pasa la validación entonces guardamos los permisos relacionados con el rol
+        $this->role->savePermissions(Input::get( 'permissions' ));
 
-        // Check if the form validates with success
-        if ($validator->passes()) {
-            // Update the role data
-            if ($role->name != 'admin') {
-                $role->name        = Input::get('name');
-            }
-            $role->description = Input::get('description');
-            $role->perms()->sync($this->permission->preparePermissionsForSave(Input::get('permissions')));
-
-            // Was the role updated?
-            if ($role->save($rules)) {
-                // Redirect to the role page
-                return Redirect::to('admin/roles/' . $role->id . '/edit')->with('success', Lang::get('admin/role/messages.update.success'));
-            } else {
-                // Redirect to the role page
-                return Redirect::to('admin/roles/' . $role->id . '/edit')->with('error', Lang::get('admin/role/messages.update.error'));
-            }
-        } else {
-            // Form validation failed
-            return Redirect::to('admin/roles/' . $role->id . '/edit')->withInput()->withErrors($validator);
-        }
+        //Dado que fue exitosa la actualización mostramos la salida al usaurio.
+        return Redirect::to('admin/role/'.$this->role->id.'/edit')->with('success','¡Se ha actualizado correctamente el rol: '. $this->role->name. " !");
     }
 
     /**
-     * Remove user page.
+     * Remove role page.
      *
      * @param $role
      * @return Response
@@ -247,36 +223,5 @@ class AdminRolesController extends AdminController
         return Redirect::to('admin/roles')->with('error', Lang::get('admin/role/messages.delete.error'));
     }
 
-    /**
-     * Show a list of all the roles formatted for Datatables.
-     *
-     * @return Datatables JSON
-     */
-    public function data()
-    {
-        $roles = Role::select(array('roles.id',  'roles.name', 'roles.description', 'roles.id as users', 'roles.created_at'));
-
-        return Datatables::of($roles)
-        // ->edit_column('created_at','{{{ Carbon::now()->diffForHumans(Carbon::createFromFormat(\'Y-m-d H\', $test)) }}}')
-        ->edit_column('users', '{{{ DB::table(\'assigned_roles\')->where(\'role_id\', \'=\', $id)->count()  }}}')
-
-        ->add_column('actions', '<div class="btn-group">
-                  <button type="button" class="btn btn-xs btn-primary dropdown-toggle" data-toggle="dropdown">
-                    Acciones <span class="caret"></span>
-                  </button>
-                  <ul class="dropdown-menu" role="menu">
-                    <li><a href="{{{ URL::to(\'admin/roles/\' . $id ) }}}">{{{ Lang::get(\'button.show\') }}}</a></li>
-                    <li><a href="{{{ URL::to(\'admin/roles/\' . $id . \'/edit\' ) }}}">{{{ Lang::get(\'button.edit\') }}}</a></li>
-                    @if($name == \'admin\')
-                    @else
-                    <li><a href="{{{ URL::to(\'admin/roles/\' . $id . \'/delete\' ) }}}">{{{ Lang::get(\'button.delete\') }}}</a></li>
-                    @endif
-                  </ul>
-                </div>')
-
-        ->remove_column('id')
-
-        ->make();
-    }
 
 }

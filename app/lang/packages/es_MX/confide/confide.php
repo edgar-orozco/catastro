@@ -42,6 +42,7 @@ return array(
         'wrong_password_reset'   => 'Contraseña incorrecta. Inténtelo de nuevo.',
         'wrong_token'            => 'La cadena de reseteo de contraseña no es válida.',
         'duplicated_credentials' => 'Ya existe un usuario con los mismos datos en el sistema. Inténtelo con información diferente.',
+        'password_confirmation'  => 'No coincide la confirmación de la contraseña, favor de reingresar la constraseña y su confirmación.',
     ),
 
     'email' => array(

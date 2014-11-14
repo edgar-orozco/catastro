@@ -9,13 +9,21 @@
     @endif
     <div class="list-group">
         @foreach($usuarios as $usr)
-            <a href="{{ action('AdminUserController@edit', ['id' => $usr->id] )}}" class="list-group-item">
+            <a href="{{ action('AdminUserController@edit', ['id' => $usr->id, 'page'=> $usuarios->getCurrentPage()] )}}" class="list-group-item {{($usr->id == $user->id) ? 'active':''}}">
+                <div class="row">
+                <div class="col-sm-9">
                 <h4 class="list-group-item-heading">{{$usr->nombreCompleto()}}</h4>
                 <p class="list-group-item-text">{{$usr->username}}</p>
+                </div>
+                <div class="col-sm-3">
+                @foreach($usr->roles as $rol)
+                    <span class="label label-warning">{{$rol->name}}</span>
+                @endforeach
+                </div>
+                </div>
             </a>
         @endforeach
     </div>
-
 </div>
-
+{{ $usuarios->appends(Request::except('page'))->links() }}
 

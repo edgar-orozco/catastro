@@ -27,6 +27,12 @@ class AdminUserController extends BaseController
     protected $permission;
 
     /**
+     * Elementos por página que se mostrarán en pantalla. Se usa en el paginador.
+     * @var int
+     */
+    protected $por_pagina = 10;
+
+    /**
      * Inject the models.
      * @param User       $user
      * @param Role       $role
@@ -46,10 +52,31 @@ class AdminUserController extends BaseController
      */
     public function index()
     {
+        //La lista de usuarios necesita una instancia de user
+        $user = $this->user;
+
         // Title
-        $title = "Administración de usuarios";
-        $usuarios = User::all();
-        return View::make('admin.user._list', compact('title','usuarios'));
+        $title = "Administración de usuarios.";
+
+        //Título de sección:
+        $title_section = "Administración de usuarios del sistema";
+
+        //Subtítulo de sección:
+        $subtitle_section = "Buscar, crear y modificar usuarios.";
+
+        // All roles
+        $roles = $this->role->all();
+
+        //Lista de usuarios
+
+        $query = Request::get('q');
+        if($query) {
+            $usuarios = User::where('nombre','ILIKE',"%$query%")->paginate($this->por_pagina);
+        }
+        else {
+            $usuarios = User::paginate($this->por_pagina);
+        }
+        return View::make('admin.user.index', compact('roles', 'selectedRoles', 'title', 'title_section', 'subtitle_section', 'usuarios', 'user'));
     }
 
     /**
@@ -73,6 +100,11 @@ class AdminUserController extends BaseController
         }
     }
 
+
+    public function search($user){
+
+    }
+
     /**
      * Displays the form for user creation
      *
@@ -93,13 +125,16 @@ class AdminUserController extends BaseController
         $roles = $this->role->all();
 
         //Lista de usuarios
-        $usuarios = User::all();
+        $usuarios = User::paginate($this->por_pagina);
+
+        //La lista de usuarios necesita una instancia de user
+        $user = $this->user;
 
         // Selected roles
         $selectedRoles = Input::old('roles', array());
 
         // Show the page
-        return View::make('admin.user.create', compact('roles', 'selectedRoles', 'title', 'title_section', 'subtitle_section', 'usuarios'));
+        return View::make('admin.user.create', compact('roles', 'selectedRoles', 'title', 'title_section', 'subtitle_section', 'usuarios', 'user'));
     }
 
     /**
@@ -119,13 +154,12 @@ class AdminUserController extends BaseController
         $this->user->password_confirmation = Input::get( 'password_confirmation' );
         $this->user->confirmed = true;
 
-        if ($this->user->isValid()) {
+        if ($this->user->save()) {
             // Save if valid. Password field will be hashed before save
-            $this->user->save();
             // Save roles. Handles updating.
             $this->user->saveRoles(Input::get( 'roles' ));
 
-            return Redirect::to('admin/user/create')->with('success', "Se ha crado correctamente el usuario ".$this->user->username);
+            return Redirect::to('admin/user/create')->with('success', "Se ha crado correctamente el usuario ".$this->user->nombreCompleto());
 
         } else {
             // Get validation errors (see Ardent package)
@@ -157,7 +191,7 @@ class AdminUserController extends BaseController
             $subtitle_section = $user->username;
 
             //Lista de usuarios
-            $usuarios = User::all();
+            $usuarios = User::paginate($this->por_pagina);
 
             return View::make('admin/user/edit', compact('user', 'roles', 'permissions', 'title', 'title_section', 'subtitle_section', 'usuarios'));
         } else {
@@ -176,6 +210,10 @@ class AdminUserController extends BaseController
         $user = User::find($id);
         $user->username = Input::get( 'username' );
         $user->email = Input::get( 'email' );
+        $user->nombre = Input::get( 'nombre' );
+        $user->apepat = Input::get( 'apepat' );
+        $user->apemat = Input::get( 'apemat' );
+
         $password = Input::get( 'password' );
         $passwordConfirmation = Input::get( 'password_confirmation' );
         if (!empty($password)) {
@@ -183,14 +221,13 @@ class AdminUserController extends BaseController
             $user->password_confirmation = $passwordConfirmation;
         }
 
-        if ($user->isValid()) {
-            $user->save();
+        if ($user->save()) {
             $user->saveRoles(Input::get( 'roles' ));
-            return Redirect::to('admin/user/create')->with('success', "Se han actualizado correctamente los datos del usuario ".$user->nombreCompleto());
+            return Redirect::to('admin/user')->with('success', "Se han actualizado correctamente los datos del usuario ".$user->nombreCompleto());
         } else {
             // Get validation errors (see Ardent package)
             $error = $user->errors;
-            return Redirect::to('admin/user/create')->withInput()->withErrors($error);
+            return Redirect::to('admin/user/'.$user->id.'/edit')->withInput()->withErrors($error);
         }
     }
 

@@ -10,11 +10,11 @@
 
         <div class="col-md-4">
 
-            {{ Form::model($user, ['route' => array('admin.user.update', $user->id ), 'method'=>'put' ]) }}
-                @include('admin.user._form', compact('user'))
+            {{ Form::model($role, ['route' => array('admin.role.update', $role->id ), 'method'=>'put' ]) }}
+                @include('admin.role._form', compact('role'))
 
                 <div class="form-actions form-group">
-                  {{ Form::submit('Modificar usuario', array('class' => 'btn btn-primary')) }}
+                  {{ Form::submit('Modificar rol', array('class' => 'btn btn-primary')) }}
                   {{ Form::reset('Cancelar', ['class' => 'btn btn-warning']) }}
                 </div>
             {{Form::close()}}
@@ -23,7 +23,7 @@
 
         <div class="col-sm-8 col-md-8 col-lg-8">
 
-            @include('admin.user._list', compact('usuarios','user'))
+            @include('admin.role._list', compact('roles','role'))
 
         </div>
     </div>

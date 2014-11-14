@@ -25,7 +25,7 @@ class CatastroUserValidator implements UserValidatorInterface
      */
     public $rules = [
         'create' => [
-            'username' => 'required|alpha_num_dot|unique:users,username',
+            'username' => 'required|alpha_num_dot',
             'email'    => 'email',
             'nombre'   => 'required|alpha_spaces', //Alfa mas espacios y unicode, para aceptar ñs y acentos
             'apepat'   => 'required|alpha_spaces',//Alfa mas espacios y unicode, para aceptar ñs y acentos
@@ -34,13 +34,13 @@ class CatastroUserValidator implements UserValidatorInterface
             'password_confirmation' => 'between:6,11',
         ],
         'update' => [
-            'username' => 'required|alpha_num_dot|unique:users,username',
+            'username' => 'required|alpha_num_dot',
             'email'    => 'email',
             'nombre'   => 'required|alpha_spaces', //Alfa mas espacios y unicode, para aceptar ñs y acentos
             'apepat'   => 'required|alpha_spaces',//Alfa mas espacios y unicode, para aceptar ñs y acentos
             'apemat'   => 'alpha_spaces',//Alfa mas espacios y unicode, para aceptar ñs y acentos
             'password' => 'min:6',
-            'password_confirmation' => 'between:6,11',
+            //'password_confirmation' => 'between:6,11',
         ]
     ];
 
@@ -58,14 +58,13 @@ class CatastroUserValidator implements UserValidatorInterface
 
         // Validate object
         $result = $this->validateAttributes($user, $ruleset) ? true : false;
-
-        //$result = ($this->validatePassword($user) && $result) ? true : false;
+        $result = ($this->validatePassword($user) && $result) ? true : false;
         //dd($result);
-
-
-        //$result = ($this->validateIsUnique($user) && $result) ? true : false;
-        if(trim($user->password) !== '') {
-            dd($user->getOriginal('password'));
+        $result = ($this->validateIsUnique($user) && $result) ? true : false;
+/*
+        //
+        //if(trim($user->password) !== '') {
+            //dd($user->getOriginal('password'));
             if ($user->password === $user->password_confirmation) {
                 // Hashes password and unset password_confirmation field
                 //dd($user);
@@ -80,8 +79,8 @@ class CatastroUserValidator implements UserValidatorInterface
                 );
                 return false;
             }
-        }
-
+        //}
+*/
         return $result;
     }
 
@@ -94,28 +93,27 @@ class CatastroUserValidator implements UserValidatorInterface
      */
     public function validatePassword(ConfideUserInterface $user)
     {
-        //if ($user->getOriginal('password') != $user->password) {
-            if ($user->password === $user->password_confirmation) {
+        $hash = App::make('hash');
 
+        if ( $user->getOriginal('password') == $user->password ) {
+            return true;
+        }
 
-                // Hashes password and unset password_confirmation field
-                $hash = App::make('hash');
-                $user->password = $hash->make($user->password);
+        if ( $user->password != $user->password_confirmation ) {
+            $this->attachErrorMsg(
+                $user,
+                'confide::confide.alerts.password_confirmation',
+                'password_confirmation'
+            );
+            return false;
+        }
 
-                unset($user->password_confirmation);
-                //dd($user);
+         // Hashes password and unset password_confirmation field
+        $user->password = $hash->make($user->password);
 
-                return true;
-            } else {
-                $this->attachErrorMsg(
-                    $user,
-                    'confide::confide.alerts.password_confirmation',
-                    'password_confirmation'
-                );
-                return false;
-            }
-        //}
+        unset($user->password_confirmation);
 
+        return true;
     }
 
     /**
@@ -175,8 +173,7 @@ class CatastroUserValidator implements UserValidatorInterface
 
         $rules = $this->rules[$ruleset];
 
-        $validator = App::make('validator')
-            ->make($attributes, $rules);
+        $validator = App::make('validator')->make($attributes, $rules);
 
         // Validate and attach errors
         if ($validator->fails()) {

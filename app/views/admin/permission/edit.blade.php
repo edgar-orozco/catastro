@@ -10,11 +10,12 @@
 
         <div class="col-md-4">
 
-            {{ Form::model($user, ['route' => array('admin.user.update', $user->id ), 'method'=>'put' ]) }}
-                @include('admin.user._form', compact('user'))
+            {{ Form::model($permission, ['route' => array('admin.permission.update', $permission->id ), 'method'=>'put' ]) }}
+
+                @include('admin.permission._form', compact('permission'))
 
                 <div class="form-actions form-group">
-                  {{ Form::submit('Modificar usuario', array('class' => 'btn btn-primary')) }}
+                  {{ Form::submit('Modificar permiso', array('class' => 'btn btn-primary')) }}
                   {{ Form::reset('Cancelar', ['class' => 'btn btn-warning']) }}
                 </div>
             {{Form::close()}}
@@ -23,7 +24,7 @@
 
         <div class="col-sm-8 col-md-8 col-lg-8">
 
-            @include('admin.user._list', compact('usuarios','user'))
+            @include('admin.permission._list', compact('permissions'))
 
         </div>
     </div>
