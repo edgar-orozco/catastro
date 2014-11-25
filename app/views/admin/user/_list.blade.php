@@ -1,4 +1,4 @@
-<div class="panel panel-info">
+<div class="panel">
     <div class="panel-heading">
         <h3 class="panel-title">Usuarios del sistema</h3>
     </div>

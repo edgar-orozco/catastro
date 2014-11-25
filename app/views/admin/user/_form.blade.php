@@ -1,6 +1,6 @@
 <div class="form-group">
     {{Form::label('username','Nombre de usuario')}}
-    {{Form::text('username', null, ['class'=>'form-control'] )}}
+    {{Form::text('username', null, ['class'=>'form-control', 'autofocus'=> 'autofocus'] )}}
     {{$errors->first('username', '<span class=text-danger>:message</span>')}}
 </div>
 

@@ -12,9 +12,9 @@
 
     <div class="row">
         <div class="col-md-4 col-md-offset-4">
-            <div class="panel panel-primary">
+            <div class="panel">
                 <div class="panel-heading">
-                    <h3 class="panel-title">Sistema Catastral</h3>
+                    <h3 class="panel-title">Sistema de Gestión Catastral</h3>
                 </div>
                 <div class="panel-body">
                     {{ Form::open(array('url' => 'users/login', 'method' => 'POST')) }}
@@ -26,7 +26,7 @@
                             {{ Form::text('username', null, array('class' => 'form-control focus', 'placeholder'=>'Nombre de usuario', 'autofocus'=> 'autofocus')) }}
                         </div>
 
-                        <p></p>
+                        <br/>
 
                         <div class="input-group">
                             <span class="input-group-addon">
@@ -35,9 +35,9 @@
                             {{ Form::password('password', array('class' => 'form-control', 'placeholder'=>'Contraseña')) }}
                         </div>
 
-                        <p></p>
+                        <br/>
 
-                        {{ Form::submit('Entrar al sistema', array('class' => 'btn btn-success')) }}
+                        {{ Form::submit('Entrar al sistema', array('class' => 'btn btn-primary')) }}
                     {{ Form::close() }}
                 </div>
             </div>
