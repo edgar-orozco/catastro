@@ -43,7 +43,7 @@ Route::filter('auth', function()
 		}
 		else
 		{
-			return Redirect::guest('login');
+			return Redirect::guest('users/login');
 		}
 	}
 });
@@ -87,4 +87,17 @@ Route::filter('csrf', function()
 	{
 		throw new Illuminate\Session\TokenMismatchException;
 	}
+});
+
+
+/*
+ * Filtro para detección de roles de administración
+ */
+
+Route::filter('admin', function () {
+
+    if (! ( Entrust::hasRole('Administrador') ||  Entrust::hasRole('Super usuario') ) ) // Checks the current user
+    {
+        return Redirect::to('/');
+    }
 });

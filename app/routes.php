@@ -9,13 +9,8 @@
 | It's a breeze. Simply tell Laravel the URIs it should respond to
 | and give it the Closure to execute when that URI is requested.
 |
-|  TODO: Introducir alguna forma de partir las rutas en varios archivos y directorios para tratar de evitar conflictos recurrentes al desarrollar varios equipos el mismo proyecto
 */
 
-Route::get('/', function()
-{
-	return View::make('hello');
-});
 
 /**
  * @author: Edgar Orozco
