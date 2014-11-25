@@ -17,20 +17,22 @@ Route::get('/', function()
 	return View::make('hello');
 });
 
-Route::resource('admin/tasa-predial','AdminTasaPredialController');
-
-// Rutas para el administrado del Salario Mínimo Vigente
-Route::resource('admin/smv','SalarioMinimoVigenteController');
-
-// Rutas para el administrador de usuarios
-Route::resource('admin/user','AdminUserController');
-
-// Rutas para el administrador de permisos del sistema
-Route::resource('admin/permission','AdminPermissionsController');
-
-// Rutas para el administrador de roles del sistema
-Route::resource('admin/role','AdminRolesController');
-
-
-//Rutas para login, logout y profile
-Route::controller( 'users', 'UsersController');
+/**
+ * @author: Edgar Orozco
+ * Helper para poder separar en varios archivos las rutas y tener mayor libertad de implementación de rutas por módulo.
+ *
+ * IMPORTANTE:
+ * Las rutas ahora se declaran en el directorio app/routes/NombreModuloRoutes.php
+ * Donde NombreModulo es el nombre distintivo del módulo o funcionalidad que se trate.
+ *
+ * Esto se hace debido a que al modificarse app/routes.php es el archivo que más concurrencia de usuarios tiene, por lo que se crean muchos confilctos de "merge" con git
+ * De cualquier forma es la manera en la que Laravel nativamente tiene de cargar el archivo de rutas.
+ * @see http://laravel.com/docs/4.2/packages#package-routing
+ */
+foreach (new DirectoryIterator(__DIR__.'/routes') as $file)
+{
+    if (!$file->isDot() && !$file->isDir() && $file->getFilename() != '.gitignore')
+    {
+        require_once __DIR__.'/routes/'.$file->getFilename();
+    }
+}
