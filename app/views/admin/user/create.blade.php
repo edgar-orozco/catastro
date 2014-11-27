@@ -12,7 +12,7 @@
 
             <div class="form-actions form-group">
               {{ Form::submit('Crear nuevo usuario', array('class' => 'btn btn-primary')) }}
-              {{ Form::reset('Cancelar', ['class' => 'btn btn-warning']) }}
+              {{ Form::reset('Limpiar formato', ['class' => 'btn btn-warning']) }}
             </div>
         {{Form::close()}}
 

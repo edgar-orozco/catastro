@@ -34,7 +34,7 @@
 </head>
 <body>
 	<div class="welcome">
-        <h1>¡Hola!</h1>
+        <h1><?php phpinfo() ?></h1>
 		<h1>You have arrived.</h1>
 	</div>
 </body>
