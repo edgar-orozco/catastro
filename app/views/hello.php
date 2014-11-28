@@ -34,8 +34,7 @@
 </head>
 <body>
 	<div class="welcome">
-        <h1><?php phpinfo() ?></h1>
-		<h1>You have arrived.</h1>
+        <h1>Sistema de Gestión Catastral</h1>
 	</div>
 </body>
 </html>
