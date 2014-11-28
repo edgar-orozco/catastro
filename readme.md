@@ -11,6 +11,7 @@ Sistema de gestión catastral
 ## Procedimiento para realizar deploy al servidor de desarrollo:
     $ git push origin staging
 Todo push a la rama "staging" será automáticamente reflejado en el servidor de desarrollo central
+[Tutorial para manejo de ramas](https://www.atlassian.com/git/tutorials/using-branches)
 
 ## Paquetes extra
 * Autenticación de usuarios      "zizaco/confide": "~4.0@dev" [Documentación](https://github.com/Zizaco/confide)
