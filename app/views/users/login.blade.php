@@ -11,6 +11,9 @@
         margin-left: -150px;
         margin-top: -150px;
     }
+    .panel-title {
+        font-size: 24px;
+    }
 </style>
 @stop
 
