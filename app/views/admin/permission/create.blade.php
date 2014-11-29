@@ -3,6 +3,7 @@
 @section('content')
 
     <div class="row">
+        <a href="{{URL::route('admin.permission.index')}}" class="btn btn-primary pull-right" role="button"><i class="glyphicon glyphicon-arrow-left"></i> Regresar</a>
 
         <div class="col-md-4">
 

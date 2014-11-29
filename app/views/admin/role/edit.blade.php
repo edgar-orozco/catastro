@@ -7,7 +7,7 @@
 @section('content')
 
     <div class="row">
-
+        <a href="{{URL::route('admin.role.index')}}" class="btn btn-primary pull-right" role="button"><i class="glyphicon glyphicon-arrow-left"></i> Regresar</a>
         <div class="col-md-4">
 
             {{ Form::model($role, ['route' => array('admin.role.update', $role->id ), 'method'=>'put' ]) }}
