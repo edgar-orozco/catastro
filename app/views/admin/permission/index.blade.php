@@ -4,22 +4,42 @@
 	{{{ $title }}} :: @parent
 @stop
 
+@section('angular')
+    ng-app="permissions" ng-controller="PermissionsCtrl"
+@stop
+
+
 @section('content')
-
-    {{ Form::open(array('url' => 'admin/permission', 'method' => 'GET')) }}
-
+    <div class="row" ng-hide="showForm">
+            <button type="button" class="btn btn-info" ng-click="showForm=true">
+              <span class="glyphicon glyphicon-plus"></span> Crear Permiso
+            </button>
+     </div>
     <div class="row">
+        <div class="col-md-4" ng-show="showForm">
 
-        <a class="btn btn-info" href="{{action('AdminPermissionsController@create')}}" role="button">
-          <span class="glyphicon glyphicon-plus"></span> Crear Permiso
-        </a>
+                {{ Form::open(array('url' => 'admin/permission', 'method' => 'POST', 'name' => 'formPermission')) }}
 
-    </div><!-- /.row -->
+                    @include('admin.permission._form')
 
-    <br>
-    <div class="row">
-        @include('admin.permission._list', compact('permissions'))
+                    <div class="form-actions form-group">
+                        <button disabled="disabled" class="btn btn-primary" ng-disabled="formPermission.$invalid || isInvalid()" type="button" ng-click="store()">
+                            {[{ permission.id !== undefinied ? 'Editar permiso' : 'Crear nuevo permiso' }]}
+                        </button>
+                        {{ Form::reset('Limpiar formato', ['class' => 'btn btn-warning']) }}
+                        {{ Form::button('Cancelar', ['class' => 'btn btn-default', 'ng-click' => 'closeForm()']) }}
+                    </div>
+                {{Form::close()}}
+
+        </div>
+        <div ng-class="showForm ? 'col-sm-8 col-md-8 col-lg-8' : 'col-sm-12 col-md-12 col-lg-12'">
+            @include('admin.permission._list', compact('permissions'))
+        </div>
     </div>
 
 @stop
 
+@section('javascript')
+    {{ HTML::script('js/permission/permission.js') }}
+    {{ HTML::script('js/laroute.js') }}
+@stop
