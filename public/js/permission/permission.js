@@ -75,11 +75,26 @@ angular.module('permissions', ['ngResource', 'ngSanitize']).
         };
     }).
     /**
+     * Directiva para poner el focus en un elemento
+     */
+    directive('tbFocus', function($timeout) {
+        return function(scope, element, attrs) {
+            scope.$watch(attrs.tbFocus,function (newValue) {
+                if(newValue){
+                    $timeout(function(){
+                        element.focus();
+                    }, 100);
+                }
+            },true);
+        };
+    }).
+    /**
      *
      */
     controller('PermissionsCtrl', function($scope, Permissions) {
         // Variables que se exponen en la vista
         $scope.showForm = false;
+        $scope.focusForm = false;
         $scope.loading = true;
         $scope.permission = {};
         $scope.permissions = [];
@@ -145,6 +160,7 @@ angular.module('permissions', ['ngResource', 'ngSanitize']).
          * Función para guardar el formulario de permisos
          */
         $scope.store = function(){
+            $scope.focusForm = true;
             var permissionSave = angular.copy($scope.permission);
             // Se eliminan los errores del permiso al editar
             if(permissionSave.error !== undefined ){
@@ -169,6 +185,7 @@ angular.module('permissions', ['ngResource', 'ngSanitize']).
          */
         $scope.edit = function(idx){
             $scope.showForm = true;
+            $scope.focusForm = true;
             $scope.permission = angular.copy($scope.permissions[idx]);
             $scope.permission.idx = idx;
         };
@@ -179,9 +196,19 @@ angular.module('permissions', ['ngResource', 'ngSanitize']).
         $scope.destroy = function (idx) {
             if(confirm('Deseas elimnar el permiso '+ $scope.permissions[idx].name )) deletePermission(idx);
         };
+        /**
+         * Funcion para ocultar el formulario
+         */
         $scope.closeForm = function(){
             $scope.showForm = false;
             $scope.permission = {};
+        };
+        /**
+         * Funcion para mostrar el formulario
+         */
+        $scope.openForm = function(){
+            $scope.showForm = true;
+            $scope.focusForm = true;
         };
         /**
          * Función para validar el contenido del formulario
