@@ -19,7 +19,7 @@ class AdminPermissionsController extends \BaseController {
 	 *
 	 * @return Response
 	 */
-	public function index()
+	public function index($format = 'html')
 	{
         $permission = $this->permission;
 
@@ -34,7 +34,7 @@ class AdminPermissionsController extends \BaseController {
         // Todos los permisos creados actualmente
         $permissions = $this->permission->all();
 
-        return View::make('admin.permission.index', compact('title', 'title_section', 'subtitle_section', 'permission','permissions'));
+        return  ($format == 'json') ? $permissions : View::make('admin.permission.index', compact('title', 'title_section', 'subtitle_section', 'permission','permissions'));
 	}
 
 	/**
@@ -67,18 +67,24 @@ class AdminPermissionsController extends \BaseController {
 	 *
 	 * @return Response
 	 */
-	public function store()
+	public function store($format = 'html')
 	{
+        //sleep(10);
         //Asignamos los valores del post a la instancia.
         $this->permission = new Permission;
 
         //Si no es posible guardar la instancia mandamos errores
         if( ! $this->permission->save() )
         {
-            //dd($this->permission->errors()->all());
+            if($format == 'json'){
+                return array('status' => 'error', 'msg' => 'Datos incorrectos', 'data' => array( 'idx' => Input::get('idx'), 'errors' => $this->permission->errors()));
+            }
             return Redirect::back()->withErrors($this->permission->errors());
         }
 
+        if($format == 'json'){
+            return array('status' => 'success', 'msg' => 'Permiso guardado', 'data' => array('id' => $this->permission->id, 'idx' => Input::get('idx')));
+        }
         //Se han guardado los valores, expresamos al usuario nuestra felicidad al respecto.
         return Redirect::to('admin/permission/create')->with('success','¡Se ha creado correctamente el permiso: '. $this->permission->name. " !");
 	}
@@ -132,7 +138,7 @@ class AdminPermissionsController extends \BaseController {
 	 * @param  int  $id
 	 * @return Response
 	 */
-	public function update($id)
+	public function update($id, $format = 'html')
 	{
 		//Buscamos el permiso original, lo poblamos y lo asignamos a la instancia
         $permission = Permission::find($id);
@@ -142,9 +148,15 @@ class AdminPermissionsController extends \BaseController {
         //Si no es posible guardar la instancia mandamos errores
         if( ! $this->permission->updateUniques() )
         {
+            if($format == 'json'){
+                return array('status' => 'error', 'msg' => 'Datos incorrectos', 'data' => array( 'idx' => Input::get('idx'), 'errors' => $this->permission->errors()));
+            }
             return Redirect::back()->withErrors($this->permission->errors());
         }
 
+        if($format == 'json'){
+            return array('status' => 'success', 'msg' => 'Permiso actualizado', 'data' => array('id' => $this->permission->id, 'idx' => Input::get('idx')));
+        }
         //Se han actualizado los valores, expresamos al usuario nuestro gran regocijo al respecto.
         return Redirect::to('admin/permission/'.$this->permission->id.'/edit')->with('success','¡Se ha actualizado correctamente el permiso: '. $this->permission->display_name. " !");
 	}
@@ -158,7 +170,10 @@ class AdminPermissionsController extends \BaseController {
 	 */
 	public function destroy($id)
 	{
-		//
+        $permission = Permission::find($id);
+        $permission->delete();
+
+        return array('status' => 'success', 'msg' => 'Permiso eliminado');
 	}
 
 }

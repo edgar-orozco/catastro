@@ -1,4 +1,4 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="es_MX">
 <head>
 <meta charset="UTF-8">
@@ -16,13 +16,47 @@
 <!-- CDN Para JS Bootstrap -->
 <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
 
+<!-- Estilos temporales para mostrar actividad de carga de datos -->
+<style type="text/css">
+.spin {
+  -webkit-animation: fa-spin 2s infinite linear;
+  animation: spin 2s infinite linear;
+}
+@-webkit-keyframes spin {
+  0% {
+    -webkit-transform: rotate(0deg);
+    transform: rotate(0deg);
+  }
+  100% {
+    -webkit-transform: rotate(359deg);
+    transform: rotate(359deg);
+  }
+}
+@keyframes spin {
+  0% {
+    -webkit-transform: rotate(0deg);
+    transform: rotate(0deg);
+  }
+  100% {
+    -webkit-transform: rotate(359deg);
+    transform: rotate(359deg);
+  }
+}
+
+</style>
+
+<!-- CDN Para AngularJS -->
+<script src="//ajax.googleapis.com/ajax/libs/angularjs/1.3.5/angular.min.js"></script>
+<script src="//code.angularjs.org/1.2.27/angular-resource.min.js"></script>
+<script src="//code.angularjs.org/1.2.27/angular-sanitize.min.js"></script>
+
 @yield('styles')
 
 </head>
-<body>
+<body >
 
 
-<div class="container">
+<div class="container"  @yield('angular')>
     @if(Session::has('error'))
         <div class="alert alert-danger">
         @if(is_array(Session::get('error')))
@@ -56,6 +90,8 @@
     @endif
     @yield('content')
 </div>
+
+@yield('javascript')
 
 </body>
 </html>

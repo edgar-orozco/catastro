@@ -6,7 +6,8 @@
 	"require": {
 		"laravel/framework": "4.2.*",
         "zizaco/confide": "~4.0@dev",
-        "zizaco/entrust": "1.2.*@dev"
+        "zizaco/entrust": "1.2.*@dev",
+        "lord/laroute" : "1.*"
 	},
     "require-dev": {
         "way/generators": "~2.0",
