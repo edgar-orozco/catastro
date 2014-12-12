@@ -5,7 +5,9 @@
     <div class="row">
 
         <div class="col-md-4">
-
+        <a href="{{URL::route('admin.requisitos.index')}}" class="btn btn-primary pull-right" role="button">
+            <i class="glyphicon glyphicon-arrow-left"></i> Regresar
+        </a>
         {{ Form::open(array('url' => 'admin/permission', 'method' => 'POST', 'name' => 'formPermission')) }}
 
             @include('admin.permission._form')

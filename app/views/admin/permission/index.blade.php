@@ -10,9 +10,12 @@
 
 
 @section('content')
-    <div class="row" ng-hide="showForm">
-            <button type="button" class="btn btn-info" ng-click="showForm=true">
-              <span class="glyphicon glyphicon-plus"></span> Crear Permiso
+    <div class="row">
+            <button type="button" class="btn btn-info" ng-click="showForm=true" ng-hide="showForm">
+                <i class="glyphicon glyphicon-plus"></i> Crear Permiso
+            </button>
+            <button type="button" class="btn btn-primary pull-right" ng-click="closeForm()" ng-show="showForm">
+                <i class="glyphicon glyphicon-arrow-left"></i> Regresar
             </button>
      </div>
     <div class="row">
@@ -27,7 +30,6 @@
                             {[{ permission.id !== undefinied ? 'Editar permiso' : 'Crear nuevo permiso' }]}
                         </button>
                         {{ Form::reset('Limpiar formato', ['class' => 'btn btn-warning']) }}
-                        {{ Form::button('Cancelar', ['class' => 'btn btn-default', 'ng-click' => 'closeForm()']) }}
                     </div>
                 {{Form::close()}}
 
