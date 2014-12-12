@@ -44,3 +44,18 @@
         </table>
     </div>
 </div>
+
+<script type="text/ng-template" id="modalContent.html">
+    <div class="modal-header">
+        <h3 class="modal-title">Elimnar permiso</h3>
+    </div>
+    <div class="modal-body">
+        <div class="well">
+            ¿Deseas eliminar el permiso <strong>{[{ name }]}</strong>?
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button class="btn btn-primary" ng-click="cancel()">Cancelar</button>
+        <button class="btn btn-danger" ng-click="destroy()">Eliminar</button>
+    </div>
+</script>

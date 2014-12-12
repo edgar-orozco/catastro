@@ -4,7 +4,7 @@
  * Modulo de angular para interaccion con el modulo de permisos
  */
 
-angular.module('permissions', ['ngResource', 'ngSanitize']).
+angular.module('permissions', ['ngResource', 'ngSanitize', 'ui.bootstrap']).
     /**
     * Configuracion del modulo
     */
@@ -91,7 +91,7 @@ angular.module('permissions', ['ngResource', 'ngSanitize']).
     /**
      *
      */
-    controller('PermissionsCtrl', function($scope, Permissions) {
+    controller('PermissionsCtrl', function($scope, $modal, Permissions) {
         // Variables que se exponen en la vista
         $scope.showForm = false;
         $scope.focusForm = false;
@@ -194,7 +194,23 @@ angular.module('permissions', ['ngResource', 'ngSanitize']).
          * @param idx
          */
         $scope.destroy = function (idx) {
-            if(confirm('Deseas elimnar el permiso '+ $scope.permissions[idx].name )) deletePermission(idx);
+            //if(confirm('Deseas elimnar el permiso '+ $scope.permissions[idx].name )) deletePermission(idx);
+            var modalInstace = $modal.open({
+                templateUrl: 'modalContent.html',
+                controller : 'ModalCtrl',
+                size       : 'sm',
+                resolve    : {
+                    permission  : function(){
+                        return {
+                            name: $scope.permissions[idx].name,
+                            idx: idx,
+                            destroy: function (idx) {
+                                deletePermission(idx);
+                            }
+                        }
+                    }
+                }
+            });
         };
         /**
          * Funcion para ocultar el formulario
@@ -217,5 +233,24 @@ angular.module('permissions', ['ngResource', 'ngSanitize']).
             // Definir tipo de validaciones para cada campo
             return false;
         }
+    }).
+    /**
+     * Control para mostrar el modal para confirmar el borrado de un registro
+     */
+    controller('ModalCtrl', function($scope, $modalInstance, permission) {
+        $scope.name = permission.name;
+        /**
+         * Funcion para elimnar un registro
+         */
+        $scope.destroy = function () {
+            permission.destroy(permission.idx);
+            $modalInstance.dismiss('cancel');
+        };
+        /**
+         * Funcion para cerrar el modal
+         */
+        $scope.cancel = function(){
+            $modalInstance.dismiss('cancel');
+        };
     })
 ;
