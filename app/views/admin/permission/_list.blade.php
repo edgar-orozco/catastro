@@ -47,7 +47,7 @@
 
 <script type="text/ng-template" id="modalContent.html">
     <div class="modal-header">
-        <h3 class="modal-title">Elimnar permiso</h3>
+        <h3 class="modal-title">Eliminar permiso</h3>
     </div>
     <div class="modal-body">
         <div class="well">
