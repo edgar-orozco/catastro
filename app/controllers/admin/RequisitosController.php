@@ -1,6 +1,7 @@
 <?php
 
-class RequisitosController extends \BaseController {
+class RequisitosController extends \BaseController
+{
     /**
      * Requisito Model
      * @var Requisito
@@ -22,14 +23,15 @@ class RequisitosController extends \BaseController {
         $this->requisito = $requisito;
     }
 
-	/**
-	 * Display a listing of the resource.
-	 * GET /requisitos
-	 *
-	 * @return Response
-	 */
-	public function index()
-	{
+    /**
+     * Display a listing of the resource.
+     * GET /requisitos
+     *
+     * @param string $format
+     * @return Response
+     */
+    public function index($format = 'html')
+    {
         //La lista
         $requisito = $this->requisito;
 
@@ -45,24 +47,24 @@ class RequisitosController extends \BaseController {
         //Lista de requisitos
 
         $query = Request::get('q');
-        if($query) {
-            $requisitos = Requisito::where('nombre','ILIKE',"%$query%")->paginate($this->por_pagina);
-        }
-        else {
+        if ($query) {
+            $requisitos = Requisito::where('nombre', 'ILIKE', "%$query%")->paginate($this->por_pagina);
+        } else {
             $requisitos = Requisito::paginate($this->por_pagina);
         }
-        return View::make('admin.requisitos.index', compact('requisitos', 'requisito', 'title', 'title_section', 'subtitle_section'));
+        return ($format == 'json') ? $requisitos : View::make('admin.requisitos.index',
+            compact('requisitos', 'requisito', 'title', 'title_section', 'subtitle_section'));
 
-	}
+    }
 
-	/**
-	 * Show the form for creating a new resource.
-	 * GET /requisitos/create
-	 *
-	 * @return Response
-	 */
-	public function create()
-	{
+    /**
+     * Show the form for creating a new resource.
+     * GET /requisitos/create
+     *
+     * @return Response
+     */
+    public function create()
+    {
         $requisito = $this->requisito;
 
         $title = 'Administración de catálogo de requisitos';
@@ -76,54 +78,71 @@ class RequisitosController extends \BaseController {
         // Todos los requisitos creados actualmente
         $requisitos = Requisito::paginate($this->por_pagina);
 
-        return View::make('admin.requisitos.create', compact('title', 'title_section', 'subtitle_section', 'requisito','requisitos'));
+        return View::make('admin.requisitos.create',
+            compact('title', 'title_section', 'subtitle_section', 'requisito', 'requisitos'));
 
-	}
+    }
 
-	/**
-	 * Store a newly created resource in storage.
-	 * POST /requisitos
-	 *
-	 * @return Response
-	 */
-	public function store()
-	{
+    /**
+     * Store a newly created resource in storage.
+     * POST /requisitos
+     *
+     * @param string $format
+     * @return Response
+     */
+    public function store($format = 'html')
+    {
         //Asignamos los valores del post a la instancia.
         $this->requisito = new Requisito;
 
         //Si no es posible guardar la instancia mandamos errores
-        if( ! $this->requisito->save() )
-        {
-            //dd($this->requisito->errors()->all());
+        if (!$this->requisito->save()) {
+            if ($format == 'json') {
+                return array(
+                    'status' => 'error',
+                    'msg' => 'Datos incorrectos',
+                    'data' => array('idx' => Input::get('idx'), 'errors' => $this->requisito->errors())
+                );
+            }
+
             return Redirect::back()->withErrors($this->requisito->errors());
         }
 
+        if ($format == 'json') {
+            return array(
+                'status' => 'success',
+                'msg' => 'Requisito guardado',
+                'data' => array('id' => $this->requisito->id, 'idx' => Input::get('idx'))
+            );
+        }
+
         //Se han guardado los valores, expresamos al usuario nuestra felicidad al respecto.
-        return Redirect::to('admin/requisitos/create')->with('success','¡Se ha creado correctamente el requisito: '. $this->requisito->name. " !");
+        return Redirect::to('admin/requisitos/create')->with('success',
+            '¡Se ha creado correctamente el requisito: ' . $this->requisito->name . " !");
 
-	}
+    }
 
-	/**
-	 * Display the specified resource.
-	 * GET /requisitos/{id}
-	 *
-	 * @param  int  $id
-	 * @return Response
-	 */
-	public function show($id)
-	{
-		//
-	}
+    /**
+     * Display the specified resource.
+     * GET /requisitos/{id}
+     *
+     * @param  int $id
+     * @return Response
+     */
+    public function show($id)
+    {
+        //
+    }
 
-	/**
-	 * Show the form for editing the specified resource.
-	 * GET /requisitos/{id}/edit
-	 *
-	 * @param  int  $id
-	 * @return Response
-	 */
-	public function edit($id)
-	{
+    /**
+     * Show the form for editing the specified resource.
+     * GET /requisitos/{id}/edit
+     *
+     * @param  int $id
+     * @return Response
+     */
+    public function edit($id)
+    {
         //Buscamos el requisito en cuestión y lo asignamos a la instancia
         $requisito = Requisito::find($id);
 
@@ -142,44 +161,58 @@ class RequisitosController extends \BaseController {
 
         //ID del permiso
         $id = $requisito->id;
-        return View::make('admin.requisitos.edit', compact('title', 'title_section', 'subtitle_section', 'requisito','requisitos','id'));
+        return View::make('admin.requisitos.edit',
+            compact('title', 'title_section', 'subtitle_section', 'requisito', 'requisitos', 'id'));
 
-	}
+    }
 
-	/**
-	 * Update the specified resource in storage.
-	 * PUT /requisitos/{id}
-	 *
-	 * @param  int  $id
-	 * @return Response
-	 */
-	public function update($id)
-	{
+    /**
+     * Update the specified resource in storage.
+     * PUT /requisitos/{id}
+     *
+     * @param  int $id
+     * @param string $format
+     * @return Response
+     */
+    public function update($id, $format = 'html')
+    {
         $requisito = requisito::find($id);
         $requisito->fill(Input::all());
         $this->requisito = $requisito;
 
         //Si no es posible guardar la instancia mandamos errores
-        if( ! $this->requisito->updateUniques() )
-        {
+        if (!$this->requisito->updateUniques()) {
+            if ($format == 'json') {
+                return array(
+                    'status' => 'error',
+                    'msg' => 'Datos incorrectos',
+                    'data' => array('idx' => Input::get('idx'), 'errors' => $this->permission->errors())
+                );
+            }
+
             return Redirect::back()->withErrors($this->requisito->errors());
         }
 
         //Se han actualizado los valores
-        return Redirect::to('admin/requisitos/'.$this->requisito->id.'/edit')->with('success','¡Se ha actualizado correctamente el permiso: '. $this->requisito->nombre. " !");
+        return Redirect::to('admin/requisitos/' . $this->requisito->id . '/edit')->with('success',
+            '¡Se ha actualizado correctamente el permiso: ' . $this->requisito->nombre . " !");
 
-	}
+    }
 
-	/**
-	 * Remove the specified resource from storage.
-	 * DELETE /requisitos/{id}
-	 *
-	 * @param  int  $id
-	 * @return Response
-	 */
-	public function destroy($id)
-	{
-		//
-	}
+    /**
+     * Remove the specified resource from storage.
+     * DELETE /requisitos/{id}
+     *
+     * @param  int $id
+     * @return Response
+     */
+    public function destroy($id)
+    {
+        $requisito = Requisito::find($id);
+        $requisito->delete();
+
+        return array('status' => 'success', 'msg' => 'Requisito eliminado');
+
+    }
 
 }

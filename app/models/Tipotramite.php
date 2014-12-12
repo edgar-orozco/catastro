@@ -1,5 +1,8 @@
 <?php
 
+/**
+ * Class Tipotramite
+ */
 class Tipotramite extends \Eloquent {
 	protected $fillable = ['nombre','tiempo','costodsmv'];
 
@@ -32,5 +35,14 @@ class Tipotramite extends \Eloquent {
         'tiempo' => 'digits_between:0,365',
         'costodsmv' => 'digits_between:0,1000',
     ];
+
+    /**
+     * Devuelve los requisitos que pertenecen al tipotramite
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
+    public function requisitos() {
+        return $this->belongsToMany('Requisito', 'requisito_tipotramite');
+    }
+
 
 }

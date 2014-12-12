@@ -1,6 +1,7 @@
 <?php
 
-class TipotramitesController extends \BaseController {
+class TipotramitesController extends \BaseController
+{
 
     /**
      * Tipotramite Model
@@ -23,14 +24,14 @@ class TipotramitesController extends \BaseController {
         $this->tipotramite = $tipotramite;
     }
 
-	/**
-	 * Display a listing of the resource.
-	 * GET /tipotramites
-	 *
-	 * @return Response
-	 */
-	public function index()
-	{
+    /**
+     * Display a listing of the resource.
+     * GET /tipotramites
+     *
+     * @return Response
+     */
+    public function index()
+    {
         //La lista
         $tipotramite = $this->tipotramite;
 
@@ -45,23 +46,23 @@ class TipotramitesController extends \BaseController {
 
         //Lista
         $query = Request::get('q');
-        if($query) {
-            $tipotramites = Tipotramite::where('nombre','ILIKE',"%$query%")->paginate($this->por_pagina);
-        }
-        else {
+        if ($query) {
+            $tipotramites = Tipotramite::where('nombre', 'ILIKE', "%$query%")->paginate($this->por_pagina);
+        } else {
             $tipotramites = Tipotramite::paginate($this->por_pagina);
         }
-        return View::make('admin.tipotramites.index', compact('tipotramites', 'tipotramite', 'title', 'title_section', 'subtitle_section'));
+        return View::make('admin.tipotramites.index',
+            compact('tipotramites', 'tipotramite', 'title', 'title_section', 'subtitle_section'));
     }
 
-	/**
-	 * Show the form for creating a new resource.
-	 * GET /tipotramites/create
-	 *
-	 * @return Response
-	 */
-	public function create()
-	{
+    /**
+     * Show the form for creating a new resource.
+     * GET /tipotramites/create
+     *
+     * @return Response
+     */
+    public function create()
+    {
         $tipotramite = $this->tipotramite;
 
         $title = 'Administración de catálogo de tipo de trámites';
@@ -78,67 +79,68 @@ class TipotramitesController extends \BaseController {
         //Todos los requisitos para trámites
         $requisitos = Requisito::all();
 
-        return View::make('admin.tipotramites.create', compact('title', 'title_section', 'subtitle_section', 'tipotramite','tipotramites', 'requisitos'));
+        return View::make('admin.tipotramites.create',
+            compact('title', 'title_section', 'subtitle_section', 'tipotramite', 'tipotramites', 'requisitos'));
 
-	}
+    }
 
-	/**
-	 * Store a newly created resource in storage.
-	 * POST /tipotramites
-	 *
-	 * @return Response
-	 */
-	public function store()
-	{
-		//
-	}
+    /**
+     * Store a newly created resource in storage.
+     * POST /tipotramites
+     *
+     * @return Response
+     */
+    public function store()
+    {
+        //
+    }
 
-	/**
-	 * Display the specified resource.
-	 * GET /tipotramites/{id}
-	 *
-	 * @param  int  $id
-	 * @return Response
-	 */
-	public function show($id)
-	{
-		//
-	}
+    /**
+     * Display the specified resource.
+     * GET /tipotramites/{id}
+     *
+     * @param  int $id
+     * @return Response
+     */
+    public function show($id)
+    {
+        //
+    }
 
-	/**
-	 * Show the form for editing the specified resource.
-	 * GET /tipotramites/{id}/edit
-	 *
-	 * @param  int  $id
-	 * @return Response
-	 */
-	public function edit($id)
-	{
-		//
-	}
+    /**
+     * Show the form for editing the specified resource.
+     * GET /tipotramites/{id}/edit
+     *
+     * @param  int $id
+     * @return Response
+     */
+    public function edit($id)
+    {
+        //
+    }
 
-	/**
-	 * Update the specified resource in storage.
-	 * PUT /tipotramites/{id}
-	 *
-	 * @param  int  $id
-	 * @return Response
-	 */
-	public function update($id)
-	{
-		//
-	}
+    /**
+     * Update the specified resource in storage.
+     * PUT /tipotramites/{id}
+     *
+     * @param  int $id
+     * @return Response
+     */
+    public function update($id)
+    {
+        //
+    }
 
-	/**
-	 * Remove the specified resource from storage.
-	 * DELETE /tipotramites/{id}
-	 *
-	 * @param  int  $id
-	 * @return Response
-	 */
-	public function destroy($id)
-	{
-		//
-	}
+    /**
+     * Remove the specified resource from storage.
+     * DELETE /tipotramites/{id}
+     *
+     * @param  int $id
+     * @return Response
+     */
+    public function destroy($id)
+    {
+        //
+    }
 
 }
