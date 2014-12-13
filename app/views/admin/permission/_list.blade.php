@@ -2,10 +2,10 @@
     <div class="panel-heading">
         <h3 class="panel-title">Permisos del sistema</h3>
     </div>
-    <div class="panel-body" ng-show="loading">
+    <div class="panel-body fadein fadeout" ng-show="loading">
         <p>Cargando ...</p>
     </div>
-    <div class="panel-body" ng-show="permissions.length == 0 && !loading">
+    <div class="panel-body fadein fadeout" ng-show="permissions.length == 0 && !loading">
         <p>No hay permisos dados de alta actualmente en el sistema.</p>
     </div>
     <div class="list-group" ng-show="permissions.length > 0 && !loading">
