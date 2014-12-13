@@ -4,7 +4,7 @@
  * Modulo de angular para interaccion con el modulo de permisos
  */
 
-angular.module('permissions', ['ngResource', 'ngSanitize', 'ui.bootstrap']).
+angular.module('permissions', ['ngAnimate', 'ngResource', 'ngSanitize','ui.bootstrap']).
     /**
     * Configuracion del modulo
     */

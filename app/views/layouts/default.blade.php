@@ -66,10 +66,10 @@
 </style>
 
 <!-- CDN Para AngularJS -->
-<script src="//ajax.googleapis.com/ajax/libs/angularjs/1.3.5/angular.min.js"></script>
-<script src="//code.angularjs.org/1.2.27/angular-resource.min.js"></script>
-<script src="//code.angularjs.org/1.2.27/angular-sanitize.min.js"></script>
-<script src="//code.angularjs.org/1.2.27/angular-animate.min.js"></script>
+<script src="//code.angularjs.org/1.3.5/angular.js"></script>
+<script src="//code.angularjs.org/1.3.5/angular-resource.min.js"></script>
+<script src="//code.angularjs.org/1.3.5/angular-sanitize.min.js"></script>
+<script src="//code.angularjs.org/1.3.5/angular-animate.min.js"></script>
 <script src="//angular-ui.github.io/bootstrap/ui-bootstrap-tpls-0.12.0.min.js"></script>
 
 

@@ -11,10 +11,10 @@
 
 @section('content')
     <div class="row">
-            <button type="button" class="btn btn-info fadein fadeout" ng-click="openForm()" ng-hide="showForm">
+            <button type="button" class="btn btn-info" ng-click="openForm()" ng-hide="showForm">
                 <i class="glyphicon glyphicon-plus"></i> Crear Permiso
             </button>
-            <button type="button" class="btn btn-primary pull-right fadein fadeout" ng-click="closeForm()" ng-show="showForm">
+            <button type="button" class="btn btn-primary pull-right" ng-click="closeForm()" ng-show="showForm">
                 <i class="glyphicon glyphicon-arrow-left"></i> Regresar
             </button>
      </div>
