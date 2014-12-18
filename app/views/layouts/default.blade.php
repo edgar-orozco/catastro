@@ -43,23 +43,9 @@
   }
 }
 
-.fadein, .fadeout {
-  -webkit-transition:all cubic-bezier(0.250, 0.460, 0.450, 0.940) .2s;
-  -moz-transition:all cubic-bezier(0.250, 0.460, 0.450, 0.940) .2s;
-  -o-transition:all cubic-bezier(0.250, 0.460, 0.450, 0.940) .2s;
-  transition:all cubic-bezier(0.250, 0.460, 0.450, 0.940) .2s;
-}
-
-.fadein.ng-hide-remove, .fadeout.ng-hide-add.ng-hide-add-active {
-  opacity: 0;
-  display: block !important;
-}
-
-.fadeout.ng-hide-add, .fadein.ng-hide-remove.ng-hide-remove-active {
-  opacity: 1;
-  display: block !important;
-}
-
+.resize{
+     transition: all cubic-bezier(0.250, 0.460, 0.450, 0.940) .2s;
+ }
 </style>
 
 <!-- CDN Para AngularJS -->

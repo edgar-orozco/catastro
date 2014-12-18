@@ -19,7 +19,7 @@
             </button>
      </div>
     <div class="row">
-        <div class="col-md-4 fadein fadeout" ng-show="showForm">
+        <div ng-class="showForm ? 'col-sm-4 col-md-4 col-lg-4 resize' : ''" ng-show="showForm">
 
                 {{ Form::open(array('url' => 'admin/permission', 'method' => 'POST', 'name' => 'formPermission')) }}
 
@@ -34,7 +34,7 @@
                 {{Form::close()}}
 
         </div>
-        <div ng-class="showForm ? 'col-sm-8 col-md-8 col-lg-8' : 'col-sm-12 col-md-12 col-lg-12'">
+        <div ng-class="showForm ? 'col-sm-8 col-md-8 col-lg-8' : 'col-sm-12 col-md-12 col-lg-12 resize'">
             @include('admin.permission._list', compact('permissions'))
         </div>
     </div>
