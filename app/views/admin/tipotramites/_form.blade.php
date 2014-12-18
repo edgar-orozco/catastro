@@ -11,17 +11,28 @@
     <p class="help-block">Es el tiempo aproximado en días que dura el trámite  .</p>
 </div>
 <div class="form-group">
-    {{Form::label('tiempo','Costo del trámite (DSMV)')}}
-    {{Form::input('number','tiempo', null, ['class'=>'form-control'] )}}
-    {{$errors->first('tiempo', '<span class=text-danger>:message</span>')}}
+    {{Form::label('costodsmv','Costo del trámite (DSMV)')}}
+    {{Form::input('number','costodsmv', null, ['class'=>'form-control'] )}}
+    {{$errors->first('tcostodsmv', '<span class=text-danger>:message</span>')}}
     <p class="help-block">Es el costo del trámite en Días de Salario Mínimo Vigente.</p>
 </div>
 
-<div class="form-group">
+
 @foreach($requisitos as $requisito)
-    {{Form::checkbox('requisitos['.$requisito->id.']', $requisito->id, in_array($tipotramite->id, $requisitos->lists('id')), ['id' => 'requisitos['.$requisito->id.']' ])}}
-    {{Form::label('requisitos['.$requisito->id.']', $requisito->nombre)}}
-    {{Form::input('number','tiempo', null, ['class'=>'form-control'] )}}
-    <br>
+    <div class="form-group">
+        <div class="">
+            {{Form::checkbox('requisitos['.$requisito->id.']', $requisito->id, in_array($tipotramite->id, $requisitos->lists('id')), ['id' => 'requisitos['.$requisito->id.']' ])}}
+            {{Form::label('requisitos['.$requisito->id.']', $requisito->nombre)}}
+        </div>
+
+        <div class="row">
+            <div class="col-md-6">
+                {{Form::checkbox('requisitos['.$requisito->id.'][original]', $requisito->id, in_array($tipotramite->id, $requisitos->lists('id')), ['id' => 'requisitos['.$requisito->id.'][original]' ])}}
+                {{Form::label('requisitos['.$requisito->id.'][original]', '¿Original?')}}
+            </div>
+            <div class="col-md-6">
+                {{Form::input('number','requisitos['.$requisito->id.'][copias]', null, ['class'=>'form-control', 'placeholder'=>'num. copias'] )}}
+            </div>
+        </div>
+    </div>
 @endforeach
-</div>

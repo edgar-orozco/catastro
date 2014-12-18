@@ -19,7 +19,6 @@ class CreateRequisitoTipotramiteTable extends Migration {
 			$table->integer('tipotramite_id');
 			$table->boolean('original')->nullable();
 			$table->integer('copias')->nullable();
-			$table->timestamps();
             $table->foreign('requisito_id')->references('id')->on('requisitos')
                 ->onUpdate('cascade')->onDelete('cascade');
             $table->foreign('tipotramite_id')->references('id')->on('tipotramites')

@@ -19,23 +19,31 @@
             </tr>
         </thead>
         <tbody>
-            @foreach($tipotramites as $tripotramite)
+            @foreach($tipotramites as $tipotramite)
             <tr>
                 <td>
-                    {{$tripotramite->nombre}}
+                    {{$tipotramite->nombre}}
                 </td>
                 <td>
-                    {{$tipotramite->duracion}}
+                    {{$tipotramite->tiempo}}
                 </td>
                 <td>
                     {{$tipotramite->costodsmv}}
                 </td>
+                <td>
+                    <ul>
+
+                        @foreach($tipotramite->requisitos() as $requisito )
+                            <li>{{$requisito->nombre}}</li>
+                        @endforeach
+                    </ul>
+                </td>
                 <td nowrap>
-                    <a href="{{ action('TipotramitesController@edit', ['id' => $requisito->id]) }}" class="btn btn-warning" title="Editar tipo de trámite">
+                    <a href="{{ action('TipotramitesController@edit', ['id' => $tipotramite->id]) }}" class="btn btn-warning" title="Editar tipo de trámite">
                         <span class="glyphicon glyphicon-pencil"></span>
                     </a>
 
-                    <a href="{{ action('TipotramitesController@destroy', ['id' => $requisito->id]) }}" class="btn btn-danger" title="Borrar tipo de trámite">
+                    <a href="{{ action('TipotramitesController@destroy', ['id' => $tipotramite->id]) }}" class="btn btn-danger" title="Borrar tipo de trámite">
                         <span class="glyphicon glyphicon-trash"></span>
                     </a>
                 </td>

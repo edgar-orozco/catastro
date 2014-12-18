@@ -40,7 +40,7 @@ class Requisito extends Ardent {
      * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
      */
     public function tipotramites(){
-        return $this->belongsToMany('Tipotramite','tipotramites');
+        return $this->belongsToMany('Tipotramite');
     }
 
 }

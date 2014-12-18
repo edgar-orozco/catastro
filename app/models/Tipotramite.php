@@ -41,7 +41,7 @@ class Tipotramite extends \Eloquent {
      * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
      */
     public function requisitos() {
-        return $this->belongsToMany('Requisito', 'requisito_tipotramite');
+        return $this->belongsToMany('Requisito');
     }
 
 

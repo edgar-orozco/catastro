@@ -92,7 +92,20 @@ class TipotramitesController extends \BaseController
      */
     public function store()
     {
-        //
+        $tipoTramite = new Tipotramite();
+        dd(Input::all());
+        $tipoTramite->fill(Input::all());
+
+        if(!$tipoTramite->save()) {
+
+            return Redirect::back()->withErrors($this->requisito->errors());
+        }
+
+        $tipoTramite->requisitos()->sync(Input::get('requisitos'));
+
+        return Redirect::to('admin/tipotramites')->with('success',
+            '¡Se ha actualizado correctamente el permiso: ' . $tipoTramite->nombre . " !");
+        //dd(Input::all());
     }
 
     /**
