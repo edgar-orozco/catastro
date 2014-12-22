@@ -1,9 +1,11 @@
 <?php
 
+use LaravelBook\Ardent\Ardent;
+
 /**
  * Class Tipotramite
  */
-class Tipotramite extends \Eloquent {
+class Tipotramite extends Ardent{
 	protected $fillable = ['nombre','tiempo','costodsmv'];
 
     /**
@@ -37,12 +39,64 @@ class Tipotramite extends \Eloquent {
     ];
 
     /**
+     * Se implementa el metodo beforesave para procesar datos antes de guardar
+     *
+     * @return bool
+     */
+    public function beforeSave() {
+
+        if($this->tiempo === '' || $this->tiempo === null) {
+            $this->tiempo = 0;
+        }
+        if($this->costodsmv === '' || $this->costodsmv === null) {
+            $this->costodsmv = 0;
+        }
+
+        return true;
+     }
+
+    /**
      * Devuelve los requisitos que pertenecen al tipotramite
      * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
      */
     public function requisitos() {
-        return $this->belongsToMany('Requisito');
+        return $this->belongsToMany('Requisito')->withPivot(['original','copias']);
     }
 
+    /**
+     * Indica si el requisito es requerido o no
+     * @param $requisito_id
+     * @return bool
+     */
+    public function requisitoEnOriginal($requisito_id) {
+        $r = $this->requisitos()->wherePivot('original', true)->wherePivot('requisito_id',$requisito_id)->lists('original');
+        return isset($r[0]) ? $r[0] : false;
+    }
+
+
+    /**
+     * Devuelve el número de copias que solicita un requisito dado
+     * @param $requisito_id
+     * @return int | null
+     */
+    public function requisitoNumeroCopias($requisito_id) {
+        $r = $this->requisitos()->wherePivot('requisito_id',$requisito_id)->lists('copias');
+        return isset($r[0]) ? $r[0] : null;
+    }
+
+
+    /**
+     * Guarda los requisitos asociados
+     * @param $requisitos
+     */
+    public function guardaRequisitos($requisitos)
+    {
+        if (!empty($requisitos)) {
+            $this->requisitos()->detach(); //Metemos detach porque por alguna oscura razón no sirve el sync solo. Debiera hacer detach y luego attach el sync, pero no lo hace
+            $this->requisitos()->sync($requisitos);
+        } else {
+            $this->requisitos()->detach();
+        }
+    }
 
 }

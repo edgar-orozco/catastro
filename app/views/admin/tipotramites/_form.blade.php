@@ -19,20 +19,58 @@
 
 
 @foreach($requisitos as $requisito)
+
     <div class="form-group">
-        <div class="">
-            {{Form::checkbox('requisitos['.$requisito->id.']', $requisito->id, in_array($tipotramite->id, $requisitos->lists('id')), ['id' => 'requisitos['.$requisito->id.']' ])}}
+        <div class="requisito">
+            {{Form::checkbox(
+                'requisitos['.$requisito->id.'][requisito_id]',
+                $requisito->id,
+                ($tipotramite->id) ? in_array($requisito->id, $tipotramite->requisitos->lists('id') ) : false,
+                ['id' => 'requisitos['.$requisito->id.']' ])}}
             {{Form::label('requisitos['.$requisito->id.']', $requisito->nombre)}}
+
+            {{$errors->first('requisitos['.$requisito->id.']', '<span class=text-danger>:message</span>')}}
         </div>
 
-        <div class="row">
+        <div class="row requisito-detalles" style="display: none;">
             <div class="col-md-6">
-                {{Form::checkbox('requisitos['.$requisito->id.'][original]', $requisito->id, in_array($tipotramite->id, $requisitos->lists('id')), ['id' => 'requisitos['.$requisito->id.'][original]' ])}}
+                {{Form::checkbox(
+                    'requisitos['.$requisito->id.'][original]',
+                    true,
+                    ($tipotramite->id) ? $tipotramite->requisitoEnOriginal($requisito->id) : false,
+                    ['id' => 'requisitos['.$requisito->id.'][original]' ]
+                )}}
                 {{Form::label('requisitos['.$requisito->id.'][original]', '¿Original?')}}
             </div>
             <div class="col-md-6">
-                {{Form::input('number','requisitos['.$requisito->id.'][copias]', null, ['class'=>'form-control', 'placeholder'=>'num. copias'] )}}
+                {{Form::input(
+                    'number',
+                    'requisitos['.$requisito->id.'][copias]',
+                    ($tipotramite->id) ? $tipotramite->requisitoNumeroCopias($requisito->id) : null
+                    , ['class'=>'form-control', 'placeholder'=>'num. copias'] )}}
+
+                {{$errors->first('requisitos['.$requisito->id.'][copias]', '<span class=text-danger>:message</span>')}}
             </div>
         </div>
     </div>
 @endforeach
+
+
+@section('javascript')
+<script>
+    $(function() {
+        //Cuando termina de cargarse la pag, mostramos los detalles de los requisistos seleccionados
+        $('.requisito input:checked').parent().siblings().show();
+
+        //En click del checkbox del requisito muestra-oculta el detalle del requisito
+        $('.requisito input').click( function(){
+            if( $(this).is(':checked') ) {
+                $(this).parent().siblings().show();
+            }
+            else {
+                $(this).parent().siblings().hide();
+            }
+        });
+    });
+</script>
+@endsection

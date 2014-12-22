@@ -32,20 +32,21 @@
                 </td>
                 <td>
                     <ul>
-
-                        @foreach($tipotramite->requisitos() as $requisito )
-                            <li>{{$requisito->nombre}}</li>
+                        @foreach($tipotramite->requisitos as $requisito )
+                            <li>{{$requisito->nombre}} {{$requisito->pivot->original ? 'original' : ''}} {{$requisito->pivot->original &&  $requisito->pivot->copias ? ' y ' : ''}}  {{$requisito->pivot->copias ? $requisito->pivot->copias. ' copias': ''}}  </li>
                         @endforeach
                     </ul>
                 </td>
                 <td nowrap>
-                    <a href="{{ action('TipotramitesController@edit', ['id' => $tipotramite->id]) }}" class="btn btn-warning" title="Editar tipo de trámite">
-                        <span class="glyphicon glyphicon-pencil"></span>
-                    </a>
+                    {{ Form::open(array('method' => 'DELETE', 'route' => array('admin.tipotramites.destroy', $tipotramite->id))) }}
+                        <a href="{{ action('TipotramitesController@edit', ['id' => $tipotramite->id]) }}" class="btn btn-warning" title="Editar tipo de trámite">
+                            <span class="glyphicon glyphicon-pencil"></span>
+                        </a>
 
-                    <a href="{{ action('TipotramitesController@destroy', ['id' => $tipotramite->id]) }}" class="btn btn-danger" title="Borrar tipo de trámite">
-                        <span class="glyphicon glyphicon-trash"></span>
-                    </a>
+                        <button class="btn btn-danger">
+                            <span class="glyphicon glyphicon-trash"></span>
+                        </button>
+                    {{ Form::close() }}
                 </td>
             </tr>
             @endforeach

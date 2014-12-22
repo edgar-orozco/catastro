@@ -93,18 +93,29 @@ class TipotramitesController extends \BaseController
     public function store()
     {
         $tipoTramite = new Tipotramite();
-        dd(Input::all());
-        $tipoTramite->fill(Input::all());
+        //$tipoTramite->fill(Input::all());
 
         if(!$tipoTramite->save()) {
 
-            return Redirect::back()->withErrors($this->requisito->errors());
+            return Redirect::back()->withErrors($tipoTramite->errors());
         }
 
-        $tipoTramite->requisitos()->sync(Input::get('requisitos'));
+        $requisitos = [];
+        foreach(Input::get('requisitos') as $requisito_id => $requisito) {
+            //dd($requisito);
+            if(isset($requisito['requisito_id'])){
+                unset($requisito['requisito_id']);
+                if($requisito['copias'] === null or $requisito['copias'] === ''){
+                    unset($requisito['copias']);
+                }
+                $requisitos[$requisito_id] = $requisito;
+            }
+        }
+
+        $tipoTramite->guardaRequisitos($requisitos);
 
         return Redirect::to('admin/tipotramites')->with('success',
-            '¡Se ha actualizado correctamente el permiso: ' . $tipoTramite->nombre . " !");
+            '¡Se ha creado correctamente el tipo de trámite: ' . $tipoTramite->nombre . " !");
         //dd(Input::all());
     }
 
@@ -129,7 +140,26 @@ class TipotramitesController extends \BaseController
      */
     public function edit($id)
     {
-        //
+        $tipotramite = Tipotramite::findOrFail($id);
+
+        $title = 'Administración de catálogo de tipo de trámites';
+
+        //Título de sección:
+        $title_section = "Modificar tipo de trámite.";
+
+        //Subtítulo de sección:
+        $subtitle_section = $tipotramite->nombre;
+
+        // Todos los tipotramites creados actualmente
+        $tipotramites = Tipotramite::paginate($this->por_pagina);
+
+        //Todos los requisitos para trámites
+        $requisitos = Requisito::all();
+
+        return View::make('admin.tipotramites.edit',
+            compact('title', 'title_section', 'subtitle_section', 'tipotramite', 'tipotramites', 'requisitos'));
+
+
     }
 
     /**
@@ -141,7 +171,32 @@ class TipotramitesController extends \BaseController
      */
     public function update($id)
     {
-        //
+
+
+        $tipoTramite = Tipotramite::findOrFail($id);
+        $tipoTramite->fill(Input::all());
+        if(!$tipoTramite->updateUniques()) {
+
+            return Redirect::back()->withErrors($tipoTramite->errors());
+        }
+
+        $requisitos = [];
+        foreach(Input::get('requisitos') as $requisito_id => $requisito) {
+            //dd($requisito);
+            if(isset($requisito['requisito_id'])){
+                unset($requisito['requisito_id']);
+                if(!$requisito['copias']){
+                    unset($requisito['copias']);
+                }
+                $requisitos[$requisito_id] = $requisito;
+            }
+        }
+
+        $tipoTramite->guardaRequisitos($requisitos);
+
+        return Redirect::to('admin/tipotramites')->with('success',
+            '¡Se ha actualizado correctamente el tipo de trámite: ' . $tipoTramite->nombre . " !");
+
     }
 
     /**
@@ -153,7 +208,11 @@ class TipotramitesController extends \BaseController
      */
     public function destroy($id)
     {
-        //
+        $tipotramite = Tipotramite::findOrFail($id);
+        $tipotramite->delete($id);
+        return Redirect::to('admin/tipotramites')->with('success',
+            '¡Se ha eliminado correctamente el tipo de trámite: ' . $tipotramite->nombre . " !");
+
     }
 
 }
