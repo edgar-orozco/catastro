@@ -19,25 +19,34 @@
             </tr>
         </thead>
         <tbody>
-            @foreach($tipotramites as $tripotramite)
+            @foreach($tipotramites as $tipotramite)
             <tr>
                 <td>
-                    {{$tripotramite->nombre}}
+                    {{$tipotramite->nombre}}
                 </td>
                 <td>
-                    {{$tipotramite->duracion}}
+                    {{$tipotramite->tiempo}}
                 </td>
                 <td>
                     {{$tipotramite->costodsmv}}
                 </td>
+                <td>
+                    <ul>
+                        @foreach($tipotramite->requisitos as $requisito )
+                            <li>{{$requisito->nombre}} {{$requisito->pivot->original ? 'original' : ''}} {{$requisito->pivot->original &&  $requisito->pivot->copias ? ' y ' : ''}}  {{$requisito->pivot->copias ? $requisito->pivot->copias. " ".Lang::choice('messages.copias', $requisito->pivot->copias ) : ''}} {{$requisito->pivot->certificadas ? Lang::choice('messages.certificadas', $requisito->pivot->copias) : ''}}  </li>
+                        @endforeach
+                    </ul>
+                </td>
                 <td nowrap>
-                    <a href="{{ action('TipotramitesController@edit', ['id' => $requisito->id]) }}" class="btn btn-warning" title="Editar tipo de trámite">
-                        <span class="glyphicon glyphicon-pencil"></span>
-                    </a>
+                    {{ Form::open(array('method' => 'DELETE', 'route' => array('admin.tipotramites.destroy', $tipotramite->id))) }}
+                        <a href="{{ action('TipotramitesController@edit', ['id' => $tipotramite->id]) }}" class="btn btn-warning" title="Editar tipo de trámite">
+                            <span class="glyphicon glyphicon-pencil"></span>
+                        </a>
 
-                    <a href="{{ action('TipotramitesController@destroy', ['id' => $requisito->id]) }}" class="btn btn-danger" title="Borrar tipo de trámite">
-                        <span class="glyphicon glyphicon-trash"></span>
-                    </a>
+                        <button class="btn btn-danger">
+                            <span class="glyphicon glyphicon-trash"></span>
+                        </button>
+                    {{ Form::close() }}
                 </td>
             </tr>
             @endforeach

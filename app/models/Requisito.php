@@ -35,4 +35,12 @@ class Requisito extends Ardent {
         'descripcion' => 'required'
     ];
 
+    /**
+     * Devuelve los tipotramites relacionados con el requisito
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
+    public function tipotramites(){
+        return $this->belongsToMany('Tipotramite');
+    }
+
 }
