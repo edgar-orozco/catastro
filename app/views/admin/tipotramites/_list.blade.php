@@ -33,7 +33,7 @@
                 <td>
                     <ul>
                         @foreach($tipotramite->requisitos as $requisito )
-                            <li>{{$requisito->nombre}} {{$requisito->pivot->original ? 'original' : ''}} {{$requisito->pivot->original &&  $requisito->pivot->copias ? ' y ' : ''}}  {{$requisito->pivot->copias ? $requisito->pivot->copias. ' copias': ''}}  </li>
+                            <li>{{$requisito->nombre}} {{$requisito->pivot->original ? 'original' : ''}} {{$requisito->pivot->original &&  $requisito->pivot->copias ? ' y ' : ''}}  {{$requisito->pivot->copias ? $requisito->pivot->copias. " ".Lang::choice('messages.copias', $requisito->pivot->copias ) : ''}}  </li>
                         @endforeach
                     </ul>
                 </td>
