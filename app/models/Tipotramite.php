@@ -60,7 +60,7 @@ class Tipotramite extends Ardent{
      * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
      */
     public function requisitos() {
-        return $this->belongsToMany('Requisito')->withPivot(['original','copias']);
+        return $this->belongsToMany('Requisito')->withPivot(['original','copias','certificadas']);
     }
 
     /**
@@ -84,6 +84,15 @@ class Tipotramite extends Ardent{
         return isset($r[0]) ? $r[0] : null;
     }
 
+    /**
+     * Indica si las copias del requisito son certificadas o no.
+     * @param $requisito_id
+     * @return bool
+     */
+    public function requisitoEnCopiasCertificadas($requisito_id) {
+        $r = $this->requisitos()->wherePivot('certificadas', true)->wherePivot('requisito_id',$requisito_id)->lists('certificadas');
+        return isset($r[0]) ? $r[0] : false;
+    }
 
     /**
      * Guarda los requisitos asociados

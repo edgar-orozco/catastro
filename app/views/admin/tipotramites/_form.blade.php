@@ -33,23 +33,37 @@
         </div>
 
         <div class="row requisito-detalles" style="display: none;">
-            <div class="col-md-6">
-                {{Form::checkbox(
-                    'requisitos['.$requisito->id.'][original]',
-                    true,
-                    ($tipotramite->id) ? $tipotramite->requisitoEnOriginal($requisito->id) : false,
-                    ['id' => 'requisitos['.$requisito->id.'][original]' ]
-                )}}
-                {{Form::label('requisitos['.$requisito->id.'][original]', '¿Original?')}}
-            </div>
-            <div class="col-md-6">
-                {{Form::input(
-                    'number',
-                    'requisitos['.$requisito->id.'][copias]',
-                    ($tipotramite->id) ? $tipotramite->requisitoNumeroCopias($requisito->id) : null
-                    , ['class'=>'form-control', 'placeholder'=>'num. copias'] )}}
+            <div class="col-md-12">
+                <div class="input-group">
+                    <span class="input-group-addon">
+                        {{Form::checkbox(
+                            'requisitos['.$requisito->id.'][original]',
+                            true,
+                            ($tipotramite->id) ? $tipotramite->requisitoEnOriginal($requisito->id) : false,
+                            ['id' => 'requisitos['.$requisito->id.'][original]' ]
+                        )}}
+                        {{Form::label('requisitos['.$requisito->id.'][original]', 'Original')}}
 
-                {{$errors->first('requisitos['.$requisito->id.'][copias]', '<span class=text-danger>:message</span>')}}
+                    </span>
+
+                    {{Form::input(
+                        'number',
+                        'requisitos['.$requisito->id.'][copias]',
+                        ($tipotramite->id) ? $tipotramite->requisitoNumeroCopias($requisito->id) : null
+                        , ['class'=>'form-control', 'placeholder'=>'num. copias'] )}}
+
+                    {{$errors->first('requisitos['.$requisito->id.'][copias]', '<span class=text-danger>:message</span>')}}
+
+                    <span class="input-group-addon">
+                        {{Form::checkbox(
+                            'requisitos['.$requisito->id.'][certificadas]',
+                            true,
+                            ($tipotramite->id) ? $tipotramite->requisitoEnCopiasCertificadas($requisito->id) : false,
+                            ['id' => 'requisitos['.$requisito->id.'][certificadas]' ]
+                        )}}
+                        {{Form::label('requisitos['.$requisito->id.'][certificadas]', 'Certificadas')}}
+                    </span>
+                </div>
             </div>
         </div>
     </div>
