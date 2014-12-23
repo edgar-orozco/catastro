@@ -6,13 +6,13 @@
 </div>
 <div class="form-group">
     {{Form::label('tiempo','Tiempo aproximado (días)')}}
-    {{Form::input('number','tiempo', null, ['class'=>'form-control'] )}}
+    {{Form::input('number','tiempo', null, ['class'=>'form-control', 'min'=>'0', 'max'=>'365', 'step'=>'1'] )}}
     {{$errors->first('tiempo', '<span class=text-danger>:message</span>')}}
     <p class="help-block">Es el tiempo aproximado en días que dura el trámite  .</p>
 </div>
 <div class="form-group">
     {{Form::label('costodsmv','Costo del trámite (DSMV)')}}
-    {{Form::input('number','costodsmv', null, ['class'=>'form-control'] )}}
+    {{Form::input('number','costodsmv', null, ['class'=>'form-control','min'=>'0', 'max'=>'100', 'step'=>'1'] )}}
     {{$errors->first('tcostodsmv', '<span class=text-danger>:message</span>')}}
     <p class="help-block">Es el costo del trámite en Días de Salario Mínimo Vigente.</p>
 </div>
@@ -50,7 +50,7 @@
                         'number',
                         'requisitos['.$requisito->id.'][copias]',
                         ($tipotramite->id) ? $tipotramite->requisitoNumeroCopias($requisito->id) : null
-                        , ['class'=>'form-control', 'placeholder'=>'num. copias'] )}}
+                        , ['class'=>'form-control', 'placeholder'=>'num. copias', 'min'=>'0', 'max'=>'100', 'step'=>'1'] )}}
 
                     {{$errors->first('requisitos['.$requisito->id.'][copias]', '<span class=text-danger>:message</span>')}}
 
