@@ -4,6 +4,10 @@
 	{{{ $title }}} :: @parent
 @stop
 
+@section('menu')
+    @include('admin.menu')
+@append
+
 @section('content')
 
     {{ Form::open(array('url' => 'admin/tipotramites', 'method' => 'GET')) }}

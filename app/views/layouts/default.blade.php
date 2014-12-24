@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <title>
     @section('title')
-        - Sistema Catastral
+        - Sistema de Gestión Catastral
     @show
 </title>
 <!-- CDN para CSS bootstrap -->
@@ -75,6 +75,51 @@
 </head>
 <body >
 
+<nav role="navigation" class="navbar navbar-default">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <button type="button" data-target="#navbarCollapse" data-toggle="collapse" class="navbar-toggle">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a href="{{URL::to('/')}}" class="navbar-brand">Sistema de Gestión Catastral</a>
+        </div>
+
+        <div id="navbarCollapse" class="collapse navbar-collapse">
+            <ul class="nav navbar-nav">
+                <li class="@if(Request::is('/')) active @endif">
+                    <a href="{{URL::to('/')}}">
+                        <i class="glyphicon glyphicon-home"></i>
+                    </a>
+                </li>
+
+                @yield('menu')
+
+            </ul>
+
+            <ul class="nav navbar-nav navbar-right">
+                <li class="dropdown">
+                    <a data-toggle="dropdown" class="dropdown-toggle" href="#">
+                        <i class="glyphicon glyphicon-user"></i>
+                        <b class="caret"></b>
+                    </a>
+                    <ul role="menu" class="dropdown-menu">
+                        <li><a href="#">Mis datos</a></li>
+                        <li><a href="#">Modificar cuenta</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="#" data-toggle="modal" data-target="#confirm-logout">
+                        <i class="glyphicon glyphicon-off"></i>
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
 
 <div class="container"  @yield('angular')>
     @if(Session::has('error'))
@@ -101,14 +146,34 @@
         </div>
     @endif
 
-    @yield('breadcrumbs')
-    @yield('nav')
     @if(isset($title_section))
         <div class="page-header">
-          <h1>{{$title_section}} @if(isset($subtitle_section)) <small>{{$subtitle_section}}</small></h1> @endif
+          <h2>{{$title_section}} @if(isset($subtitle_section)) <small>{{$subtitle_section}}</small></h2> @endif
         </div>
     @endif
+
+    @yield('breadcrumbs')
     @yield('content')
+</div>
+
+
+<!-- Modal para confirmar cuando se da click en menu logout -->
+<div class="modal fade" id="confirm-logout" tabindex="-1" role="dialog" aria-labelledby="confirm-logout" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="confirm-logout-title">Confirme la acción:</h4>
+            </div>
+            <div class="modal-body">
+                <h3 style="text-align: center">¿Realmente desea salir del sistema?</h3>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">No</button>
+                <a href="{{URL::action('UsersController@getLogout')}}" class="btn btn-primary">Salir</a>
+            </div>
+        </div>
+    </div>
 </div>
 
 @yield('javascript')

@@ -8,6 +8,9 @@
     ng-app="permissions" ng-controller="PermissionsCtrl"
 @stop
 
+@section('menu')
+    @include('admin.menu')
+@append
 
 @section('content')
     <div class="row">

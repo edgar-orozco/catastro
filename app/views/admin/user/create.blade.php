@@ -1,5 +1,9 @@
 @extends('layouts.default')
 
+@section('menu')
+    @include('admin.menu')
+@append
+
 @section('content')
 
     <div class="row">
