@@ -5,8 +5,9 @@ use LaravelBook\Ardent\Ardent;
 /**
  * Class Tipotramite
  */
-class Tipotramite extends Ardent{
-	protected $fillable = ['nombre','tiempo','costodsmv'];
+class Tipotramite extends Ardent
+{
+    protected $fillable = ['nombre', 'tiempo', 'costodsmv'];
 
     /**
      * Bandera para poblar el objeto con el request enviado desde la forma Input::all()
@@ -43,24 +44,26 @@ class Tipotramite extends Ardent{
      *
      * @return bool
      */
-    public function beforeSave() {
+    public function beforeSave()
+    {
 
-        if($this->tiempo === '' || $this->tiempo === null) {
+        if ($this->tiempo === '' || $this->tiempo === null) {
             $this->tiempo = 0;
         }
-        if($this->costodsmv === '' || $this->costodsmv === null) {
+        if ($this->costodsmv === '' || $this->costodsmv === null) {
             $this->costodsmv = 0;
         }
 
         return true;
-     }
+    }
 
     /**
      * Devuelve los requisitos que pertenecen al tipotramite
      * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
      */
-    public function requisitos() {
-        return $this->belongsToMany('Requisito')->withPivot(['original','copias','certificadas']);
+    public function requisitos()
+    {
+        return $this->belongsToMany('Requisito')->withPivot(['original', 'copias', 'certificadas']);
     }
 
     /**
@@ -68,8 +71,10 @@ class Tipotramite extends Ardent{
      * @param $requisito_id
      * @return bool
      */
-    public function requisitoEnOriginal($requisito_id) {
-        $r = $this->requisitos()->wherePivot('original', true)->wherePivot('requisito_id',$requisito_id)->lists('original');
+    public function requisitoEnOriginal($requisito_id)
+    {
+        $r = $this->requisitos()->wherePivot('original', true)->wherePivot('requisito_id',
+            $requisito_id)->lists('original');
         return isset($r[0]) ? $r[0] : false;
     }
 
@@ -79,8 +84,9 @@ class Tipotramite extends Ardent{
      * @param $requisito_id
      * @return int | null
      */
-    public function requisitoNumeroCopias($requisito_id) {
-        $r = $this->requisitos()->wherePivot('requisito_id',$requisito_id)->lists('copias');
+    public function requisitoNumeroCopias($requisito_id)
+    {
+        $r = $this->requisitos()->wherePivot('requisito_id', $requisito_id)->lists('copias');
         return isset($r[0]) ? $r[0] : null;
     }
 
@@ -89,8 +95,10 @@ class Tipotramite extends Ardent{
      * @param $requisito_id
      * @return bool
      */
-    public function requisitoEnCopiasCertificadas($requisito_id) {
-        $r = $this->requisitos()->wherePivot('certificadas', true)->wherePivot('requisito_id',$requisito_id)->lists('certificadas');
+    public function requisitoEnCopiasCertificadas($requisito_id)
+    {
+        $r = $this->requisitos()->wherePivot('certificadas', true)->wherePivot('requisito_id',
+            $requisito_id)->lists('certificadas');
         return isset($r[0]) ? $r[0] : false;
     }
 
@@ -107,5 +115,15 @@ class Tipotramite extends Ardent{
             $this->requisitos()->detach();
         }
     }
+
+    /**
+     * Devuelve el número total de tipos de trámites registrados
+     * @return int
+     */
+    public static function totalTipotramites()
+    {
+        return self::all()->count();
+    }
+
 
 }

@@ -1,0 +1,5 @@
+/* Colores y fonts generales que sobreescriben el default de bootstrap */
+
+body {
+    color: #5c5c5c;
+}

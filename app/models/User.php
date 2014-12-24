@@ -1,5 +1,6 @@
 <?php
 
+
 use Zizaco\Confide\ConfideUser;
 use Zizaco\Confide\ConfideUserInterface;
 use Zizaco\Entrust\HasRole;
@@ -9,30 +10,28 @@ class User extends Eloquent implements ConfideUserInterface
     use ConfideUser;
     use HasRole;
 
-
     protected $fillable = ['username', 'email', 'password', 'nombre', 'apepat', 'apemat'];
 
     /**
-	 * The database table used by the model.
-	 *
-	 * @var string
-	 */
-	protected $table = 'users';
+     * The database table used by the model.
+     *
+     * @var string
+     */
+    protected $table = 'users';
 
-	/**
-	 * The attributes excluded from the model's JSON form.
-	 *
-	 * @var array
-	 */
-	protected $hidden = array('password', 'remember_token');
-
+    /**
+     * The attributes excluded from the model's JSON form.
+     *
+     * @var array
+     */
+    protected $hidden = array('password', 'remember_token');
 
     /**
      * Get user by username
      * @param $username
      * @return mixed
      */
-    public function getUserByUsername( $username )
+    public function getUserByUsername($username)
     {
         return $this->where('username', '=', $username)->first();
     }
@@ -53,7 +52,7 @@ class User extends Eloquent implements ConfideUserInterface
      */
     public function saveRoles($inputRoles)
     {
-        if(! empty($inputRoles)) {
+        if (!empty($inputRoles)) {
             $this->roles()->sync($inputRoles);
         } else {
             $this->roles()->detach();
@@ -68,10 +67,9 @@ class User extends Eloquent implements ConfideUserInterface
     {
         $roles = $this->roles;
         $roleIds = false;
-        if( !empty( $roles ) ) {
+        if (!empty($roles)) {
             $roleIds = array();
-            foreach( $roles as &$role )
-            {
+            foreach ($roles as &$role) {
                 $roleIds[] = $role->id;
             }
         }
@@ -82,7 +80,8 @@ class User extends Eloquent implements ConfideUserInterface
      * Declaramos un mutador para el campo nombre
      * @param $valor
      */
-    public function setNombreAttribute($valor) {
+    public function setNombreAttribute($valor)
+    {
         $this->attributes['nombre'] = mb_strtoupper($valor);
     }
 
@@ -90,7 +89,8 @@ class User extends Eloquent implements ConfideUserInterface
      * Declaramos un mutador para el campo apepat
      * @param $valor
      */
-    public function setApepatAttribute($valor) {
+    public function setApepatAttribute($valor)
+    {
         $this->attributes['apepat'] = mb_strtoupper($valor);
     }
 
@@ -98,7 +98,8 @@ class User extends Eloquent implements ConfideUserInterface
      * Declaramos un mutador para el campo apemat
      * @param $valor
      */
-    public function setApematAttribute($valor) {
+    public function setApematAttribute($valor)
+    {
         $this->attributes['apemat'] = mb_strtoupper($valor);
     }
 
@@ -106,23 +107,25 @@ class User extends Eloquent implements ConfideUserInterface
      * Declaramos un mutador para el campo username
      * @param $valor
      */
-    public function setUsernameAttribute($valor) {
+    public function setUsernameAttribute($valor)
+    {
         $this->attributes['username'] = mb_strtolower($valor);
     }
 
     /**
      * Regresa una cadena con el nombre completo del usuario con el orden Nombre, Paterno, Materno (NPM) o con el orden PMN
+     * @param string $orden
      * @return string
      */
-    public function nombreCompleto($orden = 'NPM'){
+    public function nombreCompleto($orden = 'NPM')
+    {
 
         $nombreCompleto = [];
-        if($orden == 'NPM') {
+        if ($orden == 'NPM') {
             $nombreCompleto[] = $this->nombre;
             $nombreCompleto[] = $this->apepat;
             $nombreCompleto[] = $this->apemat;
-        }
-        else {
+        } else {
             $nombreCompleto[] = $this->apepat;
             $nombreCompleto[] = $this->apemat;
             $nombreCompleto[] = $this->nombre;
@@ -130,6 +133,13 @@ class User extends Eloquent implements ConfideUserInterface
         return implode(" ", $nombreCompleto);
     }
 
-
+    /**
+     * Devuelve el numero total de usuarios registrados
+     * @return int
+     */
+    public static function totalUsers()
+    {
+        return self::all()->count();
+    }
 
 }

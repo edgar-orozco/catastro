@@ -1,81 +1,88 @@
 <!DOCTYPE html>
 <html lang="es_MX">
 <head>
-<meta charset="UTF-8">
-<title>
-    @section('title')
-        - Sistema de Gestión Catastral
-    @show
-</title>
-<!-- CDN para CSS bootstrap -->
-<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css">
+    <meta charset="UTF-8">
+    <title>
+        @section('title')
+            - Sistema de Gestión Catastral
+        @show
+    </title>
+    <!-- CDN para CSS bootstrap -->
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css">
 
-<!-- CDN Para JQuery -->
-<script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+    <!-- CDN Para JQuery -->
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
 
-<!-- CDN Para JS Bootstrap -->
-<script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
+    <!-- CDN Para JS Bootstrap -->
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
 
-<!-- Estilos temporales para mostrar actividad de carga de datos -->
-<style type="text/css">
-.spin {
-  -webkit-animation: fa-spin 2s infinite linear;
-  animation: spin 2s infinite linear;
-}
-@-webkit-keyframes spin {
-  0% {
-    -webkit-transform: rotate(0deg);
-    transform: rotate(0deg);
-  }
-  100% {
-    -webkit-transform: rotate(359deg);
-    transform: rotate(359deg);
-  }
-}
-@keyframes spin {
-  0% {
-    -webkit-transform: rotate(0deg);
-    transform: rotate(0deg);
-  }
-  100% {
-    -webkit-transform: rotate(359deg);
-    transform: rotate(359deg);
-  }
-}
+    <!-- Estilos temporales para mostrar actividad de carga de datos -->
+    <style type="text/css">
+        .spin {
+            -webkit-animation: fa-spin 2s infinite linear;
+            animation: spin 2s infinite linear;
+        }
 
-.fadein, .fadeout {
-  -webkit-transition:all cubic-bezier(0.250, 0.460, 0.450, 0.940) .2s;
-  -moz-transition:all cubic-bezier(0.250, 0.460, 0.450, 0.940) .2s;
-  -o-transition:all cubic-bezier(0.250, 0.460, 0.450, 0.940) .2s;
-  transition:all cubic-bezier(0.250, 0.460, 0.450, 0.940) .2s;
-}
+        @-webkit-keyframes spin {
+            0% {
+                -webkit-transform: rotate(0deg);
+                transform: rotate(0deg);
+            }
+            100% {
+                -webkit-transform: rotate(359deg);
+                transform: rotate(359deg);
+            }
+        }
 
-.fadein.ng-hide-remove, .fadeout.ng-hide-add.ng-hide-add-active {
-  opacity: 0;
-  display: block !important;
-}
+        @keyframes spin {
+            0% {
+                -webkit-transform: rotate(0deg);
+                transform: rotate(0deg);
+            }
+            100% {
+                -webkit-transform: rotate(359deg);
+                transform: rotate(359deg);
+            }
+        }
 
-.fadeout.ng-hide-add, .fadein.ng-hide-remove.ng-hide-remove-active {
-  opacity: 1;
-  display: block !important;
-}
+        .fadein, .fadeout {
+            -webkit-transition: all cubic-bezier(0.250, 0.460, 0.450, 0.940) .2s;
+            -moz-transition: all cubic-bezier(0.250, 0.460, 0.450, 0.940) .2s;
+            -o-transition: all cubic-bezier(0.250, 0.460, 0.450, 0.940) .2s;
+            transition: all cubic-bezier(0.250, 0.460, 0.450, 0.940) .2s;
+        }
 
-</style>
+        .fadein.ng-hide-remove, .fadeout.ng-hide-add.ng-hide-add-active {
+            opacity: 0;
+            display: block !important;
+        }
 
-<!-- CDN Para AngularJS -->
-<script src="//code.angularjs.org/1.3.5/angular.js"></script>
-<script src="//code.angularjs.org/1.3.5/angular-resource.min.js"></script>
-<script src="//code.angularjs.org/1.3.5/angular-sanitize.min.js"></script>
-<script src="//code.angularjs.org/1.3.5/angular-animate.min.js"></script>
-<script src="//angular-ui.github.io/bootstrap/ui-bootstrap-tpls-0.12.0.min.js"></script>
+        .fadeout.ng-hide-add, .fadein.ng-hide-remove.ng-hide-remove-active {
+            opacity: 1;
+            display: block !important;
+        }
 
+    </style>
 
-@yield('styles')
+    <!-- CDN Para AngularJS -->
+    <script src="//code.angularjs.org/1.3.5/angular.js"></script>
+    <script src="//code.angularjs.org/1.3.5/angular-resource.min.js"></script>
+    <script src="//code.angularjs.org/1.3.5/angular-sanitize.min.js"></script>
+    <script src="//code.angularjs.org/1.3.5/angular-animate.min.js"></script>
+    <script src="//angular-ui.github.io/bootstrap/ui-bootstrap-tpls-0.12.0.min.js"></script>
+
+    <!-- css general de la app -->
+    {{ HTML::style('css/general.css') }}
+
+    <!-- Navbar css custom menu -->
+    {{ HTML::style('css/navmenu.css') }}
+
+    @yield('styles')
 
 </head>
-<body >
+<body>
 
-<nav role="navigation" class="navbar navbar-default">
+<nav role="navigation" class="navbar navbar-custom">
     <div class="container-fluid">
         <div class="navbar-header">
             <button type="button" data-target="#navbarCollapse" data-toggle="collapse" class="navbar-toggle">
@@ -111,8 +118,8 @@
                     </ul>
                 </li>
                 <li>
-                    <a href="#" data-toggle="modal" data-target="#confirm-logout">
-                        <i class="glyphicon glyphicon-off"></i>
+                    <a href="#" data-toggle="modal" data-target="#confirm-logout" title="Salir del sistema">
+                        <i class="glyphicon glyphicon-log-out"></i>
                     </a>
                 </li>
             </ul>
@@ -120,17 +127,17 @@
     </div>
 </nav>
 
-
 <div class="container"  @yield('angular')>
+
     @if(Session::has('error'))
         <div class="alert alert-danger">
-        @if(is_array(Session::get('error')))
-            @foreach(Session::get('error') as $error )
-            <h4><span class="glyphicon glyphicon-remove"></span>  {{ $error }}</h4>
-            @endforeach
-        @else
-            <h4><span class="glyphicon glyphicon-remove"></span>  {{ Session::get('error') }}</h4>
-        @endif
+            @if(is_array(Session::get('error')))
+                @foreach(Session::get('error') as $error )
+                    <h4><span class="glyphicon glyphicon-remove"></span>  {{ $error }}</h4>
+                @endforeach
+            @else
+                <h4><span class="glyphicon glyphicon-remove"></span>  {{ Session::get('error') }}</h4>
+            @endif
         </div>
     @endif
 
@@ -148,7 +155,10 @@
 
     @if(isset($title_section))
         <div class="page-header">
-          <h2>{{$title_section}} @if(isset($subtitle_section)) <small>{{$subtitle_section}}</small></h2> @endif
+            <h2>{{$title_section}}
+                @if(isset($subtitle_section))
+                    <small>{{$subtitle_section}}</small> @endif
+            </h2>
         </div>
     @endif
 
@@ -156,17 +166,19 @@
     @yield('content')
 </div>
 
-
 <!-- Modal para confirmar cuando se da click en menu logout -->
-<div class="modal fade" id="confirm-logout" tabindex="-1" role="dialog" aria-labelledby="confirm-logout" aria-hidden="true">
+<div class="modal fade" id="confirm-logout" tabindex="-1" role="dialog" aria-labelledby="confirm-logout"
+     aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
                 <h4 class="modal-title" id="confirm-logout-title">Confirme la acción:</h4>
             </div>
             <div class="modal-body">
-                <h3 style="text-align: center">¿Realmente desea salir del sistema?</h3>
+                <h4 style="text-align: center">¿Realmente desea salir del sistema?</h4>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">No</button>

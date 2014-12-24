@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Lang as Lang;
 use Illuminate\Support\MessageBag;
 use Zizaco\Confide\UserValidatorInterface;
 use Zizaco\Confide\ConfideUserInterface;
+
 /**
  * Implementa validación de usuarios de catastro
  * @see \Zizaco\Confide\UserValidator
@@ -26,19 +27,19 @@ class CatastroUserValidator implements UserValidatorInterface
     public $rules = [
         'create' => [
             'username' => 'required|alpha_num_dot',
-            'email'    => 'email',
-            'nombre'   => 'required|alpha_spaces', //Alfa mas espacios y unicode, para aceptar ñs y acentos
-            'apepat'   => 'required|alpha_spaces',//Alfa mas espacios y unicode, para aceptar ñs y acentos
-            'apemat'   => 'alpha_spaces',//Alfa mas espacios y unicode, para aceptar ñs y acentos
+            'email' => 'email',
+            'nombre' => 'required|alpha_spaces', //Alfa mas espacios y unicode, para aceptar ñs y acentos
+            'apepat' => 'required|alpha_spaces',//Alfa mas espacios y unicode, para aceptar ñs y acentos
+            'apemat' => 'alpha_spaces',//Alfa mas espacios y unicode, para aceptar ñs y acentos
             'password' => 'required|min:6',
             'password_confirmation' => 'between:6,11',
         ],
         'update' => [
             'username' => 'required|alpha_num_dot',
-            'email'    => 'email',
-            'nombre'   => 'required|alpha_spaces', //Alfa mas espacios y unicode, para aceptar ñs y acentos
-            'apepat'   => 'required|alpha_spaces',//Alfa mas espacios y unicode, para aceptar ñs y acentos
-            'apemat'   => 'alpha_spaces',//Alfa mas espacios y unicode, para aceptar ñs y acentos
+            'email' => 'email',
+            'nombre' => 'required|alpha_spaces', //Alfa mas espacios y unicode, para aceptar ñs y acentos
+            'apepat' => 'required|alpha_spaces',//Alfa mas espacios y unicode, para aceptar ñs y acentos
+            'apemat' => 'alpha_spaces',//Alfa mas espacios y unicode, para aceptar ñs y acentos
             'password' => 'min:6',
             //'password_confirmation' => 'between:6,11',
         ]
@@ -61,26 +62,26 @@ class CatastroUserValidator implements UserValidatorInterface
         $result = ($this->validatePassword($user) && $result) ? true : false;
         //dd($result);
         $result = ($this->validateIsUnique($user) && $result) ? true : false;
-/*
-        //
-        //if(trim($user->password) !== '') {
-            //dd($user->getOriginal('password'));
-            if ($user->password === $user->password_confirmation) {
-                // Hashes password and unset password_confirmation field
-                //dd($user);
-                $hash = App::make('hash');
-                $user->password = $hash->make($user->password);
-                unset($user->password_confirmation);
-            } else {
-                $this->attachErrorMsg(
-                    $user,
-                    'confide::confide.alerts.password_confirmation',
-                    'password_confirmation'
-                );
-                return false;
-            }
-        //}
-*/
+        /*
+                //
+                //if(trim($user->password) !== '') {
+                    //dd($user->getOriginal('password'));
+                    if ($user->password === $user->password_confirmation) {
+                        // Hashes password and unset password_confirmation field
+                        //dd($user);
+                        $hash = App::make('hash');
+                        $user->password = $hash->make($user->password);
+                        unset($user->password_confirmation);
+                    } else {
+                        $this->attachErrorMsg(
+                            $user,
+                            'confide::confide.alerts.password_confirmation',
+                            'password_confirmation'
+                        );
+                        return false;
+                    }
+                //}
+        */
         return $result;
     }
 
@@ -95,11 +96,11 @@ class CatastroUserValidator implements UserValidatorInterface
     {
         $hash = App::make('hash');
 
-        if ( $user->getOriginal('password') == $user->password ) {
+        if ($user->getOriginal('password') == $user->password) {
             return true;
         }
 
-        if ( $user->password != $user->password_confirmation ) {
+        if ($user->password != $user->password_confirmation) {
             $this->attachErrorMsg(
                 $user,
                 'confide::confide.alerts.password_confirmation',
@@ -108,7 +109,7 @@ class CatastroUserValidator implements UserValidatorInterface
             return false;
         }
 
-         // Hashes password and unset password_confirmation field
+        // Hashes password and unset password_confirmation field
         $user->password = $hash->make($user->password);
 
         unset($user->password_confirmation);
@@ -128,7 +129,7 @@ class CatastroUserValidator implements UserValidatorInterface
     public function validateIsUnique(ConfideUserInterface $user)
     {
         $identity = [
-           // 'email'    => $user->email,
+            // 'email'    => $user->email,
             'username' => $user->username,
         ];
 
@@ -160,7 +161,7 @@ class CatastroUserValidator implements UserValidatorInterface
      * $user object are valid for the given $ruleset.
      *
      * @param ConfideUserInterface $user
-     * @param string               $ruleset The name of the key in the UserValidator->$rules array
+     * @param string $ruleset The name of the key in the UserValidator->$rules array
      *
      * @return boolean True if the attributes are valid.
      */
@@ -189,14 +190,14 @@ class CatastroUserValidator implements UserValidatorInterface
      * to it and then set the errors attribute of the user with that bag.
      *
      * @param ConfideUserInterface $user
-     * @param string               $errorMsg The error message.
-     * @param string               $key      The key if the error message.
+     * @param string $errorMsg The error message.
+     * @param string $key The key if the error message.
      */
     public function attachErrorMsg(ConfideUserInterface $user, $errorMsg, $key = 'confide')
     {
         $messageBag = $user->errors;
 
-        if (! $messageBag instanceof MessageBag) {
+        if (!$messageBag instanceof MessageBag) {
             $messageBag = App::make('Illuminate\Support\MessageBag');
         }
 

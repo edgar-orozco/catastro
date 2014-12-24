@@ -1,7 +1,6 @@
 <?php
 
 
-
 /**
  * Class UserRepository
  *
@@ -22,7 +21,7 @@ class UserRepository
         $user = new User;
 
         $user->username = array_get($input, 'username');
-        $user->email    = array_get($input, 'email');
+        $user->email = array_get($input, 'email');
         $user->password = array_get($input, 'password');
 
         // The password confirmation will be removed from model
@@ -31,7 +30,7 @@ class UserRepository
         $user->password_confirmation = array_get($input, 'password_confirmation');
 
         // Generate a random confirmation code
-        $user->confirmation_code     = md5(uniqid(mt_rand(), true));
+        $user->confirmation_code = md5(uniqid(mt_rand(), true));
 
         // Save if valid. Password field will be hashed before save
         $this->save($user);
@@ -48,7 +47,7 @@ class UserRepository
      */
     public function login($input)
     {
-        if (! isset($input['password'])) {
+        if (!isset($input['password'])) {
             $input['password'] = null;
         }
 
@@ -59,7 +58,7 @@ class UserRepository
      * Checks if the credentials has been throttled by too
      * much failed login attempts
      *
-     * @param  array $credentials Array containing the credentials (email/username and password)
+     * @param  array $input Array containing the credentials (email/username and password)
      *
      * @return  boolean Is throttled
      */
@@ -72,7 +71,7 @@ class UserRepository
      * Checks if the given credentials correponds to a user that exists but
      * is not confirmed
      *
-     * @param  array $credentials Array containing the credentials (email/username and password)
+     * @param  array $input Array containing the credentials (email/username and password)
      *
      * @return  boolean Exists and is not confirmed?
      */
@@ -86,7 +85,7 @@ class UserRepository
                 $user->password
             );
 
-            return (! $user->confirmed && $correctPassword);
+            return (!$user->confirmed && $correctPassword);
         }
     }
 
@@ -100,10 +99,10 @@ class UserRepository
     public function resetPassword($input)
     {
         $result = false;
-        $user   = Confide::userByResetPasswordToken($input['token']);
+        $user = Confide::userByResetPasswordToken($input['token']);
 
         if ($user) {
-            $user->password              = $input['password'];
+            $user->password = $input['password'];
             $user->password_confirmation = $input['password_confirmation'];
             $result = $this->save($user);
         }

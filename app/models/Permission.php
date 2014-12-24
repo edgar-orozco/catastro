@@ -35,4 +35,11 @@ class Permission extends EntrustPermission
         'display_name' => 'required'
     ];
 
+    /**
+     * Devuelve el número total de permisos registrados
+     * @return int
+     */
+    public static function totalPermissions() {
+        return self::all()->count();
+    }
 }
