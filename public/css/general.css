@@ -11,3 +11,24 @@ body {
 h1, h2, h3, h4, .h1, .h2, .h3, .h4 {
     margin-top: 5px;
 }
+
+/* Tamaño de fuente grande e iconos grandes usado en los dashlets */
+.gi-2x {
+    font-size: 2em;
+}
+
+.gi-3x {
+    font-size: 3em;
+}
+
+.gi-4x {
+    font-size: 4em;
+}
+
+.gi-5x {
+    font-size: 5em;
+}
+
+.huge {
+    font-size: 40px;
+}

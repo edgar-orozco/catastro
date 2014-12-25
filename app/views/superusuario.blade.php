@@ -6,30 +6,7 @@
 
 @section('menu')
     @include('admin.menu')
-@append
-
-@section('styles')
-    <style>
-        .gi-2x {
-            font-size: 2em;
-        }
-
-        .gi-3x {
-            font-size: 3em;
-        }
-
-        .gi-4x {
-            font-size: 4em;
-        }
-
-        .gi-5x {
-            font-size: 5em;
-        }
-
-        .huge {
-            font-size: 40px;
-        }
-    </style>
+    @include('ventanilla.menu')
 @append
 
 @section('content')
