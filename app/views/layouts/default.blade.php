@@ -16,54 +16,6 @@
     <!-- CDN Para JS Bootstrap -->
     <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
 
-    <!-- Estilos temporales para mostrar actividad de carga de datos -->
-    <style type="text/css">
-        .spin {
-            -webkit-animation: fa-spin 2s infinite linear;
-            animation: spin 2s infinite linear;
-        }
-
-        @-webkit-keyframes spin {
-            0% {
-                -webkit-transform: rotate(0deg);
-                transform: rotate(0deg);
-            }
-            100% {
-                -webkit-transform: rotate(359deg);
-                transform: rotate(359deg);
-            }
-        }
-
-        @keyframes spin {
-            0% {
-                -webkit-transform: rotate(0deg);
-                transform: rotate(0deg);
-            }
-            100% {
-                -webkit-transform: rotate(359deg);
-                transform: rotate(359deg);
-            }
-        }
-
-        .fadein, .fadeout {
-            -webkit-transition: all cubic-bezier(0.250, 0.460, 0.450, 0.940) .2s;
-            -moz-transition: all cubic-bezier(0.250, 0.460, 0.450, 0.940) .2s;
-            -o-transition: all cubic-bezier(0.250, 0.460, 0.450, 0.940) .2s;
-            transition: all cubic-bezier(0.250, 0.460, 0.450, 0.940) .2s;
-        }
-
-        .fadein.ng-hide-remove, .fadeout.ng-hide-add.ng-hide-add-active {
-            opacity: 0;
-            display: block !important;
-        }
-
-        .fadeout.ng-hide-add, .fadein.ng-hide-remove.ng-hide-remove-active {
-            opacity: 1;
-            display: block !important;
-        }
-
-    </style>
-
     <!-- CDN Para AngularJS -->
     <script src="//code.angularjs.org/1.3.5/angular.js"></script>
     <script src="//code.angularjs.org/1.3.5/angular-resource.min.js"></script>
@@ -77,7 +29,9 @@
     <!-- Navbar css custom menu -->
     {{ HTML::style('css/navmenu.css') }}
 
-    @yield('styles')
+    <style>
+        @yield('styles')
+    </style>
 
 </head>
 <body>
@@ -102,7 +56,7 @@
                     </a>
                 </li>
 
-                @yield('menu')
+                @yield('menu', App::make('Menu'))
 
             </ul>
 

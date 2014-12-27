@@ -1,4 +1,4 @@
-@if(Auth::user()->hasRole("Administrador") || Auth::user()->hasRole("Super usuario"))
+@if(!Auth::guest() && ( Auth::user()->hasRole("Administrador") || Auth::user()->hasRole("Super usuario")))
 
 <li class="dropdown @if(Request::is('admin/*')) active @endif">
 

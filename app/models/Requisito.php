@@ -51,4 +51,6 @@ class Requisito extends Ardent {
         return self::all()->count();
     }
 
+
+
 }

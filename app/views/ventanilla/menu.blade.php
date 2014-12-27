@@ -1,4 +1,4 @@
-@if(Auth::user()->hasRole("Funcionario ventanilla") || Auth::user()->can("atender_ventanilla"))
+@if(!Auth::guest() && (Auth::user()->hasRole("Funcionario ventanilla") || Auth::user()->can("atender_ventanilla")) )
 
     <li class="dropdown @if(Request::is('ventanilla/*')) active @endif">
 

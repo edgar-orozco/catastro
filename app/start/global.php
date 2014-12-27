@@ -90,3 +90,28 @@ require app_path().'/filters.php';
 |
 */
 require app_path().'/validators.php';
+
+/**
+ * Recoge todas las plantillas de menú y las convierte en views concatenados para generar el menú completo
+ */
+App::bind('Menu',function() {
+
+	$files = File::allFiles(__DIR__ . '/../views');
+	$menuTpls = [];
+	$menu = '';
+	foreach ($files as $file) {
+		if (substr_count($file->getRelativePathName(), 'menu.blade.php')) {
+			$menuTpls[] = $file->getRelativePath() . "/menu";
+		}
+	}
+
+	if (!Session::get('main.menu')) {
+		Session::put('main.menu', $menuTpls);
+	}
+
+	foreach(Session::get('main.menu') as $tpl) {
+		$menu .= View::make($tpl)->render();
+	}
+
+	return $menu;
+});

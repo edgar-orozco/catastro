@@ -147,7 +147,8 @@ class UsersController extends Controller
     public function getLogout()
     {
         Confide::logout();
-
+        //Eliminamos todos los posibles valores temporales que guardamos en la sesion
+        Session::flush();
         return Redirect::to('/');
     }
 }
