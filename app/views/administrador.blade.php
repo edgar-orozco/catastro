@@ -4,11 +4,6 @@
     Bienvenido :: @parent
 @stop
 
-@section('menu')
-    @include('admin.menu')
-    @include('ventanilla.menu')
-@append
-
 @section('content')
 
     <div class="page-header">

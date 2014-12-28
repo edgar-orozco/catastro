@@ -4,10 +4,6 @@
     Bienvenido :: @parent
 @stop
 
-@section('menu')
-    @include('ventanilla.menu')
-@append
-
 @section('content')
 
     <div class="page-header">
@@ -31,7 +27,7 @@
                         </div>
                     </div>
                 </div>
-                <a href="{{URL::to('ventanilla/tramite-nuevo')}}">
+                <a href="{{URL::to('ventanilla/primera-atencion')}}">
                     <div class="panel-footer">
                         <span class="pull-left">Nuevo trámite</span>
                         <span class="pull-right"><i class="glyphicon glyphicon-circle-arrow-right"></i></span>

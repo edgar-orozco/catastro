@@ -16,7 +16,7 @@
     }
 </style>
 @stop
-{{Session::get('main.menu')}}
+
 @section('content')
 
 <div class="row">
