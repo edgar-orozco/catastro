@@ -36,50 +36,52 @@
 </head>
 <body>
 
-<nav role="navigation" class="navbar navbar-custom">
-    <div class="container-fluid">
-        <div class="navbar-header">
-            <button type="button" data-target="#navbarCollapse" data-toggle="collapse" class="navbar-toggle">
-                <span class="sr-only">Toggle navigation</span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-            </button>
-            <a href="{{URL::to('/')}}" class="navbar-brand">Sistema de Gestión Catastral</a>
+@section('navbar')
+    <nav role="navigation" class="navbar navbar-custom">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <button type="button" data-target="#navbarCollapse" data-toggle="collapse" class="navbar-toggle">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a href="{{URL::to('/')}}" class="navbar-brand">Sistema de Gestión Catastral</a>
+            </div>
+
+            <div id="navbarCollapse" class="collapse navbar-collapse">
+                <ul class="nav navbar-nav">
+                    <li class="@if(Request::is('/')) active @endif">
+                        <a href="{{URL::to('/')}}">
+                            <i class="glyphicon glyphicon-home"></i>
+                        </a>
+                    </li>
+
+                    @yield('menu', App::make('Menu'))
+
+                </ul>
+
+                <ul class="nav navbar-nav navbar-right">
+                    <li class="dropdown">
+                        <a data-toggle="dropdown" class="dropdown-toggle" href="#">
+                            <i class="glyphicon glyphicon-user"></i>
+                            <b class="caret"></b>
+                        </a>
+                        <ul role="menu" class="dropdown-menu">
+                            <li><a href="#">Mis datos</a></li>
+                            <li><a href="#">Modificar cuenta</a></li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="#" data-toggle="modal" data-target="#confirm-logout" title="Salir del sistema">
+                            <i class="glyphicon glyphicon-log-out"></i>
+                        </a>
+                    </li>
+                </ul>
+            </div>
         </div>
-
-        <div id="navbarCollapse" class="collapse navbar-collapse">
-            <ul class="nav navbar-nav">
-                <li class="@if(Request::is('/')) active @endif">
-                    <a href="{{URL::to('/')}}">
-                        <i class="glyphicon glyphicon-home"></i>
-                    </a>
-                </li>
-
-                @yield('menu', App::make('Menu'))
-
-            </ul>
-
-            <ul class="nav navbar-nav navbar-right">
-                <li class="dropdown">
-                    <a data-toggle="dropdown" class="dropdown-toggle" href="#">
-                        <i class="glyphicon glyphicon-user"></i>
-                        <b class="caret"></b>
-                    </a>
-                    <ul role="menu" class="dropdown-menu">
-                        <li><a href="#">Mis datos</a></li>
-                        <li><a href="#">Modificar cuenta</a></li>
-                    </ul>
-                </li>
-                <li>
-                    <a href="#" data-toggle="modal" data-target="#confirm-logout" title="Salir del sistema">
-                        <i class="glyphicon glyphicon-log-out"></i>
-                    </a>
-                </li>
-            </ul>
-        </div>
-    </div>
-</nav>
+    </nav>
+@show
 
 <div class="container"  @yield('angular')>
 
