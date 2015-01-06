@@ -34,4 +34,13 @@ class Role extends EntrustRole
         'name' => 'required|unique:permissions'
     ];
 
+    /**
+     * Devuelve el número total de roles registrados
+     * @return int
+     */
+    public static function totalRoles()
+    {
+        return self::all()->count();
+    }
+
 }

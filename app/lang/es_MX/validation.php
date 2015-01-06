@@ -87,13 +87,13 @@ return array(
 			'rule-name' => 'custom-message',
 		),
         'nombre' => array(
-			'alpha_spaces' => 'El nombre de una persona lo componen letras y espacios sólamente.',
+			'alpha_spaces' => 'El nombre de una persona lo componen letras y espacios solamente.',
 		),
         'apepat' => array(
-            'alpha_spaces' => 'El apellido de una persona lo componen letras y espacios sólamente.',
+            'alpha_spaces' => 'El apellido de una persona lo componen letras y espacios solamente.',
         ),
         'apemat' => array(
-            'alpha_spaces' => 'El apellido de una persona lo componen letras y espacios sólamente.',
+            'alpha_spaces' => 'El apellido de una persona lo componen letras y espacios solamente.',
         ),
         'username' => array(
             'alpha_num_dot' => 'El nombre de usuario sólo debe contener letras, números, guión bajo, guión medio y punto',

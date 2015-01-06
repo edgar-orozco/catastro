@@ -8,7 +8,6 @@
     ng-app="permissions" ng-controller="PermissionsCtrl"
 @stop
 
-
 @section('content')
     <div class="row">
             <button type="button" class="btn btn-info" ng-click="openForm()" ng-hide="showForm">

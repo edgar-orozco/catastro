@@ -25,5 +25,9 @@ class RoleSeeder extends Seeder {
             array('name' => 'Super usuario', 'created_at' => date("Y-m-d H:i:s"), 'updated_at' => date("Y-m-d H:i:s") )
         );
 
+        DB::table('roles')->insert(
+            array('name' => 'Funcionario ventanilla', 'created_at' => date("Y-m-d H:i:s"), 'updated_at' => date("Y-m-d H:i:s") )
+        );
+
     }
 }

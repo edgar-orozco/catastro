@@ -1,0 +1,79 @@
+/* Colores y fonts generales que sobreescriben el default de bootstrap */
+
+body {
+    color: #5c5c5c;
+}
+
+.page-header {
+    margin: 0px 0 20px;
+}
+
+h1, h2, h3, h4, .h1, .h2, .h3, .h4 {
+    margin-top: 5px;
+}
+
+/* Tamaño de fuente grande e iconos grandes usado en los dashlets */
+.gi-2x {
+    font-size: 2em;
+}
+
+.gi-3x {
+    font-size: 3em;
+}
+
+.gi-4x {
+    font-size: 4em;
+}
+
+.gi-5x {
+    font-size: 5em;
+}
+
+.huge {
+    font-size: 40px;
+}
+
+/* Estilos temporales para mostrar actividad de carga de datos */
+.spin {
+    -webkit-animation: fa-spin 2s infinite linear;
+    animation: spin 2s infinite linear;
+}
+
+@-webkit-keyframes spin {
+    0% {
+        -webkit-transform: rotate(0deg);
+        transform: rotate(0deg);
+    }
+    100% {
+        -webkit-transform: rotate(359deg);
+        transform: rotate(359deg);
+    }
+}
+
+@keyframes spin {
+    0% {
+        -webkit-transform: rotate(0deg);
+        transform: rotate(0deg);
+    }
+    100% {
+        -webkit-transform: rotate(359deg);
+        transform: rotate(359deg);
+    }
+}
+
+.fadein, .fadeout {
+    -webkit-transition: all cubic-bezier(0.250, 0.460, 0.450, 0.940) .2s;
+    -moz-transition: all cubic-bezier(0.250, 0.460, 0.450, 0.940) .2s;
+    -o-transition: all cubic-bezier(0.250, 0.460, 0.450, 0.940) .2s;
+    transition: all cubic-bezier(0.250, 0.460, 0.450, 0.940) .2s;
+}
+
+.fadein.ng-hide-remove, .fadeout.ng-hide-add.ng-hide-add-active {
+    opacity: 0;
+    display: block !important;
+}
+
+.fadeout.ng-hide-add, .fadein.ng-hide-remove.ng-hide-remove-active {
+    opacity: 1;
+    display: block !important;
+}
