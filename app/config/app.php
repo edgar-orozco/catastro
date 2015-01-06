@@ -125,6 +125,7 @@ return array(
         'Zizaco\Entrust\EntrustServiceProvider',
         'Way\Generators\GeneratorsServiceProvider',
         'Lord\Laroute\LarouteServiceProvider',
+		'Catastro\Providers\MenuServiceProvider',
 	),
 
 	/*
