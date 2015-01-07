@@ -50,7 +50,7 @@ class AdminUserController extends BaseController
      *
      * @return View
      */
-    public function index()
+    public function index($format = 'html')
     {
         //La lista de usuarios necesita una instancia de user
         $user = $this->user;
@@ -74,9 +74,10 @@ class AdminUserController extends BaseController
             $usuarios = User::where('nombre','ILIKE',"%$query%")->paginate($this->por_pagina);
         }
         else {
-            $usuarios = User::paginate($this->por_pagina);
+            $usuarios = $this->user->listAngular();
         }
-        return View::make('admin.user.index', compact('roles', 'selectedRoles', 'title', 'title_section', 'subtitle_section', 'usuarios', 'user'));
+
+        return  ($format == 'json') ? $usuarios : View::make('admin.user.index', compact('roles', 'selectedRoles', 'title', 'title_section', 'subtitle_section', 'usuarios', 'user'));
     }
 
     /**
@@ -141,7 +142,7 @@ class AdminUserController extends BaseController
      * Stores new account
      *
      */
-    public function store()
+    public function store($format = 'html')
     {
         $this->user->username = Input::get( 'username' );
         $this->user->email = Input::get( 'email' );
@@ -158,12 +159,26 @@ class AdminUserController extends BaseController
             // Save if valid. Password field will be hashed before save
             // Save roles. Handles updating.
             $this->user->saveRoles(Input::get( 'roles' ));
+            if ($format == 'json') {
+                return array(
+                    'status' => 'success',
+                    'msg' => 'Usuario guardado',
+                    'data' => array('id' => $this->user->id, 'idx' => Input::get('idx'))
+                );
+            }
 
             return Redirect::to('admin/user/create')->with('success', "Se ha crado correctamente el usuario ".$this->user->nombreCompleto());
 
         } else {
             // Get validation errors (see Ardent package)
             $error = $this->user->errors;
+            if ($format == 'json') {
+                return array(
+                    'status' => 'error',
+                    'msg' => 'Datos incorrectos',
+                    'data' => array('idx' => Input::get('idx'), 'errors' => $error)
+                );
+            }
             return Redirect::to('admin/user/create')->withInput()->withErrors($error);
         }
     }

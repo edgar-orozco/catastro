@@ -5,6 +5,12 @@
 Route::group(array('before' => 'admin'), function () {
 
     // Rutas para el administrador de usuarios
+    Route::post('admin/user.{format}',
+        array('as' => 'storeUser', 'uses' => 'AdminUserController@store'));
+    Route::get('admin/user.{format}',
+        array('as' => 'indexUser', 'uses' => 'AdminUserController@index'));
+    Route::put('admin/user/{user}.{format}',
+        array('as' => 'updateUser', 'uses' => 'AdminUserController@update'));
     Route::resource('admin/user', 'AdminUserController');
 
     // Rutas para el administrador de permisos del sistema
