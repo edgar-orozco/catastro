@@ -159,9 +159,13 @@ angular.module('app', ['ngAnimate', 'ngResource', 'ngSanitize','ui.bootstrap', '
         var afterSave = function(response){
             // Se agrega el nombre completo al usuario
             $scope.users[response.data.idx].nombreCompleto = $scope.users[response.data.idx].nombre + ' ' + $scope.users[response.data.idx].apepat +' '+$scope.users[response.data.idx].apemat;
+            // Se limpian los roles seleccionados
+            $scope.roles = {};
             // Se revisa la repuesta, si se guardo correctamente el form
             // se limpia y muestra un mensaje de exito
             if(response.status == 'success'){
+                // Se agregan los roles del usuario
+                $scope.users[response.data.idx].roles = response.data.roles;
                 $scope.users[response.data.idx].id = response.data.id;
                 delete $scope.users[response.data.idx].idx;
                 // Se muestra el mensaje de exito
@@ -227,6 +231,14 @@ angular.module('app', ['ngAnimate', 'ngResource', 'ngSanitize','ui.bootstrap', '
                 delete userSave.error;
                 delete userSave.errors;
             }
+            // Se modifican los datos de los roles como los espera recibir laravel
+            userSave.roles = {};
+            Object.getOwnPropertyNames($scope.roles).forEach(function(val, idx, array) {
+                if($scope.roles[val] == true){
+                    var role = val.replace('role', '');
+                    userSave.roles[role] = role;
+                }
+            });
             $scope.user = {};
             // Se agrega el usuario a la lista de usuarios
             if (userSave.id == undefined){

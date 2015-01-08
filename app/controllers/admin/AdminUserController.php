@@ -163,7 +163,7 @@ class AdminUserController extends BaseController
                 return array(
                     'status' => 'success',
                     'msg' => 'Usuario guardado',
-                    'data' => array('id' => $this->user->id, 'idx' => Input::get('idx'))
+                    'data' => array('id' => $this->user->id, 'idx' => Input::get('idx'), 'roles' => $this->user->roles)
                 );
             }
 
@@ -220,7 +220,7 @@ class AdminUserController extends BaseController
      * @param $user
      * @return Response
      */
-    public function update($id)
+    public function update($id, $format = 'html')
     {
         $user = User::find($id);
         $user->username = Input::get( 'username' );
@@ -238,10 +238,24 @@ class AdminUserController extends BaseController
 
         if ($user->save()) {
             $user->saveRoles(Input::get( 'roles' ));
+            if ($format == 'json') {
+                return array(
+                    'status' => 'success',
+                    'msg' => 'Usuario actuaizado',
+                    'data' => array('id' => $user->id, 'idx' => Input::get('idx'), 'roles' => $user->roles)
+                );
+            }
             return Redirect::to('admin/user')->with('success', "Se han actualizado correctamente los datos del usuario ".$user->nombreCompleto());
         } else {
             // Get validation errors (see Ardent package)
             $error = $user->errors;
+            if ($format == 'json') {
+                return array(
+                    'status' => 'error',
+                    'msg' => 'Datos incorrectos',
+                    'data' => array('idx' => Input::get('idx'), 'errors' => $error)
+                );
+            }
             return Redirect::to('admin/user/'.$user->id.'/edit')->withInput()->withErrors($error);
         }
     }
