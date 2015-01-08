@@ -53,7 +53,7 @@
             @include('admin.user._formAngular')
 
             <div class="form-actions form-group">
-                <button disabled="disabled" class="btn btn-primary" ng-disabled="formUser.$invalid || isInvalid()" type="button" ng-click="store()">
+                <button disabled="disabled" class="btn btn-primary" ng-disabled="formUser.$invalid || checkPassword()" type="button" ng-click="store()">
                     {[{ user.id !== undefinied ? 'Modificar usuario' : 'Crear nuevo usuario' }]}
                 </button>
                 {{ Form::reset('Limpiar formato', ['class' => 'btn btn-warning']) }}

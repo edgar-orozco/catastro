@@ -139,7 +139,7 @@ angular.module('app', ['ngAnimate', 'ngResource', 'ngSanitize','ui.bootstrap', '
         $scope.users = [];
         $scope.filterWord = 'name';
         $scope.currentPage = 1;
-        $scope.itemsPage = 4;
+        $scope.itemsPage = 10;
         $scope.successSave = false;
         // Variables para el control
         /**
@@ -289,8 +289,11 @@ angular.module('app', ['ngAnimate', 'ngResource', 'ngSanitize','ui.bootstrap', '
         /**
          * Función para validar el contenido del formulario
          */
-        $scope.isInvalid = function(){
+        $scope.checkPassword = function(){
             // Definir tipo de validaciones para cada campo
+            if($scope.user.password !== '' && $scope.user.password_confirmation){
+                if($scope.user.password !== $scope.user.password_confirmation) return true;
+            }
             return false;
         };
         /**
