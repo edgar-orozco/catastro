@@ -53,7 +53,7 @@
     <div>
 
         @foreach(Role::all() as $role)
-            {{Form::checkbox('roles['.$role->id.']', $role->id, in_array($role->id, $user->roles->lists('id')), ['id' => 'roles['.$role->id.']', 'ng-model' => 'user.roles.role'.$role->id ])}}
+            {{Form::checkbox('roles['.$role->id.']', $role->id, in_array($role->id, $user->roles->lists('id')), ['id' => 'roles['.$role->id.']', 'ng-model' => 'roles.role'.$role->id ])}}
             {{Form::label('roles['.$role->id.']', $role->name)}}
             <br>
         @endforeach

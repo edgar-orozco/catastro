@@ -141,6 +141,7 @@ angular.module('app', ['ngAnimate', 'ngResource', 'ngSanitize','ui.bootstrap', '
         $scope.currentPage = 1;
         $scope.itemsPage = 10;
         $scope.successSave = false;
+        $scope.roles = {};
         // Variables para el control
         /**
          * Funcion para obtener la lista de todos los usuarios
@@ -247,6 +248,10 @@ angular.module('app', ['ngAnimate', 'ngResource', 'ngSanitize','ui.bootstrap', '
             $scope.showForm = true;
             $scope.focusForm = true;
             $scope.user = angular.copy($scope.users[idx]);
+            // Se marcan los roles que tiene el usuario
+            for(var i in $scope.user.roles){
+                $scope.roles['role'+$scope.user.roles[i].id] = true;
+            }
             $scope.user.idx = idx;
         };
         /**
