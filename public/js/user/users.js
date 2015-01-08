@@ -221,6 +221,12 @@ angular.module('app', ['ngAnimate', 'ngResource', 'ngSanitize','ui.bootstrap', '
         // Se obtiene la lista de usuarios
         getUsers();
         /**
+         * Funcion para iniciar la aplicacion
+         */
+        $scope.initApp = function(){
+            $('#users').show();
+        };
+        /**
          * Función para guardar el formulario de usuarios
          */
         $scope.store = function(){

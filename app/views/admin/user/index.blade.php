@@ -5,10 +5,11 @@
 @stop
 
 @section('angular')
-    ng-app="app" ng-controller="UserCtrl"
+    ng-app="app" ng-controller="UserCtrl" ng-init="initApp()"
 @stop
 
 @section('content')
+<div style="display: none" id="users">
     <div class="alert alert-success alert-dismissible" role="alert" ng-show="successSave">
         <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
         <strong>Datos guardados</strong>, los datos del usuario se guardaron correctamente.
@@ -65,6 +66,7 @@
             @include('admin.user._listAngular')
         </div>
     </div>
+</div>
 @stop
 
 @section('javascript')
