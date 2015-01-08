@@ -2,8 +2,8 @@
     <div class="panel-heading">
         <h3 class="panel-title">Usuarios del sistema</h3>
     </div>
-    <div class="panel-body" ng-show="loading">
-        <p>Cargando ...</p>
+    <div class="panel-body text-center" ng-show="loading">
+        <span class="glyphicon glyphicon-refresh spin"></span>
     </div>
     <div class="panel-body" ng-show="users.length == 0 && !loading">
         <p>No hay usuarios dados de alta actualmente en el sistema.</p>
