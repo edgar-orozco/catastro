@@ -1,4 +1,6 @@
-<span ng-show="user.error" class=text-danger>El formulario contiene errores, corrigelos e intenta nuevamente</span>
+<span ng-show="user.error" class=text-danger>
+    El formulario contiene errores, corríjalos e intente nuevamente.
+</span>
 <div class="form-group">
     {{Form::label('username','Nombre de usuario')}}
     {{Form::text('username', null, ['class'=>'form-control', 'autofocus'=> 'autofocus', 'required' => 'required', 'ng-model' => 'user.username', 'tb-focus' => 'focusForm', 'ng-blur' => 'focusForm = false'] )}}
@@ -7,7 +9,7 @@
 
 <div class="form-group">
     {{Form::label('email','Email')}}
-    {{Form::text('email', null, ['class'=>'form-control', 'required' => 'required', 'ng-model' => 'user.email'] )}}
+    {{Form::text('email', null, ['class'=>'form-control', 'ng-model' => 'user.email'] )}}
     <span ng-repeat="error in user.errors.email" class=text-danger>{[{ error }]}</span>
 </div>
 
@@ -25,7 +27,7 @@
 
 <div class="form-group">
     {{Form::label('apemat','Apellido materno')}}
-    {{Form::text('apemat', null, ['class'=>'form-control', 'required' => 'required', 'ng-model' => 'user.apemat'] )}}
+    {{Form::text('apemat', null, ['class'=>'form-control', 'ng-model' => 'user.apemat'] )}}
     <span ng-repeat="error in user.errors.apemat" class=text-danger>{[{ error }]}</span>
 </div>
 
