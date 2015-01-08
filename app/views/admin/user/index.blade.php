@@ -9,7 +9,10 @@
 @stop
 
 @section('content')
-
+    <div class="alert alert-success alert-dismissible" role="alert" ng-show="successSave">
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <strong>Datos guardados</strong>, los datos del usuario se guardaron correctamente.
+    </div>
     <div class="row">
         <div class="col-sm-6">
             <button class="btn btn-info" ng-click="openForm()" ng-hide="showForm" role="button">
@@ -51,7 +54,7 @@
 
             <div class="form-actions form-group">
                 <button disabled="disabled" class="btn btn-primary" ng-disabled="formUser.$invalid || isInvalid()" type="button" ng-click="store()">
-                    {[{ permission.id !== undefinied ? 'Modificar usuario' : 'Crear nuevo usuario' }]}
+                    {[{ user.id !== undefinied ? 'Modificar usuario' : 'Crear nuevo usuario' }]}
                 </button>
                 {{ Form::reset('Limpiar formato', ['class' => 'btn btn-warning']) }}
             </div>

@@ -130,7 +130,7 @@ angular.module('app', ['ngAnimate', 'ngResource', 'ngSanitize','ui.bootstrap', '
     /**
      *Control para mostrar, crear, editar, actualizar y eliminar usuarios de la aplicacion
      */
-    controller('UserCtrl', function($scope, $modal, Users) {
+    controller('UserCtrl', function($scope, $modal, $timeout, $location, $anchorScroll, Users) {
         // Variables que se exponen en la vista
         $scope.showForm = false;
         $scope.focusForm = false;
@@ -138,6 +138,9 @@ angular.module('app', ['ngAnimate', 'ngResource', 'ngSanitize','ui.bootstrap', '
         $scope.user = {};
         $scope.users = [];
         $scope.filterWord = 'name';
+        $scope.currentPage = 1;
+        $scope.itemsPage = 4;
+        $scope.successSave = false;
         // Variables para el control
         /**
          * Funcion para obtener la lista de todos los usuarios
@@ -153,11 +156,18 @@ angular.module('app', ['ngAnimate', 'ngResource', 'ngSanitize','ui.bootstrap', '
          * @param reponse
          */
         var afterSave = function(response){
+            // Se agrega el nombre completo al usuario
+            $scope.users[response.data.idx].nombreCompleto = $scope.users[response.data.idx].nombre + ' ' + $scope.users[response.data.idx].apepat +' '+$scope.users[response.data.idx].apemat;
             // Se revisa la repuesta, si se guardo correctamente el form
             // se limpia y muestra un mensaje de exito
             if(response.status == 'success'){
                 $scope.users[response.data.idx].id = response.data.id;
                 delete $scope.users[response.data.idx].idx;
+                // Se muestra el mensaje de exito
+                $scope.successSave = true;
+                $timeout(function(){
+                    $scope.successSave = false;
+                }, 10000)
             }
             // Si no se guardo correctamente el form,
             // se muestran los mensajes de error correspondientes
@@ -166,6 +176,9 @@ angular.module('app', ['ngAnimate', 'ngResource', 'ngSanitize','ui.bootstrap', '
                 $scope.users[response.data.idx].errors = response.data.errors;
                 $scope.user = angular.copy($scope.users[response.data.idx]);
             }
+            // Se mueve el scroll a la parte superior
+            $location.hash('top');
+            $anchorScroll();
         };
         /**
          * Funcion para crear un usuario nuevo
@@ -174,6 +187,8 @@ angular.module('app', ['ngAnimate', 'ngResource', 'ngSanitize','ui.bootstrap', '
         var createUser = function(user){
             user.idx = $scope.users.length-1;
             Users.save(user,function(response){
+                // Se mueve el paginador a la ultima pagina
+                $scope.currentPage = Math.ceil($scope.users.length / $scope.itemsPage)
                 afterSave(response);
             });
         };
@@ -228,6 +243,7 @@ angular.module('app', ['ngAnimate', 'ngResource', 'ngSanitize','ui.bootstrap', '
          * @param idx
          */
         $scope.edit = function(idx){
+            idx = (($scope.currentPage-1) * $scope.itemsPage) + idx;
             $scope.showForm = true;
             $scope.focusForm = true;
             $scope.user = angular.copy($scope.users[idx]);

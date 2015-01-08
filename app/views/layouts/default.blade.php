@@ -37,7 +37,7 @@
 <body>
 
 @section('navbar')
-    <nav role="navigation" class="navbar navbar-custom">
+    <nav role="navigation" class="navbar navbar-custom" id="top">
         <div class="container-fluid">
             <div class="navbar-header">
                 <button type="button" data-target="#navbarCollapse" data-toggle="collapse" class="navbar-toggle">

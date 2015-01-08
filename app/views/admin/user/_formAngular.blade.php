@@ -1,6 +1,8 @@
-<span ng-show="user.error" class=text-danger>
-    El formulario contiene errores, corríjalos e intente nuevamente.
-</span>
+<div ng-show="user.error" class="alert alert-danger alert-dismissible" role="alert">
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+    <strong>El formulario contiene errores</strong>, corríjalos e intente nuevamente.
+</div>
+
 <div class="form-group">
     {{Form::label('username','Nombre de usuario')}}
     {{Form::text('username', null, ['class'=>'form-control', 'autofocus'=> 'autofocus', 'required' => 'required', 'ng-model' => 'user.username', 'tb-focus' => 'focusForm', 'ng-blur' => 'focusForm = false'] )}}
