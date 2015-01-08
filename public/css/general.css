@@ -35,7 +35,7 @@ h1, h2, h3, h4, .h1, .h2, .h3, .h4 {
 
 /* Estilos temporales para mostrar actividad de carga de datos */
 .spin {
-    -webkit-animation: fa-spin 2s infinite linear;
+    -webkit-animation: spin 2s infinite linear;
     animation: spin 2s infinite linear;
 }
 
