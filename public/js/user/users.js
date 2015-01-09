@@ -261,13 +261,23 @@ angular.module('app', ['ngAnimate', 'ngResource', 'ngSanitize','ui.bootstrap', '
          * Funcion para editar usuario
          * @param idx
          */
-        $scope.edit = function(idx){
+        $scope.edit = function(idx, id){
             // Se borrran los roles previamente seleccionados
             $scope.roles = {};
             idx = (($scope.currentPage-1) * $scope.itemsPage) + idx;
             $scope.showForm = true;
             $scope.focusForm = true;
-            $scope.user = angular.copy($scope.users[idx]);
+            if(id !== undefined){
+                $scope.users.forEach(function (element) {
+                    if (element.id === id) {
+                        $scope.user = angular.copy(element);
+                        return false;
+                    }
+                });
+            }
+            else{
+                $scope.user = angular.copy($scope.users[idx]);
+            }
             // Se marcan los roles que tiene el usuario
             for(var i in $scope.user.roles){
                 $scope.roles['role'+$scope.user.roles[i].id] = true;

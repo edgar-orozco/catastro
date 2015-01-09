@@ -9,7 +9,7 @@
         <p>No hay usuarios dados de alta actualmente en el sistema.</p>
     </div>
     <div class="list-group" ng-show="users.length > 0 && !loading">
-            <a class="list-group-item" style="cursor:pointer;" ng-click="edit($index)" dir-paginate="userList in users| searchBy:q:filterWord | itemsPerPage:itemsPage " current-page="currentPage" ng-class="(userList.id === user.id && !userList.error) ? 'active' : userList.error ? 'list-group-item-warning':''">
+            <a class="list-group-item" style="cursor:pointer;" ng-click="edit($index, userList.id)" dir-paginate="userList in users| searchBy:q:filterWord | itemsPerPage:itemsPage " current-page="currentPage" ng-class="(userList.id === user.id && !userList.error) ? 'active' : userList.error ? 'list-group-item-warning':''">
                 <div class="row">
                     <div class="col-sm-9">
                         <h4 class="list-group-item-heading">{[{ userList.nombreCompleto }]}</h4>
