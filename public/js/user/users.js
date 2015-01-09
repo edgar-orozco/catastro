@@ -262,6 +262,8 @@ angular.module('app', ['ngAnimate', 'ngResource', 'ngSanitize','ui.bootstrap', '
          * @param idx
          */
         $scope.edit = function(idx){
+            // Se borrran los roles previamente seleccionados
+            $scope.roles = {};
             idx = (($scope.currentPage-1) * $scope.itemsPage) + idx;
             $scope.showForm = true;
             $scope.focusForm = true;
