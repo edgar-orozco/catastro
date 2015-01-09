@@ -35,13 +35,13 @@
 
 <div class="form-group">
     {{Form::label('password','Contraseña')}}
-    {{Form::password('password', ['class'=>'form-control', 'required' => 'required', 'ng-model' => 'user.password'] )}}
+    {{Form::password('password', ['class'=>'form-control', 'ng-required' => '(user.id === undefined) ? true : false', 'ng-model' => 'user.password'] )}}
     <span ng-repeat="error in user.errors.password" class=text-danger>{[{ error }]}</span>
 </div>
 
 <div class="form-group">
     {{Form::label('password_confirmation','Confirmar Contraseña')}}
-    {{Form::password('password_confirmation', ['class'=>'form-control', 'required' => 'required', 'ng-model' => 'user.password_confirmation'] )}}
+    {{Form::password('password_confirmation', ['class'=>'form-control', 'ng-required' => '(user.id === undefined) ? true : false', 'ng-model' => 'user.password_confirmation'] )}}
     <span class=text-danger ng-show="checkPassword()">
         No coincide la confirmación de la contraseña, favor de reingresar la constraseña y su confirmación.
     </span>
