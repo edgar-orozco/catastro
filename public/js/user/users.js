@@ -162,12 +162,25 @@ angular.module('app', ['ngAnimate', 'ngResource', 'ngSanitize','ui.bootstrap', '
             // Se revisa la repuesta, si se guardo correctamente el form
             // se limpia y muestra un mensaje de exito
             if(response.status == 'success'){
+                var idx = null;
                 // Se limpian los roles seleccionados
                 $scope.roles = {};
+                // Se busca el index del usuario en el arreglo
+                $scope.users.forEach(function (element, index) {
+                    if (element.id === response.data.id) {
+                        idx = index;
+                        return false;
+                    }
+                });
+                // Si no se encontro el index es un usuario nuevo y su indice es el ultimo del arreglo
+                if(idx === null){
+                    idx = $scope.users.length-1;
+                }
+                console.log(idx);
                 // Se agregan los roles del usuario
-                $scope.users[response.data.idx].roles = response.data.roles;
-                $scope.users[response.data.idx].id = response.data.id;
-                delete $scope.users[response.data.idx].idx;
+                $scope.users[idx].roles = response.data.roles;
+                $scope.users[idx].id = response.data.id;
+                delete $scope.users[idx].idx;
                 // Se muestra el mensaje de exito
                 $scope.successSave = true;
                 $timeout(function(){
@@ -193,7 +206,7 @@ angular.module('app', ['ngAnimate', 'ngResource', 'ngSanitize','ui.bootstrap', '
             user.idx = $scope.users.length-1;
             Users.save(user,function(response){
                 // Se mueve el paginador a la ultima pagina
-                $scope.currentPage = Math.ceil($scope.users.length / $scope.itemsPage)
+                $scope.currentPage = Math.ceil($scope.users.length / $scope.itemsPage);
                 afterSave(response);
             });
         };
@@ -264,12 +277,14 @@ angular.module('app', ['ngAnimate', 'ngResource', 'ngSanitize','ui.bootstrap', '
         $scope.edit = function(idx, id){
             // Se borrran los roles previamente seleccionados
             $scope.roles = {};
-            idx = (($scope.currentPage-1) * $scope.itemsPage) + idx;
+            // Se borra la busqueda
+            var idx = $scope.users.length -1;
             $scope.showForm = true;
             $scope.focusForm = true;
             if(id !== undefined){
-                $scope.users.forEach(function (element) {
+                $scope.users.forEach(function (element, index) {
                     if (element.id === id) {
+                        idx = index;
                         $scope.user = angular.copy(element);
                         return false;
                     }
@@ -278,6 +293,8 @@ angular.module('app', ['ngAnimate', 'ngResource', 'ngSanitize','ui.bootstrap', '
             else{
                 $scope.user = angular.copy($scope.users[idx]);
             }
+            $scope.q = '';
+            $scope.currentPage = Math.ceil( ( (idx+1) / $scope.itemsPage) );
             // Se marcan los roles que tiene el usuario
             for(var i in $scope.user.roles){
                 $scope.roles['role'+$scope.user.roles[i].id] = true;
