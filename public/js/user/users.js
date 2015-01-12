@@ -159,11 +159,11 @@ angular.module('app', ['ngAnimate', 'ngResource', 'ngSanitize','ui.bootstrap', '
         var afterSave = function(response){
             // Se agrega el nombre completo al usuario
             $scope.users[response.data.idx].nombreCompleto = $scope.users[response.data.idx].nombre + ' ' + $scope.users[response.data.idx].apepat +' '+$scope.users[response.data.idx].apemat;
-            // Se limpian los roles seleccionados
-            $scope.roles = {};
             // Se revisa la repuesta, si se guardo correctamente el form
             // se limpia y muestra un mensaje de exito
             if(response.status == 'success'){
+                // Se limpian los roles seleccionados
+                $scope.roles = {};
                 // Se agregan los roles del usuario
                 $scope.users[response.data.idx].roles = response.data.roles;
                 $scope.users[response.data.idx].id = response.data.id;
