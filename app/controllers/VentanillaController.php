@@ -16,4 +16,10 @@ class VentanillaController extends BaseController
 
         return View::make('ventanilla.primera-atencion', compact('title', 'title_section', 'subtitle_section', 'tipotramites'));
     }
+
+
+    public function getClaveCatastral($clave){
+
+
+    }
 }

@@ -21,6 +21,19 @@
                 <div id="collapse-{{$tipotramite->id}}" class="panel-collapse collapse" role="tabpanel"
                      aria-labelledby="heading-{{$tipotramite->id}}">
                     <div class="panel-body">
+
+                        <div class="row">
+                            <div class="col-md-3">
+                                <div class="input-group">
+                                    {{Form::text('clave', null, ['class'=>'form-control clave-catastral', 'placeholder'=>'Clave Catastral', 'data-tipotramite'=>$tipotramite->id] )}}
+                                    <span class="input-group-addon">
+                                        <span class="glyphicon glyphicon-search"></span>
+                                    </span>
+                                </div><!-- /input-group -->
+                            </div>
+
+                        </div>
+                        <br/>
                         <div class="row">
                             <div class="col-md-3">
                                 <div class="panel panel-info">
@@ -44,6 +57,7 @@
                                 </div>
                             </div>
                             <div class="col-md-3">
+
                                 <div class="panel panel-info">
                                     <a href="#">
                                         <div class="panel-footer">
@@ -66,27 +80,23 @@
 
                             </div>
                             <div class="col-md-6">
+
                                 <ul class="list-unstyled">
                                     @foreach($tipotramite->requisitos as $requisito)
                                         <li>
-
-                                            <div class="btn-group btn-toggle" data-toggle="buttons">
-                                                <label class="btn btn-sm btn-default">
-                                                    <input type="radio" name="requisitos[{{$tipotramite->id}}][{{$requisito->id}}]" value="1"> SI
-                                                </label>
-                                                <label class="btn btn-sm btn-default">
-                                                    <input type="radio" name="requisitos[{{$tipotramite->id}}][{{$requisito->id}}]" value="0" > NO
-                                                </label>
-                                            </div>
-                                            {{$requisito->nombre}} {{$requisito->pivot->original ? 'original' : ''}}
-                                            {{$requisito->pivot->original &&  $requisito->pivot->copias ? ' y ' : ''}}
-                                            {{$requisito->pivot->copias ? $requisito->pivot->copias. " ".Lang::choice('messages.copias', $requisito->pivot->copias ) : ''}}
-                                            {{$requisito->pivot->certificadas ? Lang::choice('messages.certificadas', $requisito->pivot->copias) : ''}}
+                                            @include('ventanilla._form_requisitos',compact('tipotramite','requisito'))
                                         </li>
                                     @endforeach
                                 </ul>
+
+                                <div class="form-actions form-group">
+                                    {{ Form::submit('Iniciar trámite', array('class' => 'btn btn-primary')) }}
+                                </div>
+
+
                             </div>
                         </div>
+
                     </div>
                 </div>
             </div>
@@ -94,3 +104,13 @@
     </div>
 @stop
 
+@section('javascript')
+    {{ HTML::script('js/laroute.js') }}
+    <script>
+        $(function() {
+            $('.clave-catastral').blur(function(ev){
+                console.log(laroute.action('HomeController@getIndex'));
+            });
+        });
+    </script>
+@append
