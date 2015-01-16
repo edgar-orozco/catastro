@@ -7,3 +7,5 @@ composer.phar
 Thumbs.db
 .idea
 _ide_helper.php
+
+public/js/laroute.js
