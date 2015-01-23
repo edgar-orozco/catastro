@@ -108,8 +108,18 @@
     {{ HTML::script('js/laroute.js') }}
     <script>
         $(function() {
-            $('.clave-catastral').blur(function(ev){
-                console.log(laroute.action('HomeController@getIndex'));
+            $('.clave-catastral').change(function(ev){
+                var clave = $(this).val().trim();
+                if(clave == '') {
+                    return false;
+                }
+                //console.log(laroute.route('ventanilla.consulta-padron'));
+                $.get( laroute.route('ventanilla.consulta-padron'), {'clave': clave}, function( data ) {
+                    console.log( data );
+                    if(data == '') {
+                        console.log('No existe');
+                    }
+                });
             });
         });
     </script>
