@@ -75,6 +75,7 @@ $(function () {
         $.get(laroute.route('ventanilla.consulta-padron'), {'clave': clave.toUpperCase()}, function (data) {
             if (data == '') {
                 //console.log('No existe el registro buscado');
+                $('.alert').show();
                 $('#requisitos-lista-'+tipotramite_id+' .botones-requisitos').hide();
                 $('#requisitos-lista-'+tipotramite_id+' ul').removeClass('list-unstyled');
                 return false;
@@ -160,9 +161,14 @@ $(function () {
 
 //Spinners de cargando.
 $(document).bind("ajaxSend", function(){
-    $(".boton-buscador").removeClass('glyphicon-search spinner');
-    $(".boton-buscador").addClass('glyphicon-refresh spinner');
+    $('.alert').hide();
+    $('.botones-requisitos').hide();
+    $('.cancelar-tramite').hide();
+    $('ul').removeClass('list-unstyled');
+
+    $(".boton-buscador").removeClass('glyphicon-search');
+    $(".boton-buscador").addClass('glyphicon-refresh spin');
 }).bind("ajaxComplete", function(){
-    $(".boton-buscador").removeClass('glyphicon-refresh spinner');
-    $(".boton-buscador").addClass('glyphicon-search spinner');
+    $(".boton-buscador").removeClass('glyphicon-refresh spin');
+    $(".boton-buscador").addClass('glyphicon-search');
 });

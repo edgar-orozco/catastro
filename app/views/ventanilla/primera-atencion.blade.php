@@ -1,11 +1,18 @@
 @extends('layouts.default')
 
+@section('styles')
+    .alert {
+        padding: 6px;
+        margin-bottom: 0px;
+    }
+@append
+
 @section('title')
     {{{ $title }}} :: @parent
 @stop
 
 @section('content')
-
+<form id="lista-tipotramites">
     <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="false">
         @foreach($tipotramites as $tipotramite)
             <div class="panel panel-info">
@@ -23,26 +30,52 @@
                     <div class="panel-body">
 
                         <div class="row">
-                            <div class="col-md-3">
+                            <div class="col-md-4">
                                 <div class="input-group">
-                                    {{Form::text('clave', null, ['class'=>'form-control clave-catastral', 'placeholder'=>'Clave Catastral', 'data-tipotramite'=>$tipotramite->id] )}}
-                                    <span class="input-group-addon">
-                                        <span class="glyphicon glyphicon-search"></span>
+                                    <div class="input-group-btn">
+                                        <button type="button" class="btn btn-default dropdown-toggle select-busqueda"
+                                                data-toggle="dropdown" aria-expanded="false">
+                                            <span class="dropdown-label">Clave</span>
+                                            <span class="caret"></span></button>
+                                        <ul class="dropdown-menu" role="menu">
+                                            <li><a href="#" class="opcion-busqueda" data-tipo="clave">Clave</a></li>
+                                            <li><a href="#" class="opcion-buqueda" data-tipo="cuenta">Cuenta</a></li>
+                                        </ul>
+                                    </div>
+                                    <!-- /btn-group -->
+                                    {{Form::text('clave', null, ['class'=>'form-control clave-catastral', 'style'=>'text-transform: uppercase;', 'data-tipotramite'=>$tipotramite->id] )}}
+                                    <span class="input-group-btn">
+                                        <button class="btn btn-default" type="button">
+                                            <span class="glyphicon glyphicon-search boton-buscador" aria-hidden="true"></span>
+                                        </button>
                                     </span>
-                                </div><!-- /input-group -->
+                                </div>
+
+                                <!-- /input-group -->
+                            </div>
+                            <!-- /col-md-4 -->
+                            <div class="col-md-8">
+                                <div class="alert alert-danger" style="display: none;">
+                                    No se encontró el predio solicitado en el padrón.
+                                </div>
                             </div>
 
                         </div>
+                        <!-- /row input clave -->
+
                         <br/>
+                        <!-- paneles info -->
                         <div class="row">
                             <div class="col-md-3">
                                 <div class="panel panel-info">
                                     <a href="#">
                                         <div class="panel-footer">
                                             <span class="pull-left">Duración en días hábiles</span>
+
                                             <div class="clearfix"></div>
                                         </div>
                                     </a>
+
                                     <div class="panel-heading">
                                         <div class="row">
                                             <div class="col-xs-3">
@@ -62,9 +95,11 @@
                                     <a href="#">
                                         <div class="panel-footer">
                                             <span class="pull-left">Costo</span>
+
                                             <div class="clearfix"></div>
                                         </div>
                                     </a>
+
                                     <div class="panel-heading">
                                         <div class="row">
                                             <div class="col-xs-3">
@@ -77,24 +112,32 @@
                                         </div>
                                     </div>
                                 </div>
-
                             </div>
-                            <div class="col-md-6">
+                            <!-- /paneles-info -->
 
-                                <ul class="list-unstyled">
+                            <!-- botones requisitos -->
+                            <div class="col-md-6 requisitos-lista" id="requisitos-lista-{{$tipotramite->id}}"
+                                 data-tipotramite_id="{{$tipotramite->id}}">
+                                <ul>
                                     @foreach($tipotramite->requisitos as $requisito)
                                         <li>
                                             @include('ventanilla._form_requisitos',compact('tipotramite','requisito'))
                                         </li>
                                     @endforeach
                                 </ul>
-
-                                <div class="form-actions form-group">
-                                    {{ Form::submit('Iniciar trámite', array('class' => 'btn btn-primary')) }}
+                                <div class="form-actions form-group iniciar-tramite" style="display: none;">
+                                    <button class="btn btn-success" type="button">
+                                        <i class="glyphicon glyphicon-ok"></i> Iniciar trámite
+                                    </button>
                                 </div>
+                                <div class="form-actions form-group cancelar-tramite" data-tipotramite="{{$tipotramite->id}}" style="display: none;">
+                                    <button class="btn btn-warning" type="reset">
+                                        <i class="glyphicon glyphicon-remove"></i> Cancelar trámite
+                                    </button>
 
-
+                                </div>
                             </div>
+                            <!-- /botones requisitos -->
                         </div>
 
                     </div>
@@ -102,25 +145,34 @@
             </div>
         @endforeach
     </div>
+</form>
+
+{{ Form::open(array('url' => 'ventanilla/iniciar-tramite', 'method' => 'POST', 'id'=>'iniciar')) }}
+    {{ Form::hidden('clave',null, ['class'=>'clave']) }}
+    {{ Form::hidden('cuenta',null, ['class'=>'cuenta']) }}
+    {{ Form::hidden('tipotramite_id',null, ['class'=>'tipotramite_id']) }}
+{{ Form::close() }}
+
+    <!-- modal cargando -->
+    <div class="modal" id="loading-modal" tabindex="-1" role="dialog" aria-labelledby="loading-modal"
+         aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title" id="confirm-logout-title">Cargando...</h4>
+                </div>
+                <div class="modal-body">
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- /modal cargando -->
+
 @stop
 
 @section('javascript')
     {{ HTML::script('js/laroute.js') }}
-    <script>
-        $(function() {
-            $('.clave-catastral').change(function(ev){
-                var clave = $(this).val().trim();
-                if(clave == '') {
-                    return false;
-                }
-                //console.log(laroute.route('ventanilla.consulta-padron'));
-                $.get( laroute.route('ventanilla.consulta-padron'), {'clave': clave}, function( data ) {
-                    console.log( data );
-                    if(data == '') {
-                        console.log('No existe');
-                    }
-                });
-            });
-        });
-    </script>
+    {{ HTML::script('js/jquery.mask.min.js') }}
+    {{ HTML::script('js/ventanilla/primera-atencion.js') }}
 @append

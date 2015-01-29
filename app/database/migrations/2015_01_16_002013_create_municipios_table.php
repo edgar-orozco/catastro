@@ -44,7 +44,7 @@ class CreateMunicipiosTable extends Migration
      */
     public function down()
     {
-        Schema::drop('municipios');
         Schema::drop('user_municipio');
+        Schema::drop('municipios');
     }
 }

@@ -16,4 +16,11 @@ Route::get('ventanilla/consulta-padron', array(
     'before' => 'auth',
 ));
 
+/** Almacena los intentos de trámite, operación que se realiza cuando el ciudadano no presenta todos los requerimientos necesarios para el trámite **/
+Route::post('ventanilla/intento-tramite', array(
+    'as' => 'ventanilla.intento-tramite',
+    'uses' => 'VentanillaController@storeIntento',
+    'before' => 'auth',
+));
+
 App::bind('\Catastro\Repos\Padron\PadronRepositoryInterface', '\Catastro\Repos\Padron\PadronFiscalRepository');

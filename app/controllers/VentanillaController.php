@@ -42,7 +42,51 @@ class VentanillaController extends BaseController
     public function getFiscalByClaveCatastral()
     {
         $identificador = Request::get('clave');
-        return $this->padron->getByClaveOCuenta($identificador);
+        $identificador = strtoupper($identificador);
+        $res = $this->padron->getByClaveOCuenta($identificador);
+
+        //Si la clave no se encuentra, se ingresa como un intento con bandera no encontrado
+        if(!$res) {
+            $intento = new Intento();
+            $intento->clave = $identificador;
+            $intento->usuario_id = Auth::id();
+            $intento->noencontrado = true;
+            $intento->save();
+        }
+        return $res;
+    }
+
+    /**
+     * Almacena el intento de iniciar trámite, esto sucede cuando el ciudadano no presenta todos los requisitos necesarios para el trámite.
+     */
+    public function storeIntento() {
+
+        $intento = new Intento();
+        $clave = Input::get('clave');
+        $cuenta = Input::get('cuenta');
+        $tipotramite_id = Input::get('tipotramite_id');
+
+        $intento->clave = $clave;
+        $intento->cuenta = $cuenta;
+        $intento->tipotramite_id = $tipotramite_id;
+        $intento->usuario_id = Auth::id();
+
+        if(!$intento->save()){
+            return Redirect::back()->withErrors($intento->errors());
+        }
+
+        //Armamos un arreglo con los requisitos no presentados para guardarlos en la relacion
+        $requisitos = [];
+        foreach(Input::get('requisitos') as $requisito_id => $presentado) {
+            echo "rid: $requisito_id presentado: $presentado\n";
+            if(!$presentado) {
+                $requisitos[] = $requisito_id;
+            }
+        }
+        //dd($requisitos);
+        $intento->guardaRequisitos($requisitos);
+
+        return $intento->id;
     }
 }
 
