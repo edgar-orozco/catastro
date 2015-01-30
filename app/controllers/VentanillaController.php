@@ -42,6 +42,7 @@ class VentanillaController extends BaseController
     public function getFiscalByClaveCatastral()
     {
         $identificador = Request::get('clave');
+        $tipotramite_id = Request::get('tipotramite_id');
         $identificador = strtoupper($identificador);
         $res = $this->padron->getByClaveOCuenta($identificador);
 
@@ -51,6 +52,7 @@ class VentanillaController extends BaseController
             $intento->clave = $identificador;
             $intento->usuario_id = Auth::id();
             $intento->noencontrado = true;
+            $intento->tipotramite_id = $tipotramite_id;
             $intento->save();
         }
         return $res;

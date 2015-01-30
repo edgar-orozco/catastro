@@ -72,7 +72,7 @@ $(function () {
         if (clave == '') {
             return false;
         }
-        $.get(laroute.route('ventanilla.consulta-padron'), {'clave': clave.toUpperCase()}, function (data) {
+        $.get(laroute.route('ventanilla.consulta-padron'), {'clave': clave.toUpperCase(), 'tipotramite_id': tipotramite_id}, function (data) {
             if (data == '') {
                 //console.log('No existe el registro buscado');
                 $('.alert').show();
