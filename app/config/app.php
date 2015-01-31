@@ -126,6 +126,7 @@ return array(
         'Way\Generators\GeneratorsServiceProvider',
         'Lord\Laroute\LarouteServiceProvider',
 		'Catastro\Providers\MenuServiceProvider',
+		'Catastro\Providers\PadronRepositoryServiceProvider',
 	),
 
 	/*

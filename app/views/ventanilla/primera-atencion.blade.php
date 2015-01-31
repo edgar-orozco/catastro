@@ -125,7 +125,7 @@
                                         </li>
                                     @endforeach
                                 </ul>
-                                <div class="form-actions form-group iniciar-tramite" style="display: none;">
+                                <div class="form-actions form-group iniciar-tramite" data-tipotramite="{{$tipotramite->id}}" style="display: none;">
                                     <button class="btn btn-success" type="button">
                                         <i class="glyphicon glyphicon-ok"></i> Iniciar trámite
                                     </button>

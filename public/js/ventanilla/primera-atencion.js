@@ -146,6 +146,7 @@ $(function () {
         $(this).hide();
         console.log(ventanillaApp.getPredio());
         var tipotramite_id = $(this).data('tipotramite');
+        console.log(tipotramite_id);
         var predio = ventanillaApp.getPredio();
         $('#iniciar .clave').val(predio.clave);
         $('#iniciar .cuenta').val(predio.cuenta);
