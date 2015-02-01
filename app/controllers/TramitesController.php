@@ -30,7 +30,7 @@ class TramitesController extends BaseController {
 
         $requisitos = $tipotramite->requisitos;
 
-        echo "<h1>Aquí debe ir el guardado de archivos de los documentos escaneados</h1>";
+        echo "<h1>Aquí debe ir el guardado de archivos de los documentos escaneados</h1>\n";
 
         echo $clave." ".$cuenta." ".$tipotramite->nombre;
 
