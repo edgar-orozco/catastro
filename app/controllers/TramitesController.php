@@ -32,7 +32,7 @@ class TramitesController extends BaseController {
 
         echo "<h1>Aquí debe ir el guardado de archivos de los documentos escaneados</h1>\n";
 
-        echo $clave." ".$cuenta." ".$tipotramite->nombre;
+        echo $clave." ".$cuenta." ".$tipotramite->nombre."<br>";
 
 
         foreach($requisitos as $requisito ) {
