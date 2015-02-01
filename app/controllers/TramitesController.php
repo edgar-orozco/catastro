@@ -1,5 +1,4 @@
 <?php
-
 use \Catastro\Repos\Padron\PadronRepositoryInterface;
 
 
