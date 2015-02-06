@@ -7,27 +7,27 @@
             - Sistema de Gestión Catastral
         @show
     </title>
-    <!-- CDN para CSS bootstrap -->
-    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css">
-
-    <!-- CDN Para JQuery -->
-    <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
-
-    <!-- CDN Para JS Bootstrap -->
-    <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
-
-    <!-- CDN Para AngularJS -->
-    <script src="//code.angularjs.org/1.3.5/angular.js"></script>
-    <script src="//code.angularjs.org/1.3.5/angular-resource.min.js"></script>
-    <script src="//code.angularjs.org/1.3.5/angular-sanitize.min.js"></script>
-    <script src="//code.angularjs.org/1.3.5/angular-animate.min.js"></script>
-    <script src="//angular-ui.github.io/bootstrap/ui-bootstrap-tpls-0.12.0.min.js"></script>
+    <!-- CSS bootstrap -->
+    {{ HTML::style('css/bootstrap.min.css') }}
 
     <!-- css general de la app -->
     {{ HTML::style('css/general.css') }}
 
     <!-- Navbar css custom menu -->
     {{ HTML::style('css/navmenu.css') }}
+
+    <!-- JQuery -->
+    {{ HTML::script('js/jquery.min.js') }}
+
+    <!-- JS Bootstrap -->
+    {{ HTML::script('js/bootstrap.min.js') }}
+
+    <!-- AngularJS -->
+    {{ HTML::script('js/angular.js') }}
+    {{ HTML::script('js/angular-resource.min.js') }}
+    {{ HTML::script('js/angular-sanitize.min.js') }}
+    {{ HTML::script('js/angular-animate.min.js') }}
+    {{ HTML::script('js/ui-bootstrap-tpls-0.12.0.min.js') }}
 
     <style>
         @yield('styles')
