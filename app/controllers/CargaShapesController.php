@@ -26,17 +26,28 @@ class CargaShapesController extends BaseController
      */
     public function upload()
     {
-        // Se valida que exista un archivos
+        // Se valida que exista un archivo
         if(Input::file('shape')) {
+
             // Se valida el directorio para subir shapes
             $dir = __DIR__ . '/../storage/shapes';
             if (!file_exists($dir) && !is_dir($dir)) {
                 mkdir($dir);
             }
 
-            Input::file('shape')->move($dir, Input::file('shape')->getClientOriginalName());
-            return Redirect::to('admin/carga-shapes')->with('success',
-                '¡Se guardo correctamente el archivo: '. Input::file('shape')->getClientOriginalName() .'!');
+            // Se valida la extensión del archivo
+            error_log(Input::file('shape')->getClientMimeType());
+            if(in_array(strtolower(Input::file('shape')->getClientMimeType()), array('application/x-gzip', 'application/zip', 'application/x-tar', 'application/octet-stream')))
+            {
+                Input::file('shape')->move($dir, Input::file('shape')->getClientOriginalName());
+
+                return Redirect::to('admin/carga-shapes')->with('success',
+                    '¡Se guardo correctamente el archivo: '. Input::file('shape')->getClientOriginalName() .'!');
+            }
+
+            return Redirect::to('admin/carga-shapes')->with('error',
+                'Extensión de archivo invalida en "'.Input::file('shape')->getClientOriginalName().'", los formatos validos son .zip, .rar, .tar, .tgz y .gz.');
+
         }
 
         return Redirect::to('admin/carga-shapes')->with('notice',

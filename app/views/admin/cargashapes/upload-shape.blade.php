@@ -19,7 +19,7 @@
                             {{Form::label('shape','Selecciona un archivo')}}
                             {{Form::file('shape', null, ['class'=>'form-control', 'required' => 'required'] )}}
                             <p class="help-block">
-                                Las extensiones permitidas son .zip, .rar, .tgz y .gz.
+                                Las extensiones permitidas son .zip, .rar, .tar, .tgz y .gz.
                             </p>
                         </div>
                         <div class="form-actions form-group text-right">
