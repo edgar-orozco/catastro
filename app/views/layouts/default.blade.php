@@ -68,7 +68,7 @@
                             <b class="caret"></b>
                         </a>
                         <ul role="menu" class="dropdown-menu">
-                            <li><a href="#">Mis datos</a></li>
+                            <li><a href="{{ URL::action('ProfileController@index') }}">Mis datos</a></li>
                             <li><a href="#">Modificar cuenta</a></li>
                         </ul>
                     </li>

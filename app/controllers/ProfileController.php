@@ -11,6 +11,11 @@ class ProfileController extends BaseController
      */
     public function index()
     {
+        // Title
+        $title = "Mis datos";
+        // Title
+        $title_section = "Mis datos";
 
+        return View::make('profile.index', compact('title', 'title_section'));
     }
 }

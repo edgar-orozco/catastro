@@ -9,6 +9,6 @@
 
 Route::get('profile/mis-datos', array(
     'as' => 'profle.mis-datos',
-    'uses' => '',
+    'uses' => 'ProfileController@index',
     'before' => 'auth'
 ));
