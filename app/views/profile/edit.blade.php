@@ -79,10 +79,14 @@
                                 </tbody>
                             </table>
                         </form>
-                        <button type="button" class="btn btn-success pull-right" ng-hide="loading" ng-disabled="formUser.$invalid || checkPassword()" ng-click="updateUser()">
+                        <a href="{{ URL::action('ProfileController@index') }}" ng-hide="loading" class="btn btn-primary">
+                            Regresar
+                        </a>
+                        &nbsp; &nbsp;
+                        <button type="button" class="btn btn-success" ng-hide="loading" ng-disabled="formUser.$invalid || checkPassword()" ng-click="updateUser()">
                             Actualizar datos
                         </button>
-                        <span class="glyphicon glyphicon-refresh spin pull-right" ng-show="loading"></span>
+                        <span class="glyphicon glyphicon-refresh spin" ng-show="loading"></span>
                     </div>
                 </div>
             </div>
