@@ -12,3 +12,9 @@ Route::get('profile/mis-datos', array(
     'uses' => 'ProfileController@index',
     'before' => 'auth'
 ));
+
+Route::get('profile/editar', array(
+    'as' => 'profle.editar',
+    'uses' => 'ProfileController@edit',
+    'before' => 'auth'
+));
