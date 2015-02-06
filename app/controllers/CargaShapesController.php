@@ -17,6 +17,6 @@ class CargaShapesController extends BaseController
         // Title
         $title_section = "Carga Cartográfica";
 
-        return View::make('cargashapes.index', compact('title', 'title_section'));
+        return View::make('admin.cargashapes.upload-shape', compact('title', 'title_section'));
     }
 }
