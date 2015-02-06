@@ -43,7 +43,7 @@
         <li class="divider"></li>
 
         <li class="@if(Request::is('admin/carga-shapes')) active @endif">
-            <a href="#">
+            <a href="{{URL::to('admin/carga-shapes')}}">
                 <i class="glyphicon glyphicon-cloud-upload"></i>&nbsp;
                 Carga Cartográfica
             </a>
