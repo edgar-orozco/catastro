@@ -15,4 +15,10 @@ Route::group(array('before' => 'admin'), function () {
         'before' => 'auth'
     ));
 
+    Route::any('admin/carga-shapes/upload', array(
+        'as' => 'admin.cargashapes.upload',
+        'uses' => 'CargaShapesController@upload',
+        'before' => 'auth'
+    ));
+
 });
