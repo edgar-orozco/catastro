@@ -63,7 +63,3 @@
     </div>
 @stop
 
-@section('javascript')
-    {{ HTML::script('js/laroute.js') }}
-@stop
-

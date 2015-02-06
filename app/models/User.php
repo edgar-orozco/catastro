@@ -189,6 +189,21 @@ class User extends Eloquent implements ConfideUserInterface
         return $users;
 
     }
+    /**
+     * Funcion para crear el arreglo de datos que espera procesar angular
+     * @return array
+     */
+    public function datosProfile(){
+
+        return htmlspecialchars(json_encode(array(
+                'id'             => $this->id,
+                'username'       => $this->username,
+                'email'          => $this->email,
+                'nombre'         => $this->nombre,
+                'apepat'         => $this->apepat,
+                'apemat'         => $this->apemat,
+            )), ENT_QUOTES, 'UTF-8');
+    }
 
     /**
      * Devuelve el numero total de usuarios registrados
