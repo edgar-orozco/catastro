@@ -194,7 +194,10 @@ class User extends Eloquent implements ConfideUserInterface
      * @return array
      */
     public function datosProfile(){
-
+        $roles = array();
+        foreach($this->roles as $rol){
+            $roles[] = $rol->id;
+        }
         return htmlspecialchars(json_encode(array(
                 'id'             => $this->id,
                 'username'       => $this->username,
@@ -202,6 +205,7 @@ class User extends Eloquent implements ConfideUserInterface
                 'nombre'         => $this->nombre,
                 'apepat'         => $this->apepat,
                 'apemat'         => $this->apemat,
+                'roles'          => $roles
             )), ENT_QUOTES, 'UTF-8');
     }
 

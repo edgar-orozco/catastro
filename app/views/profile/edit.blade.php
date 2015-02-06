@@ -13,7 +13,7 @@
 
         <div class="panel panel-info">
             <div class="panel-heading">
-                <h3 class="panel-title">{[{ user.name +' '+user.apepat+' '+user.apemat }]}</h3>
+                <h3 class="panel-title">{[{ user.nombre +' '+user.apepat+' '+user.apemat }]}</h3>
             </div>
             <div class="panel-body">
                 <div class="row">
@@ -79,9 +79,10 @@
                                 </tbody>
                             </table>
                         </form>
-                        <button type="button" class="btn btn-success pull-right" ng-disabled="formUser.$invalid || checkPassword()" ng-click="updateUser()">
+                        <button type="button" class="btn btn-success pull-right" ng-hide="loading" ng-disabled="formUser.$invalid || checkPassword()" ng-click="updateUser()">
                             Actualizar datos
                         </button>
+                        <span class="glyphicon glyphicon-refresh spin pull-right" ng-show="loading"></span>
                     </div>
                 </div>
             </div>

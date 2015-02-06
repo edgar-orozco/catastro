@@ -27,23 +27,21 @@ angular.module('app', ['ngAnimate', 'ngResource', 'ngSanitize']).
      * Control para manejar los datos del profile
      */
     controller('ProfileCtrl', function($scope, Users) {
-        $scope.loading = true;
+        $scope.loading = false;
         $scope.user = {};
         var afterSave = function(response){
             // Se revisa la repuesta, si se guardo correctamente el form
             // se limpia y muestra un mensaje de exito
             if(response.status == 'success'){
-                window.location = "profile/"
+                window.location = laroute.action('ProfileController@index');
             }
             // Si no se guardo correctamente el form,
             // se muestran los mensajes de error correspondientes
             else{
+                $scope.loading = false;
                 $scope.user.error = true;
                 $scope.user.errors = response.data.errors;
             }
-            // Se mueve el scroll a la parte superior
-            $location.hash('top');
-            $anchorScroll();
         };
         /**
          * Funcion para iniciar la aplicacion
@@ -57,6 +55,7 @@ angular.module('app', ['ngAnimate', 'ngResource', 'ngSanitize']).
          * @param user
          */
         $scope.updateUser = function(){
+            $scope.loading = true;
             Users.update({ id : $scope.user.id },$scope.user,function(response){
                 afterSave(response);
             });

@@ -26,7 +26,7 @@
                             </tr>
                             <tr>
                                 <td>Nombre</td>
-                                <td>{{{ Auth::user()->name ? Auth::user()->name : '-' }}}</td>
+                                <td>{{{ Auth::user()->nombre ? Auth::user()->nombre : '-' }}}</td>
                             </tr>
                             <tr>
                                 <td>Apellidos</td>
