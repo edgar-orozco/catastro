@@ -69,7 +69,7 @@
                         </a>
                         <ul role="menu" class="dropdown-menu">
                             <li><a href="{{ URL::action('ProfileController@index') }}">Mis datos</a></li>
-                            <li><a href="#">Modificar cuenta</a></li>
+                            <li><a href="{{ URL::action('ProfileController@edit') }}">Modificar cuenta</a></li>
                         </ul>
                     </li>
                     <li>

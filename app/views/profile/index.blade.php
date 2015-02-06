@@ -55,7 +55,7 @@
 
                             </tbody>
                         </table>
-                        <a href="#" class="btn btn-primary pull-right">Editar datos</a>
+                        <a href="{{ URL::action('ProfileController@edit') }}" class="btn btn-primary pull-right">Editar datos</a>
                     </div>
                 </div>
             </div>
