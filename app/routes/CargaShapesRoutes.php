@@ -1,7 +1,18 @@
 <?php
 /**
- * Created by PhpStorm.
- * User: david
- * Date: 06/02/15
- * Time: 16:01
+ * Created by david.
  */
+
+/**
+ * Rutas para la carga de shapes
+ */
+
+Route::group(array('before' => 'admin'), function () {
+
+    Route::get('admin/carga-shapes', array(
+        'as' => 'admin.cargashapes',
+        'uses' => 'ProfileController@index',
+        'before' => 'auth'
+    ));
+
+});
