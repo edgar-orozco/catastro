@@ -119,7 +119,7 @@
                             <i class="glyphicon glyphicon-cloud-upload gi-5x"></i>
                         </div>
                         <div class="col-xs-9 text-right">
-                            <div class="huge">0</div>
+                            <div class="huge">{{ ShapesHelper::countShapes() }}</div>
                             <div>Archivos cargados</div>
                         </div>
                     </div>
