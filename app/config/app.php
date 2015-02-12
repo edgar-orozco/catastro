@@ -127,6 +127,7 @@ return array(
         'Lord\Laroute\LarouteServiceProvider',
 		'Catastro\Providers\MenuServiceProvider',
 		'Catastro\Providers\PadronRepositoryServiceProvider',
+		'Catastro\Providers\DatabaseLogServiceProvider',
 	),
 
 	/*
