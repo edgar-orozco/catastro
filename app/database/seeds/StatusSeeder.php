@@ -1,5 +1,5 @@
 <?php
-class RoleSeeder extends Seeder {
+class StatusSeeder extends Seeder {
     public function run()
     {
         DB::table('cat_status')->delete();
