@@ -7,21 +7,8 @@
             - Sistema de Gestión Catastral
         @show
     </title>
-    <!-- CDN para CSS bootstrap -->
-    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css">
-
-    <!-- CDN Para JQuery -->
-    <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
-
-    <!-- CDN Para JS Bootstrap -->
-    <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
-
-    <!-- CDN Para AngularJS -->
-    <script src="//code.angularjs.org/1.3.5/angular.js"></script>
-    <script src="//code.angularjs.org/1.3.5/angular-resource.min.js"></script>
-    <script src="//code.angularjs.org/1.3.5/angular-sanitize.min.js"></script>
-    <script src="//code.angularjs.org/1.3.5/angular-animate.min.js"></script>
-    <script src="//angular-ui.github.io/bootstrap/ui-bootstrap-tpls-0.12.0.min.js"></script>
+    <!-- CSS bootstrap -->
+    {{ HTML::style('css/bootstrap.css') }}
 
     <!--fancybox-->
        {{ HTML::style('/css/jquery.fancybox.css') }}
@@ -95,8 +82,8 @@ $(document).ready(function () {
                             <b class="caret"></b>
                         </a>
                         <ul role="menu" class="dropdown-menu">
-                            <li><a href="#">Mis datos</a></li>
-                            <li><a href="#">Modificar cuenta</a></li>
+                            <li><a href="{{ URL::action('ProfileController@index') }}">Mis datos</a></li>
+                            <li><a href="{{ URL::action('ProfileController@edit') }}">Modificar cuenta</a></li>
                         </ul>
                     </li>
                     <li>
@@ -170,6 +157,19 @@ $(document).ready(function () {
         </div>
     </div>
 </div>
+
+<!-- JQuery -->
+{{ HTML::script('js/jquery/jquery.min.js') }}
+
+<!-- JS Bootstrap -->
+{{ HTML::script('js/bootstrap.min.js') }}
+
+<!-- AngularJS -->
+{{ HTML::script('js/angular/angular.js') }}
+{{ HTML::script('js/angular/angular-resource.js') }}
+{{ HTML::script('js/angular/angular-sanitize.js') }}
+{{ HTML::script('js/angular/angular-animate.js') }}
+{{ HTML::script('js/ui-bootstrap.js') }}
 
 @yield('javascript')
 

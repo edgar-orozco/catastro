@@ -9,4 +9,8 @@ Thumbs.db
 _ide_helper.php
 
 public/js/laroute.js
+<<<<<<< HEAD
 /nbproject/private/
+=======
+app/storage
+>>>>>>> aaab2b194863aa20239b95ff595d18a053dadbf3
