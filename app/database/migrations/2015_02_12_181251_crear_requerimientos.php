@@ -15,20 +15,20 @@ class CrearRequerimientos extends Migration {
 		Schema::create('requerimientos', function ($table) 
 		{
 			$table->increments('id_requerimiento');
-			$table->INT4('id_ejecucion_fiscal');
-			$table->VARCHAR('cve_status', 2);
+			$table->integer('id_ejecucion_fiscal');
+			$table->string('cve_status', 2);
 			$table->DATE('f_requerimiento');
 			$table->DATE('f_notificacion');
-			$table->INT4('id_ejecutor');
-			$table->VARCHAR('via_notificacion', 500);
-			$table->VARCHAR('nombre_persona_notificada', 200);
-			$table->VARCHAR('tipo_identificacion',200);
-			$table->VARCHAR('clave_identificacion', 200);
-			$table->VARCHAR('observaciones', 4000);
-			$table->VARCHAR('usuario', 20);
+			$table->integer('id_ejecutor');
+			$table->string('via_notificacion', 500);
+			$table->string('nombre_persona_notificada', 200);
+			$table->string('tipo_identificacion',200);
+			$table->string('clave_identificacion', 200);
+			$table->string('observaciones', 4000);
+			$table->string('usuario', 20);
 			$table->DATE('f_alta');
 			$table->DATE('f_modificacion');
-		}
+		});
 	}
 
 	/**

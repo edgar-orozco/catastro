@@ -12,13 +12,14 @@ class CrearCatStatus extends Migration {
 	 */
 	public function up()
 	{
-		chema::create('cat_status', function($table)
+		Schema::create('cat_status', function($table)
 		{
 		$table->increments('id_status');
-		$table->VARCHAR('cve_status', 2);
-		$table->VARCHAR('descrip', 120);
+		$table->string('cve_status', 2);
+		$table->string('descrip', 120);
 		$table->DATE('fecha_alta');
-		$table->VARCHAR('usuario_alta', 100);	
+		$table->string('usuario_alta', 100);	
+		});
 	}
 
 	/**

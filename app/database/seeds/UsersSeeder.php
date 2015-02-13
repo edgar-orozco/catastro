@@ -4,7 +4,7 @@
  * Pobla la base de datos de usuarios para pruebas.
  * Class UsersSeeder
  */
-class UsersSeeder extends Seeder {
+class StatussSeeder extends Seeder {
     public function run()
     {
         $faker = Faker\Factory::create('es_AR');
