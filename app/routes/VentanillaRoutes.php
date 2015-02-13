@@ -23,4 +23,3 @@ Route::post('ventanilla/intento-tramite', array(
     'before' => 'auth',
 ));
 
-App::bind('\Catastro\Repos\Padron\PadronRepositoryInterface', '\Catastro\Repos\Padron\PadronFiscalRepository');

@@ -8,14 +8,7 @@
         @show
     </title>
     <!-- CDN para CSS bootstrap -->
-    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css">
-
-    <!-- CDN Para JQuery -->
-    <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
-
-    <!-- CDN Para JS Bootstrap -->
-    <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
-
+    {{ HTML::style('css/bootstrap.css') }}
 
     @yield('styles')
 
@@ -49,6 +42,12 @@
 
     @yield('content')
 </div>
+
+<!-- JQuery -->
+{{ HTML::script('js/jquery/jquery.min.js') }}
+
+<!-- JS Bootstrap -->
+{{ HTML::script('js/bootstrap.min.js') }}
 
 @yield('javascript')
 

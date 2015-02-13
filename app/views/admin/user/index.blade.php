@@ -70,7 +70,7 @@
 @stop
 
 @section('javascript')
-    {{ HTML::script('js/dirPagination.js') }}
+    {{ HTML::script('js/plugins/dirPagination.js') }}
     {{ HTML::script('js/user/users.js') }}
     {{ HTML::script('js/laroute.js') }}
 @stop

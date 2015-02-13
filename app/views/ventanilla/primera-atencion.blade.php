@@ -125,7 +125,7 @@
                                         </li>
                                     @endforeach
                                 </ul>
-                                <div class="form-actions form-group iniciar-tramite" style="display: none;">
+                                <div class="form-actions form-group iniciar-tramite" data-tipotramite="{{$tipotramite->id}}" style="display: none;">
                                     <button class="btn btn-success" type="button">
                                         <i class="glyphicon glyphicon-ok"></i> Iniciar trámite
                                     </button>
@@ -147,7 +147,7 @@
     </div>
 </form>
 
-{{ Form::open(array('url' => 'ventanilla/iniciar-tramite', 'method' => 'POST', 'id'=>'iniciar')) }}
+{{ Form::open(array('url' => 'ventanilla/iniciar-tramite', 'method' => 'GET', 'id'=>'iniciar')) }}
     {{ Form::hidden('clave',null, ['class'=>'clave']) }}
     {{ Form::hidden('cuenta',null, ['class'=>'cuenta']) }}
     {{ Form::hidden('tipotramite_id',null, ['class'=>'tipotramite_id']) }}
@@ -173,6 +173,6 @@
 
 @section('javascript')
     {{ HTML::script('js/laroute.js') }}
-    {{ HTML::script('js/jquery.mask.min.js') }}
+    {{ HTML::script('js/jquery/jquery.mask.min.js') }}
     {{ HTML::script('js/ventanilla/primera-atencion.js') }}
 @append

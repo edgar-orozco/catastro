@@ -25,7 +25,11 @@
 			"app/database/seeds",
 		  	"app/providers",
 		  	"app/tests/TestCase.php"
+		],
+		"files": [
+		  "app/libraries/ShapesHelper.php"
 		]
+
 	},
 	"scripts": {
 		"post-install-cmd": [

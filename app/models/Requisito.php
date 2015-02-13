@@ -43,6 +43,10 @@ class Requisito extends Ardent {
         return $this->belongsToMany('Tipotramite');
     }
 
+    public function tramites() {
+        return $this->belongsToMany('Tramite', 'requisito_tramite');
+    }
+
     /**
      * Devuelve el número total de reqiuisitos registrados
      * @return int
@@ -50,7 +54,5 @@ class Requisito extends Ardent {
     public static function totalRequisitos() {
         return self::all()->count();
     }
-
-
 
 }

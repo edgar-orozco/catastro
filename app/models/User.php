@@ -10,7 +10,7 @@ class User extends Eloquent implements ConfideUserInterface
     use ConfideUser;
     use HasRole;
 
-    protected $fillable = ['username', 'email', 'password', 'nombre', 'apepat', 'apemat', 'roles'];
+    protected $fillable = ['username', 'email', 'password', 'nombre', 'apepat', 'apemat', 'roles', 'municipios'];
 
     /**
      * The database table used by the model.
@@ -25,6 +25,16 @@ class User extends Eloquent implements ConfideUserInterface
      * @var array
      */
     protected $hidden = array('password', 'remember_token');
+
+    /**
+     * Many-to-Many relacion con Municipios
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
+    public function municipios()
+    {
+        return $this->belongsToMany('Municipio', 'user_municipio', 'usuario_id', 'municipio_id');
+    }
 
     /**
      * Get user by username
@@ -133,6 +143,35 @@ class User extends Eloquent implements ConfideUserInterface
         return implode(" ", $nombreCompleto);
     }
 
+    /**
+     * Funcion para regresar la cadena solo con los apellidos de un usurio
+     * @return string
+     */
+    public function apellidos(){
+        return $this->apepat.' '.$this->apemat;
+    }
+
+    /**
+     * Funcion para regresar la lista de los municipos a los que pertenece un usuario
+     * @return array|string
+     */
+    public function municipiosPertenece(){
+        $municipios = array();
+        if(count($this->municipios) > 0){
+            foreach($this->municipios as $municipio){
+                $municipios[] = $municipio->nom_mpo;
+            }
+        }
+        else{
+            $municipios[] = 'Todos';
+        }
+        return $municipios;
+    }
+
+    /**
+     * Funcion para crear el arreglo de datos que espera procesar angular
+     * @return array
+     */
     public function listAngular(){
         $users = array();
         foreach($this->all() as $user){
@@ -149,6 +188,25 @@ class User extends Eloquent implements ConfideUserInterface
         }
         return $users;
 
+    }
+    /**
+     * Funcion para crear el arreglo de datos que espera procesar angular
+     * @return array
+     */
+    public function datosProfile(){
+        $roles = array();
+        foreach($this->roles as $rol){
+            $roles[] = $rol->id;
+        }
+        return htmlspecialchars(json_encode(array(
+                'id'             => $this->id,
+                'username'       => $this->username,
+                'email'          => $this->email,
+                'nombre'         => $this->nombre,
+                'apepat'         => $this->apepat,
+                'apemat'         => $this->apemat,
+                'roles'          => $roles
+            )), ENT_QUOTES, 'UTF-8');
     }
 
     /**

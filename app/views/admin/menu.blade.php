@@ -11,16 +11,13 @@
                 Usuarios
             </a>
         </li>
-
         <li class="divider"></li>
-
         <li class="@if(Request::is('admin/permission')) active @endif">
             <a href="{{URL::to('admin/permission')}}">
                 <i class="glyphicon glyphicon-lock"></i>&nbsp;
                 Permisos
             </a>
         </li>
-
         <li class="@if(Request::is('admin/role')) active @endif">
             <a href="{{URL::to('admin/role')}}">
                 <i class="glyphicon glyphicon-tags"></i>&nbsp;
@@ -41,6 +38,14 @@
             <a href="{{URL::to('admin/requisitos')}}">
                 <i class="glyphicon glyphicon-list-alt"></i>&nbsp;
                 Requisitos de trámites
+            </a>
+        </li>
+        <li class="divider"></li>
+
+        <li class="@if(Request::is('admin/carga-shapes')) active @endif">
+            <a href="{{URL::to('admin/carga-shapes')}}">
+                <i class="glyphicon glyphicon-cloud-upload"></i>&nbsp;
+                Carga Cartográfica
             </a>
         </li>
 

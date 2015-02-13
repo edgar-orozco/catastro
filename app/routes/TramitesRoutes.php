@@ -21,3 +21,22 @@ Route::group(array('before' => 'admin'), function () {
     Route::resource('admin/tipotramites', 'TipotramitesController');
 
 });
+
+//Ruta para la captura de documentos al iniciar un trámite.
+Route::get(
+    'ventanilla/iniciar-tramite',
+    array(
+        'as' => 'ventanilla.iniciar-tramite',
+        'uses' => 'TramitesController@indexDocumentos',
+        'before' => 'auth',
+    )
+);
+
+Route::post(
+    'tramites/guardar-documentos',
+    array(
+        'as' => 'tramites.guardar-documentos',
+        'uses' => 'TramitesController@storeDocumentos',
+        'before' => 'auth',
+    )
+);
