@@ -1,12 +1,10 @@
-<div class="btn-group btn-toggle botones-requisitos" data-toggle="buttons" data-requisito="{{$requisito->id}}"
-     style="display: none;">
+
+<div class="btn-group btn-toggle botones-requisitos" data-toggle="buttons">
     <label class="btn btn-sm btn-default">
-        <input type="radio" class="radio-requisito" name="requisitos[{{$tipotramite->id}}][{{$requisito->id}}]"
-               value="1" data-tipotramite="{{$tipotramite->id}}" data-requisito="{{$requisito->id}}"> SI
+        <input type="radio" name="requisitos[{{$tipotramite->id}}][{{$requisito->id}}]" value="1" data-tipotramite="{{$tipotramite->id}}" data-requisito="{{$requisito->id}}"> SI
     </label>
     <label class="btn btn-sm btn-default">
-        <input type="radio" class="radio-requisito" name="requisitos[{{$tipotramite->id}}][{{$requisito->id}}]"
-               value="0" data-tipotramite="{{$tipotramite->id}}" data-requisito="{{$requisito->id}}"> NO
+        <input type="radio" name="requisitos[{{$tipotramite->id}}][{{$requisito->id}}]" value="0" data-tipotramite="{{$tipotramite->id}}" data-requisito="{{$requisito->id}}"> NO
     </label>
 </div>
 {{$requisito->nombre}} {{$requisito->pivot->original ? 'original' : ''}}

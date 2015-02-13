@@ -18,7 +18,7 @@ class CreateIntentosTable extends Migration {
 			$table->string('clave')->nullable();
 			$table->string('cuenta')->nullable();
 			$table->boolean('noencontrado')->default(false);
-			$table->integer('tipotramite_id')->nullable();
+			$table->integer('tipotramite_id');
 			$table->integer('usuario_id');
 			$table->foreign('usuario_id')->references('id')->on('users')->onUpdate('cascade')->onDelete('cascade');
 			$table->foreign('tipotramite_id')->references('id')->on('tipotramites')->onUpdate('cascade')->onDelete('cascade');
@@ -43,8 +43,8 @@ class CreateIntentosTable extends Migration {
 	 */
 	public function down()
 	{
-		Schema::drop('requisito_intento');
 		Schema::drop('intentos');
+		Schema::drop('requisito_intento');
 	}
 
 }

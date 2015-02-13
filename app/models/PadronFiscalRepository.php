@@ -1,6 +1,5 @@
-<?php namespace Catastro\Repos\Padron;
-
-use \PadronFiscal;
+<?php
+use Catastro\Repos\Padron\PadronRepositoryInterface;
 
 class PadronFiscalRepository implements PadronRepositoryInterface
 {
@@ -24,32 +23,22 @@ class PadronFiscalRepository implements PadronRepositoryInterface
     }
 
     /**
+     * Obtiene un registro del padrón dado su id
+     * @param $id
+     * @return mixed
+     */
+    public function getById($id)
+    {
+        // TODO: Implement getById() method.
+    }
+
+    /**
      * Obtiene un registro del padron dada su clave catastral
      * @param $clave
      * @return mixed
      */
     public function getByClaveCatastral($clave)
     {
-        return PadronFiscal::where('clave', $clave)->first();
-    }
-
-    /**
-     * Obtiene un registro del padrón dado su número de cuenta
-     * @param $cuenta
-     * @return mixed
-     */
-    public function getByCuenta($cuenta)
-    {
-        return PadronFiscal::where('cuenta', $cuenta)->first();
-    }
-
-    /**
-     * Obtiene un registro del padrón ya sea por su clave o por su cuenta
-     * @param $identificador
-     * @return mixed
-     */
-    public function getByClaveOCuenta($identificador)
-    {
-        return PadronFiscal::where('clave',$identificador)->orWhere('cuenta', $identificador)->first();
+        // TODO: Implement getByClaveCatastral() method.
     }
 }
