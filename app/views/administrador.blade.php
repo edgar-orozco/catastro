@@ -125,7 +125,7 @@
                 </div>
                 <a href="{{URL::to('admin/carga-shapes')}}">
                     <div class="panel-footer">
-                        <span class="pull-left">Carga Cartográfica</span>
+                        <span class="pull-left">Actualización Cartográfica</span>
                         <span class="pull-right"><i class="glyphicon glyphicon-circle-arrow-right"></i></span>
                         <div class="clearfix"></div>
                     </div>
