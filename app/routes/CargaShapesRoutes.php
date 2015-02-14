@@ -7,7 +7,7 @@
  * Rutas para la carga de shapes
  */
 
-Route::group(array('before' => 'admin'), function () {
+Route::group(array('before' => 'cartografia'), function () {
 
     Route::get('admin/carga-shapes', array(
         'as' => 'admin.cargashapes',
@@ -21,4 +21,15 @@ Route::group(array('before' => 'admin'), function () {
         'before' => 'auth'
     ));
 
+});
+
+/*
+ * Filtro para detección de roles de cartografía o permisos para actualizar la cartografia
+ */
+Route::filter('cartografia', function () {
+
+    if (! ( Entrust::hasRole('Cartógrafo') ||  Entrust::can('actualizar_cartografia') ) ) // Checks the current user
+    {
+        return Redirect::to('/');
+    }
 });

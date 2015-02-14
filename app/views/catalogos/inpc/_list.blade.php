@@ -21,7 +21,7 @@
             @foreach($inpcs as $row)
             <tr>
                 <td>
-                    {{$row->mes}}
+                    {{$row->nombre_mes}}
                 </td>
                 <td>
                     {{$row->anio}}

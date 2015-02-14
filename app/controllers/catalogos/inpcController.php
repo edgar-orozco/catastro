@@ -83,9 +83,11 @@ class catalogos_inpcController extends \BaseController {
         $inputs = Input::All();
         //reglas
         $reglas = array(
-            'mes' => 'required',
+            //'mes' => 'required',
+            'nombre_mes'=>'required',
             'anio' => 'required',
             'inpc' => 'required',
+            
         );
         //Mensaje
         $mensajes = array(
@@ -98,9 +100,11 @@ class catalogos_inpcController extends \BaseController {
             return Redirect::back()->withErrors($validar);
         } else {
             $n = new inpc;
-            $n->mes = $inputs["mes"];
+            //$n->mes = $inputs["mes"];
+            
             $n->anio = $inputs["anio"];
             $n->inpc = $inputs["inpc"];
+            $n->nombre_mes = $inputs["nombre_mes"];
             $n->save();
              
         //Se han guardado los valores, expresamos al usuario nuestra felicidad al respecto.
@@ -142,9 +146,10 @@ class catalogos_inpcController extends \BaseController {
     {
         $inputs = Input::All();
         $datos = inpc::find($id);
-        $datos->mes = $inputs["mes"];
+        //$datos->mes = $inputs["mes"];
         $datos->anio = $inputs["anio"];
         $datos->inpc = $inputs["inpc"];
+        $datos->nombre_mes = $inputs["nombre_mes"];
         $mostrar=$inputs["inpc"];
         $datos->save();
         //Se han actualizado los valores expresamos la felicidad que se logro Wiiiii....

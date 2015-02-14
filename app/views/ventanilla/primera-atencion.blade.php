@@ -173,6 +173,6 @@
 
 @section('javascript')
     {{ HTML::script('js/laroute.js') }}
-    {{ HTML::script('js/jquery.mask.min.js') }}
+    {{ HTML::script('js/jquery/jquery.mask.min.js') }}
     {{ HTML::script('js/ventanilla/primera-atencion.js') }}
 @append
