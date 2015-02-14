@@ -4,31 +4,31 @@ class tiposiespecialesSeeder extends Seeder {
     {
         DB::table('tiposiespeciales')->delete();
         DB::table('tiposiespeciales')->insert(
-            array('descripcion' => 'BOMBA HIDRAULICA', 'createat' => date("Y-m-d H:i:s") )
+            array('descripcion' => 'BOMBA HIDRAULICA', 'created_at' => date("Y-m-d H:i:s"),'updated_at' => date("Y-m-d H:i:s") )
         );
         DB::table('tiposiespeciales')->insert(
-            array('descripcion' => 'POZO DE AGUA', 'createat' => date("Y-m-d H:i:s") )
+            array('descripcion' => 'POZO DE AGUA', 'created_at' => date("Y-m-d H:i:s"),'updated_at' => date("Y-m-d H:i:s") )
         );
         DB::table('tiposiespeciales')->insert(
-            array('descripcion' => 'ALBERCA','createat' => date("Y-m-d H:i:s"))
+            array('descripcion' => 'ALBERCA','created_at' => date("Y-m-d H:i:s"),'updated_at' => date("Y-m-d H:i:s"))
         );
         DB::table('tiposiespeciales')->insert(
-            array('descripcion' => 'ESPECTACULARES','createat' => date("Y-m-d H:i:s"))
+            array('descripcion' => 'ESPECTACULARES','created_at' => date("Y-m-d H:i:s"),'updated_at' => date("Y-m-d H:i:s"))
         );
         DB::table('tiposiespeciales')->insert(
-            array('descripcion' => 'SISTEMA DE INCENDIO','createat' => date("Y-m-d H:i:s") )
+            array('descripcion' => 'SISTEMA DE INCENDIO','created_at' => date("Y-m-d H:i:s"),'updated_at' => date("Y-m-d H:i:s") )
         );
         DB::table('tiposiespeciales')->insert(
-            array('descripcion' => 'SISTEMA DE ALARMAS','createat' => date("Y-m-d H:i:s") )
+            array('descripcion' => 'SISTEMA DE ALARMAS','created_at' => date("Y-m-d H:i:s"),'updated_at' => date("Y-m-d H:i:s") )
         );
         DB::table('tiposiespeciales')->insert(
-            array('descripcion' => 'CÁMARAS DE VIGILANCIA','createat' => date("Y-m-d H:i:s") )
+            array('descripcion' => 'CÁMARAS DE VIGILANCIA','created_at' => date("Y-m-d H:i:s"),'updated_at' => date("Y-m-d H:i:s") )
         );
         DB::table('tiposiespeciales')->insert(
-            array('descripcion' => 'SISTEMA DE RIEGO','createat' => date("Y-m-d H:i:s") )
+            array('descripcion' => 'SISTEMA DE RIEGO','created_at' => date("Y-m-d H:i:s"),'updated_at' => date("Y-m-d H:i:s") )
         );
         DB::table('tiposiespeciales')->insert(
-            array('descripcion' => 'ANTENA DE COMUNICACIONES','createat' => date("Y-m-d H:i:s"))
+            array('descripcion' => 'ANTENA DE COMUNICACIONES','created_at' => date("Y-m-d H:i:s"),'updated_at' => date("Y-m-d H:i:s"))
         );
         
     }
