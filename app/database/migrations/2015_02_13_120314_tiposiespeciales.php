@@ -14,7 +14,6 @@ class Tiposiespeciales extends Migration {
         Schema::create('tiposiespeciales', function($table) {
             $table->increments('id');
             $table->string('descripcion', 255);
-            $table->date('createat');
             $table->timestamps();
         });
     }
