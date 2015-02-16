@@ -38,7 +38,7 @@
 <div class="main-container container">
     <div class="row options-cont">
         <div class="col-sm-6 col-md-4 col-lg-4">
-            <a href="#" class="main-option op01">
+            <a href="{{URL::to('users/login')}}" class="main-option op01">
                 <img src="css/images/home/opc01.jpg" alt="SERVICIOS CATASTRALES"/>
                 <div class="desc">
                     SERVICIOS CATASTRALES
@@ -46,7 +46,7 @@
             </a>
         </div>
         <div class="col-sm-6 col-md-4 col-lg-4">
-            <a href="#" class="main-option op02">
+            <a href="{{URL::to('users/login')}}" class="main-option op02">
                 <img src="css/images/home/opc02.jpg" alt="CONSULTAR PAGOS Y ADEUDOS DEL IMPUESTO PREDIAL"/>
                 <div class="desc">
                     CONSULTAR PAGOS Y ADEUDOS DEL IMPUESTO PREDIAL
@@ -54,7 +54,7 @@
             </a>
         </div>
         <div class="col-sm-6 col-md-4 col-lg-4">
-            <a href="#" class="main-option op03">
+            <a href="{{URL::to('users/login')}}" class="main-option op03">
                 <img src="css/images/home/opc03.jpg" alt="TRÁMITES CATASTRALES"/>
                 <div class="desc">
                     TRÁMITES CATASTRALES
@@ -68,91 +68,91 @@
     <div class="main-container container">
         <div class="row">
             <div class="col-sm-6 col-md-2 col-lg-2">
-                <a href="#">
+                <a href="{{URL::to('users/login')}}">
                     <img src="css/images/home/logos/Balancan.jpg" alt="SELECCIONA TU MUNICIPIO"/>
                 </a>
             </div>
             <div class="col-sm-6 col-md-2 col-lg-2">
-                <a href="#">
+                <a href="{{URL::to('users/login')}}">
                     <img src="css/images/home/logos/Cardenas.jpg" alt="SELECCIONA TU MUNICIPIO"/>
                 </a>
             </div>
             <div class="col-sm-6 col-md-2 col-lg-2">
-                <a href="#">
+                <a href="{{URL::to('users/login')}}">
                     <img src="css/images/home/logos/Centla.jpg" alt="SELECCIONA TU MUNICIPIO"/>
                 </a>
             </div>
             <div class="col-sm-6 col-md-2 col-lg-2">
-                <a href="#">
+                <a href="{{URL::to('users/login')}}">
                     <img src="css/images/home/logos/Centro.jpg" alt="SELECCIONA TU MUNICIPIO"/>
                 </a>
             </div>
             <div class="col-sm-6 col-md-2 col-lg-2">
-                <a href="#">
+                <a href="{{URL::to('users/login')}}">
                     <img src="css/images/home/logos/Comalcalco.png" alt="SELECCIONA TU MUNICIPIO"/>
                 </a>
             </div>
             <div class="col-sm-6 col-md-2 col-lg-2">
-                <a href="#">
+                <a href="{{URL::to('users/login')}}">
                     <img src="css/images/home/logos/LogoCunduacan.jpg" alt="SELECCIONA TU MUNICIPIO"/>
                 </a>
             </div>
         </div>
         <div class="row">
             <div class="col-sm-6 col-md-2 col-lg-2">
-                <a href="#">
+                <a href="{{URL::to('users/login')}}">
                     <img src="css/images/home/logos/LogoEZapata.jpg" alt="SELECCIONA TU MUNICIPIO"/>
                 </a>
             </div>
             <div class="col-sm-6 col-md-2 col-lg-2">
-                <a href="#">
+                <a href="{{URL::to('users/login')}}">
                     <img src="css/images/home/logos/LogoHuimanguillo.png" alt="SELECCIONA TU MUNICIPIO"/>
                 </a>
             </div>
             <div class="col-sm-6 col-md-2 col-lg-2">
-                <a href="#">
+                <a href="{{URL::to('users/login')}}">
                     <img src="css/images/home/logos/Jalapa.jpg" alt="SELECCIONA TU MUNICIPIO"/>
                 </a>
             </div>
             <div class="col-sm-6 col-md-2 col-lg-2">
-                <a href="#">
+                <a href="{{URL::to('users/login')}}">
                     <img src="css/images/home/logos/jalapademendez.png" alt="SELECCIONA TU MUNICIPIO"/>
                 </a>
             </div>
             <div class="col-sm-6 col-md-2 col-lg-2">
-                <a href="#">
+                <a href="{{URL::to('users/login')}}">
                     <img src="css/images/home/logos/LogoJonuta.jpg" alt="SELECCIONA TU MUNICIPIO"/>
                 </a>
             </div>
             <div class="col-sm-6 col-md-2 col-lg-2">
-                <a href="#">
+                <a href="{{URL::to('users/login')}}">
                     <img src="css/images/home/logos/LogoMacuspana.jpg" alt="SELECCIONA TU MUNICIPIO"/>
                 </a>
             </div>
         </div>
         <div class="row">
             <div class="col-sm-6 col-md-2 col-lg-2">
-                <a href="#">
+                <a href="{{URL::to('users/login')}}">
                     <img src="css/images/home/logos/LogoNacajuca.jpg" alt="SELECCIONA TU MUNICIPIO"/>
                 </a>
             </div>
             <div class="col-sm-6 col-md-2 col-lg-2">
-                <a href="#">
+                <a href="{{URL::to('users/login')}}">
                     <img src="css/images/home/logos/logoparaiso.jpg" alt="SELECCIONA TU MUNICIPIO"/>
                 </a>
             </div>
             <div class="col-sm-6 col-md-2 col-lg-2">
-                <a href="#">
+                <a href="{{URL::to('users/login')}}">
                     <img src="css/images/home/logos/LogoTacotalpa.jpg" alt="SELECCIONA TU MUNICIPIO"/>
                 </a>
             </div>
             <div class="col-sm-6 col-md-2 col-lg-2">
-                <a href="#">
+                <a href="{{URL::to('users/login')}}">
                     <img src="css/images/home/logos/LogoTeapa.jpg" alt="SELECCIONA TU MUNICIPIO"/>
                 </a>
             </div>
             <div class="col-sm-6 col-md-2 col-lg-2">
-                <a href="#">
+                <a href="{{URL::to('users/login')}}">
                     <img src="css/images/home/logos/LogoTenosique.jpg" alt="SELECCIONA TU MUNICIPIO"/>
                 </a>
             </div>
