@@ -18,7 +18,7 @@ class HomeController extends BaseController
     {
 
         if(Auth::guest()) {
-            return View::make('users/login');
+            return View::make('index');
         }
 
         $homepage = "hello";

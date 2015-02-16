@@ -1,0 +1,168 @@
+.main-container.container.interior{
+    width: 100%;
+    max-width: 950px;
+    margin: 0 auto;
+    padding: 0;
+}
+.main-container.container.interior .title{
+    background: #eee;
+    max-width: 950px;
+    position: relative;
+    padding: 25px 0;
+    border-bottom: 10px solid #CE8334;
+}
+.main-container.container.interior .title img{
+    position: absolute;
+    top:5px;
+    left: 10px;
+}
+.main-container.container.interior .title img.face{
+    left: inherit;
+    right: 5px;
+    top: 15px;
+}
+.main-container.container.interior .title h1{
+    font-weight: lighter;
+    display: block;
+    width: 100%;
+    text-align:center;
+}
+
+.interior .widget-df{
+    width: 100%;
+    border-bottom: 10px solid #0089C8;
+}
+.interior .widget-df .header{
+    box-sizing: border-box;
+    background: #0089C8;
+    padding: 25px 10px;
+    color: #ffffff;
+    width: 100%;
+    margin: 0;
+    max-width: 950px;
+    font-size: 18px;
+    line-height: 16px;
+}
+.interior .widget-df .header .search{
+    padding: 10px;
+}
+.interior .widget-df .header .search input{
+    float: left;
+    border: none;
+    border-radius: 0;
+    height: 30px;
+    opacity: 0.7;
+}
+.interior .widget-df .header .search input[type="submit"]{
+    background: #BED630;
+    color: #ffffff;
+    font-weight: lighter;
+    padding: 0 15px;
+    opacity: 1;
+}
+.data-map{
+    background: #eee;
+    padding: 0;
+    margin: 0;
+}
+.data-map .col-md-8{
+    background: #CE8334;
+    padding: 20px;
+    color: #ffffff;
+    box-sizing: border-box;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 16px;
+}
+.data-map .col-md-8 ul{
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+.data-map .col-md-8 ul li{
+    line-height: 10px;
+    padding-bottom: 15px;
+}
+.data-map .col-md-8 label{
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 16px;
+    font-weight: lighter;
+    color: #DCAD28;
+}
+.data-map .col-md-4 ul{
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+.data-map .col-md-4 ul li{
+    border-bottom: 1px dotted dimgray;
+}
+.data-map .col-md-4 ul li.last{
+    border-bottom: none;
+}
+.data-map .col-md-4 ul li a{
+    color: darkgray;
+    display: block;
+    text-align: center;
+    padding: 25px 0px;
+    font-size: 18px;
+}
+.data-map .col-md-4 ul li a:hover{
+    background: #BED630;
+    color: #ffffff;
+    text-decoration: none;
+}
+.interior .widget-df .header p{
+    padding: 0;
+    margin: 0;
+}
+.interior .widget-df .header .clave{
+    font-size: 12px;
+    font-weight: lighter;
+}
+
+.interior .widget-df #map{
+    height: 400px;
+    width: 100%;
+    background: dimgray;
+}
+
+.login-df{
+    display: block;
+    box-sizing: content-box;
+    background: #D4D4D4;
+    max-width: 950px;
+    width: 100%;
+    margin: 20px auto 20px auto;
+    padding: 20px 0;
+    height: 30px;
+    border-bottom: 5px solid #eee;
+}
+.login-df label, .login-df input{
+    font-size: 11px;
+    display: inline-block;
+    padding: 5px;
+}
+.login-df a{
+    color: #fff;
+    display: block;
+    font-size: 12px;
+}
+.login-df a:hover{
+    color: #EF5525;
+}
+.login-df input[type="submit"]{
+    width: 100%;
+    color: #ffffff;
+    font-family: Helvetica Neue, Helvetica, Arial;
+    font-size: 14px;
+    font-weight: lighter;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    border: none;
+    height: 100%;
+    padding: 7px 0;
+    background: #F27007;
+}
+.login-df input[type="submit"]:hover{
+    background: #D1202F;
+}

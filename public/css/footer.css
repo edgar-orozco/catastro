@@ -1,0 +1,68 @@
+footer{
+    margin-top: 20px;
+    width: 100%;
+    background: #3C3C3C;
+    border-bottom: 10px solid #CE8334;
+    color: #ffffff;
+    font-weight: lighter;
+}
+footer .container{
+    display: block;
+    width: 100%;
+    max-width: 950px;
+    margin: 0 auto;
+    padding: 40px 0;
+}
+footer .container h2{
+    font-size: 20px;
+    font-weight: lighter;
+    color: #ffffff;
+}
+
+footer .container ul{
+    margin: 0;
+    color: #ffffff;
+    padding: 0 0 0 20px;
+}
+footer .container ul li{
+    padding: 5px 0;
+    border-bottom: 1px dotted #ffffff;
+}
+footer .container ul a{
+    color: #ffffff;
+    font-size: 16px;
+    font-weight: lighter;
+}
+footer .container input, footer .container textarea{
+    display: block;
+    width: 100%;
+    border: none;
+    padding: 5px;
+    margin-bottom: 10px;
+    font-size: 14px;
+    color: dimgray;
+}
+footer .container input[type="submit"]{
+    background: #F27007;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: #FFF;
+}
+footer .container textarea{
+    height: 60px;
+}
+.footer.legal{
+    width: 100%;
+    max-width: 950px;
+    padding: 20px 0;
+    color: #000000;
+    font-family: Arial, Helvetica, sans-serif;
+    line-height: 15px;
+}
+.footer.legal .img-cont img{
+    width: 100%;
+}
+.footer.legal .img-cont{
+    width: 100px;
+    margin: 0 auto;
+}
