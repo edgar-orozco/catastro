@@ -73,3 +73,7 @@ header.catatro-df .navbar .container-fluid ul li a{
     font-weight: lighter;
     text-transform: uppercase;
 }
+header.catatro-df .navbar .navbar-nav a:hover{
+    color: white;
+    background: #69B1C9;
+}

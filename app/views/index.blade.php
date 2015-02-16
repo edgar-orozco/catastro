@@ -19,22 +19,26 @@
             <div class="img-cont spf">
                 <img src="css/images/main/logo-spf.png" alt="SPF"/>
             </div>
+            <div class="img-cont catastro">
+                <img src="css/images/main/logo-header.png" alt="Catastro">
+            </div>
         </div>
         <div class="col-lg-4 col-md-4 col-sm-6">
             <ul class="social">
-                <li><a href="" class="facebook"></a></li>
-                <li><a href="" class="twitter"></a></li>
-                <li><a href="" class="plus"></a></li>
-                <li><a href="" class="youtube"></a></li>
+                <li><a href="{{URL::to('users/login')}}" class="facebook"></a></li>
+                <li><a href="{{URL::to('users/login')}}" class="twitter"></a></li>
+                <li><a href="{{URL::to('users/login')}}" class="plus"></a></li>
+                <li><a href="{{URL::to('users/login')}}" class="youtube"></a></li>
             </ul>
         </div>
     </div>
-    </nav>
+
+
 </header>
 <div class="main-container container">
     <div class="row options-cont">
         <div class="col-sm-6 col-md-4 col-lg-4">
-            <a href="{{URL::to('users/login')}}" class="main-option op01">
+            <a href="#" class="main-option op01">
                 <img src="css/images/home/opc01.jpg" alt="SERVICIOS CATASTRALES"/>
                 <div class="desc">
                     SERVICIOS CATASTRALES
@@ -42,7 +46,7 @@
             </a>
         </div>
         <div class="col-sm-6 col-md-4 col-lg-4">
-            <a href="{{URL::to('users/login')}}" class="main-option op02">
+            <a href="#" class="main-option op02">
                 <img src="css/images/home/opc02.jpg" alt="CONSULTAR PAGOS Y ADEUDOS DEL IMPUESTO PREDIAL"/>
                 <div class="desc">
                     CONSULTAR PAGOS Y ADEUDOS DEL IMPUESTO PREDIAL
@@ -50,7 +54,7 @@
             </a>
         </div>
         <div class="col-sm-6 col-md-4 col-lg-4">
-            <a href="{{URL::to('users/login')}}" class="main-option op03">
+            <a href="#" class="main-option op03">
                 <img src="css/images/home/opc03.jpg" alt="TRÁMITES CATASTRALES"/>
                 <div class="desc">
                     TRÁMITES CATASTRALES
@@ -64,91 +68,91 @@
     <div class="main-container container">
         <div class="row">
             <div class="col-sm-6 col-md-2 col-lg-2">
-                <a href="{{URL::to('users/login')}}">
+                <a href="#">
                     <img src="css/images/home/logos/Balancan.jpg" alt="SELECCIONA TU MUNICIPIO"/>
                 </a>
             </div>
             <div class="col-sm-6 col-md-2 col-lg-2">
-                <a href="{{URL::to('users/login')}}">
+                <a href="#">
                     <img src="css/images/home/logos/Cardenas.jpg" alt="SELECCIONA TU MUNICIPIO"/>
                 </a>
             </div>
             <div class="col-sm-6 col-md-2 col-lg-2">
-                <a href="{{URL::to('users/login')}}">
+                <a href="#">
                     <img src="css/images/home/logos/Centla.jpg" alt="SELECCIONA TU MUNICIPIO"/>
                 </a>
             </div>
             <div class="col-sm-6 col-md-2 col-lg-2">
-                <a href="{{URL::to('users/login')}}">
+                <a href="#">
                     <img src="css/images/home/logos/Centro.jpg" alt="SELECCIONA TU MUNICIPIO"/>
                 </a>
             </div>
             <div class="col-sm-6 col-md-2 col-lg-2">
-                <a href="{{URL::to('users/login')}}">
+                <a href="#">
                     <img src="css/images/home/logos/Comalcalco.png" alt="SELECCIONA TU MUNICIPIO"/>
                 </a>
             </div>
             <div class="col-sm-6 col-md-2 col-lg-2">
-                <a href="{{URL::to('users/login')}}">
+                <a href="#">
                     <img src="css/images/home/logos/LogoCunduacan.jpg" alt="SELECCIONA TU MUNICIPIO"/>
                 </a>
             </div>
         </div>
         <div class="row">
             <div class="col-sm-6 col-md-2 col-lg-2">
-                <a href="{{URL::to('users/login')}}">
+                <a href="#">
                     <img src="css/images/home/logos/LogoEZapata.jpg" alt="SELECCIONA TU MUNICIPIO"/>
                 </a>
             </div>
             <div class="col-sm-6 col-md-2 col-lg-2">
-                <a href="{{URL::to('users/login')}}">
+                <a href="#">
                     <img src="css/images/home/logos/LogoHuimanguillo.png" alt="SELECCIONA TU MUNICIPIO"/>
                 </a>
             </div>
             <div class="col-sm-6 col-md-2 col-lg-2">
-                <a href="{{URL::to('users/login')}}">
+                <a href="#">
                     <img src="css/images/home/logos/Jalapa.jpg" alt="SELECCIONA TU MUNICIPIO"/>
                 </a>
             </div>
             <div class="col-sm-6 col-md-2 col-lg-2">
-                <a href="{{URL::to('users/login')}}">
+                <a href="#">
                     <img src="css/images/home/logos/jalapademendez.png" alt="SELECCIONA TU MUNICIPIO"/>
                 </a>
             </div>
             <div class="col-sm-6 col-md-2 col-lg-2">
-                <a href="{{URL::to('users/login')}}">
+                <a href="#">
                     <img src="css/images/home/logos/LogoJonuta.jpg" alt="SELECCIONA TU MUNICIPIO"/>
                 </a>
             </div>
             <div class="col-sm-6 col-md-2 col-lg-2">
-                <a href="{{URL::to('users/login')}}">
+                <a href="#">
                     <img src="css/images/home/logos/LogoMacuspana.jpg" alt="SELECCIONA TU MUNICIPIO"/>
                 </a>
             </div>
         </div>
         <div class="row">
             <div class="col-sm-6 col-md-2 col-lg-2">
-                <a href="{{URL::to('users/login')}}">
+                <a href="#">
                     <img src="css/images/home/logos/LogoNacajuca.jpg" alt="SELECCIONA TU MUNICIPIO"/>
                 </a>
             </div>
             <div class="col-sm-6 col-md-2 col-lg-2">
-                <a href="{{URL::to('users/login')}}">
+                <a href="#">
                     <img src="css/images/home/logos/logoparaiso.jpg" alt="SELECCIONA TU MUNICIPIO"/>
                 </a>
             </div>
             <div class="col-sm-6 col-md-2 col-lg-2">
-                <a href="{{URL::to('users/login')}}">
+                <a href="#">
                     <img src="css/images/home/logos/LogoTacotalpa.jpg" alt="SELECCIONA TU MUNICIPIO"/>
                 </a>
             </div>
             <div class="col-sm-6 col-md-2 col-lg-2">
-                <a href="{{URL::to('users/login')}}">
+                <a href="#">
                     <img src="css/images/home/logos/LogoTeapa.jpg" alt="SELECCIONA TU MUNICIPIO"/>
                 </a>
             </div>
             <div class="col-sm-6 col-md-2 col-lg-2">
-                <a href="{{URL::to('users/login')}}">
+                <a href="#">
                     <img src="css/images/home/logos/LogoTenosique.jpg" alt="SELECCIONA TU MUNICIPIO"/>
                 </a>
             </div>
@@ -159,10 +163,10 @@
 </div>
 <div class="main-container container">
     <div class="row">
-        <div class="col-sm-3 col-md-9 col-lg-9">
-            <img src="css/images/home/logo-catastro.png" alt="Logotipo Catastro"/>
+        <div class="col-sm-6 col-md-8 col-lg-8">
+            <img src="css/images/home/logo-catastro.jpg" alt="Logotipo Catastro"/>
         </div>
-        <div class="col-sm-3 col-md-3 col-lg-3">
+        <div class="col-sm-6 col-md-4 col-lg-4">
             <div class="banner">
                 <img src="css/images/home/secrt.png" alt="Secretaria de planeacion y finanzas"/>
             </div>
@@ -181,19 +185,19 @@
             <h2>Gobierno de <b>Tabasco</b></h2>
             <ul>
                 <li>
-                    <a href="">Portal Transparencia</a>
+                    <a href="{{URL::to('users/login')}}">Portal Transparencia</a>
                 </li>
                 <li>
-                    <a href="">ITAIP</a>
+                    <a href="{{URL::to('users/login')}}">ITAIP</a>
                 </li>
                 <li>
-                    <a href="">Infomex</a>
+                    <a href="{{URL::to('users/login')}}">Infomex</a>
                 </li>
                 <li>
-                    <a href="">Aviso de Privacidad</a>
+                    <a href="{{URL::to('users/login')}}">Aviso de Privacidad</a>
                 </li>
                 <li>
-                    <a href="">Buzón</a>
+                    <a href="{{URL::to('users/login')}}">Buzón</a>
                 </li>
             </ul>
         </div>
