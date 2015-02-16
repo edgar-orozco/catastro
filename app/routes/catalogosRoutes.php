@@ -17,7 +17,6 @@ Route::group(array('before'=>'admin'),  function (){
     Route::put('catalogos/inpc/{id?}.{format}',
         array('as' => 'updateInpc', 'uses' => 'catalogos_inpcController@update'));
     Route::resource('catalogos/inpc', 'catalogos_inpcController');
-    
     Route::get('catalogos/inpc/{id?}.{format}',
       array('as'=>'destroyInpc','use'=>'catalogos_inpcController@destroy'));
     
@@ -29,5 +28,7 @@ Route::group(array('before'=>'admin'),  function (){
     Route::put('catalogos/salario/{id?}.{format}',
         array('as' => 'updateSalario', 'uses' => 'catalogos_salarioController@update'));
     Route::resource('catalogos/salario', 'catalogos_salarioController');
+
+    
 });
 

@@ -15,15 +15,15 @@ class CrearSalarioMinimo extends Migration {
             Schema::create('salario_minimo',function(Blueprint $table)
             {
               $table->increments('id_salario_minimo');   
-              $table->string('zona');
+              $table->string('zona',2);
               $table->integer('anio');
               $table->float('salario_minimo');
               $table->date('fecha_inicio_periodo');
-              $table->date('fehca_termino_periodo');
-              $table->integer('usuario_actualiza');
-              $table->date('f_alta');
-              $table->date('fecha_actualiza');
-              $table->timestamps();
+              $table->date('fecha_termino_periodo');
+              $table->integer('usuario_actualiza')->nullable();
+              $table->date('f_alta')->nullable();
+              $table->date('fecha_actualiza')->nullable();
+
             });
 	}
 
@@ -34,7 +34,7 @@ class CrearSalarioMinimo extends Migration {
 	 */
 	public function down()
 	{
-		Schema::drop('salario_minimo');
+	Schema::drop('salario_minimo');
 	}
 
 }

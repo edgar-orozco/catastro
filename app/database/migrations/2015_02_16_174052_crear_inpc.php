@@ -12,18 +12,16 @@ class CrearInpc extends Migration {
 	 */
 	public function up()
 	{
-            Schema::create('inpc',function(Blueprint $table)
+		Schema::create('inpc',function(Blueprint $table)
             {            
                 $table->increments('id_inpc');
-                $table->integer('mes');
                 $table->integer('anio');
                 $table->float('inpc');
-                $table->integer('usuario');
-                $table->date('f_modificacion');
-                $table->date('f_alta');
-                $table->timestamps();
-            }
-                    );
+                $table->integer('usuario')->nullable();
+                $table->date('f_modificacion')->nullable();
+                $table->date('f_alta')->nullable();
+                $table->string('nombre_mes');
+            });
 	}
 
 	/**
@@ -33,7 +31,7 @@ class CrearInpc extends Migration {
 	 */
 	public function down()
 	{
-            Schema::drop('inpc');
+		Schema::drop('salario_minimo');
 	}
 
 }
