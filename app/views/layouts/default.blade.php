@@ -10,6 +10,12 @@
     <!-- CSS bootstrap -->
     {{ HTML::style('css/bootstrap.css') }}
 
+    <!--fancybox-->
+       {{ HTML::style('/css/jquery.fancybox.css') }}
+
+        {{ HTML::script('/js/jquery-1.7.1.min.js') }}
+        {{ HTML::script('/js/jquery.fancybox.pack.js') }}
+    
     <!-- css general de la app -->
     {{ HTML::style('css/general.css') }}
 
@@ -19,7 +25,28 @@
     <style>
         @yield('styles')
     </style>
+    <script>
+$(document).ready(function () {
+    $(".nuevo").fancybox({
+        'autoScale': false,
+        'transitionIn': 'none',
+        'transitionOut': 'none',
+        'width': '60%',
+        'height': '60%',
+        'type': 'iframe'
+    });
+    $("#checkbox_activar").click(function () {
+        $("#checkbox").attr('checked', true);
+    });
 
+    $("#checkbox_desactivar").click(function () {
+        $("#checkbox").attr('checked', false);
+    });
+
+});
+
+
+        </script>
 </head>
 <body>
 

@@ -218,7 +218,7 @@ $(document).ready(function(){
                 {{$row->nombre;}}
             </td>
             <td>
-                {{$row->municipio;}}
+                
             </td>
             <td>
                 {{$row->calle;}}

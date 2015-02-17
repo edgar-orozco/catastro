@@ -3,9 +3,8 @@
 class predios extends Eloquent
 {
     protected $table ='predios';
-    protected $primaryKey = 'gid';
+    protected $primaryKey = 'clave';
     public $timestamps=false;
     protected $guarded = array("*");
-    protected $fillable = array("gid","id_propietario","municipio");
+   // protected $fillable = array("nombrec","rfc");
 }
-
