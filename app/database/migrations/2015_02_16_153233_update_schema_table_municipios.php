@@ -15,7 +15,9 @@ class UpdateSchemaTableMunicipios extends Migration {
         Schema::table('user_municipio', function(Blueprint $table)
         {
                 // Se elimina la relacion con la tabla municipios
-                $table->dropForeign('user_municipio_municipio_id_foreign');
+                DB::statement('ALTER TABLE user_municipio DROP CONSTRAINT user_municipio_municipio_id_foreign');
+                // Se actualiza el tipo de la columna municipio_id
+                DB::statement('ALTER TABLE user_municipio ALTER COLUMN municipio_id TYPE integer USING CAST (municipio_id as INTEGER);');
         });
 
 		Schema::table('municipios', function(Blueprint $table)
