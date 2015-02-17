@@ -1,6 +1,8 @@
 <?php
 //pantalla principal de ejecucion
-Route::controller("/ejecucion", "Ejecucion_BuscarController");
+Route::controller("/ejecucion/", "Ejecucion_BuscarController");
+Route::controller("/ejecuciones", "Ejecucion_BuscaController");
+
 //vista para capturar datos ejecucion fiscal
 Route::get('/vista', function()
 {

@@ -9,7 +9,7 @@ Bienvenido :: @parent
 
 @section('content')
 <div>
-    <div class="panel panel-primary">
+    <div class="default">
     
     <div class="panel-heading">
 
@@ -90,8 +90,10 @@ $(document).ready(function(){
     <div class="panel-body">
              {{ Form::open(array(
                     'role' => 'form',
-                    'method'=> 'buscar',
-                    'method' => 'GET'
+                    'method'=>'BuscarController@index',
+                    'method' => 'GET',
+                    'url'=>'/ejecucion'
+
                     ))
         }}
 
@@ -151,6 +153,7 @@ $(document).ready(function(){
             {{ Form::text('cp',null, array('class' => 'form-control focus', 'placeholder'=>'Codigo postal', 'autofocus'=> 'autofocus')) }}
                     </td>
                     <td>
+                       
             {{Form::label('Estatus:') }}
              {{Form::select('size', array('PC' => 'PC', 'CI' => 'CI', 'RC' => 'RC', 'RI' => 'RI', 'RA' => 'RA', 
              'RN' => 'RN', 'DC' => 'DC', 'DI' => 'DI', 'DA' => 'DA', 'DN' => 'DN', 'EC' => 'EC', 'EI' => 'EI',
@@ -177,7 +180,7 @@ $(document).ready(function(){
     <br>
     @if(($busqueda))
     {{ Form::open(array('url' => 'cartainv', 'method' => 'post', 'name' => 'formulario'))}}
-    <div class="panel panel-primary">
+    <div class="default">
 
     <div class="panel-heading">
 
@@ -240,11 +243,11 @@ $(document).ready(function(){
             </td>         
         </tr>
         @endforeach
-    @endif
-    @endif
+   
         </tr>
     </tbody>
-    </table><?php //echo $busqueda->links(); ?>
+    </table>
+
     
                     
 </div>
@@ -256,11 +259,19 @@ $(document).ready(function(){
 {{Form::input('date', 'date1', null, array('disabled', 'required' ))}}
 
     {{Form::label('Ejecutores:') }}
-    {{Form::select('size', array('id_ejecutor' => 'Nombre Ejecutor'))}}
+     <select name="ejecutores" class="form-control" autofocus="autofocus" >
+            @foreach($catalogo as $row) 
+            <option value="{{$row->id_ejecutor}}">{{$row->cargo}}</option>
+            @endforeach
+        </select>
    
 </div>
 <br>
 {{ Form::submit('Generar Carta Invitacion', array('class' => 'btn btn-primary', 'name' => 'boton', 'disabled')) }}
 {{ Form::close() }}
+
+ @endif
+ @endif
+
 <br><br><br>
 @stop

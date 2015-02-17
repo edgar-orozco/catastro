@@ -3,6 +3,7 @@
 class Ejecucion_BuscarController extends BaseController 
 {
 //cahcar parametros verificar vacio y evitar agregar en consulta k noi entre vacio
+   protected $por_pagina = 10;
    public function getIndex() 
    { //abre function
         //captura de datos de buscar.blade.php
@@ -28,6 +29,7 @@ class Ejecucion_BuscarController extends BaseController
             -> leftjoin ( 'ejecucion_fiscal', 'emision_predial.clave',  '=',  'ejecucion_fiscal.clave') 
             -> select ( 'emision_predial.clave', 'personas.nombrec AS nombre', 'personas.rfc AS calle', 'personas.fecha_ingr AS colonia' ,  'propietarios.fecha_ingr AS cp', 'propietarios.tipo_propietario AS tipo', 'emision_predial.anio AS minimo', 'emision_predial.impuesto AS impuesto', 'ejecucion_fiscal.cve_status AS estatus')
             -> orderBy('emision_predial.clave','asc')
+         //   ->paginate($this->por_pagina);
            // -> paginate(30);
             -> get ();
            // print_r($busqueda);
@@ -42,16 +44,18 @@ class Ejecucion_BuscarController extends BaseController
             -> leftjoin ( 'ejecucion_fiscal', 'emision_predial.clave',  '=',  'ejecucion_fiscal.clave') 
             -> select ( 'emision_predial.clave', 'personas.nombrec AS nombre', 'personas.rfc AS calle', 'personas.fecha_ingr AS colonia' ,  'propietarios.fecha_ingr AS cp', 'propietarios.tipo_propietario AS tipo', 'emision_predial.anio AS minimo', 'emision_predial.impuesto AS impuesto', 'ejecucion_fiscal.cve_status AS estatus')
             -> orderBy('emision_predial.clave','asc')
+           // ->paginate($this->por_pagina);
            // ->paginate(3);
            -> get ();         
           } //cierra else
 
           //consulta a la tabla de ejecutores por ahora esta vacia
-          $ejecutores = ejecutores::all();
-          $data = [
-      'ejecutores' => $ejecutores,
-      'types' => ejecutores::lists('id_ejecutor'),
-              ];
-        return View::make('ejecucion.inicio', compact('busqueda','data'));
+          $catalogo = ejecutores::All();//->lists('cargo', 'id_ejecutor');
+       // $datos = instalaciones::find($id);
+        //return View::make('complementarios.editar',);
+      // print_r($catalogo);
+     // return View::make('ejecucion.inicio', compact("catalogo"));
+    
+        return View::make('ejecucion.inicio', compact('busqueda',"catalogo"));
     }//cierra function
 }
