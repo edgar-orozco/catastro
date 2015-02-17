@@ -12,7 +12,9 @@ class CrearInpc extends Migration {
 	 */
 	public function up()
 	{
-		Schema::create('inpc',function(Blueprint $table)
+	if(!Schema::hasTable('inpc'))
+            {
+            Schema::create('inpc',function(Blueprint $table)
             {            
                 $table->increments('id_inpc');
                 $table->integer('anio');
@@ -22,7 +24,7 @@ class CrearInpc extends Migration {
                 $table->date('f_alta')->nullable();
                 $table->string('nombre_mes');
             });
-	}
+        }}
 
 	/**
 	 * Reverse the migrations.

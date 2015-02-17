@@ -12,6 +12,9 @@ class CrearSalarioMinimo extends Migration {
 	 */
 	public function up()
 	{
+           
+            if(!Schema::hasTable('salario_minimo'))
+            {
             Schema::create('salario_minimo',function(Blueprint $table)
             {
               $table->increments('id_salario_minimo');   
@@ -25,7 +28,7 @@ class CrearSalarioMinimo extends Migration {
               $table->date('fecha_actualiza')->nullable();
 
             });
-	}
+        }}
 
 	/**
 	 * Reverse the migrations.
