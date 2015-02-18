@@ -22,6 +22,7 @@
     <!-- Navbar css custom menu -->
     {{ HTML::style('css/navmenu.css') }}
     {{ HTML::style('css/header.css') }}
+    {{ HTML::style('css/footer.css') }}
 
     <style>
         @yield('styles')
