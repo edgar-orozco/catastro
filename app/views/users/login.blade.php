@@ -11,6 +11,12 @@
     .panel-title {
         font-size: 24px;
     }
+    .panel-heading{
+        width: 200px;
+    }
+    .panel-heading img{
+        width: 100%
+    }
 </style>
 @stop
 
@@ -20,7 +26,7 @@
     <div class="login">
         <div class="panel">
             <div class="panel-heading">
-                <h3 class="panel-title">Sistema de Gestión Catastral</h3>
+                <img src="http://104.236.22.240/css/images/main/logo-header.png">
             </div>
             <div class="panel-body">
                 {{ Form::open(array('url' => 'users/login', 'method' => 'POST')) }}
