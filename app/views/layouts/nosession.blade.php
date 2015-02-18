@@ -11,6 +11,7 @@
     <!-- CDN para CSS bootstrap -->
     {{ HTML::style('css/bootstrap.css') }}
     {{ HTML::style('css/header.css') }}
+    {{ HTML::style('css/footer.css') }}
 
     @yield('styles')
 
