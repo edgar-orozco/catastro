@@ -169,7 +169,7 @@ class User extends Eloquent implements ConfideUserInterface
         $municipios = array();
         if(count($this->municipios) > 0){
             foreach($this->municipios as $municipio){
-                $municipios[] = $municipio->nom_mpo;
+                $municipios[] = $municipio->nombre_municipiov;
             }
         }
         else{
