@@ -29,12 +29,7 @@
                 </a>
             </li>
             
-            <li class="@if(Request::is('Ejecucion/buscar')) active @endif">
-                <a href="{{URL::to('Ejecucion/buscar')}}">
-                <i class="glyphicon glyphicon-list-alt"></i>&nbsp;
-                    Índice de Precios
-                </a>
-            </li>
+            
 			
             <li class="@if(Request::is('Ejecucion/buscar')) active @endif">
                 <a href="{{URL::to('Ejecucion/buscar')}}">
@@ -53,18 +48,20 @@
             </li>
 
             <li class="@if(Request::is('catalago')) active @endif">
+                <a href="{{URL::to('catalogos/inpc')}}">
+                <i class="glyphicon glyphicon-list-alt"></i>&nbsp;   
+                    Índice de Precios
+                </a>
+            </li>
+
+            <li class="@if(Request::is('catalago')) active @endif">
                 <a href="{{URL::to('catalogos/status')}}">
                 <i class="glyphicon glyphicon-list-alt"></i>&nbsp;
                     Catalogo Status
                 </a>
             </li>
 
-             <li class="@if(Request::is('catalago')) active @endif">
-                <a href="{{URL::to('catalogos/inpc')}}">
-                <i class="glyphicon glyphicon-list-alt"></i>&nbsp;
-                    Catalago INCP
-                </a>
-            </li>
+             
         </ul>
     </li>
 

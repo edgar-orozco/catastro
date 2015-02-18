@@ -102,7 +102,7 @@ $(document).ready(function(){
                 <tr>
                     <td>
             {{Form::label('Clave Catastral:') }}
-            {{ Form::text('clave',null, array('class' => 'form-control focus', 'placeholder'=>'xxx-xxxx-xxxxxx', 'autofocus'=> 'autofocus', 'pattern'=> '\d{3}[\-]\d{4}[\-]\d{6}'))  }}
+            {{ Form::text('clave',null, array('class' => 'form-control focus', 'placeholder'=>'xx-xxx-xxx-xxxx-xxxxxx', 'autofocus'=> 'autofocus', 'pattern'=> '\d{2}[\-]\d{3}[\-]\d{3}[\-]\d{4}[\-]\d{6}'))  }}
                     </td>
                     <td>
             {{Form::label('Nombre Propietario:') }}
