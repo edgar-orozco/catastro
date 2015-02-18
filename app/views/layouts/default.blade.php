@@ -25,6 +25,9 @@
 
     <style>
         @yield('styles')
+        .navbar-custom{
+            border: none;
+        }
     </style>
     <script>
 $(document).ready(function () {
@@ -82,7 +85,6 @@ $(document).ready(function () {
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                     </button>
-                    <a href="{{URL::to('/')}}" class="navbar-brand">Sistema de Gestión Catastral</a>
                 </div>
 
                 <div id="navbarCollapse" class="collapse navbar-collapse">
