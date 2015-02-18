@@ -7,6 +7,7 @@
             - Sistema de Gestión Catastral
         @show
     </title>
+    <link rel="icon" type="image/png" href="http://104.236.22.240/css/images/main/favicon.png">
     <!-- CDN para CSS bootstrap -->
     {{ HTML::style('css/bootstrap.css') }}
     {{ HTML::style('css/header.css') }}
