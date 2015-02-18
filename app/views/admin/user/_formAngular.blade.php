@@ -61,5 +61,17 @@
     </div>
 </div>
 
+<div class="form-group">
+    {{Form::label(null,'Municipios')}}
+    <div>
+        @foreach(Municipio::all() as $municipio)
+            {{Form::checkbox('municipios['.$municipio->gid.']', $municipio->gid, in_array($municipio->gid, $user->municipios->lists('gid')), ['id' => 'municipios['.$municipio->gid.']', 'ng-model' => 'municipios.municipio'.$municipio->gid ])}}
+            {{Form::label('municipios['.$municipio->gid.']', $municipio->nombre_municipio)}}
+            <br>
+        @endforeach
+        {{$errors->first('municipios[]', '<span class=text-danger>:message</span>')}}
+    </div>
+</div>
+
 
 

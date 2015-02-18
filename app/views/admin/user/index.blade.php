@@ -37,6 +37,7 @@
                         <li><a href ng-click="filterWord = 'email'">Email</a></li>
                         <li><a href ng-click="filterWord = 'user'">Usuario</a></li>
                         <li><a href ng-click="filterWord = 'rol'">Rol</a></li>
+                        <li><a href ng-click="filterWord = 'municipio'">Municipio</a></li>
                     </ul>
                 </div><!-- /btn-group -->
             </div><!-- /input-group -->
