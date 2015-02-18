@@ -28,6 +28,9 @@
         .navbar-custom{
             border: none;
         }
+        .navbar-custom .navbar-nav > .active > a, .navbar-custom .navbar-nav > .active > a:hover, .navbar-custom .navbar-nav > .active > a:focus{
+            color: white;
+        }
     </style>
     <script>
 $(document).ready(function () {
