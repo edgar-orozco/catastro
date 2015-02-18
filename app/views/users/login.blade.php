@@ -12,10 +12,19 @@
         font-size: 24px;
     }
     .panel-heading{
-        width: 200px;
+        width: 100%;
+        max-width: 340px;
     }
     .panel-heading img{
         width: 100%
+    }
+    .input[type="submit"]{
+        width: 100%;
+        border-radius: 0;
+        background: #F27007;
+        text-transform: uppercase;
+        color: #FFF;
+        border: none;
     }
 </style>
 @stop
