@@ -22,10 +22,10 @@
                 <img src="http://104.236.22.240/css/images/main/main-logo.png" alt="Catastro">
             </div>
             <div class="img-cont spf">
-                <img src="css/images/main/logo-spf.png" alt="SPF">
+                <img src="http://104.236.22.240/css/images/main/logo-spf.png" alt="SPF">
             </div>
             <div class="img-cont catastro">
-                <img src="css/images/main/logo-header.png" alt="Catastro">
+                <img src="http://104.236.22.240/css/images/main/logo-header.png" alt="Catastro">
             </div>
         </div>
         <div class="col-lg-4 col-md-4 col-sm-6">
