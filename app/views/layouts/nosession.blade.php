@@ -9,12 +9,37 @@
     </title>
     <!-- CDN para CSS bootstrap -->
     {{ HTML::style('css/bootstrap.css') }}
+    {{ HTML::style('css/header.css') }}
 
     @yield('styles')
 
 </head>
 <body >
+<header class="catatro-df">
+    <div class="container">
+        <div class="col-lg-8 col-md-8 col-sm-6">
+            <div class="img-cont">
+                <img src="css/images/main/main-logo.png" alt="Catastro">
+            </div>
+            <div class="img-cont spf">
+                <img src="css/images/main/logo-spf.png" alt="SPF">
+            </div>
+            <div class="img-cont catastro">
+                <img src="css/images/main/logo-header.png" alt="Catastro">
+            </div>
+        </div>
+        <div class="col-lg-4 col-md-4 col-sm-6">
+            <ul class="social">
+                <li><a href="http://104.236.22.240/users/login" class="facebook"></a></li>
+                <li><a href="http://104.236.22.240/users/login" class="twitter"></a></li>
+                <li><a href="http://104.236.22.240/users/login" class="plus"></a></li>
+                <li><a href="http://104.236.22.240/users/login" class="youtube"></a></li>
+            </ul>
+        </div>
+    </div>
 
+
+</header>
 <div class="container">
     @if(Session::has('error'))
         <div class="alert alert-danger">
