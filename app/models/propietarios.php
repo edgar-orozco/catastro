@@ -9,7 +9,7 @@ class propietarios extends Eloquent
    protected $fillable = array("id_propietario, clave");
 
     public function propietario() {
-        return $this->hasOne('Personas', 'id_p', 'id_propietario');
+        return $this->hasOne('personas', 'id_p', 'id_propietario');
     }
 }
 
