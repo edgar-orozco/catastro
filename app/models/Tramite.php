@@ -27,4 +27,8 @@ class Tramite extends Ardent
     {
         return $this->belongsToMany('Requisito', 'requisito_tramite')->withPivot(['usuario_id']);
     }
+
+    public function solicitante(){
+        return $this->hasOne('personas', 'id_p', 'solicitante_id');
+    }
 }

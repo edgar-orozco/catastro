@@ -148,8 +148,8 @@
 </form>
 
 {{ Form::open(array('url' => 'ventanilla/iniciar-tramite', 'method' => 'GET', 'id'=>'iniciar')) }}
-    {{ Form::hidden('clave',null, ['class'=>'clave']) }}
-    {{ Form::hidden('cuenta',null, ['class'=>'cuenta']) }}
+    {{ Form::hidden('clave',null, ['class'=>'clave', 'id'=>'clave']) }}
+    {{ Form::hidden('cuenta',null, ['class'=>'cuenta', 'id'=>'cuenta']) }}
     {{ Form::hidden('tipotramite_id',null, ['class'=>'tipotramite_id']) }}
 {{ Form::close() }}
 
