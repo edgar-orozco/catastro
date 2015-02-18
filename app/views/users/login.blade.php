@@ -18,7 +18,7 @@
     .panel-heading img{
         width: 100%
     }
-    .input[type="submit"]{
+    input[type="submit"]{
         width: 100%;
         border-radius: 0;
         background: #F27007;
