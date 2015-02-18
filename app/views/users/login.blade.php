@@ -3,13 +3,10 @@
 @section('styles')
 <style>
     .login {
-        position: absolute;
-        left: 50%;
-        top: 50%;
+        position: inherit;
         width: 350px;
-        height: 200px;
-        margin-left: -150px;
-        margin-top: -150px;
+        margin: 0 auto;
+        padding: 40px 0;
     }
     .panel-title {
         font-size: 24px;
