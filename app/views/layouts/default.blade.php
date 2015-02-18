@@ -29,7 +29,7 @@
             border: none;
         }
         .navbar-custom .navbar-nav > .active > a, .navbar-custom .navbar-nav > .active > a:hover, .navbar-custom .navbar-nav > .active > a:focus{
-            color: white;
+            color:white !important;
         }
     </style>
     <script>
