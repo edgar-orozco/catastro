@@ -59,6 +59,18 @@ angular.module('app', ['ngAnimate', 'ngResource', 'ngSanitize','ui.bootstrap', '
                             }
                             if (haveRole) filtered.push(item);
                             break;
+                        case 'municipio':
+                            if(item.municipios.length > 0){
+                                var haveMunicipio = false;
+                                for(var j in item.municipios){
+                                    if(item.municipios[j].nombre_municipio.search(exp) >= 0) haveMunicipio = true;
+                                }
+                                if (haveMunicipio) filtered.push(item);
+                            }
+                            else{
+                                filtered.push(item);
+                            }
+                            break
                     }
                 }
                 return filtered;
@@ -390,6 +402,9 @@ angular.module('app', ['ngAnimate', 'ngResource', 'ngSanitize','ui.bootstrap', '
                     break;
                 case 'rol':
                     return 'Rol';
+                    break;
+                case 'municipio':
+                    return 'Municipio';
                     break;
             }
         };
