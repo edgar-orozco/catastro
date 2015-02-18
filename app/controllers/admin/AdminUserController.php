@@ -158,12 +158,18 @@ class AdminUserController extends BaseController
         if ($this->user->save()) {
             // Save if valid. Password field will be hashed before save
             // Save roles. Handles updating.
-            $this->user->saveRoles(Input::get( 'roles' ));
+            if(Input::get( 'roles' )){
+                $this->user->saveRoles(Input::get( 'roles' ));
+            }
+            if(Input::get( 'municipios' )){
+                // Se guardan los municipios a los que pertenece un usuario
+                $this->user->municipios()->sync(Input::get( 'municipios' ));
+            }
             if ($format == 'json') {
                 return array(
                     'status' => 'success',
                     'msg' => 'Usuario guardado',
-                    'data' => array('id' => $this->user->id, 'idx' => Input::get('idx'), 'roles' => $this->user->roles)
+                    'data' => array('id' => $this->user->id, 'idx' => Input::get('idx'), 'roles' => $this->user->roles, 'municipios' => $this->user->municipios)
                 );
             }
 
@@ -237,12 +243,18 @@ class AdminUserController extends BaseController
         }
 
         if ($user->save()) {
-            $user->saveRoles(Input::get( 'roles' ));
+            if (Input::get( 'roles' )){
+                $user->saveRoles(Input::get( 'roles' ));
+            }
+            if (Input::get( 'municipios' )){
+                // Se guardan los municipios a los que pertenece un usuario
+                $user->municipios()->sync(Input::get( 'municipios' ));
+            }
             if ($format == 'json') {
                 return array(
                     'status' => 'success',
                     'msg' => 'Usuario actuaizado',
-                    'data' => array('id' => $user->id, 'idx' => Input::get('idx'), 'roles' => $user->roles)
+                    'data' => array('id' => $user->id, 'idx' => Input::get('idx'), 'roles' => $user->roles, 'municipios' => $user->municipios)
                 );
             }
             return Redirect::to('admin/user')->with('success', "Se han actualizado correctamente los datos del usuario ".$user->nombreCompleto());

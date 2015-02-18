@@ -7,13 +7,14 @@ use LaravelBook\Ardent\Ardent;
 
 class Municipio extends Ardent
 {
+    public $timestamps = false;
 
-    protected $fillable = ['nom_mpo'];
+    protected $fillable = ['nombre_municipio', 'municipio', 'entidad'];
 
-    protected $primaryKey = 'municipio';
+    protected $primaryKey = 'gid';
 
     public function usuarios()
     {
-        return $this->belongsToMany('User','user_municipio', 'municipio_id', 'usuario_id');
+        return $this->belongsToMany('User','user_municipio', 'municipio_id', 'usuario_id')->withTimestamps();
     }
 }

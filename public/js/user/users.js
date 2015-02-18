@@ -142,6 +142,7 @@ angular.module('app', ['ngAnimate', 'ngResource', 'ngSanitize','ui.bootstrap', '
         $scope.itemsPage = 10;
         $scope.successSave = false;
         $scope.roles = {};
+        $scope.municipios = {};
         // Variables para el control
         /**
          * Funcion para obtener la lista de todos los usuarios
@@ -165,6 +166,8 @@ angular.module('app', ['ngAnimate', 'ngResource', 'ngSanitize','ui.bootstrap', '
                 var idx = null;
                 // Se limpian los roles seleccionados
                 $scope.roles = {};
+                // Se limpian los municipios seleccionados
+                $scope.municipios = {};
                 // Se busca el index del usuario en el arreglo
                 $scope.users.forEach(function (element, index) {
                     if (element.id === response.data.id) {
@@ -176,9 +179,11 @@ angular.module('app', ['ngAnimate', 'ngResource', 'ngSanitize','ui.bootstrap', '
                 if(idx === null){
                     idx = $scope.users.length-1;
                 }
-                console.log(idx);
                 // Se agregan los roles del usuario
                 $scope.users[idx].roles = response.data.roles;
+                // Se agregan los municipios al usuario
+                $scope.users[idx].municipios = response.data.municipios;
+                // Se agrega el id del usuario
                 $scope.users[idx].id = response.data.id;
                 delete $scope.users[idx].idx;
                 // Se muestra el mensaje de exito
@@ -245,6 +250,8 @@ angular.module('app', ['ngAnimate', 'ngResource', 'ngSanitize','ui.bootstrap', '
         $scope.store = function(){
             $scope.focusForm = true;
             var userSave = angular.copy($scope.user);
+            // Se resetean los datos del usuario
+            $scope.user = {};
             // Se eliminan los errores del usuario al editar
             if(userSave.error !== undefined ){
                 delete userSave.error;
@@ -258,7 +265,14 @@ angular.module('app', ['ngAnimate', 'ngResource', 'ngSanitize','ui.bootstrap', '
                     userSave.roles[role] = role;
                 }
             });
-            $scope.user = {};
+            // Se modifican los datos de los municipios como los espera recibir laravel
+            userSave.municipios = {};
+            Object.getOwnPropertyNames($scope.municipios).forEach(function(val, idx, array) {
+                if($scope.municipios[val] == true){
+                    var municipio = val.replace('municipio', '');
+                    userSave.municipios[municipio] = municipio;
+                }
+            });
             // Se agrega el usuario a la lista de usuarios
             if (userSave.id == undefined){
                 (userSave.idx == undefined) ? $scope.users.push(userSave) : $scope.users[userSave.idx] = angular.copy(userSave);
@@ -277,6 +291,8 @@ angular.module('app', ['ngAnimate', 'ngResource', 'ngSanitize','ui.bootstrap', '
         $scope.edit = function(idx, id){
             // Se borrran los roles previamente seleccionados
             $scope.roles = {};
+            // Se borrran los municipios previamente seleccionados
+            $scope.municipios = {};
             // Se borra la busqueda
             var idx = $scope.users.length -1;
             $scope.showForm = true;
@@ -298,6 +314,10 @@ angular.module('app', ['ngAnimate', 'ngResource', 'ngSanitize','ui.bootstrap', '
             // Se marcan los roles que tiene el usuario
             for(var i in $scope.user.roles){
                 $scope.roles['role'+$scope.user.roles[i].id] = true;
+            }
+            // Se marcan los municipios a los que esta asignado el usuario
+            for(var i in $scope.user.municipios){
+                $scope.municipios['municipio'+$scope.user.municipios[i].gid] = true;
             }
             $scope.user.idx = idx;
         };
