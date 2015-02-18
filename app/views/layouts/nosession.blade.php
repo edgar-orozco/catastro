@@ -19,7 +19,7 @@
     <div class="container">
         <div class="col-lg-8 col-md-8 col-sm-6">
             <div class="img-cont">
-                <img src="css/images/main/main-logo.png" alt="Catastro">
+                <img src="http://104.236.22.240/css/images/main/main-logo.png" alt="Catastro">
             </div>
             <div class="img-cont spf">
                 <img src="css/images/main/logo-spf.png" alt="SPF">
