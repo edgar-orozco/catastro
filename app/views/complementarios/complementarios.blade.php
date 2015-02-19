@@ -80,4 +80,5 @@ Bienvenido :: @parent
         </div>
         <?php echo $busqueda->links(); ?>
     </div>
-    @stop
+</div>
+@stop
