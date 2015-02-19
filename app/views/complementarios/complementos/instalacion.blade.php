@@ -51,11 +51,11 @@
             <th scope="col"  colspan="9"> 
                 <a data-toggle="modal" data-target="#instalaciones-especiales" href="/agregar/{{$clave}}"  class="btn btn-primary nuevo">Agregar Nuevo</a></th>
         </tr>
-         <div class="modal fade" id="instalaciones-especiales" tabindex="-1" role="dialog"  aria-labelledby="instalaciones-especiales" aria-hidden="true">  
+    <div class="modal fade" id="instalaciones-especiales" tabindex="-1" role="dialog"  aria-labelledby="instalaciones-especiales" aria-hidden="true">  
         <div class="modal-dialog">
             <div class="modal-content">               
                 <div class="modal-body">
-              
+
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default" data-dismiss="modal">Salir</button>
