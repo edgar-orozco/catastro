@@ -164,7 +164,7 @@ class complementarios_ComplementariosController extends BaseController {
             $n->clave = $id;
             $n->uso_construccion = $inputs["uso"];
             $n->sup_const = $inputs["sup_const"];
-            $n->nivel = $inputs["nivel"];
+            $n->nivel= $inputs["nivel"];
             $n->save();
             Session::flash('mensaje', 'El registro ha sido ingresado exitosamente');
             return Redirect::back();
@@ -189,6 +189,7 @@ class complementarios_ComplementariosController extends BaseController {
         $n->indiviso = $inputs["indiviso"];
         $n->sup_total_comun = $inputs["sup_total_comun"];
         $n->no_unidades = $inputs["no_unidades"];
+      
         $n->save();
         return Redirect::back();
     }

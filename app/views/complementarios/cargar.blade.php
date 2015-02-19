@@ -2,9 +2,6 @@
 @section('title')
 
 @stop
-@section('angular')
-ng-app="construcciones" ng-controller="ConstruccionesCtrl"
-@stop
 @section('content')
 <style>
     #map-canvas {
@@ -13,7 +10,6 @@ ng-app="construcciones" ng-controller="ConstruccionesCtrl"
         padding: 0px
     }
 </style>
-
 <div class="list-group">
     <h3>Captura de Datos Complementarios</h3>
     Clave: {{ Form::text('text', $predios->clave ,array($predios->clave , 'readonly' => 'readonly')) }}
@@ -105,7 +101,7 @@ ng-app="construcciones" ng-controller="ConstruccionesCtrl"
         </div>
     </div>
     <!--otro --> 
-     <div class="panel panel-info">
+    <div class="panel panel-info">
         <div class="panel-heading" role="tab" id="heading-{{4}}">
             <h4 class="panel-title">
                 <a class="collapsed" data-toggle="collapse" data-parent="#accordion"
@@ -121,12 +117,12 @@ ng-app="construcciones" ng-controller="ConstruccionesCtrl"
                 <div class="row">
                     <div style=width:105%;">
                         <div class="input-group">
-                           
+
                         </div><!-- /input-group -->
                     </div>
                 </div>
             </div>
         </div>
     </div>
-</div>                           
+</div> 
 @stop
