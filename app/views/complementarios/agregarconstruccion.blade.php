@@ -45,3 +45,4 @@
         <button type="button" class="btn btn-default" data-dismiss="modal">Salir</button>
 
     </div>
+</div>

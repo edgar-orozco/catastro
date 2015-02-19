@@ -1,4 +1,3 @@
-
 <table class="table">
     <thead>
         <tr>
@@ -26,7 +25,7 @@
                     <span class="glyphicon glyphicon-pencil"></span>
                 </a>
                  <!--Modal-->
-                 <div class="modal fade" id="agregar-instalaciones" tabindex="-1" role="dialog"  aria-labelledby="agregar-instalaciones" aria-hidden="true">  
+                 <div class="modal" id="agregar-instalaciones" tabindex="-1" role="dialog"  aria-labelledby="agregar-instalaciones" aria-hidden="true">  
                     <div class="modal-dialog">
                         <div class="modal-content">               
                             <div class="modal-body">
