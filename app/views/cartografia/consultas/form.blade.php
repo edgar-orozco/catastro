@@ -37,21 +37,11 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="#">Incio</a>
+                <a class="navbar-brand" href="/cartografia/consultas">Restaurar</a>
             </div>
             <!-- Collect the nav links, forms, and other content for toggling -->
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-                <ul class="nav navbar-nav">
-                    <li>
-                        <a href="#">Tramites</a>
-                    </li>
-                    <li>
-                        <a href="#">Alta</a>
-                    </li>
-                    <li>
-                        <a href="#">Baja</a>
-                    </li>
-                </ul>
+                
             </div>
             <!-- /.navbar-collapse -->
         </div>
@@ -64,14 +54,15 @@
 
 <div class="row">
 @if ($mapserv) 
+
 	{{ Form::open(['route'=> 'cartografia.consultas.store']) }}
 
 <div class="col-xs-2">
 <br>{{Form::radio('zoom', 0, $mapserv['pan'], array('id' => 'pan',))}} Pan
-	<br>{{Form::radio('zoom', 0.25, $mapserv['zoomin'],array('id' => 'zoomin',))}} Zoom In
+	<br>{{Form::radio('zoom', 1, $mapserv['zoomin'],array('id' => 'zoomin',))}} Zoom In
 	<br> {{Form::radio('zoom', -1, $mapserv['zoomout'],array('id' => 'zoomout',))}} Zoom Out
-	<br> {{Form::text('zsize', '2')}} Size
-	<br> {{Form::submit('refresh')}}
+	<br> {{Form::text('zsize', '2')}} Factor Zoom
+	
 	<br> {{Form::checkbox('layer[]', 'Estado',$mapserv['Estado'])}} Estado
 	<br> {{Form::checkbox('layer[]', 'Carreteras',$mapserv['Carreteras'])}}Carreteras
 	<br> {{Form::checkbox('layer[]', 'Predios',$mapserv['Predios'])}} Predios

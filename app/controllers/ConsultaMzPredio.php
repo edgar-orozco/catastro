@@ -289,16 +289,17 @@ class ConsultaMzPredio extends \BaseController {
 				if (( $imgx and $imgy )
 						or $_POST['refresh']) {
 		
-		/**
-						if ( $_POST['refresh'] ) {
+		
+					/**	if ( $_POST['refresh'] ) {
 						$clickx = 320;
 							$clicky = 240;
 		
 						} else {
-		*/
+*/
+		
 						$clickx = $_POST['img_x'];
 						$clicky = $_POST['img_y'];
-		//				}
+						//}
 		
 								
 							$clkpoint->setXY($clickx,$clicky);
@@ -373,7 +374,9 @@ class ConsultaMzPredio extends \BaseController {
 						$old_extent->setextent($extent[0],$extent[1],$extent[2],$extent[3]);
 						
 						$zoom=$_POST['zoom'];
-						$zoom_factor = 2;
+						 $zoom_factor = $_POST['zoom']*$_POST['zsize'];
+
+						
 		
 		
 								if ($zoom == 0) {
@@ -382,7 +385,7 @@ class ConsultaMzPredio extends \BaseController {
 						$zoomout = "";
 						$zoomin = "";
 		} elseif ($zoom < 0) {
-			$zoom_factor = -1;
+
 		$pan = "";
 		$zoomout = "CHECKED";
 		$zoomin = "";
@@ -391,9 +394,9 @@ class ConsultaMzPredio extends \BaseController {
 		$zoomout = "";
 		$zoomin = "CHECKED";
 		}
-		//$zoomsize = abs( $_POST['zsize'] );
+		$zoomsize = abs( $_POST['zsize'] );
 		
-		 
+		#$zoom_factor="-2"; 
 		$map->zoomPoint($zoom_factor,$clkpoint,$map->width,$map->height,$old_extent,$max_extent);
 		
 		}
@@ -453,6 +456,7 @@ class ConsultaMzPredio extends \BaseController {
 							"Estado" => $Estado,
 							"Predios" => $Predios,
 							"Manzanas" => $Mz,
+							"zome" => $zoom_factor,
 			);
 			
 			
