@@ -1,0 +1,1 @@
+Vera    /var/www/html/geografica/Vera.ttf
