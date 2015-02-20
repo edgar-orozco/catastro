@@ -4,7 +4,7 @@ class Consulta_ConsultaController extends BaseController {
 public function getIndex()
     {
     	$municipio='08';
-$resultado = DB::select("select _aa_sp_obtiene_predio('', '001-0035-000045')");
+$resultado = DB::select("select sp_get_predios('','','','','','','','','','')");
 //var_dump($resultado);
 //$res=_aa_sp_obtiene_predio;
 //print_r($resultado);
@@ -14,7 +14,7 @@ foreach ($resultado as $key ) {
 
 
 
-$vale[]= explode(',', $key->_aa_sp_obtiene_predio);
+$vale[]= explode(',', $key->sp_get_predios);
  //	echo '<br>';
 //print_r($vale);
 

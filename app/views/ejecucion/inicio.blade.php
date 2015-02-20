@@ -9,7 +9,7 @@ Bienvenido :: @parent
 
 @section('content')
 <div>
-    <div class="default">
+    <div class="panel-default">
     
     <div class="panel-heading">
 
@@ -27,7 +27,7 @@ Bienvenido :: @parent
     {{ HTML::style('css/theme.default.css') }}
     {{ HTML::script('js/jquery-1.4.3.min.js')}}
     {{ HTML::script('js/checks.js')}}
-    {{ HTML::script('js/jquery.tablesorter.widgets.js')}}
+   
         <script>
         //mostrar  ocultatr vistaa
             function SINO(cual) {
@@ -52,16 +52,7 @@ Bienvenido :: @parent
 }
 
         </script>
-        <script>
-            $ ( función () { 
-  $ ( "#myTable" ). tablesorter (); 
-});
-        </script>
-<script>
-    $ ( función () { 
-  $ ( "#myTable" ). tablesorter ({ sortList :  [[ 0 , 0 ],  [ 1 , 0 ]]  }); 
-});
-</script>
+
 
 <script type="text/javascript">
     // jQuery
@@ -108,6 +99,10 @@ $(document).ready(function(){
             {{Form::label('Nombre Propietario:') }}
             {{ Form::text('nombre',null, array('class' => 'form-control focus', 'placeholder'=>'Nombre')) }}
                     </td>
+                    <td>
+            {{Form::label('Registros a mostrar:') }}
+            {{Form::select('paginado', array('10' => '10', '20' => '20', '30' => '30', '40' => '40', '50' => '50','60' => '60'))}}
+                    </td>
              </tr>
              <tr>
              <td>
@@ -138,7 +133,12 @@ $(document).ready(function(){
                 <tr>
                     <td>
             {{Form::label('Municipio:') }}
-            {{ Form::text('municipio','', array('class' => 'form-control focus', 'placeholder'=>'Mucipio', 'autofocus'=> 'autofocus', 'pattern'=> '[a-zA-Z]*')) }}
+            <select name="municipio" class="form-control"  >
+            <option value=''>Elija un municipio...</option>
+            @foreach($municipio as $row) 
+            <option value="{{$row->municipio}}">{{$row->nombre_municipio}}</option>
+            @endforeach
+        </select>
                     </td>
                     <td>
             {{Form::label('Colonia:') }}
@@ -155,9 +155,12 @@ $(document).ready(function(){
                     <td>
                        
             {{Form::label('Estatus:') }}
-             {{Form::select('size', array('PC' => 'PC', 'CI' => 'CI', 'RC' => 'RC', 'RI' => 'RI', 'RA' => 'RA', 
-             'RN' => 'RN', 'DC' => 'DC', 'DI' => 'DI', 'DA' => 'DA', 'DN' => 'DN', 'EC' => 'EC', 'EI' => 'EI',
-              'EA' => 'EA', 'EN' => 'EN', 'SS' => 'SS', 'XE' => 'XE', 'XC' => 'XC', 'XP' => 'XP'))}}
+             <select name="status" class="form-control" >
+            <option value=''>Seleccione status...</option>
+            @foreach($status as $row) 
+            <option value="{{$row->cve_status}}">{{$row->descrip}}</option>
+            @endforeach
+        </select>
             
                     </td>
                     <td>
@@ -178,67 +181,78 @@ $(document).ready(function(){
     <br>
     <br>
     <br>
-    @if(($busqueda))
+   
+    @if(count($busqueda) == 0)
+        <div class="panel-body">
+            <h3><p> {{$mensaje;}}</p></h3>
+
+
+        </div>
+    @endif
+    
+    @if(count($busqueda) > 0)
     {{ Form::open(array('url' => 'cartainv', 'method' => 'post', 'name' => 'formulario'))}}
-    <div class="default">
+    {{$date = new DateTime();}} 
+
+    <div class="panel-default">
 
     <div class="panel-heading">
 
-        <h4 class="panel-title">Resultados</h4>
+        <h4 class="panel-default">Resultados</h4>
         
     </div>
 
-    <table border="1"  id="myTable" class="tablesorter">
+    <table  border="1" id="myTable" class="tablesorter">
      <thead>
         <tr>
-                <th width="700">{{ Form::checkbox('checkMain', 'checkMain', false, array('name' => 'checktodos'))}}</th>
-                <th width="500">Clave Catastral</th>
-                <th width="700">Nombre Propietario</th>
-                <th width="200">Municpio</th>
-                <th width="500">Calle No.</th>
-                <th width="400">Colonia</th>
-                <th width="400">Codigo Postal</th>
-                <th width="700">Periodo Mas Antiguo</th>
-                <th width="350">Monto Adeudo</th>
-                <th width="250">Estatus</th>
+                <th width="100" ><P align="center">{{ Form::checkbox('checkMain', 'checkMain', false, array('name' => 'checktodos'))}}</P></th>
+                <th width="500"><P align="center">Clave Catastral</P></th>
+                <th width="700"><P align="center">Nombre Propietario</P></th>
+                <th width="200"><P align="center">Municpio</P></th>
+                <th width="500"><P align="center">Calle No.</P></th>
+                <th width="400"><P align="center">Colonia</P></th>
+                <th width="400"><P align="center">Codigo Postal</P></th>
+                <th width="700"><P align="center">Periodo Mas Antiguo</P></th>
+                <th width="350"><P align="center">Monto Adeudo</P></th>
+                <th width="250"><P align="center">Estatus</P></th>
         </tr>
     </thead>
     <tbody>
         <tr>
-        @if(!empty($busqueda))
+       
            <?php $i=0 ?>
             @foreach($busqueda as $row)
             <?php $i++ ?>
                 
-            <td>
+            <td align="center">
              {{ Form::checkbox('clave'.$i, $row->clave, false, ['onclick'=>'validar(this)'], array('id' => 'checkAll'))}}
               <!--  <a href="hoja/{{$row->clave;}}/{{$row->nombre;}}/{{$row->municipio;}}/{{$row->impuesto;}}" class="btn btn-xs btn-info" title="Reimprimir">Generar Carta Invitación<i class="fa fa-file-text-o"></i></a>-->
             </td>
-            <td>
+            <td align="center">
                 {{$row->clave}}
             </td>
-            <td>
+            <td align="center">
                 {{$row->nombre;}}
             </td>
-            <td>
-                
+            <td align="center">
+               {{$row->id_p;}}
             </td>
-            <td>
+            <td align="center">
                 {{$row->calle;}}
             </td>
-            <td>
+            <td align="center">
                 {{ $row->colonia;}}
             </td>
-            <td>
+            <td align="center">
                 {{$row->cp;}}
             </td>
-            <td>
+            <td align="center">
                 {{$row->minimo;}}
             </td>
-            <td>
+            <td align="center">
                 {{$row->impuesto;}}
             </td>
-            <td>
+            <td align="center">
                 {{$row->estatus;}}
             </td>         
         </tr>
@@ -247,7 +261,7 @@ $(document).ready(function(){
         </tr>
     </tbody>
     </table>
-
+{{ $busqueda->appends(Request::except('page'))->links() }}
     
                     
 </div>
@@ -256,10 +270,12 @@ $(document).ready(function(){
 <div>
 
 {{Form::label('Fecha Emision Carta Invitacion: ') }}
-{{Form::input('date', 'date1', null, array('disabled', 'required' ))}}
+{{Form::input('date', 'date1', $date->format('d/m/Y') , array('disabled', 'required' ))}}
 
+</div>
+<div>
     {{Form::label('Ejecutores:') }}
-     <select name="ejecutores" class="form-control" autofocus="autofocus" >
+     <select name="ejecutores" class="form-control">
             @foreach($catalogo as $row) 
             <option value="{{$row->id_ejecutor}}">{{$row->cargo}}</option>
             @endforeach
@@ -270,7 +286,6 @@ $(document).ready(function(){
 {{ Form::submit('Generar Carta Invitacion', array('class' => 'btn btn-primary', 'name' => 'boton', 'disabled')) }}
 {{ Form::close() }}
 
- @endif
  @endif
 
 <br><br><br>
