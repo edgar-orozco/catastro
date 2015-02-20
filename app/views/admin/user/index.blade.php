@@ -25,7 +25,7 @@
                 <span class="input-group-addon">
                     <span class="glyphicon glyphicon-search"></span>
                 </span>
-                {{Form::text('q', null, ['class'=>'form-control', 'placeholder'=>'Buscar por...', 'ng-model' => 'q'] )}}
+                {{Form::text('q', null, ['class'=>'form-control', 'placeholder'=>'Buscar por...', 'tb-focus' => 'focusFilter', 'ng-model' => 'q'] )}}
 
                 <div class="input-group-btn">
                     <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">{[{ filterName() }]} <span class="caret"></span></button>

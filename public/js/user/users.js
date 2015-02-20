@@ -204,6 +204,7 @@ angular.module('app', ['ngAnimate', 'ngResource', 'ngSanitize','ui.bootstrap', '
         // Variables que se exponen en la vista
         $scope.showForm = false;
         $scope.focusForm = false;
+        $scope.focusFilter = false;
         $scope.loading = true;
         $scope.user = {};
         $scope.users = [];
@@ -466,14 +467,19 @@ angular.module('app', ['ngAnimate', 'ngResource', 'ngSanitize','ui.bootstrap', '
                     break;
             }
         };
-
-
+        /**
+         * Funcion para cambiar el tipo de filtro
+         *
+         * @param filter
+         */
         $scope.changeTypeFilter = function(filter){
-            $scope.q = '';
-            $scope.filterWord = filter;
-        }
-
-
+            $scope.focusFilter = false;
+            $timeout(function(){
+                $scope.q = '';
+                $scope.filterWord = filter;
+                $scope.focusFilter = true;
+            }, 100);
+        };
     }).
 /**
  * Control para mostrar el modal para confirmar el borrado de un registro
