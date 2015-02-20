@@ -1,0 +1,79 @@
+header.catatro-df img{
+    width: 100%;
+}
+header.catatro-df{
+    font-family: Arial;
+    background: #D4D4D4;
+}
+
+header.catatro-df .container{
+    width: 100%;
+    max-width: 950px;
+    padding: 25px 0;
+    margin: 0 auto;
+    display: block;
+}
+header.catatro-df .container div{
+    padding: 0;
+}
+header.catatro-df .container .social{
+    padding-top: 10px;
+    list-style: none;
+    right: 0;
+    text-align: center;
+}
+header.catatro-df .container .social li{
+    display: inline-block;
+    padding: 5px;
+}
+header.catatro-df .container .social li a{
+    display: block;
+    width: 33px;
+    height: 33px;
+    background: url('images/main/social.png') -4px -4px;
+}
+header.catatro-df .container .social li a:hover{
+    opacity: 0.5;
+}
+header.catatro-df .container .social li a.twitter{
+    background-position: -43px -4px;
+}
+header.catatro-df .container .social li a.plus{
+    background-position: -84px -4px;
+}
+header.catatro-df .container .social li a.youtube{
+    background-position: -125px -4px;
+    padding-right: 0;
+}
+header.catatro-df .container .img-cont{
+    max-width: 180px;
+    width: 100%;
+    display:inline-block;
+}
+header.catatro-df .container .img-cont.spf{
+    padding-left: 20px;
+    max-width: 200px;
+    width: 100%;
+}
+header.catatro-df .navbar{
+    width: 100%;
+    background:   #EEEEEE;
+    margin: 0;
+}
+header.catatro-df .navbar .container-fluid{
+    max-width: 950px;
+    width: 100%;
+    padding: 0;
+}
+header.catatro-df .navbar #navbarCollapse{
+    padding: 0;
+}
+header.catatro-df .navbar .container-fluid ul li a{
+    color: gray;
+    font-weight: lighter;
+    text-transform: uppercase;
+}
+header.catatro-df .navbar .navbar-nav a:hover{
+    color: white;
+    background: #69B1C9;
+}

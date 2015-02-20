@@ -33,10 +33,10 @@ Route::get(
 );
 
 Route::post(
-    'tramites/guardar-documentos',
+    'ventanilla/iniciar-tramite',
     array(
         'as' => 'tramites.guardar-documentos',
-        'uses' => 'TramitesController@storeDocumentos',
+        'uses' => 'TramitesController@storeTramite',
         'before' => 'auth',
     )
 );

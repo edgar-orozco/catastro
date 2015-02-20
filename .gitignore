@@ -1,4 +1,3 @@
-/nbproject
 /bootstrap/compiled.php
 /vendor
 composer.phar
@@ -10,4 +9,3 @@ Thumbs.db
 _ide_helper.php
 
 public/js/laroute.js
-/nbproject/private/

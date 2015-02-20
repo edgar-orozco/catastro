@@ -3,16 +3,28 @@
 @section('styles')
 <style>
     .login {
-        position: absolute;
-        left: 50%;
-        top: 50%;
+        position: inherit;
         width: 350px;
-        height: 200px;
-        margin-left: -150px;
-        margin-top: -150px;
+        margin: 0 auto;
+        padding: 40px 0;
     }
     .panel-title {
         font-size: 24px;
+    }
+    .panel-heading{
+        width: 100%;
+        max-width: 340px;
+    }
+    .panel-heading img{
+        width: 100%
+    }
+    input[type="submit"]{
+        width: 100%;
+        border-radius: 0;
+        background: #F27007;
+        text-transform: uppercase;
+        color: #FFF;
+        border: none;
     }
 </style>
 @stop
@@ -23,7 +35,7 @@
     <div class="login">
         <div class="panel">
             <div class="panel-heading">
-                <h3 class="panel-title">Sistema de Gestión Catastral</h3>
+                <img src="http://104.236.22.240/css/images/main/logo-header.png">
             </div>
             <div class="panel-body">
                 {{ Form::open(array('url' => 'users/login', 'method' => 'POST')) }}

@@ -16,7 +16,16 @@
                         <p class="list-group-item-text">{[{ userList.username }]}</p>
                     </div>
                     <div class="col-sm-3">
-                        <span ng-repeat="rol in userList.roles" class="label label-warning">{[{ rol.name }]}</span>
+                        <!-- Roles -->
+                        <p class="text-left">
+                            <span ng-repeat="rol in userList.roles" class="label label-warning">{[{ rol.name }]}</span>
+                        </p>
+                        <!-- Municipios -->
+                        <p class="text-right">
+                            <span ng-repeat="municipio in userList.municipios" class="label label-success">{[{ municipio.nombre_municipio }]}</span>
+                            <span ng-if="userList.municipios.length == 0" class="label label-success">Todos</span>
+                        </p>
+
                         <button ng-show="userList.idx !== undefinied && userList.error === undefinied" type="button" class="btn btn-success pull-right" title="Guardando datos ..." disabled="disabled">
                             <span class="glyphicon glyphicon-refresh spin"></span>
                         </button>

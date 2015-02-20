@@ -18,7 +18,7 @@ class HomeController extends BaseController
     {
 
         if(Auth::guest()) {
-            return View::make('users/login');
+            return View::make('index');
         }
 
         $homepage = "hello";
@@ -37,6 +37,9 @@ class HomeController extends BaseController
         }
         elseif (Confide::user()->hasRole('Usuario final')) {
             $homepage = 'supervisor';
+        }
+        elseif (Confide::user()->hasRole('Cartógrafo')) {
+            $homepage = 'cartografo';
         }
 
         return View::make($homepage);

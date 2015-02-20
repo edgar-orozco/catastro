@@ -7,69 +7,128 @@
             - Sistema de Gestión Catastral
         @show
     </title>
+    <link rel="icon" type="image/png" href="http://104.236.22.240/css/images/main/favicon.png">
     <!-- CSS bootstrap -->
     {{ HTML::style('css/bootstrap.css') }}
 
+    <!--fancybox-->
+       {{ HTML::style('/css/jquery.fancybox.css') }}
+
+        {{ HTML::script('/js/jquery-1.7.1.min.js') }}
+        {{ HTML::script('/js/jquery.fancybox.pack.js') }}
+    
     <!-- css general de la app -->
     {{ HTML::style('css/general.css') }}
 
     <!-- Navbar css custom menu -->
     {{ HTML::style('css/navmenu.css') }}
+    {{ HTML::style('css/header.css') }}
+    {{ HTML::style('css/footer.css') }}
 
     <style>
         @yield('styles')
+        .navbar-custom{
+            border: none;
+        }
+        .navbar-custom .navbar-nav > .active > a, .navbar-custom .navbar-nav > .active > a:hover, .navbar-custom .navbar-nav > .active > a:focus{
+            color:white !important;
+        }
+        .container{
+            margin-top: 40px;
+        }
     </style>
+    <script>
+$(document).ready(function () {
+    $(".nuevo").fancybox({
+        'autoScale': false,
+        'transitionIn': 'none',
+        'transitionOut': 'none',
+        'width': '60%',
+        'height': '60%',
+        'type': 'iframe'
+    });
+    $("#checkbox_activar").click(function () {
+        $("#checkbox").attr('checked', true);
+    });
 
+    $("#checkbox_desactivar").click(function () {
+        $("#checkbox").attr('checked', false);
+    });
+
+});
+
+
+        </script>
 </head>
 <body>
-
-@section('navbar')
-    <nav role="navigation" class="navbar navbar-custom" id="top">
-        <div class="container-fluid">
-            <div class="navbar-header">
-                <button type="button" data-target="#navbarCollapse" data-toggle="collapse" class="navbar-toggle">
-                    <span class="sr-only">Toggle navigation</span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                <a href="{{URL::to('/')}}" class="navbar-brand">Sistema de Gestión Catastral</a>
+<header class="catatro-df">
+    <div class="container">
+        <div class="col-lg-8 col-md-8 col-sm-6">
+            <div class="img-cont">
+                <img src="http://104.236.22.240/css/images/main/main-logo.png" alt="Catastro">
             </div>
-
-            <div id="navbarCollapse" class="collapse navbar-collapse">
-                <ul class="nav navbar-nav">
-                    <li class="@if(Request::is('/')) active @endif">
-                        <a href="{{URL::to('/')}}">
-                            <i class="glyphicon glyphicon-home"></i>
-                        </a>
-                    </li>
-
-                    @yield('menu', App::make('Menu'))
-
-                </ul>
-
-                <ul class="nav navbar-nav navbar-right">
-                    <li class="dropdown">
-                        <a data-toggle="dropdown" class="dropdown-toggle" href="#">
-                            <i class="glyphicon glyphicon-user"></i>
-                            <b class="caret"></b>
-                        </a>
-                        <ul role="menu" class="dropdown-menu">
-                            <li><a href="{{ URL::action('ProfileController@index') }}">Mis datos</a></li>
-                            <li><a href="{{ URL::action('ProfileController@edit') }}">Modificar cuenta</a></li>
-                        </ul>
-                    </li>
-                    <li>
-                        <a href="#" data-toggle="modal" data-target="#confirm-logout" title="Salir del sistema">
-                            <i class="glyphicon glyphicon-log-out"></i>
-                        </a>
-                    </li>
-                </ul>
+            <div class="img-cont spf">
+                <img src="http://104.236.22.240/css/images/main/logo-spf.png" alt="SPF">
+            </div>
+            <div class="img-cont catastro">
+                <img src="http://104.236.22.240/css/images/main/logo-header.png" alt="Catastro">
             </div>
         </div>
-    </nav>
-@show
+        <div class="col-lg-4 col-md-4 col-sm-6">
+            <ul class="social">
+                <li><a href="http://104.236.22.240/users/login" class="facebook"></a></li>
+                <li><a href="http://104.236.22.240/users/login" class="twitter"></a></li>
+                <li><a href="http://104.236.22.240/users/login" class="plus"></a></li>
+                <li><a href="http://104.236.22.240/users/login" class="youtube"></a></li>
+            </ul>
+        </div>
+    </div>
+    @section('navbar')
+        <nav role="navigation" class="navbar navbar-custom" id="top">
+            <div class="container-fluid">
+                <div class="navbar-header">
+                    <button type="button" data-target="#navbarCollapse" data-toggle="collapse" class="navbar-toggle">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                </div>
 
+                <div id="navbarCollapse" class="collapse navbar-collapse">
+                    <ul class="nav navbar-nav">
+                        <li class="@if(Request::is('/')) active @endif">
+                            <a href="{{URL::to('/')}}">
+                                <i class="glyphicon glyphicon-home"></i>
+                            </a>
+                        </li>
+
+                        @yield('menu', App::make('Menu'))
+
+                    </ul>
+
+                    <ul class="nav navbar-nav navbar-right">
+                        <li class="dropdown">
+                            <a data-toggle="dropdown" class="dropdown-toggle" href="#">
+                                <i class="glyphicon glyphicon-user"></i>
+                                <b class="caret"></b>
+                            </a>
+                            <ul role="menu" class="dropdown-menu">
+                                <li><a href="{{ URL::action('ProfileController@index') }}">Mis datos</a></li>
+                                <li><a href="{{ URL::action('ProfileController@edit') }}">Modificar cuenta</a></li>
+                            </ul>
+                        </li>
+                        <li>
+                            <a href="#" data-toggle="modal" data-target="#confirm-logout" title="Salir del sistema">
+                                <i class="glyphicon glyphicon-log-out"></i>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    @show
+</header>
 <div class="container"  @yield('angular')>
 
     @if(Session::has('error'))
@@ -130,7 +189,61 @@
         </div>
     </div>
 </div>
+<footer>
+    <div class="container">
+        <div class="col-md-4 col-lg-4 col-sm-4">
+            <h2>Gobierno de <b>Tabasco</b></h2>
+            <ul>
+                <li>
+                    <a href="http://104.236.22.240/users/login">Portal Transparencia</a>
+                </li>
+                <li>
+                    <a href="http://104.236.22.240/users/login">ITAIP</a>
+                </li>
+                <li>
+                    <a href="http://104.236.22.240/users/login">Infomex</a>
+                </li>
+                <li>
+                    <a href="http://104.236.22.240/users/login">Aviso de Privacidad</a>
+                </li>
+                <li>
+                    <a href="http://104.236.22.240/users/login">Buzón</a>
+                </li>
+            </ul>
+        </div>
+        <div class="col-md-4 col-lg-4 col-sm-4">
+            <h2>Dirección / <b>Ubicación</b></h2>
+            <p>
+                Independencia No. 2, Col. Centro Palacio, <br>
+                de Gobierno, C.P. 86000 Villahermosa, <br>
+                Tabasco, MX. <br>
+                Tel. (993) 358 0400
+            </p>
+        </div>
+        <div class="col-md-4 col-lg-4 col-sm-4">
+            <h2>Contactanos / <b>Comenta</b></h2>
 
+            <form action="">
+                <input type="text" placeholder="Nombre">
+                <input type="text" placeholder="Email">
+                <input type="text" placeholder="Teléfono">
+                <textarea name="" id="" cols="30" rows="10" placeholder="Comentarios"></textarea>
+                <input type="submit" value="Enviar">
+            </form>
+        </div>
+    </div>
+</footer>
+<div class="footer legal container">
+    <div class="col-sm-8 col-md-8 col-lg-8">
+        <p><b>Gobierno del Estado de Tabasco © Derechos Reservados 2013 - 2018</b><br>
+            Dirección General de Tecnologías de Información y Comunicaciones</p>
+    </div>
+    <div class="col-sm-4 col-md-4 col-lg-4">
+        <div class="img-cont">
+            <img src="http://104.236.22.240/css/images/main/main-logo.png" alt="Catastro">
+        </div>
+    </div>
+</div>
 <!-- JQuery -->
 {{ HTML::script('js/jquery/jquery.min.js') }}
 

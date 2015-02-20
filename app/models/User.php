@@ -33,7 +33,7 @@ class User extends Eloquent implements ConfideUserInterface
      */
     public function municipios()
     {
-        return $this->belongsToMany('Municipio', 'user_municipio', 'usuario_id', 'municipio_id');
+        return $this->belongsToMany('Municipio', 'user_municipio', 'usuario_id', 'municipio_id')->withTimestamps();
     }
 
     /**
@@ -66,6 +66,16 @@ class User extends Eloquent implements ConfideUserInterface
             $this->roles()->sync($inputRoles);
         } else {
             $this->roles()->detach();
+        }
+    }
+    /**
+     * Save municipios inputted from multiselect
+     * @param $inputMunicipios
+     */
+    public function saveMunicipios($inputMunicipios)
+    {
+        if (!empty($inputMunicipios)) {
+            $this->municipios()->sync($inputMunicipios);
         }
     }
 
@@ -159,7 +169,7 @@ class User extends Eloquent implements ConfideUserInterface
         $municipios = array();
         if(count($this->municipios) > 0){
             foreach($this->municipios as $municipio){
-                $municipios[] = $municipio->nom_mpo;
+                $municipios[] = $municipio->nombre_municipio;
             }
         }
         else{
@@ -183,7 +193,8 @@ class User extends Eloquent implements ConfideUserInterface
                 'apepat'         => $user->apepat,
                 'apemat'         => $user->apemat,
                 'nombreCompleto' => $user->nombreCompleto(),
-                'roles'          => $user->roles
+                'roles'          => $user->roles,
+                'municipios'     => $user->municipios
             );
         }
         return $users;

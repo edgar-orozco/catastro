@@ -106,7 +106,7 @@
                                                 <i class="glyphicon glyphicon-usd gi-5x"></i>
                                             </div>
                                             <div class="col-xs-9 text-right">
-                                                <div class="huge">{{$tipotramite->costodsmv}}</div>
+                                                <div class="huge">{{number_format($tipotramite->costodsmv * 66.45, 2)}}</div>
                                                 <div>Pesos M.N.</div>
                                             </div>
                                         </div>
@@ -148,8 +148,8 @@
 </form>
 
 {{ Form::open(array('url' => 'ventanilla/iniciar-tramite', 'method' => 'GET', 'id'=>'iniciar')) }}
-    {{ Form::hidden('clave',null, ['class'=>'clave']) }}
-    {{ Form::hidden('cuenta',null, ['class'=>'cuenta']) }}
+    {{ Form::hidden('clave',null, ['class'=>'clave', 'id'=>'clave']) }}
+    {{ Form::hidden('cuenta',null, ['class'=>'cuenta', 'id'=>'cuenta']) }}
     {{ Form::hidden('tipotramite_id',null, ['class'=>'tipotramite_id']) }}
 {{ Form::close() }}
 

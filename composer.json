@@ -4,10 +4,13 @@
 	"keywords": ["framework", "laravel"],
 	"license": "MIT",
 	"require": {
+
 		"laravel/framework": "4.2.*",
         "zizaco/confide": "~4.0@dev",
         "zizaco/entrust": "1.2.*@dev",
-        "lord/laroute" : "1.*"
+        "lord/laroute" : "1.*",
+        "thujohn/pdf":"dev-master",
+        "Barryvdh/Laravel-DOMPDF": "0.4.*"
 	},
     "require-dev": {
         "way/generators": "~2.0",
