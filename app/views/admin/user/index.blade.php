@@ -30,14 +30,14 @@
                 <div class="input-group-btn">
                     <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">{[{ filterName() }]} <span class="caret"></span></button>
                     <ul class="dropdown-menu dropdown-menu-right" role="menu">
-                        <li><a href ng-click="filterWord = 'name'">Nombre</a></li>
-                        <li><a href ng-click="filterWord = 'apepat'">Apellido paterno</a></li>
-                        <li><a href ng-click="filterWord = 'apemat'">Apellido materno</a></li>
+                        <li><a href ng-click="changeTypeFilter( 'name' )">Nombre</a></li>
+                        <li><a href ng-click="changeTypeFilter( 'apepat' )">Apellido paterno</a></li>
+                        <li><a href ng-click="changeTypeFilter( 'apemat' )">Apellido materno</a></li>
                         <li class="divider"></li>
-                        <li><a href ng-click="filterWord = 'email'">Email</a></li>
-                        <li><a href ng-click="filterWord = 'user'">Usuario</a></li>
-                        <li><a href ng-click="filterWord = 'rol'">Rol</a></li>
-                        <li><a href ng-click="filterWord = 'municipio'">Municipio</a></li>
+                        <li><a href ng-click="changeTypeFilter( 'email' )">Email</a></li>
+                        <li><a href ng-click="changeTypeFilter( 'user' )">Usuario</a></li>
+                        <li><a href ng-click="changeTypeFilter( 'rol' )">Rol</a></li>
+                        <li><a href ng-click="changeTypeFilter( 'municipio' )">Municipio</a></li>
                     </ul>
                 </div><!-- /btn-group -->
             </div><!-- /input-group -->

@@ -466,6 +466,14 @@ angular.module('app', ['ngAnimate', 'ngResource', 'ngSanitize','ui.bootstrap', '
                     break;
             }
         };
+
+
+        $scope.changeTypeFilter = function(filter){
+            $scope.q = '';
+            $scope.filterWord = filter;
+        }
+
+
     }).
 /**
  * Control para mostrar el modal para confirmar el borrado de un registro
