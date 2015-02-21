@@ -66,7 +66,7 @@ return array(
 		'pgsql' => array(
 			'driver'   => 'pgsql',
 			'host'     => 'localhost',
-			'database' => 'Catastro',
+			'database' => 'catastro',
 			'username' => 'postgres',
 			'password' => 'pass',
 			'charset'  => 'utf8',
