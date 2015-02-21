@@ -13,7 +13,6 @@ Bienvenido :: @parent
 
     @endif
     <div class="panel-body">
-
         {{ Form::open(array(
                     'role' => 'form',
                     'method'=>'ComplementariosController@index',
@@ -70,15 +69,16 @@ Bienvenido :: @parent
                             <?php echo $row->superficie_construccion; ?>
                         </td>
                         <td nowrap>
-                        <a href="{{ URL::action('complementarios_ComplementariosController@getPredio',$row->clave) }}" class="btn btn-warning" title="Editar Predio">
-                            <span class="glyphicon glyphicon-pencil"></span>
-                        </a>
+                            <a href="{{ URL::action('complementarios_ComplementariosController@getPredio',$row->clave) }}" class="btn btn-warning nuevo" title="Editar Predio">
+                                <span class="glyphicon glyphicon-pencil"></span>
+                            </a>
                         </td>
                     </tr>
                     @endforeach
                 </tbody>
             </table>
         </div>
-        <?php  echo $busqueda->links(); ?>
+        <?php echo $busqueda->links(); ?>
     </div>
-    @stop
+</div>
+@stop

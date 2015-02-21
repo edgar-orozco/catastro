@@ -1,4 +1,7 @@
-<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css">
+<div class="modal-header">
+    <h4 class="modal-titulo" id="condominio-titulo">Confirme la acci&oacute;n:</h4>
+</div>
+</br>
 @if(Session::has('mensaje'))
 <h2>{{ Session::get('mensaje') }}</h2>
 @endif
@@ -10,7 +13,7 @@ array('url'=>'/agregar-condominio',
  )
 }}
 {{ Form::hidden('id',$datos) }}
-
+<div style="margin-left: 20px">
 <div class="input-group">
     Propietario:{{ Form::text('id_propietarios', null, array('class' => 'form-control focus  ', 'placeholder'=>'Propietario', 'autofocus'=> 'autofocus')) }}
 </div>
@@ -35,6 +38,14 @@ array('url'=>'/agregar-condominio',
 <div class="input-group">
     No Unidades:{{ Form::text('no_unidades', null, array('class' => 'form-control focus  ', 'placeholder'=>'No Unidades', 'autofocus'=> 'autofocus')) }}
 </div>
+<br/>
 {{ Form::submit('Guardar', array('class' => 'btn btn-primary  ')) }}
 {{ Form::reset('Limpiar formato', ['class' => 'btn btn-warning  ']) }}   
 {{ Form::close() }}
+</div>
+
+</br>
+<div class="modal-footer">
+    <button type="button" class="btn btn-default" data-dismiss="modal">Salir</button>
+
+</div>
