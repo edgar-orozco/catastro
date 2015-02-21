@@ -49,12 +49,17 @@ angular.module('app', ['ngAnimate', 'ngResource', 'ngSanitize','ui.bootstrap', '
                     var expWord = new RegExp(word, 'i');
                     var haveTerm = false;
                     var exist = false;
-                    // Se revisa si la expresion de cada una de las palabras coincide con algun elemento de la lista enviada
-                    objectsFiltered.forEach(function ( objectFiltered ) {
-                        if (objectFiltered[element].search(expWord) >= 0) {
-                            haveTerm = true;
-                        }
-                    });
+                    // Se revisa si el elemento a filtrar es un objeto
+                    if(typeof objectsFiltered == "object") {
+                        // Se revisa si la expresion de cada una de las palabras coincide con algun elemento de la lista enviada
+                        objectsFiltered.forEach(function (objectFiltered) {
+                            if (objectFiltered[element].search(expWord) >= 0) haveTerm = true;
+                        });
+                    }
+                    // Se revisa si el elemento a filtrar es una cadena de texto
+                    else if(typeof objectsFiltered == "string"){
+                        if (objectsFiltered.search(expWord) >= 0) haveTerm = true;
+                    }
                     // Se busca si el elemento no se agrego ya al arreglo
                     filtered.every(function (filters) {
                         if (angular.equals(filters, item)) {
@@ -75,7 +80,7 @@ angular.module('app', ['ngAnimate', 'ngResource', 'ngSanitize','ui.bootstrap', '
                 items.forEach(function(item, i){
                     switch (filter){
                         case 'name':
-                            if (item.nombre.search(exp) >= 0) filtered.push(item);
+                            filtered = multipleFilter(q, item.nombreCompleto, 'nombreCompleto', filtered, item);
                             break;
                         case 'apepat':
                             if (item.apepat.search(exp) >= 0) filtered.push(item);
