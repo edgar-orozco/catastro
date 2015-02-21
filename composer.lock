@@ -4,11 +4,7 @@
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-<<<<<<< HEAD
-    "hash": "f2f2049bb5c8f6c7fb8d499a362b6d76",
-=======
     "hash": "1ed7df2da8124bd41708de42c2d63e57",
->>>>>>> 512f07090c7db9a5b54367303d64bf3825c7f110
     "packages": [
         {
             "name": "barryvdh/laravel-dompdf",
@@ -1202,11 +1198,7 @@
         },
         {
             "name": "symfony/css-selector",
-<<<<<<< HEAD
-            "version": "v2.5.9",
-=======
             "version": "v2.5.10",
->>>>>>> 512f07090c7db9a5b54367303d64bf3825c7f110
             "target-dir": "Symfony/Component/CssSelector",
             "source": {
                 "type": "git",
@@ -1316,11 +1308,7 @@
         },
         {
             "name": "symfony/dom-crawler",
-<<<<<<< HEAD
-            "version": "v2.5.9",
-=======
             "version": "v2.5.10",
->>>>>>> 512f07090c7db9a5b54367303d64bf3825c7f110
             "target-dir": "Symfony/Component/DomCrawler",
             "source": {
                 "type": "git",
@@ -1431,11 +1419,7 @@
         },
         {
             "name": "symfony/filesystem",
-<<<<<<< HEAD
-            "version": "v2.6.3",
-=======
             "version": "v2.6.4",
->>>>>>> 512f07090c7db9a5b54367303d64bf3825c7f110
             "target-dir": "Symfony/Component/Filesystem",
             "source": {
                 "type": "git",
@@ -1582,30 +1566,17 @@
         },
         {
             "name": "symfony/http-kernel",
-<<<<<<< HEAD
-            "version": "v2.5.9",
-=======
             "version": "v2.5.10",
->>>>>>> 512f07090c7db9a5b54367303d64bf3825c7f110
             "target-dir": "Symfony/Component/HttpKernel",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/HttpKernel.git",
-<<<<<<< HEAD
-                "reference": "a218b9ba87b24c440e4e9cd171c880e83796a5bb"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/symfony/HttpKernel/zipball/a218b9ba87b24c440e4e9cd171c880e83796a5bb",
-                "reference": "a218b9ba87b24c440e4e9cd171c880e83796a5bb",
-=======
                 "reference": "a28ec28c98e8f1db9b499fc449a5d33ec281ea2e"
             },
             "dist": {
                 "type": "zip",
                 "url": "https://api.github.com/repos/symfony/HttpKernel/zipball/a28ec28c98e8f1db9b499fc449a5d33ec281ea2e",
                 "reference": "a28ec28c98e8f1db9b499fc449a5d33ec281ea2e",
->>>>>>> 512f07090c7db9a5b54367303d64bf3825c7f110
                 "shasum": ""
             },
             "require": {
@@ -1665,38 +1636,21 @@
             ],
             "description": "Symfony HttpKernel Component",
             "homepage": "http://symfony.com",
-<<<<<<< HEAD
-            "time": "2015-01-07 12:32:08"
-        },
-        {
-            "name": "symfony/process",
-            "version": "v2.5.9",
-=======
             "time": "2015-02-02 09:26:53"
         },
         {
             "name": "symfony/process",
             "version": "v2.5.10",
->>>>>>> 512f07090c7db9a5b54367303d64bf3825c7f110
             "target-dir": "Symfony/Component/Process",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/Process.git",
-<<<<<<< HEAD
-                "reference": "3309098ce4d9b5e44c04e51bf4541ea466fbe343"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/symfony/Process/zipball/3309098ce4d9b5e44c04e51bf4541ea466fbe343",
-                "reference": "3309098ce4d9b5e44c04e51bf4541ea466fbe343",
-=======
                 "reference": "7b6632c849f87a062301e853f03f71d726520b58"
             },
             "dist": {
                 "type": "zip",
                 "url": "https://api.github.com/repos/symfony/Process/zipball/7b6632c849f87a062301e853f03f71d726520b58",
                 "reference": "7b6632c849f87a062301e853f03f71d726520b58",
->>>>>>> 512f07090c7db9a5b54367303d64bf3825c7f110
                 "shasum": ""
             },
             "require": {
@@ -1729,38 +1683,21 @@
             ],
             "description": "Symfony Process Component",
             "homepage": "http://symfony.com",
-<<<<<<< HEAD
-            "time": "2015-01-05 20:58:03"
-        },
-        {
-            "name": "symfony/routing",
-            "version": "v2.5.9",
-=======
             "time": "2015-01-25 04:37:39"
         },
         {
             "name": "symfony/routing",
             "version": "v2.5.10",
->>>>>>> 512f07090c7db9a5b54367303d64bf3825c7f110
             "target-dir": "Symfony/Component/Routing",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/Routing.git",
-<<<<<<< HEAD
-                "reference": "47e350dadadabdf64c8dbab499a1132c567f9411"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/symfony/Routing/zipball/47e350dadadabdf64c8dbab499a1132c567f9411",
-                "reference": "47e350dadadabdf64c8dbab499a1132c567f9411",
-=======
                 "reference": "3a9c35ca312d8cb6a308b751f9a1cd92cd5d9277"
             },
             "dist": {
                 "type": "zip",
                 "url": "https://api.github.com/repos/symfony/Routing/zipball/3a9c35ca312d8cb6a308b751f9a1cd92cd5d9277",
                 "reference": "3a9c35ca312d8cb6a308b751f9a1cd92cd5d9277",
->>>>>>> 512f07090c7db9a5b54367303d64bf3825c7f110
                 "shasum": ""
             },
             "require": {
@@ -1814,38 +1751,21 @@
                 "uri",
                 "url"
             ],
-<<<<<<< HEAD
-            "time": "2015-01-05 08:51:41"
-        },
-        {
-            "name": "symfony/security-core",
-            "version": "v2.5.9",
-=======
             "time": "2015-01-13 14:58:43"
         },
         {
             "name": "symfony/security-core",
             "version": "v2.5.10",
->>>>>>> 512f07090c7db9a5b54367303d64bf3825c7f110
             "target-dir": "Symfony/Component/Security/Core",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/security-core.git",
-<<<<<<< HEAD
-                "reference": "e0d8f52dbb7d6e6a5d8df26b56bc68d829c8d519"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/symfony/security-core/zipball/e0d8f52dbb7d6e6a5d8df26b56bc68d829c8d519",
-                "reference": "e0d8f52dbb7d6e6a5d8df26b56bc68d829c8d519",
-=======
                 "reference": "3a27d7b34ee62cb0fdf5ad970e7777912ef4722f"
             },
             "dist": {
                 "type": "zip",
                 "url": "https://api.github.com/repos/symfony/security-core/zipball/3a27d7b34ee62cb0fdf5ad970e7777912ef4722f",
                 "reference": "3a27d7b34ee62cb0fdf5ad970e7777912ef4722f",
->>>>>>> 512f07090c7db9a5b54367303d64bf3825c7f110
                 "shasum": ""
             },
             "require": {
@@ -1894,19 +1814,11 @@
             ],
             "description": "Symfony Security Component - Core Library",
             "homepage": "http://symfony.com",
-<<<<<<< HEAD
-            "time": "2015-01-05 20:58:03"
-        },
-        {
-            "name": "symfony/translation",
-            "version": "v2.5.9",
-=======
             "time": "2015-01-25 04:37:39"
         },
         {
             "name": "symfony/translation",
             "version": "v2.5.10",
->>>>>>> 512f07090c7db9a5b54367303d64bf3825c7f110
             "target-dir": "Symfony/Component/Translation",
             "source": {
                 "type": "git",
@@ -1962,16 +1874,16 @@
         },
         {
             "name": "thujohn/pdf",
-            "version": "1.0.6",
+            "version": "dev-master",
             "source": {
                 "type": "git",
                 "url": "https://github.com/thujohn/pdf-l4.git",
-                "reference": "8e3a35a1ec54b38cff9ccef5069b628749c1b28b"
+                "reference": "e42bc4aff4512b742c8b7e9a2eb493b92ed9c5e9"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/thujohn/pdf-l4/zipball/8e3a35a1ec54b38cff9ccef5069b628749c1b28b",
-                "reference": "8e3a35a1ec54b38cff9ccef5069b628749c1b28b",
+                "url": "https://api.github.com/repos/thujohn/pdf-l4/zipball/e42bc4aff4512b742c8b7e9a2eb493b92ed9c5e9",
+                "reference": "e42bc4aff4512b742c8b7e9a2eb493b92ed9c5e9",
                 "shasum": ""
             },
             "require": {
@@ -2001,25 +1913,20 @@
                 "laravel4",
                 "pdf"
             ],
-            "time": "2014-12-02 17:45:22"
+            "time": "2014-12-02 17:51:16"
         },
         {
             "name": "zizaco/confide",
-            "version": "4.2.0",
+            "version": "dev-master",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Zizaco/confide.git",
-                "reference": "e2be5ff2b744c4912ff78c7e690db5d314696803"
+                "reference": "f9c3d09f68589cc3242a3527464bb871d9815a0f"
             },
             "dist": {
                 "type": "zip",
-<<<<<<< HEAD
-                "url": "https://api.github.com/repos/Zizaco/confide/zipball/e2be5ff2b744c4912ff78c7e690db5d314696803",
-                "reference": "e2be5ff2b744c4912ff78c7e690db5d314696803",
-=======
                 "url": "https://api.github.com/repos/Zizaco/confide/zipball/f9c3d09f68589cc3242a3527464bb871d9815a0f",
                 "reference": "f9c3d09f68589cc3242a3527464bb871d9815a0f",
->>>>>>> 512f07090c7db9a5b54367303d64bf3825c7f110
                 "shasum": ""
             },
             "require": {
@@ -2040,8 +1947,7 @@
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "4.0-dev",
-                    "dev-username-optional": "4.1-dev"
+                    "dev-master": "4.3-dev"
                 }
             },
             "autoload": {
@@ -2073,11 +1979,7 @@
                 "illuminate",
                 "laravel"
             ],
-<<<<<<< HEAD
-            "time": "2015-01-22 00:43:23"
-=======
             "time": "2015-02-09 18:48:33"
->>>>>>> 512f07090c7db9a5b54367303d64bf3825c7f110
         },
         {
             "name": "zizaco/entrust",
@@ -2246,6 +2148,7 @@
     "stability-flags": {
         "zizaco/confide": 20,
         "zizaco/entrust": 20,
+        "thujohn/pdf": 20,
         "fzaninotto/faker": 20
     },
     "prefer-stable": false,
