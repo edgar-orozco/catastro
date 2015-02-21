@@ -20,7 +20,10 @@
             <tbody>
                 <tr ng-repeat="permission in permissions" ng-class="permission.error !== undefinied ? 'warning' : '' ">
                     <td>
+                        
+
                         {[{ permission.name}]}
+
                     </td>
                     <td>
                         {[{ permission.display_name}]}

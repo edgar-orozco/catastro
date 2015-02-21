@@ -9,7 +9,7 @@
         "zizaco/confide": "~4.0@dev",
         "zizaco/entrust": "1.2.*@dev",
         "lord/laroute" : "1.*",
-        "thujohn/pdf":"dev-master",
+        "thujohn/pdf":"~1.0",
         "Barryvdh/Laravel-DOMPDF": "0.4.*"
 	},
     "require-dev": {

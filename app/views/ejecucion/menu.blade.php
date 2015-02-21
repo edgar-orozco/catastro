@@ -38,6 +38,14 @@
                 </a>
             </li>
 
+
+            <li class="@if(Request::is('ejecucion/cargaEjecucion')) active @endif">
+                <a href="{{URL::to('ejecucion/cargaEjecucion')}}">
+                <i class="glyphicon glyphicon-open"></i>&nbsp;
+                    Carga Gasto Ejecución
+                </a>
+            </li>
+
             <li class="divider"></li>
 
                 <li class="@if(Request::is('catalago')) active @endif">
