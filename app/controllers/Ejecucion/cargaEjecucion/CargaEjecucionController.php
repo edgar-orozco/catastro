@@ -70,7 +70,7 @@ class ejecucion_cargaEjecucion_CargaEjecucionController extends \BaseController 
 	    			}
 	    			else  			
 	    			{
-	    				$consulta= Predios::find($line);
+	    				$consulta= predios::find($line);
 	    					if ($consulta) 
 	    					{
 	    						$predios[]= $consulta.'<br>';
