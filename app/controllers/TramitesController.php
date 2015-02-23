@@ -84,6 +84,10 @@ class TramitesController extends BaseController {
         $tipotramite_id = Input::get('tipotramite_id');
         $tipo_persona = Input::get('tipo_persona');
 
+        //Por el momento en lo que se implementa la dependencia foliable, se asocia al municipio
+        $municipio = substr($clave, 0, 3);
+        $folio = FolioTramite::siguiente($municipio);
+
         $nombre = Input::get('nombre');
         $apepat = Input::get('apellido_paterno');
         $apemat = Input::get('apellido_materno');
@@ -96,7 +100,7 @@ class TramitesController extends BaseController {
         //$this->tramite->tipo_p = $tipotramite_id;
         $this->tramite->usuario_id = Auth::id();
 
-        $this->tramite->folio = 1;
+        $this->tramite->folio = $folio;
 
         //Si es persona física seteamos el nombre completo y los apellidos
         if($tipo_persona == 'F') {

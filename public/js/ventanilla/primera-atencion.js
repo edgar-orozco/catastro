@@ -91,7 +91,7 @@ $(function () {
     });
 
     //Cuando se selecciona un valor del dropdown del buscador entonces:
-    $('.dropdown-menu li a').click(function () {
+    $('.dropdown-menu.tipo-busqueda li a').click(function () {
         var tipo = $(this).data('tipo');
         $('.clave-catastral').val('');
         if (tipo == 'cuenta') {

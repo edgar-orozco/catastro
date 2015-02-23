@@ -32,16 +32,30 @@
                         <div class="row">
                             <div class="col-md-4">
                                 <div class="input-group">
+                                    <!-- Select clave o cuenta -->
                                     <div class="input-group-btn">
                                         <button type="button" class="btn btn-default dropdown-toggle select-busqueda"
                                                 data-toggle="dropdown" aria-expanded="false">
                                             <span class="dropdown-label">Clave</span>
                                             <span class="caret"></span></button>
-                                        <ul class="dropdown-menu" role="menu">
+                                        <ul class="dropdown-menu tipo-busqueda" role="menu">
                                             <li><a href="#" class="opcion-busqueda" data-tipo="clave">Clave</a></li>
                                             <li><a href="#" class="opcion-buqueda" data-tipo="cuenta">Cuenta</a></li>
                                         </ul>
                                     </div>
+                                    <!-- //Select clave o cuenta -->
+                                    <!-- Select municipios -->
+                                    <div class="input-group-btn">
+                                        <button type="button" class="btn btn-default dropdown-toggle select-municipio"
+                                                data-toggle="dropdown" aria-expanded="false">
+                                            <span class="dropdown-label">Municipio</span>
+                                            <span class="caret"></span></button>
+                                        <ul class="dropdown-menu municipio" role="menu">
+                                            <li><a href="#" class="opcion-municipio" data-tipo="008">Huimanguillo</a></li>
+                                            <li><a href="#" class="opcion-municipio" data-tipo="009">Cárdenas</a></li>
+                                        </ul>
+                                    </div>
+                                    <!-- //Select municipios -->
                                     <!-- /btn-group -->
                                     {{Form::text('clave', null, ['class'=>'form-control clave-catastral', 'style'=>'text-transform: uppercase;', 'data-tipotramite'=>$tipotramite->id] )}}
                                     <span class="input-group-btn">
