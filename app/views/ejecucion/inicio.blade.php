@@ -235,21 +235,25 @@ $(document).ready(function(){
               <!--  <a href="hoja/{{$row->clave;}}/{{$row->nombre;}}/{{$row->municipio;}}/{{$row->impuesto;}}" class="btn btn-xs btn-info" title="Reimprimir">Generar Carta Invitación<i class="fa fa-file-text-o"></i></a>-->
             </td>
             <td align="center">
-                
+                <!-- CLAVE -->
                 {{$calve=$val;}}
             </td>
             <td align="center">
+                <!-- CLAVE -->
                  <?php $val2= str_replace('"', '',$key[1]); ?>
                 {{$mun=$val2;}}
             </td>
             <td align="center">
+                <!-- CLAVE -->
                {{$mun=$key[2];}}
             </td>
             <td align="center">
+                <!-- CLAVE -->
                <?php $val3= str_replace('"', '',$key[3]); ?>
                 {{$mun=$val3;}}
             </td>
             <td align="center">
+                <!-- CLAVE -->
                 <?php $val4= str_replace('"', '',$key[4]); ?>
                 {{$mun=$val4;}}
             </td>
@@ -257,10 +261,12 @@ $(document).ready(function(){
                
             </td>
             <td align="center">
+                <!-- CLAVE -->
                 <?php $val1= str_replace(')', '',$key[6]); ?>
                 {{$mun=$val1;}}
             </td>
             <td align="center">
+                <!-- CLAVE -->
                 {{$mun=$key[5];}}
             </td>
             <td align="center">

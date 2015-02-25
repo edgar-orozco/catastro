@@ -53,8 +53,9 @@ $vale[]= explode(',', $key->sp_get_predios);
       // print_r($catalogo);
      // return View::make('ejecucion.inicio', compact("catalogo"));
     }
+   // print_r($vale);
     $paginator = Paginator::make($vale, $totalItems, $por_pagina);
-       return View::make('ejecucion.inicio', compact('busqueda',"catalogo","municipio","status","mensaje",'vale','paginator'));
+     return View::make('ejecucion.inicio', compact('busqueda',"catalogo","municipio","status","mensaje",'vale','paginator'));
    // }
   
     //cierra function
