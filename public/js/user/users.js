@@ -18,7 +18,7 @@ angular.module('app', ['ngAnimate', 'ngResource', 'ngSanitize','ui.bootstrap', '
     {
         var urlsave = decodeURIComponent(laroute.action('AdminUserController@store', { format : 'json' }));
         var urlUpdate = decodeURIComponent(laroute.action('AdminUserController@update', {user : ':id', format : 'json' }));
-        var urlGetAll = decodeURIComponent(laroute.action('AdminUserController@index', { format : 'json' }));
+        var urlGetAll = decodeURIComponent(laroute.action('AdminUserController@all'));
         var urlDestroy = decodeURIComponent(laroute.action('AdminUserController@destroy', { user : ':id' }));
         return $resource(urlsave, {},
             {
@@ -48,7 +48,6 @@ angular.module('app', ['ngAnimate', 'ngResource', 'ngSanitize','ui.bootstrap', '
                 words.forEach(function( word ) {
                     var expWord = new RegExp(word, 'i');
                     var haveTerm = false;
-                    var exist = false;
                     // Se revisa si el elemento a filtrar es un objeto
                     if(typeof objectsFiltered == "object") {
                         // Se revisa si la expresion de cada una de las palabras coincide con algun elemento de la lista enviada
@@ -60,16 +59,9 @@ angular.module('app', ['ngAnimate', 'ngResource', 'ngSanitize','ui.bootstrap', '
                     else if(typeof objectsFiltered == "string"){
                         if (objectsFiltered.search(expWord) >= 0) haveTerm = true;
                     }
-                    // Se busca si el elemento no se agrego ya al arreglo
-                    filtered.every(function (filters) {
-                        if (angular.equals(filters, item)) {
-                            exist = true;
-                            return false;
-                        }
-                        return true;
-                    });
+                    // Si se tiene el termino y no se ha agregado al los filtrados
 
-                    if (haveTerm && !exist) filtered.push(item);
+                    if (haveTerm && filtered.indexOf(item) < 0 ) filtered.push(item);
                 });
 
                 return filtered;
