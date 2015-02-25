@@ -17,7 +17,7 @@ class UpdateSchemaTableRequerimientos extends Migration {
                // Se eliminan los campos que ya no son requeridos
             if (Schema::hasColumn('requerimientos', 'id_requerimiento'))
             {
-            	 $table->dropColumn('id_requerimiento');
+            	 DB::statement('ALTER TABLE requerimientos DROP COLUMN id_requerimiento');
             	 DB::statement('ALTER TABLE requerimientos ADD COLUMN id_requerimiento SERIAL');
             }
            
