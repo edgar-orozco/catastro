@@ -6,6 +6,5 @@ class personas extends Eloquent
     protected $primaryKey = 'id_p';
     public $timestamps=false;
     protected $guarded = array("*");
-    protected $fillable = array("nombrec","rfc");
+    protected $fillable = array("*");
 }
-

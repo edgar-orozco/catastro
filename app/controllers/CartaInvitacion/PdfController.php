@@ -10,10 +10,10 @@ public function get_pdf()
         //limpiamos y ordenamos el array
         $token = $clave['_token'];
         $fecha = $clave['date1'];
-        //$id_ejecutor=$clave['ejecutores'];
+        $ejecutor=$clave['ejecutores'];
         $boton=$clave['boton'];
       
-       // unset($clave['ejecutores']);
+        unset($clave['ejecutores']);
         unset($clave['boton']);
         unset($clave['_token']);
         unset($clave['date1']);
@@ -22,7 +22,8 @@ public function get_pdf()
       foreach($clave as $cla => $value) 
         {
 
-        $cv=($claves2['captura']['clave']=$value);         
+        $cv=($claves2['captura']['clave']=$value);     
+        $cv= str_replace('(', '',$cv);   
         $fecha=($claves2['captura']['fecha']=$fecha);
      
 
@@ -48,7 +49,7 @@ public function get_pdf()
     }
    //ENVIO A LA VISTA DEL PDF CARTA INVITACION
 //print_r($data);
-$vista = View::make('CartaInvitacion.cartainvitacion')->with('data', $data);
+$vista = View::make('CartaInvitacion.cartainvitacion', compact('data', 'fecha'));
  //CARGA DEL PDF CARTA INVITACION SOLO GENERA UNA TODAVIA NO RESUELVO COMO GENERAR UNA PAGINA POR CLAVE
   $pdf = PDF::load($vista)->show();
    $response = Response::make($pdf, 200);

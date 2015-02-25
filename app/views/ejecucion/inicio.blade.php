@@ -28,6 +28,7 @@ Bienvenido :: @parent
     {{ HTML::script('js/jquery-1.4.3.min.js')}}
     {{ HTML::script('js/checks.js')}}
    
+   
         <script>
         //mostrar  ocultatr vistaa
             function SINO(cual) {
@@ -79,7 +80,7 @@ $(document).ready(function(){
 });
 </script>
     <div class="panel-body">
-             {{ Form::open(array(
+             {{ Form::open(array('class' => 'busqueda',
                     'role' => 'form',
                     'method'=>'BuscarController@index',
                     'method' => 'GET',
@@ -182,7 +183,7 @@ $(document).ready(function(){
     <br>
     <br>
    
-    @if(count($busqueda) == 0)
+    @if(count($vale) == 0)
         <div class="panel-body">
             <h3><p> {{$mensaje;}}</p></h3>
 
@@ -190,7 +191,7 @@ $(document).ready(function(){
         </div>
     @endif
     
-    @if(count($busqueda) > 0)
+    @if(count($vale) > 0)
     {{ Form::open(array('url' => 'cartainv', 'method' => 'post', 'name' => 'formulario'))}}
     {{$date = new DateTime();}} 
 
@@ -219,41 +220,51 @@ $(document).ready(function(){
     </thead>
     <tbody>
         <tr>
-       
-           <?php $i=0 ?>
-            @foreach($busqueda as $row)
+       <div class="preload_users">
+       </div>
+           <?php $i=0;
+           //print_r($vale);
+
+            ?>
+
+             @foreach ($vale as $key  ) 
             <?php $i++ ?>
-                
+                <?php $val= str_replace('(', '',$key[0]);?>
             <td align="center">
-             {{ Form::checkbox('clave'.$i, $row->clave, false, ['onclick'=>'validar(this)'], array('id' => 'checkAll'))}}
+             {{ Form::checkbox('clave'.$i, $key[0], false, ['onclick'=>'validar(this)'], array('id' => 'checkAll'))}}
               <!--  <a href="hoja/{{$row->clave;}}/{{$row->nombre;}}/{{$row->municipio;}}/{{$row->impuesto;}}" class="btn btn-xs btn-info" title="Reimprimir">Generar Carta Invitación<i class="fa fa-file-text-o"></i></a>-->
             </td>
             <td align="center">
-                {{$row->clave}}
+                
+                {{$calve=$val;}}
             </td>
             <td align="center">
-                {{$row->nombre;}}
+                 <?php $val2= str_replace('"', '',$key[1]); ?>
+                {{$mun=$val2;}}
             </td>
             <td align="center">
-               {{$row->id_p;}}
+               {{$mun=$key[2];}}
             </td>
             <td align="center">
-                {{$row->calle;}}
+               <?php $val3= str_replace('"', '',$key[3]); ?>
+                {{$mun=$val3;}}
             </td>
             <td align="center">
-                {{ $row->colonia;}}
+                <?php $val4= str_replace('"', '',$key[4]); ?>
+                {{$mun=$val4;}}
             </td>
             <td align="center">
-                {{$row->cp;}}
+               
             </td>
             <td align="center">
-                {{$row->minimo;}}
+                <?php $val1= str_replace(')', '',$key[6]); ?>
+                {{$mun=$val1;}}
             </td>
             <td align="center">
-                {{$row->impuesto;}}
+                {{$mun=$key[5];}}
             </td>
             <td align="center">
-                {{$row->estatus;}}
+               
             </td>         
         </tr>
         @endforeach
@@ -261,8 +272,8 @@ $(document).ready(function(){
         </tr>
     </tbody>
     </table>
-{{ $busqueda->appends(Request::except('page'))->links() }}
-    
+
+   {{ $paginator->appends(Request::except('page'))->links() }}
                     
 </div>
 </div>

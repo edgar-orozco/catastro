@@ -11,9 +11,13 @@ class Ejecucion_BuscaController extends BaseController
        $municipio = Municipio::All();
        $status = status::All();
        $mensaje='';
-       // $datos = instalaciones::find($id);
-        //return View::make('complementarios.editar',);
-      // print_r($catalogo);
-      return View::make('ejecucion.inicio', compact("catalogo", "municipio","status","mensaje"));
-    }//cierra function
+
+
+
+
+       return View::make('ejecucion.inicio', compact("catalogo","municipio","status","mensaje",'vale'));
+
+
+       
+    }
 }
