@@ -18,7 +18,7 @@ angular.module('app', ['ngAnimate', 'ngResource', 'ngSanitize','ui.bootstrap', '
     {
         var urlsave = decodeURIComponent(laroute.action('AdminUserController@store', { format : 'json' }));
         var urlUpdate = decodeURIComponent(laroute.action('AdminUserController@update', {user : ':id', format : 'json' }));
-        var urlGetAll = decodeURIComponent(laroute.action('AdminUserController@index', { format : 'json' }));
+        var urlGetAll = decodeURIComponent(laroute.action('AdminUserController@all', { format : 'json' }));
         var urlDestroy = decodeURIComponent(laroute.action('AdminUserController@destroy', { user : ':id' }));
         return $resource(urlsave, {},
             {

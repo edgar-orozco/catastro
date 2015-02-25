@@ -80,6 +80,10 @@ class AdminUserController extends BaseController
         return  ($format == 'json') ? $usuarios : View::make('admin.user.index', compact('roles', 'selectedRoles', 'title', 'title_section', 'subtitle_section', 'usuarios', 'user'));
     }
 
+    public function all(){
+        return $this->user->listAngular();
+    }
+
     /**
      * Show a single user details page.
      *

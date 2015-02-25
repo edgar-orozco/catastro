@@ -9,6 +9,8 @@ Route::group(array('before' => 'admin'), function () {
         array('as' => 'storeUser', 'uses' => 'AdminUserController@store'));
     Route::get('admin/user.{format}',
         array('as' => 'indexUser', 'uses' => 'AdminUserController@index'));
+    Route::get('admin/users',
+        array('as' => 'getUsers', 'uses' => 'AdminUserController@all'));
     Route::put('admin/user/{user}.{format}',
         array('as' => 'updateUser', 'uses' => 'AdminUserController@update'));
     Route::resource('admin/user', 'AdminUserController');
