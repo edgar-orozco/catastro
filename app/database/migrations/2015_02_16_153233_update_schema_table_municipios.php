@@ -17,10 +17,12 @@ class UpdateSchemaTableMunicipios extends Migration {
                 $existe = DB::select("SELECT constraint_name FROM information_schema.constraint_column_usage WHERE table_name = 'user_municipio'  AND constraint_name = 'user_municipio_municipio_id_foreign'");
                 if(count($existe) > 0) {
                     // Se elimina la relacion con la tabla municipios
+                    DB::statement('DELETE FROM user_municipio');
                     DB::statement('ALTER TABLE user_municipio DROP CONSTRAINT user_municipio_municipio_id_foreign');
+                    DB::statement('ALTER TABLE user_municipio ALTER municipio_id TYPE varchar(3)');
+
+                    $table->foreign('municipio_id')->references('municipio')->on('municipios')->onUpdate('cascade')->onDelete('cascade');
                 }
-                // Se actualiza el tipo de la columna municipio_id
-                DB::statement('ALTER TABLE user_municipio ALTER COLUMN municipio_id TYPE integer USING CAST (municipio_id as INTEGER);');
         });
 
 		Schema::table('municipios', function(Blueprint $table)
