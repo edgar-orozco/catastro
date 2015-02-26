@@ -99,28 +99,20 @@ angular.module('app', ['ngAnimate', 'ngResource', 'ngSanitize','ui.bootstrap', '
                                 if( item.municipios.length == 0){
                                     expWord = new RegExp('todos', 'i');
                                     // Se revisa que se este buscando la palabra 'todos'
-                                    if(word.search(expWord) >= 0) filtered.push(item);
+                                    if(word.search(expWord) >= 0 && filtered.indexOf(item) < 0) filtered.push(item);
                                 }
                                 else {
                                     expWord = new RegExp(word, 'i');
                                     var haveMunicipio = false;
-                                    var exist = false;
                                     // Se revisa si la expresion de cada una de las palabras coincide con algun municipio de la lista
                                     item.municipios.forEach(function (municipio) {
                                         if (municipio.nombre_municipio.search(expWord) >= 0) {
                                             haveMunicipio = true;
                                         }
                                     });
-                                    // Se busca si el elemento no se agrego ya al arreglo
-                                    filtered.every(function (filters) {
-                                        if (angular.equals(filters, item)) {
-                                            exist = true;
-                                            return false;
-                                        }
-                                        return true;
-                                    });
 
-                                    if (haveMunicipio && !exist) filtered.push(item);
+                                    if (haveMunicipio && filtered.indexOf(item) < 0 ) filtered.push(item);
+
                                 }
                             });
                             // Por ultimo se reivsa si el usuario no tiene municipios y se esta buscando "todos municipios"
