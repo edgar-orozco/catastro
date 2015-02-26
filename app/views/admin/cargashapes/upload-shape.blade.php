@@ -26,12 +26,13 @@
                         <br>
                         <div class="form-group">
                             {{Form::label('shape','Selecciona el archivo empacado')}}
-                            <span class="text-danger">
-                                Tamaño del archivo
-                            </span>
                             {{Form::file('shape', ['required' => 'required', 'bxd-file-size' => 'bxd-file-size'] )}}
                             <p class="help-block">
                                 Las extensiones permitidas son .zip, .rar, .tar, .tgz y .gz.
+                            </p>
+                            <p class="help-block" ng-show="showErrorSize">
+                                <span class="text-danger">El tamaño del archivo excede el tamaño máximo admitido por el servidor, intenta nuevamente.</span><br>
+                                <span class="text-danger">Tamaño maximo admitido {{ ShapesHelper::formatBytes(ShapesHelper::serverUploadSize())  }}</span>
                             </p>
                         </div>
                         <div class="form-actions form-group text-right">

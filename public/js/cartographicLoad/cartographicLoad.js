@@ -30,6 +30,7 @@ angular.module('app', []).
      */
     controller('ShapeCtrl', function($scope, $timeout) {
         $scope.isValid = false;
+        $scope.showErrorSize = false;
         var maxSize = 0;
 
         /**
@@ -47,6 +48,7 @@ angular.module('app', []).
                 // Se revisa que el archivo cumpla con el tamaño maximo del servidor
                 $scope.$apply(function () {
                     $scope.isValid = (args.size < maxSize);
+                    $scope.showErrorSize = !(args.size < maxSize);
                 });
             }, 100);
         });
