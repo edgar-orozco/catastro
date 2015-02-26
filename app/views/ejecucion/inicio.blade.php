@@ -1,5 +1,6 @@
 <?php
 error_reporting (E_ERROR | E_WARNING);
+setlocale(LC_MONETARY, 'es_MX'); 
 ?>
 @extends('layouts.default')
 
@@ -13,7 +14,7 @@ Bienvenido :: @parent
     
     <div class="panel-heading">
 
-        <h4 class="panel-title">Busqueda de Predios</h4>
+        <h3 class="panel-title">Busqueda de Predios</h3>
         
     </div>
 
@@ -90,50 +91,38 @@ $(document).ready(function(){
         }}
 
         <div class="input-group">
-            <table class="input-group">
+            <table class="table">
+                <tr>
+                    <th>{{Form::label('Clave Catastral:') }}</th>
+                    <th>{{Form::label('Nombre Propietario:') }}</th>
+                    <th>{{Form::label('Mayor a:') }}</th>
+                    <th>{{Form::label('Menor a:') }}</th>
+                    <th>{{Form::label('Municipio:') }}</th>
+                    <th>{{Form::label('Periodo de Adeudo:') }}</th>
+                    <th>{{Form::label('Registros a mostrar:') }}</th>
+                </tr>
                 <tr>
                     <td>
-            {{Form::label('Clave Catastral:') }}
+            
             {{ Form::text('clave',null, array('class' => 'form-control focus', 'placeholder'=>'xx-xxx-xxx-xxxx-xxxxxx', 'autofocus'=> 'autofocus', 'pattern'=> '\d{2}[\-]\d{3}[\-]\d{3}[\-]\d{4}[\-]\d{6}'))  }}
                     </td>
                     <td>
-            {{Form::label('Nombre Propietario:') }}
+            
             {{ Form::text('nombre',null, array('class' => 'form-control focus', 'placeholder'=>'Nombre')) }}
                     </td>
+                   
                     <td>
-            {{Form::label('Registros a mostrar:') }}
-            {{Form::select('paginado', array('10' => '10', '20' => '20', '30' => '30', '40' => '40', '50' => '50','60' => '60'))}}
-                    </td>
-             </tr>
-             <tr>
-             <td>
-            {{Form::label('Rango Valor Catastral:') }}
-            {{ Form::number('mayor',null, array('class' => 'form-control focus', 'placeholder'=>'Mayor a :', 'autofocus'=> 'autofocus'))  }}
+            
+            {{ Form::number('mayor',null, array('class' => 'form-control focus', 'placeholder'=>'Mayor a :'))  }}
                     </td> 
             <td>
-             {{Form::label('  .') }}
-            {{ Form::number('menor',null, array('class' => 'form-control focus', 'placeholder'=>'Menor a :', 'autofocus'=> 'autofocus'))  }}
+             
+            {{ Form::number('menor',null, array('class' => 'form-control focus', 'placeholder'=>'Menor a :'))  }}
                     </td>
 
             {{$errors->first("predios")}}
-                </tr>
-            </table>
-
-        </div>
-        <br>
-        <div><p> 
-            
-            <a class="btn btn-primary" href="javascript:void(0);" onclick="SINO('demo1')">Mas opciones</a></p></div>
-        <br>
-
-
-        <br>
-        <div id="demo1" style="display:none;">
-
-            <table class="table datatable">
-                <tr>
                     <td>
-            {{Form::label('Municipio:') }}
+           
             <select name="municipio" class="form-control"  >
             <option value=''>Elija un municipio...</option>
             @foreach($municipio as $row) 
@@ -141,42 +130,25 @@ $(document).ready(function(){
             @endforeach
         </select>
                     </td>
-                    <td>
-            {{Form::label('Colonia:') }}
-            {{ Form::text('colonia',null, array('class' => 'form-control focus', 'placeholder'=>'Colonia', 'autofocus'=> 'autofocus')) }}
-                    </td>
-                    <td>
-            {{Form::label('No. Calle:') }}
-            {{ Form::text('calle',null, array('class' => 'form-control focus', 'placeholder'=>'No. de calle', 'autofocus'=> 'autofocus')) }}
-                    </td>
-                    <td>
-            {{Form::label('Codigo Postal:') }}
-            {{ Form::text('cp',null, array('class' => 'form-control focus', 'placeholder'=>'Codigo postal', 'autofocus'=> 'autofocus')) }}
-                    </td>
-                    <td>
-                       
-            {{Form::label('Estatus:') }}
-             <select name="status" class="form-control" >
-            <option value=''>Seleccione status...</option>
-            @foreach($status as $row) 
-            <option value="{{$row->cve_status}}">{{$row->descrip}}</option>
-            @endforeach
-        </select>
-            
-                    </td>
-                    <td>
-            {{Form::label('Periodo de Adeudo:') }}
-                    </td>
+                    
                     <td>
                     {{Form::input('date', 'date', null, ['class' => 'form-control', 'placeholder' => 'Date'])}}
+                    </td> 
+                    <td>
+            
+            {{Form::select('paginado', array('10' => '10', '20' => '20', '30' => '30', '40' => '40', '50' => '50','60' => '60'))}}
                     </td>
+                </tr>
+                <tr>
+                        <td>{{ Form::submit('Buscar', array('class' => 'btn btn-primary')) }}</td>
+                        <td>{{ Form::reset('Limpiar', array('class' => 'btn btn-primary')) }} </td>
                 </tr>
             </table>
             </div>
         <br/>
          
          <br>
-        {{ Form::submit('Buscar', array('class' => 'btn btn-primary')) }}
+      
         {{ Form::close() }}
     </div>
     <br>
@@ -199,11 +171,11 @@ $(document).ready(function(){
 
     <div class="panel-heading">
 
-        <h4 class="panel-default">Resultados</h4>
+        <h3 class="panel-title">Resultados de la busqueda</h3>
         
     </div>
 
-    <table  border="1" id="myTable" class="tablesorter">
+    <table  id="myTable" class="table">
      <thead>
         <tr>
                 <th width="100" ><P align="center">{{ Form::checkbox('checkMain', 'checkMain', false, array('name' => 'checktodos'))}}</P></th>
@@ -239,38 +211,39 @@ $(document).ready(function(){
                 {{$calve=$val;}}
             </td>
             <td align="center">
-                <!-- CLAVE -->
+                <!-- NOMBRE -->
                  <?php $val2= str_replace('"', '',$key[1]); ?>
                 {{$mun=$val2;}}
             </td>
             <td align="center">
-                <!-- CLAVE -->
+                <!-- MUNICIPIO -->
                {{$mun=$key[2];}}
             </td>
             <td align="center">
-                <!-- CLAVE -->
+                <!-- FUNC -->
                <?php $val3= str_replace('"', '',$key[3]); ?>
                 {{$mun=$val3;}}
             </td>
             <td align="center">
-                <!-- CLAVE -->
+                <!-- MONT1 -->
                 <?php $val4= str_replace('"', '',$key[4]); ?>
                 {{$mun=$val4;}}
             </td>
             <td align="center">
-               
+               <!-- MONTO2-->
             </td>
             <td align="center">
-                <!-- CLAVE -->
-                <?php $val1= str_replace(')', '',$key[6]); ?>
+                <!-- -->
+                <?php $val1= str_replace(')', '',$key[7]); ?>
                 {{$mun=$val1;}}
             </td>
             <td align="center">
                 <!-- CLAVE -->
-                {{$mun=$key[5];}}
+                $ {{$mun=$key[5];}}
             </td>
             <td align="center">
-               
+               <?php $mon= money_format('%i', $key[6]) . "\n"; ?>
+                $ {{$mon}}
             </td>         
         </tr>
         @endforeach

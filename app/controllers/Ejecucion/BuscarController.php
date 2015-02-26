@@ -9,8 +9,77 @@ class Ejecucion_BuscarController extends BaseController
    { //abre function
         //captura de datos de buscar.blade.php
         $clave = Input::get('clave');
-        $propietario = Input::get('nombre');
+        $string = Input::get('nombre');
         $por_pagina = Input::get('paginado');
+
+
+function sanear_string($string)
+{
+    $string = trim($string);
+
+    $string = str_replace(
+        array('á', 'à', 'ä', 'â', 'ª', 'Á', 'À', 'Â', 'Ä'),
+        array('a', 'a', 'a', 'a', 'a', 'A', 'A', 'A', 'A'),
+        $string
+    );
+
+    $string = str_replace(
+        array('é', 'è', 'ë', 'ê', 'É', 'È', 'Ê', 'Ë'),
+        array('e', 'e', 'e', 'e', 'E', 'E', 'E', 'E'),
+        $string
+    );
+
+    $string = str_replace(
+        array('í', 'ì', 'ï', 'î', 'Í', 'Ì', 'Ï', 'Î'),
+        array('i', 'i', 'i', 'i', 'I', 'I', 'I', 'I'),
+        $string
+    );
+
+    $string = str_replace(
+        array('ó', 'ò', 'ö', 'ô', 'Ó', 'Ò', 'Ö', 'Ô'),
+        array('o', 'o', 'o', 'o', 'O', 'O', 'O', 'O'),
+        $string
+    );
+
+    $string = str_replace(
+        array('ú', 'ù', 'ü', 'û', 'Ú', 'Ù', 'Û', 'Ü'),
+        array('u', 'u', 'u', 'u', 'U', 'U', 'U', 'U'),
+        $string
+    );
+
+    $string = str_replace(
+        array('ñ', 'Ñ', 'ç', 'Ç'),
+        array('n', 'N', 'c', 'C',),
+        $string
+    );
+
+    //Esta parte se encarga de eliminar cualquier caracter extraño
+    $string = str_replace(
+        array("\\", "¨", "º", "-", "~",
+             "#", "@", "|", "!", "\"",
+             "·", "$", "%", "&", "/",
+             "(", ")", "?", "'", "¡",
+             "¿", "[", "^", "`", "]",
+             "+", "}", "{", "¨", "´",
+             ">", "< ", ";", ",", ":",
+             ".", " "),
+        '',
+        $string
+    );
+
+
+    return $string;
+}
+      $propietario=sanear_string($string);
+
+        $propietario = strtoupper($propietario);
+
+
+
+
+
+
+
 
       $municipio = Input::get('municipio');
       //--------------------------DATOS FALTANTES PARA LA CONSULTA-------------------------------------------
@@ -19,7 +88,7 @@ class Ejecucion_BuscarController extends BaseController
       //  $cp = Input::get('cp');
       // $estatus= Input::get('estatus');
       //  $date = Input::get('date');
-          $resultado = DB::select("select sp_get_predios('$clave','$propietario','','','$municipio','','','','','')");
+         $resultado = DB::select("select sp_get_predios('$clave','$propietario','','','$municipio','','','','','')");
 //var_dump($resultado);
 //$res=_aa_sp_obtiene_predio;
 //print_r($resultado);
