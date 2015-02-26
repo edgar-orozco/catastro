@@ -4,8 +4,12 @@
     {{{ $title }}} @parent
 @stop
 
+@section('angular')
+    ng-app="app" ng-controller="ShapeCtrl"
+@stop
+
 @section('content')
-    <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xs-offset-0 col-sm-offset-0 col-md-offset-3 col-lg-offset-3 toppad" >
+    <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xs-offset-0 col-sm-offset-0 col-md-offset-3 col-lg-offset-3 toppad"  >
 
         <div class="panel panel-info">
             <div class="panel-heading">
@@ -22,13 +26,16 @@
                         <br>
                         <div class="form-group">
                             {{Form::label('shape','Selecciona el archivo empacado')}}
-                            {{Form::file('shape', null, ['class'=>'form-control', 'required' => 'required'] )}}
+                            <span class="text-danger">
+                                Tamaño del archivo
+                            </span>
+                            {{Form::file('shape', ['required' => 'required', 'bxd-file-size' => 'bxd-file-size'] )}}
                             <p class="help-block">
                                 Las extensiones permitidas son .zip, .rar, .tar, .tgz y .gz.
                             </p>
                         </div>
                         <div class="form-actions form-group text-right">
-                            {{ Form::submit('Subir', ['class' => 'btn btn-primary']) }}
+                            {{ Form::submit('Subir', ['class' => 'btn btn-primary', 'ng-disabled' => '!limitSize']) }}
                         </div>
                         {{Form::close()}}
                     </div>
@@ -37,4 +44,9 @@
         </div>
     </div>
 @stop
+
+@section('javascript')
+    {{ HTML::script('js/cartographicLoad/cartographicLoad.js') }}
+@stop
+
 
