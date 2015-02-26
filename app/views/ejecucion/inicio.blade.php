@@ -141,7 +141,7 @@ $(document).ready(function(){
                 </tr>
                 <tr>
                         <td>{{ Form::submit('Buscar', array('class' => 'btn btn-primary')) }}</td>
-                        <td>{{ Form::reset('Limpiar', array('class' => 'btn btn-primary')) }} </td>
+                        <td>{{ Form::reset('Limpiar Campos', array('class' => 'btn btn-primary')) }} </td>
                 </tr>
             </table>
             </div>
@@ -182,12 +182,9 @@ $(document).ready(function(){
                 <th width="500"><P align="center">Clave Catastral</P></th>
                 <th width="700"><P align="center">Nombre Propietario</P></th>
                 <th width="200"><P align="center">Municpio</P></th>
-                <th width="500"><P align="center">Calle No.</P></th>
-                <th width="400"><P align="center">Colonia</P></th>
-                <th width="400"><P align="center">Codigo Postal</P></th>
+                <th width="500"><P align="center">Domicilio</P></th>
                 <th width="700"><P align="center">Periodo Mas Antiguo</P></th>
                 <th width="350"><P align="center">Monto Adeudo</P></th>
-                <th width="250"><P align="center">Estatus</P></th>
         </tr>
     </thead>
     <tbody>
