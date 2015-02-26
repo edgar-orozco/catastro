@@ -5,7 +5,7 @@
 @stop
 
 @section('angular')
-    ng-app="app" ng-controller="ShapeCtrl"
+    ng-app="app" ng-controller="ShapeCtrl" ng-init="initApp({{ ShapesHelper::serverUploadSize() }})"
 @stop
 
 @section('content')
@@ -21,7 +21,7 @@
                         {{ Form::open(array('url' => 'admin/carga-shapes/upload', 'name' => 'uploadForm', 'files' => true)) }}
                         <div class="input-group col-xs-6">
                             <span class="input-group-addon" id="basic-addon1">Número de Manzana</span>
-                            <input type="text" class="form-control" placeholder="___-____" aria-describedby="basic-addon1">
+                            <input type="text" class="form-control" placeholder="___-____" aria-describedby="basic-addon1" />
                         </div>
                         <br>
                         <div class="form-group">
@@ -35,7 +35,9 @@
                             </p>
                         </div>
                         <div class="form-actions form-group text-right">
-                            {{ Form::submit('Subir', ['class' => 'btn btn-primary', 'ng-disabled' => '!limitSize']) }}
+                            <button type="submit" class="btn btn-primary" ng-disabled="checkFile()">
+                                Subir
+                            </button>
                         </div>
                         {{Form::close()}}
                     </div>
