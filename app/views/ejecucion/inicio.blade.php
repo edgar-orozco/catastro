@@ -26,10 +26,8 @@ Bienvenido :: @parent
     @endif
     {{ HTML::style('css/style.css') }}
     {{ HTML::style('css/theme.default.css') }}
-    {{ HTML::script('js/jquery-1.4.3.min.js')}}
-    {{ HTML::script('js/checks.js')}}
-   
-   
+
+    @section('javascript')
         <script>
         //mostrar  ocultatr vistaa
             function SINO(cual) {
@@ -80,6 +78,8 @@ $(document).ready(function(){
   
 });
 </script>
+@stop
+
     <div class="panel-body">
              {{ Form::open(array('class' => 'busqueda',
                     'role' => 'form',
@@ -245,8 +245,7 @@ $(document).ready(function(){
                  
         </tr>
         @endforeach
-   
-        </tr>
+
     </tbody>
     </table>
 

@@ -1,7 +1,7 @@
 <link rel="stylesheet" href="//code.jquery.com/ui/1.11.3/themes/smoothness/jquery-ui.css">
-<!--script src="//code.jquery.com/jquery-1.10.2.js"></script-->
-{{ HTML::script('js/jquery/jquery.min.js') }}
+@section('javascript')
 <script src="//code.jquery.com/ui/1.11.3/jquery-ui.js"></script>
+@stop
 
 <div>
 {{Form::label('id_p','Nombre del ejecutor')}} 
@@ -38,7 +38,7 @@
     <p class="help-block"></p>
 </div>
 
-
+@section('javascript')
 <script>
 $(function () {
 
@@ -59,3 +59,4 @@ $(function () {
   
 });
 </script>
+    @append
