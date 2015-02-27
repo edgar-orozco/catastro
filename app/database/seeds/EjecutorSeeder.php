@@ -1,6 +1,6 @@
 <?php
 
-class ejecutoresTableSeeder extends Seeder {
+class ejecutorTableSeeder extends Seeder {
 
 	public function run()
 	{
@@ -33,5 +33,4 @@ class ejecutoresTableSeeder extends Seeder {
 }
 
 }
-		
 	
