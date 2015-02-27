@@ -50,7 +50,7 @@ class AdminUserController extends BaseController
      *
      * @return View
      */
-    public function index($format = 'html')
+    public function index()
     {
         //La lista de usuarios necesita una instancia de user
         $user = $this->user;
@@ -69,15 +69,17 @@ class AdminUserController extends BaseController
 
         //Lista de usuarios
 
-        $query = Request::get('q');
-        if($query) {
-            $usuarios = User::where('nombre','ILIKE',"%$query%")->paginate($this->por_pagina);
-        }
-        else {
-            $usuarios = $this->user->listAngular();
-        }
+        return  View::make('admin.user.index', compact('roles', 'selectedRoles', 'title', 'title_section', 'subtitle_section', 'user'));
+    }
 
-        return  ($format == 'json') ? $usuarios : View::make('admin.user.index', compact('roles', 'selectedRoles', 'title', 'title_section', 'subtitle_section', 'usuarios', 'user'));
+    /**
+     * Control para generar la lista de usuarios registrados
+     *
+     * @return array
+     */
+    public function all(){
+
+        return $this->user->listAngular();
     }
 
     /**

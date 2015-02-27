@@ -18,7 +18,7 @@ angular.module('app', ['ngAnimate', 'ngResource', 'ngSanitize','ui.bootstrap', '
     {
         var urlsave = decodeURIComponent(laroute.action('AdminUserController@store', { format : 'json' }));
         var urlUpdate = decodeURIComponent(laroute.action('AdminUserController@update', {user : ':id', format : 'json' }));
-        var urlGetAll = decodeURIComponent(laroute.action('AdminUserController@index', { format : 'json' }));
+        var urlGetAll = decodeURIComponent(laroute.action('AdminUserController@all'));
         var urlDestroy = decodeURIComponent(laroute.action('AdminUserController@destroy', { user : ':id' }));
         return $resource(urlsave, {},
             {
@@ -32,13 +32,47 @@ angular.module('app', ['ngAnimate', 'ngResource', 'ngSanitize','ui.bootstrap', '
         return function (items, q, filter) {
             var filtered = [];
             var exp = new RegExp(q, 'i');
+            /**
+             * Funcion para realizar filtros multiples
+             *
+             * @param term - Palabra a buscar
+             * @param objectsFiltered - Lista de obejetos en los que se busca la palabra
+             * @param element - Elemento que se busca
+             * @param filtered - Lista de elementos filtrados
+             * @param item - Item que se se deba agregar al arrelgo
+             * @return filtered
+             */
+            var multipleFilter = function(term, objectsFiltered, element, filtered, item){
+                var words = term.split(" ");
+                // Se revisa cada una de las palabras ingresadas
+                words.forEach(function( word ) {
+                    var expWord = new RegExp(word, 'i');
+                    var haveTerm = false;
+                    // Se revisa si el elemento a filtrar es un objeto
+                    if(typeof objectsFiltered == "object") {
+                        // Se revisa si la expresion de cada una de las palabras coincide con algun elemento de la lista enviada
+                        objectsFiltered.forEach(function (objectFiltered) {
+                            if (objectFiltered[element].search(expWord) >= 0) haveTerm = true;
+                        });
+                    }
+                    // Se revisa si el elemento a filtrar es una cadena de texto
+                    else if(typeof objectsFiltered == "string"){
+                        if (objectsFiltered.search(expWord) >= 0) haveTerm = true;
+                    }
+                    // Si se tiene el termino y no se ha agregado al los filtrados
+
+                    if (haveTerm && filtered.indexOf(item) < 0 ) filtered.push(item);
+                });
+
+                return filtered;
+            };
+
             if(q!== undefined && q.length > 0)
             {
-                for (var i = 0; i < items.length; i++) {
-                    var item = items[i];
+                items.forEach(function(item, i){
                     switch (filter){
                         case 'name':
-                            if (item.nombre.search(exp) >= 0) filtered.push(item);
+                            filtered = multipleFilter(q, item.nombreCompleto, 'nombreCompleto', filtered, item);
                             break;
                         case 'apepat':
                             if (item.apepat.search(exp) >= 0) filtered.push(item);
@@ -53,26 +87,39 @@ angular.module('app', ['ngAnimate', 'ngResource', 'ngSanitize','ui.bootstrap', '
                             if (item.username.search(exp) >= 0) filtered.push(item);
                             break;
                         case 'rol':
-                            var haveRole = false;
-                            for(var j in item.roles){
-                                if(item.roles[j].name.search(exp) >= 0) haveRole = true;
-                            }
-                            if (haveRole) filtered.push(item);
+                                filtered = multipleFilter(q, item.roles, 'name', filtered, item);
                             break;
                         case 'municipio':
-                            if(item.municipios.length > 0){
-                                var haveMunicipio = false;
-                                for(var j in item.municipios){
-                                    if(item.municipios[j].nombre_municipio.search(exp) >= 0) haveMunicipio = true;
+                            // Se separa la expresion por espacios para poder buscar por mas de un municipio
+                            var words = q.split(" ");
+                            // Se revisa cada una de las palabras ingresadas
+                            words.forEach(function( word ){
+                                var expWord;
+                                // Se reivsa que el usuario tenga municipios, si no los tiene no tiene caso hacer la busqueda
+                                if( item.municipios.length == 0){
+                                    expWord = new RegExp('todos', 'i');
+                                    // Se revisa que se este buscando la palabra 'todos'
+                                    if(word.search(expWord) >= 0 && filtered.indexOf(item) < 0) filtered.push(item);
                                 }
-                                if (haveMunicipio) filtered.push(item);
-                            }
-                            else{
-                                filtered.push(item);
-                            }
+                                else {
+                                    expWord = new RegExp(word, 'i');
+                                    var haveMunicipio = false;
+                                    // Se revisa si la expresion de cada una de las palabras coincide con algun municipio de la lista
+                                    item.municipios.forEach(function (municipio) {
+                                        if (municipio.nombre_municipio.search(expWord) >= 0) {
+                                            haveMunicipio = true;
+                                        }
+                                    });
+
+                                    if (haveMunicipio && filtered.indexOf(item) < 0 ) filtered.push(item);
+
+                                }
+                            });
+                            // Por ultimo se reivsa si el usuario no tiene municipios y se esta buscando "todos municipios"
+
                             break
                     }
-                }
+                });
                 return filtered;
             }
             else{
@@ -146,6 +193,7 @@ angular.module('app', ['ngAnimate', 'ngResource', 'ngSanitize','ui.bootstrap', '
         // Variables que se exponen en la vista
         $scope.showForm = false;
         $scope.focusForm = false;
+        $scope.focusFilter = false;
         $scope.loading = true;
         $scope.user = {};
         $scope.users = [];
@@ -407,6 +455,19 @@ angular.module('app', ['ngAnimate', 'ngResource', 'ngSanitize','ui.bootstrap', '
                     return 'Municipio';
                     break;
             }
+        };
+        /**
+         * Funcion para cambiar el tipo de filtro
+         *
+         * @param filter
+         */
+        $scope.changeTypeFilter = function(filter){
+            $scope.focusFilter = false;
+            $timeout(function(){
+                $scope.q = '';
+                $scope.filterWord = filter;
+                $scope.focusFilter = true;
+            }, 100);
         };
     }).
 /**
