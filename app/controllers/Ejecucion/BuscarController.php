@@ -37,7 +37,7 @@ class Ejecucion_BuscarController extends BaseController
         $catalogo = ejecutores::All();//->lists('cargo', 'id_ejecutor');
         $municipio = Municipio::All();
         $status = status::All();
-        echo $totalItems = count($resultado);
+        $totalItems = count($resultado);
         if ($totalItems == 0) {
             $mensaje = 'No se encontraron coincidencias con los parametros de busqueda';
         }

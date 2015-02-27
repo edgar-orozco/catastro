@@ -184,7 +184,9 @@ $(document).ready(function(){
                 <th width="200"><P align="center">Municpio</P></th>
                 <th width="500"><P align="center">Domicilio</P></th>
                 <th width="700"><P align="center">Periodo Mas Antiguo</P></th>
-                <th width="350"><P align="center">Monto Adeudo</P></th>
+                <th width="350"><P align="center">Impuesto</P></th>
+                <th width="350"><P align="center">Valor Catastral</P></th>
+                <th width="350"><P align="center">Rezago/P></th>
         </tr>
     </thead>
     <tbody>
@@ -217,31 +219,30 @@ $(document).ready(function(){
                {{$mun=$key[2];}}
             </td>
             <td align="center">
-                <!-- FUNC -->
+                <!-- domicilio -->
                <?php $val3= str_replace('"', '',$key[3]); ?>
                 {{$mun=$val3;}}
             </td>
             <td align="center">
-                <!-- MONT1 -->
-                <?php $val4= str_replace('"', '',$key[4]); ?>
-                {{$mun=$val4;}}
-            </td>
-            <td align="center">
-               <!-- MONTO2-->
-            </td>
-            <td align="center">
-                <!-- -->
+                <!-- periodo --> 
                 <?php $val1= str_replace(')', '',$key[7]); ?>
-                {{$mun=$val1;}}
+                {{$mun=$key[7];}}
+            </td>
+            <td align="center">
+               <!-- impuesto-->
+               $ {{$mun=$key[5];}}
+            </td>
+            <td align="center">
+                <!-- Valor Catastral--> 
+                <?php $mon= money_format('%i', $key[6]) . "\n"; ?>
+                $ {{$mon}}
+               
             </td>
             <td align="center">
                 <!-- CLAVE -->
-                $ {{$mun=$key[5];}}
+                <?php echo 'falta ragistro'; ?>
             </td>
-            <td align="center">
-               <?php $mon= money_format('%i', $key[6]) . "\n"; ?>
-                $ {{$mon}}
-            </td>         
+                 
         </tr>
         @endforeach
    
@@ -264,7 +265,7 @@ $(document).ready(function(){
     {{Form::label('Ejecutores:') }}
      <select name="ejecutores" class="form-control">
             @foreach($catalogo as $row) 
-            <option value="{{$row->id_ejecutor}}">{{$row->cargo}}</option>
+            <option value="{{$row->id_p}}">{{$row->cargo}}</option>
             @endforeach
         </select>
    
