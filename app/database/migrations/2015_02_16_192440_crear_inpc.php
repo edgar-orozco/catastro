@@ -33,7 +33,7 @@ class CrearInpc extends Migration {
 	 */
 	public function down()
 	{
-		Schema::drop('salario_minimo');
+		Schema::drop('inpc');
 	}
 
 }

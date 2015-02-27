@@ -41,7 +41,7 @@ class catalogos_inpcController extends \BaseController {
     {
         $inpc = $this->inpc;
         
-        $title = 'AdminstraciÃ³n de catalagos de inpc';
+        $title = 'Adminstración de catalagos de inpc';
         
         //Titulo de seccion:
         $title_section = "Crear nuevo INPC.";

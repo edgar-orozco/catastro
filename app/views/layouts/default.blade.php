@@ -15,6 +15,7 @@
        {{ HTML::style('/css/jquery.fancybox.css') }}
 
         {{ HTML::script('/js/jquery-1.7.1.min.js') }}
+
         {{ HTML::script('/js/jquery.fancybox.pack.js') }}
     
     <!-- css general de la app -->
