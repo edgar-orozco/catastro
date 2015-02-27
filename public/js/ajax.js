@@ -1,3 +1,24 @@
+<<<<<<< HEAD
+function nuevoAjax(){ 
+  var xmlhttp=false; 
+  try { 
+   // Creación del objeto ajax para navegadores diferentes a Explorer 
+   xmlhttp = new ActiveXObject("Msxml2.XMLHTTP"); 
+  } catch (e) { 
+   // o bien 
+   try { 
+     // Creación del objet ajax para Explorer 
+     xmlhttp = new ActiveXObject("Microsoft.XMLHTTP"); } catch (E) { 
+     xmlhttp = false; 
+   } 
+  } 
+
+  if (!xmlhttp && typeof XMLHttpRequest!='undefined') { 
+   xmlhttp = new XMLHttpRequest(); 
+  } 
+  return xmlhttp; 
+} 
+=======
 $(document).ready(function() 
 {	
    //petición al enviar el formulario de registro
@@ -28,4 +49,5 @@ $(document).ready(function()
       		return false;
     });  
 });
+>>>>>>> 9f018777be0d615dae379cf32dde36062197f977
 

@@ -29,6 +29,23 @@ Route::group(array('before'=>'admin'),  function (){
         array('as' => 'updateSalario', 'uses' => 'catalogos_salarioController@update'));
     Route::resource('catalogos/salario', 'catalogos_salarioController');
 
+//Rutas para el catalogo ejecutores    
+    Route::post('catalogos/ejecutores.{format}',
+        array('as'=>'storeEjecutores','uses'=>'catalogos_ejecutoresController@store'));
+    Route::post('catalogos/ejecutores.{format}',
+        array('as'=>'storeEjecutores','uses'=>'catalogos_ejecutoresController@buscar'));
+    Route::get('catalogos/ejecutores.{format}',
+        array('as'=>'indexEjecutores','uses'=>'catalago_ejecutoresController@index'));
+    Route::put('catalogos/ejecutores/{id?}.{format}',
+        array('as' => 'updateEjecutores', 'uses' => 'catalogos_ejecutoresController@update'));
+    Route::resource('catalogos/ejecutores', 'catalogos_ejecutoresController');
+    Route::get('search/autocomplete2', 'catalogos_ejecutoresController@autocomplete');
     
+    
+    Route::get('search/autocomplete', 'catalogos_personasController@getIndex');
+//    Route::get('search/autocomplete2', 'catalogos_personasController@autocomplete');
+    
+    
+
 });
 
