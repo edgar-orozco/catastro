@@ -14,7 +14,9 @@ class CreateServiciospredioTable extends Migration {
 	{
 		Schema::create('serviciospredio', function(Blueprint $table)
 		{
-			$table->increments('id');
+			$table->increments('id_serviciopredio');
+			$table->integer('gid_predio');
+			$table->integer('id_tiposerviciopredio');
 			$table->timestamps();
 		});
 	}
