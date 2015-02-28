@@ -7,7 +7,7 @@
             - Sistema de Gestión Catastral
         @show
     </title>
-    <link rel="icon" type="image/png" href="http://104.236.22.240/css/images/main/favicon.png">
+    <link rel="icon" type="image/png" href="/css/images/main/favicon.png">
     <!-- CDN para CSS bootstrap -->
     {{ HTML::style('css/bootstrap.css') }}
     {{ HTML::style('css/header.css') }}
@@ -21,21 +21,21 @@
     <div class="container">
         <div class="col-lg-8 col-md-8 col-sm-6">
             <div class="img-cont">
-                <img src="http://104.236.22.240/css/images/main/main-logo.png" alt="Catastro">
+                <img src="/css/images/main/main-logo.png" alt="Catastro">
             </div>
             <div class="img-cont spf">
-                <img src="http://104.236.22.240/css/images/main/logo-spf.png" alt="SPF">
+                <img src="/css/images/main/logo-spf.png" alt="SPF">
             </div>
             <div class="img-cont catastro">
-                <img src="http://104.236.22.240/css/images/main/logo-header.png" alt="Catastro">
+                <img src="/css/images/main/logo-header.png" alt="Catastro">
             </div>
         </div>
         <div class="col-lg-4 col-md-4 col-sm-6">
             <ul class="social">
-                <li><a href="http://104.236.22.240/users/login" class="facebook"></a></li>
-                <li><a href="http://104.236.22.240/users/login" class="twitter"></a></li>
-                <li><a href="http://104.236.22.240/users/login" class="plus"></a></li>
-                <li><a href="http://104.236.22.240/users/login" class="youtube"></a></li>
+                <li><a href="/users/login" class="facebook"></a></li>
+                <li><a href="/users/login" class="twitter"></a></li>
+                <li><a href="/users/login" class="plus"></a></li>
+                <li><a href="/users/login" class="youtube"></a></li>
             </ul>
         </div>
     </div>
@@ -75,19 +75,19 @@
             <h2>Gobierno de <b>Tabasco</b></h2>
             <ul>
                 <li>
-                    <a href="http://104.236.22.240/users/login">Portal Transparencia</a>
+                    <a href="/users/login">Portal Transparencia</a>
                 </li>
                 <li>
-                    <a href="http://104.236.22.240/users/login">ITAIP</a>
+                    <a href="/users/login">ITAIP</a>
                 </li>
                 <li>
-                    <a href="http://104.236.22.240/users/login">Infomex</a>
+                    <a href="/users/login">Infomex</a>
                 </li>
                 <li>
-                    <a href="http://104.236.22.240/users/login">Aviso de Privacidad</a>
+                    <a href="/users/login">Aviso de Privacidad</a>
                 </li>
                 <li>
-                    <a href="http://104.236.22.240/users/login">Buzón</a>
+                    <a href="/users/login">Buzón</a>
                 </li>
             </ul>
         </div>
@@ -120,7 +120,7 @@
     </div>
     <div class="col-sm-4 col-md-4 col-lg-4">
         <div class="img-cont">
-            <img src="http://104.236.22.240/css/images/main/main-logo.png" alt="Catastro">
+            <img src="/css/images/main/main-logo.png" alt="Catastro">
         </div>
     </div>
 </div>
