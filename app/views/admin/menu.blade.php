@@ -49,6 +49,17 @@
             </a>
         </li>
 
+        @if(in_array(App::environment(), ['local','staging']))
+        <li class="divider"></li>
+
+        <li class="@if(Request::is('admin/ejecuta-seeds')) active @endif">
+            <a href="{{URL::to('admin/ejecuta-seeds')}}">
+                <i class="glyphicon glyphicon-cog"></i>&nbsp;
+                Ejecuta seeders (desarrollo)
+            </a>
+        </li>
+        @endif
+
     </ul>
 </li>
 
