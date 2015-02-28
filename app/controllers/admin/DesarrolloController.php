@@ -51,7 +51,7 @@ class DesarrolloController extends BaseController
         if($output.$error) {
             return Redirect::to('admin/ejecuta-seeds')->withInput()->with('error',$output.$error);
         }
-        return Redirect::to('admin/ejecuta-seeds')->with('success',"Se ha ejecutado el seeder $class en el servidor ".$this->environment);
+        return Redirect::to('admin/ejecuta-seeds')->with('success',"Se ha ejecutado el seeder $class en el servidor ");
     }
 
 }

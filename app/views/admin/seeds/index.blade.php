@@ -8,8 +8,7 @@
 
     <div class="panel panel-default">
         <div class="panel-heading">
-            <h4>Ejecutar seeder en servidor:
-                <small>{{$environment}}</small>
+            <h4>Ejecutar seeder en servidor
             </h4>
         </div>
         <div class="panel-body">
