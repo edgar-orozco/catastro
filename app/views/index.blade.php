@@ -234,7 +234,7 @@
         </div>
     </div>
 </div>
-<script src="js/library/jquery-2.1.1.min.js "></script>
-<script src="js/library/bootstrap.min.js"></script>
+<script src="js/jquery/jquery.min.js"></script>
+<script src="js/bootstrap.min.js"></script>
 </body>
 </html>
