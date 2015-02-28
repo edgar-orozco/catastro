@@ -13,7 +13,7 @@ return array(
 	|
 	*/
 
-	'default' => 'production',
+	'default' => 'staging',
 
 	/*
 	|--------------------------------------------------------------------------
@@ -28,13 +28,13 @@ return array(
 
 	'connections' => array(
 
-		'production' => array(
-			'host'      => '',
-			'username'  => '',
-			'password'  => '',
-			'key'       => '',
-			'keyphrase' => '',
-			'root'      => '/var/www',
+		'staging' => array(
+			'host'      => '104.236.22.240',
+			'username'  => 'dploy',
+			'password'  => null,
+			'key'       => '/home/vagrant/.ssh/id_rsa',
+			'keyphrase' => 'deployables',
+			'root'      => '/var/www/html',
 		),
 
 	),
@@ -52,7 +52,7 @@ return array(
 
 	'groups' => array(
 
-		'web' => array('production')
+		'web' => array('staging')
 
 	),
 
