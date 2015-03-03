@@ -1,12 +1,9 @@
 <?php
- 
 //--Controlador para la busqueda de predios
 class Ejecucion_BuscarController extends BaseController
 {
- 
     //Limitador de registros por pagina.
     public $por_pagina = 10;
- 
     /**
      * Ejecuta la búsqueda y regresa la vista principal
      * @return \Illuminate\View\View
@@ -14,24 +11,27 @@ class Ejecucion_BuscarController extends BaseController
     public function getIndex()
     {
         //captura de datos de buscar.blade.php
-        $clave = Input::get('clave');
-        $string = Input::get('nombre');
-       // $this->por_pagina = Input::get('paginado');
-        $this->por_pagina = Input::get('paginado', $this->por_pagina);
-        $propietario = $this->sanear_string($string);
-        //    $propietario = strtoupper($propietario);
-        $municipio = Input::get('municipio');
+            $clave = Input::get('clave');
+            $string = Input::get('nombre');
+            // $this->por_pagina = Input::get('paginado');
+            $this->por_pagina = Input::get('paginado', $this->por_pagina);
+            $propietario = $this->sanear_string($string);
+            //    $propietario = strtoupper($propietario);
+            $municipio = Input::get('municipio');
         //--------------------------DATOS FALTANTES PARA LA CONSULTA-------------------------------------------
         //  $colonia= Input::get('colonia');
         //  $calle = Input::get('calle');
         //  $cp = Input::get('cp');
         // $estatus= Input::get('estatus');
         //  $date = Input::get('date');
-        $resultado = DB::select("select sp_get_predios('$clave','$propietario','','','$municipio','','','','','')");
-        foreach ($resultado as $key) {
-            $vale[] = explode(',', $key->sp_get_predios);
-        }
-        $catalogo = ejecutores::All();//->lists('cargo', 'id_ejecutor');
+            $resultado = DB::select("select sp_get_predios('$clave','$propietario','','','$municipio','','','','','')");
+            foreach ($resultado as $key) {
+            $vale[]    = explode(',', $key->sp_get_predios);
+            }
+
+        $catalogo = ejecutores::join('personas', 'ejecutores.id_p', '=', 'personas.id_p')//->lists('cargo', 'id_ejecutor');
+        ->select('ejecutores.id_p AS id', 'personas.nombrec AS nombre')
+        ->get();
         $municipio = Municipio::All();
         $status = status::All();
         $totalItems = count($resultado);

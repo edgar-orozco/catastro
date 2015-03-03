@@ -8,18 +8,17 @@
             <li class="@if(Request::is('Ejecucion/ejecucion')) active @endif">
                 <a href="{{URL::to('ejecuciones')}}">
                 <i class="glyphicon glyphicon-th-list"></i>&nbsp;
-                    Iniciar ejecución
+                   Carta Invitación
                 </a>
             </li>
-            
-            
+
             <li class="@if(Request::is('Ejecucion/')) active @endif">
                 <a href="{{URL::to('ejecuciones')}}">
                 <i class="glyphicon glyphicon-lock"></i>&nbsp;
-                    Ejecución en trámite
+                    Seguimiento Ejecución
                 </a>
             </li>
-            
+
 			<li class="divider"></li>
 
             <li class="@if(Request::is('Ejecucion/buscar')) active @endif">
@@ -28,9 +27,7 @@
                     Personal Ejecución
                 </a>
             </li>
-            
-            
-			
+
             <li class="@if(Request::is('Ejecucion/buscar')) active @endif">
                 <a href="{{URL::to('Ejecucion/buscar')}}">
                 <i class="glyphicon glyphicon-tags"></i>&nbsp;
@@ -57,7 +54,7 @@
 
             <li class="@if(Request::is('catalago')) active @endif">
                 <a href="{{URL::to('catalogos/inpc')}}">
-                <i class="glyphicon glyphicon-list-alt"></i>&nbsp;   
+                <i class="glyphicon glyphicon-list-alt"></i>&nbsp;
                     Índice de Precios
                 </a>
             </li>
@@ -69,7 +66,6 @@
                 </a>
             </li>
 
-             
         </ul>
     </li>
 

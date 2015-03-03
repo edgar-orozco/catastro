@@ -11,11 +11,11 @@ Bienvenido :: @parent
 @section('content')
 <div>
     <div class="panel-default">
-    
+
     <div class="panel-heading">
 
         <h3 class="panel-title">Busqueda de Predios</h3>
-        
+
     </div>
 
 </div>
@@ -56,26 +56,26 @@ Bienvenido :: @parent
 
 <script type="text/javascript">
     // jQuery
-$(document).ready(function(){ 
-  
-    $('#alternar-respuesta-ej5').toggle( 
-  
+$(document).ready(function(){
+
+    $('#alternar-respuesta-ej5').toggle(
+
         // Primer click
-        function(e){ 
+        function(e){
             $('#respuesta-ej5').slideDown();
             $(this).text('Ocultar respuesta');
             e.preventDefault();
         }, // Separamos las dos funciones con una coma
-      
+
         // Segundo click
-        function(e){ 
+        function(e){
             $('#respuesta-ej5').slideUp();
             $(this).text('Ver respuesta');
             e.preventDefault();
         }
-  
+
     );
-  
+
 });
 </script>
 @stop
@@ -103,58 +103,47 @@ $(document).ready(function(){
                 </tr>
                 <tr>
                     <td>
-            
             {{ Form::text('clave',null, array('class' => 'form-control focus', 'placeholder'=>'xx-xxx-xxx-xxxx-xxxxxx', 'autofocus'=> 'autofocus', 'pattern'=> '\d{2}[\-]\d{3}[\-]\d{3}[\-]\d{4}[\-]\d{6}'))  }}
                     </td>
                     <td>
-            
             {{ Form::text('nombre',null, array('class' => 'form-control focus', 'placeholder'=>'Nombre')) }}
                     </td>
-                   
                     <td>
-            
             {{ Form::number('mayor',null, array('class' => 'form-control focus', 'placeholder'=>'Mayor a :'))  }}
-                    </td> 
+                    </td>
             <td>
-             
             {{ Form::number('menor',null, array('class' => 'form-control focus', 'placeholder'=>'Menor a :'))  }}
                     </td>
 
             {{$errors->first("predios")}}
                     <td>
-           
             <select name="municipio" class="form-control"  >
             <option value=''>Elija un municipio...</option>
-            @foreach($municipio as $row) 
+            @foreach($municipio as $row)
             <option value="{{$row->municipio}}">{{$row->nombre_municipio}}</option>
             @endforeach
         </select>
                     </td>
-                    
                     <td>
                     {{Form::input('date', 'date', null, ['class' => 'form-control', 'placeholder' => 'Date'])}}
-                    </td> 
+                    </td>
                     <td>
-            
             {{Form::select('paginado', array('10' => '10', '20' => '20', '30' => '30', '40' => '40', '50' => '50','60' => '60'))}}
                     </td>
                 </tr>
                 <tr>
                         <td>{{ Form::submit('Buscar', array('class' => 'btn btn-primary')) }}</td>
-                        <td>{{ Form::reset('Limpiar Campos', array('class' => 'btn btn-primary')) }} </td>
+                        <td>{{ Form::reset('Limpiar', array('class' => 'btn btn-primary')) }} </td>
                 </tr>
             </table>
             </div>
         <br/>
-         
          <br>
-      
         {{ Form::close() }}
     </div>
     <br>
     <br>
     <br>
-   
     @if(count($vale) == 0)
         <div class="panel-body">
             <h3><p> {{$mensaje;}}</p></h3>
@@ -162,17 +151,15 @@ $(document).ready(function(){
 
         </div>
     @endif
-    
     @if(count($vale) > 0)
     {{ Form::open(array('url' => 'cartainv', 'method' => 'post', 'name' => 'formulario'))}}
-    {{$date = new DateTime();}} 
+    {{$date = new DateTime();}}
 
     <div class="panel-default">
 
     <div class="panel-heading">
 
         <h3 class="panel-title">Resultados de la busqueda</h3>
-        
     </div>
 
     <table  id="myTable" class="table">
@@ -186,7 +173,7 @@ $(document).ready(function(){
                 <th width="700"><P align="center">Periodo Mas Antiguo</P></th>
                 <th width="350"><P align="center">Impuesto</P></th>
                 <th width="350"><P align="center">Valor Catastral</P></th>
-                <th width="350"><P align="center">Rezago/P></th>
+                <th width="350"><P align="center">Rezago</P></th>
         </tr>
     </thead>
     <tbody>
@@ -198,76 +185,79 @@ $(document).ready(function(){
 
             ?>
 
-             @foreach ($vale as $key  ) 
+             @foreach ($vale as $key  )
             <?php $i++ ?>
-                <?php $val= str_replace('(', '',$key[0]);?>
+                <?php $clave= str_replace('(', '',$key[0]);?>
+                 <?php $nombre= str_replace('"', '',$key[1]); ?>
+                 <?php $impuesto=$key[5]; ?>
+                  <?php $valorcc= $key[6]; ?>
+                  <?php $total=$impuesto+$valorcc ?>
+
             <td align="center">
-             {{ Form::checkbox('clave'.$i, $key[0], false, ['onclick'=>'validar(this)'], array('id' => 'checkAll'))}}
+             {{ Form::checkbox('clave'.$i, $clave.','.$nombre.','.$total, false, ['onclick'=>'validar(this)'], array('id' => 'checkAll'))}}
               <!--  <a href="hoja/{{$row->clave;}}/{{$row->nombre;}}/{{$row->municipio;}}/{{$row->impuesto;}}" class="btn btn-xs btn-info" title="Reimprimir">Generar Carta Invitación<i class="fa fa-file-text-o"></i></a>-->
             </td>
             <td align="center">
                 <!-- CLAVE -->
-                {{$calve=$val;}}
+                {{$clave;}}
             </td>
             <td align="center">
                 <!-- NOMBRE -->
-                 <?php $val2= str_replace('"', '',$key[1]); ?>
-                {{$mun=$val2;}}
+                {{$nombre;}}
             </td>
             <td align="center">
                 <!-- MUNICIPIO -->
-               {{$mun=$key[2];}}
+               {{$municipio=$key[2];}}
             </td>
             <td align="center">
                 <!-- domicilio -->
-               <?php $val3= str_replace('"', '',$key[3]); ?>
-                {{$mun=$val3;}}
+               <?php $domicilio= str_replace('"', '',$key[3]); ?>
+                {{domicilio;}}
             </td>
             <td align="center">
-                <!-- periodo --> 
-                <?php $val1= str_replace(')', '',$key[7]); ?>
-                {{$mun=$key[7];}}
+                <!-- periodo -->
+                <?php $periodo= str_replace(')', '',$key[7]); ?>
+                {{$periodo;}}
             </td>
             <td align="center">
                <!-- impuesto-->
-               $ {{$mun=$key[5];}}
+               $ {{$impuesto}}
             </td>
             <td align="center">
-                <!-- Valor Catastral--> 
-                <?php $mon= money_format('%i', $key[6]) . "\n"; ?>
-                $ {{$mon}}
-               
+                <!-- Valor Catastral-->
+                <?php $valorc= money_format('%i', $key[6]) . "\n"; ?>
+                $ {{$valorc}}
             </td>
             <td align="center">
                 <!-- CLAVE -->
-                <?php echo 'falta ragistro'; ?>
+                <?php $rezago= str_replace(')', '',$key[8]); ?>
+                $ {{$rezago}}
+
             </td>
-                 
         </tr>
+
         @endforeach
 
     </tbody>
     </table>
 
    {{ $paginator->appends(Request::except('page'))->links() }}
-                    
 </div>
 </div>
 <br>
 <div>
-
+{{Form::text('mun',$mun=$key[2],array('hidden'))}}
 {{Form::label('Fecha Emision Carta Invitacion: ') }}
 {{Form::input('date', 'date1', $date->format('d/m/Y') , array('disabled', 'required' ))}}
 
 </div>
 <div>
     {{Form::label('Ejecutores:') }}
-     <select name="ejecutores" class="form-control">
-            @foreach($catalogo as $row) 
-            <option value="{{$row->id_p}}">{{$row->cargo}}</option>
+    <select name="ejecutores" class="form-control">
+            @foreach($catalogo as $row)
+            <option value="{{$row->id}}">{{$row->nombre}}</option>
             @endforeach
-        </select>
-   
+    </select>
 </div>
 <br>
 {{ Form::submit('Generar Carta Invitacion', array('class' => 'btn btn-primary', 'name' => 'boton', 'disabled')) }}
