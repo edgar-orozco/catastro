@@ -34,7 +34,7 @@ class catalogos_ejecutoresController extends \BaseController {
         
         $ejecutoress = $this->ejecutores->join('personas', 'personas.id_p', '=', 'ejecutores.id_p')
                 ->join('personas as p', 'p.id_p', '=', 'ejecutores.id_p_otorga_nombramiento')
-                ->select('id_ejecutor', 'id_ejecutor', 'personas.nombrec', 'cargo', 'titulo', 'f_nombramiento', 'p.nombrec as nombre')
+                ->select('id_ejecutor', 'personas.nombrec', 'cargo', 'titulo', 'f_nombramiento', 'p.nombrec as nombre')
                 ->get();
         
         return ($format == 'json') ? $ejecutoress : View::make('catalogos.ejecutores.index', 
@@ -45,7 +45,8 @@ class catalogos_ejecutoresController extends \BaseController {
      */
     public function create()
     {
-    $ejecutores = $this->ejecutores;
+        
+        $ejecutores = $this->ejecutores;
         
         $title = 'Adminstraci�n de catalago del personal de ejecuci&oacute;n fiscal';
         
@@ -58,13 +59,13 @@ class catalogos_ejecutoresController extends \BaseController {
         //Todos los status creados actualmente
         $ejecutoress = $this->ejecutores->join('personas', 'personas.id_p', '=', 'ejecutores.id_p')
                 ->join('personas as p', 'p.id_p', '=', 'ejecutores.id_p_otorga_nombramiento')
-                ->select('id_ejecutor', 'id_ejecutor', 'personas.nombrec', 'cargo', 'titulo', 'f_nombramiento', 'p.nombrec as nombre')
+                ->select('id_ejecutor', 'personas.nombrec', 'cargo', 'titulo', 'f_nombramiento', 'p.nombrec as nombre')
                 ->get();
         
          //$personas = personas::take(43000)->skip(43000)->get();
         //print_r($personas);
         return View::make('catalogos.ejecutores.create', 
-            compact('title', 'title_section','subtitle_section', 'ejecutores', 'ejecutoress','personas'));    
+            compact('title', 'title_section','subtitle_section', 'ejecutores', 'ejecutoress','personas', 'propietario'));    
     }
     /*
      * CONTROLADRO DONDE GURADA A LOS EJECUTORES
@@ -82,7 +83,7 @@ class catalogos_ejecutoresController extends \BaseController {
       );
       //Mensaje
       $mensajes = array(
-            "required" => "Campo requerido",
+            "required" => "*",
       );
       //valida
       $validar = Validator::make($inputs, $reglas, $mensajes);
@@ -111,7 +112,7 @@ class catalogos_ejecutoresController extends \BaseController {
         $ejecutores = ejecutores::find($id);
 
         $this->ejecutores = $ejecutores;
-
+                
         $title = 'Administración de catálogo de ejecutores';
 
         //Título de sección:
@@ -123,7 +124,7 @@ class catalogos_ejecutoresController extends \BaseController {
         // Todos los permisos creados actualmente
         $ejecutoress = $this->ejecutores->join('personas', 'personas.id_p', '=', 'ejecutores.id_p')
                 ->join('personas as p', 'p.id_p', '=', 'ejecutores.id_p_otorga_nombramiento')
-                ->select('id_ejecutor', 'id_ejecutor', 'personas.nombrec', 'cargo', 'titulo', 'f_nombramiento', 'p.nombrec as nombre')
+                ->select('id_ejecutor', 'personas.nombrec', 'cargo', 'titulo', 'f_nombramiento', 'p.nombrec as nombre')
                 ->get();
         //ID del permiso
         $id = $ejecutores->id;
@@ -147,7 +148,7 @@ class catalogos_ejecutoresController extends \BaseController {
          $n->save();
          //Se han actualizado los valores expresamos la felicidad que se logro Wiiiii....
          return Redirect::to('catalogos/ejecutores/' . $id . '/edit')->with('success',
-            '¡Se ha actualizado correctamente el ejecutor: ' . $mostrar . " !");
+            '¡Se ha actualizado correctamente el ejecutor!');
     }
     /*
      * DONDE ELIMINA LOS EJECUTORES
@@ -167,6 +168,8 @@ class catalogos_ejecutoresController extends \BaseController {
         $term = Input::get('term');
         //ARRAY DONDE CARGA LOS DATOS
         $results = array();
+        
+        $id_p = array();
         //CONSULTA A LA TABLA PERSONAS
         $queries = DB::table('personas')
                         ->where('nombres', 'LIKE', '%' . $term . '%')
@@ -177,18 +180,83 @@ class catalogos_ejecutoresController extends \BaseController {
         foreach ($queries as $query) 
         {
             //ARRAY DONDE CARGA LOS DATOS
-            $results[] = [ 'id_p' => $query->id_p, 'value' => $query->nombres . ' ' . $query->apellido_paterno . ' ' . $query->apellido_materno];
+            $id_p[]=['id_p' => $query->id_p];
+            $results[] = ['value' => $query->nombres . ' ' . $query->apellido_paterno . ' ' . $query->apellido_materno, 'id'=>$query->id_p];
         }
         if ($results) 
         {
             //SI EXITE LA PERSONA
+            
             return Response::json($results);
+            
+            
         } 
         else 
         {
             //SI NO EXITE LA PAERSONA
             $mensaje[] = ['value' => ('No exite la persona')];
             return Response::json($mensaje);
+        }
+    }
+    /*
+     *INDEX PERSONA 
+     */
+    public function getIndex($format = 'html', $id = null) 
+    {
+        $title = 'Crar nueva perosana';
+
+        //Titulo de seccion:
+        $title_section = "";
+
+        //Subtitulo de seccion:
+        $subtitle_section = "Crear nueva persona";
+        
+          return  View::make('catalogos.ejecutores.personas',compact('title','title_section','subtitle_section'));
+          
+          
+    }
+    /*
+     * STORE DE PERSONAS
+     */
+    public function storep($format = 'html')
+    {  
+      $inputs = Input::All();
+      //Reglas 
+      
+      $reglas = array(
+          'apellido_paterno' => 'required',
+          'apellido_materno' => 'required',
+          'nombres'=>'required',
+          'rfc'=>'required',
+          'curp'=>'required',
+      );
+      
+     $apellido_paterno=Input::get('apellido_paterno');
+     $apellido_materno=Input::get('apellido_materno');
+     $nombres=Input::get('nombres');
+     //echo $nombrec=$apellido_materno." ".$apellido_paterno." ".$nombres ; 
+      //Mensaje
+      $mensajes = array(
+            "required" => "*",
+      );
+      //valida
+      $validar = Validator::make($inputs, $reglas, $mensajes);
+      //en caso no pase la validacion
+      if ($validar->fails()) {
+          return Redirect::back()->withErrors($validar);
+          } else {
+              $n = new personas;
+              $n-> apellido_paterno = $inputs["apellido_paterno"];
+              $n-> apellido_materno = $inputs["apellido_materno"];
+              $n-> nombres = $inputs["nombres"];
+              $n-> nombrec = $apellido_paterno." ".$apellido_materno." ".$nombres;
+              $n-> rfc = $inputs["rfc"];
+              $n-> curp = $inputs["curp"];
+              $n->save();
+              //Se han guardado los valores
+              Session::flash('mensaje', 'El registro ha sido ingresado exitosamente');
+              return Redirect::back();
+
         }
     }
 

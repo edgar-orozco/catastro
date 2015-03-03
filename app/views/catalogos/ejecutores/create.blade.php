@@ -6,9 +6,9 @@
     <a href="{{URL::route('catalogos.ejecutores.index')}}" class="btn btn-primary pull-right" role="button"><i class="glyphicon glyphicon-arrow-left"></i> Regresar</a>
 
     <div class="col-md-4">
-
-        {{ Form ::open(array('url' => 'catalogos/ejecutores', 'method' => 'POST')) }}
-
+        <!--Boton Modal -->
+        <button data-toggle="modal"  data-target="#Nuevo" href="/catalogos/personas" class="btn btn-primary" >NUEVA PERSONA</button>
+        <!-- Fin Boton Moodal -->
         @include('catalogos.ejecutores._form')
 
         <div class="form-actions form-group">
@@ -24,5 +24,19 @@
         @include('catalogos.ejecutores._list', compact('ejecutoress'))<!--_list -->
     </div>
 </div>
+<!-- Modal -->
+<div class="modal fade" id="Nuevo" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
 
+            <div class="modal-body" id="modalBody" >
+
+            </div>
+            <div class="modal-footer" id="modal-footer">
+
+            </div>
+        </div>
+    </div>
+</div>
+<!-- fin Modal -->
 @stop
