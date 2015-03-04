@@ -2,7 +2,7 @@
 
 class tiposervicios extends Eloquent
 {
-    protected $table ='tiposervicio';
+    protected $table ='tiposervicios';
     protected $primaryKey = 'id';
     public $timestamps=false;
 }
