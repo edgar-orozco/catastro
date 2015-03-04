@@ -1,44 +1,61 @@
 <?php
 
+error_reporting(E_ERROR | E_WARNING);
+
 class complementarios_ComplementariosController extends BaseController {
 
     protected $por_pagina = 10;
 
     public function index() {
-                $predio   = Input::get('b');
-                $predio   = Str::upper($predio);
-                $busqueda = predios::WHERE('clave', 'LIKE', '%' . $predio . '%')
+        $predio = Input::get('b');
+        $predio = Str::upper($predio);
+        $busqueda = predios::WHERE('clave', 'LIKE', '%' . $predio . '%')
                 ->orWhere('clave_ori', $predio)
                 ->orderBy('gid', 'ASC')
                 ->paginate($this->por_pagina);
-                return View::make('complementarios.complementarios', compact("busqueda"));
+        return View::make('complementarios.complementarios', compact("busqueda"));
     }
 
-        public function getPredio($id = null) {
-        $predios                      = predios::find($id);
+    public function getPredio($id = null) {
+        $predios = predios::find($id);
         return View::make('complementarios.complementarios', compact("predios"));
     }
 
-    public function getInstalacion($id = null) {
+    public function getInstalacion($id = null, $gid = null) {
         $datos = instalaciones::WHERE('instalaciones_especiales.clave', '=', $id)
                 ->join('tiposiespeciales', 'tiposiespeciales.id', '=', 'instalaciones_especiales.id_tipo_ie')
-                ->orderBy('id_ie', 'ASC')
+//                ->orderBy('id_ie', 'ASC')
                 ->get();
         $const = construcciones::WHERE('clave', '=', $id)
                 ->join('tiposusosconstruccion', 'tiposusosconstruccion.id', '=', 'construccion.uso_construccion')
                 ->orderBy('gid_construccion', 'ASC')
                 ->get();
-        $predios = predios::find($id);
+//      $predios = predios::find($id);
+
+        $predios = predios::WHERE('predios.clave', '=', $id)
+                ->join('municipios', 'predios.municipio', '=', 'municipios.municipio')
+                ->join('entidades', 'predios.entidad', '=', 'entidades.entidad')
+                ->get();
 
         $condominio = condominios::WHERE('clave', 'LIKE', '%' . $id . '%')
                 ->orderBy('id_condominio', 'ASC')
                 ->get();
-//        $prop = predios::WHERE('predios.clave', '=', '002-0007-000008')
+//      $prop = predios::WHERE('predios.clave', '=', '002-0007-000008')
 //                ->join('propietarios', 'propietarios.clave', '=', 'predios.clave')
 //                ->join('personas', 'personas.id_p', '=', 'propietarios.id_propietario')
 //                ->select()
 //                ->get();
-        return View::make('complementarios.cargar', compact("datos", "const", "predios", "condominio", "prop"));
+        $cat = tiposervicios::All();
+
+        $asociados = servicios::WHERE('gid_predio', '=', '2')
+                ->orderBy('id_tiposerviciopredio', 'ASC')
+                ->get();
+        $nombre = tiposervicios::WHERE('id', '=', $id);
+        $servicios = servicios::
+                join('tiposervicio', 'serviciospredio.id_tiposerviciopredio', '=', 'tiposervicio.id')
+                ->orderBy('tiposervicio.id', 'ASC')
+                ->get();
+        return View::make('complementarios.cargar', compact("datos", "const", "predios", "condominio", "prop", "cat", "servicios", "asociados", "nombre"));
     }
 
     /**
@@ -53,24 +70,24 @@ class complementarios_ComplementariosController extends BaseController {
 
     public function post_agregar() {
 
-            $inputs        = Input::All();
-            $reglas        = array
+        $inputs = Input::All();
+        $reglas = array
             (
-            'instalacion'  => 'required',
-            );
-            $mensajes      = array
+            'instalacion' => 'required',
+        );
+        $mensajes = array
             (
-            "required"     => "este campo es obligatorio",
-            "min"          => "debe tener como minimo 5 caracteres"
-            );
-            $validar       = Validator::make($inputs, $reglas, $mensajes);
-            if ($validar->fails()) {
+            "required" => "este campo es obligatorio",
+            "min" => "debe tener como minimo 5 caracteres"
+        );
+        $validar = Validator::make($inputs, $reglas, $mensajes);
+        if ($validar->fails()) {
             return Redirect::back()->withErrors($validar);
-            } else {
-            $id            = Input::get('id');
-            $input         = $inputs["instalacion"];
-            $n             = new instalaciones();
-            $n->clave      = $id;
+        } else {
+            $id = Input::get('id');
+            $input = $inputs["instalacion"];
+            $n = new instalaciones();
+            $n->clave = $id;
             $n->id_tipo_ie = $input;
             $n->save();
             Session::flash('mensaje', 'El registro ha sido ingresado exitosamente');
@@ -122,6 +139,7 @@ class complementarios_ComplementariosController extends BaseController {
         $datos->uso_construccion = $inputs["uso"];
         $datos->sup_const = $inputs["sup_const"];
         $datos->nivel = $inputs["nivel"];
+        $datos->edad_const = $inputs["edad"];
         $datos->save();
         Session::flash('mensaje', 'El registro ha sido ingresado exitosamente');
         return Redirect::back();
@@ -133,11 +151,6 @@ class complementarios_ComplementariosController extends BaseController {
         return Redirect::back();
     }
 
-    /**
-     * 
-     * @param type $id
-     * @return type
-     */
     public function getAgregarConstruccion($id = null) {
         $catalogo = UsoConstruccion::All();
         return View::make('complementarios.agregarconstruccion', ['datos' => $id], compact("catalogo"));
@@ -148,12 +161,14 @@ class complementarios_ComplementariosController extends BaseController {
         $reglas = array
             (
             'uso' => 'required',
-            'sup_const' => 'required'
+            'sup_const' => 'numeric|required',
+            'nivel' => 'numeric|required',
+            'edad' => 'numeric|required'
         );
         $mensajes = array
             (
+            "numeric" => "Es numerico",
             "required" => "este campo es obligatorio",
-            "min" => "debe tener como mÃ­nimo 5 caracteres"
         );
         $validar = Validator::make($inputs, $reglas, $mensajes);
         if ($validar->fails()) {
@@ -164,7 +179,8 @@ class complementarios_ComplementariosController extends BaseController {
             $n->clave = $id;
             $n->uso_construccion = $inputs["uso"];
             $n->sup_const = $inputs["sup_const"];
-            $n->nivel= $inputs["nivel"];
+            $n->nivel = $inputs["nivel"];
+            $n->edad_const = $inputs["edad"];
             $n->save();
             Session::flash('mensaje', 'El registro ha sido ingresado exitosamente');
             return Redirect::back();
@@ -181,7 +197,7 @@ class complementarios_ComplementariosController extends BaseController {
         $max_id = condominios::where('clave', 'LIKE', '%' . $id . '%')->max('no_condominal');
         $no_condominal = $max_id + 1;
         $n = new condominios();
-        $n->id_propietarios=$inputs["id_propietarios"];
+        $n->id_propietarios = $inputs["id_propietarios"];
         $n->clave = $id;
         $n->no_condominal = $no_condominal;
         $n->tipo_priva = $inputs["tipo_priva"];
@@ -189,6 +205,7 @@ class complementarios_ComplementariosController extends BaseController {
         $n->indiviso = $inputs["indiviso"];
         $n->sup_total_comun = $inputs["sup_total_comun"];
         $n->no_unidades = $inputs["no_unidades"];
+
         $n->save();
         return Redirect::back();
     }
@@ -224,30 +241,58 @@ class complementarios_ComplementariosController extends BaseController {
         return Redirect::back();
     }
 
-    public function get_servicios($id=null) {
-        return View::make('complementarios.complementos.servicio');
+    public function get_servicios() {
+        $cat = tiposervicios::All();
+        return View::make('complementarios.complementos.servicio', compact("cat"));
     }
 
     public function post_agregarservicio() {
         $inputs = Input::All();
-        echo '<pre>';
-        var_dump($inputs);
-        echo '</pre>';
-//        $count = count($inputs["opcion"]);
-//////       echo '<br>';
-//        for ($x = 0; $x < $count; $x++) {
-//            echo '<br>';
-//            echo 'serv' . $inputs["opcion"][$x];
+        $gid = Input::get('gid');
+        $actuales = $inputs['serv'];
+        $opcion = $inputs['opcion'];
+        $contar = count($actuales);
+        if (!$contar) {
+            if (sizeof($actuales) == 0) {
+                $count = count($opcion);
+                for ($x = 0; $x < $count; $x++) {
+                    $n = new servicios();
+                    $n->gid_predio = $gid;
+                    $n->id_tiposerviciopredio = $opcion[$x];
+                    $n->save();
+                    
+                }
+                return Redirect::back();
+            }
+        } else {
+
+            foreach ($opcion as $id) {
+                if (in_array($id, $actuales)) {
+                    
+                } else {
+                    $total[] = $id;
+                }
+            }
+            $count = count($total);
+            for ($x = 0; $x < $count; $x++) {
+                $n = new servicios();
+//                $id = 2;
+                $n->gid_predio = $gid;
+                $n->id_tiposerviciopredio = $total[$x];
+                $n->save();
+            }
+//        return View::make('complementarios.agregar-servicios');
+            return Redirect::back();
 //        }
-//  for ($x = 0; $x < $count; $x++) {
-//            $n = new servicios();
-//            $id = 8191;
-//            $n->gid_predio = $id;
-//            $n->id_tiposerviciopredio = $inputs["opcion"][$x];
-//            $n->save();
-//
-//        }
-      
+        }
+    }
+
+    public
+            function getEliminarServicio($id = null) {
+
+          $eliminar = servicios::find($id);
+        $eliminar->delete();
+        return Redirect::back();
     }
 
 }
