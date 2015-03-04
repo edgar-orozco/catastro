@@ -1,9 +1,10 @@
 <?php
-//pantalla principal de ejecucion
+//pantalla principal de carta invvitacion
 Route::controller("/ejecucion/", "Ejecucion_BuscarController");
 Route::controller("/ejecuciones", "Ejecucion_BuscaController");
-
-
+//pantalla principal de seguimiento ejecucion
+Route::get("/seguimiento", "Ejecucion_SeguimientoController@getIndex");
+Route::get("/busquedas", "Ejecucion_SeguimientobusController@getIndex");
 //vista para capturar datos ejecucion fiscal
 Route::get('/vista', function()
 {

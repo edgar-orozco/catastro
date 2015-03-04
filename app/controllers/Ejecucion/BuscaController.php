@@ -1,10 +1,10 @@
 <?php
 //--Controlador para la busqueda de predios
-class Ejecucion_BuscaController extends BaseController 
+class Ejecucion_BuscaController extends BaseController
 {
 //cahcar parametros verificar vacio y evitar agregar en consulta k noi entre vacio
 
-   public function getIndex() 
+   public function getIndex()
    { //abre function
 
        $catalogo = ejecutores::All();//->lists('cargo', 'id_ejecutor');
@@ -16,8 +16,5 @@ class Ejecucion_BuscaController extends BaseController
 
 
        return View::make('ejecucion.inicio', compact("catalogo","municipio","status","mensaje",'vale'));
-
-
-       
     }
 }

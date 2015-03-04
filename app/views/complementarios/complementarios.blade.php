@@ -48,7 +48,7 @@ Bienvenido :: @parent
                         <td>Predios</td>
                         <td>Clave</td>
                         <td>Geom</td>
-                        <td>Superficie Construccion </td>        
+                        <td>Superficie Construccion </td>
                         <td>Accion</td>
                     </tr>
                 </thead>

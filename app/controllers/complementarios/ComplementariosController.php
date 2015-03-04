@@ -5,17 +5,17 @@ class complementarios_ComplementariosController extends BaseController {
     protected $por_pagina = 10;
 
     public function index() {
-        $predio = Input::get('b');
-        $predio = Str::upper($predio);
-        $busqueda = predios::WHERE('clave', 'LIKE', '%' . $predio . '%')
+                $predio   = Input::get('b');
+                $predio   = Str::upper($predio);
+                $busqueda = predios::WHERE('clave', 'LIKE', '%' . $predio . '%')
                 ->orWhere('clave_ori', $predio)
                 ->orderBy('gid', 'ASC')
                 ->paginate($this->por_pagina);
-        return View::make('complementarios.complementarios', compact("busqueda"));
+                return View::make('complementarios.complementarios', compact("busqueda"));
     }
 
-    public function getPredio($id = null) {
-        $predios = predios::find($id);
+        public function getPredio($id = null) {
+        $predios                      = predios::find($id);
         return View::make('complementarios.complementarios', compact("predios"));
     }
 
@@ -53,24 +53,24 @@ class complementarios_ComplementariosController extends BaseController {
 
     public function post_agregar() {
 
-        $inputs = Input::All();
-        $reglas = array
+            $inputs        = Input::All();
+            $reglas        = array
             (
-            'instalacion' => 'required',
-        );
-        $mensajes = array
+            'instalacion'  => 'required',
+            );
+            $mensajes      = array
             (
-            "required" => "este campo es obligatorio",
-            "min" => "debe tener como minimo 5 caracteres"
-        );
-        $validar = Validator::make($inputs, $reglas, $mensajes);
-        if ($validar->fails()) {
+            "required"     => "este campo es obligatorio",
+            "min"          => "debe tener como minimo 5 caracteres"
+            );
+            $validar       = Validator::make($inputs, $reglas, $mensajes);
+            if ($validar->fails()) {
             return Redirect::back()->withErrors($validar);
-        } else {
-            $id = Input::get('id');
-            $input = $inputs["instalacion"];
-            $n = new instalaciones();
-            $n->clave = $id;
+            } else {
+            $id            = Input::get('id');
+            $input         = $inputs["instalacion"];
+            $n             = new instalaciones();
+            $n->clave      = $id;
             $n->id_tipo_ie = $input;
             $n->save();
             Session::flash('mensaje', 'El registro ha sido ingresado exitosamente');
@@ -189,7 +189,6 @@ class complementarios_ComplementariosController extends BaseController {
         $n->indiviso = $inputs["indiviso"];
         $n->sup_total_comun = $inputs["sup_total_comun"];
         $n->no_unidades = $inputs["no_unidades"];
-      
         $n->save();
         return Redirect::back();
     }

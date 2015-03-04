@@ -1,6 +1,6 @@
 <?php
 error_reporting (E_ERROR | E_WARNING);
-setlocale(LC_MONETARY, 'es_MX'); 
+setlocale(LC_MONETARY, 'es_MX');
 ?>
 @extends('layouts.default')
 
@@ -81,11 +81,11 @@ $(document).ready(function(){
 @stop
 
     <div class="panel-body">
-             {{ Form::open(array('class' => 'busqueda',
+             {{ Form::open(array('class' => 'busquedas',
                     'role' => 'form',
-                    'method'=>'BuscarController@index',
+                    'method'=>'SeguimientobusController@getIndex',
                     'method' => 'GET',
-                    'url'=>'/ejecucion'
+                    'url'=>'/busquedas'
 
                     ))
         }}
@@ -95,10 +95,8 @@ $(document).ready(function(){
                 <tr>
                     <th>{{Form::label('Clave Catastral:') }}</th>
                     <th>{{Form::label('Nombre Propietario:') }}</th>
-                    <th>{{Form::label('Mayor a:') }}</th>
-                    <th>{{Form::label('Menor a:') }}</th>
                     <th>{{Form::label('Municipio:') }}</th>
-                    <th>{{Form::label('Años de Adeudo:') }}</th>
+                    <th>{{Form::label('Estatus:') }}</th>
                     <th>{{Form::label('Registros a mostrar:') }}</th>
                 </tr>
                 <tr>
@@ -108,12 +106,7 @@ $(document).ready(function(){
                     <td>
             {{ Form::text('nombre',null, array('class' => 'form-control focus', 'placeholder'=>'Nombre')) }}
                     </td>
-                    <td>
-            {{ Form::number('mayor',null, array('class' => 'form-control focus', 'placeholder'=>'Mayor a :'))  }}
-                    </td>
-            <td>
-            {{ Form::number('menor',null, array('class' => 'form-control focus', 'placeholder'=>'Menor a :'))  }}
-                    </td>
+
 
             {{$errors->first("predios")}}
                     <td>
@@ -125,7 +118,12 @@ $(document).ready(function(){
         </select>
                     </td>
                     <td>
-                    {{Form::select('adeudos', array('1' => '1', '1' => '1', '3' => '3', '4' => '4', '5' => '5'))}}
+                   <select name="estatus" class="form-control"  >
+            <option value=''>Elija un estatus...</option>
+            @foreach($status as $row)
+            <option value="{{$row->cve_status}}">{{$row->descrip}}</option>
+            @endforeach
+        </select>
                     </td>
                     <td>
             {{Form::select('paginado', array('10' => '10', '20' => '20', '30' => '30', '40' => '40', '50' => '50','60' => '60'))}}
@@ -169,11 +167,10 @@ $(document).ready(function(){
                 <th width="500"><P align="center">Clave Catastral</P></th>
                 <th width="700"><P align="center">Nombre Propietario</P></th>
                 <th width="200"><P align="center">Municpio</P></th>
-                <th width="500"><P align="center">Domicilio</P></th>
-                <th width="700"><P align="center">Periodo Mas Antiguo</P></th>
-                <th width="350"><P align="center">Impuesto</P></th>
-                <th width="350"><P align="center">Valor Catastral</P></th>
-                <th width="350"><P align="center">Rezago</P></th>
+                <th width="500"><P align="center">Estatus</P></th>
+                <th width="700"><P align="center">Fecha Inicio</P></th>
+                <th width="350"><P align="center">Fecha Vencimiento</P></th>
+                <th width="350"><P align="center"></P>--</th>
         </tr>
     </thead>
     <tbody>
@@ -211,28 +208,21 @@ $(document).ready(function(){
             </td>
             <td align="center">
                 <!-- domicilio -->
-               <?php $domicilio= str_replace('"', '',$key[3]); ?>
-                {{domicilio;}}
+               Estatus no viene en consulta
             </td>
             <td align="center">
                 <!-- periodo -->
-                <?php $periodo= str_replace(')', '',$key[7]); ?>
-                {{$periodo;}}
+                Fecha Inicio indefinida
             </td>
             <td align="center">
                <!-- impuesto-->
-               $ {{$impuesto}}
+               Fecha vencimiento Indefinida
             </td>
             <td align="center">
                 <!-- Valor Catastral-->
-                <?php $valorc= money_format('%i', $key[6]) . "\n"; ?>
-                $ {{$valorc}}
-            </td>
-            <td align="center">
-                <!-- CLAVE -->
-                <?php $rezago= str_replace(')', '',$key[8]); ?>
-                $ {{$rezago}}
-
+                 <a href="{{ URL::action('complementarios_ComplementariosController@getPredio',$row->clave) }}" class="btn btn-warning nuevo" title="Editar Predio">
+                                <span class="glyphicon glyphicon-pencil"></span>
+                            </a>
             </td>
         </tr>
 

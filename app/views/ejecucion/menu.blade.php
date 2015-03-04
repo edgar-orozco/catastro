@@ -12,8 +12,8 @@
                 </a>
             </li>
 
-            <li class="@if(Request::is('Ejecucion/')) active @endif">
-                <a href="{{URL::to('ejecuciones')}}">
+            <li class="@if(Request::is('Ejecucion/Seguimiento')) active @endif">
+                <a href="{{URL::to('seguimiento')}}">
                 <i class="glyphicon glyphicon-lock"></i>&nbsp;
                     Seguimiento Ejecución
                 </a>
