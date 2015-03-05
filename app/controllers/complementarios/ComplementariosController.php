@@ -21,7 +21,11 @@ class complementarios_ComplementariosController extends BaseController {
         return View::make('complementarios.complementarios', compact("predios"));
     }
 
+<<<<<<< HEAD
     public function getInstalacion($id = null) {
+=======
+   public function getInstalacion($id = null) {
+>>>>>>> 6a0784468e67e7a87935341c3c6be5b45fe39500
         $gid = Input::get('gidc');
         $datos = instalaciones::WHERE('instalaciones_especiales.clave', '=', $id)
                 ->join('tiposiespeciales', 'tiposiespeciales.id', '=', 'instalaciones_especiales.id_tipo_ie')
@@ -56,6 +60,7 @@ class complementarios_ComplementariosController extends BaseController {
                 join('tiposervicios', 'serviciospredio.id_tiposerviciopredio', '=', 'tiposervicios.id')
                 ->orderBy('tiposervicios.id', 'ASC')
                 ->get();
+<<<<<<< HEAD
         $techos = construcciones::WHERE('clave', '=', $id, 'and', 'gid_construccion', 'IN', $const)
                 ->join('techosconstruccion', 'construccion.gid_construccion', '=', 'techosconstruccion.gid_construccion')
                 ->join('tipostecho', 'techosconstruccion.id_tipotecho', '=', 'tipostecho.id')
@@ -73,8 +78,14 @@ class complementarios_ComplementariosController extends BaseController {
 //                ->join('tiposventana', 'ventanasconstruccion.id_tipoclaseconstruccion', '=', 'tiposventana.id')
 //                ->get();
         return View::make('complementarios.cargar', compact("datos", "const", "predios", "condominio", "prop", "cat", "servicios", "asociados", "nombre", "techos","muros","clases"));
+=======
+        $techos= TechosConstruccion::WHERE('gid_construccion', '=', 1)
+                ->join('tipostecho', 'tipostecho.Id', '=', 'techosconstruccion.id_tipotecho')
+                ->orderBy('id', 'ASC')
+                ->get();
+        return View::make('complementarios.cargar', compact("datos", "const", "predios", "condominio", "prop", "cat", "servicios", "asociados", "nombre","techos"));
+>>>>>>> 6a0784468e67e7a87935341c3c6be5b45fe39500
     }
-
     /**
      * Cargar Instalaciones Especiales
      * @param type $id
@@ -135,7 +146,7 @@ class complementarios_ComplementariosController extends BaseController {
         return Redirect::back();
     }
 
-    //construcciones 
+    //construcciones
     public function getConstruccion($id = null) {
         $const = construcciones::WHERE('clave', 'LIKE', '%' . $id . '%')
                 ->orderBy('gid_construccion', 'ASC')
@@ -265,11 +276,24 @@ class complementarios_ComplementariosController extends BaseController {
 
     public function post_agregarservicio() {
         $inputs = Input::All();
-        $gid = Input::get('gid');
+        //print_r($inputs);
+       $gid = Input::get('gid');
         $actuales = $inputs['serv'];
         $opcion = $inputs['opcion'];
+        $fuera = $inputs['fuera'];
         $contar = count($actuales);
-        if (!$contar) {
+        $confuera = count($fuera);
+
+        if ($confuera>=1) {
+        foreach ($fuera as $key)
+        {
+            $id=$key;
+             $eliminar = servicios::where('id_tiposerviciopredio', '=', $id);
+             $eliminar->delete();
+             return Redirect::back();
+        }
+    }
+      if (!$contar) {
             if (sizeof($actuales) == 0) {
                 $count = count($opcion);
                 for ($x = 0; $x < $count; $x++) {
@@ -277,6 +301,10 @@ class complementarios_ComplementariosController extends BaseController {
                     $n->gid_predio = $gid;
                     $n->id_tiposerviciopredio = $opcion[$x];
                     $n->save();
+<<<<<<< HEAD
+=======
+
+>>>>>>> 6a0784468e67e7a87935341c3c6be5b45fe39500
                 }
                 return Redirect::back();
             }
@@ -284,7 +312,7 @@ class complementarios_ComplementariosController extends BaseController {
 
             foreach ($opcion as $id) {
                 if (in_array($id, $actuales)) {
-                    
+
                 } else {
                     $total[] = $id;
                 }
