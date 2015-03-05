@@ -77,6 +77,27 @@ $(document).ready(function(){
     );
 
 });
+
+$(document).ready(function(){
+
+   var d = document.formulario;
+
+    //Checkbox seleccionar todos
+    $("input[name=checktodos]").change(function(){
+        $('input[type=checkbox]').each( function() {
+            if($("input[name=checktodos]:checked").length == 1){
+                this.checked = true;
+                d.boton.disabled = false;
+                d.date1.disabled = false;
+            } else {
+                this.checked = false;
+                d.boton.disabled = true;
+                d.date1.disabled = true;
+            }
+        });
+    });
+
+});
 </script>
 @stop
 

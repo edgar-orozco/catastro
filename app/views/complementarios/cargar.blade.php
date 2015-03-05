@@ -3,6 +3,7 @@
 
 @stop
 @section('content')
+
 <style>
     #map-canvas {
         height: 30%;

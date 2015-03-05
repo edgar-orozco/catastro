@@ -21,7 +21,8 @@ class complementarios_ComplementariosController extends BaseController {
         return View::make('complementarios.complementarios', compact("predios"));
     }
 
-    public function getInstalacion($id = null, $gid = null) {
+   public function getInstalacion($id = null) {
+        $gid = Input::get('gidc');
         $datos = instalaciones::WHERE('instalaciones_especiales.clave', '=', $id)
                 ->join('tiposiespeciales', 'tiposiespeciales.id', '=', 'instalaciones_especiales.id_tipo_ie')
 //                ->orderBy('id_ie', 'ASC')
@@ -52,12 +53,15 @@ class complementarios_ComplementariosController extends BaseController {
                 ->get();
         $nombre = tiposervicios::WHERE('id', '=', $id);
         $servicios = servicios::
-                join('tiposervicio', 'serviciospredio.id_tiposerviciopredio', '=', 'tiposervicio.id')
-                ->orderBy('tiposervicio.id', 'ASC')
+                join('tiposervicios', 'serviciospredio.id_tiposerviciopredio', '=', 'tiposervicios.id')
+                ->orderBy('tiposervicios.id', 'ASC')
                 ->get();
-        return View::make('complementarios.cargar', compact("datos", "const", "predios", "condominio", "prop", "cat", "servicios", "asociados", "nombre"));
+        $techos= TechosConstruccion::WHERE('gid_construccion', '=', 1)
+                ->join('tipostecho', 'tipostecho.Id', '=', 'techosconstruccion.id_tipotecho')
+                ->orderBy('id', 'ASC')
+                ->get();
+        return View::make('complementarios.cargar', compact("datos", "const", "predios", "condominio", "prop", "cat", "servicios", "asociados", "nombre","techos"));
     }
-
     /**
      * Cargar Instalaciones Especiales
      * @param type $id
@@ -118,7 +122,7 @@ class complementarios_ComplementariosController extends BaseController {
         return Redirect::back();
     }
 
-    //construcciones 
+    //construcciones
     public function getConstruccion($id = null) {
         $const = construcciones::WHERE('clave', 'LIKE', '%' . $id . '%')
                 ->orderBy('gid_construccion', 'ASC')
@@ -248,11 +252,24 @@ class complementarios_ComplementariosController extends BaseController {
 
     public function post_agregarservicio() {
         $inputs = Input::All();
-        $gid = Input::get('gid');
+        //print_r($inputs);
+       $gid = Input::get('gid');
         $actuales = $inputs['serv'];
         $opcion = $inputs['opcion'];
+        $fuera = $inputs['fuera'];
         $contar = count($actuales);
-        if (!$contar) {
+        $confuera = count($fuera);
+
+        if ($confuera>=1) {
+        foreach ($fuera as $key)
+        {
+            $id=$key;
+             $eliminar = servicios::where('id_tiposerviciopredio', '=', $id);
+             $eliminar->delete();
+             return Redirect::back();
+        }
+    }
+      if (!$contar) {
             if (sizeof($actuales) == 0) {
                 $count = count($opcion);
                 for ($x = 0; $x < $count; $x++) {
@@ -260,7 +277,7 @@ class complementarios_ComplementariosController extends BaseController {
                     $n->gid_predio = $gid;
                     $n->id_tiposerviciopredio = $opcion[$x];
                     $n->save();
-                    
+
                 }
                 return Redirect::back();
             }
@@ -268,7 +285,7 @@ class complementarios_ComplementariosController extends BaseController {
 
             foreach ($opcion as $id) {
                 if (in_array($id, $actuales)) {
-                    
+
                 } else {
                     $total[] = $id;
                 }
