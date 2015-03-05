@@ -53,8 +53,8 @@ class complementarios_ComplementariosController extends BaseController {
                 ->get();
         $nombre = tiposervicios::WHERE('id', '=', $id);
         $servicios = servicios::
-                join('tiposervicios', 'serviciospredio.id_tiposerviciopredio', '=', 'tiposervicios.id')
-                ->orderBy('tiposervicios.id', 'ASC')
+                join('tiposervicios', 'serviciospredio.id_tiposerviciopredio', '=', 'tiposervicios.id_tiposervicio')
+                ->orderBy('tiposervicios.id_tiposervicio', 'ASC')
                 ->get();
         $techos = construcciones::WHERE('clave', '=', $id, 'and', 'gid_construccion', 'IN', $const)
                 ->join('techosconstruccion', 'construccion.gid_construccion', '=', 'techosconstruccion.gid_construccion')
