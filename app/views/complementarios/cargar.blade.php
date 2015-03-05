@@ -1,4 +1,4 @@
-@extends('layouts.default')
+  @extends('layouts.default')
 @section('title')
 
 @stop
@@ -45,11 +45,11 @@
     </table>
 </div>
 <div style="float: right;margin-top: -7px;margin-right: -66px;">
-    <iframe src="https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d15179.10423749334!2d-92.83543432609864!3d17.989152844348357!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e0!3m2!1ses!2smx!4v1423185076690" width="600" height="450" frameborder="0" style="border:0"></iframe>  
+    <!--<iframe src="https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d15179.10423749334!2d-92.83543432609864!3d17.989152844348357!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e0!3m2!1ses!2smx!4v1423185076690" width="600" height="450" frameborder="0" style="border:0"></iframe>-->  
 </div>
-<div class="panel-group" id="accordion" role="tablist" aria-multiselectable="false" style="width: 600px;">
+<div class="panel-group" id="accordion" role="tablist" aria-multiselectable="false" style="width: 800px;">
     <!--otro -->
-    <div class="panel panel-info">
+    <div class="panel panel-info in">
         <div class="panel-heading" role="tab" id="heading-{{1}}">
             <h4 class="panel-title">
                 <a class="collapsed" data-toggle="collapse" data-parent="#accordion"
