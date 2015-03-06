@@ -14,7 +14,7 @@ class UpdateEntidadesTable extends Migration {
 	{
 		Schema::table('entidades', function(Blueprint $table)
 		{
-			
+
 		});
 	}
 

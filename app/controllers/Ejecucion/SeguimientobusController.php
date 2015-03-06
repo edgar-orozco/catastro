@@ -24,10 +24,10 @@ class Ejecucion_SeguimientobusController extends \BaseController {
         //  $cp = Input::get('cp');
         // $estatus= Input::get('estatus');
         //  $date = Input::get('date');
-            $resultado = DB::select("select sp_get_predios('$clave','$propietario','','','$municipio','','','','','')");
+            $resultado = DB::select("select sp_get_predios_status('','','','')");
             	foreach ($resultado as $key)
             		{
-            				$vale[] = explode(',', $key->sp_get_predios);
+            				$vale[] = explode(',', $key->sp_get_predios_status);
             	  }
 
             $catalogo = ejecutores::join('personas', 'ejecutores.id_p', '=', 'personas.id_p')//->lists('cargo', 'id_ejecutor');
@@ -170,6 +170,22 @@ class Ejecucion_SeguimientobusController extends \BaseController {
 	{
 		//
 	}
+    public function modal( $idrequerimiento = null) 
+    {
+        
+        $title = 'Crar nueva perosana';
+
+        //Titulo de seccion:
+        $title_section = "";
+
+        //Subtitulo de seccion:
+        $subtitle_section = "Crear nueva persona";
+        //$format = 'html';
+       
+         return  View::make('ejecucion.datos',compact('title','title_section','subtitle_section','idrequerimiento'));
+          
+          
+    }
 
 
 }

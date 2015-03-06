@@ -184,6 +184,7 @@ $(document).ready(function(){
 
              @foreach ($vale as $key  )
             <?php $i++ ?>
+                <?php $idrequerimiento=$key[5]; ?>
                 <?php $clave= str_replace('(', '',$key[0]);?>
                  <?php $nombre= str_replace('"', '',$key[1]); ?>
                  <?php $impuesto=$key[5]; ?>
@@ -208,21 +209,22 @@ $(document).ready(function(){
             </td>
             <td align="center">
                 <!-- domicilio -->
-               Estatus no viene en consulta
+              {{$estatus=$key[4];}}
             </td>
             <td align="center">
                 <!-- periodo -->
-                Fecha Inicio indefinida
+                {{$fechainicio=$key[6];}}
             </td>
             <td align="center">
                <!-- impuesto-->
-               Fecha vencimiento Indefinida
+               <?php $fechavencimiento= str_replace(')', '',$key[7]);?>
+               {{$fechavencimiento;}}
             </td>
             <td align="center">
                 <!-- Valor Catastral-->
-                 <a href="{{ URL::action('complementarios_ComplementariosController@getPredio',$row->clave) }}" class="btn btn-warning nuevo" title="Editar Predio">
-                                <span class="glyphicon glyphicon-pencil"></span>
-                            </a>
+                @if($fechainicio=='' || $fechavencimiento=='')
+                  <a data-toggle="modal"  data-target="#Nuevo" href="/ejecucion/modal/{{$idrequerimiento}}" class="btn btn-primary" >Capturar Datos</a>
+                @endif
             </td>
         </tr>
 
@@ -254,6 +256,20 @@ $(document).ready(function(){
 {{ Form::close() }}
 
  @endif
+<!-- Modal -->
+<div class="modal fade" id="Nuevo" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
 
+            <div class="modal-body" id="modalBody" >
+
+            </div>
+            <div class="modal-footer" id="modal-footer">
+
+            </div>
+        </div>
+    </div>
+</div>
+<!-- fin Modal -->
 <br><br><br>
 @stop
