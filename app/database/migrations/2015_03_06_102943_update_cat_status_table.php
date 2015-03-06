@@ -14,8 +14,7 @@ class UpdateCatStatusTable extends Migration {
 	{
 		Schema::table('cat_status', function(Blueprint $table)
 		{
-			
-			DB::query('ALTER TABLE cat_status MODIFY COLUMN cve_status VARCHAR(4)');
+			 DB::statement('alter table cat_status alter column cve_status type varchar(4)');			
 			 $table->integer('dias_vigencia');
 		});
 	}
@@ -30,7 +29,7 @@ class UpdateCatStatusTable extends Migration {
 	{
 		Schema::table('cat_status', function(Blueprint $table)
 		{
-			 DB::query('ALTER TABLE cat_status MODIFY COLUMN cve_status VARCHAR(2)');			
+			 DB::statement('alter table cat_status alter column cve_status type varchar(4)');				
 			 $table->dropColumn('dias_vigencia');
 		});
 	}
