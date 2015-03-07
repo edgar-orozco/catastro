@@ -24,7 +24,7 @@ class Ejecucion_SeguimientobusController extends \BaseController {
         //  $cp = Input::get('cp');
         // $estatus= Input::get('estatus');
         //  $date = Input::get('date');
-            $resultado = DB::select("select sp_get_predios_status('','','','')");
+            $resultado = DB::select("select sp_get_predios_status('$clave','$propietario','','')");
             	foreach ($resultado as $key)
             		{
             				$vale[] = explode(',', $key->sp_get_predios_status);
@@ -154,9 +154,22 @@ class Ejecucion_SeguimientobusController extends \BaseController {
 	 * @param  int  $id
 	 * @return Response
 	 */
-	public function update($id)
+	public function update()
 	{
-		//
+            $id = Input::get('id');
+
+           // return $id.'//'.$fecha.'//'.$ejecutor.'//'.$notificacion.'//'.$nombre.'//'.$identificacion.'//'.$clave.'//'.$observaciones;
+            $datos=requerimientos::find($id);
+            $datos->f_requerimiento = $fecha= Input::get('fechanotificacion');
+            $datos->id_ejecutor = $ejecutor = Input::get('ejecutores');
+            $datos->via_notificacion = $notificacion = Input::get('notificacion');
+            $datos->nombre_persona_notificada = $nombre = Input::get('nombre');
+            $datos->tipo_identificacion =  $identificacion = Input::get('identificacion');
+            $datos->clave_identificacion = $clave = Input::get('clave');
+            $datos->observaciones =  $observaciones = Input::get('observaciones');
+            $datos->save();
+        Session::flash('mensaje', 'El registro ha sido ingresado exitosamente');
+        return Redirect::back();
 	}
 
 
@@ -172,7 +185,6 @@ class Ejecucion_SeguimientobusController extends \BaseController {
 	}
     public function modal( $idrequerimiento = null) 
     {
-        
         $title = 'Crar nueva perosana';
 
         //Titulo de seccion:
@@ -181,10 +193,11 @@ class Ejecucion_SeguimientobusController extends \BaseController {
         //Subtitulo de seccion:
         $subtitle_section = "Crear nueva persona";
         //$format = 'html';
-       
-         return  View::make('ejecucion.datos',compact('title','title_section','subtitle_section','idrequerimiento'));
-          
-          
+         $catalogo       = ejecutores::join('personas', 'ejecutores.id_p', '=', 'personas.id_p')//->lists('cargo', 'id_ejecutor');
+            ->select('ejecutores.id_ejecutor AS id', 'personas.nombrec AS nombre')
+            ->get();
+         return  View::make('ejecucion.datos',compact('title','title_section','subtitle_section','idrequerimiento','catalogo'));
+
     }
 
 

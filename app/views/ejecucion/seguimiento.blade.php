@@ -237,22 +237,7 @@ $(document).ready(function(){
 </div>
 </div>
 <br>
-<div>
-{{Form::text('mun',$mun=$key[2],array('hidden'))}}
-{{Form::label('Fecha Emision Carta Invitacion: ') }}
-{{Form::input('date', 'date1', $date->format('d/m/Y') , array('disabled', 'required' ))}}
 
-</div>
-<div>
-    {{Form::label('Ejecutores:') }}
-    <select name="ejecutores" class="form-control">
-            @foreach($catalogo as $row)
-            <option value="{{$row->id}}">{{$row->nombre}}</option>
-            @endforeach
-    </select>
-</div>
-<br>
-{{ Form::submit('Generar Carta Invitacion', array('class' => 'btn btn-primary', 'name' => 'boton', 'disabled')) }}
 {{ Form::close() }}
 
  @endif

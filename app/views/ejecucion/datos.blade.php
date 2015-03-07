@@ -1,7 +1,7 @@
 <div class="modal-header">
     <h4 class="modal-titulo" id="condominio-titulo">Datos Entrega</h4>
 </div>
-{{ Form::open(array('url'=>'catalogos/personas')) }}
+{{ Form::open(array('url'=>'ejecucion/guardar')) }}
 
 <div style="margin-left: 20px">
     <div style="margin-right: 20px">
@@ -14,14 +14,18 @@
 
         <div class="form-group">
             {{Form::label('fechanotificacion','Fecha Notificacion')}}
-            {{Form::text('fechanotificacion', null, ['class'=>'form-control','autofocus'=> 'autofocus', 'required' => 'required'] )}}
+            {{Form::input('date', 'fechanotificacion', null , array( 'class'=>'form-control','required' ))}}
             {{$errors->first('fechanotificacion', '<span class=text-danger>:message</span>')}}
             <p class="help-block"></p>
         </div>
 
         <div class="form-group">
-            {{Form::label('nombre_ejecutor','Nombre Ejecutor')}}
-            {{Form::text('nombre_ejecutor', null, ['class'=>'form-control','autofocus'=> 'autofocus', 'required' => 'required', 'ng-model' => 'personas.apellido_materno'] )}}
+            {{Form::label('nombre_ejecutor','Notificador')}}
+             <select name="ejecutores" class="form-control">
+            @foreach($catalogo as $row)
+            <option value="{{$row->id}}">{{$row->nombre}}</option>
+            @endforeach
+    </select>
             {{$errors->first('nombre_ejecutor', '<span class=text-danger>:message</span>')}}
             <p class="help-block"></p>
         </div>
