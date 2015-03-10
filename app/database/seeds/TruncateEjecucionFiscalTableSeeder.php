@@ -7,7 +7,7 @@ class TruncateEjecucionFiscalTableSeeder extends Seeder {
 
 	public function run()
 	{
-		DB::table('ejecucion_fiscal')->truncate();
+		DB::statement("TRUNCATE TABLE ejecucion_fiscal CASCADE");
 	}
 
 }
