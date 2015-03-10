@@ -6,27 +6,25 @@
     }
 </style>
 @section('javascript')
-              <script>
-    $(document).ready(function(){
-jAlert('This is a custom alert box', 'Alert Dialog');
-   var d = document.formulario;
-
-    //Checkbox seleccionar todos
-    $("input[name=checktodos]").change(function(){
-        $('input[type=checkbox]').each( function() {
-            if($("input[name=checktodos]:checked").length == 1){
+<script>
+    $(document).ready(function () {
+        jAlert('This is a custom alert box', 'Alert Dialog');
+        var d = document.formulario;
+//Checkbox seleccionar todos
+        $("input[name=checktodos]").change(function () {
+            $('input[type=checkbox]').each(function () {
+                if ($("input[name=checktodos]:checked").length == 1){
                 this.checked = true;
-                d.fuera[].disabled = false;
-                d.date1.disabled = false;
+                        d.fuera[].disabled = false;
+                        d.date1.disabled = false;
             } else {
-                this.checked = false;
-                d.fuera[].disabled = true;
-                d.date1.disabled = true;
-            }
+            this.checked = false;
+                    d.fuera[].disabled = true;
+                    d.date1.disabled = true;
+                    }
         });
     });
-
-});
+            });
 </script>
 @stop
 {{ Form::open
@@ -52,21 +50,24 @@ jAlert('This is a custom alert box', 'Alert Dialog');
     @endforeach
 
     @foreach($asocia as $asoc)
-       {{Form::hidden('serv[]',$asoc) }}
+    {{Form::hidden('serv[]',$asoc) }}
     @endforeach
 
-    @foreach($cat as $row)<?php   if (in_array($row->id, $asocia)) {
-                        $css='active';
-                        $input="<input type='checkbox' name='fuera[]' value=$row->id >";
-                   }else {
-                    $css='';
-                    $input='';
-                } ?>
+    @foreach($cat as $row)<?php
+  
+    if (in_array($row->id, $asocia)) {
+        $css = 'active';
+        $input = "<input type='checkbox' name='fuera[]' value=";?><?php echo $row->id .">";
+    } else {
+        $css = '';
+        $input = '';
+    }
+    ?>
     <li><?php echo $input; ?>
         <div class="btn-group btn-toggle botones-requisitos" data-toggle="buttons">
 
             <label class="btn btn-sm btn-default  <?php echo $css ?>">{{$row->descripcion}}
-                <input type='checkbox' id='checktodos' name='opcion[]' value="{{$row->id }} " >
+                <input type='checkbox'  name='opcion[]' value="<?php echo $row->id; ?> ">
 
             </label>
 
@@ -76,7 +77,6 @@ jAlert('This is a custom alert box', 'Alert Dialog');
 </ul>
 {{ Form::submit('Guardar', array('class' => 'btn btn-primary')) }}
 {{ Form::close() }}
- onchange="myFunction();"
 <br/>
 <hr>
 

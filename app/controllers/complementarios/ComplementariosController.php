@@ -1,5 +1,4 @@
 <?php
-
 error_reporting(E_ERROR | E_WARNING);
 
 class complementarios_ComplementariosController extends BaseController {
@@ -25,14 +24,14 @@ class complementarios_ComplementariosController extends BaseController {
         $gid = Input::get('gidc');
         $datos = instalaciones::WHERE('instalaciones_especiales.clave', '=', $id)
                 ->join('tiposiespeciales', 'tiposiespeciales.id', '=', 'instalaciones_especiales.id_tipo_ie')
-//                ->orderBy('id_ie', 'ASC')
                 ->get();
         $const = construcciones::WHERE('clave', '=', $id)
                 ->join('tiposusosconstruccion', 'tiposusosconstruccion.id', '=', 'construccion.uso_construccion')
+                ->join('tipoclasesconstruccion', 'tipoclasesconstruccion.id', '=', 'construccion.clase_const')
                 ->orderBy('gid_construccion', 'ASC')
+                ->select('construccion.gid_construccion AS gid_construccion','tiposusosconstruccion.descripcion AS DescripcionUso','construccion.sup_const AS Superficie','construccion.nivel AS Nivel','construccion.edad_const AS Edad','tipoclasesconstruccion.descripcion AS DescripcionClase','construccion.estado_const AS Estado')
                 ->get();
-//      $predios = predios::find($id);
-
+        
         $predios = predios::WHERE('predios.clave', '=', $id)
                 ->join('municipios', 'predios.municipio', '=', 'municipios.municipio')
                 ->join('entidades', 'predios.entidad', '=', 'entidades.entidad')
@@ -52,27 +51,33 @@ class complementarios_ComplementariosController extends BaseController {
                 ->orderBy('id_tiposerviciopredio', 'ASC')
                 ->get();
         $nombre = tiposervicios::WHERE('id', '=', $id);
+        
         $servicios = servicios::
-                join('tiposervicios', 'serviciospredio.id_tiposerviciopredio', '=', 'tiposervicios.id_tiposervicio')
+                 join('tiposervicios', 'serviciospredio.id_tiposerviciopredio', '=', 'tiposervicios.id_tiposervicio')
                 ->orderBy('tiposervicios.id_tiposervicio', 'ASC')
                 ->get();
+        
         $techos = construcciones::WHERE('clave', '=', $id, 'and', 'gid_construccion', 'IN', $const)
                 ->join('techosconstruccion', 'construccion.gid_construccion', '=', 'techosconstruccion.gid_construccion')
                 ->join('tipostecho', 'techosconstruccion.id_tipotecho', '=', 'tipostecho.id')
                 ->get();
+        
         $muros = construcciones::WHERE('clave', '=', $id, 'and', 'gid_construccion', 'IN', $const)
                 ->join('murosconstruccion', 'construccion.gid_construccion', '=', 'murosconstruccion.gid_construccion')
                 ->join('tipomuros', 'murosconstruccion.id_tipomuro', '=', 'tipomuros.id')
                 ->get();
+        
         $clases = construcciones::WHERE('clave', '=', $id, 'and', 'gid_construccion', 'IN', $const)
                 ->join('clasesconstruccion', 'construccion.gid_construccion', '=', 'clasesconstruccion.gid_construccion')
                 ->join('tipoclasesconstruccion', 'clasesconstruccion.id_tipoclaseconstruccion', '=', 'tipoclasesconstruccion.id')
                 ->get();
-//        $ventanas = construcciones::WHERE('clave', '=', $id, 'and', 'gid_construccion', 'IN', $const)
-//                ->join('ventanasconstruccion', 'construccion.gid_construccion', '=','ventanasconstruccion.gid_construccion')
-//                ->join('tiposventana', 'ventanasconstruccion.id_tipoclaseconstruccion', '=', 'tiposventana.id')
-//                ->get();
-        return View::make('complementarios.cargar', compact("datos", "const", "predios", "condominio", "prop", "cat", "servicios", "asociados", "nombre", "techos","muros","clases"));
+        
+        $ventanas = construcciones::WHERE('clave', '=', $id, 'and', 'gid_construccion', 'IN', $const)
+                ->join('ventanasconstruccion', 'construccion.gid_construccion', '=', 'ventanasconstruccion.gid_construccion')
+                ->join('tiposventana', 'ventanasconstruccion.id', '=', 'tiposventana.id')
+                ->get();
+        $giros= TipoGiros::All();
+        return View::make('complementarios.cargar', compact("datos", "const", "predios", "condominio", "prop", "cat", "servicios", "asociados", "nombre", "techos", "muros", "clases", "ventanas","giros"));
     }
 
     /**
@@ -81,7 +86,7 @@ class complementarios_ComplementariosController extends BaseController {
      * @return type
      */
     public function getAgregar($id = null) {
-        $catalogo = InstalacionesEspeciales::All();
+        $catalogo = InstalacionesEspeciales::cat_inst($id);
         return View::make('complementarios.agregar', ['datos' => $id], compact("catalogo"));
     }
 
@@ -145,8 +150,17 @@ class complementarios_ComplementariosController extends BaseController {
 
     public function getCargarconstruccion($id) {
         $construcciones = construcciones::find($id);
-        $catalogo = UsoConstruccion::All()->lists('descripcion', 'id');
-        return View::make('complementarios.editarconstruccion', compact("construcciones", "catalogo", "techos"));
+        $usos = UsoConstruccion::All()->lists('descripcion', 'id');
+        $clase = TiposClaseConstruccion::All()->lists('descripcion', 'id');
+        $const = construcciones::WHERE('clave', '=', $id)
+                ->join('tiposusosconstruccion', 'tiposusosconstruccion.id', '=', 'construccion.uso_construccion')
+                ->orderBy('gid_construccion', 'ASC')
+                ->get();
+        $clases = construcciones::WHERE('clave', '=', $id, 'and', 'gid_construccion', 'IN', $const)
+                ->join('clasesconstruccion', 'construccion.gid_construccion', '=', 'clasesconstruccion.gid_construccion')
+                ->join('tipoclasesconstruccion', 'clasesconstruccion.id_tipoclaseconstruccion', '=', 'tipoclasesconstruccion.id')
+                ->get();
+        return View::make('complementarios.editarconstruccion', compact("construcciones", "usos", "techos", "clases", "clase"));
     }
 
     public function getEditarConstruccionConstruccion() {
@@ -157,6 +171,8 @@ class complementarios_ComplementariosController extends BaseController {
         $datos->sup_const = $inputs["sup_const"];
         $datos->nivel = $inputs["nivel"];
         $datos->edad_const = $inputs["edad"];
+        $datos->clase_const = $inputs["clase_const"];
+        $datos->estado_const = $inputs["estado_const"];
         $datos->save();
         Session::flash('mensaje', 'El registro ha sido ingresado exitosamente');
         return Redirect::back();
@@ -170,7 +186,8 @@ class complementarios_ComplementariosController extends BaseController {
 
     public function getAgregarConstruccion($id = null) {
         $catalogo = UsoConstruccion::All();
-        return View::make('complementarios.agregarconstruccion', ['datos' => $id], compact("catalogo"));
+        $clases = TiposClaseConstruccion::All();
+        return View::make('complementarios.agregarconstruccion', ['datos' => $id], compact("catalogo", "clases"));
     }
 
     public function post_AgregarAgregarConstruccion() {
@@ -198,6 +215,8 @@ class complementarios_ComplementariosController extends BaseController {
             $n->sup_const = $inputs["sup_const"];
             $n->nivel = $inputs["nivel"];
             $n->edad_const = $inputs["edad"];
+            $n->clase_const = $inputs["clase_const"];
+            $n->estado_const = $inputs["estado_const"];
             $n->save();
             Session::flash('mensaje', 'El registro ha sido ingresado exitosamente');
             return Redirect::back();
@@ -259,7 +278,7 @@ class complementarios_ComplementariosController extends BaseController {
     }
 
     public function get_servicios() {
-        $cat = tiposervicios::All();
+        $cat = tiposervicios::All();     
         return View::make('complementarios.complementos.servicio', compact("cat"));
     }
 
@@ -268,7 +287,18 @@ class complementarios_ComplementariosController extends BaseController {
         $gid = Input::get('gid');
         $actuales = $inputs['serv'];
         $opcion = $inputs['opcion'];
+        $fuera = $inputs['fuera'];
         $contar = count($actuales);
+        $confuera = count($fuera);
+
+        if ($confuera >= 1) {
+            foreach ($fuera as $key) {
+                $id = $key;
+                $eliminar = servicios::where('id_tiposerviciopredio', '=', $id);
+                $eliminar->delete();
+                return Redirect::back();
+            }
+        }
         if (!$contar) {
             if (sizeof($actuales) == 0) {
                 $count = count($opcion);
@@ -311,7 +341,7 @@ class complementarios_ComplementariosController extends BaseController {
     }
 
     public function getAgregarTechos($id = null) {
-        $techos = TiposTechos::All();      
+        $techos = TiposTechos::All();
         $const = construcciones::WHERE('gid_construccion', '=', $id)
                 ->join('tiposusosconstruccion', 'tiposusosconstruccion.id', '=', 'construccion.uso_construccion')
                 ->orderBy('gid_construccion', 'ASC')
@@ -331,58 +361,88 @@ class complementarios_ComplementariosController extends BaseController {
 //        return View::make('complementarios.agregar-techos', ['datos' => $id], compact("techos"));
     }
 
-    public function getEliminarTechos($id = null,$gid=null) {
-       
+    public function getEliminarTechos($id = null, $gid = null) {
+
         DB::delete('delete from techosconstruccion where gid_construccion= ' . $gid . ' AND ' . 'id_tipotecho=' . $id);
         return Redirect::back();
     }
 
-     public function getAgregarMuros($id=null) {
-          $muros = TiposMuros::All(); 
-          $const = construcciones::WHERE('gid_construccion', '=', $id)
+    public function getAgregarMuros($id = null) {
+        $muros = TiposMuros::All();
+        $const = construcciones::WHERE('gid_construccion', '=', $id)
                 ->join('tiposusosconstruccion', 'tiposusosconstruccion.id', '=', 'construccion.uso_construccion')
                 ->orderBy('gid_construccion', 'ASC')
                 ->get();
-        return View::make('complementarios.agregar-muros', compact("muros","const"));
+        return View::make('complementarios.agregar-muros', compact("muros", "const"));
     }
-     public function postAgregarMuros() {
+
+    public function postAgregarMuros() {
         $gidm = Input::get('gidm');
         $inputs = Input::All();
         $n = new MurosConstruccion();
-        $n->gid_construccion= $gidm;
-        $n->id_tipomuro= $inputs["id_tipomuros"];
+        $n->gid_construccion = $gidm;
+        $n->id_tipomuro = $inputs["id_tipomuros"];
         $n->save();
         Session::flash('mensaje', 'El registro ha sido ingresado exitosamente');
         return Redirect::back();
-
     }
-    public function getEliminarMuros($id = null,$gid=null) {       
+
+    public function getEliminarMuros($id = null, $gid = null) {
         DB::delete('DELETE FROM murosconstruccion WHERE gid_construccion= ' . $gid . ' AND ' . 'id_tipomuro=' . $id);
         return Redirect::back();
     }
-     public function getAgregarClaseConstruccion($id=null) {
-          $clases = TiposClaseConstruccion::All(); 
-          $const = construcciones::WHERE('gid_construccion', '=', $id)
+
+    public function getAgregarClaseConstruccion($id = null) {
+        $const = construcciones::WHERE('gid_construccion', '=', $id)
                 ->join('tiposusosconstruccion', 'tiposusosconstruccion.id', '=', 'construccion.uso_construccion')
                 ->orderBy('gid_construccion', 'ASC')
                 ->get();
-        return View::make('complementarios.agregar-claseconstruccion', compact("clases","const"));
+        return View::make('complementarios.agregar-claseconstruccion', compact("const"));
     }
-    
-        public function postAgregarClaseConstruccion() {
+
+    public function postAgregarClaseConstruccion() {
         $gidcn = Input::get('gidcn');
         $inputs = Input::All();
         $n = new ClaseConstruccion();
-        $n->gid_construccion= $gidcn;
-        $n->id_tipoclaseconstruccion= $inputs["id_tipoclaseconstruccion"];
+        $n->gid_construccion = $gidcn;
+        $n->id_tipoclaseconstruccion = $inputs["id_tipoclaseconstruccion"];
         $n->save();
         Session::flash('mensaje', 'El registro ha sido ingresado exitosamente');
         return Redirect::back();
-
     }
-      public function getEliminarClases($id = null,$gid=null) {       
+
+    public function getEliminarClases($id = null, $gid = null) {
         DB::delete('DELETE FROM clasesconstruccion WHERE gid_construccion= ' . $gid . ' AND ' . 'id_tipoclaseconstruccion=' . $id);
         return Redirect::back();
     }
+
+    public function getAgregarVentanas($id = null) {
+        $ventanas = tiposventana::All();
+        $const = construcciones::WHERE('gid_construccion', '=', $id)
+                ->join('tiposusosconstruccion', 'tiposusosconstruccion.id', '=', 'construccion.uso_construccion')
+                ->orderBy('gid_construccion', 'ASC')
+                ->get();
+        return View::make('complementarios.agregar-ventanas', compact("ventanas", "const"));
+    }
+
+    public function postAgregarVentanas($id = null) {
+        $gidv = Input::get('gidv');
+        $inputs = Input::All();
+        $n = new VentanasConstruccion();
+        $n->gid_construccion= $gidv;
+        $n->id_tipoventana = $inputs["id_tipoventana"];
+        $n->save();
+        Session::flash('mensaje', 'El registro ha sido ingresado exitosamente');
+        return Redirect::back();
+//        return View::make('complementarios.agregar-techos', ['datos' => $id], compact("techos"));
+    }
+
+    public function getEliminarVentanas($id = null, $gid = null) {
+        DB::delete('DELETE FROM ventanasconstruccion WHERE gid_construccion= ' . $gid . ' AND ' . 'id_tipoventana=' . $id);
+        return Redirect::back();
+    }
+    
+      
+        
 
 }

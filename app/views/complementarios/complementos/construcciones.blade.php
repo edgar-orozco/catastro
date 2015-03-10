@@ -2,11 +2,13 @@
     <thead>
         <tr>
             <th>Detalles </th>
-            <th>ID </th>
+
             <th>Uso</th>
             <th>Superficie</th>
             <th>Niveles</th>
-            <th>Edad Construccion</th>
+            <th>Edad</th>
+            <th>Clase</th>
+            <th>Estado</th>
             <th>Acciones</th>
 
         </tr>
@@ -20,17 +22,22 @@
         $clave = $new[$count];
         ?>
         {{ Form::hidden('gidc',$construccion->gid_construccion) }}
+       
         @foreach($const as $construccion)  
         <tr>
 
             <td class="col-md-8">
                 <button data-toggle="collapse" data-target=".demo1{{$construccion->gid_construccion}}"><span class="glyphicon glyphicon-plus"></span></button>
             </td>
-            <td>{{$construccion->gid_construccion}}</td>
-            <td>{{$construccion->descripcion}}</td>
-            <td>{{$construccion->sup_const}}</td>
-            <td>{{$construccion->nivel}}</td>
-            <td>{{$construccion->edad_const}}</td>
+
+            <td>{{$construccion->DescripcionUso}}</td>
+            <td>{{$construccion->Superficie}}</td>
+            <td>{{$construccion->Nivel}}</td>
+            <td>{{$construccion->Edad}}</td>
+            <td>{{$construccion->DescripcionClase}}</td>
+            <td>{{$construccion->Estado}}</td>
+          
+
             <td nowrap>
                 <a data-toggle="modal" data-target="#construcciones-editar" href="/complementos-editar/{{$construccion->gid_construccion}}" class="btn btn-warning nuevo" title="Editar">
                     <span class="glyphicon glyphicon-pencil"></span>
@@ -58,7 +65,7 @@
         <tr class="collapse demo1{{$construccion->gid_construccion}}">
             <td colspan="2" class="col-md-8">
                 <div>
-                    <table class="table">
+                    <table id="example" class="table table-striped table-bordered" cellspacing="0" width="100%">
                         <thead>
                             <tr>
                                 <th>Techo</th>
@@ -79,18 +86,7 @@
                                 <td nowrap>
 
                                     <!--Modal-->
-                                    <div class="modal" id="agregar-techos" tabindex="-1" role="dialog"  aria-labelledby="agregar-techos" aria-hidden="true">  
-                                        <div class="modal-dialog">
-                                            <div class="modal-content">               
-                                                <div class="modal-body">
-
-                                                </div>
-                                                <div class="modal-footer">
-                                                    <button type="button" class="btn btn-default" data-dismiss="modal">Salir</button>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
+                                   
                                     <!--borrar-->
                                     <a href="/cargar-complementos/eliminar-techos/{{$techo->id}}/{{$construccion->gid_construccion}}" class="btn btn-danger" title="Borrar">
                                         <span class="glyphicon glyphicon-trash"></span>
@@ -99,8 +95,6 @@
                             </tr>  
                             @endif
                             @endforeach
-
-
                         </tbody>
                     </table>
                     <a data-toggle="modal" data-target="#agregar-techos" href="/cargar-complementos/agregar-techos/{{$construccion->gid_construccion}}" class="btn btn-info" title="Editar">
@@ -108,7 +102,7 @@
                     </a>
 
                     <!--tabla inicio-->
-                    <table class="table">
+                    <table id="example" class="table table-striped table-bordered" cellspacing="0" width="100%">
                         <thead>
                             <tr>
                                 <th>Muros</th>
@@ -127,18 +121,7 @@
                                 <td>{{$muro->descripcion}}</td>
                                 <td nowrap>
                                     <!--Modal-->
-                                    <div class="modal" id="agregar-techos" tabindex="-1" role="dialog"  aria-labelledby="agregar-techos" aria-hidden="true">  
-                                        <div class="modal-dialog">
-                                            <div class="modal-content">               
-                                                <div class="modal-body">
 
-                                                </div>
-                                                <div class="modal-footer">
-                                                    <button type="button" class="btn btn-default" data-dismiss="modal">Salir</button>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
                                     <!--borrar-->
                                     <a href="/cargar-complementos/eliminar-muros/{{$muro->id}}/{{$construccion->gid_construccion}}" class="btn btn-danger" title="Borrar">
                                         <span class="glyphicon glyphicon-trash"></span>
@@ -150,44 +133,32 @@
                             @endforeach
                         </tbody>
                     </table>
-                    <a href="/cargar-complementos/agregar-muros/{{$construccion->gid_construccion}}" class="btn btn-info" title="Editar">
+                    <a data-toggle="modal" data-target="#agregar-muros"  href="/cargar-complementos/agregar-muros/{{$construccion->gid_construccion}}" class="btn btn-info" title="Editar">
                         <i class="glyphicon glyphicon-plus"></i>
                     </a>
                     <!--tabla fin  -->
+               
                     <!--tabla inicio-->
-                    <table class="table">
+                    <table id="example" class="table table-striped table-bordered" cellspacing="0" width="100%">
                         <thead>
                             <tr>
-                                <th>Clase Construccion</th>
+                                <th>Ventanas</th>
                                 <th>Acciones</th>
                             </tr>
                         </thead>
                         <tbody>
                             <tr>      
                                 <?php $x = $construccion->gid_construccion; ?>
-                                @foreach($clases as $clase) 
-                                <?php $y = $clase->gid_construccion; ?>
+                                @foreach($ventanas as $ventana) 
+                                <?php $y = $ventana->gid_construccion; ?>
                                 @if($x == $y)
-
-
                             <tr>  
-                                <td>{{$clase->descripcion}}</td>
+                                <td>{{$ventana->descripcion}}</td>
                                 <td nowrap>
                                     <!--Modal-->
-                                    <div class="modal" id="agregar-techos" tabindex="-1" role="dialog"  aria-labelledby="agregar-techos" aria-hidden="true">  
-                                        <div class="modal-dialog">
-                                            <div class="modal-content">               
-                                                <div class="modal-body">
 
-                                                </div>
-                                                <div class="modal-footer">
-                                                    <button type="button" class="btn btn-default" data-dismiss="modal">Salir</button>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
                                     <!--borrar-->
-                                    <a href="/cargar-complementos/eliminar-clase-construccion/{{$clase->id}}/{{$construccion->gid_construccion}}" class="btn btn-danger" title="Borrar">
+                                    <a href="/cargar-complementos/eliminar-muros/{{$ventana->id}}/{{$construccion->gid_construccion}}" class="btn btn-danger" title="Borrar">
                                         <span class="glyphicon glyphicon-trash"></span>
                                     </a>
                                 </td>
@@ -196,12 +167,13 @@
                             @endforeach
                         </tbody>
                     </table>
-                    <a href="/cargar-complementos/agregar-clase-construccion/{{$construccion->gid_construccion}}" class="btn btn-info" title="Editar">
+                    <a data-toggle="modal" data-target="#agregar-ventanas" href="/cargar-complementos/agregar-ventanas/{{$construccion->gid_construccion}}" class="btn btn-info" title="Editar">
                         <i class="glyphicon glyphicon-plus"></i>
                     </a>
-                    <!--tabla fin  -->
+                    <!--tabla fin-->
+                </div>
             </td>
-            </div> 
+
         </tr>
         @endforeach
     <tfoot>
@@ -224,3 +196,42 @@
     </div>
 </tfoot>
 </table>
+<!--modal techos-->
+<div class="modal" id="agregar-techos" tabindex="-1" role="dialog"  aria-labelledby="agregar-techos" aria-hidden="true">  
+    <div class="modal-dialog">
+        <div class="modal-content">               
+            <div class="modal-body">
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Salir</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!--Modal Muros-->
+<div class="modal" id="agregar-muros" tabindex="-1" role="dialog"  aria-labelledby="agregar-muros" aria-hidden="true">  
+    <div class="modal-dialog">
+        <div class="modal-content">               
+            <div class="modal-body">
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Salir</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!--modal ventana-->
+<div class="modal" id="agregar-ventanas" tabindex="-1" role="dialog"  aria-labelledby="agregar-ventanas" aria-hidden="true">  
+    <div class="modal-dialog">
+        <div class="modal-content">               
+            <div class="modal-body">
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Salir</button>
+            </div>
+        </div>
+    </div>
+</div>
