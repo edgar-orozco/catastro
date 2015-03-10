@@ -165,14 +165,14 @@ $(document).ready(function(){
     <br>
     <br>
     <br>
-    @if(count($vale) == 0)
+    @if(count($items) == 0)
         <div class="panel-body">
             <h3><p> {{$mensaje;}}</p></h3>
 
 
         </div>
     @endif
-    @if(count($vale) > 0)
+    @if(count($items) > 0)
     {{ Form::open(array('url' => 'cartainv', 'method' => 'post', 'name' => 'formulario',  'target' => '_blank'))}}
     {{$date = new DateTime();}}
 
@@ -202,11 +202,11 @@ $(document).ready(function(){
        <div class="preload_users">
        </div>
            <?php $i=0;
-           //print_r($vale);
+          //var_dump($pagination);
 
             ?>
 
-             @foreach ($vale as $key  )
+             @foreach ($pagination as $key  )
             <?php $i++ ?>
                 <?php $clave= str_replace('(', '',$key[0]);?>
                  <?php $nombre= str_replace('"', '',$key[1]); ?>
@@ -261,8 +261,7 @@ $(document).ready(function(){
 
     </tbody>
     </table>
-
-   {{ $paginator->appends(Request::except('page'))->links() }}
+ {{ $pagination->appends(Request::except('page'))->links() }}
 </div>
 </div>
 <br>

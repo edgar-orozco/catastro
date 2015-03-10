@@ -7,8 +7,7 @@ class construcciones extends Eloquent
     public $timestamps=false;
    // protected $guarded = array("*");
     //protected $fillable = array("clave","uso_construccion","sup_const");
-    
-//                                              
+
 }
 
 

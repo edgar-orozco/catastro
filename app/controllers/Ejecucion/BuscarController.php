@@ -3,7 +3,7 @@
 class Ejecucion_BuscarController extends BaseController
 {
     //Limitador de registros por pagina.
-    public $por_pagina = 10;
+    //public $perPage = 20;
     /**
      * Ejecuta la búsqueda y regresa la vista principal
      * @return \Illuminate\View\View
@@ -13,37 +13,47 @@ class Ejecucion_BuscarController extends BaseController
         //captura de datos de buscar.blade.php
             $clave               = Input::get('clave');
             $string              = Input::get('nombre');
-            // $this->por_pagina = Input::get('paginado');
-            $this->por_pagina    = Input::get('paginado', $this->por_pagina);
+            $por_pagina = Input::get('paginado',10);
+            $Page = Input::get('page');
+            //$this->perPage    = Input::get('paginado', $this->perPage);
             $propietario         = $this->sanear_string($string);
             //    $propietario   = strtoupper($propietario);
             $municipio           = Input::get('municipio');
+           // $perPage = 10;
         //--------------------------DATOS FALTANTES PARA LA CONSULTA-------------------------------------------
         //  $colonia= Input::get('colonia');
         //  $calle = Input::get('calle');
         //  $cp = Input::get('cp');
         // $estatus= Input::get('estatus');
         //  $date = Input::get('date');
-            $resultado = DB::select("select sp_get_predios('$clave','$propietario','','','$municipio','','','','','')");
-            foreach ($resultado as $key) {
-            $vale[]    = explode(',', $key->sp_get_predios);
-            }
+      $resultado = DB::select("select sp_get_predios('$clave','$propietario','','','$municipio','','','','','')");
 
+            foreach ($resultado as $key) {
+            $items[]    = explode(',', $key->sp_get_predios);
+            }
+            //print_r($items);
             $catalogo       = ejecutores::join('personas', 'ejecutores.id_p', '=', 'personas.id_p')//->lists('cargo', 'id_ejecutor');
             ->select('ejecutores.id_p AS id', 'personas.nombrec AS nombre')
             ->get();
             $municipio      = Municipio::All();
             $status         = status::All();
-            $totalItems     = count($resultado);
-            if ($totalItems == 0) {
+        //    $totalItems     = count($items);
+            //print_r($items);
+             $totaldatos     = count($resultado);
+            if ($totaldatos == 0) {
             $mensaje        = 'No se encontraron coincidencias con los parametros de busqueda';
             return View::make('ejecucion.inicio', compact('busqueda', "catalogo", "municipio", "status", "mensaje"));
             }else
             {
-
-            $paginator      = Paginator::make($vale, $totalItems, $this->por_pagina);
-            return View::make('ejecucion.inicio', compact('busqueda', "catalogo", "municipio", "status", "mensaje", 'vale', 'paginator'));
-            }
+            $datos= array_chunk($items, $por_pagina);
+            $totaldatos=count($datos);
+            $totalItems     = count($items);
+            //print_r($datos);
+            $page= Input::get('page', 1);
+          //  echo "popeyeeeee".$por_pagina;
+            $pagination=Paginator::make($datos[$page-1], $totalItems, $por_pagina );
+           return View::make('ejecucion.inicio', compact('busqueda', "catalogo", "municipio", "status", "mensaje", 'items', 'pagination','por_pagina','datos'));
+             }
     }
     /**
      * Filtra y sanea cadenas de entrada para realizar la búsqueda
