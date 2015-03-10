@@ -148,5 +148,30 @@
             </div>
         </div>
     </div>
+     <!--otro --> 
+    <div class="panel panel-info">
+        <div class="panel-heading" role="tab" id="heading-{{4}}">
+            <h4 class="panel-title">
+                <a class="collapsed" data-toggle="collapse" data-parent="#accordion"
+                   href="#collapse-{{5}}" aria-expanded="false"
+                   aria-controls="collapse-{{5}}">
+                       <?php echo 'Giro' ?>
+                </a>
+            </h4>
+        </div>
+        <div id="collapse-{{5}}" class="panel-collapse collapse" role="tabpanel"
+             aria-labelledby="heading-{{5}}">
+            <div class="panel-body">
+                <div class="row">
+                    <div style=width:105%;">
+                        <div class="input-group">
+                            @include('complementarios.complementos.giros')
+                        </div><!-- /input-group -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+     <!-- Termina-->
 </div> 
 @stop

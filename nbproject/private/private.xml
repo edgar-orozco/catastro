@@ -4,12 +4,11 @@
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
             <file>file:/C:/CatastroDev/Project/app/views/complementarios/complementos/construcciones.blade.php</file>
-            <file>file:/C:/CatastroDev/Project/app/views/complementarios/complementos/instalacion.blade.php</file>
             <file>file:/C:/CatastroDev/Project/app/controllers/complementarios/ComplementariosController.php</file>
-            <file>file:/C:/CatastroDev/Project/app/routes/ComplementariosRoutes.php</file>
-            <file>file:/C:/CatastroDev/Project/app/views/complementarios/agregar-techos.blade.php</file>
-            <file>file:/C:/CatastroDev/Project/app/views/complementarios/cargar.blade.php</file>
-            <file>file:/C:/CatastroDev/Project/app/models/TechosConstruccion.php</file>
+            <file>file:/C:/CatastroDev/Project/app/views/complementarios/complementos/servicio.blade.php</file>
+            <file>file:/C:/CatastroDev/Project/app/models/servicios.php</file>
+            <file>file:/C:/CatastroDev/Project/app/views/complementarios/editarconstruccion.blade.php</file>
+            <file>file:/C:/CatastroDev/Project/app/views/complementarios/agregarconstruccion.blade.php</file>
         </group>
     </open-files>
 </project-private>
