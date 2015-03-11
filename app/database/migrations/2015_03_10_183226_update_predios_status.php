@@ -15,7 +15,10 @@ class UpdatePrediosStatus extends Migration {
 		
 		$existe = DB::select("select proname,pg_get_function_arguments(oid) from pg_proc where proname ='sp_get_predios_status'");
                 if(count($existe) > 0) {
-		$predios= <<<FinSP
+
+                	DB::statement("DROP FUNCTION sp_get_predios_status(p_clave text, p_nombre_propietario text, p_id_municipio text, p_id_estatus text)");
+									}
+	$predios= <<<FinSP
 		CREATE OR REPLACE FUNCTION sp_get_predios_status (
 	IN p_clave TEXT,
 	IN p_nombre_propietario TEXT,
@@ -77,7 +80,7 @@ $$
 LANGUAGE 'plpgsql' VOLATILE;
 FinSP;
 DB::connection()->getPdo()->exec($predios);
-}
+
 	}
 
 	/**
