@@ -1,6 +1,7 @@
 <div class="modal-header">
     <h4 class="modal-titulo" id="condominio-titulo">Datos Entrega</h4>
 </div>
+
 {{ Form::open(array('url'=>'ejecucion/guardar')) }}
 
 <div style="margin-left: 20px">
@@ -69,4 +70,4 @@
             {{Form::close()}}
         </div>
     </div>
-</div>    
+</div>

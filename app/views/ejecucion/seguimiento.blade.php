@@ -226,6 +226,21 @@ $(document).ready(function(){
                   <a data-toggle="modal"  data-target="#Nuevo" href="/ejecucion/modal/{{$idrequerimiento}}" class="btn btn-primary" >Capturar Datos</a>
                 @endif
             </td>
+            <td align="center">
+                <!-- Valor Catastral-->
+
+                  <a   href="" class="btn btn-warning" >Reimprimir</a>
+
+            </td>
+            <td>
+                <?php $fecha= date("d/m/Y"); 
+                if($fechavencimiento>=$fecha){
+echo '<p style="background-color: #33CC00;">Plazo Vigente</p>';
+               }elseif ($fechavencimiento<=$fecha) {
+                   echo '<a   href="" class="btn btn-danger" >Continuar Proceso</a>';
+               }?>
+            </td>
+
         </tr>
 
         @endforeach

@@ -45,9 +45,11 @@ Bienvenido :: @parent
     if(obj.checked==true){
         d.boton.disabled = false;
         d.date1.disabled = false;
+        d.ejecutores.disabled = false;
     }else{
         d.boton.disabled= true;
         d.date1.disabled= true;
+        d.ejecutores.disabled = true;
     }
 }
 
@@ -89,10 +91,12 @@ $(document).ready(function(){
                 this.checked = true;
                 d.boton.disabled = false;
                 d.date1.disabled = false;
+                d.ejecutores.disabled = false;
             } else {
                 this.checked = false;
                 d.boton.disabled = true;
                 d.date1.disabled = true;
+                d.ejecutores.disabled = true;
             }
         });
     });
@@ -273,7 +277,7 @@ $(document).ready(function(){
 </div>
 <div>
     {{Form::label('Ejecutores:') }}
-    <select name="ejecutores" class="form-control">
+    <select name="ejecutores" class="form-control" disabled>
             @foreach($catalogo as $row)
             <option value="{{$row->id}}">{{$row->nombre}}</option>
             @endforeach

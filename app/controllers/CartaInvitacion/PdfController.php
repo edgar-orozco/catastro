@@ -6,7 +6,7 @@ public function get_pdf()
     {
       //creamos array de todas las claves enviadas para generar carta invitacióm
        $clave = Input::all();
-    //print_r($clave);
+   // print_r($clave);
         //limpiamos y ordenamos el array
         $token      = $clave['_token'];
         $fecha      = $clave['date1'];
@@ -34,7 +34,7 @@ public function get_pdf()
 
 foreach ($vale as $clave ) {
             $claves=$clave[0];
-
+            
         //insert a la tabla ejecucion_fiscal
            $ejecucion = new ejecucion;
            $ejecucion->clave =$claves;

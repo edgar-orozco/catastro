@@ -10,8 +10,15 @@ class Ejecucion_SeguimientobusController extends \BaseController {
 	protected $por_pagina=10;
 	public function getIndex()
 	{
+        $title = "Seguimiento De Proceso.";
+
+        //Título de sección:
+        $title_section = "Seguimiento De Proceso";
+
+        //Subtítulo de sección:
+        $subtitle_section = "Ejecucion Fiscal.";
 //captura de datos de buscar.blade.php
-           echo  $page                = Input::get('page');
+            $page                = Input::get('page');
             $clave               = Input::get('clave');
             $string              = Input::get('nombre');
             // $this->por_pagina = Input::get('paginado');
@@ -40,12 +47,12 @@ class Ejecucion_SeguimientobusController extends \BaseController {
             if ($totalItems == 0)
             	{
 			            $mensaje = 'No se encontraron coincidencias con los parametros de busqueda';
-			            return View::make('ejecucion.seguimiento', compact('busqueda', "catalogo", "municipio", "status", "mensaje"));
+			            return View::make('ejecucion.seguimiento', compact('busqueda', "catalogo", "municipio", "status", "mensaje",'title','title_section','subtitle_section'));
             	}
             else
             	{
 			            $paginator      = Paginator::make($vale, $totalItems, $this->por_pagina);
-			            return View::make('ejecucion.seguimiento', compact('busqueda', "catalogo", "municipio", "status", "mensaje", 'vale', 'paginator'));
+			            return View::make('ejecucion.seguimiento', compact('busqueda', "catalogo", "municipio", "status", "mensaje", 'vale', 'paginator','title','title_section','subtitle_section'));
 	            }
     }
     /**

@@ -10,6 +10,13 @@ class Ejecucion_BuscarController extends BaseController
      */
     public function getIndex()
     {
+         $title = "Generacion De Carta Invitación.";
+
+        //Título de sección:
+        $title_section = "Generacion De Carta Invitación";
+
+        //Subtítulo de sección:
+        $subtitle_section = "Ejecucion Fiscal.";
         //captura de datos de buscar.blade.php
             $clave               = Input::get('clave');
             $string              = Input::get('nombre');
@@ -42,7 +49,7 @@ class Ejecucion_BuscarController extends BaseController
              $totaldatos     = count($resultado);
             if ($totaldatos == 0) {
             $mensaje        = 'No se encontraron coincidencias con los parametros de busqueda';
-            return View::make('ejecucion.inicio', compact('busqueda', "catalogo", "municipio", "status", "mensaje"));
+            return View::make('ejecucion.inicio', compact('busqueda', "catalogo", "municipio", "status", "mensaje",'title','title_section','subtitle_section'));
             }else
             {
             $datos= array_chunk($items, $por_pagina);
@@ -52,7 +59,7 @@ class Ejecucion_BuscarController extends BaseController
             $page= Input::get('page', 1);
           //  echo "popeyeeeee".$por_pagina;
             $pagination=Paginator::make($datos[$page-1], $totalItems, $por_pagina );
-           return View::make('ejecucion.inicio', compact('busqueda', "catalogo", "municipio", "status", "mensaje", 'items', 'pagination','por_pagina','datos'));
+           return View::make('ejecucion.inicio', compact('busqueda', "catalogo", "municipio", "status", "mensaje", 'items', 'pagination','por_pagina','datos','title','title_section','subtitle_section'));
              }
     }
     /**
