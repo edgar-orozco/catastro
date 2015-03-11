@@ -45,9 +45,11 @@ Bienvenido :: @parent
     if(obj.checked==true){
         d.boton.disabled = false;
         d.date1.disabled = false;
+        d.ejecutores.disabled = false;
     }else{
         d.boton.disabled= true;
         d.date1.disabled= true;
+        d.ejecutores.disabled = true;
     }
 }
 
@@ -75,6 +77,29 @@ $(document).ready(function(){
         }
 
     );
+
+});
+
+$(document).ready(function(){
+
+   var d = document.formulario;
+
+    //Checkbox seleccionar todos
+    $("input[name=checktodos]").change(function(){
+        $('input[type=checkbox]').each( function() {
+            if($("input[name=checktodos]:checked").length == 1){
+                this.checked = true;
+                d.boton.disabled = false;
+                d.date1.disabled = false;
+                d.ejecutores.disabled = false;
+            } else {
+                this.checked = false;
+                d.boton.disabled = true;
+                d.date1.disabled = true;
+                d.ejecutores.disabled = true;
+            }
+        });
+    });
 
 });
 </script>
@@ -144,14 +169,14 @@ $(document).ready(function(){
     <br>
     <br>
     <br>
-    @if(count($vale) == 0)
+    @if(count($items) == 0)
         <div class="panel-body">
             <h3><p> {{$mensaje;}}</p></h3>
 
 
         </div>
     @endif
-    @if(count($vale) > 0)
+    @if(count($items) > 0)
     {{ Form::open(array('url' => 'cartainv', 'method' => 'post', 'name' => 'formulario',  'target' => '_blank'))}}
     {{$date = new DateTime();}}
 
@@ -181,11 +206,11 @@ $(document).ready(function(){
        <div class="preload_users">
        </div>
            <?php $i=0;
-           //print_r($vale);
+          //var_dump($pagination);
 
             ?>
 
-             @foreach ($vale as $key  )
+             @foreach ($pagination as $key  )
             <?php $i++ ?>
                 <?php $clave= str_replace('(', '',$key[0]);?>
                  <?php $nombre= str_replace('"', '',$key[1]); ?>
@@ -240,8 +265,7 @@ $(document).ready(function(){
 
     </tbody>
     </table>
-
-   {{ $paginator->appends(Request::except('page'))->links() }}
+ {{ $pagination->appends(Request::except('page'))->links() }}
 </div>
 </div>
 <br>
@@ -253,7 +277,7 @@ $(document).ready(function(){
 </div>
 <div>
     {{Form::label('Ejecutores:') }}
-    <select name="ejecutores" class="form-control">
+    <select name="ejecutores" class="form-control" disabled>
             @foreach($catalogo as $row)
             <option value="{{$row->id}}">{{$row->nombre}}</option>
             @endforeach

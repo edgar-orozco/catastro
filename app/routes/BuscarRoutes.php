@@ -14,3 +14,6 @@ Route::get('/vista', function()
 Route::post("/cartainv/{clave?}/{date1?}", "CartaInvitacion_PdfController@get_pdf");
 
 Route::controller("/consulta", "Consulta_ConsultaController");
+
+ Route::get('/ejecucion/modal/{idrequerimiento}', 'Ejecucion_SeguimientobusController@modal');
+ Route::post('/ejecucion/guardar', 'Ejecucion_SeguimientobusController@update');

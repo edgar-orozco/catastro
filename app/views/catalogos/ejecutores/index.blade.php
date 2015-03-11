@@ -13,7 +13,6 @@
 </div>
 <br>
 <div class="row">
-   
     @include('catalogos.ejecutores._list', compact('ejecutoress'))
 
 </div>

@@ -10,7 +10,15 @@ class Ejecucion_SeguimientobusController extends \BaseController {
 	protected $por_pagina=10;
 	public function getIndex()
 	{
+        $title = "Seguimiento De Proceso.";
+
+        //Título de sección:
+        $title_section = "Seguimiento De Proceso";
+
+        //Subtítulo de sección:
+        $subtitle_section = "Ejecucion Fiscal.";
 //captura de datos de buscar.blade.php
+            $page                = Input::get('page');
             $clave               = Input::get('clave');
             $string              = Input::get('nombre');
             // $this->por_pagina = Input::get('paginado');
@@ -24,10 +32,10 @@ class Ejecucion_SeguimientobusController extends \BaseController {
         //  $cp = Input::get('cp');
         // $estatus= Input::get('estatus');
         //  $date = Input::get('date');
-            $resultado = DB::select("select sp_get_predios('$clave','$propietario','','','$municipio','','','','','')");
+            $resultado = DB::select("select sp_get_predios_status('$clave','$propietario','','')");
             	foreach ($resultado as $key)
             		{
-            				$vale[] = explode(',', $key->sp_get_predios);
+            				$vale[] = explode(',', $key->sp_get_predios_status);
             	  }
 
             $catalogo = ejecutores::join('personas', 'ejecutores.id_p', '=', 'personas.id_p')//->lists('cargo', 'id_ejecutor');
@@ -39,12 +47,12 @@ class Ejecucion_SeguimientobusController extends \BaseController {
             if ($totalItems == 0)
             	{
 			            $mensaje = 'No se encontraron coincidencias con los parametros de busqueda';
-			            return View::make('ejecucion.inicio', compact('busqueda', "catalogo", "municipio", "status", "mensaje"));
+			            return View::make('ejecucion.seguimiento', compact('busqueda', "catalogo", "municipio", "status", "mensaje",'title','title_section','subtitle_section'));
             	}
             else
             	{
 			            $paginator      = Paginator::make($vale, $totalItems, $this->por_pagina);
-			            return View::make('ejecucion.seguimiento', compact('busqueda', "catalogo", "municipio", "status", "mensaje", 'vale', 'paginator'));
+			            return View::make('ejecucion.seguimiento', compact('busqueda', "catalogo", "municipio", "status", "mensaje", 'vale', 'paginator','title','title_section','subtitle_section'));
 	            }
     }
     /**
@@ -154,9 +162,22 @@ class Ejecucion_SeguimientobusController extends \BaseController {
 	 * @param  int  $id
 	 * @return Response
 	 */
-	public function update($id)
+	public function update()
 	{
-		//
+            $id = Input::get('id');
+
+           // return $id.'//'.$fecha.'//'.$ejecutor.'//'.$notificacion.'//'.$nombre.'//'.$identificacion.'//'.$clave.'//'.$observaciones;
+            $datos=requerimientos::find($id);
+            $datos->f_requerimiento = $fecha= Input::get('fechanotificacion');
+            $datos->id_ejecutor = $ejecutor = Input::get('ejecutores');
+            $datos->via_notificacion = $notificacion = Input::get('notificacion');
+            $datos->nombre_persona_notificada = $nombre = Input::get('nombre');
+            $datos->tipo_identificacion =  $identificacion = Input::get('identificacion');
+            $datos->clave_identificacion = $clave = Input::get('clave');
+            $datos->observaciones =  $observaciones = Input::get('observaciones');
+            $datos->save();
+        Session::flash('mensaje', 'El registro ha sido ingresado exitosamente');
+        return Redirect::back();
 	}
 
 
@@ -170,6 +191,22 @@ class Ejecucion_SeguimientobusController extends \BaseController {
 	{
 		//
 	}
+    public function modal( $idrequerimiento = null) 
+    {
+        $title = 'Crar nueva perosana';
+
+        //Titulo de seccion:
+        $title_section = "";
+
+        //Subtitulo de seccion:
+        $subtitle_section = "Crear nueva persona";
+        //$format = 'html';
+         $catalogo       = ejecutores::join('personas', 'ejecutores.id_p', '=', 'personas.id_p')//->lists('cargo', 'id_ejecutor');
+            ->select('ejecutores.id_ejecutor AS id', 'personas.nombrec AS nombre')
+            ->get();
+         return  View::make('ejecucion.datos',compact('title','title_section','subtitle_section','idrequerimiento','catalogo'));
+
+    }
 
 
 }
