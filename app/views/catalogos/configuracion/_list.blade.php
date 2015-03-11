@@ -52,14 +52,8 @@
                         {{$row->descuento_actualizacion}}
                     </td>
                     <td nowrap>
-                        
-                        <a href="{{ action('catalogos_configuracionController@edit',['id'=>$row->id_configuracion])}}" class="btn btn-warning" title="Editar">
-                            <span class="glyphicon glyphicon-pencil"></span>
-                        </a>
-                        
-                        
+                        <a href="{{ action('catalogos_configuracionController@edit',['id'=>$row->id_configuracion])}}" class="btn btn-warning" title="Editar"><span class="glyphicon glyphicon-pencil"></span></a>
                         <a class="btn btn-danger" data-toggle="modal"  data-target="#Eliminar"><span class="glyphicon glyphicon-trash"></span></a>
-                        
                     </td>
                 </tr>
                 
