@@ -29,7 +29,7 @@ class catalogos_ejecutoresController extends \BaseController {
         //Subtitulo de seccion:
         $subtitle_section = "Crear, modificar y eliminar de ejeci&oacute;n fiscal";
 
-        //Todos los status creados actulmente
+        //Todos los ejecutores creados actulmente
         
         
         $ejecutoress = $this->ejecutores->join('personas', 'personas.id_p', '=', 'ejecutores.id_p')
@@ -48,7 +48,7 @@ class catalogos_ejecutoresController extends \BaseController {
         
         $ejecutores = $this->ejecutores;
         
-        $title = 'Adminstración de catalago del personal de ejecuci&oacute;n fiscal';
+        $title = 'Adminstraciï¿½n de catalago del personal de ejecuci&oacute;n fiscal';
         
         //Titulo de seccion:
         $title_section = "Crear nuevo personal de ejecuci&oacute;n fiscal.";
@@ -56,14 +56,12 @@ class catalogos_ejecutoresController extends \BaseController {
         //subtitulo de seccion:
         $subtitle_section = "";
         
-        //Todos los status creados actualmente
+        //Todos los ejecutores creados actualmente
         $ejecutoress = $this->ejecutores->join('personas', 'personas.id_p', '=', 'ejecutores.id_p')
                 ->join('personas as p', 'p.id_p', '=', 'ejecutores.id_p_otorga_nombramiento')
                 ->select('id_ejecutor', 'personas.nombrec', 'cargo', 'titulo', 'f_nombramiento', 'p.nombrec as nombre')
                 ->get();
         
-         //$personas = personas::take(43000)->skip(43000)->get();
-        //print_r($personas);
         return View::make('catalogos.ejecutores.create', 
             compact('title', 'title_section','subtitle_section', 'ejecutores', 'ejecutoress','personas', 'propietario'));    
     }

@@ -21,8 +21,8 @@
 
 			<li class="divider"></li>
 
-            <li class="@if(Request::is('Ejecucion/buscar')) active @endif">
-                <a href="{{URL::to('Ejecucion/buscar')}}">
+            <li class="@if(Request::is('catalogo')) active @endif">
+                <a href="{{URL::to('catalogos/ejecutores')}}">
                 <i class="glyphicon glyphicon-user"></i>&nbsp;
                     Personal Ejecución
                 </a>
@@ -63,6 +63,13 @@
                 <a href="{{URL::to('catalogos/status')}}">
                 <i class="glyphicon glyphicon-list-alt"></i>&nbsp;
                     Catalogo Status
+                </a>
+            </li>
+            
+            <li class="@if(Request::is('catalago')) active @endif">
+                <a href="{{URL::to('catalogos/configuracion')}}">
+                <i class="glyphicon glyphicon-list-alt"></i>&nbsp;
+                    Configuracion Municipal
                 </a>
             </li>
 

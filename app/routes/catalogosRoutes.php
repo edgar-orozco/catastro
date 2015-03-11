@@ -42,5 +42,17 @@ Route::group(array('before'=>'admin'),  function (){
     Route::get('search/autocomplete2', 'catalogos_ejecutoresController@autocomplete');
     Route::get('catalogos/personas', 'catalogos_ejecutoresController@getIndex');
     Route::post('catalogos/personas','catalogos_ejecutoresController@storep');
+
+//Rutas para el catalogo ejecucion
+    Route::post('catalogos/configuracion{format}',
+        array('as' => 'storeEjecucion', 'uses' => 'catalogos_configuracionController@store'));
+    Route::get('catalogos/configuraciond/{id}',
+        array('as' => 'destroyEjecucion', 'uses' => 'catalogos_configuracionController@destroy'));
+    Route::get('catalogos/configuracion{format}',
+        array('as' => 'indexEjecucion', 'uses' => 'catalogos_configuracionController@index'));
+    Route::put('catalogos/configuracion/{ejecucion}.{format}',
+        array('as' => 'updateEjecucion', 'uses' => 'catalogos_configuracionController@update'));
+    Route::resource('catalogos/configuracion', 'catalogos_configuracionController');
+    Route::post('catalogos/imagenes', 'catalogos_configuracionController@imagen');
 });
 

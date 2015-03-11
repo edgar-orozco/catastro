@@ -7,6 +7,8 @@ use LaravelBook\Ardent\Ardent;
 
 class Municipio extends Ardent
 {
+    protected $table = 'municipios';
+    
     public $timestamps = false;
 
     protected $fillable = ['nombre_municipio', 'municipio', 'entidad'];
