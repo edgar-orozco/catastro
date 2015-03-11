@@ -87,6 +87,5 @@ DB::connection()->getPdo()->exec($predios);
 		$sql = "DROP FUNCTION IF EXISTS sp_get_predios_status();";
 		DB::connection()->getPdo()->exec($sql);
 	}
-	}
 
 }
