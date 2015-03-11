@@ -4,28 +4,40 @@
         margin: 0px;
         padding: 0px
     }
+    .uncheck
+    {
+        /*display: none;*/
+        position: absolute;
+        z-index: 7;
+        opacity: -0.5;
+
+        /*        opacity: 1.5;*/
+    }
+    .column ul{
+        width:760px;
+        overflow:hidden;
+        border-top:1px solid #ccc;
+    }
+    .column li{
+        line-height:1.5em;       
+        float:left;
+        display:inline;
+        width:33.333%;
+        margin-top: 5px;
+    }
+    .list-unstyled
+    {
+        border-top:none;
+    }
+    #btn-guardar
+    {
+        margin-left: 250px;
+        margin-top: 52px;
+    }
+
+
 </style>
 @section('javascript')
-<script>
-    $(document).ready(function () {
-        jAlert('This is a custom alert box', 'Alert Dialog');
-        var d = document.formulario;
-//Checkbox seleccionar todos
-        $("input[name=checktodos]").change(function () {
-            $('input[type=checkbox]').each(function () {
-                if ($("input[name=checktodos]:checked").length == 1){
-                this.checked = true;
-                        d.fuera[].disabled = false;
-                        d.date1.disabled = false;
-            } else {
-            this.checked = false;
-                    d.fuera[].disabled = true;
-                    d.date1.disabled = true;
-                    }
-        });
-    });
-            });
-</script>
 @stop
 {{ Form::open
         (
@@ -33,7 +45,7 @@
         )
 }}
 
-<ul class="list-unstyled">
+<ul class="list-unstyled column">
     <?php
     $catas = array();
     foreach ($cat as $cata) {
@@ -54,29 +66,34 @@
     @endforeach
 
     @foreach($cat as $row)<?php
-  
-    if (in_array($row->id, $asocia)) {
+    if (in_array($row->id_tiposervicio, $asocia)) {
         $css = 'active';
-        $input = "<input type='checkbox' name='fuera[]' value=";?><?php echo $row->id .">";
+        $input = "<label class='btn btn-sm btn-default uncheck'>$row->descripcion<input type='checkbox' name='fuera[]' value=$row->id_tiposervicio ></label>";
     } else {
         $css = '';
         $input = '';
     }
     ?>
-    <li><?php echo $input; ?>
-        <div class="btn-group btn-toggle botones-requisitos" data-toggle="buttons">
-
-            <label class="btn btn-sm btn-default  <?php echo $css ?>">{{$row->descripcion}}
-                <input type='checkbox'  name='opcion[]' value="<?php echo $row->id; ?> ">
-
+    <?php
+//    $count = count($cat);
+//    $count;
+//    $li = $count / 3;
+//    $li = round($li);
+//    echo $li;
+    ?>
+    <li> <?php echo $input; ?>
+        <div class="btn-group btn-toggle botones-requisitos" data-toggle="buttons">           
+            <label class="btn btn-sm btn-default <?php echo $css ?>">{{$row->descripcion}}
+                <input type='checkbox' id='checktodos' name='opcion[]' value="{{$row->id_tiposervicio }}">
             </label>
-
         </div>
     </li>
     @endforeach
 </ul>
-{{ Form::submit('Guardar', array('class' => 'btn btn-primary')) }}
+{{ Form::submit('Guardar', array('class' => 'btn btn-primary','id'=>'btn-guardar')) }}
 {{ Form::close() }}
+
 <br/>
 <hr>
+
 

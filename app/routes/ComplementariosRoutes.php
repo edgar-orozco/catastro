@@ -47,4 +47,5 @@ Route::group(['before' => 'auth'], function() {
 
     //Giros
     Route::get('/cargar-complementos/agregar-giros/{id?}', 'complementarios_ComplementariosController@get_giros');
+    Route::post('/cargar-complementos/guardar-giros/{id?}', 'complementarios_ComplementariosController@post_agregargiros');
 });

@@ -1,4 +1,5 @@
 <?php
+
 error_reporting(E_ERROR | E_WARNING);
 
 class complementarios_ComplementariosController extends BaseController {
@@ -29,9 +30,9 @@ class complementarios_ComplementariosController extends BaseController {
                 ->join('tiposusosconstruccion', 'tiposusosconstruccion.id', '=', 'construccion.uso_construccion')
                 ->join('tipoclasesconstruccion', 'tipoclasesconstruccion.id', '=', 'construccion.clase_const')
                 ->orderBy('gid_construccion', 'ASC')
-                ->select('construccion.gid_construccion AS gid_construccion','tiposusosconstruccion.descripcion AS DescripcionUso','construccion.sup_const AS Superficie','construccion.nivel AS Nivel','construccion.edad_const AS Edad','tipoclasesconstruccion.descripcion AS DescripcionClase','construccion.estado_const AS Estado')
+                ->select('construccion.gid_construccion AS gid_construccion', 'tiposusosconstruccion.descripcion AS DescripcionUso', 'construccion.sup_const AS Superficie', 'construccion.nivel AS Nivel', 'construccion.edad_const AS Edad', 'tipoclasesconstruccion.descripcion AS DescripcionClase', 'construccion.estado_const AS Estado')
                 ->get();
-        
+
         $predios = predios::WHERE('predios.clave', '=', $id)
                 ->join('municipios', 'predios.municipio', '=', 'municipios.municipio')
                 ->join('entidades', 'predios.entidad', '=', 'entidades.entidad')
@@ -45,39 +46,42 @@ class complementarios_ComplementariosController extends BaseController {
 //                ->join('personas', 'personas.id_p', '=', 'propietarios.id_propietario')
 //                ->select()
 //                ->get();
-        $cat = tiposervicios::All();
+        $cat = tiposervicios::orderBy('descripcion', 'ASC') ->get();
 
         $asociados = servicios::WHERE('gid_predio', '=', '2')
                 ->orderBy('id_tiposerviciopredio', 'ASC')
                 ->get();
         $nombre = tiposervicios::WHERE('id', '=', $id);
-        
+
         $servicios = servicios::
-                 join('tiposervicios', 'serviciospredio.id_tiposerviciopredio', '=', 'tiposervicios.id_tiposervicio')
+                join('tiposervicios', 'serviciospredio.id_tiposerviciopredio', '=', 'tiposervicios.id_tiposervicio')
                 ->orderBy('tiposervicios.id_tiposervicio', 'ASC')
                 ->get();
-        
+
         $techos = construcciones::WHERE('clave', '=', $id, 'and', 'gid_construccion', 'IN', $const)
                 ->join('techosconstruccion', 'construccion.gid_construccion', '=', 'techosconstruccion.gid_construccion')
                 ->join('tipostecho', 'techosconstruccion.id_tipotecho', '=', 'tipostecho.id')
                 ->get();
-        
+
         $muros = construcciones::WHERE('clave', '=', $id, 'and', 'gid_construccion', 'IN', $const)
                 ->join('murosconstruccion', 'construccion.gid_construccion', '=', 'murosconstruccion.gid_construccion')
                 ->join('tipomuros', 'murosconstruccion.id_tipomuro', '=', 'tipomuros.id')
                 ->get();
-        
+
         $clases = construcciones::WHERE('clave', '=', $id, 'and', 'gid_construccion', 'IN', $const)
                 ->join('clasesconstruccion', 'construccion.gid_construccion', '=', 'clasesconstruccion.gid_construccion')
                 ->join('tipoclasesconstruccion', 'clasesconstruccion.id_tipoclaseconstruccion', '=', 'tipoclasesconstruccion.id')
                 ->get();
-        
+
         $ventanas = construcciones::WHERE('clave', '=', $id, 'and', 'gid_construccion', 'IN', $const)
                 ->join('ventanasconstruccion', 'construccion.gid_construccion', '=', 'ventanasconstruccion.gid_construccion')
                 ->join('tiposventana', 'ventanasconstruccion.id', '=', 'tiposventana.id')
                 ->get();
-        $giros= TipoGiros::All();
-        return View::make('complementarios.cargar', compact("datos", "const", "predios", "condominio", "prop", "cat", "servicios", "asociados", "nombre", "techos", "muros", "clases", "ventanas","giros"));
+        $giros = TipoGiros::orderBy('descripcion', 'ASC') ->get();
+        $girosasociados = Giros::WHERE('gid_construccion', '=', '2')
+                ->orderBy('id', 'ASC')
+                ->get();
+        return View::make('complementarios.cargar', compact("datos", "const", "predios", "condominio", "prop", "cat", "servicios", "asociados", "nombre", "techos", "muros", "clases", "ventanas", "giros", "girosasociados"));
     }
 
     /**
@@ -278,7 +282,7 @@ class complementarios_ComplementariosController extends BaseController {
     }
 
     public function get_servicios() {
-        $cat = tiposervicios::All();     
+        $cat = tiposervicios::All();
         return View::make('complementarios.complementos.servicio', compact("cat"));
     }
 
@@ -429,7 +433,7 @@ class complementarios_ComplementariosController extends BaseController {
         $gidv = Input::get('gidv');
         $inputs = Input::All();
         $n = new VentanasConstruccion();
-        $n->gid_construccion= $gidv;
+        $n->gid_construccion = $gidv;
         $n->id_tipoventana = $inputs["id_tipoventana"];
         $n->save();
         Session::flash('mensaje', 'El registro ha sido ingresado exitosamente');
@@ -441,8 +445,54 @@ class complementarios_ComplementariosController extends BaseController {
         DB::delete('DELETE FROM ventanasconstruccion WHERE gid_construccion= ' . $gid . ' AND ' . 'id_tipoventana=' . $id);
         return Redirect::back();
     }
-    
-      
-        
+
+    public function post_agregargiros() {
+        $inputs = Input::All();
+        $gid = Input::get('gid');
+        $actuales = $inputs['select'];
+        $giros = $inputs['giros'];
+        $eliminar = $inputs['eliminar'];
+        $contar = count($actuales);
+        $confuera = count($eliminar);
+
+        if ($confuera >= 1) {
+            foreach ($eliminar as $key) {
+                $id = $key;
+                $eliminar = Giros::where('id_giroconstruccion', '=', $id);
+                $eliminar->delete();
+                return Redirect::back();
+            }
+        }
+        if (!$contar) {
+            if (sizeof($actuales) == 0) {
+                $count = count($giros);
+                for ($x = 0; $x < $count; $x++) {
+                    $n = new Giros();
+                    $n->gid_construccion = $gid;
+                    $n->id_giroconstruccion = $giros[$x];
+                    $n->save();
+                }
+                return Redirect::back();
+            }
+        } else {
+            foreach ($giros as $id) {
+                if (in_array($id, $actuales)) {
+                    
+                } else {
+                    $total[] = $id;
+                }
+            }
+            $count = count($total);
+            for ($x = 0; $x < $count; $x++) {
+                $n = new Giros();
+                $n->gid_construccion = $gid;
+                $n->id_giroconstruccion = $total[$x];
+                $n->save();
+            }
+//        return View::make('complementarios.agregar-servicios');
+            return Redirect::back();
+//        }
+        }
+    }
 
 }
