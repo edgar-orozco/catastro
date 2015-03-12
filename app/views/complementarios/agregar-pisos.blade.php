@@ -11,8 +11,8 @@
     <br/>
     <div style="margin-left: 20px">
           <div class="input-group">
-            @foreach($const as $construccion)                
-            {{ Form::hidden('gid',$construccion->gid_construccion) }}
+           @foreach($const as $construccion)                
+            {{ Form::hidden('gidc',$construccion->gid_construccion) }}
             @endforeach
             <select name="id_tipopisos" class="form-control" autofocus="autofocus">
                 @foreach($pisos as $piso) 

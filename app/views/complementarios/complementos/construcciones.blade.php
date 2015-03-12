@@ -181,23 +181,23 @@
                         </thead>
                         <tbody>
                             <tr>      
-                                <?php // $x = $construccion->gid_construccion; ?>
-<!--                                foreach($ventanas as $ventana) -->
-                                <?php // $y = $ventana->gid_construccion; ?>
-                                <!--if($x  == $y)-->
+                                <?php $x = $construccion->gid_construccion; ?>
+                               @foreach($puertas as $puerta) 
+                                <?php $y = $puerta->gid_construccion; ?>
+                                @if($x  == $y)
                             <tr>  
-                                <td></td>
+                                  <td>{{$puerta->descripcion}}</td>
                                 <td nowrap>
                                     <!--Modal-->
 
                                     <!--borrar-->
-                                    <a href="#" class="btn btn-danger" title="Borrar">
+                                    <a href="/cargar-complementos/eliminar-puertas/{{$puerta->id_tipopuerta}}/{{$construccion->gid_construccion}}" class="btn btn-danger" title="Borrar">
                                         <span class="glyphicon glyphicon-trash"></span>
                                     </a>
                                 </td>
                             </tr>  
-<!--                            endif
-                            endforeach-->
+                            @endif
+                            @endforeach
                         </tbody>
                     </table>
                     <a data-toggle="modal" data-target="#agregar-puertas" href="/cargar-complementos/agregar-puertas/{{$construccion->gid_construccion}}" class="btn btn-info" title="Editar">
@@ -215,26 +215,26 @@
                         </thead>
                         <tbody>
                             <tr>      
-                                <?php // $x = $construccion->gid_construccion; ?>
-<!--                                foreach($ventanas as $ventana) -->
-                                <?php // $y = $ventana->gid_construccion; ?>
-                                <!--if($x  == $y)-->
+                                <?php $x = $construccion->gid_construccion; ?>
+                               @foreach($pisos as $piso) 
+                                <?php $y = $piso->gid_construccion; ?>
+                                @if($x  == $y)
                             <tr>  
-                                <td></td>
+                                <td>{{$piso->descripcion}}</td>
                                 <td nowrap>
                                     <!--Modal-->
 
                                     <!--borrar-->
-                                    <a href="#" class="btn btn-danger" title="Borrar">
+                                    <a href="/cargar-complementos/eliminar-pisos/{{$piso->id_tipopiso}}/{{$construccion->gid_construccion}}" class="btn btn-danger" title="Borrar">
                                         <span class="glyphicon glyphicon-trash"></span>
                                     </a>
                                 </td>
                             </tr>  
-<!--                            endif
-                            endforeach-->
+                            @endif
+                            @endforeach
                         </tbody>
                     </table>
-                    <a href="/cargar-complementos/agregar-pisos/{{$construccion->gid_construccion}}" class="btn btn-info" title="Editar">
+                    <a data-toggle="modal" data-target="#agregar-pisos"  href="/cargar-complementos/agregar-pisos/{{$construccion->gid_construccion}}" class="btn btn-info" title="Editar">
                         <i class="glyphicon glyphicon-plus"></i>
                     </a>
                     <!--tabla fin-->

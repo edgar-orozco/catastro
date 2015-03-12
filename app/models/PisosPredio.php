@@ -1,8 +1,8 @@
 <?php
 
-class PisosPredios extends Eloquent
+class PisosPredio extends Eloquent
 {
-    protected $table ='tipopisos';
-    protected $primaryKey = 'id_tipopiso';
+    protected $table ='pisospredio';
+    protected $primaryKey = 'id_pisopredio';
     public $timestamps=false;                                            
 }

@@ -54,5 +54,7 @@ Route::group(['before' => 'auth'], function() {
     Route::get('/cargar-complementos/eliminar-puertas/{id?}/{gid?}', "complementarios_ComplementariosController@getEliminarPuertas");
     //Pisos
     Route::get('/cargar-complementos/agregar-pisos/{id?}', "complementarios_ComplementariosController@getMostrarPisos");
+    Route::post('/cargar-complementos/agregar-pisos/{id?}', "complementarios_ComplementariosController@postAgregarPisos");
+    Route::get('/cargar-complementos/eliminar-pisos/{id?}/{gid?}', "complementarios_ComplementariosController@getEliminarPisos");
     
 });
