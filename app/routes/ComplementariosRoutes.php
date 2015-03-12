@@ -48,4 +48,11 @@ Route::group(['before' => 'auth'], function() {
     //Giros
     Route::get('/cargar-complementos/agregar-giros/{id?}', 'complementarios_ComplementariosController@get_giros');
     Route::post('/cargar-complementos/guardar-giros/{id?}', 'complementarios_ComplementariosController@post_agregargiros');
+    //Puertas
+    Route::get('/cargar-complementos/agregar-puertas/{id?}', "complementarios_ComplementariosController@getMostrarPuertas");
+    Route::post('/cargar-complementos/agregar-puertas/{id?}', "complementarios_ComplementariosController@postAgregarPuertas");
+    Route::get('/cargar-complementos/eliminar-puertas/{id?}/{gid?}', "complementarios_ComplementariosController@getEliminarPuertas");
+    //Pisos
+    Route::get('/cargar-complementos/agregar-pisos/{id?}', "complementarios_ComplementariosController@getMostrarPisos");
+    
 });
