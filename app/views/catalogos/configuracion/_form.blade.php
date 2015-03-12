@@ -76,7 +76,7 @@ window.onload = function()
   
  if(file.length == 0)
   {
-   alert("La subida de filees es requerida");
+   alert("La subida de la imagen es requerida");
    return;
   }
  else
@@ -86,13 +86,13 @@ window.onload = function()
      
      if (file[x].type != "image/png" && file[x].type != "image/jpg" && file[x].type != "image/jpeg" && file[x].type != "image/bnp")
   {
-  alert("El archivo " + file[x].name + " no es una file");
+  alert("El archivo " + file[x].name + " no es una imagen");
   return;
   }
    
   if (file[x].size > 1024*1024*1)
   {
-  alert("La file " + file[x].name + " supera el tamaño máximo permitido 1MB");
+  alert("La imagen " + file[x].name + " supera el tamaño máximo permitido 1MB");
   return;
   }
    
