@@ -7,7 +7,7 @@ class Ejecucion_BuscaController extends BaseController
    public function getIndex()
    { //abre function
 
-       $title = "Generacion De Carta Invitación.";
+        $title = "Generacion De Carta Invitación.";
 
         //Título de sección:
         $title_section = "Generacion De Carta Invitación";
@@ -15,14 +15,10 @@ class Ejecucion_BuscaController extends BaseController
         //Subtítulo de sección:
         $subtitle_section = "Ejecucion Fiscal.";
 
-       $catalogo = ejecutores::All();//->lists('cargo', 'id_ejecutor');
-       $municipio = Municipio::All();
-       $status = status::All();
-       $mensaje='';
-
-
-
-
+        $catalogo = ejecutores::All();//->lists('cargo', 'id_ejecutor');
+        $municipio = Municipio::All();
+        $status = status::All();
+        $mensaje='';
        return View::make('ejecucion.inicio', compact("catalogo","municipio","status","mensaje",'title','title_section','subtitle_section'));
     }
 }

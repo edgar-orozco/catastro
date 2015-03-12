@@ -6,7 +6,7 @@ class complementarios_ComplementariosController extends BaseController {
 
     protected $por_pagina = 10;
 
-    public function index() {
+        public function index() {
         $predio = Input::get('b');
         $predio = Str::upper($predio);
         $busqueda = predios::WHERE('clave', 'LIKE', '%' . $predio . '%')
@@ -14,6 +14,7 @@ class complementarios_ComplementariosController extends BaseController {
                 ->orderBy('gid', 'ASC')
                 ->paginate($this->por_pagina);
         return View::make('complementarios.complementarios', compact("busqueda"));
+     
     }
 
     public function getPredio($id = null) {

@@ -10,16 +10,25 @@
     <div class="list-group">
         <table class="table">
             <thead>
+                 <tr>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <th colspan="4" border="1"><div align="center">Descuento</div></th>
+                    
+                    <td></td>
+                </tr>
                 <tr>
                     <th>Municipio</th>
                     <th width="20%"><div align="center">Nombre</div></th>
                     <th width="20%"><div align="center">Cargo</div></th>
                     <th><div align="center">Gasto Ejecucion<br>Porcentaje</div></th>
                     <!--td>Descuento-->
-                    <th><div align="center">Descuento<br>Multa</div></th>
-                    <th><div align="center">Descuento<br>Gasto Ejecicion</div></th>
-                    <th><div align="center">Descuento<br>Recarga</div></th>
-                    <th><div align="center">Descuento<br>Actualización</div></th>
+                    <th><div align="center">Multa</div></th>
+                    <th><div align="center">Gasto Ejecicion</div></th>
+                    <th><div align="center">Recarga</div></th>
+                    <th><div align="center">Actualización</div></th>
                     <!--/td-->
                     <th><div align="center">Acciones</div></th>
                 </tr>
@@ -37,19 +46,19 @@
                         {{$row->cargo}}
                     </td>
                     <td>
-                        {{$row->gastos_ejecucion_porcentaje}}
+                        <div align="center">{{$row->gastos_ejecucion_porcentaje}}</div>
                     </td>
                     <td>
-                        {{$row->descuento_multa}}
+                        <div align="center">{{$row->descuento_multa}}</div>
                     </td>
                     <td>
-                        {{$row->descuento_gasto_ejecucion}}
+                        <div align="center">{{$row->descuento_gasto_ejecucion}}</div>
                     </td>
                     <td>
-                        {{$row->descuento_recargo}}
+                        <div align="center">{{$row->descuento_recargo}}</div>
                     </td>
                     <td>
-                        {{$row->descuento_actualizacion}}
+                        <div align="center">{{$row->descuento_actualizacion}}</div>
                     </td>
                     <td nowrap>
                         <a href="{{ action('catalogos_configuracionController@edit',['id'=>$row->id_configuracion])}}" class="btn btn-warning" title="Editar"><span class="glyphicon glyphicon-pencil"></span></a>

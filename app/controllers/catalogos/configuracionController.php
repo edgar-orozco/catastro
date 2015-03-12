@@ -93,7 +93,7 @@ class catalogos_configuracionController extends \BaseController
         //valida el peso de la imagen
         if(filesize($file) < 500000){
         //Se carga la imagen 
-        $destionPath = public_path().'/logos/';
+        $destionPath = public_path().'/css/images/logos/'; 
         $subir = $file->move($destionPath,$file->getClientOriginalName());
         if($subir){
         //Obtengo todos los datos del formulario
@@ -209,7 +209,7 @@ class catalogos_configuracionController extends \BaseController
         //valida el peso de la imagen
         if(filesize($file) < 500000){
         //Se carga la imagen 
-        $destionPath = public_path().'/logos/';
+        $destionPath = public_path().'/css/images/logos/';
         $subir = $file->move($destionPath,$file->getClientOriginalName());
         
         if($subir){

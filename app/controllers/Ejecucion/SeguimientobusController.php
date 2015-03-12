@@ -21,10 +21,8 @@ class Ejecucion_SeguimientobusController extends \BaseController {
             $page                = Input::get('page');
             $clave               = Input::get('clave');
             $string              = Input::get('nombre');
-            // $this->por_pagina = Input::get('paginado');
-            $this->por_pagina    = Input::get('paginado', $this->por_pagina);
+            $por_pagina          = Input::get('paginado',10);
             $propietario         = $this->sanear_string($string);
-            //    $propietario   = strtoupper($propietario);
             $municipio           = Input::get('municipio');
         //--------------------------DATOS FALTANTES PARA LA CONSULTA-------------------------------------------
         //  $colonia= Input::get('colonia');
@@ -33,26 +31,45 @@ class Ejecucion_SeguimientobusController extends \BaseController {
         // $estatus= Input::get('estatus');
         //  $date = Input::get('date');
             $resultado = DB::select("select sp_get_predios_status('$clave','$propietario','','')");
-            	foreach ($resultado as $key)
-            		{
-            				$vale[] = explode(',', $key->sp_get_predios_status);
-            	  }
-
+                foreach ($resultado as $key)
+                    {
+                        $items[]  = explode(',', $key->sp_get_predios_status);
+                    }
+            /**
+             * [$catalogo description]
+             * @var [type]
+             */
             $catalogo = ejecutores::join('personas', 'ejecutores.id_p', '=', 'personas.id_p')//->lists('cargo', 'id_ejecutor');
             ->select('ejecutores.id_p AS id', 'personas.nombrec AS nombre')
             ->get();
+            /**
+             * [$municipio description]
+             * @var [type]
+             */
             $municipio = Municipio::All();
+            /**
+             * [$status description]
+             * @var [type]
+             */
             $status = status::All();
-            $totalItems = count($resultado);
-            if ($totalItems == 0)
+            /**
+             * [$totalItems description]
+             * @var [type]
+             */
+            $totaldatos = count($resultado);
+            if ($totaldatos == 0)
             	{
 			            $mensaje = 'No se encontraron coincidencias con los parametros de busqueda';
 			            return View::make('ejecucion.seguimiento', compact('busqueda', "catalogo", "municipio", "status", "mensaje",'title','title_section','subtitle_section'));
             	}
             else
             	{
-			            $paginator      = Paginator::make($vale, $totalItems, $this->por_pagina);
-			            return View::make('ejecucion.seguimiento', compact('busqueda', "catalogo", "municipio", "status", "mensaje", 'vale', 'paginator','title','title_section','subtitle_section'));
+                     $datos      = array_chunk($items, $por_pagina);
+                     $totaldatos =count($datos);
+                     $totalItems = count($items);
+                     $page       = Input::get('page', 1);
+                     $pagination =Paginator::make($datos[$page-1], $totalItems, $por_pagina );
+			            return View::make('ejecucion.seguimiento', compact('busqueda', "catalogo", "municipio", "status", "mensaje", 'items', 'pagination','title','title_section','subtitle_section'));
 	            }
     }
     /**
