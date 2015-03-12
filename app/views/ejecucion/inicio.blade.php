@@ -64,7 +64,18 @@
                    document.busqueda.submit();
                 });
 </script>
-
+<script>
+            //actualiza el paginado cuando se cambia el numero de registros a mostrar
+            $('#limpiar').on('click', function()
+                {
+                  document.getElementById('nombre').value ='';
+                  document.getElementById('clave').value ='';
+                  document.getElementById('mayor').value ='';
+                  document.getElementById('menor').value ='';
+                  document.getElementById('municipio').value ='';
+                  document.getElementById('adeudos').value ='';
+                });
+</script>
 <script type="text/javascript">
     // funcion para saleccionar todos los registos y desbolquear elementos bloqueados
 $(document).ready(function(){
@@ -88,6 +99,12 @@ $(document).ready(function(){
 
 });
 </script>
+<script type="text/javascript">
+$('#boton').on('click', function()
+                {
+                  window.location.reload();
+                });
+</script>
 @stop
 
 <div class="panel-body">
@@ -103,32 +120,31 @@ $(document).ready(function(){
         <div class="input-group">
             <table class="table">
                 <tr>
-                    <th>{{Form::label('Clave Catastral:') }}</th>
-                    <th>{{Form::label('Nombre Propietario:') }}</th>
-                    <th>{{Form::label('Mayor a:') }}</th>
-                    <th>{{Form::label('Menor a:') }}</th>
-                    <th>{{Form::label('Municipio:') }}</th>
-                    <th>{{Form::label('Años de Adeudo:') }}</th>
-                    <th>{{Form::label('paginado','Registros a mostrar:') }}</th>
+                    <th>{{Form::label('clave','Clave Catastral:') }}</th>
+                    <th>{{Form::label('nombre','Nombre Propietario:') }}</th>
+                    <th>{{Form::label('mayor','Mayor a:') }}</th>
+                    <th>{{Form::label('menor','Menor a:') }}</th>
+                    <th>{{Form::label('municipios','Municipio:') }}</th>
+                    <th>{{Form::label('adeudos','Años de Adeudo:') }}</th>
                 </tr>
                 <tr>
                     <td>
-                        {{ Form::text('clave',null, array('class' => 'form-control focus', 'placeholder'=>'xx-xxx-xxx-xxxx-xxxxxx', 'autofocus'=> 'autofocus', 'pattern'=> '\d{2}[\-]\d{3}[\-]\d{3}[\-]\d{4}[\-]\d{6}'))  }}
+                        {{ Form::text('clave',$clave, array('class' => 'form-control focus', 'placeholder'=>'xx-xxx-xxx-xxxx-xxxxxx', 'autofocus'=> 'autofocus', 'pattern'=> '\d{2}[\-]\d{3}[\-]\d{3}[\-]\d{4}[\-]\d{6}'))  }}
                     </td>
                     <td>
                         {{ Form::text('nombre',$propietario, array('class' => 'form-control focus', 'placeholder'=>'Nombre')) }}
                         {{ Form::number('paginado',10, array('id'=>'paginado', 'hidden')) }}
                     </td>
                     <td>
-                        {{ Form::number('mayor',null, array('class' => 'form-control focus', 'placeholder'=>'Mayor a :'))  }}
+                        {{ Form::number('mayor',$mayor, array('class' => 'form-control focus', 'placeholder'=>'Mayor a :'))  }}
                     </td>
                     <td>
-                        {{ Form::number('menor',null, array('class' => 'form-control focus', 'placeholder'=>'Menor a :'))  }}
+                        {{ Form::number('menor',menor, array('class' => 'form-control focus', 'placeholder'=>'Menor a :'))  }}
                     </td>
                         {{$errors->first("predios")}}
                     <td>
-                        <select name="municipio" class="btn btn-default btn-sm dropdown-toggle">
-                            <option value=''>Elija un municipio...</option>
+                        <select name="municipios" class="btn btn-default btn-sm dropdown-toggle">
+                            <option value=''>Seleccione un municipio...</option>
                                 @foreach($municipio as $row)
                                     <option value="{{$row->municipio}}">{{$row->nombre_municipio}}</option>
                                 @endforeach
@@ -143,7 +159,7 @@ $(document).ready(function(){
                 </tr>
                 <tr>
                     <td>{{ Form::submit('Buscar', array('class' => 'btn btn-primary')) }}</td>
-                    <td>{{ Form::reset('Limpiar', array('class' => 'btn btn-primary')) }} </td>
+                    <td>{{ Form::button('limpiar', array('class' => 'btn btn-primary', 'id' => 'limpiar')) }} </td>
                 </tr>
             </table>
         </div>
@@ -269,7 +285,7 @@ $(document).ready(function(){
                 </select>
 </div>
 <br>
-{{ Form::submit('Generar Carta Invitacion', array('class' => 'btn btn-primary', 'name' => 'boton', 'disabled')) }}
+{{ Form::submit('Generar Carta Invitacion', array('class' => 'btn btn-primary', 'name' => 'boton', 'disabled','id' => 'boton')) }}
 {{ Form::close() }}
  @endif
 <br><br><br>

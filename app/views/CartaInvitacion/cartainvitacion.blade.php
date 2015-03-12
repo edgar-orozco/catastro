@@ -57,7 +57,7 @@
 H. AYUNTAMIENTO DEL MUNICIPIO DE <?php echo $mun_actual; ?>, TABASCO.<br/>
 DIRECCION DE FINANZAS<br/>
 SUBDIRECCION DE EJECUCION FISCAL<br/><br/>
-MANTENIMIENTO DE EJECUCIÓN<br/>
+MANDAMIENTO DE EJECUCIÓN<br/>
 </p>
 <p align="right">
 VILLAHERMOSA, TABASCO, <?php echo $fechas['day']. " DE " . $fecha[$fechas['month']] . " DEL " . $fechas['year']; ?>

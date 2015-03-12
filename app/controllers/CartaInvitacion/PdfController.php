@@ -13,28 +13,31 @@ public function get_pdf()
         $ejecutor   = $clave['ejecutores'];
         $boton      = $clave['boton'];
         $mun_actual = $clave['mun'];
+        $pagi       =$clave['pagi'];
 
+        unset($clave['pagi']);
         unset($clave['mun']);
         unset($clave['ejecutores']);
         unset($clave['boton']);
         unset($clave['_token']);
         unset($clave['date1']);
             //BUCLE PARA GUARDAR LOS DATOS A LA BASE DE DATOS
-       $ejecutor=($claves2['captura']['ejecutores']=$ejecutor);
-       $nombre_eje= personas::where('id_p', $ejecutor)->pluck('nombrec');
+       $ejecutor   =($claves2['captura']['ejecutores']=$ejecutor);
+       $nombre_eje = personas::where('id_p', $ejecutor)->pluck('nombrec');
 
        foreach($clave as $cla => $value)
         {
 
-          $cv    =($claves2['captura']['clave']=$value);
-          $cv    = str_replace('(', '',$cv);
-          $vale[]    = explode(',',$cv);
-
-          $fecha =($claves2['captura']['fecha']=$fecha);
+          $cv       =($claves2['captura']['clave']=$value);
+          $cv       = str_replace('(', '',$cv);
+          $vale[]   = explode(',',$cv);
+          $fecha    =($claves2['captura']['fecha']=$fecha);
 
 foreach ($vale as $clave ) {
             $claves=$clave[0];
-            
+            $verificacion = ejecucion::where('clave',$claves)->pluck('clave');
+            //echo $resul=$verificacion;
+          if($verificacion==''){
         //insert a la tabla ejecucion_fiscal
            $ejecucion = new ejecucion;
            $ejecucion->clave =$claves;
@@ -52,17 +55,18 @@ foreach ($vale as $clave ) {
         $requerimiento->id_ejecucion_fiscal =$id_ejecucion;
         $requerimiento->cve_status          ='CI';
         $requerimiento->save();
+      }
  }
     }
-
+//print_r($vale);
 
    //ENVIO A LA VISTA DEL PDF CARTA INVITACION
 //print_r($data);
-   $vista = View::make('CartaInvitacion.cartainvitacion', compact('data', 'fecha', 'nombre_eje', 'mun_actual','vale'));
+   $vista = View::make('CartaInvitacion.carta', compact('data', 'fecha', 'nombre_eje', 'mun_actual','vale'));
    //CARGA DEL PDF CARTA INVITACION SOLO GENERA UNA TODAVIA NO RESUELVO COMO GENERAR UNA PAGINA POR CLAVE
    $pdf = PDF::load($vista)->show();
    $response = Response::make($pdf, 200);
    $response->header('Content-Type', 'application/pdf');
    return $response;
-  }
+    }
 }

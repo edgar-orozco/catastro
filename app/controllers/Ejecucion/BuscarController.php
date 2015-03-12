@@ -20,15 +20,11 @@ class Ejecucion_BuscarController extends BaseController
             $string      = Input::get('nombre');
             $por_pagina  = Input::get('paginado',10);
             $propietario = $this->sanear_string($string);
-            $municipio   = Input::get('municipio');
-           // $perPage = 10;
-        //--------------------------DATOS FALTANTES PARA LA CONSULTA-------------------------------------------
-        //  $colonia= Input::get('colonia');
-        //  $calle = Input::get('calle');
-        //  $cp = Input::get('cp');
-        // $estatus= Input::get('estatus');
-        //  $date = Input::get('date');
-            $resultado = DB::select("select sp_get_predios('$clave','$propietario','','','$municipio','','','','','')");
+            $municipios   = Input::get('municipios');
+            $mayor = Input::get('mayor');
+            $menor = Input::get('menor');
+            $adeudo = Input::get('adeudos');
+            $resultado = DB::select("select sp_get_predios('$clave','$propietario','$menor','$mayor','$municipios','','','','','')");
 
             foreach ($resultado as $key)
             {
@@ -68,7 +64,7 @@ class Ejecucion_BuscarController extends BaseController
                      $totalItems = count($items);
                      $page       = Input::get('page', 1);
                      $pagination =Paginator::make($datos[$page-1], $totalItems, $por_pagina );
-                     return View::make('ejecucion.inicio', compact('busqueda', "catalogo", "municipio", "status", "mensaje", 'items', 'pagination','por_pagina','datos','title','title_section','subtitle_section','propietario'));
+                     return View::make('ejecucion.inicio', compact('busqueda', "catalogo", "municipio", "status", "mensaje", 'items', 'pagination','por_pagina','datos','title','title_section','subtitle_section','propietario','clave','menor','mayor','municipios'));
                 }
     }
     /**
