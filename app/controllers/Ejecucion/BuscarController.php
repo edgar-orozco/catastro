@@ -2,8 +2,6 @@
 //--Controlador para la busqueda de predios
 class Ejecucion_BuscarController extends BaseController
 {
-    //Limitador de registros por pagina.
-    //public $perPage = 20;
     /**
      * Ejecuta la búsqueda y regresa la vista principal
      * @return \Illuminate\View\View
@@ -12,20 +10,17 @@ class Ejecucion_BuscarController extends BaseController
     {
          $title = "Generacion De Carta Invitación.";
 
-        //Título de sección:
-        $title_section = "Generacion De Carta Invitación";
+         //Título de sección:
+         $title_section = "Generacion De Carta Invitación";
 
-        //Subtítulo de sección:
-        $subtitle_section = "Ejecucion Fiscal.";
-        //captura de datos de buscar.blade.php
-            $clave               = Input::get('clave');
-            $string              = Input::get('nombre');
-            $por_pagina = Input::get('paginado',10);
-            $Page = Input::get('page');
-            //$this->perPage    = Input::get('paginado', $this->perPage);
-            $propietario         = $this->sanear_string($string);
-            //    $propietario   = strtoupper($propietario);
-            $municipio           = Input::get('municipio');
+         //Subtítulo de sección:
+         $subtitle_section = "Ejecucion Fiscal.";
+        //captura de datos de inicio.blade.php
+            $clave       = Input::get('clave');
+            $string      = Input::get('nombre');
+            $por_pagina  = Input::get('paginado',10);
+            $propietario = $this->sanear_string($string);
+            $municipio   = Input::get('municipio');
            // $perPage = 10;
         //--------------------------DATOS FALTANTES PARA LA CONSULTA-------------------------------------------
         //  $colonia= Input::get('colonia');
@@ -33,37 +28,51 @@ class Ejecucion_BuscarController extends BaseController
         //  $cp = Input::get('cp');
         // $estatus= Input::get('estatus');
         //  $date = Input::get('date');
-      $resultado = DB::select("select sp_get_predios('$clave','$propietario','','','$municipio','','','','','')");
+            $resultado = DB::select("select sp_get_predios('$clave','$propietario','','','$municipio','','','','','')");
 
-            foreach ($resultado as $key) {
-            $items[]    = explode(',', $key->sp_get_predios);
+            foreach ($resultado as $key)
+            {
+                $items[] = explode(',', $key->sp_get_predios);
             }
-            //print_r($items);
-            $catalogo       = ejecutores::join('personas', 'ejecutores.id_p', '=', 'personas.id_p')//->lists('cargo', 'id_ejecutor');
+            /**
+             * Consulta retorna nombre del ejecutor
+             * @var [type]
+             */
+            $catalogo = ejecutores::join('personas', 'ejecutores.id_p', '=', 'personas.id_p')
             ->select('ejecutores.id_p AS id', 'personas.nombrec AS nombre')
             ->get();
-            $municipio      = Municipio::All();
-            $status         = status::All();
-        //    $totalItems     = count($items);
-            //print_r($items);
+            /**
+             * Retorna los municipios para select
+             * @var [type]
+             */
+            $municipio = Municipio::All();
+            /**
+             * Retorna los Estatus para select
+             * @var [type]
+             */
+            $status    = status::All();
+            /**
+             * valida si hubo resultados en la busqueda y retorna resultado a la vista sergun resultado
+             * @var [type]
+             */
              $totaldatos     = count($resultado);
-            if ($totaldatos == 0) {
-            $mensaje        = 'No se encontraron coincidencias con los parametros de busqueda';
-            return View::make('ejecucion.inicio', compact('busqueda', "catalogo", "municipio", "status", "mensaje",'title','title_section','subtitle_section'));
-            }else
-            {
-            $datos= array_chunk($items, $por_pagina);
-            $totaldatos=count($datos);
-            $totalItems     = count($items);
-            //print_r($datos);
-            $page= Input::get('page', 1);
-          //  echo "popeyeeeee".$por_pagina;
-            $pagination=Paginator::make($datos[$page-1], $totalItems, $por_pagina );
-           return View::make('ejecucion.inicio', compact('busqueda', "catalogo", "municipio", "status", "mensaje", 'items', 'pagination','por_pagina','datos','title','title_section','subtitle_section'));
-             }
+             if ($totaldatos == 0)
+                {
+                    $mensaje = 'No se encontraron coincidencias con los parametros de busqueda';
+                    return View::make('ejecucion.inicio', compact('busqueda', "catalogo", "municipio", "status", "mensaje",'title','title_section','subtitle_section'));
+                }
+             else
+                {
+                     $datos      = array_chunk($items, $por_pagina);
+                     $totaldatos =count($datos);
+                     $totalItems = count($items);
+                     $page       = Input::get('page', 1);
+                     $pagination =Paginator::make($datos[$page-1], $totalItems, $por_pagina );
+                     return View::make('ejecucion.inicio', compact('busqueda', "catalogo", "municipio", "status", "mensaje", 'items', 'pagination','por_pagina','datos','title','title_section','subtitle_section','propietario'));
+                }
     }
     /**
-     * Filtra y sanea cadenas de entrada para realizar la búsqueda
+     * Filtra y sanea cadenas de entrada de nombre para realizar la búsqueda
      * @param $string
      * @return mixed|string
      */
