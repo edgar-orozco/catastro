@@ -84,9 +84,9 @@
 		$('#example').dataTable( {
         "language": {
             "lengthMenu": "Mostrar _MENU_ Registros por pagina",
-            "zeroRecords": "No se encontraron registros - Mis mas sentido JaJaJa",
+            "zeroRecords": "No se encontraron registros",
             "info": "Mostrando pagina _PAGE_ de _PAGES_",
-            "infoEmpty": "No hay registros LoooL","search": "Filter records:",
+            "infoEmpty": "No hay registros","search": "Filter records:",
             "search": "Buscar:",
             "infoFiltered": "(Filtrado en _MAX_ total de registros)"
         }
