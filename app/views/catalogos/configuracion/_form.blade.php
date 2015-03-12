@@ -1,14 +1,11 @@
 <div class="form-group">
-    
-    {{Form::label('municipio','Municipio')}}
+   {{Form::label('municipio','Municipio')}}
    <select name="municipio" class="form-control" autofocus='autofocus' required='required' ng-model='configuracionMunicipal.municipio' tb-focus='focusForm' ng-blur='focusForm = false'> 
    <option value="">Seleccione un municipio</option>
    @foreach($Municipio as $row) 
    <option value="{{$row->gid}}">{{$row->nombre_municipio}}</option> 
    @endforeach
    </select>
-     
-      
 </div>
 
 <div class="form-group">
