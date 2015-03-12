@@ -27,7 +27,7 @@
         <tr>
 
             <td class="col-md-8">
-                <button data-toggle="collapse" data-target=".demo1{{$construccion->gid_construccion}}"><span class="glyphicon glyphicon-plus"></span></button>
+                <button data-toggle="collapse" data-target=".demo1{{$construccion->gid_construccion}}"><span class="glyphicon glyphicon-chevron-down"></span></button>
             </td>
 
             <td>{{$construccion->DescripcionUso}}</td>
@@ -171,6 +171,73 @@
                         <i class="glyphicon glyphicon-plus"></i>
                     </a>
                     <!--tabla fin-->
+                      <!--tabla inicio-->
+                    <table id="example" class="table table-striped table-bordered" cellspacing="0" width="100%">
+                        <thead>
+                            <tr>
+                                <th>Puertas</th>
+                                <th>Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>      
+                                <?php // $x = $construccion->gid_construccion; ?>
+<!--                                foreach($ventanas as $ventana) -->
+                                <?php // $y = $ventana->gid_construccion; ?>
+                                <!--if($x  == $y)-->
+                            <tr>  
+                                <td></td>
+                                <td nowrap>
+                                    <!--Modal-->
+
+                                    <!--borrar-->
+                                    <a href="#" class="btn btn-danger" title="Borrar">
+                                        <span class="glyphicon glyphicon-trash"></span>
+                                    </a>
+                                </td>
+                            </tr>  
+<!--                            endif
+                            endforeach-->
+                        </tbody>
+                    </table>
+                    <a data-toggle="modal" data-target="#agregar-puertas" href="/cargar-complementos/agregar-puertas/{{$construccion->gid_construccion}}" class="btn btn-info" title="Editar">
+                        <i class="glyphicon glyphicon-plus"></i>
+                    </a>
+                    <!--tabla fin-->
+                    
+                    <!--tabla inicio-->
+                    <table id="example" class="table table-striped table-bordered" cellspacing="0" width="100%">
+                        <thead>
+                            <tr>
+                                <th>Pisos</th>
+                                <th>Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>      
+                                <?php // $x = $construccion->gid_construccion; ?>
+<!--                                foreach($ventanas as $ventana) -->
+                                <?php // $y = $ventana->gid_construccion; ?>
+                                <!--if($x  == $y)-->
+                            <tr>  
+                                <td></td>
+                                <td nowrap>
+                                    <!--Modal-->
+
+                                    <!--borrar-->
+                                    <a href="#" class="btn btn-danger" title="Borrar">
+                                        <span class="glyphicon glyphicon-trash"></span>
+                                    </a>
+                                </td>
+                            </tr>  
+<!--                            endif
+                            endforeach-->
+                        </tbody>
+                    </table>
+                    <a href="/cargar-complementos/agregar-pisos/{{$construccion->gid_construccion}}" class="btn btn-info" title="Editar">
+                        <i class="glyphicon glyphicon-plus"></i>
+                    </a>
+                    <!--tabla fin-->
                 </div>
             </td>
 
@@ -224,6 +291,32 @@
 </div>
 <!--modal ventana-->
 <div class="modal" id="agregar-ventanas" tabindex="-1" role="dialog"  aria-labelledby="agregar-ventanas" aria-hidden="true">  
+    <div class="modal-dialog">
+        <div class="modal-content">               
+            <div class="modal-body">
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Salir</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!--modal puerta-->
+<div class="modal" id="agregar-puertas" tabindex="-1" role="dialog"  aria-labelledby="agregar-puertas" aria-hidden="true">  
+    <div class="modal-dialog">
+        <div class="modal-content">               
+            <div class="modal-body">
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Salir</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!--modal pisos-->
+<div class="modal" id="agregar-pisos" tabindex="-1" role="dialog"  aria-labelledby="agregar-pisos" aria-hidden="true">  
     <div class="modal-dialog">
         <div class="modal-content">               
             <div class="modal-body">
