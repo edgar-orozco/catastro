@@ -1,11 +1,8 @@
 <div class="form-group">
-   {{Form::label('municipio','Municipio')}}
-   <select name="municipio" class="form-control" autofocus='autofocus' required='required' ng-model='configuracionMunicipal.municipio' tb-focus='focusForm' ng-blur='focusForm = false'> 
-   <option value="">Seleccione un municipio</option>
-   @foreach($Municipio as $row) 
-   <option value="{{$row->gid}}">{{$row->nombre_municipio}}</option> 
-   @endforeach
-   </select>
+    {{Form::label('municipio','Seleccione el municipio')}}
+    {{Form::select('municipio',$Municipio, null,['class'=>'form-control', 'autofocus'=> 'autofocus', 'required' => 'required', 'ng-model' => 'configuracionMunicipal.municipio', 'tb-focus' => 'focusForm', 'ng-blur' => 'focusForm = false'])}}
+    {{$errors->first('municipio', '<span class=text-danger>:message</span>')}}
+    <p class="help-block"></p>
 </div>
 
 <div class="form-group">
@@ -58,11 +55,17 @@
 </div>
 
 <div class="form-group">
+    @if(!empty($file))
+    <img src="/css/images/logos/{{$file}}" width="107" height="107">
+    @endif
+</div>
+
+
+<div class="form-group">
 <form method="post" name="formulario" enctype="multipart/form-data">
 Subir imágenes: <input type="file" multiple name="file" id="file" >
 <p class="help-block">Seleccione un archivo de file con la extencion siguente .jpg, .png, .bnp, .jpeg</p>
 </div>
-
 
 @section('javascript')
 <script>

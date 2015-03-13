@@ -23,10 +23,10 @@
                     <th>Municipio</th>
                     <th width="20%"><div align="center">Nombre</div></th>
                     <th width="20%"><div align="center">Cargo</div></th>
-                    <th><div align="center">Gasto Ejecucion<br>Porcentaje</div></th>
+                    <th><div align="center">Gasto Ejecución<br>Porcentaje</div></th>
                     <!--td>Descuento-->
                     <th><div align="center">Multa</div></th>
-                    <th><div align="center">Gasto Ejecicion</div></th>
+                    <th><div align="center">Gasto Ejecición</div></th>
                     <th><div align="center">Recarga</div></th>
                     <th><div align="center">Actualización</div></th>
                     <!--/td-->

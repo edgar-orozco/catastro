@@ -26,10 +26,10 @@ class catalogos_configuracionController extends \BaseController
         $configuracionMunicipal = $this-> configuracionMunicipal;
         $Municipio = $this-> Municipio;
 
-        $title = 'Administración de catálogo de configuracion de municipal';
+        $title = 'Administración de catálogo de configuración de municipal';
 
         //Título de sección:
-        $title_section = "Administración del catálogo de configuracion de municipal.";
+        $title_section = "Administración del catálogo de configuración de municipal.";
 
         //Subtítulo de sección:
         $subtitle_section = "Crear, modificar y eliminar.";
@@ -54,12 +54,17 @@ class catalogos_configuracionController extends \BaseController
     public function create()
     {
         $configuracionMunicipal = $this-> configuracionMunicipal;
-        $Municipio = $this-> Municipio->all();
+        
+        $file =$configuracionMunicipal->file;
+        
+        $Municipio =  Municipio::all()->lists('nombre_municipio','gid');
+        // agregamos la opción 'Seleccione una Empresa' con índice 0 al array
+        array_unshift($Municipio, ' --- Seleccione una Municipio --- ');
 
-        $title = 'Administración de catálogo de configuracion de municipal';
+        $title = 'Administración de catálogo de configuración de municipal';
 
         //Título de sección:
-        $title_section = "Administración del catálogo de configuracion de municipal.";
+        $title_section = "Administración del catálogo de configuración de municipal.";
 
         //Subtítulo de sección:
         $subtitle_section = "";
@@ -70,7 +75,7 @@ class catalogos_configuracionController extends \BaseController
                                     ->get();
 
         return View::make('catalogos.configuracion.create',
-            compact('title', 'title_section', 'subtitle_section', 'configuracionMunicipal', 'configuracionMunicipales','Municipio'));
+            compact('title', 'title_section', 'subtitle_section', 'configuracionMunicipal', 'configuracionMunicipales','Municipio','file'));
     }
 
     /**
@@ -165,14 +170,16 @@ class catalogos_configuracionController extends \BaseController
         
         $configuracionMunicipal = configuracionMunicipal::find($id);
         
+         $file =$configuracionMunicipal->file;
+         
         $this-> configuracionMunicipal = $configuracionMunicipal;
         
-        $Municipio = $this-> Municipio->all();
+        $Municipio =  Municipio::all()->lists('nombre_municipio','gid');
         
-        $title = 'Administración de catálogo de configuracion de municipal';
+        $title = 'Administración de catálogo de configuración de municipal';
 
         //Título de sección:
-        $title_section = "Editar configuracion municipal:";
+        $title_section = "Editar configuración municipal:";
         
         //subtitulo de seccion.
         $subtitle_section = $this->configuracionMunicipal->configuracionMunicipal;
@@ -185,7 +192,7 @@ class catalogos_configuracionController extends \BaseController
         //id de la configuracion
         $id = $configuracionMunicipal ->id;
         return View::make('catalogos.configuracion.edit', 
-                compact('title', 'title_section', 'subtitle_section', 'configuracionMunicipal', 'configuracionMunicipales', 'id', 'Municipio'));         
+                compact('title', 'title_section', 'subtitle_section', 'configuracionMunicipal', 'configuracionMunicipales', 'id', 'Municipio','file'));         
     }
 
     /**
@@ -198,6 +205,8 @@ class catalogos_configuracionController extends \BaseController
      */
     public function update($id, $format = 'html')
     {
+       $file = Input::file('file');
+        if(($file!='')){
        //hablamos el archivo 
         $file = Input::file('file');
         //nombre del archivo
@@ -237,6 +246,25 @@ class catalogos_configuracionController extends \BaseController
         }
    return Redirect::to('catalogos/configuracion/' . $id . '/edit')->with('error',
             'Extensión de archivo invalida en "'.Input::file('file')->getClientOriginalName().'", los formatos validos son .jpg, .png, .bnp');
+    
+        }else{
+        $inputs = Input::All();
+            $n = configuracionMunicipal::find($id);
+            $n->municipio = $inputs["municipio"];
+            $n->nombre = $inputs["nombre"];
+            $n->cargo = $inputs["cargo"];
+            $n->gastos_ejecucion_porcentaje = $inputs["gastos_ejecucion_porcentaje"];
+            $n->descuento_multa = $inputs["descuento_multa"];
+            $n->descuento_gasto_ejecucion = $inputs["descuento_gasto_ejecucion"];
+            $n->descuento_recargo = $inputs["descuento_recargo"];
+            $n->descuento_actualizacion = $inputs["descuento_actualizacion"];
+            
+            $n->save();
+            //Se han actualizado los valores expresamos la felicidad que se logro Wiiiii....
+            return Redirect::to('catalogos/configuracion/' . $id . '/edit')->with('success',
+        '¡Se ha actualizado correctamente la configuracion municipal!');
+            
+        }
     }
 
     /**
