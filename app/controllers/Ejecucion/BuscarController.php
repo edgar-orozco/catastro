@@ -24,7 +24,7 @@ class Ejecucion_BuscarController extends BaseController
             $mayor = Input::get('mayor');
             $menor = Input::get('menor');
             $adeudo = Input::get('adeudos');
-            $resultado = DB::select("select sp_get_predios('$clave','$propietario','$menor','$mayor','$municipios','','','','','')");
+            $resultado = DB::select("select sp_get_predios('$clave','$propietario','$mayor','$menor','$municipios','','','','','')");
 
             foreach ($resultado as $key)
             {

@@ -12,7 +12,7 @@ public function get_pdf()
         $fecha      = $clave['date1'];
         $ejecutor   = $clave['ejecutores'];
         $boton      = $clave['boton'];
-        $mun_actual = $clave['mun'];
+        $mun_actual = strtoupper($clave['mun']);
         $pagi       =$clave['pagi'];
 
         unset($clave['pagi']);
@@ -61,9 +61,7 @@ foreach ($vale as $clave ) {
 //print_r($vale);
 
    //ENVIO A LA VISTA DEL PDF CARTA INVITACION
-//print_r($data);
    $vista = View::make('CartaInvitacion.carta', compact('data', 'fecha', 'nombre_eje', 'mun_actual','vale'));
-   //CARGA DEL PDF CARTA INVITACION SOLO GENERA UNA TODAVIA NO RESUELVO COMO GENERAR UNA PAGINA POR CLAVE
    $pdf = PDF::load($vista)->show();
    $response = Response::make($pdf, 200);
    $response->header('Content-Type', 'application/pdf');

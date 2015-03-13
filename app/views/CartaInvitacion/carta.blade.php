@@ -57,7 +57,7 @@
         <div class="invitacionPage">
             <!-- saco el valor de cada elemento -->
             <!-- nuevo fotmato -->
-            <p align="center">AYUNTAMIENTO CONSTITUCIONAL DE <?php echo $mun_actual; ?>, TAB.<br/>
+            <p align="center"><img src="logos/escudo.png" width="90" height="90">AYUNTAMIENTO CONSTITUCIONAL DE <?php echo $mun_actual; ?>, TAB. <img src="css/images/logos/LogoHuimanguillo.png" width="90" height="90"><br/>
 2013-2015<br/>
 DIRECCIÓN DE FINANZAS MUNICIPALES<br/><br/>
 “TIERRA DE AUTORIDADES GRANDE”<br/>
@@ -71,7 +71,7 @@ INVITACION: DF/INV/0/2015
   ESTIMADO (A): <b> <?php echo $key[1] ?> </b> R.F.C:
   </p>
 <p id="texto" align="justify">
-La dirección de finanzas del municipio de<?php echo $mun_actual; ?>, no tiene registrado el cumplimiento del pago impuesto predial de un predio inscrito a su nombre, con número  de cuenta: <b> <?php echo $key[0] ?>, Ubicado en: CHICOACAN ?, Sup. Predio: 710430m2, Sup. Construcion: 0 m2 de este municipio; por lo que confundamento   en los artículos 1,6,8 fracción IV, 16 fracciones I, II y XII, 19, 22, 24, 31, 44, 45, 46, 47, 48, 72 fracciones I y IV, 87, 88 fracciones I, II y III, 103 y 105 fracciones IV y VII, 153, 154 y 155   de la ley de Hacienda Municipal del Estado de Tabasco; se le invita   a que realice su pago correspondiente de  a los años detallados a continuación :</strong></p>
+La dirección de finanzas del municipio de <?php echo $mun_actual; ?>, no tiene registrado el cumplimiento del pago impuesto predial de un predio inscrito a su nombre, con número  de cuenta: <b> <?php echo $key[0] ?>, Ubicado en: CHICOACAN ?, Sup. Predio: 710430m2, Sup. Construcion: 0 m2 de este municipio; por lo que confundamento   en los artículos 1,6,8 fracción IV, 16 fracciones I, II y XII, 19, 22, 24, 31, 44, 45, 46, 47, 48, 72 fracciones I y IV, 87, 88 fracciones I, II y III, 103 y 105 fracciones IV y VII, 153, 154 y 155   de la ley de Hacienda Municipal del Estado de Tabasco; se le invita   a que realice su pago correspondiente de  a los años detallados a continuación :</strong></p>
 <p id="texto" align="justify">&nbsp;</p>
 <p align="justify">&nbsp;</p>
 <p align="justify">&nbsp;</p>
@@ -88,7 +88,7 @@ La dirección de finanzas del municipio de<?php echo $mun_actual; ?>, no tiene r
 <p id="texto" align="center">RESPONSABLE DE INGRESOS</p>
 <p>
   _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ __ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ __ _ _ _ _ _ _ _ _ _ _ _ _ _  _ _ _ </p>
-C. <b> <?php echo $key[1] ?> </b>                       VALE<br>
+C. <b> <?php echo $key[1] ?> </b>                       VALE <img src="css/images/logos/LogoHuimanguillo.png" width="90" height="90" align"right"><br>
 CUENTA: 08-R-005373<br>
 ENTREGA dd/mm/aaaa:<br>
 <hr align="left" color="#000000" width="250">
