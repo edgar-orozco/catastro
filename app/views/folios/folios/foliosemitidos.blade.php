@@ -1,5 +1,13 @@
 @extends('layouts.default')
 
+@section('styleRef')
+
+   <!--Agrego para el datatable-->
+    {{ HTML::style('/css/bootstrap.min.css') }}
+    {{ HTML::style('/css/dataTables.bootstrap.css') }}
+
+@stop
+
 @section('content')
 
 <h1>Informe de Folios Emitidos</h1>
@@ -95,10 +103,8 @@
 
 @section('javascript')
 
-
-{{ HTML::script('//cdn.datatables.net/plug-ins/f2c75b7247b/integration/bootstrap/3/dataTables.bootstrap.js')}}
-{{ HTML::script('js/jquery/jquery.dataTables.js') }}
-{{ HTML::script('js/jquery/dataTables.bootstrap.js') }}
+{{ HTML::script('/js/jquery/jquery.dataTables.min.js') }}
+{{ HTML::script('/js/jquery/dataTables.bootstrap.js')}}
 
 	<script type="text/javascript">
 
@@ -111,7 +117,11 @@
             "info": "Mostrando pagina _PAGE_ de _PAGES_",
             "infoEmpty": "No hay registros","search": "Filter records:",
             "search": "Buscar:",
-            "infoFiltered": "(Filtrado en _MAX_ total de registros)"
+            "infoFiltered": "(Filtrado en _MAX_ total de registros)",
+            "oPaginate": {
+		      "sPrevious": "Anterior",
+		      "sNext": "Siguiente"
+		    }
         }
     } );
 
