@@ -21,7 +21,8 @@ class folios_FoliosController extends BaseController {
 
 	public function nfolioscreate(){ //acciones para guardar los nuevos folios en las tablas
 
-		$conf =Conf::first();
+		$conf =FoliosConf::first();
+
 
 		$inputs = Input::all();
 
@@ -207,7 +208,7 @@ class folios_FoliosController extends BaseController {
 
 	public function formato($id){ //formato PDF de la venta de folios
 
-		$conf = Conf::first();
+		$conf = FoliosConf::first();
 
 		$folios_historial = FoliosHistorial::where('id',$id)->first(); 
 
@@ -233,7 +234,7 @@ class folios_FoliosController extends BaseController {
 
 	public function reporteperito(){
 
-		$conf=Conf::all()->first();
+		$conf=FoliosConf::all()->first();
 
 		$folios_historial=FoliosHistorial::select('perito_id',
 											DB::raw('Max(folio_urbano_final) as folio_urbano_final'),
@@ -249,7 +250,7 @@ class folios_FoliosController extends BaseController {
 
 	public function formatoreporteperito(){
 
-		$conf=Conf::all()->first();
+		$conf=FoliosConf::all()->first();
 
 		$folios_historial=FoliosHistorial::select('perito_id',
 											DB::raw('Max(folio_urbano_final) as folio_urbano_final'),
