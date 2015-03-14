@@ -17,10 +17,11 @@ class CreateFolioTramitesTable extends Migration {
         Schema::create('folio_tramites', function(Blueprint $table)
         {
             $table->increments('id');
-            $table->string('municipio', 3);
+            $table->integer('municipio_id');
             $table->integer('folio')->default(1);
             $table->timestamps();
-            $table->foreign('municipio')->references('municipio')->on('municipios');
+            $table->foreign('municipio_id')->references('gid')->on('municipios');
+            $table->unique(['municipio_id', 'folio']);
         });
     }
 

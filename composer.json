@@ -10,7 +10,9 @@
         "zizaco/entrust": "1.2.*@dev",
         "lord/laroute" : "1.*",
         "thujohn/pdf":"~1.0",
-        "Barryvdh/Laravel-DOMPDF": "0.4.*"
+        "Barryvdh/Laravel-DOMPDF": "0.4.*",
+        "webpatser/laravel-uuid": "1.*",
+        "laravelrus/localized-carbon": "1.4.*"
 	},
     "require-dev": {
         "way/generators": "~2.0",
