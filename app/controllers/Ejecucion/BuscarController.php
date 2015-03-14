@@ -64,7 +64,8 @@ class Ejecucion_BuscarController extends BaseController
                      $totalItems = count($items);
                      $page       = Input::get('page', 1);
                      $pagination =Paginator::make($datos[$page-1], $totalItems, $por_pagina );
-                     return View::make('ejecucion.inicio', compact('busqueda', "catalogo", "municipio", "status", "mensaje", 'items', 'pagination','por_pagina','datos','title','title_section','subtitle_section','propietario','clave','menor','mayor','municipios'));
+                     //var_dump($pagination);
+                    return View::make('ejecucion.inicio', compact('busqueda', "catalogo", "municipio", "status", "mensaje", 'items', 'pagination','por_pagina','datos','title','title_section','subtitle_section','propietario','clave','menor','mayor','municipios'));
                 }
     }
     /**

@@ -175,8 +175,10 @@ Bienvenido :: @parent
                <!-- impuesto-->
                <?php $fechavencimiento= str_replace(')', '',$key[7]);?>
                {{$fechavencimiento;}}
+               <?php $fechacancelacion = str_replace(')', '',$key[8]);?>
             </td>
             <td align="center">
+                <?php if(empty($fechacancelacion))  { ?>
                 <!-- Valor Catastral-->
                 @if($fechainicio=='' || $fechavencimiento=='')
                 <a data-toggle ="modal"  data-target="#Nuevo" href="/ejecucion/modal/{{$idrequerimiento}}" ><span class="glyphicon glyphicon-pencil"></span></a>
@@ -196,7 +198,15 @@ Bienvenido :: @parent
                         echo '<a   href ="#" ><span class="glyphicon glyphicon-forward"></span></a>';
                    }?>
             </td>
+            <td>
+                <a data-toggle ="modal"  data-target="#cancelar" href="/ejecucion/cancelar/{{$idrequerimiento}}" ><span class="glyphicon glyphicon-remove"></span></a>
 
+            </td> <?php } else {?>
+             <td>
+                <span class="badge">Cancelado</span>
+
+            </td>
+                <?php } ?>
         </tr>
         @endforeach
     </tbody>
@@ -208,6 +218,21 @@ Bienvenido :: @parent
  @endif
 <!-- Modal -->
 <div class="modal fade" id="Nuevo" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+
+            <div class="modal-body" id="modalBody" >
+
+            </div>
+            <div class="modal-footer" id="modal-footer">
+
+            </div>
+        </div>
+    </div>
+</div>
+<!-- fin Modal -->
+<!-- Modal -->
+<div class="modal fade" id="cancelar" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
 
