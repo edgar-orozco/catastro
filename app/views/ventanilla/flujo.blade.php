@@ -83,7 +83,7 @@
                         <h4><small>Ubicacion: </small>{{$predio->ubicacionFiscal->ubicacion}} </h4>
                         <h4><small>Superficie terreno: </small>{{number_format($predio->superficie_terreno,2, '.', ',')}} m<sup>2</sup> </h4>
                         <h4><small>Superficie construcción: </small>{{number_format($predio->superficie_construccion,2, '.', ',')}} m<sup>2</sup> </h4>
-                        <h4><small>Uso de suelo: </small>{{$predio->uso_suelo}} </h4>
+                        <h4><small>Uso de suelo: </small>{{$predio->usoSuelo->descripcion}} </h4>
                         <h4><small>Uso de construcción: </small>{{$predio->usoConstruccion->descripcion}} </h4>
                         <h4><smal>Propietarios:</smal></h4>
                         <ul>
