@@ -30,6 +30,7 @@ class Ejecucion_BuscarController extends BaseController
             {
                 $items[] = explode(',', $key->sp_get_predios);
             }
+            print_r($items);
             /**
              * Consulta retorna nombre del ejecutor
              * @var [type]
@@ -52,7 +53,7 @@ class Ejecucion_BuscarController extends BaseController
              * @var [type]
              */
              $totaldatos     = count($resultado);
-             if ($totaldatos == 0)
+             /*if ($totaldatos == 0)
                 {
                     $mensaje = 'No se encontraron coincidencias con los parametros de busqueda';
                     return View::make('ejecucion.inicio', compact('busqueda', "catalogo", "municipio", "status", "mensaje",'title','title_section','subtitle_section'));
@@ -66,7 +67,7 @@ class Ejecucion_BuscarController extends BaseController
                      $pagination =Paginator::make($datos[$page-1], $totalItems, $por_pagina );
                      //var_dump($pagination);
                     return View::make('ejecucion.inicio', compact('busqueda', "catalogo", "municipio", "status", "mensaje", 'items', 'pagination','por_pagina','datos','title','title_section','subtitle_section','propietario','clave','menor','mayor','municipios'));
-                }
+                }*/
     }
     /**
      * Filtra y sanea cadenas de entrada de nombre para realizar la búsqueda
