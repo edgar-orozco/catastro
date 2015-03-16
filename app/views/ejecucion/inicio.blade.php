@@ -256,9 +256,9 @@ $('#boton').on('click', function()
                   <td align="right">
                       <!--Convierte formato a moneda mexico-->
                       <?php //$valorc1 = money_format('%i', $key[6]) . "\n"; ?>
-                      <?php //$valorc = Number_format($key[7], 2, '.',',' ) ?>
+                      <?php $valorc = Number_format($key[6], 2, '.',',' ) ?>
                       <!-- Valor Catastral-->
-                      $ {{$valorc=$key[7]}}
+                      $ {{$valorc}}
                   </td>
                   <td align="right">
                       <!--Limpia el registro-->
