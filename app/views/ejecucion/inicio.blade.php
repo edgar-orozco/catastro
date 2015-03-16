@@ -209,7 +209,8 @@ $('#boton').on('click', function()
                     <?php $i++ ?>
                     <?php $clave  = str_replace('(', '',$key[0]);?>
                     <?php $nombre = str_replace('"', '',$key[1]); ?>
-                    <?php $impuesto = Number_format($key[4], 2, '.',',' )?>
+                    <?php //$impuesto = Number_format($key[5], 2, '.',',' )?>
+                    <?php $impuesto = $key[5]?>
                     <?php $valorcc  =$key[6]; ?>
                     <?php $total    =$impuesto+$valorcc ?>
 
@@ -244,24 +245,24 @@ $('#boton').on('click', function()
                   </td>
                   <td align="center">
                       <!--Limpia el registro-->
-                      <?php $periodo = str_replace(')', '',$key[6]); ?>
+                      <?php $periodo = str_replace(')', '',$key[7]); ?>
                       <!-- periodo -->
                       {{$periodo;}}
                   </td>
-                  <td align="center">
+                  <td align="right">
                       <!-- impuesto-->
                       $ {{$impuesto}}
                   </td>
-                  <td align="center">
+                  <td align="right">
                       <!--Convierte formato a moneda mexico-->
                       <?php //$valorc1 = money_format('%i', $key[6]) . "\n"; ?>
-                      <?php //$valorc2 = Number_format($key[5], 2, '.',',' ) ?>
+                      <?php //$valorc = Number_format($key[7], 2, '.',',' ) ?>
                       <!-- Valor Catastral-->
-                      $ {{$valorc=$key[5]}}
+                      $ {{$valorc=$key[7]}}
                   </td>
-                  <td align="center">
+                  <td align="right">
                       <!--Limpia el registro-->
-                      <?php $rezago = str_replace(')', '',$key[7]); ?>
+                      <?php $rezago = str_replace(')', '',$key[8]); ?>
                       <!-- CLAVE -->
                       $ {{$rezago}}
                   </td>
