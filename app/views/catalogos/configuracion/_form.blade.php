@@ -21,51 +21,59 @@
 
 <div class="form-group">
     {{Form::label('gastos_ejecucion_porcentaje','Gasto ejecucion porcentaje')}}
-    {{Form::text('gastos_ejecucion_porcentaje', null, ['class'=>'form-control', 'autofocus'=> 'autofocus', 'required' => 'required', 'ng-model' => 'configuracionMunicipal.gastos_ejecucion_porcentaje', 'tb-focus' => 'focusForm', 'ng-blur' => 'focusForm = false'] )}}
+    {{Form::text('gastos_ejecucion_porcentaje', null, ['class'=>'form-control', 'autofocus'=> 'autofocus', 'required' => 'required', 'ng-model' => 'configuracionMunicipal.gastos_ejecucion_porcentaje', 'tb-focus' => 'focusForm', 'ng-blur' => 'focusForm = false','onkeypress'=>'return justNumbers(event)'] )}}
     {{$errors->first('gastos_ejecucion_porcentaje', '<span class=text-danger>:message</span>')}}
     <p class="help-block"></p>
 </div>
 
 <div class="form-group">
     {{Form::label('descuento_multa','Descuento Multa')}}
-    {{Form::text('descuento_multa', null, ['class'=>'form-control', 'autofocus'=> 'autofocus', 'required' => 'required', 'ng-model' => 'configuracionMunicipal.descuento_multa', 'tb-focus' => 'focusForm', 'ng-blur' => 'focusForm = false'] )}}
+    {{Form::text('descuento_multa', null, ['class'=>'form-control', 'autofocus'=> 'autofocus', 'required' => 'required', 'ng-model' => 'configuracionMunicipal.descuento_multa', 'tb-focus' => 'focusForm', 'ng-blur' => 'focusForm = false','onkeypress'=>'return justNumbers(event)'] )}}
     {{$errors->first('descuento_multa', '<span class=text-danger>:message</span>')}}
     <p class="help-block"></p>
 </div>
 
 <div class="form-group">
     {{Form::label('descuento_gasto_ejecucion','Descuento gasto ejecucion')}}
-    {{Form::text('descuento_gasto_ejecucion', null, ['class'=>'form-control', 'autofocus'=> 'autofocus', 'required' => 'required', 'ng-model' => 'configuracionMunicipal.descuento_gasto_ejecucion', 'tb-focus' => 'focusForm', 'ng-blur' => 'focusForm = false'] )}}
+    {{Form::text('descuento_gasto_ejecucion', null, ['class'=>'form-control', 'autofocus'=> 'autofocus', 'required' => 'required', 'ng-model' => 'configuracionMunicipal.descuento_gasto_ejecucion', 'tb-focus' => 'focusForm', 'ng-blur' => 'focusForm = false','onkeypress'=>'return justNumbers(event)'] )}}
     {{$errors->first('descuento_gasto_ejecucion', '<span class=text-danger>:message</span>')}}
     <p class="help-block"></p>
 </div>
 
 <div class="form-group">
     {{Form::label('descuento_recargo','Descuento recargo')}}
-    {{Form::text('descuento_recargo', null, ['class'=>'form-control', 'autofocus'=> 'autofocus', 'required' => 'required', 'ng-model' => 'configuracionMunicipal.descuento_recargo', 'tb-focus' => 'focusForm', 'ng-blur' => 'focusForm = false'] )}}
+    {{Form::text('descuento_recargo', null, ['class'=>'form-control', 'autofocus'=> 'autofocus', 'required' => 'required', 'ng-model' => 'configuracionMunicipal.descuento_recargo', 'tb-focus' => 'focusForm', 'ng-blur' => 'focusForm = false','onkeypress'=>'return justNumbers(event)'] )}}
     {{$errors->first('descuento_recargo', '<span class=text-danger>:message</span>')}}
     <p class="help-block"></p>
 </div>
 
 <div class="form-group">
     {{Form::label('descuento_actualizacion','Descuento de actualizacion')}}
-    {{Form::text('descuento_actualizacion', null, ['class'=>'form-control', 'autofocus'=> 'autofocus', 'required' => 'required', 'ng-model' => 'configuracionMunicipal.descuento_actualizacion', 'tb-focus' => 'focusForm', 'ng-blur' => 'focusForm = false'] )}}
+    {{Form::text('descuento_actualizacion', null, ['class'=>'form-control', 'autofocus'=> 'autofocus', 'required' => 'required', 'ng-model' => 'configuracionMunicipal.descuento_actualizacion', 'tb-focus' => 'focusForm', 'ng-blur' => 'focusForm = false','onkeypress'=>'return justNumbers(event)'] )}}
     {{$errors->first('descuento_actualizacion', '<span class=text-danger>:message</span>')}}
     <p class="help-block"></p>
 </div>
 
-<div class="form-group">
-    @if(!empty($file))
-    <img src="/css/images/logos/{{$file}}" width="107" height="107">
-    @endif
+@if(!empty($file))
+<div class="form-group">  
+<img src="/css/images/logos/{{$file}}" width="107" height="107">
 </div>
-
-
 <div class="form-group">
 <form method="post" name="formulario" enctype="multipart/form-data">
-Subir imágenes: <input type="file" multiple name="file" id="file" >
+Subir imágenes: <input type="file" multiple name="file" id="file">
 <p class="help-block">Seleccione un archivo de file con la extencion siguente .jpg, .png, .bnp, .jpeg</p>
 </div>
+@endif
+
+@if(empty($file))
+<div class="form-group">
+<form method="post" name="formulario" enctype="multipart/form-data">
+Subir imágenes: <input type="file" multiple name="file" id="file"  required>
+<p class="help-block">Seleccione un archivo de file con la extencion siguente .jpg, .png, .bnp, .jpeg</p>
+</div>
+@endif
+
+
 
 @section('javascript')
 <script>
@@ -105,6 +113,15 @@ window.onload = function()
  document.formulario.submit();
    }
  }
+//Numero    
+function justNumbers(e)
+{
+var keynum = window.event ? window.event.keyCode : e.which;
+if ((keynum == 8) || (keynum == 46))
+return true;
+return /\d/.test(String.fromCharCode(keynum));
+}
+
 </script>
 @append
 
