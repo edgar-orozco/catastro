@@ -62,13 +62,24 @@ var ventanillaApp = (function () {
 })();
 
 $(function () {
-    //Inicializamos el campo con una máscara por clave catastral
-    $('.clave-catastral').mask("00-000-000-0000-000000", {placeholder: "__-___-___-____-______"});
+    //Inicializamos el campo con una máscara por cuenta catastral
+
+    $('.clave-catastral').mask("000000", {
+        placeholder: "000000"
+    });
 
     //Cuando hay algún cambio en el campo entonces buscamos el valor en el servidor
     $('.clave-catastral').change(function (ev) {
         var clave = $(this).val().trim();
         var tipotramite_id = $(this).data('tipotramite');
+        var tipobusqueda = $('.select-busqueda-'+tipotramite_id).data('tipobusqueda');
+        var municipio = $('.select-municipio-'+tipotramite_id).data('municipio');
+        var tipopredio = $('.select-tipopredio-'+tipotramite_id).data('tipopredio');
+
+        if(tipobusqueda == 'cuenta') {
+            clave = municipio.substr(1) + "-" + tipopredio + "-" + clave.lpad("0", 6);
+        }
+        console.log(clave);
         if (clave == '') {
             return false;
         }
@@ -91,20 +102,39 @@ $(function () {
     });
 
     //Cuando se selecciona un valor del dropdown del buscador entonces:
-    $('.dropdown-menu li a').click(function () {
+    $('.dropdown-menu.tipo-busqueda li a').click(function () {
         var tipo = $(this).data('tipo');
+        $('.select-busqueda').data('tipobusqueda', tipo);
         $('.clave-catastral').val('');
         if (tipo == 'cuenta') {
-            $('.clave-catastral').mask("00-S-000000", {
-                placeholder: "__-_-______",
-                translation: {S: {pattern: /[RUru]/}}
+            $('.clave-catastral').mask("000000", {
+                placeholder: "000000"
             });
             $('.select-busqueda .dropdown-label').text('Cuenta');
+            $('.select-busqueda').data('tipobusqueda','cuenta');
         }
         else {
             $('.clave-catastral').mask("00-000-000-0000-000000", {placeholder: "__-___-___-____-______"});
             $('.select-busqueda .dropdown-label').text('Clave');
+            $('.select-busqueda').data('tipobusqueda','clave');
         }
+    });
+
+    //Cuando se selecciona un valor del dropdown de municipios del buscador entonces:
+    $('.dropdown-menu.municipio li a').click(function () {
+        var municipio = $(this).data('municipio');
+        $('.select-municipio').data('municipio', municipio);
+        $('.clave-catastral').val('');
+        $('.select-municipio .dropdown-label').text(municipio);
+    });
+
+    //Cuando se selecciona un valor del dropdown de tipo de predio entonces:
+    $('.dropdown-menu.tipo-predio li a').click(function () {
+        console.log($(this).data('tipopredio'));
+        var tipopredio = $(this).data('tipopredio');
+        $('.select-tipopredio').data('tipopredio', tipopredio);
+        $('.clave-catastral').val('');
+        $('.select-tipopredio .dropdown-label').text(tipopredio);
     });
 
     //Cuando hay cambios en los radio buttons de los requisitos
@@ -173,3 +203,11 @@ $(document).bind("ajaxSend", function(){
     $(".boton-buscador").removeClass('glyphicon-refresh spin');
     $(".boton-buscador").addClass('glyphicon-search');
 });
+
+//Función para formatear con ceros a la izquierda
+String.prototype.lpad = function(pad, length) {
+    var str = this;
+    while (str.length < length)
+        str = pad + str;
+    return str;
+}

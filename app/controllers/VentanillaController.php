@@ -31,8 +31,23 @@ class VentanillaController extends BaseController
 
         $tipotramites = Tipotramite::all();
 
+        $misMunicipios = Auth::user()->municipios()->get(['gid']);
+        $aMisMunicipios = array();
+        foreach($misMunicipios as $mun)
+        {
+            $aMisMunicipios[] = $mun->gid;
+        }
+
+        if(empty($aMisMunicipios)){
+            $municipios = Municipio::orderBy('nombre_municipio')->get();
+        }
+        else{
+            $municipios = Municipio::whereIn('gid', $aMisMunicipios)->orderBy('nombre_municipio')->get();
+        }
+
+
         return View::make('ventanilla.primera-atencion',
-            compact('title', 'title_section', 'subtitle_section', 'tipotramites'));
+            compact('title', 'title_section', 'subtitle_section', 'tipotramites', 'municipios'));
     }
 
     /**

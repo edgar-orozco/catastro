@@ -13,4 +13,14 @@ class PadronFiscal extends Ardent
     public function propietarios() {
         return $this->hasMany('propietarios', 'id_propietarios', 'id_propietarios');
     }
+
+    public function usoConstruccion(){
+        return $this->hasOne('UsoConstruccion', 'id', 'uso_construccion');
+    }
+
+    public function usoSuelo(){
+        return $this->hasOne('UsoSuelo', 'id', 'uso_suelo');
+    }
+
+
 }
