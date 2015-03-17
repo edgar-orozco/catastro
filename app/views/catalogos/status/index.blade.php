@@ -1,5 +1,9 @@
 @extends('layouts.default')
 
+
+
+{{ HTML::style('js/jquery/jquery-ui.css') }}
+
 @section('title')
 {{{ $title}}} :: @parent
 @stop
@@ -44,4 +48,34 @@ ng-app="statuss" ng-controller="StatusCtrl"
 @section('javascript')
 {{ HTML::script('js/catalogos/status.js') }}
 {{ HTML::script('js/laroute.js') }}
-@stop
+{{ HTML::script('js/jquery/jquery-ui.js') }}
+<script>
+//Calendario
+$(function() {
+    $( ".date-picker" ).datepicker();
+  });
+//Cambiar a español el calendario
+ $.datepicker.regional['es'] = {
+ closeText: 'Cerrar',
+ prevText: '<Ant',
+ nextText: 'Sig>',
+ currentText: 'Hoy',
+ monthNames: ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'],
+ monthNamesShort: ['Ene','Feb','Mar','Abr', 'May','Jun','Jul','Ago','Sep', 'Oct','Nov','Dic'],
+ dayNames: ['Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado'],
+ dayNamesShort: ['Dom','Lun','Mar','Mié','Juv','Vie','Sáb'],
+ dayNamesMin: ['Do','Lu','Ma','Mi','Ju','Vi','Sá'],
+ weekHeader: 'Sm',
+ dateFormat: 'dd/mm/yy',
+ firstDay: 1,
+ isRTL: false,
+ showMonthAfterYear: false,
+ yearSuffix: ''
+ };
+ $.datepicker.setDefaults($.datepicker.regional['es']);
+$(function () {
+$("#fecha").datepicker();
+});
+</script>
+@append
+

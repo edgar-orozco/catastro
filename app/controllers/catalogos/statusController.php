@@ -33,7 +33,7 @@ class catalogos_statusController extends \BaseController
         $subtitle_section = "Crear, modificar y eliminar status";
         
         //Todos los status creados actulmente
-        $statuss = $this->status->select('id_status as id','cve_status','descrip')->get();
+        $statuss = $this->status->select('id_status as id','cve_status','descrip','orden','fecha_alta', 'usuario_alta')->get();
             
         return ($format == 'json') ? $statuss : View::make('catalogos.status.index',
             compact('title', 'title_section', 'subtitle_section', 'status', 'statuss'));
@@ -74,6 +74,10 @@ class catalogos_statusController extends \BaseController
     {
         $this->status->cve_status = Input::get('cve_status');
         $this->status->descrip = Input::get('descrip');
+        $this->status->fecha_alta = Input::get('fecha_alta');
+        $this->status->usuario_alta = Input::get('usuario_alta');
+        $this->status->orden = Input::get('orden');
+
         //si no es posible guardar la instancia mandamos errores
         if (!$this->status->save()){
             if ($format == 'json'){
