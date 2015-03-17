@@ -6,6 +6,8 @@
 
 @section('content')
 
+    {{ HTML::style('css/select2.min.css') }}
+
     <div class="row clearfix">
         @if($folio)
             <div class="col-md-2 col-md-offset-7">
@@ -177,10 +179,20 @@
     </div>
 @stop
 
+
 @section('javascript')
+    {{ HTML::script('js/select2/select2.min.js') }}
+    {{ HTML::script('js/select2/i18n/es.js') }}
+
     <script>
 
         $(function () {
+
+            $("#notaria_id").select2({
+                language: "es",
+                placeholder: "Seleccione una notaría",
+                allowClear: true
+            });
 
             //Cuando hay cambios en los radio buttons de los requisitos
             $('.radio-persona').change(function (ev) {

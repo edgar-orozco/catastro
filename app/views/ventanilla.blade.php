@@ -38,4 +38,6 @@
         </div>
 
     </div>
+
+    @include('ventanilla._lista_tramites',['tramites' => Tramite::all()->sortBy('created_at',null,true)])
 @stop

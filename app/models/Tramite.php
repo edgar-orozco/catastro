@@ -37,6 +37,10 @@ class Tramite extends Ardent
         return $this->hasOne('personas', 'id_p', 'solicitante_id');
     }
 
+    public function actividades(){
+        return ActividadTramite::where('tramite_id',$this->id)->get();
+    }
+
     /**
      * Revisa si existe el tramite por su uuid, si existe regresa el registro, si no existe regresa nulo
      * @param $uuid

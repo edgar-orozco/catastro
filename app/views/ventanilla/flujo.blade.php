@@ -6,6 +6,9 @@
 
 @section('content')
 
+    {{ HTML::style('css/select2.min.css') }}
+    {{ HTML::style('css/tramites/timeline.css') }}
+
     <div class="row clearfix">
         @if($folio)
             <div class="col-md-2 col-md-offset-7">
@@ -23,7 +26,7 @@
     <div class="row clearfix">
         <div class="col-md-4 column">
 
-            {{ Form::open(array('url' => 'tramite/flujo', 'method' => 'POST', 'name' => 'forma-tramite', 'files'=>true)) }}
+            {{ Form::open(array('url' => 'tramites/proceso/'.$tramite->id, 'method' => 'POST', 'name' => 'forma-tramite', 'files'=>true)) }}
 
 
             <div class="panel panel-default">
@@ -34,14 +37,30 @@
                 </div>
                 <div class="panel-body">
 
+                    <div class="form-group">
+                        {{Form::label('departamento_id','Turnar a departamento', ['class'=>''])}}
+                        {{Form::select('departamento_id', [null => ''] + $lista_deptos, null, ['id'=>'departamento_id', 'class' => 'form-control', 'autofocus'=> 'autofocus'] )}}
+                    </div>
+
+                    <div class="form-group">
+                        {{Form::label('tipo_id','Actividad', ['class'=>''])}}
+                        {{Form::select('tipo_id', [null => ''] + $lista_tipoactividades, null, ['id'=>'tipo_id', 'class' => 'form-control'] )}}
+                    </div>
+
+                    <div class="form-group" id="observaciones" style="display: none;">
+                        {{Form::label('observaciones','Observaciones', ['class'=>''])}}
+                        {{Form::textarea('observaciones', null, ['class' => 'form-control'] )}}
+                    </div>
+
                 </div>
+
 
             <div class="form-actions form-group">
                 <button type="submit" class="btn btn-success">
                     <i class="glyphicon glyphicon-arrow-right"></i>
                     Continuar trámite
                 </button>
-                {{ Form::reset('Limpiar formato', ['class' => 'btn btn-warning']) }}
+                {{ Form::reset('Limpiar formato', ['class' => 'btn btn-warning', 'id'=>'btn-reset']) }}
             </div>
             </div>
 
@@ -102,7 +121,7 @@
                     <div class="tab-pane" id="panel-solicitante">
                         <br/>
                         <h4><small>Nombre:</small> {{$tramite->solicitante->nombres}} </h4>
-                        @if($tramite->tipo_persona == 'FISICA')
+                        @if($tramite->tipo_solicitante == 'FISICA')
                             <h4><small>Apellido Paterno:</small> {{$tramite->solicitante->apellido_paterno}} </h4>
                             <h4><small>Apellido Materno:</small> {{$tramite->solicitante->apellido_materno}} </h4>
                         @endif
@@ -118,7 +137,7 @@
                     </div>
                     <div class="tab-pane" id="panel-historial">
                         </br>
-                        <h4>Historial del trámite</h4>
+                        @include('ventanilla._timeline',compact('tramite'))
 
                     </div>
 
@@ -131,9 +150,34 @@
 @stop
 
 @section('javascript')
+    {{ HTML::script('js/select2/select2.min.js') }}
+    {{ HTML::script('js/select2/i18n/es.js') }}
+
     <script>
 
         $(function () {
+            $("#departamento_id").select2({
+                language: "es",
+                placeholder: "Seleccione un departamento",
+                allowClear: true
+            });
+
+            $("#tipo_id").select2({
+                language: "es",
+                placeholder: "Seleccione una actividad",
+                allowClear: true
+            });
+
+            //Si se devuelve con observaciones (opcion == 1)
+            //Entonces se muestra para captura el textarea de observaciones
+            $("#tipo_id").change(function (ev) {
+                if($(this).val() == 1) {
+                    $('#observaciones').show();
+                    return true;
+                }
+                $('#observaciones').hide();
+            });
+
 
             //Cuando hay cambios en los radio buttons de los requisitos
             $('.radio-persona').change(function (ev) {
@@ -149,7 +193,22 @@
                 }
             });
 
+            $("#btn-reset").on("click", function () {
+                    $("#departamento_id").val(null).trigger("change");
+                    $("#actividad_id").val(null).trigger("change");
+                }
+            );
+
+
         });
+
+
+
+
+
+
+
     </script>
 
 @stop
+

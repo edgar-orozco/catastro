@@ -52,3 +52,13 @@ Route::get(
     )
 );
 
+Route::post(
+    'tramites/proceso/{id}',
+    array(
+        'as' => 'tramite.proceso',
+        'uses' => 'TramitesController@storeActividad',
+        'before' => 'auth',
+    )
+);
+
+

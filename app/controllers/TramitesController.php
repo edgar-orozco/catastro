@@ -224,6 +224,7 @@ class TramitesController extends BaseController {
         DiffFormatter::alias('es_mx', 'es');
 
         $tipotramite = $tramite->tipotramite;
+        $tramite_id = $tramite->id;
         $solicitante = $tramite->solicitante;
         $notaria = $tramite->notaria;
         $tiempo = $tipotramite->tiempo;
@@ -246,11 +247,25 @@ class TramitesController extends BaseController {
 
         //exit;
 
+        //Departamentos donde se atiende el trámite.
 
+        $deptos = DepartamentoTramite::all()->sortBy('orden');
+        $lista_deptos = array();
+        //$lista_deptos[] = '';
+        foreach($deptos as $depto) {
+            $lista_deptos[$depto->id] =$depto->nombre;
+        }
 
+        $tipoactividades = TipoActividadTramite::all()->sortBy('orden');
+        $lista_tipoactividades = array();
+        //$lista_actividades[] = '';
+        foreach($tipoactividades as $tipoactividad) {
+            $lista_tipoactividades[$tipoactividad->id] =$tipoactividad->nombre;
+        }
 
         $estado = "En proceso";
 
+        $ff=true;
 
         return View::make('ventanilla.flujo', compact(
             'title',
@@ -268,11 +283,47 @@ class TramitesController extends BaseController {
             'tiempo_consumido',
             'tiempo_restante',
             'lista_notarias',
-            'uuid'
+            'lista_deptos',
+            'lista_tipoactividades',
+            'uuid',
+            'ff'
         ));
 
     }
 
+
+    /**
+     * Guardamos la actividad
+     * @param $tramite_id
+     *
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function storeActividad($tramite_id){
+
+        $tramite = Tramite::findOrFail($tramite_id);
+
+        $folio = $tramite->folio;
+
+        $tipo_id = Input::get('tipo_id');
+        $departamento_id = Input::get('departamento_id');
+
+        $observaciones = Input::get('observaciones');
+
+        $actividad = [];
+        if($tipo_id) $actividad['tipo_id'] = $tipo_id;
+        if($departamento_id) $actividad['departamento_id'] = $departamento_id;
+        if(trim($observaciones)) $actividad['observaciones'] = $observaciones;
+
+        $actividad['tramite_id'] = $tramite_id;
+
+
+        $uid = Auth::user()->id;
+        $actividad['user_id'] = $uid;
+
+        ActividadTramite::create($actividad);
+
+        return Redirect::to('/')->with('success',"Se ha guardado trámite con folio: ".sprintf("%06d", $folio));
+    }
 
 }
 
