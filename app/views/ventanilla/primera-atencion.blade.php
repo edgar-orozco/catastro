@@ -29,41 +29,82 @@
                      aria-labelledby="heading-{{$tipotramite->id}}">
                     <div class="panel-body">
 
-                        <div class="row">
-                            <div class="col-md-4">
-                                <div class="input-group">
-                                    <div class="input-group-btn">
-                                        <button type="button" class="btn btn-default dropdown-toggle select-busqueda"
-                                                data-toggle="dropdown" aria-expanded="false">
-                                            <span class="dropdown-label">Clave</span>
-                                            <span class="caret"></span></button>
-                                        <ul class="dropdown-menu" role="menu">
-                                            <li><a href="#" class="opcion-busqueda" data-tipo="clave">Clave</a></li>
-                                            <li><a href="#" class="opcion-buqueda" data-tipo="cuenta">Cuenta</a></li>
-                                        </ul>
-                                    </div>
-                                    <!-- /btn-group -->
-                                    {{Form::text('clave', null, ['class'=>'form-control clave-catastral', 'style'=>'text-transform: uppercase;', 'data-tipotramite'=>$tipotramite->id] )}}
-                                    <span class="input-group-btn">
-                                        <button class="btn btn-default" type="button">
-                                            <span class="glyphicon glyphicon-search boton-buscador" aria-hidden="true"></span>
-                                        </button>
-                                    </span>
-                                </div>
+                        <!-- Inputs de clave o cuenta -->
+                        <div class="row ">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <div class="input-group">
+                                        <!-- Select clave o cuenta -->
+                                        <div class="input-group-btn">
+                                            <button type="button"
+                                                    class="btn btn-default dropdown-toggle select-busqueda select-busqueda-{{$tipotramite->id}}"
+                                                    data-tipotramite="{{$tipotramite->id}}"
+                                                    data-tipobusqueda="cuenta"
+                                                    data-toggle="dropdown" aria-expanded="false">
+                                                <span class="dropdown-label">Cuenta</span>
+                                                <span class="caret"></span></button>
+                                            <ul class="dropdown-menu tipo-busqueda" role="menu">
+                                                <li><a href="#" class="opcion-buqueda" data-tipo="cuenta">Cuenta</a>
+                                                </li>
+                                                <li><a href="#" class="opcion-busqueda" data-tipo="clave">Clave</a></li>
+                                            </ul>
+                                        </div>
 
-                                <!-- /input-group -->
+                                        <!-- Select municipios -->
+                                        <div class="input-group-btn">
+                                            <button type="button"
+                                                    class="btn btn-default dropdown-toggle select-municipio select-municipio-{{$tipotramite->id}}"
+                                                    data-municipio=""
+                                                    data-toggle="dropdown" aria-expanded="false">
+                                                <span class="dropdown-label">Municipio</span>
+                                                <span class="caret"></span></button>
+                                            <ul class="dropdown-menu municipio" role="menu">
+                                                @foreach($municipios as $municipio)
+                                                    <li><a href="#" class="opcion-municipio"
+                                                           data-municipio="{{$municipio->municipio}}">{{$municipio->nombre_municipio}}
+                                                            - {{$municipio->municipio}}</a></li>
+                                                @endforeach
+                                            </ul>
+                                        </div>
+                                        <!-- //Select municipios -->
+
+                                        <!-- Select Urbano o Rustico -->
+                                        <div class="input-group-btn">
+                                            <button type="button"
+                                                    class="btn btn-default dropdown-toggle select-tipopredio select-tipopredio-{{$tipotramite->id}}"
+                                                    data-tipopredio="U"
+                                                    data-toggle="dropdown" aria-expanded="false">
+                                                <span class="dropdown-label">Urbano</span>
+                                                <span class="caret"></span></button>
+                                            <ul class="dropdown-menu tipo-predio" role="menu">
+                                                <li><a href="#" class="opcion-tipopredio" data-tipopredio="R">Rústico</a></li>
+                                                <li><a href="#" class="opcion-tipopredio" data-tipopredio="U">Urbano</a></li>
+                                            </ul>
+                                        </div>
+
+                                        {{Form::text('clave', null, ['class'=>'form-control clave-catastral', 'style'=>'text-transform: uppercase;', 'data-tipotramite'=>$tipotramite->id] )}}
+
+                                        <span class="input-group-btn">
+                                            <button class="btn btn-default" type="button">
+                                                <span class="glyphicon glyphicon-search boton-buscador" aria-hidden="true"></span>
+                                            </button>
+                                        </span>
+
+                                    </div>
+                                </div>
                             </div>
-                            <!-- /col-md-4 -->
-                            <div class="col-md-8">
+
+                            <!-- /col-md-6 -->
+                            <div class="col-md-6">
                                 <div class="alert alert-danger" style="display: none;">
                                     No se encontró el predio solicitado en el padrón.
                                 </div>
                             </div>
-
                         </div>
-                        <!-- /row input clave -->
+                        <!-- //Inputs de clave o cuenta -->
 
                         <br/>
+
                         <!-- paneles info -->
                         <div class="row">
                             <div class="col-md-3">
@@ -147,7 +188,7 @@
     </div>
 </form>
 
-{{ Form::open(array('url' => 'ventanilla/iniciar-tramite', 'method' => 'GET', 'id'=>'iniciar')) }}
+{{ Form::open(array('url' => 'ventanilla/solicitud-tramite', 'method' => 'POST', 'id'=>'iniciar')) }}
     {{ Form::hidden('clave',null, ['class'=>'clave', 'id'=>'clave']) }}
     {{ Form::hidden('cuenta',null, ['class'=>'cuenta', 'id'=>'cuenta']) }}
     {{ Form::hidden('tipotramite_id',null, ['class'=>'tipotramite_id']) }}

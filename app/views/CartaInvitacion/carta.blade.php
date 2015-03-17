@@ -67,7 +67,6 @@ INVITACION: DF/INV/0/2015
 </p>
 
 
- <br/>
   ESTIMADO (A): <b> <?php echo $key[1] ?> </b> R.F.C:
   </p>
 <p id="texto" align="justify">

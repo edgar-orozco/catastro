@@ -23,8 +23,8 @@ Route::group(array('before' => 'admin'), function () {
 });
 
 //Ruta para la captura de documentos al iniciar un trámite.
-Route::get(
-    'ventanilla/iniciar-tramite',
+Route::post(
+    'ventanilla/solicitud-tramite',
     array(
         'as' => 'ventanilla.iniciar-tramite',
         'uses' => 'TramitesController@indexDocumentos',
@@ -35,8 +35,20 @@ Route::get(
 Route::post(
     'ventanilla/iniciar-tramite',
     array(
-        'as' => 'tramites.guardar-documentos',
+        'as' => 'tramites.iniciar',
         'uses' => 'TramitesController@storeTramite',
         'before' => 'auth',
     )
 );
+
+
+//Proceso del tramite
+Route::get(
+    'tramites/proceso/{id}',
+    array(
+        'as' => 'tramite.proceso',
+        'uses' => 'TramitesController@proceso',
+        'before' => 'auth',
+    )
+);
+

@@ -6,7 +6,7 @@ public function get_pdf()
     {
       //creamos array de todas las claves enviadas para generar carta invitacióm
        $clave = Input::all();
-   // print_r($clave);
+    //print_r($clave);
         //limpiamos y ordenamos el array
         $token      = $clave['_token'];
         $fecha      = $clave['date1'];
@@ -14,7 +14,9 @@ public function get_pdf()
         $boton      = $clave['boton'];
         $mun_actual = strtoupper($clave['mun']);
         $pagi       =$clave['pagi'];
+        $id_mun     =$clave['id_municipio'];
 
+        unset($clave['id_municipio']);
         unset($clave['pagi']);
         unset($clave['mun']);
         unset($clave['ejecutores']);
@@ -24,6 +26,8 @@ public function get_pdf()
             //BUCLE PARA GUARDAR LOS DATOS A LA BASE DE DATOS
        $ejecutor   =($claves2['captura']['ejecutores']=$ejecutor);
        $nombre_eje = personas::where('id_p', $ejecutor)->pluck('nombrec');
+       $usuario = Auth::user()->id;
+       $fecha_server=date('Y-m-d');
 
        foreach($clave as $cla => $value)
         {
@@ -42,6 +46,8 @@ foreach ($vale as $clave ) {
            $ejecucion = new ejecucion;
            $ejecucion->clave =$claves;
            $ejecucion->cve_status ='CI';
+           $ejecucion->usuario = $usuario;
+           $ejecucion->f_alta = $fecha_server;
            //$ejecucion->f_inicio_ejecucion=$fecha;
            $ejecucion->save();
 
@@ -54,6 +60,9 @@ foreach ($vale as $clave ) {
         $requerimiento                      = new requerimientos;
         $requerimiento->id_ejecucion_fiscal =$id_ejecucion;
         $requerimiento->cve_status          ='CI';
+        $requerimiento->f_requerimiento     = $fecha;
+        $requerimiento->usuario             = $usuario;
+        $requerimiento->f_alta              = $fecha_server;
         $requerimiento->save();
       }
  }
@@ -61,7 +70,7 @@ foreach ($vale as $clave ) {
 //print_r($vale);
 
    //ENVIO A LA VISTA DEL PDF CARTA INVITACION
-   $vista = View::make('CartaInvitacion.carta', compact('data', 'fecha', 'nombre_eje', 'mun_actual','vale'));
+ $vista = View::make('CartaInvitacion.carta', compact('data', 'fecha', 'nombre_eje', 'mun_actual','vale'));
    $pdf = PDF::load($vista)->show();
    $response = Response::make($pdf, 200);
    $response->header('Content-Type', 'application/pdf');

@@ -209,7 +209,8 @@ $('#boton').on('click', function()
                     <?php $i++ ?>
                     <?php $clave  = str_replace('(', '',$key[0]);?>
                     <?php $nombre = str_replace('"', '',$key[1]); ?>
-                    <?php $impuesto =$key[5]; ?>
+                    <?php //$impuesto = Number_format($key[5], 2, '.',',' )?>
+                    <?php $impuesto = $key[5]?>
                     <?php $valorcc  =$key[6]; ?>
                     <?php $total    =$impuesto+$valorcc ?>
 
@@ -219,6 +220,8 @@ $('#boton').on('click', function()
                     <div class="input-group">
                     <span class="input-group-addon">
                     {{ Form::checkbox('clave'.$i, $clave.','.$nombre.','.$total, false, ['onclick'=>'validar(this)'], array('id' => 'checkAll'))}}
+                    <?php  $id_mun =substr($clave, 3, 3);?>
+                    {{ Form::text('id_municipio',$id_mun,array('hidden'))}}
                     </samp>
                 </div></div></div>
                   </td>
@@ -246,17 +249,18 @@ $('#boton').on('click', function()
                       <!-- periodo -->
                       {{$periodo;}}
                   </td>
-                  <td align="center">
+                  <td align="right">
                       <!-- impuesto-->
                       $ {{$impuesto}}
                   </td>
-                  <td align="center">
+                  <td align="right">
                       <!--Convierte formato a moneda mexico-->
-                      <?php $valorc = money_format('%i', $key[6]) . "\n"; ?>
+                      <?php //$valorc1 = money_format('%i', $key[6]) . "\n"; ?>
+                      <?php $valorc = Number_format($key[6], 2, '.',',' ) ?>
                       <!-- Valor Catastral-->
                       $ {{$valorc}}
                   </td>
-                  <td align="center">
+                  <td align="right">
                       <!--Limpia el registro-->
                       <?php $rezago = str_replace(')', '',$key[8]); ?>
                       <!-- CLAVE -->

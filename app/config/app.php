@@ -129,6 +129,7 @@ return array(
 		'Catastro\Providers\MenuServiceProvider',
 		'Catastro\Providers\PadronRepositoryServiceProvider',
 		'Catastro\Providers\DatabaseLogServiceProvider',
+        'Laravelrus\LocalizedCarbon\LocalizedCarbonServiceProvider',
 	),
 
 	/*
@@ -198,6 +199,9 @@ return array(
 		'View'            => 'Illuminate\Support\Facades\View',
         'Confide'    => 'Zizaco\Confide\Facade',
         'Entrust'    => 'Zizaco\Entrust\EntrustFacade',
+        'Uuid'            => 'Webpatser\Uuid\Uuid',
+        'LocalizedCarbon'   => 'Laravelrus\LocalizedCarbon\LocalizedCarbon',
+        'DiffFormatter'     => 'Laravelrus\LocalizedCarbon\DiffFactoryFacade',
 
 	),
 

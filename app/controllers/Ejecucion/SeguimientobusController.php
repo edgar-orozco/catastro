@@ -208,7 +208,7 @@ class Ejecucion_SeguimientobusController extends \BaseController {
 	{
 		//
 	}
-    public function modal( $idrequerimiento = null) 
+    public function modal( $idrequerimiento = null)
     {
         $title = 'Crar nueva perosana';
 
@@ -224,6 +224,40 @@ class Ejecucion_SeguimientobusController extends \BaseController {
          return  View::make('ejecucion.datos',compact('title','title_section','subtitle_section','idrequerimiento','catalogo'));
 
     }
+    public function cancelar( $idrequerimiento = null)
+    {
+        $title = 'Cancelar Proceso';
+
+        //Titulo de seccion:
+        $title_section = "";
+
+        //Subtitulo de seccion:
+        $subtitle_section = "Cancelar Proceso'";
+        //$format = 'html';
+         $catalogo       = ejecutores::join('personas', 'ejecutores.id_p', '=', 'personas.id_p')//->lists('cargo', 'id_ejecutor');
+            ->select('ejecutores.id_ejecutor AS id', 'personas.nombrec AS nombre')
+            ->get();
+         return  View::make('ejecucion.cancelar',compact('title','title_section','subtitle_section','idrequerimiento','catalogo'));
+
+    }
+    public function guardarcancelacion()
+    {
+            $id = Input::get('id');
+            $ide = requerimientos::where('id_requerimiento', $id)->pluck('id_ejecucion_fiscal');
+          //  $fecha= Input::get('fechacancelacion');
+          //   $motivo = Input::get('motivo');
+          //   $ejecutor = Input::get('ejecutores');
+
+          //  return $id.'//'.$fecha.'//'.$motivo.'//'.$ejecutor;
+           $datos=ejecucion::find($ide);
+            $datos->f_cancelacion = $fecha= Input::get('fechacancelacion');
+            $datos->motivo_cancelacion = $motivo = Input::get('motivo');
+            $datos->id_ejecutor_cancelacion = $ejecutor = Input::get('ejecutores');
+            $datos->save();
+        Session::flash('mensaje', 'El se cancelo correctamente');
+        return Redirect::back();
+    }
+
 
 
 }
