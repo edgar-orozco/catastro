@@ -184,7 +184,7 @@ class User extends Eloquent implements ConfideUserInterface
      */
     public function listAngular(){
         $users = array();
-        foreach($this->all() as $user){
+        foreach($this->with('roles')->with('municipios')->get() as $user){
             $users[] = array(
                 'id'             => $user->id,
                 'username'       => $user->username,
@@ -206,7 +206,7 @@ class User extends Eloquent implements ConfideUserInterface
      */
     public function datosProfile(){
         $roles = array();
-        foreach($this->roles as $rol){
+        foreach($this->with('roles')->get() as $rol){
             $roles[] = $rol->id;
         }
         return htmlspecialchars(json_encode(array(

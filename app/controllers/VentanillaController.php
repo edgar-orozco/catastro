@@ -32,6 +32,7 @@ class VentanillaController extends BaseController
         $tipotramites = Tipotramite::all();
 
         $misMunicipios = Auth::user()->municipios()->get(['gid']);
+
         $aMisMunicipios = array();
         foreach($misMunicipios as $mun)
         {
