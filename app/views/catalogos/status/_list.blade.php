@@ -14,6 +14,9 @@
                 <tr>
                     <th>Clave estatus</th>
                     <th>Descripción del estatus</th>
+                    <th>Fecha de alta</th>
+                    <th>Usuario Alta</th>
+                    <th>Orden</th>
                     <th>Acciones</th>
                 </tr>
             </thead>
@@ -24,6 +27,15 @@
                     </td>
                     <td>
                         {[{ status.descrip }]}
+                    </td>
+                    <td>
+                        {[{ status.fecha_alta }]}
+                    </td>
+                    <td>
+                        {[{ status.usuario_alta }]}
+                    </td>
+                    <td>
+                        {[{ status.orden }]}
                     </td>
                     <td>
                         <button ng-show="status.idx !== undefinied && status.error === undefinied" type="button" class="btn btn-success" title="Guardando datos ..." disabled="disabled">
