@@ -25,11 +25,12 @@ class Ejecucion_BuscarController extends BaseController
             $menor = Input::get('menor');
             $adeudo = Input::get('adeudos');
             $resultado = DB::select("select sp_get_predios('$clave','$propietario','$mayor','$menor','$municipios','','','','','')");
-
+            //print_r($resultado);
             foreach ($resultado as $key)
             {
                 $items[] = explode(',', $key->sp_get_predios);
             }
+
             /**
              * Consulta retorna nombre del ejecutor
              * @var [type]
@@ -115,7 +116,7 @@ class Ejecucion_BuscarController extends BaseController
                 "¿", "[", "^", "`", "]",
                 "+", "}", "{", "¨", "´",
                 ">", "< ", ";", ",", ":",
-                ".", " "),
+                "."),
             '',
             $string
         );

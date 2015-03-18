@@ -1,3 +1,35 @@
+{{ HTML::style('js/jquery/jquery-ui.css') }}
+{{ HTML::script('js/jquery/jquery-ui.js') }}
+
+<script>
+   //Calendario
+$(function() {
+    $( "#datepicker" ).datepicker();
+  });
+//Cambiar a español el calendario
+ $.datepicker.regional['es'] = {
+ closeText: 'Cerrar',
+ prevText: '<Ant',
+ nextText: 'Sig>',
+ currentText: 'Hoy',
+ monthNames: ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'],
+ monthNamesShort: ['Ene','Feb','Mar','Abr', 'May','Jun','Jul','Ago','Sep', 'Oct','Nov','Dic'],
+ dayNames: ['Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado'],
+ dayNamesShort: ['Dom','Lun','Mar','Mié','Juv','Vie','Sáb'],
+ dayNamesMin: ['Do','Lu','Ma','Mi','Ju','Vi','Sá'],
+ weekHeader: 'Sm',
+ dateFormat: 'dd/mm/yy',
+ firstDay: 1,
+ isRTL: false,
+ showMonthAfterYear: false,
+ yearSuffix: ''
+ };
+ $.datepicker.setDefaults($.datepicker.regional['es']);
+$(function () {
+$("#fecha").datepicker();
+});
+</script>
+<?php $fecha= date("d/m/Y"); ?>
 <div class="modal-header">
     <h4 class="modal-titulo" id="condominio-titulo">Cancelación de proceso</h4>
 </div>
@@ -13,9 +45,9 @@
             <p class="help-block"></p>
         </div>
         <div class="form-group">
-            {{Form::label('fechacancelacion','Fecha Cancelación')}}
-            {{Form::input('date', 'fechacancelacion', null , array( 'class'=>'form-control','required' ))}}
-            {{$errors->first('fechacancelacion', '<span class=text-danger>:message</span>')}}
+            {{Form::label('date','Fecha Cancelación')}}
+            {{Form::text('date', $fecha, ['id'=>'datepicker', 'class'=>'btn btn-default btn-sm dropdown-toggle'] )}}
+            {{$errors->first('date', '<span class=text-danger>:message</span>')}}
             <p class="help-block"></p>
         </div>
 

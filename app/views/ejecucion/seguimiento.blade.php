@@ -123,7 +123,7 @@ Bienvenido :: @parent
             {{Form::select('pagi', array('10' => '10', '20' => '20', '30' => '30', '40' => '40', '50' => '50','60' => '60'))}}
     </div>
 
-    <table  id="myTable" class="table">
+    <table  id ="myTable" class="table">
      <thead>
         <tr>
                 <th width="100" ><P align="center">{{ Form::checkbox('checkMain', 'checkMain', false, array('name' => 'checktodos'))}}</P></th>
@@ -141,12 +141,12 @@ Bienvenido :: @parent
             <?php $i=0; ?>
             @foreach ($pagination as $key )
                   <?php $i++ ?>
-                  <?php $idrequerimiento=$key[5]; ?>
-                  <?php $clave= str_replace('(', '',$key[0]);?>
-                  <?php $nombre= str_replace('"', '',$key[1]); ?>
-                  <?php $impuesto=$key[5]; ?>
-                  <?php $valorcc= $key[6]; ?>
-                  <?php $total=$impuesto+$valorcc ?>
+                  <?php $idrequerimiento =$key[5]; ?>
+                  <?php $clave           = str_replace('(', '',$key[0]);?>
+                  <?php $nombre          = str_replace('"', '',$key[1]); ?>
+                  <?php $impuesto        =$key[5]; ?>
+                  <?php $valorcc         = $key[6]; ?>
+                  <?php $total           =$impuesto+$valorcc ?>
 
             <td align="center">
                 {{ Form::checkbox('clave'.$i, $clave.','.$nombre.','.$total, false, ['onclick'=>'validar(this)'], array('id' => 'checkAll'))}}
@@ -179,13 +179,13 @@ Bienvenido :: @parent
             </td>
             <td align="center">
                 <?php if(empty($fechacancelacion))  { ?>
-                <!-- Valor Catastral-->
+                <!-- agrgar datos requerimiento-->
                 @if($fechainicio=='' || $fechavencimiento=='')
                 <a data-toggle ="modal"  data-target="#Nuevo" href="/ejecucion/modal/{{$idrequerimiento}}" ><span class="glyphicon glyphicon-pencil"></span></a>
                 @endif
             </td>
             <td align="center">
-                <!-- Valor Catastral-->
+                <!-- link reimpresion ultimo estado-->
                 <a   href ="#"  ><span class="glyphicon glyphicon-print"></span></a>
             </td>
             <td>

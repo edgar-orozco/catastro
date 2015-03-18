@@ -26,8 +26,10 @@
     @endif
     {{ HTML::style('css/style.css') }}
     {{ HTML::style('css/theme.default.css') }}
+    {{ HTML::style('js/jquery/jquery-ui.css') }}
 
     @section('javascript')
+    {{ HTML::script('js/jquery/jquery-ui.js') }}
                 <script>
                     //mostrar  ocultatr vistaa
                     function SINO(cual) {
@@ -45,12 +47,12 @@
                     if(obj.checked        ==true)
                     {
                         d.boton.disabled      = false;
-                        d.date1.disabled      = false;
+                        d.datepicker.disabled      = false;
                         d.ejecutores.disabled = false;
                     }else
                         {
                         d.boton.disabled      = true;
-                        d.date1.disabled      = true;
+                        d.datepicker.disabled      = true;
                         d.ejecutores.disabled = true;
                         }
                         }
@@ -86,12 +88,12 @@ $(document).ready(function(){
             if($("input[name=checktodos]:checked").length == 1){
                 this.checked = true;
                 d.boton.disabled = false;
-                d.date1.disabled = false;
+                d.datepicker.disabled = false;
                 d.ejecutores.disabled = false;
             } else {
                 this.checked = false;
                 d.boton.disabled = true;
-                d.date1.disabled = true;
+                d.datepicker.disabled = true;
                 d.ejecutores.disabled = true;
             }
         });
@@ -99,11 +101,128 @@ $(document).ready(function(){
 
 });
 </script>
+<script>
+$(document).ready(function(){
+  $("#clave").keydown(function(event) {
+     if(event.shiftKey)
+     {
+          event.preventDefault();
+     }
+
+     if (event.keyCode == 46 || event.keyCode == 8 || event.keyCode == 189 || event.keyCode == 109 )    {
+     }
+     else {
+          if (event.keyCode < 95) {
+            if (event.keyCode < 48 || event.keyCode > 57) {
+                  event.preventDefault();
+            }
+          }
+          else {
+                if (event.keyCode < 96 || event.keyCode > 105) {
+                    event.preventDefault();
+                }
+          }
+        }
+     });
+  });
+
+$(document).ready(function(){
+  $("#mayor").keydown(function(event) {
+     if(event.shiftKey)
+     {
+          event.preventDefault();
+     }
+
+     if (event.keyCode == 46 || event.keyCode == 8 )    {
+     }
+     else {
+          if (event.keyCode < 95) {
+            if (event.keyCode < 48 || event.keyCode > 57) {
+                  event.preventDefault();
+            }
+          }
+          else {
+                if (event.keyCode < 96 || event.keyCode > 105) {
+                    event.preventDefault();
+                }
+          }
+        }
+     });
+  });
+$(document).ready(function(){
+  $("#menor").keydown(function(event) {
+     if(event.shiftKey)
+     {
+          event.preventDefault();
+     }
+
+     if (event.keyCode == 46 || event.keyCode == 8 )    {
+     }
+     else {
+          if (event.keyCode < 95) {
+            if (event.keyCode < 48 || event.keyCode > 57) {
+                  event.preventDefault();
+            }
+          }
+          else {
+                if (event.keyCode < 96 || event.keyCode > 105) {
+                    event.preventDefault();
+                }
+          }
+        }
+     });
+  });
+//Calendario
+$(function() {
+    $( "#datepicker" ).datepicker();
+  });
+//Cambiar a español el calendario
+ $.datepicker.regional['es'] = {
+ closeText: 'Cerrar',
+ prevText: '<Ant',
+ nextText: 'Sig>',
+ currentText: 'Hoy',
+ monthNames: ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'],
+ monthNamesShort: ['Ene','Feb','Mar','Abr', 'May','Jun','Jul','Ago','Sep', 'Oct','Nov','Dic'],
+ dayNames: ['Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado'],
+ dayNamesShort: ['Dom','Lun','Mar','Mié','Juv','Vie','Sáb'],
+ dayNamesMin: ['Do','Lu','Ma','Mi','Ju','Vi','Sá'],
+ weekHeader: 'Sm',
+ dateFormat: 'yy-mm-dd',
+ firstDay: 1,
+ isRTL: false,
+ showMonthAfterYear: false,
+ yearSuffix: ''
+ };
+ $.datepicker.setDefaults($.datepicker.regional['es']);
+$(function () {
+$("#fecha").datepicker();
+});
+</script>
 <script type="text/javascript">
 $('#boton').on('click', function()
                 {
                   window.location.reload();
                 });
+
+</script>
+<script>
+    function soloLetras(e){
+ key = e.keyCode || e.which;
+ tecla = String.fromCharCode(key).toLowerCase();
+ letras = " áéíóúabcdefghijklmnñopqrstuvwxyz";
+ especiales = [8,37,39,46];
+
+ tecla_especial = false
+ for(var i in especiales){
+     if(key == especiales[i]){
+  tecla_especial = true;
+  break;
+            }
+ }
+        if(letras.indexOf(tecla)==-1 && !tecla_especial)
+     return false;
+     }
 </script>
 @stop
 
@@ -132,7 +251,7 @@ $('#boton').on('click', function()
                         {{ Form::text('clave',$clave, array('class' => 'form-control focus', 'placeholder'=>'xx-xxx-xxx-xxxx-xxxxxx', 'autofocus'=> 'autofocus', 'pattern'=> '\d{2}[\-]\d{3}[\-]\d{3}[\-]\d{4}[\-]\d{6}'))  }}
                     </td>
                     <td>
-                        {{ Form::text('nombre',$propietario, array('class' => 'form-control focus', 'placeholder'=>'Nombre')) }}
+                        {{ Form::text('nombre',$propietario, array('class' => 'form-control focus', 'placeholder'=>'Nombre', 'onkeypress' => 'return soloLetras(event)')) }}
                         {{ Form::number('paginado',10, array('id'=>'paginado', 'hidden')) }}
                     </td>
                     <td>
@@ -276,9 +395,10 @@ $('#boton').on('click', function()
 </div>
 <br>
 <div>
+<?php $fecha= date("Y-m-d"); ?>
 {{Form::text('mun',$mun=$key[2],array('hidden'))}}
 {{Form::label('Fecha Emision Carta Invitacion: ') }}
-{{Form::input('date', 'date1', $date->format('d/m/Y') , array('class' => 'btn btn-default btn-sm dropdown-toggle','disabled', 'required' ))}}
+{{Form::text('date', $fecha, ['id'=>'datepicker', 'class'=>'btn btn-default btn-sm dropdown-toggle','autofocus'=> 'autofocus', 'disabled'] )}}
 
 
             {{Form::label('Ejecutores:') }}

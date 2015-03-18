@@ -1,5 +1,7 @@
 <?php
 //--Controlador para generar carta invitacion
+setlocale(LC_MONETARY, 'es_MX');
+
 class CartaInvitacion_PdfController extends BaseController {
 
 public function get_pdf()
@@ -9,7 +11,7 @@ public function get_pdf()
     //print_r($clave);
         //limpiamos y ordenamos el array
         $token      = $clave['_token'];
-        $fecha      = $clave['date1'];
+        $fecha      = $clave['date'];
         $ejecutor   = $clave['ejecutores'];
         $boton      = $clave['boton'];
         $mun_actual = strtoupper($clave['mun']);
@@ -22,7 +24,7 @@ public function get_pdf()
         unset($clave['ejecutores']);
         unset($clave['boton']);
         unset($clave['_token']);
-        unset($clave['date1']);
+        unset($clave['date']);
             //BUCLE PARA GUARDAR LOS DATOS A LA BASE DE DATOS
        $ejecutor   =($claves2['captura']['ejecutores']=$ejecutor);
        $nombre_eje = personas::where('id_p', $ejecutor)->pluck('nombrec');

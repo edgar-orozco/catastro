@@ -119,7 +119,7 @@ class Ejecucion_SeguimientobusController extends \BaseController {
                 "¿", "[", "^", "`", "]",
                 "+", "}", "{", "¨", "´",
                 ">", "< ", ";", ",", ":",
-                ".", " "),
+                "."),
             '',
             $string
         );
@@ -185,7 +185,7 @@ class Ejecucion_SeguimientobusController extends \BaseController {
 
            // return $id.'//'.$fecha.'//'.$ejecutor.'//'.$notificacion.'//'.$nombre.'//'.$identificacion.'//'.$clave.'//'.$observaciones;
             $datos=requerimientos::find($id);
-            $datos->f_requerimiento = $fecha= Input::get('fechanotificacion');
+            $datos->f_notificacion = $fecha= Input::get('date');
             $datos->id_ejecutor = $ejecutor = Input::get('ejecutores');
             $datos->via_notificacion = $notificacion = Input::get('notificacion');
             $datos->nombre_persona_notificada = $nombre = Input::get('nombre');
@@ -250,7 +250,7 @@ class Ejecucion_SeguimientobusController extends \BaseController {
 
           //  return $id.'//'.$fecha.'//'.$motivo.'//'.$ejecutor;
            $datos=ejecucion::find($ide);
-            $datos->f_cancelacion = $fecha= Input::get('fechacancelacion');
+            $datos->f_cancelacion = $fecha= Input::get('date');
             $datos->motivo_cancelacion = $motivo = Input::get('motivo');
             $datos->id_ejecutor_cancelacion = $ejecutor = Input::get('ejecutores');
             $datos->save();
