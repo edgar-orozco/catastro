@@ -27,16 +27,16 @@ Bienvenido :: @parent
                         <span class="glyphicon glyphicon-search"></span>
                     </span>
                     {{ Form::text('b',null, array('class' => 'form-control focus', 'placeholder'=>'Clave...', 'autofocus'=> 'autofocus','ng-model' => 'b' )) }}
+                    </br>
                 </div><!-- /input-group -->
             </div>
         </div>
 
         {{ Form::submit('Buscar', array('class' => 'btn btn-primary')) }}
         {{ Form::close() }}
-
         @if(count($busqueda) == 0)
         <div class="panel-body">
-            <p>No hay predios dados de alta actualmente en el sistema.</p>
+            <div class="alert alert-danger">No hay predios dados de alta actualmente en el sistema.</div>
 
         </div>
         @endif
@@ -52,6 +52,7 @@ Bienvenido :: @parent
                     </tr>
                 </thead>
                 <tbody>
+                    <!--if($busqueda >2)-->
                     @foreach($busqueda as $row)
                     <tr>
                         <td>
@@ -74,6 +75,11 @@ Bienvenido :: @parent
                         </td>
                     </tr>
                     @endforeach
+                
+                <?php
+//header ("Location:complementarios_ComplementariosController@getPredio',$row->clave");
+?>
+                    <!--endif-->
                 </tbody>
             </table>
         </div>

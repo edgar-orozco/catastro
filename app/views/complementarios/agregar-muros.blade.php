@@ -8,6 +8,7 @@
 
     @endif
     {{ Form::open(array('url'=> '/cargar-complementos/agregar-muros',)) }}
+    {{ Form::hidden('id',$datos)}}
     <br/>
     <div style="margin-left: 20px">
         <div class="input-group">
