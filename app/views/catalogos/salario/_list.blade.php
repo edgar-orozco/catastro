@@ -39,12 +39,8 @@
                     </td>
                     <td nowrap>
                         {{ Form::open(array('method' => 'DELETE', 'route' => array('catalogos.salario.destroy', 'id'=>$row->id_salario_minimo))) }}
-                        <a href="{{ action('catalogos_salarioController@edit',['id'=>$row->id_salario_minimo])}}" class="btn btn-warning" title="Editar requisito">
-                            <span class="glyphicon glyphicon-pencil"></span>
-                        </a>
-                        <button class="btn btn-danger">
-                            <span class="glyphicon glyphicon-trash"></span>
-                        </button>
+                        <a href="{{ action('catalogos_salarioController@edit',['id'=>$row->id_salario_minimo])}}" class="btn btn-warning" title="Editar requisito"><span class="glyphicon glyphicon-pencil"></span></a>
+                        <a class="eliminar btn btn-danger" id="habilitar" href="/catalogos/salarioE/{{$row->id_salario_minimo}}" title="Deshabilitar"><i class="glyphicon glyphicon-trash"></i></a>
                         {{ Form::close() }}
                     </td>
                 </tr>
@@ -53,3 +49,16 @@
         </table>
     </div>
 </div>
+@section('javascript')
+<script type="text/javascript">
+    
+$("body").delegate('.eliminar', 'click', function(){
+	    	if(!confirm("¿Seguro que quiere eliminar el salario minimo?")){
+	    		return false;
+	    	}
+
+	});
+
+
+</script>
+@stop

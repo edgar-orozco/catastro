@@ -122,6 +122,14 @@ return true;
 return /\d/.test(String.fromCharCode(keynum));
 }
 
+//Alert para eliminar
+$("body").delegate('.eliminar', 'click', function(){
+	    	if(!confirm("¿Seguro que quiere eliminar la configuracion municpal?")){
+	    		return false;
+	    	}
+
+	});
+
 </script>
 @append
 

@@ -21,7 +21,7 @@
             @foreach($inpcs as $row)
             <tr>
                 <td>
-                    {{$row->nombre_mes}}
+                    {{$row->mes}}
                 </td>
                 <td>
                     {{$row->anio}}
@@ -31,14 +31,11 @@
                 </td>
                 <td nowrap>
                    {{ Form::open(array('method' => 'DELETE', 'route' => array('catalogos.inpc.destroy', 'id'=>$row->id_inpc))) }}
-                    <a href="{{ action('catalogos_inpcController@edit',['id'=>$row->id_inpc])}}" class="btn btn-warning" title="Editar requisito">
-                        <span class="glyphicon glyphicon-pencil"></span>
-                   </a>
+                    <a href="{{ action('catalogos_inpcController@edit',['id'=>$row->id_inpc])}}" class="btn btn-warning" title="Editar"><span class="glyphicon glyphicon-pencil"></span></a>
+                    <a class="eliminar btn btn-danger" id="habilitar" href="/catalogos/inpcE/{{$row->id_inpc}}" title="Eliminar"><i class="glyphicon glyphicon-trash"></i></a>
                     
                    
-                   <button class="btn btn-danger">
-                            <span class="glyphicon glyphicon-trash"></span>
-                   </button>
+                   
                    {{ Form::close() }}
                 </td>
             </tr>
@@ -47,3 +44,18 @@
     </table>
     </div>
 </div>
+
+
+@section('javascript')
+<script type="text/javascript">
+    
+$("body").delegate('.eliminar', 'click', function(){
+	    	if(!confirm("¿Seguro que quiere eliminar el INPC?")){
+	    		return false;
+	    	}
+
+	});
+
+
+</script>
+@stop

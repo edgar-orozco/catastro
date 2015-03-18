@@ -108,8 +108,16 @@ class catalogos_ejecutoresController extends \BaseController {
     {
         //Buscamos el requisito en cuestión y lo asignamos a la instancia
         $ejecutores = ejecutores::find($id);
-
-        $this->ejecutores = $ejecutores;
+        
+        //print_r($id);
+//        $ejecutores = $this->ejecutores->join('personas', 'personas.id_p', '=', 'ejecutores.id_p')
+//                ->join('personas as p', 'p.id_p', '=', 'ejecutores.id_p_otorga_nombramiento')
+//                ->select('ejecutores.id_ejecutor', 'personas.nombrec', 'ejecutores.cargo', 'ejecutores.titulo', 'ejecutores.f_nombramiento', 'p.nombrec as nombre')
+//                ->where('ejecutores.id_ejecutor','=',$id)
+//                ->get();
+        //echo $ejecutores;
+        //print_r($ejecutores);
+        //$this->ejecutores = $ejecutores;
                 
         $title = 'Administración de catálogo de ejecutores';
 
@@ -117,7 +125,7 @@ class catalogos_ejecutoresController extends \BaseController {
         $title_section = "Editar ejecutor: ";
 
         //Subtítulo de sección:
-        $subtitle_section = $this->ejecutores->ejecutores;
+        $subtitle_section = $this->ejecutores->titulo;
 
         // Todos los permisos creados actualmente
         $ejecutoress = $this->ejecutores->join('personas', 'personas.id_p', '=', 'ejecutores.id_p')
@@ -126,6 +134,7 @@ class catalogos_ejecutoresController extends \BaseController {
                 ->get();
         //ID del permiso
         $id = $ejecutores->id;
+        //echo $id;
         return View::make('catalogos.ejecutores.edit',
             compact('title', 'title_section', 'subtitle_section', 'ejecutores', 'ejecutoress', 'id'));
 

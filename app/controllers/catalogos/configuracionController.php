@@ -56,10 +56,6 @@ class catalogos_configuracionController extends \BaseController
         $configuracionMunicipal = $this-> configuracionMunicipal;
         
         $file =$configuracionMunicipal->file;
-        
-        $Municipio =  Municipio::all()->lists('nombre_municipio','gid');
-        // agregamos la opción 'Seleccione una Empresa' con índice 0 al array
-        array_unshift($Municipio, ' --- Seleccione una Municipio --- ');
 
         $title = 'Administración de catálogo de configuración de municipal';
 
@@ -68,6 +64,12 @@ class catalogos_configuracionController extends \BaseController
 
         //Subtítulo de sección:
         $subtitle_section = "";
+        
+        // Municipio list
+        $Municipio =  Municipio::all()->lists('nombre_municipio','gid');
+        
+        // agregamos la opción 'Seleccione una Empresa' con índice 0 al array
+        array_unshift($Municipio, ' --- Seleccione una Municipio --- ');
 
         // Todos los permisos creados actualmente
         $configuracionMunicipales = $this->configuracionMunicipal->join('municipios', 'configuracion_municipal.municipio','=','municipios.gid' )

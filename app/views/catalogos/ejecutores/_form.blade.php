@@ -6,7 +6,7 @@
 <div>
     {{Form::label('id_p','Nombre del ejecutor')}} 
     {{Form::text('nombrec',null, ['id' => 'nombrec', 'class'=>'form-control', 'autofocus'=> 'autofocus', 'ng-model' => 'ejecutores.nombrec'] )}}
-    {{Form::text('id_p',null, ['id' => 'response', 'hidden'] )}}
+    {{Form::text('id_p',null, ['id' => 'response'] )}}
     {{$errors->first('id_p', '<span class=text-danger>:message</span>')}}
 </div>
 
@@ -34,7 +34,7 @@
 <div class="form-group">
     {{Form::label('id_p_otorga_nombramiento','Quien lo nombra')}}
     {{Form::text('nombre', null, ['id'=>'nombre', 'class'=>'form-control', 'autofocus'=> 'autofocus','ng-model' => 'ejecutores.nombre'] )}}
-    {{Form::text('id_p_otorga_nombramiento',null, ['id' => 'response2', 'hidden'] )}}
+    {{Form::text('id_p_otorga_nombramiento',null, ['id' => 'response2'] )}}
     {{$errors->first('id_p_otorga_nombramiento', '<span class=text-danger>:message</span>')}}
     <p class="help-block"></p>
 </div>
@@ -87,5 +87,11 @@ $(function() {
 $(function () {
 $("#fecha").datepicker();
 });
+
+//Mayuscula    
+function aMayusculas(obj,id){
+    obj = obj.toUpperCase();
+    document.getElementById(id).value = obj;
+}
 </script>
 @append

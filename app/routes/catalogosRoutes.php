@@ -19,6 +19,8 @@ Route::group(array('before'=>'admin'),  function (){
     Route::resource('catalogos/inpc', 'catalogos_inpcController');
     Route::get('catalogos/inpc/{id?}.{format}',
       array('as'=>'destroyInpc','use'=>'catalogos_inpcController@destroy'));
+    Route::get('catalogos/inpcE/{id}',
+        array('as' => 'destroyInpc', 'uses' => 'catalogos_inpcController@destroy'));
     
 //Rutas para el catalogo Salario Minimo    
     Route::post('catalogos/salario.{format}',
@@ -28,6 +30,9 @@ Route::group(array('before'=>'admin'),  function (){
     Route::put('catalogos/salario/{id?}.{format}',
         array('as' => 'updateSalario', 'uses' => 'catalogos_salarioController@update'));
     Route::resource('catalogos/salario', 'catalogos_salarioController');
+    
+    Route::get('catalogos/salarioE/{id}',
+        array('as' => 'destroySalario', 'uses' => 'catalogos_salarioController@destroy'));
 
 //Rutas para el catalogo ejecutores    
     Route::post('catalogos/ejecutores.{format}',
@@ -46,13 +51,14 @@ Route::group(array('before'=>'admin'),  function (){
 //Rutas para el catalogo ejecucion
     Route::post('catalogos/configuracion{format}',
         array('as' => 'storeEjecucion', 'uses' => 'catalogos_configuracionController@store'));
-    Route::get('catalogos/configuraciond/{id}',
-        array('as' => 'destroyEjecucion', 'uses' => 'catalogos_configuracionController@destroy'));
     Route::get('catalogos/configuracion{format}',
         array('as' => 'indexEjecucion', 'uses' => 'catalogos_configuracionController@index'));
     Route::put('catalogos/configuracion/{ejecucion}.{format}',
         array('as' => 'updateEjecucion', 'uses' => 'catalogos_configuracionController@update'));
     Route::resource('catalogos/configuracion', 'catalogos_configuracionController');
     Route::post('catalogos/imagenes', 'catalogos_configuracionController@imagen');
+    
+    Route::get('catalogos/configuracionE/{id}',
+        array('as' => 'destroyEjecucion', 'uses' => 'catalogos_configuracionController@destroy'));
 });
 

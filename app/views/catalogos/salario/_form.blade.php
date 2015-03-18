@@ -84,5 +84,22 @@ $(function() {
 $(function () {
 $("#fecha").datepicker();
 });
+
+
+
+
+
+    
+$("body").delegate('.eliminar', 'click', function(){
+	    	if(!confirm("¿Seguro que quiere eliminar el salario minimo?")){
+	    		return false;
+	    	}
+
+	});
+
+
+
+
+
 </script>
 @append

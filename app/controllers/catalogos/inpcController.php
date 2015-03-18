@@ -41,7 +41,7 @@ class catalogos_inpcController extends \BaseController {
     {
         $inpc = $this->inpc;
         
-        $title = 'Adminstración de catalagos de inpc';
+        $title = 'Adminstraciï¿½n de catalagos de inpc';
         
         //Titulo de seccion:
         $title_section = "Crear nuevo INPC.";
@@ -49,42 +49,27 @@ class catalogos_inpcController extends \BaseController {
         //subtitulo de seccion:
         $subtitle_section = "";
         
+        //Meses list
+        $mes = array(' --- Seleccione un Mes --- ','enero','febrero','marzo','abril','mayo','junio','julio', 'agosto','septiembre','octubre','noviembre','diciembre');
+        
+      
+        
         //Todos los status creados actualmente
         $inpcs = $this->inpc->all();
         
         return View::make('catalogos.inpc.create', 
-            compact('title', 'title_section','subtitle_section', 'inpc', 'inpcs'));
+            compact('title', 'title_section','subtitle_section', 'inpc', 'inpcs', 'mes'));
     }
     
     
     public function store($format = 'html')
     {
-//        //Asignamos los valores del post a la instancia.
-//        $this->inpc = new inpc;
-//        //Si no es posible guardar la instancia mandamos errores
-//        if (!$this->inpc->save()) {
-//            if ($format == 'json') {
-//                return array(
-//                    'status' => 'error',
-//                    'msg' => 'Datos incorrectos',
-//                    'data' => array('idx' => Input::get('idx'), 'errors' => $this->inpc->errors())
-//                );
-//            }
-//            return Redirect::back()->withErrors($this->inpc->errors());
-//        }
-//        if ($format == 'json') {
-//            return array(
-//                'status' => 'success',
-//                'msg' => 'Requisito guardado',
-//                'data' => array('id' => $this->inpc>id, 'idx' => Input::get('idx'))
-//            );
-//        }
-//              //Obtengo todos los datos del formulario
+        //Obtengo todos los datos del formulario
         $inputs = Input::All();
         //reglas
         $reglas = array(
             //'mes' => 'required',
-            'nombre_mes'=>'required',
+            'mes'=>'required',
             'anio' => 'required',
             'inpc' => 'required',
             
@@ -104,7 +89,7 @@ class catalogos_inpcController extends \BaseController {
             
             $n->anio = $inputs["anio"];
             $n->inpc = $inputs["inpc"];
-            $n->nombre_mes = $inputs["nombre_mes"];
+            $n->mes = $inputs["mes"];
             $n->save();
              
         //Se han guardado los valores, expresamos al usuario nuestra felicidad al respecto.
@@ -132,12 +117,15 @@ class catalogos_inpcController extends \BaseController {
 
         // Todos los permisos creados actualmente
         $inpcs = $this->inpc->all();
-         
+        //Meses list
+        $mes = array(' --- Seleccione un Mes --- ','enero','febrero','marzo','abril','mayo','junio','julio', 'agosto','septiembre','octubre','noviembre','diciembre');
+        
+        
 
         //ID del permiso
         $id = $inpc->id;
         return View::make('catalogos.inpc.edit',
-            compact('title', 'title_section', 'subtitle_section', 'inpc', 'inpcs', 'id'));
+            compact('title', 'title_section', 'subtitle_section', 'inpc', 'inpcs', 'id', 'mes'));
 
     }
     
@@ -149,7 +137,7 @@ class catalogos_inpcController extends \BaseController {
         //$datos->mes = $inputs["mes"];
         $datos->anio = $inputs["anio"];
         $datos->inpc = $inputs["inpc"];
-        $datos->nombre_mes = $inputs["nombre_mes"];
+        $datos->mes = $inputs["mes"];
         $mostrar=$inputs["inpc"];
         $datos->save();
         //Se han actualizado los valores expresamos la felicidad que se logro Wiiiii....

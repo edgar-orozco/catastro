@@ -61,34 +61,28 @@
                         <div align="center">{{$row->descuento_actualizacion}}</div>
                     </td>
                     <td nowrap>
+                        {{ Form::open(array('method' => 'DELETE', 'route' => array('catalogos.configuracion.destroy', 'id'=>$row->id_configuracion))) }}
                         <a href="{{ action('catalogos_configuracionController@edit',['id'=>$row->id_configuracion])}}" class="btn btn-warning" title="Editar"><span class="glyphicon glyphicon-pencil"></span></a>
-                        <a class="btn btn-danger" data-toggle="modal"  data-target="#Eliminar"><span class="glyphicon glyphicon-trash"></span></a>
+                        <a class="eliminar btn btn-danger" id="habilitar" href="/catalogos/configuracionE/{{$row->id_configuracion}}" title="Deshabilitar"><i class="glyphicon glyphicon-trash"></i></a>
+                        {{ Form::close() }}
                     </td>
                 </tr>
-                
-<!-- Modal -->
-<div class="modal fade" id="Eliminar" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-
-            <div class="modal-body" id="modalBody" >
-                Desa eliminar la configuracion municipal "{{$row->nombre_municipio}}"
-            </div>
-            <div class="modal-footer" id="modal-footer">
-                <a class="btn btn-danger" href="/catalogos/configuraciond/{{$row->id_configuracion}}">
-                Eliminar
-                </a>
-                <a class="btn btn-warning" type="button"  data-dismiss="modal">Cancelar</a>
-            </div>
-        </div>
-    </div>
-</div>
-<!-- fin Modal -->
-
                 @endforeach
             </tbody>
         </table>
     </div>
 </div>
 
+@section('javascript')
+<script type="text/javascript">
+    
+$("body").delegate('.eliminar', 'click', function(){
+	    	if(!confirm("¿Seguro que quiere eliminar el salario minimo?")){
+	    		return false;
+	    	}
 
+	});
+
+
+</script>
+@stop

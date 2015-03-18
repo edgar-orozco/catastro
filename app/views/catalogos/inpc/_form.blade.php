@@ -4,22 +4,10 @@
 @stop
 
 <div class="form-group">
-    {{Form::label('nombre_mes','Mes')}}
-    {{Form::select('nombre_mes', array(
-        ''=>'Seleccione un mes',
-        'Enero'=>'Enero',
-        'Febrero'=>'Febrero',
-        'Marzo'=>'Marzo',
-        'Abril'=>'Abril',
-        'Mayo'=>'Mayo',
-        'Junio'=>'Junio',
-        'Julio'=>'Julio',
-        'Agosto'=>'Agosto',
-        'Septiembre'=>'Septiembre',
-        'Octubre'=>'Octubre',
-        'Novimbre'=>'Novimbre',
-        'Diciembre'=>'Diciembre',), 'nombre_mes', ['class'=>'form-control', 'autofocus'=> 'autofocus', 'required' => 'required', 'ng-model' => 'inpc.nombre_mes', 'tb-focus' => 'focusForm', 'ng-blur' => 'focusForm = false'])}}
-    {{$errors->first('nombre_mes', '<span class=text-danger>:message</span>')}}
+    {{Form::label('mes','Mes')}}
+    
+    {{Form::select('mes',$mes, null,['class'=>'form-control', 'autofocus'=> 'autofocus', 'required' => 'required', 'ng-model' => 'inpc.mes', 'tb-focus' => 'focusForm', 'ng-blur' => 'focusForm = false'])}}
+    
     <p class="help-block"></p>
 </div>
 
@@ -47,5 +35,7 @@ if ((keynum == 8) || (keynum == 46))
 return true;
 return /\d/.test(String.fromCharCode(keynum));
 }
+
+
 </script>
 @append

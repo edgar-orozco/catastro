@@ -32,10 +32,10 @@ class catalogos_salarioController extends \BaseController
     public function create() {
         $salario = $this->salario;
 
-        $title = 'Adminstración de catalagos de inpc';
+        $title = 'Adminstración de catalagos de salario minimo';
 
         //Titulo de seccion:
-        $title_section = "Crear nuevo INPC.";
+        $title_section = "Crear nuevo salario minimo.";
 
         //subtitulo de seccion:
         $subtitle_section = "";
@@ -43,7 +43,8 @@ class catalogos_salarioController extends \BaseController
         //Todos los status creados actualmente
         $salarios = $this->salario->all();
 
-        return View::make('catalogos.salario.create', compact('title', 'title_section', 'subtitle_section', 'salario', 'salarios'));
+        return View::make('catalogos.salario.create', 
+            compact('title', 'title_section', 'subtitle_section', 'salario', 'salarios'));
     }
     
     public function store($format = 'html') 
@@ -92,10 +93,10 @@ class catalogos_salarioController extends \BaseController
 
         $this->salario = $salario;
 
-        $title = 'Administración de catálogo de requisitos';
+        $title = 'Administración de catálogo de salario minimo';
 
         //Título de sección:
-        $title_section = "Editar requisito: ";
+        $title_section = "Editar salario minimo: ";
 
         //Subtítulo de sección:
         $subtitle_section = $this->salario->salario;

@@ -19,7 +19,7 @@
 
         <div class="form-actions form-group">
             {{ Form::submit('Modificar Ejecutores', array('class' => 'btn btn-primary')) }}
-            {{ Form::reset('Cancelar', ['class' => 'btn btn-warning']) }}
+            <a href="{{URL::route('catalogos.ejecutores.index')}}" class="btn btn-warning" role="button"> Cancelar</a>
         </div>
         {{Form::close()}}
 
