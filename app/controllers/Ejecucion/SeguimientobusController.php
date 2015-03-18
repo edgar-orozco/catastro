@@ -240,8 +240,11 @@ class Ejecucion_SeguimientobusController extends \BaseController {
          return  View::make('ejecucion.cancelar',compact('title','title_section','subtitle_section','idrequerimiento','catalogo'));
 
     }
+    //script para cancelacion de proceso
     public function guardarcancelacion()
     {
+            $usuario = Auth::user()->id;
+            $fecha_server=date('Y-m-d');
             $id = Input::get('id');
             $ide = requerimientos::where('id_requerimiento', $id)->pluck('id_ejecucion_fiscal');
           //  $fecha= Input::get('fechacancelacion');
@@ -249,11 +252,21 @@ class Ejecucion_SeguimientobusController extends \BaseController {
           //   $ejecutor = Input::get('ejecutores');
 
           //  return $id.'//'.$fecha.'//'.$motivo.'//'.$ejecutor;
-           $datos=ejecucion::find($ide);
+            $datos=ejecucion::find($ide);
+            $datos->cve_status='XC';
             $datos->f_cancelacion = $fecha= Input::get('date');
             $datos->motivo_cancelacion = $motivo = Input::get('motivo');
             $datos->id_ejecutor_cancelacion = $ejecutor = Input::get('ejecutores');
             $datos->save();
+
+            $cancelacion= new requerimientos;
+            $cancelacion->id_ejecucion_fiscal=$ide;
+            $cancelacion->cve_status='XC';
+            $cancelacion->f_requerimiento=$fecha_server;
+            $cancelacion->usuario=$usuario;
+            $cancelacion->f_alta=$fecha_server;
+            $cancelacion->save();
+
         Session::flash('mensaje', 'El se cancelo correctamente');
         return Redirect::back();
     }

@@ -20,7 +20,6 @@ Route::group(array('before' => 'admin'), function () {
 
     Route::resource('ejecucion/cargaEjecucion', 'ejecucion_cargaEjecucion_CargaEjecucionController');
 
- 
-  
+
 
 });

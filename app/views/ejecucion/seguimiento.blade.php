@@ -56,7 +56,7 @@ Bienvenido :: @parent
                     'class'  => 'busquedas',
                     'role'   => 'form',
                     'method' =>'SeguimientobusController@getIndex',
-                    'method' => 'GET',
+                    'method' => 'POST',
                     'url'    =>'/busquedas',
                     'name'   =>'busqueda'
                     )) }}
@@ -181,25 +181,25 @@ Bienvenido :: @parent
                 <?php if(empty($fechacancelacion))  { ?>
                 <!-- agrgar datos requerimiento-->
                 @if($fechainicio=='' || $fechavencimiento=='')
-                <a data-toggle ="modal"  data-target="#Nuevo" href="/ejecucion/modal/{{$idrequerimiento}}" ><span class="glyphicon glyphicon-pencil"></span></a>
+                <a data-toggle ="modal"  data-target="#Nuevo" href="/ejecucion/modal/{{$idrequerimiento}}" title="Agregar Requerimiento" ><span class="glyphicon glyphicon-pencil"></span></a>
                 @endif
             </td>
             <td align="center">
                 <!-- link reimpresion ultimo estado-->
-                <a   href ="#"  ><span class="glyphicon glyphicon-print"></span></a>
+                <a   href ="#"  ><span class="glyphicon glyphicon-print" title="Reimprimir Documento"></span></a>
             </td>
             <td>
                 <?php $fecha= date("d/m/Y");
                     if($fechavencimiento>=$fecha)
                     {
-                        echo '<span class="glyphicon glyphicon-ok"></span>';
-                   }elseif ($fechavencimiento<=$fecha) 
+                       echo '<a   href ="#" ><span class="glyphicon glyphicon-forward" title="Continuar Proceso"></span></a>';
+                   }elseif ($fechavencimiento<=$fecha)
                    {
-                        echo '<a   href ="#" ><span class="glyphicon glyphicon-forward"></span></a>';
+                         echo '<span class="glyphicon glyphicon-ok" title="Proceso VIgente"></span>';
                    }?>
             </td>
             <td>
-                <a data-toggle ="modal"  data-target="#cancelar" href="/ejecucion/cancelar/{{$idrequerimiento}}" ><span class="glyphicon glyphicon-remove"></span></a>
+                <a data-toggle ="modal"  data-target="#cancelar" href="/ejecucion/cancelar/{{$idrequerimiento}}"><span class="glyphicon glyphicon-remove"></span></a>
 
             </td> <?php } else {?>
              <td>

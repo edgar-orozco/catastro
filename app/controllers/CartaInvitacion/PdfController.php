@@ -73,7 +73,7 @@ foreach ($vale as $clave ) {
 
    //ENVIO A LA VISTA DEL PDF CARTA INVITACION
  $vista = View::make('CartaInvitacion.carta', compact('data', 'fecha', 'nombre_eje', 'mun_actual','vale'));
-   $pdf = PDF::load($vista)->show();
+   $pdf = PDF::load($vista)->show("CartaInvitacion");
    $response = Response::make($pdf, 200);
    $response->header('Content-Type', 'application/pdf');
    return $response;

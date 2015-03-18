@@ -231,7 +231,7 @@ $('#boton').on('click', function()
         'class'  => 'busqueda',
         'role'   => 'form',
         'method' => 'BuscarController@index',
-        'method' => 'GET',
+        'method' => 'POST',
         'url'    =>'/ejecucion',
         'name'   =>'busqueda'
      )) }}
