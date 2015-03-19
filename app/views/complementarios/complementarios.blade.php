@@ -37,53 +37,66 @@ Bienvenido :: @parent
         @if(count($busqueda) == 0)
         <div class="panel-body">
             <div class="alert alert-danger">No hay predios dados de alta actualmente en el sistema.</div>
-
         </div>
         @endif
         <div class="list-group">
-            <table class="table">
-                <thead>
-                    <tr>
-                        <td>Predios</td>
-                        <td>Clave</td>
-                        <td>Geom</td>
-                        <td>Superficie Construccion </td>
-                        <td>Accion</td>
-                    </tr>
-                </thead>
-                <tbody>
-                    <!--if($busqueda >2)-->
-                    @foreach($busqueda as $row)
-                    <tr>
-                        <td>
-                            <?php echo $row->gid; ?>
-                        </td>
-                        <td>
-                            <?php echo $row->clave; ?>
-                        </td>
-                        <td>
-                            <?php echo $row->superficie_terreno; ?>
-                        </td>
+            <?php
+            if ($busqueda > 1) {
+                ?>
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <td>Predios</td>
+                            <td>Clave</td>
+                            <td>Geom</td>
+                            <td>Superficie Construccion </td>
+                            <td>Accion</td>
+                        </tr>
+                    </thead>
+                    <tbody>
 
-                        <td>
-                            <?php echo $row->superficie_construccion; ?>
-                        </td>
-                        <td nowrap>
-                            <a href="{{ URL::action('complementarios_ComplementariosController@getPredio',$row->clave) }}" class="btn btn-warning nuevo" title="Editar Predio">
-                                <span class="glyphicon glyphicon-pencil"></span>
-                            </a>
-                        </td>
-                    </tr>
-                    @endforeach
-                
+                        @foreach ($busqueda as $row)
+                        <tr>
+                            <td>
+                                <?php echo $row->gid; ?>
+                            </td>
+                            <td>
+                                <?php echo $row->clave; ?>
+                            </td>
+                            <td>
+                                <?php echo $row->superficie_terreno; ?>
+                            </td>
+
+                            <td>
+                                <?php echo $row->superficie_construccion; ?>
+                            </td>
+                            <td nowrap>
+                                <a href="{{URL::action('complementarios_ComplementariosController@getPredio',$row->clave) }}" class="btn btn-warning nuevo" title="Editar Predio">
+                                    <span class="glyphicon glyphicon-pencil"></span>
+                                </a>
+                            </td>
+                        </tr>
+
+                    </tbody>
+                </table>
+                @endforeach
+                <?php echo $busqueda->links(); ?>
                 <?php
-//header ("Location:complementarios_ComplementariosController@getPredio',$row->clave");
-?>
-                    <!--endif-->
-                </tbody>
-            </table>
+            } elseif (Input::get('b')) {
+                ?>
+                @section('javascript')
+                <script>
+                    @foreach ($busqueda as $row)
+                            $(document).ready(function () {
+                        url = "{{URL::action('complementarios_ComplementariosController@getPredio',$row->clave) }}";
+                        $(location).attr('href', url);
+                    });
+                            @endforeach
+                </script>
+                @stop
+            <?php } ?>
         </div>
-        <?php echo $busqueda->links(); ?>
+
     </div>
 </div>
 @stop

@@ -10,7 +10,8 @@
 
         var navListItems = $('div.setup-panel div a'),
                 allWells = $('.setup-content'),
-                allSiguienteBtn = $('.nextBtn');
+                allSiguienteBtn = $('.next');
+
 
         allWells.hide();
 
@@ -32,6 +33,7 @@
             var curStep = $(this).closest(".setup-content"),
                     curStepBtn = curStep.attr("id"),
                     nextStepWizard = $('div.setup-panel div a[href="#' + curStepBtn + '"]').parent().next().children("a"),
+                    nextStepWizard = $('div.setup-panel div a[href="#' + curStepBtn + '"]').parent().next().children("a"),
                     curInputs = curStep.find("input[type='text'],input[type='url']"),
                     isValid = true;
 
@@ -48,6 +50,13 @@
         });
 
         $('div.setup-panel div a.btn-primary').trigger('click');
+
+    });
+</script>
+<script>
+    $(document).ready(function () {
+        $("form").submit(function () {
+        });
     });
 </script>
 @stop
@@ -153,7 +162,7 @@
                     <p>Predios</p>
                 </div>
                 <div class="stepwizard-step">
-                    <a href="#step-2" type="button" class="btn btn-primary btn-circle">2</a>
+                    <a href="#step-2" type="button" class="btn btn-default btn-circle" disabled="disabled">2</a>
                     <p>Construcciones</p>
                 </div>
                 <div class="stepwizard-step">
@@ -178,12 +187,15 @@
                 </div>
             </div>
         </div>
-        
         <div class="row setup-content" id="step-1">
             <div class="col-xs-12">
                 <div class="col-md-12">
-                    <h3>Predios</h3>                       
-                    <button class="btn btn-primary nextBtn btn-lg pull-right" type="button" >Siguiente</button>
+                    <h3>Predios</h3> 
+                    <button type="button" class="btn btn-primary next">
+                        Next
+                        <i class="glyphicon glyphicon-chevron-right"></i>
+                    </button>
+
                 </div>
             </div>
         </div>
@@ -192,7 +204,10 @@
                 <div class="col-md-12">
                     <h3>Construcciones</h3>
                     @include('complementarios.complementos.construcciones')
-                    <button class="btn btn-primary nextBtn btn-lg pull-right" type="button" >Siguiente</button>
+                    <button type="button" class="btn btn-primary next">
+                        Next
+                        <i class="glyphicon glyphicon-chevron-right"></i>
+                    </button>
                 </div>
             </div>
         </div>
@@ -201,7 +216,11 @@
                 <div class="col-md-12">
                     <h3>Instalaciones Especiales</h3>
                     @include('complementarios.complementos.instalacion')
-                    <button class="btn btn-primary nextBtn btn-lg pull-right" type="button" >Siguiente</button>
+
+                    <button type="button" class="btn btn-primary next">
+                        Next
+                        <i class="glyphicon glyphicon-chevron-right"></i>
+                    </button>
                 </div>
             </div>
         </div>
@@ -210,7 +229,11 @@
                 <div class="col-md-12">
                     <h3>Condominios</h3>
                     @include('complementarios.complementos.condominio')
-                    <button class="btn btn-primary nextBtn btn-lg pull-right" type="button" >Siguiente</button>
+
+                    <button type="button" class="btn btn-primary next">
+                        Next
+                        <i class="glyphicon glyphicon-chevron-right"></i>
+                    </button>
                 </div>
             </div>
         </div>
@@ -219,7 +242,10 @@
                 <div class="col-md-12">
                     <h3>Servicios</h3>
                     @include('complementarios.complementos.servicio')
-                    <button class="btn btn-primary nextBtn btn-lg pull-right" type="button" >Siguiente</button>
+                    <button type="button" class="btn btn-primary next">
+                        Next
+                        <i class="glyphicon glyphicon-chevron-right"></i>
+                    </button>
                 </div>
             </div>
         </div>
@@ -228,7 +254,10 @@
                 <div class="col-md-12">
                     <h3>Giros</h3>
                     @include('complementarios.complementos.giros')
-                    <button class="btn btn-primary nextBtn btn-lg pull-right" type="button" >Siguiente</button>
+                    <button type="button" class="btn btn-primary next">
+                        Next
+                        <i class="glyphicon glyphicon-chevron-right"></i>
+                    </button>
                 </div>
             </div>
         </div>
@@ -236,10 +265,11 @@
             <div class="col-xs-12">
                 <div class="col-md-12">
                     <h3> Final</h3>
-                    <button class="btn btn-success btn-lg pull-right" type="submit">Terminaste!</button>
+                    <form action="">
+                        <button class="btn btn-success btn-lg pull-right" id="fin" type="submit">Terminaste!</button>
+                    </form>
                 </div>
             </div>
         </div>
-     
     </div>
     @stop
