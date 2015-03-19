@@ -50,15 +50,23 @@ class catalogos_inpcController extends \BaseController {
         $subtitle_section = "";
         
         //Meses list
-        $mes = array(' --- Seleccione un Mes --- ','enero','febrero','marzo','abril','mayo','junio','julio', 'agosto','septiembre','octubre','noviembre','diciembre');
+        $mes = array(' --- Seleccione un Mes --- ','Enero','Febrero','Marzo','Abril','Mayo','Junio','Julio', 'Agosto','Septiembre','Octubre','Noviembre','Diciembre');
         
-      
+        
+        //Select del los años 
+        for ($i = date('o'); $i >= 1910; $i--) {
+            if ($i == date('o'))
+                $anio[$i] = $i;
+            else
+                $anio[$i] = $i;;
+        }
+        array_unshift($anio, ' --- Seleccione un Año --- ');
         
         //Todos los status creados actualmente
         $inpcs = $this->inpc->all();
         
         return View::make('catalogos.inpc.create', 
-            compact('title', 'title_section','subtitle_section', 'inpc', 'inpcs', 'mes'));
+            compact('title', 'title_section','subtitle_section', 'inpc', 'inpcs', 'mes', 'anio'));
     }
     
     
@@ -118,14 +126,20 @@ class catalogos_inpcController extends \BaseController {
         // Todos los permisos creados actualmente
         $inpcs = $this->inpc->all();
         //Meses list
-        $mes = array(' --- Seleccione un Mes --- ','enero','febrero','marzo','abril','mayo','junio','julio', 'agosto','septiembre','octubre','noviembre','diciembre');
+        $mes = array(' --- Seleccione un Mes --- ','Enero','Febrero','Marzo','Abril','Mayo','Junio','Julio', 'Agosto','Septiembre','Octubre','Noviembre','Diciembre');
         
-        
+        //Select del los años 
+        for ($i = date('o'); $i >= 1910; $i--) {
+            if ($i == date('o'))
+                $anio[$i] = $i;
+            else
+                $anio[$i] = $i;;
+        }
 
         //ID del permiso
         $id = $inpc->id;
         return View::make('catalogos.inpc.edit',
-            compact('title', 'title_section', 'subtitle_section', 'inpc', 'inpcs', 'id', 'mes'));
+            compact('title', 'title_section', 'subtitle_section', 'inpc', 'inpcs', 'id', 'mes','anio'));
 
     }
     

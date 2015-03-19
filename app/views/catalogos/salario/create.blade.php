@@ -7,7 +7,7 @@
 
         <div class="col-md-4">
         
-        {{ Form::open(array('url' => 'catalogos/salario', 'method' => 'POST')) }}
+        {{ Form::open(array('id'=>'form','url' => 'catalogos/salario', 'method' => 'POST')) }}
 
             @include('catalogos.salario._form')
 

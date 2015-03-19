@@ -15,7 +15,7 @@
         <!--Fin Boton Modal -->
         {{ Form::model($ejecutores, ['route' => array('catalogos.ejecutores.update', $ejecutores->id_ejecutor ), 'method'=>'put' ]) }}
 
-        @include('catalogos.ejecutores._form', compact('ejecutores'))
+        @include('catalogos.ejecutores._form')
 
         <div class="form-actions form-group">
             {{ Form::submit('Modificar Ejecutores', array('class' => 'btn btn-primary')) }}

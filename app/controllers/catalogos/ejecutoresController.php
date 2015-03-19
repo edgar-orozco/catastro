@@ -109,14 +109,21 @@ class catalogos_ejecutoresController extends \BaseController {
         //Buscamos el requisito en cuestión y lo asignamos a la instancia
         $ejecutores = ejecutores::find($id);
         
-        //print_r($id);
-//        $ejecutores = $this->ejecutores->join('personas', 'personas.id_p', '=', 'ejecutores.id_p')
-//                ->join('personas as p', 'p.id_p', '=', 'ejecutores.id_p_otorga_nombramiento')
-//                ->select('ejecutores.id_ejecutor', 'personas.nombrec', 'ejecutores.cargo', 'ejecutores.titulo', 'ejecutores.f_nombramiento', 'p.nombrec as nombre')
+//        print_r($id);
+//        $nombrec = ejecutores::join('personas','ejecutores.id_p' , '=', 'personas.id_p')
+//                ->select( 'personas.nombrec')
 //                ->where('ejecutores.id_ejecutor','=',$id)
 //                ->get();
-        //echo $ejecutores;
-        //print_r($ejecutores);
+        $idpe=ejecutores::where('id_ejecutor',$id)->pluck('id_p');
+        $nombrec=personas::where('id_p',$idpe)->pluck('nombrec');
+        
+        $idpo=ejecutores::where('id_ejecutor',$id)->pluck('id_p_otorga_nombramiento');
+        
+        $nombre=personas::where('id_p',$idpo)->pluck('nombrec');
+        //('id_p','=','43468')->select('nombres')->get();
+        
+        //var_dump($nombre);
+        //var_dump($ejecutores);
         //$this->ejecutores = $ejecutores;
                 
         $title = 'Administración de catálogo de ejecutores';
@@ -133,10 +140,11 @@ class catalogos_ejecutoresController extends \BaseController {
                 ->select('id_ejecutor', 'personas.nombrec', 'cargo', 'titulo', 'f_nombramiento', 'p.nombrec as nombre')
                 ->get();
         //ID del permiso
-        $id = $ejecutores->id;
+        $id = $ejecutores;
         //echo $id;
+
         return View::make('catalogos.ejecutores.edit',
-            compact('title', 'title_section', 'subtitle_section', 'ejecutores', 'ejecutoress', 'id'));
+            compact('title', 'title_section', 'subtitle_section', 'ejecutores', 'ejecutoress', 'id','nombrec','nombre'));
 
     }
     /*

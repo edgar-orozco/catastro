@@ -18,25 +18,8 @@
                     Seguimiento Ejecución
                 </a>
             </li>
-
-			<li class="divider"></li>
-
-            <li class="@if(Request::is('catalogo')) active @endif">
-                <a href="{{URL::to('catalogos/ejecutores')}}">
-                <i class="glyphicon glyphicon-user"></i>&nbsp;
-                    Personal Ejecución
-                </a>
-            </li>
-
-            <li class="@if(Request::is('Ejecucion/buscar')) active @endif">
-                <a href="{{URL::to('Ejecucion/buscar')}}">
-                <i class="glyphicon glyphicon-tags"></i>&nbsp;
-                    Gasto Ejecución Municipal
-                </a>
-            </li>
-
-
-            <li class="@if(Request::is('ejecucion/cargaEjecucion')) active @endif">
+            
+             <li class="@if(Request::is('ejecucion/cargaEjecucion')) active @endif">
                 <a href="{{URL::to('ejecucion/cargaEjecucion')}}">
                 <i class="glyphicon glyphicon-open"></i>&nbsp;
                     Carga Gasto Ejecución
@@ -45,6 +28,13 @@
 
             <li class="divider"></li>
 
+             <li class="@if(Request::is('catalogo')) active @endif">
+                <a href="{{URL::to('catalogos/ejecutores')}}">
+                <i class="glyphicon glyphicon-user"></i>&nbsp;
+                    Personal Ejecución
+                </a>
+            </li>
+            
                 <li class="@if(Request::is('catalago')) active @endif">
                 <a href="{{URL::to('catalogos/salario')}}">
                 <i class="glyphicon glyphicon-list-alt"></i>&nbsp;

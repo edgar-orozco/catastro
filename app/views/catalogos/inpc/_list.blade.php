@@ -33,9 +33,6 @@
                    {{ Form::open(array('method' => 'DELETE', 'route' => array('catalogos.inpc.destroy', 'id'=>$row->id_inpc))) }}
                     <a href="{{ action('catalogos_inpcController@edit',['id'=>$row->id_inpc])}}" class="btn btn-warning" title="Editar"><span class="glyphicon glyphicon-pencil"></span></a>
                     <a class="eliminar btn btn-danger" id="habilitar" href="/catalogos/inpcE/{{$row->id_inpc}}" title="Eliminar"><i class="glyphicon glyphicon-trash"></i></a>
-                    
-                   
-                   
                    {{ Form::close() }}
                 </td>
             </tr>

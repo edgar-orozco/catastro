@@ -40,11 +40,20 @@ class catalogos_salarioController extends \BaseController
         //subtitulo de seccion:
         $subtitle_section = "";
 
+        //Select del los años 
+        for ($i = date('o'); $i >= 1910; $i--) {
+            if ($i == date('o'))
+                $anio[$i] = $i;
+            else
+                $anio[$i] = $i;;
+        }
+        array_unshift($anio, ' --- Seleccione un Año --- ');
+        
         //Todos los status creados actualmente
         $salarios = $this->salario->all();
 
         return View::make('catalogos.salario.create', 
-            compact('title', 'title_section', 'subtitle_section', 'salario', 'salarios'));
+            compact('title', 'title_section', 'subtitle_section', 'salario', 'salarios', 'anio'));
     }
     
     public function store($format = 'html') 
@@ -98,6 +107,14 @@ class catalogos_salarioController extends \BaseController
         //Título de sección:
         $title_section = "Editar salario minimo: ";
 
+        //Select del los años 
+        for ($i = date('o'); $i >= 1910; $i--) {
+            if ($i == date('o'))
+                $anio[$i] = $i;
+            else
+                $anio[$i] = $i;;
+        }
+        
         //Subtítulo de sección:
         $subtitle_section = $this->salario->salario;
 
@@ -108,7 +125,7 @@ class catalogos_salarioController extends \BaseController
         //ID del permiso
         $id = $salario->id;
         return View::make('catalogos.salario.edit', 
-                compact('title', 'title_section', 'subtitle_section', 'salario', 'salarios', 'id'));
+                compact('title', 'title_section', 'subtitle_section', 'salario', 'salarios', 'id','anio'));
     }
 
     public function update($id, $format = 'html') 
