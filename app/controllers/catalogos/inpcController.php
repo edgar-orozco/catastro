@@ -60,7 +60,7 @@ class catalogos_inpcController extends \BaseController {
             else
                 $anio[$i] = $i;;
         }
-        array_unshift($anio, ' --- Seleccione un Año --- ');
+        
         
         //Todos los status creados actualmente
         $inpcs = $this->inpc->all();
@@ -135,6 +135,7 @@ class catalogos_inpcController extends \BaseController {
             else
                 $anio[$i] = $i;;
         }
+        
 
         //ID del permiso
         $id = $inpc->id;

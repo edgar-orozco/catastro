@@ -47,7 +47,7 @@ class catalogos_salarioController extends \BaseController
             else
                 $anio[$i] = $i;;
         }
-        array_unshift($anio, ' --- Seleccione un Año --- ');
+        
         
         //Todos los status creados actualmente
         $salarios = $this->salario->all();
