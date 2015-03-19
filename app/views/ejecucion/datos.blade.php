@@ -39,8 +39,7 @@ $("#fecha").datepicker();
 <div style="margin-left: 20px">
     <div style="margin-right: 20px">
         <div class="form-group">
-            {{Form::label('id','Id requerimiento')}}
-            {{Form::text('id',$idrequerimiento,['class'=>'form-control','autofocus'=> 'autofocus', 'required' => 'required'] )}}
+            {{Form::text('id',$idrequerimiento,['id' => 'id', 'hidden'] )}}
             {{$errors->first('id', '<span class=text-danger>:message</span>')}}
             <p class="help-block"></p>
         </div>

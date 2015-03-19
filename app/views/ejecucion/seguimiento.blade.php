@@ -186,7 +186,7 @@ Bienvenido :: @parent
             </td>
             <td align="center">
                 <!-- link reimpresion ultimo estado-->
-                <a   href ="#"  ><span class="glyphicon glyphicon-print" title="Reimprimir Documento"></span></a>
+                <a   href ="/reimprimircarta/{{$clave}}"  ><span class="glyphicon glyphicon-print" title="Reimprimir Documento"></span></a>
             </td>
             <td>
                 <?php $fecha= date("d/m/Y");
@@ -199,7 +199,7 @@ Bienvenido :: @parent
                    }?>
             </td>
             <td>
-                <a data-toggle ="modal"  data-target="#cancelar" href="/ejecucion/cancelar/{{$idrequerimiento}}"><span class="glyphicon glyphicon-remove"></span></a>
+                <a data-toggle ="modal"  data-target="#cancelar" href="/ejecucion/cancelar/{{$idrequerimiento}}" title="Cancelar Requerimiento"><span class="glyphicon glyphicon-remove"></span></a>
 
             </td> <?php } else {?>
              <td>

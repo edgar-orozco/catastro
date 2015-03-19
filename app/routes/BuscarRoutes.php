@@ -14,6 +14,8 @@ Route::get('/vista', function()
 });
 //ruta para pdf
 Route::post("/cartainv/{clave?}/{date1?}", "CartaInvitacion_PdfController@get_pdf");
+Route::get("/reimprimircarta/{clave?}/{date1?}", "CartaInvitacion_PdfController@reimpresion");
+
 
 Route::controller("/consulta", "Consulta_ConsultaController");
 //rutas modal agregar notificacion

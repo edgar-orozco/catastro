@@ -78,4 +78,10 @@ foreach ($vale as $clave ) {
    $response->header('Content-Type', 'application/pdf');
    return $response;
     }
+
+
+    public function reimpresion($clave = null)
+    {
+       echo 'clave'.$clave;
+    }
 }
