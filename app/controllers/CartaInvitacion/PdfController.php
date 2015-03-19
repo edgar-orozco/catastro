@@ -8,7 +8,7 @@ public function get_pdf()
     {
       //creamos array de todas las claves enviadas para generar carta invitacióm
        $clave = Input::all();
-    //print_r($clave);
+   // print_r($clave);
         //limpiamos y ordenamos el array
         $token      = $clave['_token'];
         $fecha      = $clave['date'];
@@ -17,7 +17,9 @@ public function get_pdf()
         $mun_actual = strtoupper($clave['mun']);
         $pagi       =$clave['pagi'];
         $id_mun     =$clave['id_municipio'];
+        $ck     =$clave['checktodos'];
 
+        unset($clave['checktodos']);
         unset($clave['id_municipio']);
         unset($clave['pagi']);
         unset($clave['mun']);
@@ -34,10 +36,11 @@ public function get_pdf()
        foreach($clave as $cla => $value)
         {
 
-          $cv       =($claves2['captura']['clave']=$value);
+           $cv      =($claves2['captura']['clave']=$value);
+           
           $cv       = str_replace('(', '',$cv);
           $vale[]   = explode(',',$cv);
-          $fecha    =($claves2['captura']['fecha']=$fecha);
+         $fecha    =($claves2['captura']['fecha']=$fecha);
 
 foreach ($vale as $clave ) {
             $claves=$clave[0];
