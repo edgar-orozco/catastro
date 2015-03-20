@@ -7,7 +7,7 @@
 
 <div class="form-group">
     {{Form::label('zona','Zona')}}
-    {{Form::text('zona', null, ['class'=>'form-control', 'autofocus'=> 'autofocus', 'required' => 'required', 'ng-model' => 'salario.zona', 'tb-focus' => 'focusForm', 'ng-blur' => 'focusForm = false', 'onblur'=>'aMayusculas(this.value,this.id)'] )}}
+    {{Form::text('zona', null, ['class'=>'form-control', 'autofocus'=> 'autofocus', 'required' => 'required', 'ng-model' => 'salario.zona', 'tb-focus' => 'focusForm', 'ng-blur' => 'focusForm = false', 'onblur'=>'aMayusculas(this.value,this.id)','maxlength'=>'1'] )}}
     {{$errors->first('zona', '<span class=text-danger>:message</span>')}}
     <p class="help-block">Zona geografica en la que aplica el salario minimo.</p>
 </div>
@@ -38,7 +38,15 @@
     {{$errors->first('fecha_termino_periodo', '<span class=text-danger>:message</span>')}}
     <p class="help-block"></p>
 </div>
+@section('styles')
 
+	.my-error-class
+	{
+		color:red;
+		font: bold 85% monospace;
+	}
+
+@stop
 @section('javascript')
 {{ HTML::script('js/jquery/jquery.validate.min.js') }}
 <script>
@@ -106,7 +114,7 @@ $.validator.addMethod(
     },
     "Please enter a date in the format dd/mm/yyyy"
 );
-
+//Regelas 
 jQuery.extend(jQuery.validator.messages, 
   {
    required: " *Este campo es obligatorio.",

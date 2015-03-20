@@ -17,9 +17,9 @@ public function get_pdf()
         $mun_actual = strtoupper($clave['mun']);
         $pagi       =$clave['pagi'];
         $id_mun     =$clave['id_municipio'];
-        $ck     =$clave['checktodos'];
+        //$ck     =$clave['checktodos'];
 
-        unset($clave['checktodos']);
+       //unset($clave['checktodos']);
         unset($clave['id_municipio']);
         unset($clave['pagi']);
         unset($clave['mun']);
