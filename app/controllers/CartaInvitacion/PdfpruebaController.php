@@ -10,22 +10,30 @@ class CartaInvitacion_PdfpruebaController extends BaseController {
 	public function imprimir($clave = null)
 	{
 		$resultado = DB::select("select sp_get_predios('$clave','','','','','','','','','')");
+		//print_r($resultado);
 		foreach ($resultado as $key)
             {
                 $items = explode(',', $key->sp_get_predios);
             }
            // print_r($items);
-						echo	'clave'.$clave  = str_replace('(', '',$items[0]);
-							echo	'id municipio'.$id_mun =substr($clave, 3, 3);
-							echo	'gid municipio'.$gid    =Municipio::where('municipio',$id_mun)->pluck('gid');
-							echo	'id ejecucion'.$id_ejecucion=ejecucion::where('clave',$clave)->pluck('id_ejecucion_fiscal');
-							echo	'id ejecucion'.$id_ejecucion=ejecucion::where('clave',$clave)->pluck('id_ejecucion_fiscal');
-									/*$vista    = View::make('CartaInvitacion.carta', compact('git','items'));
-									$pdf      = PDF::load($vista)->show("CartaInvitacion");
+						$clave  = str_replace('(', '',$items[0]);
+						$nombre = str_replace('"', '',$items[1]);
+						$municipio = str_replace('"', '',$items[2]);
+						$id_mun =substr($clave, 3, 3);
+
+						$gid    =Municipio::where('municipio',$id_mun)->pluck('gid');
+						$configutacion = configuracionMunicipal::where('municipio',$gid)->take(1)->get();
+					//print_r($configutacion);
+
+						$id_ejecucion=ejecucion::where('clave',$clave)->pluck('id_ejecucion_fiscal');
+						$fecha=requerimientos::where('id_ejecucion_fiscal',$id_ejecucion)->pluck('f_requerimiento');
+
+
+									$vista    = View::make('CartaInvitacion.carta2', compact('git','items','fecha', 'clave','nombre','municipio','configutacion'));
+									$pdf      = PDF::load($vista)->show("Copia-CartaInvitacion");
 									$response = Response::make($pdf, 200);
 									$response->header('Content-Type', 'application/pdf');
-									return $response;*/
-
+									return $response;
 
 	}
 

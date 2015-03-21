@@ -186,7 +186,7 @@ Bienvenido :: @parent
             </td>
             <td align="center">
                 <!-- link reimpresion ultimo estado-->
-                <a   href ="/reimprimircarta/{{$clave}}"  ><span class="glyphicon glyphicon-print" title="Reimprimir Documento"></span></a>
+                <a   href ="/reimprimir/{{$clave}}"  ><span class="glyphicon glyphicon-print" title="Reimprimir Documento"></span></a>
             </td>
             <td>
                 <?php $fecha= date("d/m/Y");

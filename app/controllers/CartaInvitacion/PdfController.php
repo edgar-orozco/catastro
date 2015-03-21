@@ -43,11 +43,14 @@ public function get_pdf()
            $cv     =($claves2['captura']['clave']=$value);
            $cv     = str_replace('(', '',$cv);
            $vale[] = explode(',',$cv);
-           $fecha  =($claves2['captura']['fecha']=$fecha);
 
+           
+           $fecha  =($claves2['captura']['fecha']=$fecha);
 foreach ($vale as $clave ) {
             $claves=$clave[0];
-            $verificacion = ejecucion::where('clave',$claves)->pluck('clave');
+            
+            
+           $verificacion = ejecucion::where('clave',$claves)->pluck('clave');
             //echo $resul=$verificacion;
           if($verificacion==''){
         //insert a la tabla ejecucion_fiscal
@@ -75,7 +78,9 @@ foreach ($vale as $clave ) {
       }
  }
     }
-//print_r($vale);
+   
+
+    //print_r($vale);
 
    //ENVIO A LA VISTA DEL PDF CARTA INVITACION
   $vista = View::make('CartaInvitacion.carta', compact('data', 'fecha', 'nombre_eje', 'mun_actual','vale'));
