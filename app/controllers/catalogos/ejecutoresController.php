@@ -59,7 +59,7 @@ class catalogos_ejecutoresController extends \BaseController {
         //Todos los ejecutores creados actualmente
         $ejecutoress = $this->ejecutores->join('personas', 'personas.id_p', '=', 'ejecutores.id_p')
                 ->join('personas as p', 'p.id_p', '=', 'ejecutores.id_p_otorga_nombramiento')
-                ->select('id_ejecutor', 'personas.nombres','personas.apellido_paterno','cargo', 'titulo', 'f_nombramiento', 'p.nombrec as nombre')
+                ->select('id_ejecutor', 'personas.nombres','personas.apellido_paterno','personas.apellido_materno', 'cargo', 'titulo', 'f_nombramiento', 'p.nombres as nombre','p.apellido_paterno as p_paterno','p.apellido_materno as p_materno')
                 ->get();
         
         return View::make('catalogos.ejecutores.create', 
