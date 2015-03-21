@@ -98,7 +98,7 @@ BEGIN
 
 	END IF;
 
-	v_consulta := v_consulta ||' LIMIT 100';
+	 v_consulta := v_consulta ||' ORDER BY pf.valor_catastra LIMIT 100';
 
 	RETURN QUERY EXECUTE v_consulta;
 
