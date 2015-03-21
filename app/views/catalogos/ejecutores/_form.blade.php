@@ -9,7 +9,7 @@
     @if(!empty($nombrec))
     {{Form::text('nombrec',$nombrec, ['id' => 'nombrec', 'class'=>'form-control', 'autofocus'=> 'autofocus', 'ng-model' => 'ejecutores.nombrec','required' => 'required'] )}}
     @endif
-     <!--SI "NO" TRAE ALGO LA VARIABLE $nombrec -->
+    <!--SI "NO" TRAE ALGO LA VARIABLE $nombrec -->
     @if(empty($nombrec))
     {{Form::text('nombrec',null, ['id' => 'nombrec', 'class'=>'form-control', 'autofocus'=> 'autofocus', 'ng-model' => 'ejecutores.nombrec','required' => 'required'] )}}
     @endif
@@ -55,13 +55,11 @@
 </div>
 
 @section('styles')
-
 	.my-error-class
 	{
 		color:red;
 		font: bold 85% monospace;
 	}
-
 @stop
 
 @section('javascript')

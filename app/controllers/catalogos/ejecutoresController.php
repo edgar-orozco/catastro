@@ -34,7 +34,7 @@ class catalogos_ejecutoresController extends \BaseController {
         
         $ejecutoress = $this->ejecutores->join('personas', 'personas.id_p', '=', 'ejecutores.id_p')
                 ->join('personas as p', 'p.id_p', '=', 'ejecutores.id_p_otorga_nombramiento')
-                ->select('id_ejecutor', 'personas.nombrec', 'cargo', 'titulo', 'f_nombramiento', 'p.nombrec as nombre')
+                ->select('id_ejecutor', 'personas.nombres','personas.apellido_paterno','personas.apellido_materno', 'cargo', 'titulo', 'f_nombramiento', 'p.nombres as nombre','p.apellido_paterno as p_paterno','p.apellido_materno as p_materno')
                 ->get();
         
         return ($format == 'json') ? $ejecutoress : View::make('catalogos.ejecutores.index', 
@@ -59,7 +59,7 @@ class catalogos_ejecutoresController extends \BaseController {
         //Todos los ejecutores creados actualmente
         $ejecutoress = $this->ejecutores->join('personas', 'personas.id_p', '=', 'ejecutores.id_p')
                 ->join('personas as p', 'p.id_p', '=', 'ejecutores.id_p_otorga_nombramiento')
-                ->select('id_ejecutor', 'personas.nombrec', 'cargo', 'titulo', 'f_nombramiento', 'p.nombrec as nombre')
+                ->select('id_ejecutor', 'personas.nombres','personas.apellido_paterno','cargo', 'titulo', 'f_nombramiento', 'p.nombrec as nombre')
                 ->get();
         
         return View::make('catalogos.ejecutores.create', 
@@ -187,7 +187,7 @@ class catalogos_ejecutoresController extends \BaseController {
         $id_p = array();
         //CONSULTA A LA TABLA PERSONAS
         $queries = DB::table('personas')
-                        ->where('nombres', 'LIKE', '%' . $term . '%')
+                        ->where  ('nombres', 'LIKE', '%' . $term . '%')
                         ->orWhere('apellido_paterno', 'LIKE', '%' . $term . '%')
                         ->orWhere('apellido_materno', 'LIKE', '%' . $term . '%')
                         ->take(5)->get();
@@ -200,11 +200,9 @@ class catalogos_ejecutoresController extends \BaseController {
         }
         if ($results) 
         {
-            //SI EXITE LA PERSONA
-            
+            //SI EXITE LA PERSONA            
             return Response::json($results);
-            
-            
+
         } 
         else 
         {

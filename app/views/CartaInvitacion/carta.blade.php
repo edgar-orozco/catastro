@@ -74,7 +74,19 @@
         $fecha['12'] = "Diciembre";
         ?>
         <!-- Recorro todos los elementos -->
-        <?php foreach($vale as $key ){ ?>
+        <?php foreach($vale as $key ){ 
+            $mun = $key[0];
+            $id_mun =substr($mun, 3, 3);
+            $gid    =Municipio::where('municipio',$id_mun)->pluck('gid');
+            $configutacion = configuracionMunicipal::where('municipio',$gid)->take(1)->get();
+            foreach ($configutacion as $keys ) {
+        $nombrec=$keys->nombre;
+        $cargo=$keys->cargo;
+        $logo=$keys->file;
+        $des_recargo=$keys->descuento_recargo;
+        $des_gasto_eje=$keys->descuento_gasto_ejecucion;
+          }
+          ?>
         <div class="invitacionPage">
             <!-- saco el valor de cada elemento -->
             <!-- nuevo fotmato -->
@@ -82,7 +94,11 @@
   <tr>
     <td width="12%"><img src="logos/escudo.png" width="70" height="70"></td>
     <td width="72%"><p align="center">AYUNTAMIENTO CONSTITUCIONAL DE <?php echo $mun_actual; ?>, TAB.<br>DIRECCIÓN DE FINANZAS MUNICIPALES</p></td>
+<<<<<<< HEAD
     <td width="16%"><img src="css/images/logos/LogoHuimanguillo.png" width="70" height="70"><br/></td>
+=======
+    <td width="16%"><img src="css/images/logos/{{$logo}}" width="70" height="70"><br/></td>
+>>>>>>> f2769bdad85ea068f54bf8915fa60afb63867bef
   </tr>
   <tr>
     <td>&nbsp;</td>
@@ -93,6 +109,7 @@
 <p align="left" class="texto3">ESTIMADO (A): <b> <?php echo $key[1] ?> </b> R.F.C:</p>
   </p>
 <p class="texto" align="justify">
+<<<<<<< HEAD
 La dirección de finanzas del municipio de <?php echo $mun_actual; ?>, no tiene registrado el cumplimiento del pago impuesto predial de un predio inscrito a su nombre, con número  de cuenta: <b> <?php echo $key[0] ?>, Ubicado en: CHICOACAN ?, Sup. Predio: 710430m2, Sup. Construcion: 0 m2 de este municipio; por lo que confundamento   en los artículos 1,6,8 fracción IV, 16 fracciones I, II y XII, 19, 22, 24, 31, 44, 45, 46, 47, 48, 72 fracciones I y IV, 87, 88 fracciones I, II y III, 103 y 105 fracciones IV y VII, 153, 154 y 155   de la ley de Hacienda Municipal del Estado de Tabasco; se le invita   a que realice su pago correspondiente de  a los años detallados a continuación:</strong></p>
 
 <table width="100%" border="0" class="texto">
@@ -165,29 +182,116 @@ La dirección de finanzas del municipio de <?php echo $mun_actual; ?>, no tiene 
 
 
 <p align="right" class="texto"><?php echo $mun_actual; ?>, Tab. a <?php echo $fechas['day']. " de " . $fecha[$fechas['month']] . " del " . $fechas['year']; ?></p>
+=======
+La dirección de finanzas del municipio de <?php echo $mun_actual; ?>, no tiene registrado el cumplimiento del pago impuesto predial de un predio inscrito a su nombre, con número  de cuenta: <b> <?php echo $mun ?>, Ubicado en: CHICOACAN ?, Sup. Predio: 710430m2, Sup. Construcion: 0 m2 de este municipio; por lo que confundamento   en los artículos 1,6,8 fracción IV, 16 fracciones I, II y XII, 19, 22, 24, 31, 44, 45, 46, 47, 48, 72 fracciones I y IV, 87, 88 fracciones I, II y III, 103 y 105 fracciones IV y VII, 153, 154 y 155   de la ley de Hacienda Municipal del Estado de Tabasco; se le invita   a que realice su pago correspondiente de  a los años detallados a continuación:</strong></p>
+>>>>>>> f2769bdad85ea068f54bf8915fa60afb63867bef
+
+<table width="100%" border="0" class="texto">
+  <tr>
+    <td>
+    <table width="42%" border="0" align="right">
+            <thead>
+                <tr>
+                    <th>VENCIDOS</th>
+                    <?php $vencido= DB::select("select sp_get_anios_vencidos('$mun')");
+            foreach ($vencido as $keys) {
+              $vencidos=explode(',', $keys->sp_get_anios_vencidos);
+              $aniov= str_replace('(', '',$vencidos[0]);
+              $adeudov=str_replace(')', '',$vencidos[1]);
+            ?>
+                    <th><div align="right">ADEUDO</div></th>
+                </tr>
+            </thead>
+            <tr>
+                <td><div align="center">{{$aniov}}</div></td>
+                <td><div align="right">{{$adeudov}}</div></td>
+            </tr>
+            <br>
+            <?php }?>
+        </table>
+    </td>
+  </tr>
+  <tr>
+    <td>
+          <br> <br>
+        <table width="42%" border="0" align="right">
+        <tr>
+          <th width="55%"><div align="right">SUB-TOTAL:</div></th>
+        <td width="45%"><div align="right">$583.00</div></td>
+        </tr>
+        <tr>
+          <th><div align="right">ACTUALIZACION:</div></th>
+          <td><div align="right">$19.00</div></td>
+        </tr>
+        <tr>
+          <th><div align="right">RECARGOS</div></th>
+          <td><div align="right">$130.00</div></td>
+        </tr>
+        <tr>
+          <th><div align="right">MULTAS</div></th>
+          <td><div align="right">$134.00</div></td>
+        </tr>
+        <tr>
+          <th><div align="right">GSTO DE EJECUCION:</div></th>
+          <td><div align="right">$266.00</div></td>
+        </tr>
+        <tr>
+          <th><div align="right">TOTAL ADEUDO:</div></th>
+          <td><div align="right">1,132.00</div></td>
+        </tr>
+    </table></td>
+  </tr>
+</table>
+
+<br><br><br><br><br><br>
+
+
+
+<p align="right" class="texto"><?php echo $mun_actual; ?>, Tab. a <?php echo $fechas['day']. " de " . $fecha[$fechas['month']] . " del " . $fechas['year']; ?></p>
 
 <br/>
+<p class="texto" align="center">ATENTAMENTE</p>
+<br/>
+<<<<<<< HEAD
 <p class="texto" align="center">ATENTAMENTE</p>
 <hr align="center" color="#000000" width="250">
 <p class="texto" align="center">L.C.P Jose Adalberto Cerino Cordova</p>
 <p class="texto" align="center">RESPONSABLE DE INGRESOS</p>
+=======
+<hr align="center" color="#000000" width="250">
+<p class="texto" align="center">{{$nombrec}}</p>
+<p class="texto" align="center">{{$cargo}}</p>
+>>>>>>> f2769bdad85ea068f54bf8915fa60afb63867bef
 <p>_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ __ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ __ _ _ _ _ _ _ _ _ _ _ _ _ _  _ _ _</p>
 <table width="100%" border="0">
   <tr>
       <td width="33%"><b class="texto3"><strong>C. <?php echo $key[1] ?>.</strong></b><br>
+<<<<<<< HEAD
           <b class="texto">CUENTA: 08-R-005373</b><br>
           <b class="texto">ENTREGA dd/mm/aaaa:</b>
       </td>
       <td width="33%"><p align="center" class="texto2">VALE</p></td>
     <td width="33%"><p align="right"><img src="css/images/logos/LogoHuimanguillo.png" width="60" height="60"></p></td>
+=======
+          <b class="texto">CUENTA: {{$mun}}</b><br>
+          <b class="texto">ENTREGA dd/mm/aaaa:</b>
+      </td>
+      <td width="33%"><p align="center" class="texto2">VALE</p></td>
+    <td width="33%"><p align="right"><img src="css/images/logos/{{$logo}}" width="60" height="60"></p></td>
+>>>>>>> f2769bdad85ea068f54bf8915fa60afb63867bef
   </tr>
 </table>
 <hr align="left" color="#000000" width="250">
 
 
 <p class="texto" align="justify">
+<<<<<<< HEAD
   <strong>La Autoridad Municipal, en apoyo al contribuyente, brinda un plazo de 5 días hábiles para efectuar el pago correspondiente; al presentar este vale en caja usted recibirá la CONDENACION DEL 100% en MULTAS y GASTOS DE EJECUCION, además de un DESCUENTO DEL 0% sobre los RECARGOS, Pagando solamente Usted:</p>
   
+=======
+  <strong>La Autoridad Municipal, en apoyo al contribuyente, brinda un plazo de 5 días hábiles para efectuar el pago correspondiente; al presentar este vale en caja usted recibirá la CONDENACION DEL {{$des_gasto_eje}}% en MULTAS y GASTOS DE EJECUCION, además de un DESCUENTO DEL {{$des_recargo}}% sobre los RECARGOS, Pagando solamente Usted:</p>
+
+>>>>>>> f2769bdad85ea068f54bf8915fa60afb63867bef
   <p align="right">TOTAL A PAGAR: $732.00</p>
   <br>
   <p align="center" class="texto2">¡ACTUALIZATE!</p><br/>

@@ -25,3 +25,7 @@ Route::controller("/consulta", "Consulta_ConsultaController");
 // rutas modal cancelacion
  Route::get('/ejecucion/cancelar/{idrequerimiento}', 'Ejecucion_SeguimientobusController@cancelar');
  Route::post('/ejecucion/guardarcancelacion', 'Ejecucion_SeguimientobusController@guardarcancelacion');
+
+//rutas de prueba para pdf :
+Route::get("/pruebapdf/{clave?}", "CartaInvitacion_pdfpruebaController@getIndex");
+Route::get("/reimprimir/{clave?}", "CartaInvitacion_PdfpruebaController@imprimir");

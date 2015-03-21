@@ -26,7 +26,7 @@
                     {{$row->titulo}}
                 </td>
                 <td>
-                    {{$row->nombrec}}
+                    {{$row->nombres}} {{$row->apellido_paterno}} {{$row->apellido_materno}}
                 </td>
                 <td>
                     {{$row->cargo}}
@@ -35,7 +35,7 @@
                     {{$row->f_nombramiento}}
                 </td>
                 <td>
-                    {{$row->nombre}}
+                    {{$row->nombre}} {{$row->p_paterno}} {{$row->p_materno}}
                 </td>
                 <td nowrap>
                    {{ Form::open(array('method' => 'DELETE', 'route' => array('catalogos.ejecutores.destroy', 'id'=>$row->id_ejecutor))) }}
