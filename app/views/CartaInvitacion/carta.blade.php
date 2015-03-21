@@ -84,6 +84,7 @@
         $cargo=$keys->cargo;
         $logo=$keys->file;
         $des_recargo=$keys->descuento_recargo;
+        $des_gasto_eje=$keys->descuento_gasto_ejecucion;
           }
           ?>
         <div class="invitacionPage">
@@ -116,8 +117,8 @@ La dirección de finanzas del municipio de <?php echo $mun_actual; ?>, no tiene 
                     <?php $vencido= DB::select("select sp_get_anios_vencidos('$mun')");
             foreach ($vencido as $keys) {
               $vencidos=explode(',', $keys->sp_get_anios_vencidos);
-              echo $aniov= str_replace('(', '',$vencidos[0]);
-              echo $adeudov=str_replace(')', '',$vencidos[1]);
+              $aniov= str_replace('(', '',$vencidos[0]);
+              $adeudov=str_replace(')', '',$vencidos[1]);
             ?>
                     <th><div align="right">ADEUDO</div></th>
                 </tr>
@@ -133,7 +134,7 @@ La dirección de finanzas del municipio de <?php echo $mun_actual; ?>, no tiene 
   </tr>
   <tr>
     <td>
-
+          <br> <br>
         <table width="42%" border="0" align="right">
         <tr>
           <th width="55%"><div align="right">SUB-TOTAL:</div></th>
@@ -171,6 +172,7 @@ La dirección de finanzas del municipio de <?php echo $mun_actual; ?>, no tiene 
 
 <br/>
 <p class="texto" align="center">ATENTAMENTE</p>
+<br/>
 <hr align="center" color="#000000" width="250">
 <p class="texto" align="center">{{$nombrec}}</p>
 <p class="texto" align="center">{{$cargo}}</p>
@@ -178,7 +180,7 @@ La dirección de finanzas del municipio de <?php echo $mun_actual; ?>, no tiene 
 <table width="100%" border="0">
   <tr>
       <td width="33%"><b class="texto3"><strong>C. <?php echo $key[1] ?>.</strong></b><br>
-          <b class="texto">CUENTA: 08-R-005373</b><br>
+          <b class="texto">CUENTA: {{$mun}}</b><br>
           <b class="texto">ENTREGA dd/mm/aaaa:</b>
       </td>
       <td width="33%"><p align="center" class="texto2">VALE</p></td>
@@ -189,7 +191,7 @@ La dirección de finanzas del municipio de <?php echo $mun_actual; ?>, no tiene 
 
 
 <p class="texto" align="justify">
-  <strong>La Autoridad Municipal, en apoyo al contribuyente, brinda un plazo de 5 días hábiles para efectuar el pago correspondiente; al presentar este vale en caja usted recibirá la CONDENACION DEL 100% en MULTAS y GASTOS DE EJECUCION, además de un DESCUENTO DEL {{$des_recargo}}% sobre los RECARGOS, Pagando solamente Usted:</p>
+  <strong>La Autoridad Municipal, en apoyo al contribuyente, brinda un plazo de 5 días hábiles para efectuar el pago correspondiente; al presentar este vale en caja usted recibirá la CONDENACION DEL {{$des_gasto_eje}}% en MULTAS y GASTOS DE EJECUCION, además de un DESCUENTO DEL {{$des_recargo}}% sobre los RECARGOS, Pagando solamente Usted:</p>
 
   <p align="right">TOTAL A PAGAR: $732.00</p>
   <br>
