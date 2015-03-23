@@ -33,7 +33,7 @@ class catalogos_statusController extends \BaseController
         $subtitle_section = "Crear, modificar y eliminar status";
         
         //Todos los status creados actulmente
-        $statuss = $this->status->select('id_status as id','cve_status','descrip','orden','fecha_alta', 'usuario_alta')->get();
+        $statuss = $this->status->select('id_status as id','cve_status','descrip','orden','fecha_alta', 'usuario_alta','notificacion')->orderBy('orden', 'asc')->get();
             
         return ($format == 'json') ? $statuss : View::make('catalogos.status.index',
             compact('title', 'title_section', 'subtitle_section', 'status', 'statuss'));
@@ -72,11 +72,13 @@ class catalogos_statusController extends \BaseController
      */
     public function store($format = 'html')
     {
-        $this->status->cve_status = Input::get('cve_status');
-        $this->status->descrip = Input::get('descrip');
-        $this->status->fecha_alta = Input::get('fecha_alta');
-        $this->status->usuario_alta = Input::get('usuario_alta');
-        $this->status->orden = Input::get('orden');
+        $this->status->cve_status   =   Input::get('cve_status');
+        $this->status->descrip      =   Input::get('descrip');
+        $this->status->usuario_alta =   Input::get('usuario_alta');
+        $this->status->notificacion =   "No";
+        $this->status->orden        =   status::all()->count()+1;
+
+
 
         //si no es posible guardar la instancia mandamos errores
         if (!$this->status->save()){
@@ -111,8 +113,9 @@ class catalogos_statusController extends \BaseController
     public function update($id, $format = 'html')
     {   
         $this->status = status::find($id);
-        $this->status-> cve_status = Input::get('cve_status');
+        $this->status->cve_status = Input::get('cve_status');
         $this->status->descrip = Input::get('descrip');
+        $this->status->usuario_alta =   Input::get('usuario_alta');
         
         //si no es posible guardar la instancia mandamos errores
         if (!$this->status->save()){
@@ -150,5 +153,27 @@ class catalogos_statusController extends \BaseController
         $status = status::find($id);
         $status->delete();
         return array('status' => 'success', 'msg' => 'Status eliminado');
+    }
+
+
+    public function ordenStatus()
+    {
+        if(Request::ajax())
+        {
+           
+        $orden = Input::get('orden');
+        $id = Input::get('id');
+
+        for($i=1;$i<count($id);$i++)
+        {
+            $status = status::find($id[$i]);
+            $status->orden = $orden[$i];
+            $status->save();
+       }
+
+        return Response::json(array(
+                'prueba' =>    $orden,
+                'prueba2'=> $id));
+        }
     }
 }

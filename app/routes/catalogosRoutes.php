@@ -9,6 +9,12 @@ Route::group(array('before'=>'admin'),  function (){
         array('as' => 'updateStatus', 'uses' => 'catalogos_statusController@update'));
     Route::resource('catalogos/status', 'catalogos_statusController');
 
+
+    //Ruta para el orden de status 
+
+    Route::post('/catalogos/status/orden',
+        array('as' => 'ordenStatus', 'uses' => 'catalogos_statusController@ordenStatus'));
+
 //Rutas para el catalogo INPC
     Route::post('catalogos/inpc.{format}',
         array('as'=>'storeInpc','uses'=>'catalogos_inpcController@store'));

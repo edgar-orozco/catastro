@@ -9,34 +9,35 @@
         <p>No hay status dados de alta actualmente en el sistema.</p>
     </div>
     <div class="list-group" ng-show="statuss.length > 0 && !loading">
-        <table class="table" >
+        <table  class="table table-striped table-bordered sorted_table" id="table">
             <thead>
                 <tr>
+                    <th style="display:none" >Usuario Alta</th>
+                    <th style="display:none" >Orden</th>
                     <th>Clave estatus</th>
                     <th>Descripción del estatus</th>
-                    <th>Fecha de alta</th>
-                    <th>Usuario Alta</th>
-                    <th>Orden</th>
+                    <th>Notificacion</th>
                     <th>Acciones</th>
                 </tr>
             </thead>
             <tbody>
-                <tr ng-repeat="status in statuss" ng-class="status.error !== undefinied ? 'warning' : '' ">
-                    <td>
+                <tr class="status-drag"ng-repeat="status in statuss" ng-class="status.error !== undefinied ? 'warning' : '' ">
+                    <td style="display:none" >
+                        {[{ status.orden }]}
+                    </td>
+                    <td style="display:none" >
+                        {[{ status.id }]}
+                    </td>
+                    <td >
                         {[{ status.cve_status }]}
                     </td>
                     <td>
                         {[{ status.descrip }]}
                     </td>
-                    <td>
-                        {[{ status.fecha_alta }]}
+                     <td>
+                        {[{ status.notificacion }]}
                     </td>
-                    <td>
-                        {[{ status.usuario_alta }]}
-                    </td>
-                    <td>
-                        {[{ status.orden }]}
-                    </td>
+                    
                     <td>
                         <button ng-show="status.idx !== undefinied && status.error === undefinied" type="button" class="btn btn-success" title="Guardando datos ..." disabled="disabled">
                             <span class="glyphicon glyphicon-refresh spin"></span>
