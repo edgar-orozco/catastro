@@ -189,7 +189,7 @@ Bienvenido :: @parent
                 @endif
             </td>
             <td align="center">
-                <?php $arr = array(CI => '<a   href ="/reimprimir/{{$clave}}"  ><span class="glyphicon glyphicon-print" title="Reimprimir Documento"></span></a>'); ?>
+                <?php $arr = array(C => '<a   href ="/reimprimir/{{$clave}}"  ><span class="glyphicon glyphicon-print" title="Reimprimir Documento"></span></a>'); ?>
                 <!-- link reimpresion ultimo estado-->
                 <?php echo $arr[$key[3]]; ?>
             </td>

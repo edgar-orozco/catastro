@@ -17,19 +17,13 @@ public function get_pdf()
         $mun_actual = strtoupper($clave['mun']);
         $pagi       =$clave['pagi'];
         $id_mun     =$clave['id_municipio'];
-<<<<<<< HEAD
-        //$ck     =$clave['checktodos'];
 
-       //unset($clave['checktodos']);
-=======
-       // $ck         =$clave['checktodos'];
         if(array_key_exists('checktodos', $clave))
         {
           unset($clave['checktodos']);
         }
 
-        //
->>>>>>> f2769bdad85ea068f54bf8915fa60afb63867bef
+
         unset($clave['id_municipio']);
         unset($clave['pagi']);
         unset($clave['mun']);
@@ -50,12 +44,11 @@ public function get_pdf()
            $cv     = str_replace('(', '',$cv);
            $vale[] = explode(',',$cv);
 
-           
+
            $fecha  =($claves2['captura']['fecha']=$fecha);
 foreach ($vale as $clave ) {
             $claves=$clave[0];
-            
-            
+
            $verificacion = ejecucion::where('clave',$claves)->pluck('clave');
             //echo $resul=$verificacion;
           if($verificacion==''){
@@ -84,7 +77,7 @@ foreach ($vale as $clave ) {
       }
  }
     }
-   
+
 
     //print_r($vale);
 
