@@ -25,12 +25,10 @@ class UpdateInstalacionesespecialesTable extends Migration {
 					$table->string('municipio',3);	
 					$table->string('clave_catas');	
 					$table->integer('gid_predio');	
-					$table->integer('id_tipogiro');		
-					$table->float('superficie_terreno');	
-					$table->float('superficie_construccion');	
+					$table->integer('id_tipoie');		
 					$table->timestamps();    
 					$table->foreign('gid_predio')->references('gid')->on('predios')->onUpdate('cascade')->onDelete('cascade');
-					$table->foreign('id_tipogiro')->references('id_tipogiro')->on('tipoinstalacionesespeciales')->onUpdate('cascade')->onDelete('cascade');                                           
+					$table->foreign('id_tipoie')->references('id_tipoie')->on('tipoinstalacionesespeciales')->onUpdate('cascade')->onDelete('cascade');                                           
 				});
 				
 				 // Se renombra el id por id_tipoie
