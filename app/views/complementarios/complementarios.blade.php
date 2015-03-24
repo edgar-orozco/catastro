@@ -36,12 +36,12 @@ Bienvenido :: @parent
         {{ Form::close() }}
         @if(count($busqueda) == 0)
         <div class="panel-body">
-            <div class="alert alert-danger">No hay predios dados de alta actualmente en el sistema.</div>
+            <div class="alert alert-danger">Clave Incorrecta Verifique su Clave.</div>
         </div>
         @endif
         <div class="list-group">
             <?php
-            if ($busqueda > 1) {
+               if ($busqueda>=1) {
                 ?>
                 <table class="table">
                     <thead>
@@ -80,7 +80,7 @@ Bienvenido :: @parent
                     </tbody>
                 </table>
                 @endforeach
-                <?php echo $busqueda->links(); ?>
+                <?php // echo $busqueda->links(); ?>
                 <?php
             } elseif (Input::get('b')) {
                 ?>

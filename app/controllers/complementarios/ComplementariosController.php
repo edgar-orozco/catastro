@@ -9,10 +9,11 @@ class complementarios_ComplementariosController extends BaseController {
     public function index() {
         $predio = Input::get('b');
         $predio = Str::upper($predio);
-        $busqueda = predios::WHERE('clave', 'LIKE', '%' . $predio . '%')
-                ->orWhere('clave_ori', $predio)
+        $busqueda = predios::WHERE('clave','=',$predio)
+//                ->orWhere('clave_ori', $predio)
                 ->orderBy('gid', 'ASC')
-                ->paginate($this->por_pagina);
+                ->get();
+//                ->paginate($this->por_pagina);
         return View::make('complementarios.complementarios', compact("busqueda"));
     }
 

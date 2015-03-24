@@ -8,7 +8,7 @@
     <div class="col-md-4">
         
         <!--Boton Modal -->
-        <button data-toggle="modal"  data-target="#Nuevo" href="/catalogos/personas" class="btn btn-primary" >NUEVA PERSONA</button>
+        <button data-toggle="modal"  data-target="#Nuevo" href="/catalogos/personas" class="btn btn-primary" id="nuevo">NUEVA PERSONA</button>
         <!-- Fin Boton Moodal -->
         {{ Form::open(array('id'=>'form','url' => 'catalogos/ejecutores', 'method' => 'POST', 'files' => true)) }}
         @include('catalogos.ejecutores._form')

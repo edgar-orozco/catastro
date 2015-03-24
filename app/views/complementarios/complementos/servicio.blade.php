@@ -84,7 +84,7 @@
     <li> <?php echo $input; ?>
         <div class="btn-group btn-toggle botones-requisitos" data-toggle="buttons">           
             <label class="btn btn-sm btn-default <?php echo $css ?>">{{$row->descripcion}}
-                <input type='checkbox' id='checktodos' name='opcion[]' value="{{$row->id_tiposervicio }}">
+                <input type='checkbox' name='opcion[]' value="{{$row->id_tiposervicio }}">
             </label>
         </div>
     </li>
