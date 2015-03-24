@@ -141,12 +141,13 @@ Bienvenido :: @parent
             <?php $i=0; ?>
             @foreach ($pagination as $key )
                   <?php $i++ ?>
-                  <?php $idrequerimiento =$key[5]; ?>
+                  <?php $idrequerimiento = $key[5]; ?>
                   <?php $clave           = str_replace('(', '',$key[0]);?>
                   <?php $nombre          = str_replace('"', '',$key[1]); ?>
-                  <?php $impuesto        =$key[5]; ?>
+                  <?php $impuesto        = $key[5]; ?>
                   <?php $valorcc         = $key[6]; ?>
-                  <?php $total           =$impuesto+$valorcc ?>
+                  <?php $total           = $impuesto+$valorcc ?>
+                  <?php $requerimiento   = str_replace(')','',$key[9]);?>
 
             <td align="center">
                 {{ Form::checkbox('clave'.$i, $clave.','.$nombre.','.$total, false, ['onclick'=>'validar(this)'], array('id' => 'checkAll'))}}
@@ -176,17 +177,21 @@ Bienvenido :: @parent
                <?php $fechavencimiento= str_replace(')', '',$key[7]);?>
                {{$fechavencimiento;}}
                <?php $fechacancelacion = str_replace(')', '',$key[8]);?>
+
             </td>
             <td align="center">
                 <?php if(empty($fechacancelacion))  { ?>
                 <!-- agrgar datos requerimiento-->
+                @if($requerimiento=='Si')
                 @if($fechainicio=='' || $fechavencimiento=='')
                 <a data-toggle ="modal"  data-target="#Nuevo" href="/ejecucion/modal/{{$idrequerimiento}}" title="Agregar Requerimiento" ><span class="glyphicon glyphicon-pencil"></span></a>
                 @endif
+                @endif
             </td>
             <td align="center">
+                <?php $arr = array(CI => '<a   href ="/reimprimir/{{$clave}}"  ><span class="glyphicon glyphicon-print" title="Reimprimir Documento"></span></a>'); ?>
                 <!-- link reimpresion ultimo estado-->
-                <a   href ="/reimprimir/{{$clave}}"  ><span class="glyphicon glyphicon-print" title="Reimprimir Documento"></span></a>
+                <?php echo $arr[$key[3]]; ?>
             </td>
             <td>
                 <?php $fecha= date("d/m/Y");

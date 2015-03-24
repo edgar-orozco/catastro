@@ -64,8 +64,8 @@
                 {
                    document.getElementById('paginado').value = document.getElementById('pagi').value;
                    document.busqueda.submit();
-                });
 </script>
+
 <script>
             //actualiza el paginado cuando se cambia el numero de registros a mostrar
             $('#limpiar').on('click', function()
@@ -199,13 +199,7 @@ $(function () {
 $("#fecha").datepicker();
 });
 </script>
-<script type="text/javascript">
-$('#boton').on('click', function()
-                {
-                  window.location.reload();
-                });
 
-</script>
 <script>
     function soloLetras(e){
  key = e.keyCode || e.which;
@@ -248,7 +242,7 @@ $('#boton').on('click', function()
                 </tr>
                 <tr>
                     <td>
-                        {{ Form::text('clave',$clave, array('class' => 'form-control focus', 'placeholder'=>'xx-xxx-xxx-xxxx-xxxxxx', 'autofocus'=> 'autofocus', 'pattern'=> '\d{2}[\-]\d{3}[\-]\d{3}[\-]\d{4}[\-]\d{6}'))  }}
+                        {{ Form::text('clave',$clave, array('class' => 'form-control focus', 'placeholder'=>'xx-xxx-xxx-xxxx-xxxxxx', 'autofocus'=> 'autofocus', 'pattern'=> '\d{2}[\-]\d{3}[\-]\d{3}[\-]\d{4}[\-]\d{6}'))}}
                     </td>
                     <td>
                         {{ Form::text('nombre',$propietario, array('class' => 'form-control focus', 'placeholder'=>'Nombre', 'onkeypress' => 'return soloLetras(event)')) }}
@@ -294,7 +288,7 @@ $('#boton').on('click', function()
                 </div>
             @endif
     @if(count($items) > 0)
-    {{ Form::open(array('url' => 'cartainv', 'method' => 'post', 'name' => 'formulario',  'target' => '_blank'))}}
+    {{ Form::open(array('url' => 'cartainv', 'method' => 'post', 'name' => 'formulario'))}}
     {{$date = new DateTime();}}
 
     <div class="panel-default">
