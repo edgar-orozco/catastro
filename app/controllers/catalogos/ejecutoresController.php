@@ -99,8 +99,8 @@ class catalogos_ejecutoresController extends \BaseController {
             $n->save();
             Session::flash('mensaje', 'El registro ha sido ingresado exitosamente');
             //Se han guardado los valores
-//            return Redirect::to('catalogos/ejecutores/create')->with('success', '¡Se ha creado correctamente el ejecutor' . " !");
-            return Redirect::back();
+            return Redirect::to('catalogos/ejecutores/create')->with('success', '¡Se ha creado correctamente el ejecutor' . " !");
+//            return Redirect::back();
         }
     }
 
