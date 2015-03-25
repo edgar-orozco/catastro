@@ -53,7 +53,7 @@
   text-transform: none;
  }
 </style>
-        <title>Carta A Santa Claus y el diablito</title>
+        <title>Carta Invitación</title>
     </header>
     <body>
       <?php
