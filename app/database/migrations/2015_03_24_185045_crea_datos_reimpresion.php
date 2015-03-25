@@ -49,7 +49,7 @@ BEGIN
 											 GROUP BY ep.clave) ad ON (pf.clave = ad.clave))
 where pf.clave = '''||p_clave||'''';
 
-	
+
 
 	RETURN QUERY EXECUTE v_consulta;
 

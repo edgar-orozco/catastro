@@ -78,6 +78,7 @@
             $mun = $key[0];
             $id_mun =substr($mun, 3, 3);
             $gid    =Municipio::where('municipio',$id_mun)->pluck('gid');
+
             $configutacion = configuracionMunicipal::where('municipio',$gid)->take(1)->get();
             foreach ($configutacion as $keys ) {
         $nombrec=$keys->nombre;
@@ -141,10 +142,11 @@
         <table width="42%" border="0" align="right">
         <tr>
           <th width="55%"><div align="right">SUB-TOTAL:</div></th>
-        <td width="45%"><div align="right">$583.00</div></td>
+        <td width="45%"><div align="right">$<?php echo $adeudov ?></div></td>
         </tr>
         <tr>
           <th><div align="right">ACTUALIZACION:</div></th>
+
           <td><div align="right">$19.00</div></td>
         </tr>
         <tr>
@@ -156,8 +158,15 @@
           <td><div align="right">$134.00</div></td>
         </tr>
         <tr>
-          <th><div align="right">GSTO DE EJECUCION:</div></th>
-          <td><div align="right">$266.00</div></td>
+          <th><div align="right">GASTO DE EJECUCION:</div></th>
+          <?php
+          $resultadog = DB::select("select sp_optiene_gasto('$gid','$adeudov')");
+          foreach ($resultadog as $keyss ) {
+          $itemsg = explode(',',$keyss->sp_optiene_gasto);
+        }
+          $gastos=Number_format($itemsg[0], 2, '.',',' );
+          ?>
+          <td><div align="right">$<?php echo $gastos ?></div></td>
         </tr>
         <tr>
           <th><div align="right">TOTAL ADEUDO:</div></th>

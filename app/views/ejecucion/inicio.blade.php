@@ -231,7 +231,7 @@ $("#fecha").datepicker();
         'name'   =>'busqueda'
      )) }}
 
-        <div class="input-group">
+        <div class="table">
             <table class="table">
                 <tr>
                     <th>{{Form::label('clave','Clave Catastral:') }}</th>
