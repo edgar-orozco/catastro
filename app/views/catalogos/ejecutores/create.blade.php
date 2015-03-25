@@ -8,13 +8,13 @@
     <div class="col-md-4">
         
         <!--Boton Modal -->
-        <button data-toggle="modal"  data-target="#Nuevo" href="/catalogos/personas" class="btn btn-primary" >NUEVA PERSONA</button>
+        <button data-toggle="modal"  data-target="#Nuevo" href="/catalogos/personas" class="btn btn-primary" id="nuevo">NUEVA PERSONA</button>
         <!-- Fin Boton Moodal -->
         {{ Form::open(array('id'=>'form','url' => 'catalogos/ejecutores', 'method' => 'POST', 'files' => true)) }}
         @include('catalogos.ejecutores._form')
 
         <div class="form-actions form-group">
-            {{ Form::submit('Crear nuevo ejecutor', array('class' => 'btn btn-primary')) }} 
+            {{ Form::submit('Crear nuevo ejecutor', array('class' => 'btn btn-primary','id'=>'refresh')) }} 
             {{ Form::reset('Limpiar formato', ['class' => 'btn btn-warning']) }}
         </div>
         {{Form::close()}}

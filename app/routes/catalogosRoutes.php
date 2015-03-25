@@ -51,6 +51,7 @@ Route::group(array('before'=>'admin'),  function (){
         array('as' => 'updateEjecutores', 'uses' => 'catalogos_ejecutoresController@update'));
     Route::resource('catalogos/ejecutores', 'catalogos_ejecutoresController');
     Route::get('search/autocomplete2', 'catalogos_ejecutoresController@autocomplete');
+    Route::get('search/autocomplete1', 'catalogos_ejecutoresController@autocomplete');
     Route::get('catalogos/personas', 'catalogos_ejecutoresController@getIndex');
     Route::post('catalogos/personas','catalogos_ejecutoresController@storep');
 
