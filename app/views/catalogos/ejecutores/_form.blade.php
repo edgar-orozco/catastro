@@ -106,8 +106,7 @@
 <script>
      $(document).ready(function() {
         $('#refresh').click(function() {
-            // Recargo la página
-            location.reload();
+           location.reload();
         });
     });
 </script>  
