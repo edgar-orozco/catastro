@@ -7,24 +7,21 @@
     {{Form::label('id_p','Nombre del ejecutor')}}
     <!--SI "TRAE" ALGO LA VARIABLE $nombrec -->
     @if(!empty($nombrec))
-
     {{Form::text('nombrec',$nombrec, ['tabindex'=>'1','id' => 'nombrec', 'class'=>'form-control', 'autofocus'=> 'autofocus', 'ng-model' => 'ejecutores.nombrec'] )}}
     @endif
     <!--SI "NO" TRAE ALGO LA VARIABLE $nombrec -->
     @if(empty($nombrec))
     {{Form::text('nombrec',null, ['tabindex'=>'1','id' => 'nombrec', 'class'=>'form-control', 'autofocus'=> 'autofocus', 'ng-model' => 'ejecutores.nombrec'] )}}
     @endif
-    {{Form::text('id_p',null, ['id' => 'response'] )}}
+    {{Form::text('id_p',null, ['id' => 'response','hidden'])}}
     {{$errors->first('id_p', '<span class=text-danger>:message</span>')}}
 </div>
-
 <div class="form-group">
     {{Form::label('titulo','Titulo')}}
     {{Form::text('titulo', null, ['tabindex'=>'2','class'=>'form-control','autofocus'=> 'autofocus',  'ng-model' => 'ejecutores.titulo'] )}}
     {{$errors->first('titulo', '<span class=text-danger>:message</span>')}}
     <p class="help-block"></p>
 </div>
-
 <div class="form-group">
     {{Form::label('cargo','Cargo')}}
 
@@ -32,14 +29,12 @@
     {{$errors->first('cargo', '<span class=text-danger>:message</span>')}}
     <p class="help-block"></p>
 </div>
-
 <div class="form-group">
     {{Form::label('f_nombramiento','Fecha de nombramiento')}}
     {{Form::text('f_nombramiento', null, ['tabindex'=>'4','class'=>'form-control','autofocus'=> 'autofocus',  'ng-model' => 'ejecutores.f_nombramiento'] )}}
     {{$errors->first('f_nombramiento', '<span class=text-danger>:message</span>')}}
     <p class="help-block"></p>
 </div>
-
 <div class="form-group">
     {{Form::label('id_p_otorga_nombramiento','Quien lo nombra')}}
     <!--SI "TRAE" LA VARIABLE $nombre-->
@@ -54,7 +49,6 @@
     {{$errors->first('id_p_otorga_nombramiento', '<span class=text-danger>:message</span>')}}
     <p class="help-block"></p>
 </div>
-
 @section('javascript')
 {{ HTML::script('js/jquery/jquery.validate.min.js') }}
 <script>
@@ -66,9 +60,7 @@
                 $('#response').val(ui.item.id);
             }
         });
-
     });
-
     $(function () {
         $("#nombre").autocomplete({
             source: "/search/autocomplete2",
@@ -76,15 +68,12 @@
             select: function (event, ui) {
                 $('#response2').val(ui.item.id);
             }
-
         });
-
     });
 //Calendario
     $(function () {
         $("#f_nombramiento").datepicker();
     });
-
 //Cambiar a español el calendario
     $.datepicker.regional['es'] = {
         closeText: 'Cerrar',
@@ -109,12 +98,19 @@
     });
 
 //Mayuscula    
-
     function aMayusculas(obj, id) {
         obj = obj.toUpperCase();
         document.getElementById(id).value = obj;
     }
 </script>
+<script>
+     $(document).ready(function() {
+        $('#refresh').click(function() {
+            // Recargo la página
+            location.reload();
+        });
+    });
+</script>  
 <script>
     // Al presionar cualquier tecla en cualquier campo de texto, ejectuamos la siguiente función
     $('input').on('keydown', function (e) {

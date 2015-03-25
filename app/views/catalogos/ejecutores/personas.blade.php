@@ -33,8 +33,7 @@
             var Value = $( "#nombres" ).val();
             var appa = $( "#apellido_paterno" ).val();
             var apma = $( "#apellido_materno" ).val();
-            $('#nombrec').val(Value+" "+appa+" "+ apma);
-            
+            $('#nombrec').val(Value+" "+appa+" "+ apma);           
            
         });
         </script>

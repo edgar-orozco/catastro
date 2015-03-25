@@ -14,7 +14,7 @@
         @include('catalogos.ejecutores._form')
 
         <div class="form-actions form-group">
-            {{ Form::submit('Crear nuevo ejecutor', array('class' => 'btn btn-primary')) }} 
+            {{ Form::submit('Crear nuevo ejecutor', array('class' => 'btn btn-primary','id'=>'refresh')) }} 
             {{ Form::reset('Limpiar formato', ['class' => 'btn btn-warning']) }}
         </div>
         {{Form::close()}}
