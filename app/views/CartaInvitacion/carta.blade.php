@@ -185,6 +185,7 @@
 
 
 <p class="texto" align="center">ATENTAMENTE</p>
+</br>
 <hr align="center" color="#000000" width="250">
 
 <p class="texto" align="center">{{$nombrec}}</p>
