@@ -218,31 +218,7 @@ $("#fecha").datepicker();
      return false;
      }
 </script>
-<script>
 
-            // Al presionar cualquier tecla en cualquier campo de texto, ejectuamos la siguiente función
-            $('input').on('keydown', function (e) {
-                // Solo nos importa si la tecla presionada fue ENTER... (Para ver el código de otras teclas: http://www.webonweboff.com/tips/js/event_key_codes.aspx)
-                if (e.keyCode === 13)
-                {
-                    // Obtenemos el número del tabindex del campo actual
-                    var currentTabIndex = $(this).attr('tabindex');
-                    // Le sumamos 1 :P
-                    var nextTabIndex = parseInt(currentTabIndex) + 1;
-                    // Obtenemos (si existe) el siguiente elemento usando la variable nextTabIndex
-                    var nextField = $('[tabindex=' + nextTabIndex + ']');
-                    // Si se encontró un elemento:
-                    if (nextField.length > 0)
-                    {
-                        // Hacerle focus / seleccionarlo
-                        nextField.focus();
-                        // Ignorar el funcionamiento predeterminado (enviar el formulario)
-                        e.preventDefault();
-                    }
-                    // Si no se encontro ningún elemento, no hacemos nada (se envia el formulario)
-                }
-            });
-</script>
 @stop
 
 <div class="panel-body">
@@ -255,7 +231,7 @@ $("#fecha").datepicker();
         'name'   =>'busqueda'
      )) }}
 
-        <div class="input-group">
+        <div class="table">
             <table class="table">
                 <tr>
                     <th>{{Form::label('clave','Clave Catastral:') }}</th>

@@ -90,8 +90,4 @@ foreach ($vale as $clave ) {
     }
 
 
-    public function reimpresion($clave = null)
-    {
-       echo 'clave'.$clave;
-    }
 }

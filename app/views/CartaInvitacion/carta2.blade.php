@@ -53,7 +53,7 @@
   text-transform: none;
  }
 </style>
-        <title>Carta A Santa Claus y el diablito</title>
+        <title>Carta Invitación</title>
     </header>
     <body>
       <?php
@@ -99,7 +99,7 @@
 <p align="left" class="texto3">ESTIMADO (A): <b> <?php echo $nombre ?> </b> R.F.C:</p>
   </p>
 <p class="texto" align="justify">
-La dirección de finanzas del municipio de <?php echo $nombre; ?>, no tiene registrado el cumplimiento del pago impuesto predial de un predio inscrito a su nombre, con número  de cuenta: <b> <?php echo $clave ?>, Ubicado en: CHICOACAN ?, Sup. Predio: 710430m2, Sup. Construcion: 0 m2 de este municipio; por lo que confundamento   en los artículos 1,6,8 fracción IV, 16 fracciones I, II y XII, 19, 22, 24, 31, 44, 45, 46, 47, 48, 72 fracciones I y IV, 87, 88 fracciones I, II y III, 103 y 105 fracciones IV y VII, 153, 154 y 155   de la ley de Hacienda Municipal del Estado de Tabasco; se le invita   a que realice su pago correspondiente de  a los años detallados a continuación:</strong></p>
+La dirección de finanzas del municipio de <?php echo $municipio; ?>, no tiene registrado el cumplimiento del pago impuesto predial de un predio inscrito a su nombre, con número  de cuenta: <b> <?php echo $clave ?>, Ubicado en: CHICOACAN ?, Sup. Predio: 710430m2, Sup. Construcion: 0 m2 de este municipio; por lo que confundamento   en los artículos 1,6,8 fracción IV, 16 fracciones I, II y XII, 19, 22, 24, 31, 44, 45, 46, 47, 48, 72 fracciones I y IV, 87, 88 fracciones I, II y III, 103 y 105 fracciones IV y VII, 153, 154 y 155   de la ley de Hacienda Municipal del Estado de Tabasco; se le invita   a que realice su pago correspondiente de  a los años detallados a continuación:</strong></p>
 
 <table width="100%" border="0" class="texto">
   <tr>
@@ -175,8 +175,8 @@ La dirección de finanzas del municipio de <?php echo $nombre; ?>, no tiene regi
 <br/>
 <p class="texto" align="center">ATENTAMENTE</p>
 <hr align="center" color="#000000" width="250">
-<p class="texto" align="center">{{$nombrec}}</p>
-<p class="texto" align="center">{{$cargo}}</p>
+<p class="texto" align="center"><?php echo $nombrec ?></p>
+<p class="texto" align="center"><?php echo $cargo ?></p>
 <p>_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ __ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ __ _ _ _ _ _ _ _ _ _ _ _ _ _  _ _ _</p>
 <table width="100%" border="0">
   <tr>
@@ -192,7 +192,7 @@ La dirección de finanzas del municipio de <?php echo $nombre; ?>, no tiene regi
 
 
 <p class="texto" align="justify">
-  <strong>La Autoridad Municipal, en apoyo al contribuyente, brinda un plazo de 5 días hábiles para efectuar el pago correspondiente; al presentar este vale en caja usted recibirá la CONDENACION DEL 100% en MULTAS y GASTOS DE EJECUCION, además de un DESCUENTO DEL {{des_recargo}}% sobre los RECARGOS, Pagando solamente Usted:</p>
+  <strong>La Autoridad Municipal, en apoyo al contribuyente, brinda un plazo de 5 días hábiles para efectuar el pago correspondiente; al presentar este vale en caja usted recibirá la CONDENACION DEL 100% en MULTAS y GASTOS DE EJECUCION, además de un DESCUENTO DEL <?php echo $des_recargo ?>% sobre los RECARGOS, Pagando solamente Usted:</p>
 
   <p align="right">TOTAL A PAGAR: $732.00</p>
   <br>
