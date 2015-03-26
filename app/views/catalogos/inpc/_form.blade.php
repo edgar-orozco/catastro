@@ -8,7 +8,7 @@
 <div class="form-group">
     {{Form::label('mes','Mes')}}
     {{Form::select('mes',$mes, null,['class'=>'form-control', 'autofocus'=> 'autofocus', 'required' => 'required', 'ng-model' => 'inpc.mes', 'tb-focus' => 'focusForm', 'ng-blur' => 'focusForm = false'])}}
-    {{$errors->first('mes', '<span class=text-danger>:message</span>')}}
+    {{$errors->first('mes', '<span class=text-danger error>:message</span>')}}
     <p class="help-block"></p>
 </div>
 
@@ -27,7 +27,7 @@
 </div>
 @section('styles')
 
-.my-error-class
+.error
 {
 color:red;
 font: bold 85% monospace;
@@ -63,6 +63,11 @@ font: bold 85% monospace;
                 },
                 inpc: {
                     required: true,
+                },
+            },
+            messages: {
+                inpc: {
+                    required: "Campo requerido:INPC",
                 },
             },
             submitHandler: function (form) { // for demo
