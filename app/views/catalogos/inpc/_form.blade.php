@@ -1,6 +1,6 @@
-{{ HTML::script('js/jquery/jquery.validate.min.js') }}
 {{ HTML::style('js/jquery/jquery-ui.css') }}
 @section('javascript')
+{{ HTML::script('js/jquery/jquery.validate.min.js') }}
 {{ HTML::script('js/jquery/jquery-ui.js') }}
 @stop
 
@@ -52,51 +52,28 @@ font: bold 85% monospace;
             return false;
         }
 
-    });</script>
-<script>
-
-    var num = $('select').val();
-       $('#form').on('submit', function () {
-        if (num>'1')
-        {
-            alert("valido"+num);
-        }
-        else
-        {
-            alert("invalido"+num);
-        }
     });
 
+    $(document).ready(function () {
 
-//    var reglas = {
-//        inpc:
-//                {
-//                    required: true,
-//                },
-//        mes: {
-//            required: function (element) {
-//                if ($("#mes ").val() < '0') {
-//                    console.log('invalido')
-//                } else {
-//                    console.log('valido')
-//                }
-//            }
-//        }
-//    };
-//    var mensajes = {
-//        nombre: {required: "Nombre Requerido"},
-//        inpc: {
-//            required: "Campo requerido:INPC",
-//        }
-//    };
-//    $(document).ready(
-//            function () {
-//                $("#form").validate({
-//                    rules: reglas,
-//                    messages: mensajes
-//                });
-//            });
-//    });
+        $('#form').validate({// initialize the plugin
+            rules: {
+                mes: {
+                    selectcheck: true
+                },
+                inpc: {
+                    required: true,
+                },
+            },
+            submitHandler: function (form) { // for demo
+                alert('valido'); // for demo
+                return false; // for demo
+            }
+        });
+        jQuery.validator.addMethod('selectcheck', function (value) {
+            return (value != '0');
+        }, "Elija un Mes");
+    });
 </script>
 <script>
     // Al presionar cualquier tecla en cualquier campo de texto, ejectuamos la siguiente función

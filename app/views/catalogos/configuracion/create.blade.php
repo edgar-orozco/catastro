@@ -7,7 +7,7 @@
 
         <div class="col-md-4">
         
-        {{ Form::open(array('url' => 'catalogos/configuracion', 'method' => 'POST', 'files' => true)) }}
+        {{ Form::open(array('url' => 'catalogos/configuracion', 'method' => 'POST', 'files' => true,'id'=>'form',)) }}
 
             @include('catalogos.configuracion._form')
 
