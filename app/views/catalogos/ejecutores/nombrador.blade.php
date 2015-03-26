@@ -20,7 +20,7 @@
                             $('#result').text("Datos Creado Correctamente");
                             $('#reset').click();
                             $('#cerrar').click();
-                            $('#response').val(data.id_p);
+                            $('#response2').val(data.id_p);
                         }
                     })
 
@@ -33,34 +33,11 @@
                 var Value = $("#nombres").val();
                 var appa = $("#apellido_paterno").val();
                 var apma = $("#apellido_materno").val();
-                $('#nombrec').val(Value + " " + appa + " " + apma);
-//                $("#nombre").focus(function () {
-//                    alert('hola');
-//                });
+                $('#nombre').val(Value + " " + appa + " " + apma);
+                $('#cerrar').click();
 
             });
-        </script>
-          <script language="JavaScript">
-            function ValidaRfc(rfcStr) {
-                var strCorrecta;
-                strCorrecta = rfcStr;
-                if (rfcStr.length == 12) {
-                    var valid = '^(([A-Z]|[a-z]){3})([0-9]{6})((([A-Z]|[a-z]|[0-9]){3}))';
-                } else {
-                    var valid = '^(([A-Z]|[a-z]|\s){1})(([A-Z]|[a-z]){3})([0-9]{6})((([A-Z]|[a-z]|[0-9]){3}))';
-                }
-                var validRfc = new RegExp(valid);
-                var matchArray = strCorrecta.match(validRfc);
-                if (matchArray == null) {
-                    alert('RFC Invalido');
-                    return false;
-                }
-//                else
-//                {
-//                    alert('Cadena correcta:' + strCorrecta);
-//                    return true;
-//                }
-            }
+
         </script>
         <script>
             // Al presionar cualquier tecla en cualquier campo de texto, ejectuamos la siguiente función
@@ -86,11 +63,34 @@
                 }
             });
         </script>
+        <script language="JavaScript">
+            function ValidaRfc(rfcStr) {
+                var strCorrecta;
+                strCorrecta = rfcStr;
+                if (rfcStr.length == 12) {
+                    var valid = '^(([A-Z]|[a-z]){3})([0-9]{6})((([A-Z]|[a-z]|[0-9]){3}))';
+                } else {
+                    var valid = '^(([A-Z]|[a-z]|\s){1})(([A-Z]|[a-z]){3})([0-9]{6})((([A-Z]|[a-z]|[0-9]){3}))';
+                }
+                var validRfc = new RegExp(valid);
+                var matchArray = strCorrecta.match(validRfc);
+                if (matchArray == null) {
+                    alert('RFC Invalido');
+                    return false;
+                }
+//                else
+//                {
+//                    alert('Cadena correcta:' + strCorrecta);
+//                    return true;
+//                }
+            }
+        </script>
+
     </head>
 
     <body>
         <div class="modal-header">
-            <h4 class="modal-titulo" id="condominio-titulo">Personas</h4>
+            <h4 class="modal-titulo" id="condominio-titulo">Nombramiento</h4>
         </div>
         {{ Form::open(array('id'=>'fo3','name'=>'fo3')) }}
         <div style="margin-left: 14px;margin-right: 14px;">
@@ -126,6 +126,7 @@
             <div class="form-group">
                 {{Form::label('curp','CURP')}}
                 {{Form::text('curp', null, ['tabindex'=>'4','class'=>'form-control','autofocus'=> 'autofocus', 'required' => 'required', 'ng-model' => 'personas.curp','onblur'=>'aMayusculas(this.value,this.id)','pattern'=>'^[a-zA-Z]{4}\d{6}[a-zA-Z]{6}\d{2}$'] )}}
+
                 {{$errors->first('curp', '<span class=text-danger>:message</span>')}}
                 <p class="help-block"></p>
             </div>

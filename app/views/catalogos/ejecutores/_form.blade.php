@@ -49,6 +49,7 @@
     {{$errors->first('id_p_otorga_nombramiento', '<span class=text-danger>:message</span>')}}
     <p class="help-block"></p>
 </div>
+
 @section('javascript')
 {{ HTML::script('js/jquery/jquery.validate.min.js') }}
 <script>
@@ -104,12 +105,14 @@
     }
 </script>
 <script>
-     $(document).ready(function() {
-        $('#refresh').click(function() {
-           location.reload();
+    $(document).ready(function () {
+        $('#refresh').click(function () {
+            location.reload();
         });
     });
+
 </script>  
+
 <script>
     // Al presionar cualquier tecla en cualquier campo de texto, ejectuamos la siguiente función
     $('input').on('keydown', function (e) {
