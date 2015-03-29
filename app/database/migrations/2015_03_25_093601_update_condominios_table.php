@@ -19,9 +19,13 @@ class UpdateCondominiosTable extends Migration {
     			//Se elimina la columna clave
     			$table->dropColumn('id_propietarios');
 			}
-
-			$table->integer('gid_predio');	
-			$table->float('sup_privativa');
+            if (!Schema::hasColumn('condominios', 'gid_predio')) {
+                $table->integer('gid_predio');
+            }
+            if (!Schema::hasColumn('condominios', 'sup_privativa'))
+            {
+			    $table->float('sup_privativa');
+            }
 		});
 
 			DB::statement('ALTER TABLE condominios ALTER COLUMN sup_comun TYPE float');
