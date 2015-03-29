@@ -146,8 +146,14 @@
         </tr>
         <tr>
           <th><div align="right">ACTUALIZACION:</div></th>
-
-          <td><div align="right">$19.00</div></td>
+              <?php
+              $resultadog = DB::select("select sp_optiene_actualizacion('$mun')");
+              foreach ($resultadog as $keyss ) {
+              $itemsg     = explode(',',$keyss->sp_optiene_actualizacion);
+              }
+              $actualizacion     =Number_format($itemsg[0], 2, '.',',' );
+              ?>
+          <td><div align="right">$<?php echo $actualizacion ?></div></td>
         </tr>
         <tr>
           <th><div align="right">RECARGOS</div></th>
@@ -170,7 +176,8 @@
         </tr>
         <tr>
           <th><div align="right">TOTAL ADEUDO:</div></th>
-          <td><div align="right">1,132.00</div></td>
+          <?php $a_total= $adeudov+$actualizacion+$gastos ?>
+          <td><div align="right">$<?php echo $a_total?></div></td>
         </tr>
     </table></td>
   </tr>
