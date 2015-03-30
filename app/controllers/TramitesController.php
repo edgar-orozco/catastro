@@ -122,9 +122,15 @@ class TramitesController extends BaseController {
         $this->tramite->tipotramite_id = $tipotramite_id;
         //$this->tramite->tipo_p = $tipotramite_id;
         $this->tramite->usuario_id = Auth::id();
-        $this->tramite->notaria_id = $notaria_id;
+        if($notaria_id) {
+            $this->tramite->notaria_id = $notaria_id;
+        }
         $this->tramite->folio = $folio;
         $this->tramite->uuid = $uuid;
+
+        //Asociamos el estado iniciado
+        $estatus = EstatusTramite::where('nombre','Iniciar')->first();
+        $this->tramite->estatus_id = $estatus->id;
 
         //Si es persona física seteamos el nombre completo y los apellidos
         if($tipo_persona == 'F') {
@@ -159,9 +165,24 @@ class TramitesController extends BaseController {
             $this->tramite->tipo_solicitante = 'MORAL';
         }
 
+        //La primera vez que se guarda el trámite, es el funcionario de la ventanilla quien lo guarda,
+        //por lo que es el depto de recepcion y admon de trámite el rol encargado del trámite inicial
+        $depto = DepartamentoTramite::where('alias','recepción')->first();
+        $role_id = $depto->role_id;
+        $this->tramite->role_id = $role_id;
+        $this->tramite->departamento_id = $depto->id;
+
         $res = $this->tramite->save();
         if($res) {
             FolioTramite::incrementar($oMunicipio->gid);
+
+            //Se crea la primera actividad del tramite, es decir, la acción de iniciar tramite:
+            $actividad = TipoActividadTramite::where('nombre', 'Iniciar trámite')->first();
+            ActividadTramite::create([
+                'tramite_id' => $this->tramite->id,
+                'tipo_id' => $actividad->id,
+                'user_id' => Auth::id(),
+            ]);
         }
 
         return Redirect::to('tramites/proceso/'.$this->tramite->id)->with('success', "Se ha iniciado el trámite con folio: ".$folio);
@@ -256,7 +277,7 @@ class TramitesController extends BaseController {
             $lista_deptos[$depto->id] =$depto->nombre;
         }
 
-        $tipoactividades = TipoActividadTramite::all()->sortBy('orden');
+        $tipoactividades = TipoActividadTramite::where('manual',true)->orderBy('orden')->get();
         $lista_tipoactividades = array();
         //$lista_actividades[] = '';
         foreach($tipoactividades as $tipoactividad) {
@@ -264,6 +285,19 @@ class TramitesController extends BaseController {
         }
 
         $estado = "En proceso";
+
+        $oRroles = Auth::user()->roles()->get();
+        $roles = array();
+        foreach($oRroles as $rol){
+            $roles[] = $rol->id;
+        }
+        $oMunicipios = Auth::user()->municipios()->get();
+        $municipios = array();
+        foreach($oMunicipios as $municipio){
+            $municipios[] = $municipio->municipio;
+        }
+
+        $esResponsable = Tramite::where('id', $tramite->id)->responsabilidad($roles, $municipios)->first();
 
         $ff=true;
 
@@ -286,7 +320,8 @@ class TramitesController extends BaseController {
             'lista_deptos',
             'lista_tipoactividades',
             'uuid',
-            'ff'
+            'ff',
+            'esResponsable'
         ));
 
     }
@@ -316,6 +351,22 @@ class TramitesController extends BaseController {
 
         $actividad['tramite_id'] = $tramite_id;
 
+        //Si existe el departamento vemos el rol de usuario que corresponde a dicho depto
+        if($departamento_id){
+            $depto = DepartamentoTramite::findOrFail($departamento_id);
+            $tramite->role_id = $depto->role_id;
+            $tramite->departamento_id = $depto->id;
+
+        }
+
+        //vemos si el tipo de tramite corresponde a algun finalizado, si es el caso entonces ponemos el estatus de tramite en finalizado.
+        //De lo contrario ponemos el estatus del tramite a En Proceso
+        if($tipo_id){
+            $tipo = TipoActividadTramite::find($tipo_id);
+            $tramite->estatus_id = $tipo->estatus_id;
+        }
+
+        $tramite->save();
 
         $uid = Auth::user()->id;
         $actividad['user_id'] = $uid;

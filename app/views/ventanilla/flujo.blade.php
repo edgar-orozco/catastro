@@ -16,7 +16,7 @@
             </div>
 
             <div class="col-md-3">
-                <h4>Estado: <span class="alert alert-success">{{$estado}}</span></h4>
+                <h4>Estado: <span class="alert alert-success">{{$tramite->estatus->pasado}}</span></h4>
             </div>
         @endif
     </div>
@@ -24,6 +24,9 @@
     <br/>
 
     <div class="row clearfix">
+        <?php $nocontrol = false;?>
+        @if($tramite->estatus->pasado != 'Finalizado' && $esResponsable != null)
+
         <div class="col-md-4 column">
 
             {{ Form::open(array('url' => 'tramites/proceso/'.$tramite->id, 'method' => 'POST', 'name' => 'forma-tramite', 'files'=>true)) }}
@@ -37,14 +40,15 @@
                 </div>
                 <div class="panel-body">
 
-                    <div class="form-group">
-                        {{Form::label('departamento_id','Turnar a departamento', ['class'=>''])}}
-                        {{Form::select('departamento_id', [null => ''] + $lista_deptos, null, ['id'=>'departamento_id', 'class' => 'form-control', 'autofocus'=> 'autofocus'] )}}
-                    </div>
 
                     <div class="form-group">
                         {{Form::label('tipo_id','Actividad', ['class'=>''])}}
                         {{Form::select('tipo_id', [null => ''] + $lista_tipoactividades, null, ['id'=>'tipo_id', 'class' => 'form-control'] )}}
+                    </div>
+
+                    <div class="form-group">
+                        {{Form::label('departamento_id','Turnar a departamento', ['class'=>''])}}
+                        {{Form::select('departamento_id', [null => ''] + $lista_deptos, null, ['id'=>'departamento_id', 'class' => 'form-control', 'autofocus'=> 'autofocus'] )}}
                     </div>
 
                     <div class="form-group" id="observaciones" style="display: none;">
@@ -53,7 +57,6 @@
                     </div>
 
                 </div>
-
 
             <div class="form-actions form-group">
                 <button type="submit" class="btn btn-success">
@@ -66,10 +69,15 @@
 
             {{Form::close()}}
         </div>
+        @else
+            <?php $nocontrol = true;?>
+        @endif
 
-
+        @if($nocontrol)
+        <div class="col-md-12 column">
+        @else
         <div class="col-md-8 column">
-
+        @endif
 
 
             <div class="tabbable" id="tabs">
@@ -102,8 +110,16 @@
                         <h4><small>Ubicacion: </small>{{$predio->ubicacionFiscal->ubicacion}} </h4>
                         <h4><small>Superficie terreno: </small>{{number_format($predio->superficie_terreno,2, '.', ',')}} m<sup>2</sup> </h4>
                         <h4><small>Superficie construcción: </small>{{number_format($predio->superficie_construccion,2, '.', ',')}} m<sup>2</sup> </h4>
-                        <h4><small>Uso de suelo: </small>{{$predio->usoSuelo->descripcion}} </h4>
-                        <h4><small>Uso de construcción: </small>{{$predio->usoConstruccion->descripcion}} </h4>
+                        <h4><small>Uso de suelo: </small>
+                            @if($predio->usoSuelo)
+                                {{$predio->usoSuelo->descripcion}}
+                            @endif
+                        </h4>
+                        <h4><small>Uso de construcción: </small>
+                            @if($predio->usoConstruccion)
+                                {{$predio->usoConstruccion->descripcion}}
+                            @endif
+                        </h4>
                         <h4><smal>Propietarios:</smal></h4>
                         <ul>
                         @foreach($predio->propietarios as $propietario)
@@ -168,10 +184,11 @@
                 allowClear: true
             });
 
-            //Si se devuelve con observaciones (opcion == 1)
+            //Si se devuelve con observaciones o finaliza con observaciones (opcion == 2 o 8)
             //Entonces se muestra para captura el textarea de observaciones
             $("#tipo_id").change(function (ev) {
-                if($(this).val() == 1) {
+                console.log($(this).val());
+                if($(this).val() == 2 || $(this).val() == 8) {
                     $('#observaciones').show();
                     return true;
                 }

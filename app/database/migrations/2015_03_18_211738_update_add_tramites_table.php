@@ -3,7 +3,7 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 
-class UpdateTramitesTable extends Migration {
+class UpdateAddTramitesTable extends Migration {
 
 	/**
 	 * Run the migrations.
@@ -14,7 +14,8 @@ class UpdateTramitesTable extends Migration {
 	{
 		Schema::table('tramites', function(Blueprint $table)
 		{
-			$table->string('uuid')->nullable();
+			$table->integer('estatus_id')->nullable();
+            $table->foreign('estatus_id')->references('id')->on('estatus_tramites');
 		});
 	}
 
@@ -28,7 +29,7 @@ class UpdateTramitesTable extends Migration {
 	{
 		Schema::table('tramites', function(Blueprint $table)
 		{
-			$table->dropColumn('uuid');
+			$table->dropColumn('estatus_id');
 		});
 	}
 

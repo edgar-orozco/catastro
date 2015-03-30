@@ -6,5 +6,5 @@
  */
 class DepartamentoTramite extends \Eloquent {
     protected $table ='departamentos_tramites';
-	protected $fillable = ['nombre','orden'];
+	protected $fillable = ['nombre','orden','role_id','alias','descripcion','tipo'];
 }

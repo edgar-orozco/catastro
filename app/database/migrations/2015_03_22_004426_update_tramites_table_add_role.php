@@ -3,7 +3,7 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 
-class UpdateTramitesTable extends Migration {
+class UpdateTramitesTableAddRole extends Migration {
 
 	/**
 	 * Run the migrations.
@@ -14,7 +14,11 @@ class UpdateTramitesTable extends Migration {
 	{
 		Schema::table('tramites', function(Blueprint $table)
 		{
-			$table->string('uuid')->nullable();
+            //Rol que va a ejecutar la actividd
+			$table->integer('role_id')->nullable();
+            $table->foreign('role_id')->references('id')->on('roles');
+
+
 		});
 	}
 
@@ -28,7 +32,7 @@ class UpdateTramitesTable extends Migration {
 	{
 		Schema::table('tramites', function(Blueprint $table)
 		{
-			$table->dropColumn('uuid');
+			$table->dropColumn('role_id');
 		});
 	}
 
