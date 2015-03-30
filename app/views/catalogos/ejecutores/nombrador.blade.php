@@ -27,6 +27,9 @@
                     return false;
                 });
             })
+            $("#cerrar").click(function (event) {
+                $('#reset').click();
+            });
         </script>
         <script>
             $('#fo3').on('submit', function () {
@@ -68,7 +71,7 @@
                 var strCorrecta;
                 strCorrecta = rfcStr;
                 if (rfcStr.length == 12) {
-                    var valid = '^(([A-Z]|[a-z]){3})([0-9]{6})((([A-Z]|[a-z]|[0-9]){3}))';
+                    var valid = '[A-ZÑ\x26]{3,4}([0-9]{2})(0[1-9]|1[0-2])(0[1-9]|1[0-9]|2[0-9]|3[0-1])[A-Z|\d]{3})$';
                 } else {
                     var valid = '^(([A-Z]|[a-z]|\s){1})(([A-Z]|[a-z]){3})([0-9]{6})((([A-Z]|[a-z]|[0-9]){3}))';
                 }
@@ -78,12 +81,35 @@
                     alert('RFC Invalido');
                     return false;
                 }
-//                else
-//                {
-//                    alert('Cadena correcta:' + strCorrecta);
-//                    return true;
-//                }
+    //                else
+    //                {
+    //                    alert('Cadena correcta:' + strCorrecta);
+    //                    return true;
+    //                }
             }
+
+            // Al presionar cualquier tecla en cualquier campo de texto, ejectuamos la siguiente función
+            $('input').on('keydown', function (e) {
+                // Solo nos importa si la tecla presionada fue ENTER... (Para ver el código de otras teclas: http://www.webonweboff.com/tips/js/event_key_codes.aspx)
+                if (e.keyCode === 13)
+                {
+                    // Obtenemos el número del tabindex del campo actual
+                    var currentTabIndex = $(this).attr('tabindex');
+                    // Le sumamos 1 :P
+                    var nextTabIndex = parseInt(currentTabIndex) + 1;
+                    // Obtenemos (si existe) el siguiente elemento usando la variable nextTabIndex
+                    var nextField = $('[tabindex=' + nextTabIndex + ']');
+                    // Si se encontró un elemento:
+                    if (nextField.length > 0)
+                    {
+                        // Hacerle focus / seleccionarlo
+                        nextField.focus();
+                        // Ignorar el funcionamiento predeterminado (enviar el formulario)
+                        e.preventDefault();
+                    }
+                    // Si no se encontro ningún elemento, no hacemos nada (se envia el formulario)
+                }
+            });
         </script>
 
     </head>
@@ -118,7 +144,7 @@
 
             <div class="form-group">
                 {{Form::label('rfc','RFC')}}
-                {{Form::text('rfc', null, ['tabindex'=>'3','class'=>'form-control','autofocus'=> 'autofocus', 'required' => 'required', 'ng-model' => 'personas.rfc','onblur'=>'ValidaRfc(this.value),aMayusculas(this.value,this.id)'] )}}
+                {{Form::text('rfc', null, ['tabindex'=>'3','class'=>'form-control','autofocus'=> 'autofocus', 'required' => 'required', 'ng-model' => 'personas.rfc','onblur'=>'ValidaRfc(this.value),aMayusculas(this.value,this.id)','pattern'=>'^([A-ZÑ\x26]{3,4}([0-9]{2})(0[1-9]|1[0-2])(0[1-9]|1[0-9]|2[0-9]|3[0-1])[A-Z|\d]{3})$'] )}}
                 {{$errors->first('rfc', '<span class=text-danger>:message</span>')}}
                 <p class="help-block"></p>
             </div>

@@ -26,26 +26,24 @@
 
                     return false;
                 });
-            })
-        </script>
-        <script>
+            });
+            $("#cerrar").click(function (event) {
+                $('#reset').click();
+            });
+
             $('#fo3').on('submit', function () {
                 var Value = $("#nombres").val();
                 var appa = $("#apellido_paterno").val();
                 var apma = $("#apellido_materno").val();
                 $('#nombrec').val(Value + " " + appa + " " + apma);
-//                $("#nombre").focus(function () {
-//                    alert('hola');
-//                });
-
             });
         </script>
-          <script language="JavaScript">
+        <script language="JavaScript">
             function ValidaRfc(rfcStr) {
                 var strCorrecta;
                 strCorrecta = rfcStr;
                 if (rfcStr.length == 12) {
-                    var valid = '^(([A-Z]|[a-z]){3})([0-9]{6})((([A-Z]|[a-z]|[0-9]){3}))';
+                    var valid = '[A-ZÑ\x26]{3,4}([0-9]{2})(0[1-9]|1[0-2])(0[1-9]|1[0-9]|2[0-9]|3[0-1])[A-Z|\d]{3})$';
                 } else {
                     var valid = '^(([A-Z]|[a-z]|\s){1})(([A-Z]|[a-z]){3})([0-9]{6})((([A-Z]|[a-z]|[0-9]){3}))';
                 }
@@ -55,14 +53,8 @@
                     alert('RFC Invalido');
                     return false;
                 }
-//                else
-//                {
-//                    alert('Cadena correcta:' + strCorrecta);
-//                    return true;
-//                }
             }
-        </script>
-        <script>
+
             // Al presionar cualquier tecla en cualquier campo de texto, ejectuamos la siguiente función
             $('input').on('keydown', function (e) {
                 // Solo nos importa si la tecla presionada fue ENTER... (Para ver el código de otras teclas: http://www.webonweboff.com/tips/js/event_key_codes.aspx)
@@ -94,38 +86,36 @@
         </div>
         {{ Form::open(array('id'=>'fo3','name'=>'fo3')) }}
         <div style="margin-left: 14px;margin-right: 14px;">
-
+            <div class="form-group">
+                {{Form::label('nombres','Nombres')}}
+                {{Form::text('nombres', null, ['tabindex'=>'1','class'=>'form-control','autofocus'=> 'autofocus', 'required' => 'required', 'ng-model' => 'personas.nombres','onblur'=>'aMayusculas(this.value,this.id)'] )}}
+                {{$errors->first('nombres', '<span class=text-danger>:message</span>')}}
+                <p class="help-block"></p>
+            </div>
+            
             <div class="form-group">
                 {{Form::label('apellido_paterno','Apellido Paterno')}}
-                {{Form::text('apellido_paterno', null, ['class'=>'form-control','autofocus'=> 'autofocus', 'required' => 'required', 'ng-model' => 'personas.apellido_paterno','onblur'=>'aMayusculas(this.value,this.id)'] )}}
+                {{Form::text('apellido_paterno', null, ['tabindex'=>'2','class'=>'form-control','autofocus'=> 'autofocus', 'required' => 'required', 'ng-model' => 'personas.apellido_paterno','onblur'=>'aMayusculas(this.value,this.id)'] )}}
                 {{$errors->first('apellido_paterno', '<span class=text-danger>:message</span>')}}
                 <p class="help-block"></p>
             </div>
 
             <div class="form-group">
                 {{Form::label('apellido_materno','Apellido Materno')}}
-                {{Form::text('apellido_materno', null, ['tabindex'=>'1','class'=>'form-control','autofocus'=> 'autofocus', 'required' => 'required', 'ng-model' => 'personas.apellido_materno','onblur'=>'aMayusculas(this.value,this.id)'] )}}
+                {{Form::text('apellido_materno', null, ['tabindex'=>'3','class'=>'form-control','autofocus'=> 'autofocus', 'required' => 'required', 'ng-model' => 'personas.apellido_materno','onblur'=>'aMayusculas(this.value,this.id)'] )}}
                 {{$errors->first('apellido_materno', '<span class=text-danger>:message</span>')}}
                 <p class="help-block"></p>
             </div>
-
-            <div class="form-group">
-                {{Form::label('nombres','Nombres')}}
-                {{Form::text('nombres', null, ['tabindex'=>'2','class'=>'form-control','autofocus'=> 'autofocus', 'required' => 'required', 'ng-model' => 'personas.nombres','onblur'=>'aMayusculas(this.value,this.id)'] )}}
-                {{$errors->first('nombres', '<span class=text-danger>:message</span>')}}
-                <p class="help-block"></p>
-            </div>
-
             <div class="form-group">
                 {{Form::label('rfc','RFC')}}
-                {{Form::text('rfc', null, ['tabindex'=>'3','class'=>'form-control','autofocus'=> 'autofocus', 'required' => 'required', 'ng-model' => 'personas.rfc','onblur'=>'ValidaRfc(this.value),aMayusculas(this.value,this.id)'] )}}
+                {{Form::text('rfc', null, ['tabindex'=>'4','class'=>'form-control','autofocus'=> 'autofocus', 'required' => 'required', 'ng-model' => 'personas.rfc','onblur'=>'ValidaRfc(this.value),aMayusculas(this.value,this.id)','pattern'=>'^([A-ZÑ\x26]{3,4}([0-9]{2})(0[1-9]|1[0-2])(0[1-9]|1[0-9]|2[0-9]|3[0-1])[A-Z|\d]{3})$'] )}}
                 {{$errors->first('rfc', '<span class=text-danger>:message</span>')}}
                 <p class="help-block"></p>
             </div>
 
             <div class="form-group">
                 {{Form::label('curp','CURP')}}
-                {{Form::text('curp', null, ['tabindex'=>'4','class'=>'form-control','autofocus'=> 'autofocus', 'required' => 'required', 'ng-model' => 'personas.curp','onblur'=>'aMayusculas(this.value,this.id)','pattern'=>'^[a-zA-Z]{4}\d{6}[a-zA-Z]{6}\d{2}$'] )}}
+                {{Form::text('curp', null, ['tabindex'=>'5','class'=>'form-control','autofocus'=> 'autofocus', 'required' => 'required', 'ng-model' => 'personas.curp','onblur'=>'aMayusculas(this.value,this.id)','pattern'=>'^[a-zA-Z]{4}\d{6}[a-zA-Z]{6}\d{2}$'] )}}
                 {{$errors->first('curp', '<span class=text-danger>:message</span>')}}
                 <p class="help-block"></p>
             </div>

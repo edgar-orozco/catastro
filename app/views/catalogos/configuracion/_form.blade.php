@@ -7,7 +7,7 @@
     {{Form::label('municipio','Seleccione el municipio')}}
     {{Form::select('municipio',$Municipio, null,['tabindex'=>'1','class'=>'form-control', 'autofocus'=> 'autofocus', 'required' => 'required', 'ng-model' => 'configuracionMunicipal.municipio', 'tb-focus' => 'focusForm', 'ng-blur' => 'focusForm = false'])}}
     {{$errors->first('municipio', '<span class=text-danger>:message</span>')}}
-    <p class="help-block"></p>
+    <span id="error"></span>
 </div>
 
 <div class="form-group">
@@ -40,21 +40,21 @@
 
 <div class="form-group">
     {{Form::label('descuento_gasto_ejecucion','Descuento gasto ejecucion')}}
-    {{Form::text('descuento_gasto_ejecucion', null, ['placeholder'=>'Descuento de Gasto de Ejecucion','tabindex'=>'6','class'=>'form-control', 'autofocus'=> 'autofocus', 'required' => 'required', 'ng-model' => 'configuracionMunicipal.descuento_gasto_ejecucion', 'tb-focus' => 'focusForm', 'ng-blur' => 'focusForm = false','onkeypress'=>'return justNumbers(event)'] )}}
+    {{Form::text('descuento_gasto_ejecucion', null, ['tabindex'=>'6','placeholder'=>'Descuento de Gasto de Ejecucion','tabindex'=>'6','class'=>'form-control', 'autofocus'=> 'autofocus', 'required' => 'required', 'ng-model' => 'configuracionMunicipal.descuento_gasto_ejecucion', 'tb-focus' => 'focusForm', 'ng-blur' => 'focusForm = false','onkeypress'=>'return justNumbers(event)'] )}}
     {{$errors->first('descuento_gasto_ejecucion', '<span class=text-danger>:message</span>')}}
     <p class="help-block"></p>
 </div>
 
 <div class="form-group">
     {{Form::label('descuento_recargo','Descuento recargo')}}
-    {{Form::text('descuento_recargo', null, ['placeholder'=>'Descuento Sobre Recargo','tabindex'=>'6','class'=>'form-control', 'autofocus'=> 'autofocus', 'required' => 'required', 'ng-model' => 'configuracionMunicipal.descuento_recargo', 'tb-focus' => 'focusForm', 'ng-blur' => 'focusForm = false','onkeypress'=>'return justNumbers(event)'] )}}
+    {{Form::text('descuento_recargo', null, ['placeholder'=>'Descuento Sobre Recargo','tabindex'=>'7','class'=>'form-control', 'autofocus'=> 'autofocus', 'required' => 'required', 'ng-model' => 'configuracionMunicipal.descuento_recargo', 'tb-focus' => 'focusForm', 'ng-blur' => 'focusForm = false','onkeypress'=>'return justNumbers(event)'] )}}
     {{$errors->first('descuento_recargo', '<span class=text-danger>:message</span>')}}
     <p class="help-block"></p>
 </div>
 
 <div class="form-group">
     {{Form::label('descuento_actualizacion','Descuento de actualizacion')}}
-    {{Form::text('descuento_actualizacion', null, ['placeholder'=>'Descuento Sobre Actualizacion','tabindex'=>'7','class'=>'form-control', 'autofocus'=> 'autofocus', 'required' => 'required', 'ng-model' => 'configuracionMunicipal.descuento_actualizacion', 'tb-focus' => 'focusForm', 'ng-blur' => 'focusForm = false','onkeypress'=>'return justNumbers(event)'] )}}
+    {{Form::text('descuento_actualizacion', null, ['placeholder'=>'Descuento Sobre Actualizacion','tabindex'=>'8','class'=>'form-control', 'autofocus'=> 'autofocus', 'required' => 'required', 'ng-model' => 'configuracionMunicipal.descuento_actualizacion', 'tb-focus' => 'focusForm', 'ng-blur' => 'focusForm = false','onkeypress'=>'return justNumbers(event)'] )}}
     {{$errors->first('descuento_actualizacion', '<span class=text-danger>:message</span>')}}
     <p class="help-block"></p>
 </div>
@@ -83,12 +83,18 @@
 color:red;
 font: bold 85% monospace;
 }
+#error
+{
+color:red;
+font: bold 85% monospace;
+}
 
 @stop
 
 
 @section('javascript')
 <script>
+
     function aMayusculas(obj, id) {
         obj = obj.toUpperCase();
         document.getElementById(id).value = obj;
@@ -165,8 +171,22 @@ font: bold 85% monospace;
             }
             // Si no se encontro ningún elemento, no hacemos nada (se envia el formulario)
         }
-    });</script>
+    });
 
+
+</script>
+<script>
+    $(document).ready(function () {
+        $('#form').on('submit', function () {
+            if (form.municipio.options[form.municipio.selectedIndex].value == 0)
+            {
+                $("#error").text("Por favor, seleccione un Municipio");
+                form.municipio.focus();
+                return false;
+            }
+        });
+    });
+</script>
 @append
 
 

@@ -13,9 +13,14 @@
     @if(empty($nombrec))
     {{Form::text('nombrec',null, ['tabindex'=>'1','id' => 'nombrec', 'class'=>'form-control', 'autofocus'=> 'autofocus', 'ng-model' => 'ejecutores.nombrec'] )}}
     @endif
+    <a data-toggle="modal"  data-target="#Nuevo"  href="/catalogos/personas">
+        <span class="glyphicon glyphicon-plus" style="margin-left: 365px;"></span>
+    </a>
     {{Form::text('id_p',null, ['id' => 'response','hidden'])}}
     {{$errors->first('id_p', '<span class=text-danger>:message</span>')}}
+
 </div>
+
 <div class="form-group">
     {{Form::label('titulo','Titulo')}}
     {{Form::text('titulo', null, ['tabindex'=>'2','class'=>'form-control','autofocus'=> 'autofocus',  'ng-model' => 'ejecutores.titulo'] )}}
@@ -31,7 +36,7 @@
 </div>
 <div class="form-group">
     {{Form::label('f_nombramiento','Fecha de nombramiento')}}
-    {{Form::text('f_nombramiento', null, ['tabindex'=>'4','class'=>'form-control','autofocus'=> 'autofocus',  'ng-model' => 'ejecutores.f_nombramiento'] )}}
+    {{Form::text('f_nombramiento', null, ['class'=>'form-control','autofocus'=> 'autofocus',  'ng-model' => 'ejecutores.f_nombramiento'] )}}
     {{$errors->first('f_nombramiento', '<span class=text-danger>:message</span>')}}
     <p class="help-block"></p>
 </div>
@@ -39,12 +44,15 @@
     {{Form::label('id_p_otorga_nombramiento','Quien lo nombra')}}
     <!--SI "TRAE" LA VARIABLE $nombre-->
     @if(!empty($nombre))
-    {{Form::text('nombre', $nombre, ['tabindex'=>'5','id'=>'nombre', 'class'=>'form-control', 'autofocus'=> 'autofocus','ng-model' => 'ejecutores.nombre'] )}}
+    {{Form::text('nombre', $nombre, ['tabindex'=>'4','id'=>'nombre', 'class'=>'form-control', 'autofocus'=> 'autofocus','ng-model' => 'ejecutores.nombre'] )}}
     @endif
     <!--SI "NO" TRAE LA VARIABLE $nombre-->
     @if(empty($nombre))
-    {{Form::text('nombre', null, ['tabindex'=>'5','id'=>'nombre', 'class'=>'form-control', 'autofocus'=> 'autofocus','ng-model' => 'ejecutores.nombre'] )}}
+    {{Form::text('nombre', null, ['tabindex'=>'4','id'=>'nombre', 'class'=>'form-control', 'autofocus'=> 'autofocus','ng-model' => 'ejecutores.nombre'] )}}
     @endif
+     <a data-toggle="modal"  data-target="#quien"  href="/catalogos/nombrador">
+            <span class="glyphicon glyphicon-plus" style="margin-left: 365px;"></span>
+        </a>
     {{Form::text('id_p_otorga_nombramiento',null, ['id' => 'response2','hidden'] )}}
     {{$errors->first('id_p_otorga_nombramiento', '<span class=text-danger>:message</span>')}}
     <p class="help-block"></p>
