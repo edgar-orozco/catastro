@@ -53,17 +53,18 @@ font: bold 85% monospace;
         }
 
     });
-
+</script>
+<script>
     $(document).ready(function () {
-
         $('#form').validate({// initialize the plugin
+            
             rules: {
                 mes: {
                     selectcheck: true
                 },
                 inpc: {
                     required: true,
-                },
+                }
             },
             messages: {
                 inpc: {
