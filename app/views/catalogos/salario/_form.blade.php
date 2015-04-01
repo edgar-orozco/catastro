@@ -13,10 +13,12 @@
 </div>
 <div class="form-group">
     {{Form::label('anio','Año')}}
-    {{Form::select('anio',$anio, null,['Under 18', 'tabindex'=>'2','class'=>'form-control', 'autofocus'=> 'autofocus', 'required' => 'required', 'ng-model' => 'inpc.anio', 'tb-focus' => 'focusForm', 'ng-blur' => 'focusForm = false'])}}
+    <!--{{Form::select('anio',$anio, null,['Under 18', 'tabindex'=>'2','class'=>'form-control', 'autofocus'=> 'autofocus', 'required' => 'required', 'ng-model' => 'inpc.anio', 'tb-focus' => 'focusForm', 'ng-blur' => 'focusForm = false'])}}-->
+    {{Form::text('anio', null, ['tabindex'=>'2','class'=>'form-control','autofocus'=> 'autofocus', 'required' => 'required', 'ng-model' => 'inpc.anio','readonly'=>'readonly','tb-focus' => 'focusForm', 'ng-blur' => 'focusForm = false'] )}}
     {{$errors->first('anio', '<span class=text-danger>:message</span>')}}
     <p class="help-block"></p>
 </div>
+<span id="temp_date_start"></span>
 
 <div class="form-group">
     {{Form::label('salario_minimo','Salario minimo')}}
@@ -66,10 +68,28 @@ font: bold 85% monospace;
     }
 //Calendario
     $(function () {
-        $("#fecha_inicio_periodo").datepicker();
-    });
-    $(function () {
-        $("#fecha_termino_periodo").datepicker();
+        $("#fecha_inicio_periodo").datepicker({
+            changeMonth: true,
+            numberOfMonths: 2,
+            onClose: function (selectedDate) {
+                $("#fecha_termino_periodo").datepicker("option", "minDate", selectedDate);
+            },
+            onSelect: function (selectedDate) {
+                //dateFormat: 'DD, MM d, yy'
+                var theDate = selectedDate;
+                var arr = theDate.split('/');
+                var anio=arr[2];
+                $("#anio").val(anio);
+//                console.log(theDate);
+            }
+        });
+        $("#fecha_termino_periodo").datepicker({
+            changeMonth: true,
+            numberOfMonths: 2,
+            onClose: function (selectedDate) {
+                $("#fecha_inicio_periodo").datepicker("option", "maxDate", selectedDate);
+            }
+        });
     });
 //Cambiar a español el calendario
     $.datepicker.regional['es'] = {
@@ -111,8 +131,7 @@ font: bold 85% monospace;
                 return this.optional(element) || !/Invalid|NaN/.test(new Date(str));
             },
             "Please enter a date in the format dd/mm/yyyy"
-            );
-</script>
+            );</script>
 <script>
     $(document).ready(function () {
 //        $('#form').on('submit', function () {
