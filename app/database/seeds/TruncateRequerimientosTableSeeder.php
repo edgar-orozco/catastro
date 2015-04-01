@@ -7,7 +7,6 @@ class TruncateRequerimientosTableSeeder extends Seeder {
 
 	public function run()
 	{
-		
 		DB::table('requerimientos')->truncate();
 	}
 

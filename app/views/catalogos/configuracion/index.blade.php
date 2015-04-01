@@ -5,7 +5,7 @@
 @stop
 
 @section('content')
-{{ Form:: open(array('url'=>'catalogos/configuracion')) }}
+{{ Form:: open(array('url'=>'catalogos/configuracion','id'=>'form')) }}
 <div class="row">
     <a class="btn btn-info" href="{{action('catalogos_configuracionController@create')}}" role="button">
         <span class="glyphicon glyphicon-plus"></span> Crear configuracion municipal

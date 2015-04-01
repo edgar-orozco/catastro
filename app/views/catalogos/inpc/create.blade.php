@@ -7,7 +7,7 @@
 
         <div class="col-md-4">
         
-        {{ Form::open(array('url' => 'catalogos/inpc', 'method' => 'POST')) }}
+        {{ Form::open(array('id'=>'form','class'=>'inpc','url' => 'catalogos/inpc', 'method' => 'POST')) }}
 
             @include('catalogos.inpc._form')
 

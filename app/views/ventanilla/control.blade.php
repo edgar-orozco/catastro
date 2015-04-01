@@ -15,7 +15,7 @@
             </div>
 
             <div class="col-md-3">
-                <h4>Estado: <span class="alert alert-success">{{$estado}}</span></h4>
+                <h4>Estado: <span class="alert alert-success">{{$tramite->estatus->pasado}}</span></h4>
             </div>
         @endif
     </div>
@@ -133,8 +133,16 @@
                         <h4><small>Ubicacion: </small>{{$predio->ubicacionFiscal->ubicacion}} </h4>
                         <h4><small>Superficie terreno: </small>{{number_format($predio->superficie_terreno,2, '.', ',')}} m<sup>2</sup> </h4>
                         <h4><small>Superficie construcción: </small>{{number_format($predio->superficie_construccion,2, '.', ',')}} m<sup>2</sup> </h4>
-                        <h4><small>Uso de suelo: </small>{{$predio->usoSuelo->descripcion}} </h4>
-                        <h4><small>Uso de construcción: </small>{{$predio->usoConstruccion->descripcion}} </h4>
+                        <h4><small>Uso de suelo: </small>
+                            @if($predio->usoSuelo)
+                                {{$predio->usoSuelo->descripcion}}
+                            @endif
+                        </h4>
+                        <h4><small>Uso de construcción: </small>
+                            @if($predio->usoConstruccion)
+                                {{$predio->usoConstruccion->descripcion}}
+                            @endif
+                        </h4>
                         <h4><smal>Propietarios:</smal></h4>
                         <ul>
                         @foreach($predio->propietarios as $propietario)

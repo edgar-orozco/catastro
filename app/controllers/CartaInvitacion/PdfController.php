@@ -48,7 +48,7 @@ public function get_pdf()
            $fecha  =($claves2['captura']['fecha']=$fecha);
 foreach ($vale as $clave ) {
             $claves=$clave[0];
-
+              
            $verificacion = ejecucion::where('clave',$claves)->pluck('clave');
             //echo $resul=$verificacion;
           if($verificacion==''){
@@ -90,8 +90,4 @@ foreach ($vale as $clave ) {
     }
 
 
-    public function reimpresion($clave = null)
-    {
-       echo 'clave'.$clave;
-    }
 }

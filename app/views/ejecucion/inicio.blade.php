@@ -60,10 +60,11 @@
 
 <script>
             //actualiza el paginado cuando se cambia el numero de registros a mostrar
-            $('#pagi').on('change', function()
+             $('#pagi').on('change', function()
                 {
                    document.getElementById('paginado').value = document.getElementById('pagi').value;
                    document.busqueda.submit();
+                });
 </script>
 
 <script>
@@ -231,7 +232,7 @@ $("#fecha").datepicker();
         'name'   =>'busqueda'
      )) }}
 
-        <div class="input-group">
+        <div class="table">
             <table class="table">
                 <tr>
                     <th>{{Form::label('clave','Clave Catastral:') }}</th>

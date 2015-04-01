@@ -4,7 +4,7 @@ class StatusSeeder extends Seeder {
     {
         DB::table('cat_status')->delete();
         DB::table('cat_status')->insert(
-            array('cve_status' => 'CI', 'descrip' => 'Carta Invitacion', 'fecha_alta' => date("Y-m-d H:i:s"), 'usuario_alta' => 'User' , 'dias_vigencia' => 15, 'notificacion' => 'No')
+            array('cve_status' => 'CI', 'descrip' => 'Carta Invitacion', 'fecha_alta' => date("Y-m-d H:i:s"), 'usuario_alta' => 'User' , 'dias_vigencia' => 15, 'notificacion' => 'Si')
         );
         DB::table('cat_status')->insert(
             array('cve_status' => 'CI2', 'descrip' => 'Segunda Carta Invitacion', 'fecha_alta' => date("Y-m-d H:i:s"), 'usuario_alta' => 'User' , 'dias_vigencia' => 15, 'notificacion' => 'No')

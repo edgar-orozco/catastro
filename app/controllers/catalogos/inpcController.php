@@ -126,7 +126,7 @@ class catalogos_inpcController extends \BaseController {
         // Todos los permisos creados actualmente
         $inpcs = $this->inpc->all();
         //Meses list
-        $mes = array(' --- Seleccione un Mes --- ','Enero','Febrero','Marzo','Abril','Mayo','Junio','Julio', 'Agosto','Septiembre','Octubre','Noviembre','Diciembre');
+        $mes = array('--- Seleccione un Mes ---','Enero','Febrero','Marzo','Abril','Mayo','Junio','Julio', 'Agosto','Septiembre','Octubre','Noviembre','Diciembre');
         
         //Select del los años 
         for ($i = date('o'); $i >= 1910; $i--) {

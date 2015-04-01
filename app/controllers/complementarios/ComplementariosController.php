@@ -23,7 +23,7 @@ class complementarios_ComplementariosController extends BaseController {
     }
 
     public function getInstalacion($id = null) {
-        $gid = Input::get('gidc');
+        echo 'hola'.$gid = Input::get('gidc');
         $datos = instalaciones::WHERE('instalaciones_especiales.clave', '=', $id)
                 ->join('tiposiespeciales', 'tiposiespeciales.id', '=', 'instalaciones_especiales.id_tipo_ie')
                 ->get();
@@ -49,7 +49,7 @@ class complementarios_ComplementariosController extends BaseController {
 //                ->get();
         $cat = tiposervicios::orderBy('descripcion', 'ASC')->get();
 
-        $asociados = servicios::WHERE('gid_predio', '=', '2')
+        $asociados = servicios::WHERE('gid_predio', '=', $gid)
                 ->orderBy('id_tiposerviciopredio', 'ASC')
                 ->get();
         $nombre = tiposervicios::WHERE('id', '=', $id);
@@ -87,7 +87,7 @@ class complementarios_ComplementariosController extends BaseController {
                 ->join('tipopisos', 'pisospredio.id_pisopredio', '=', 'tipopisos.id_tipopiso')
                 ->get();
         $giros = TipoGiros::orderBy('descripcion', 'ASC')->get();
-        $girosasociados = Giros::WHERE('gid_construccion', '=', '2')
+        $girosasociados = Giros::WHERE('gid_construccion', '=', $gid)
                 ->orderBy('id', 'ASC')
                 ->get();
         return View::make('complementarios.cargar', compact("datos", "const", "predios", "condominio", "prop", "cat", "servicios", "asociados", "nombre", "techos", "muros", "clases", "ventanas", "giros", "girosasociados", "puertas", "pisos"));
