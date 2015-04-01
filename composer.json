@@ -12,7 +12,8 @@
         "thujohn/pdf":"~1.0",
         "Barryvdh/Laravel-DOMPDF": "0.4.*",
         "webpatser/laravel-uuid": "1.*",
-        "laravelrus/localized-carbon": "1.4.*"
+        "laravelrus/localized-carbon": "1.4.*",
+        "captcha-com/laravel-captcha": "3.*"
 	},
     "require-dev": {
         "way/generators": "~2.0",

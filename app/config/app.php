@@ -130,6 +130,7 @@ return array(
 		'Catastro\Providers\PadronRepositoryServiceProvider',
 		'Catastro\Providers\DatabaseLogServiceProvider',
         'Laravelrus\LocalizedCarbon\LocalizedCarbonServiceProvider',
+            'BotDetectCaptcha\LaravelCaptcha\LaravelCaptchaServiceProvider',
 	),
 
 	/*
