@@ -170,7 +170,7 @@
         </tr>
         <tr>
           <th><div align="right">MULTAS</div></th>
-          <td><div align="right">$134.00</div></td>
+          <td><div align="right">$<?php echo $descuento_multa ?></div></td>
         </tr>
         <tr>
           <th><div align="right">GASTO DE EJECUCION:</div></th>
