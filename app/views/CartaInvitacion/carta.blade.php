@@ -216,7 +216,7 @@
 <p class="texto" align="justify">
 
 
-  <strong>La Autoridad Municipal, en apoyo al contribuyente, brinda un plazo de 5 días hábiles para efectuar el pago correspondiente; al presentar este vale en caja usted recibirá la CONDENACION DEL {{$des_gasto_eje}}% en MULTAS y GASTOS DE EJECUCION, además de un DESCUENTO DEL <?php echo $desccuento_recargo ?>% sobre los RECARGOS, Pagando solamente Usted:</p>
+  <strong>La Autoridad Municipal, en apoyo al contribuyente, brinda un plazo de 5 días hábiles para efectuar el pago correspondiente; al presentar este vale en caja usted recibirá la CONDONACION DEL <?php echo $descuento_multa ?>% en MULTAS y <?php echo $descuento_gasto ?>% en GASTOS DE EJECUCION, además de un DESCUENTO DEL <?php echo $desccuento_recargo ?>% sobre los RECARGOS, Pagando solamente Usted:</p>
 
 
   <p align="right">TOTAL A PAGAR: $<?php echo $total_vale ?></p>
