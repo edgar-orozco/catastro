@@ -59,7 +59,7 @@
 </div>
 
 @section('javascript')
-
+{{ HTML::script('js/jquery/jquery.validate.min.js') }}
 <script>
     $(function () {
         $("#nombrec").autocomplete({
