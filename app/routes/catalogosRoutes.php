@@ -16,6 +16,8 @@ Route::group(array('before'=>'admin'),  function (){
         array('as' => 'ordenStatus', 'uses' => 'catalogos_statusController@ordenStatus'));
 
 //Rutas para el catalogo INPC
+    Route::get('catalogos/ejecutoresE/{id}',
+        array('as' => 'destroyejecutores', 'uses' => 'catalogos_ejecutoresController@destroy'));
     Route::post('catalogos/inpc.{format}',
         array('as'=>'storeInpc','uses'=>'catalogos_inpcController@store'));
     Route::get('catalogos/inpc.{format}',
@@ -41,6 +43,8 @@ Route::group(array('before'=>'admin'),  function (){
         array('as' => 'destroySalario', 'uses' => 'catalogos_salarioController@destroy'));
 
 //Rutas para el catalogo ejecutores    
+    Route::get('catalogos/ejecutoresE/{id}',
+        array('as' => 'destroyejecutores', 'uses' => 'catalogos_ejecutoresController@destroy'));
     Route::post('catalogos/ejecutores.{format}',
         array('as'=>'storeEjecutores','uses'=>'catalogos_ejecutoresController@store'));
     Route::post('catalogos/ejecutores.{format}',

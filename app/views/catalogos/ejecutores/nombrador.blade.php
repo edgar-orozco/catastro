@@ -158,7 +158,7 @@
             </div>
 
             <div class="form-actions form-group">
-                {{ Form::submit('Guardar nombre', array('class' => 'btn btn-primary','id'=>'guardar')) }} 
+                {{ Form::submit('Guardar nombre', array('class' => 'btn btn-primary','id'=>'guardar','tabindex'=>'5')) }} 
                 {{ Form::reset('Limpiar formato', ['class' => 'btn btn-warning','id'=>'reset']) }}
                 <button class="btn btn-danger" type="button" id="cerrar" class="btn btn-default" data-dismiss="modal">Cancelar</button>
                 {{Form::close()}}
