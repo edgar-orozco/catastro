@@ -94,7 +94,7 @@ class catalogos_ejecutoresController extends \BaseController {
             $n->id_p = $inputs["id_p"];
             $n->cargo = $inputs["cargo"];
             $n->titulo = $inputs["titulo"];
-            $n->f_nombramiento1 = $inputs["f_nombramiento"];
+            $n->f_nombramiento = $inputs["f_nombramiento"];
             $n->id_p_otorga_nombramiento = $inputs["id_p_otorga_nombramiento"];
             $n->save();
             Session::flash('mensaje', 'El registro ha sido ingresado exitosamente');
