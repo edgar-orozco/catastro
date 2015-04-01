@@ -127,8 +127,7 @@ class catalogos_configuracionController extends \BaseController
         if ($validar->fails()) {
             return Redirect::back()->withErrors($validar);
         }  else {
-            $n = new configuracionMunicipal;
-            
+            $n = new configuracionMunicipal;            
             $n->municipio = $inputs["municipio"];
             $n->nombre = $inputs["nombre"];
             $n->cargo = $inputs["cargo"];

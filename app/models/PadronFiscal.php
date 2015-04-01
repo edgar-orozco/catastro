@@ -15,7 +15,7 @@ class PadronFiscal extends Ardent
     }
 
     public function usoConstruccion(){
-        return $this->hasOne('UsoConstruccion', 'id', 'uso_construccion');
+        return $this->hasOne('UsoConstruccion', 'id_tuc', 'uso_construccion');
     }
 
     public function usoSuelo(){

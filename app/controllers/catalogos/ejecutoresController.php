@@ -99,8 +99,8 @@ class catalogos_ejecutoresController extends \BaseController {
             $n->save();
             Session::flash('mensaje', 'El registro ha sido ingresado exitosamente');
             //Se han guardado los valores
-//            return Redirect::to('catalogos/ejecutores/create')->with('success', '¡Se ha creado correctamente el ejecutor' . " !");
-            return Redirect::back();
+            return Redirect::to('catalogos/ejecutores/create')->with('success', '¡Se ha creado correctamente el ejecutor' . " !");
+//            return Redirect::back();
         }
     }
 
@@ -230,6 +230,64 @@ class catalogos_ejecutoresController extends \BaseController {
      */
 
     public function storep($format = 'html') {
+        $inputs = Input::All();
+        //Reglas 
+        $reglas = array(
+            'apellido_paterno' => 'required',
+            'apellido_materno' => 'required',
+            'nombres' => 'required',
+            'rfc' => 'required',
+            'curp' => 'required',
+        );
+
+        $apellido_paterno = Input::get('apellido_paterno');
+        $apellido_materno = Input::get('apellido_materno');
+        $nombres = Input::get('nombres');
+        $term = $nombres . ' ' . $apellido_paterno . ' ' . $apellido_materno;
+        //echo $nombrec=$apellido_materno." ".$apellido_paterno." ".$nombres ; 
+        //Mensaje
+        $mensajes = array(
+            "required" => "*",
+        );
+        //valida
+        $validar = Validator::make($inputs, $reglas, $mensajes);
+        //en caso no pase la validacion
+        if ($validar->fails()) {
+            return Redirect::back()->withErrors($validar);
+        } else {
+            $n = new personas();
+            $n->apellido_paterno = $inputs["apellido_paterno"];
+            $n->apellido_materno = $inputs["apellido_materno"];
+            $n->nombres = $inputs["nombres"];
+            $n->nombrec = $apellido_paterno . " " . $apellido_materno . " " . $nombres;
+            $n->rfc = $inputs["rfc"];
+            $n->curp = $inputs["curp"];
+            $n->save();
+            $queries = DB::select(DB::raw("SELECT id_p FROM personas WHERE nombres || ' ' || apellido_paterno || ' ' ||  apellido_materno LIKE '%" . $term . "%' limit 1"));
+            //Se han guardado los valores
+            foreach ($queries as $key) {
+                $id = $key->id_p;
+            }
+            Session::flash('mensaje', 'El registro ha sido ingresado exitosamente');
+            return Response::json(array('id_p' => $id));
+            // return Redirect::back();
+        }
+    }
+
+    public function getagregarpersona($format = 'html', $id = null) {
+        $title = 'Crar nueva perosana';
+        //Titulo de seccion:
+        $title_section = "";
+        //Subtitulo de seccion:
+        $subtitle_section = "Crear nueva persona";
+        return View::make('catalogos.ejecutores.nombrador', compact('title', 'title_section', 'subtitle_section'));
+    }
+
+    /*
+     * STORE DE PERSONAS
+     */
+
+    public function post_agregarpersona($format = 'html') {
         $inputs = Input::All();
         //Reglas 
         $reglas = array(

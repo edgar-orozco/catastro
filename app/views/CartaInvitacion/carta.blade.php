@@ -78,6 +78,7 @@
             $mun = $key[0];
             $id_mun =substr($mun, 3, 3);
             $gid    =Municipio::where('municipio',$id_mun)->pluck('gid');
+
             $configutacion = configuracionMunicipal::where('municipio',$gid)->take(1)->get();
             foreach ($configutacion as $keys ) {
         $nombrec=$keys->nombre;
@@ -117,16 +118,18 @@
                     <thead>
                     <tr>
                     <th>VENCIDOS</th>
+                    <th><div align="right">ADEUDO</div></th>
+                    </tr>
+                    </thead>
                     <?php $vencido= DB::select("select sp_get_anios_vencidos('$mun')");
+                    $total_adeudo=0;
                     foreach ($vencido as $keys) {
                     $vencidos=explode(',', $keys->sp_get_anios_vencidos);
                     $aniov= str_replace('(', '',$vencidos[0]);
                     $adeudov=str_replace(')', '',$vencidos[1]);
+                    $total_adeudo=$total_adeudo+$adeudov;
                     ?>
-                    <th><div align="right">ADEUDO</div></th>
-                    </tr>
-                    </thead>
-            <tr>
+                <tr>
                 <td><div align="center">{{$aniov}}</div></td>
                 <td><div align="right">{{$adeudov}}</div></td>
             </tr>
@@ -141,27 +144,41 @@
         <table width="42%" border="0" align="right">
         <tr>
           <th width="55%"><div align="right">SUB-TOTAL:</div></th>
-        <td width="45%"><div align="right">$583.00</div></td>
+        <td width="45%"><div align="right">$<?php echo $total_adeudo ?></div></td>
         </tr>
         <tr>
           <th><div align="right">ACTUALIZACION:</div></th>
-          <td><div align="right">$19.00</div></td>
+              <?php
+              $resultadog = DB::select("select sp_get_concepto_adeudo('$mun','$gid')");
+              foreach ($resultadog as $keyss ) {
+              $itemsg     = explode('-',$keyss->sp_get_concepto_adeudo);
+              }
+              $actualizacion     =Number_format($itemsg[0], 2, '.',',' );
+              $recargo     =Number_format($itemsg[1], 2, '.',',' );
+              $gastos_ejecucion     =Number_format($itemsg[2], 2, '.',',' );
+              $gran_total     =Number_format($itemsg[3], 2, '.',',' );
+              $descuento_multa     =Number_format($itemsg[4], 2, '.',',' );
+              $descuento_gasto     =Number_format($itemsg[5], 2, '.',',' );
+              $desccuento_recargo     =Number_format($itemsg[6], 2, '.',',' );
+              $total_vale     =Number_format($itemsg[7], 2, '.',',' );
+              ?>
+          <td><div align="right">$<?php echo $actualizacion ?></div></td>
         </tr>
         <tr>
           <th><div align="right">RECARGOS</div></th>
-          <td><div align="right">$130.00</div></td>
+          <td><div align="right">$<?php echo $recargo ?></div></td>
         </tr>
         <tr>
           <th><div align="right">MULTAS</div></th>
-          <td><div align="right">$134.00</div></td>
+          <td><div align="right">$<?php echo $descuento_multa ?></div></td>
         </tr>
         <tr>
-          <th><div align="right">GSTO DE EJECUCION:</div></th>
-          <td><div align="right">$266.00</div></td>
+          <th><div align="right">GASTO DE EJECUCION:</div></th>
+          <td><div align="right">$<?php echo $gastos_ejecucion ?></div></td>
         </tr>
         <tr>
           <th><div align="right">TOTAL ADEUDO:</div></th>
-          <td><div align="right">1,132.00</div></td>
+          <td><div align="right">$<?php echo $gran_total?></div></td>
         </tr>
     </table></td>
   </tr>
@@ -176,6 +193,7 @@
 
 
 <p class="texto" align="center">ATENTAMENTE</p>
+</br>
 <hr align="center" color="#000000" width="250">
 
 <p class="texto" align="center">{{$nombrec}}</p>
@@ -198,10 +216,10 @@
 <p class="texto" align="justify">
 
 
-  <strong>La Autoridad Municipal, en apoyo al contribuyente, brinda un plazo de 5 días hábiles para efectuar el pago correspondiente; al presentar este vale en caja usted recibirá la CONDENACION DEL {{$des_gasto_eje}}% en MULTAS y GASTOS DE EJECUCION, además de un DESCUENTO DEL {{$des_recargo}}% sobre los RECARGOS, Pagando solamente Usted:</p>
+  <strong>La Autoridad Municipal, en apoyo al contribuyente, brinda un plazo de 5 días hábiles para efectuar el pago correspondiente; al presentar este vale en caja usted recibirá la CONDENACION DEL {{$des_gasto_eje}}% en MULTAS y GASTOS DE EJECUCION, además de un DESCUENTO DEL <?php echo $desccuento_recargo ?>% sobre los RECARGOS, Pagando solamente Usted:</p>
 
 
-  <p align="right">TOTAL A PAGAR: $732.00</p>
+  <p align="right">TOTAL A PAGAR: $<?php echo $total_vale ?></p>
   <br>
   <p align="center" class="texto2">¡ACTUALIZATE!</p><br/>
 

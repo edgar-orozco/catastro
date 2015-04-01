@@ -54,6 +54,9 @@ Route::group(array('before'=>'admin'),  function (){
     Route::get('search/autocomplete1', 'catalogos_ejecutoresController@autocomplete');
     Route::get('catalogos/personas', 'catalogos_ejecutoresController@getIndex');
     Route::post('catalogos/personas','catalogos_ejecutoresController@storep');
+    /**/
+    Route::get('catalogos/nombrador', 'catalogos_ejecutoresController@getagregarpersona');
+    Route::post('catalogos/nombrador','catalogos_ejecutoresController@post_agregarpersona');
 
 //Rutas para el catalogo ejecucion
     Route::post('catalogos/configuracion{format}',

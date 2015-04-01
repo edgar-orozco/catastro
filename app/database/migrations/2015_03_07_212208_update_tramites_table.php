@@ -14,7 +14,7 @@ class UpdateTramitesTable extends Migration {
 	{
 		Schema::table('tramites', function(Blueprint $table)
 		{
-			$table->string('uuid');
+			$table->string('uuid')->nullable();
 		});
 	}
 

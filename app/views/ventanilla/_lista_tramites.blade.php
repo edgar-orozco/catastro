@@ -19,6 +19,7 @@
                 <th style="text-align: center;">Solicitante</th>
                 <th style="text-align: center;">Notaría</th>
                 <th style="text-align: center;">Inicio</th>
+                <th style="text-align: center;">Departamento</th>
                 <th style="text-align: center;">Estatus</th>
                 <th style="text-align: center;">Detalle</th>
             </tr>
@@ -39,13 +40,20 @@
                         {{$tramite->solicitante->nombrec}}
                     </td>
                     <td>
-                        {{$tramite->notaria->nombre}}
+                        @if($tramite->notaria)
+                            {{$tramite->notaria->nombre}}
+                        @endif
                     </td>
                     <td>
                         {{$tramite->created_at->format("Y-m-d H:i")}}
                     </td>
                     <td>
-                       Estatus
+                        {{$tramite->departamento->descripcion}}
+                    </td>
+                    <td>
+                        @if($tramite->estatus)
+                            {{$tramite->estatus->pasado}}
+                        @Endif
                     </td>
                     <td style="text-align: right;" nowrap>
                         <a href="{{ action('TramitesController@proceso', ['id' => $tramite->id]) }}" class="btn btn-warning" title="Ver detalle">
