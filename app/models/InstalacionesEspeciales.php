@@ -2,8 +2,8 @@
 
 class InstalacionesEspeciales Extends Eloquent
 {
-    protected $table = 'tiposiespeciales';
-    protected $primaryKey = 'id';
+    protected $table = 'tipoinstalacionesespeciales';
+    protected $primaryKey = 'id_tipoie';
     public $timestamps = false;
 
     public function cat_inst($id=null)
