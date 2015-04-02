@@ -221,7 +221,7 @@
             <div class="col-xs-12">
                 <div class="col-md-12">
                     <h3>Giros</h3>
-                    @include('complementarios.complementos.giros')
+                    {{--@include('complementarios.complementos.giros')--}}
                     <button type="button" class="btn btn-primary next">
                         Next
                         <i class="glyphicon glyphicon-chevron-right"></i>
