@@ -144,7 +144,7 @@ class complementarios_ComplementariosController extends BaseController {
                             ->get();
         $giros          = TipoGiros::orderBy('descripcion', 'ASC')->get();
         
-        $datos          = Instalaciones::WHERE('instalacionesespeciales.gid_predio', '=', $id)
+        $datos          = instalaciones::WHERE('instalacionesespeciales.gid_predio', '=', $id)
                             ->join('tipoinstalacionesespeciales', 'tipoinstalacionesespeciales.id_tipoie', '=', 'instalacionesespeciales.id_tipoie')
                             ->get();
 
