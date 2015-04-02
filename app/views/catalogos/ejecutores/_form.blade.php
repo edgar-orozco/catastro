@@ -145,4 +145,11 @@
         }
     });
 </script>
+<script type="text/javascript">
+    $("body").delegate('.eliminar', 'click', function () {
+        if (!confirm("¿Seguro que quiere eliminar el Ejecutor?")) {
+            return false;
+        }
+    });
+</script>
 @append
