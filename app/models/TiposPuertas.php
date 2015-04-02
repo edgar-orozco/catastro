@@ -1,8 +1,8 @@
 <?php
 class TiposPuertas extends Eloquent
 {
-    protected $table ='TiposPuertas';
-    protected $primaryKey = 'id_tipopuerta';
+    protected $table ='tipospuertasconstruccion';
+    protected $primaryKey = 'id_tpuc';
     public $timestamps=false;
                                             
 }

@@ -1,10 +1,10 @@
 <?php
 
 
-class tiposventana extends Eloquent
+class TiposVentana extends Eloquent
 {
-    protected $table ='tiposventana';
-    protected $primaryKey = 'id';
+    protected $table ='tiposventanasconstruccion';
+    protected $primaryKey = 'tvc';
     public $timestamps=false;
    // protected $guarded = array("*");
    //protected $fillable = array("clave","uso_construccion","sup_const"); 

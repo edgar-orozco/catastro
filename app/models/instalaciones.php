@@ -2,7 +2,7 @@
 
 class instalaciones extends Eloquent
 {
-    protected $table ='instalaciones_especiales';
+    protected $table ='instalacionesespeciales';
     protected $primaryKey = 'id_ie'; 
     public $timestamps=false;
 //    protected $guarded = array("*");

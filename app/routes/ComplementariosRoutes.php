@@ -4,14 +4,18 @@ Route::group(['before' => 'auth'], function() {
 
     //instalaciones especiales
     Route::get("complementarios/{id?}", "complementarios_ComplementariosController@index");
-    Route::get("cargar-complementos/{id?}", "complementarios_ComplementariosController@getPredio");
+    Route::get("compleme/{id?}", "complementarios_ComplementariosController@index");
+    //Route::get("cargar-complementos/{id?}", "complementarios_ComplementariosController@getPredio");
     Route::get("cargar-complementos/{id?}", "complementarios_ComplementariosController@getInstalacion");
+    Route::post("guardar-predios", "complementarios_ComplementariosController@postPredio");
+
     Route::get("cargar-complementos-editar/{id?}", "complementarios_ComplementariosController@getCargar");
     Route::post("cargar-complementos-editar/{id?}", "complementarios_ComplementariosController@getEditar");
     Route::get("cargar-complementose/{id?}", "complementarios_ComplementariosController@getEliminar");
     Route::get("agregar/{id?}", "complementarios_ComplementariosController@getAgregar");
     Route::post("agregar/{id?}", "complementarios_ComplementariosController@post_agregar");
     //construcciones
+    Route::post("guardar-construccion", "complementarios_ComplementariosController@postConstruccion");
     Route::get("cargar-complementos/{id?}", "complementarios_ComplementariosController@getConstruccion");
     Route::get('/complementos-editar/{id?}', "complementarios_ComplementariosController@getCargarconstruccion");
     Route::post('/complementos-editar/{id?}', "complementarios_ComplementariosController@getEditarConstruccionConstruccion");
@@ -56,5 +60,10 @@ Route::group(['before' => 'auth'], function() {
     Route::get('/cargar-complementos/agregar-pisos/{id?}', "complementarios_ComplementariosController@getMostrarPisos");
     Route::post('/cargar-complementos/agregar-pisos/{id?}', "complementarios_ComplementariosController@postAgregarPisos");
     Route::get('/cargar-complementos/eliminar-pisos/{id?}/{gid?}', "complementarios_ComplementariosController@getEliminarPisos");
+
+
+    //Cargado de archivos
+    Route::get('/cargarArchivo', 'complementarios_CargarController@index');
+    Route::post('/cargarArchivo', 'complementarios_CargarController@cargar');
     
 });

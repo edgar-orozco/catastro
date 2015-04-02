@@ -59,6 +59,8 @@
         });
     });
 </script>
+
+
 @stop
 @section('content')
 <style type="text/css">
@@ -116,46 +118,11 @@
         font-size: 12px;
         line-height: 1.428571429;
         border-radius: 15px;
+    }
     </style>
-    <div class="panel panel-default">
-        <!-- Default panel contents -->
-        <div class="panel-heading">Datos Complementarios</div>
 
-        <!-- Table -->
-        <table class="table">
-            <thead>
-                <tr>
-                    <th>Clave</th>
-                    <th>Superficie Terreno</th>
-                    <th>Superficie Construcion</th>
-                    <th>Tipo de Predio</th>
-                    <th>Propietario</th>
-                    <th>Tipo Propiedad</th>
-                    <th>Entidad</th>
-                    <th>Municipio</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>    
-                    @foreach($predios as $predio)             
-                    <th scope="row">{{$predio->clave}}</th>
-                    <td>{{$predio->superficie_terreno}}</td>
-                    <td>{{$predio->superficie_construccion}}</td>
-                    <td>{{$predio->tipo_predio}}</td>
-                    <td>{{$predio->id_propietario}}</td>
-                    <td>{{$predio->tipo_propiedad}}</td>
-                    <td>{{$predio->nombre_entidad}}</td>
-                    <td>{{$predio->nombre_municipio }}</td>
-                    @endforeach
-                </tr>
-            </tbody>
-        </table>
-    </div>
-    <div style="float: right;margin-top: -7px;margin-right: -66px;">
-        <!--<iframe src="https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d15179.10423749334!2d-92.83543432609864!3d17.989152844348357!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e0!3m2!1ses!2smx!4v1423185076690" width="600" height="450" frameborder="0" style="border:0"></iframe>-->  
-    </div>
-    <div class="container">
-        <div class="stepwizard">
+
+    <div class="stepwizard">
             <div class="stepwizard-row setup-panel">
                 <div class="stepwizard-step">
                     <a href="#step-1" type="button" class="btn btn-primary btn-circle">1</a>
@@ -187,14 +154,18 @@
                 </div>
             </div>
         </div>
+   
+    <div style="float: right;margin-top: -7px;margin-right: -66px;">
+        <!--<iframe src="https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d15179.10423749334!2d-92.83543432609864!3d17.989152844348357!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e0!3m2!1ses!2smx!4v1423185076690" width="600" height="450" frameborder="0" style="border:0"></iframe>-->  
+    </div>
+    <div class="container">
+        
         <div class="row setup-content" id="step-1">
             <div class="col-xs-12">
                 <div class="col-md-12">
                     <h3>Predios</h3> 
-                    <button type="button" class="btn btn-primary next">
-                        Next
-                        <i class="glyphicon glyphicon-chevron-right"></i>
-                    </button>
+                     @include('complementarios.complementos.predios')
+                    
 
                 </div>
             </div>
@@ -204,10 +175,7 @@
                 <div class="col-md-12">
                     <h3>Construcciones</h3>
                     @include('complementarios.complementos.construcciones')
-                    <button type="button" class="btn btn-primary next">
-                        Next
-                        <i class="glyphicon glyphicon-chevron-right"></i>
-                    </button>
+                    
                 </div>
             </div>
         </div>
@@ -215,7 +183,7 @@
             <div class="col-xs-12">
                 <div class="col-md-12">
                     <h3>Instalaciones Especiales</h3>
-                    @include('complementarios.complementos.instalacion')
+                    @include('complementarios.complementos.instalaciones')
 
                     <button type="button" class="btn btn-primary next">
                         Next

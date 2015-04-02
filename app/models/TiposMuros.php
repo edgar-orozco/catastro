@@ -1,8 +1,8 @@
 <?php
 class TiposMuros extends Eloquent
 {
-    protected $table ='tipomuros';
-    protected $primaryKey = 'id';
+    protected $table ='tiposmurosconstruccion';
+    protected $primaryKey = 'id_tmc';
     public $timestamps=false;
                                             
 }
