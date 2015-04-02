@@ -62,7 +62,7 @@
                     {
                         echo "Octubre";
                     }
-                     if($row->mes == 10)
+                     if($row->mes == 11)
                     {
                         echo "Noviembre";
                     } if($row->mes == 12)
