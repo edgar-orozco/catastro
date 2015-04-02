@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreaSpAnioVencido extends Migration {
+class UpdateGetVencidos extends Migration {
 
 	/**
 	 * Run the migrations.
@@ -20,24 +20,23 @@ class CreaSpAnioVencido extends Migration {
 		$funtion= <<<FinSP
 		CREATE OR REPLACE FUNCTION sp_get_anios_vencidos (
 	IN p_clave TEXT
-) 
-RETURNS TABLE (anio TEXT, adeudo NUMERIC) 
-AS 
+)
+RETURNS TABLE (anio TEXT, adeudo NUMERIC)
+AS
 $$
 DECLARE
 	v_consulta	TEXT;
 BEGIN
-	v_consulta := ' 
-		  SELECT 
+	v_consulta := '
+		  SELECT
 to_char(anio,''yyyy'')
 ,SUM(impuesto)
  from emision_predial ep
-where clave='''||p_clave||''' 
-GROUP BY to_char(anio,''yyyy'') 
-ORDER BY 1 
+where clave='''||p_clave||'''
+GROUP BY to_char(anio,''yyyy'')
+ORDER BY 1
  ';
 
-	
 
 	RETURN QUERY EXECUTE v_consulta;
 
@@ -55,7 +54,7 @@ DB::connection()->getPdo()->exec($funtion);
 	 */
 	public function down()
 	{
-		
+		//
 	}
 
 }
