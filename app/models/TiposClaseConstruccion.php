@@ -2,8 +2,8 @@
 
 class TiposClaseConstruccion extends Eloquent
 {
-    protected $table ='tipoclasesconstruccion';
-    protected $primaryKey = 'id';
+    protected $table ='tiposclasesconstruccion';
+    protected $primaryKey = 'id_tcc';
     public $timestamps=false;
                                             
 }

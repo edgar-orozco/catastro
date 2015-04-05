@@ -2,7 +2,7 @@
 
 class TiposTechos Extends Eloquent
 {
-    protected $table = 'tipostecho';
-    protected $primaryKey = 'id';
+    protected $table = 'tipostechosconstruccion';
+    protected $primaryKey = 'id_ttc';
     public $timestamps = false;
 }

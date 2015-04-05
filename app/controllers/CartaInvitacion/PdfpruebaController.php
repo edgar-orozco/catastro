@@ -37,8 +37,6 @@ class CartaInvitacion_PdfpruebaController extends BaseController {
 									return $response;
 
 	}
-
-
 	/**
 	 * Show the form for creating a new resource.
 	 *

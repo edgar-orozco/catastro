@@ -4,7 +4,11 @@
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
+<<<<<<< HEAD
     "hash": "89539b65f7330590cfa747e0976efe8e",
+=======
+    "hash": "f2db41c169d1b8437828ebcc1fd65f82",
+>>>>>>> d6e5ae1adab4c1b7041653122d691939bb09f76d
     "packages": [
         {
             "name": "barryvdh/laravel-dompdf",
@@ -53,6 +57,86 @@
                 "pdf"
             ],
             "time": "2014-08-20 13:05:36"
+        },
+        {
+            "name": "captcha-com/captcha",
+            "version": "3.0.0",
+            "source": {
+                "type": "git",
+                "url": "http://git.captcha.com/botdetect-php-captcha-library.git",
+                "reference": "e32cfb38096b59aa110afcb80453b77c79855210"
+            },
+            "require": {
+                "php": ">=5.2.1"
+            },
+            "suggest": {
+                "captcha-com/laravel-captcha": "BotDetect 3 PHP Captcha integration for the Laravel framework."
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "3.x-dev"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "Commercial"
+            ],
+            "authors": [
+                {
+                    "name": "BotDetect Captcha",
+                    "email": "botdetect.support@captcha.com",
+                    "homepage": "http://captcha.com/php-captcha.html"
+                }
+            ],
+            "description": "BotDetect 3 PHP Captcha Free composer package.",
+            "homepage": "http://captcha.com/php-captcha.html",
+            "keywords": [
+                "captcha"
+            ],
+            "time": "2015-01-08 05:38:45"
+        },
+        {
+            "name": "captcha-com/laravel-captcha",
+            "version": "3.0.0",
+            "source": {
+                "type": "git",
+                "url": "http://git.captcha.com/botdetect-laravel-captcha.git",
+                "reference": "e1ec643af5279dcaba1a8872afc8ee90561220b1"
+            },
+            "require": {
+                "captcha-com/captcha": "3.*",
+                "php": ">=5.4.0"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "3.x-dev"
+                }
+            },
+            "autoload": {
+                "classmap": [
+                    "src/Controllers"
+                ],
+                "psr-4": {
+                    "BotDetectCaptcha\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "authors": [
+                {
+                    "name": "BotDetect Captcha",
+                    "email": "botdetect.support@captcha.com",
+                    "homepage": "http://captcha.com/doc/php/laravel-captcha-quickstart.html"
+                }
+            ],
+            "description": "BotDetect 3 PHP Captcha integration for the Laravel framework.",
+            "homepage": "http://captcha.com/doc/php/laravel-captcha-quickstart.html",
+            "keywords": [
+                "Laravel Captcha",
+                "captcha"
+            ],
+            "time": "2015-02-26 09:03:40"
         },
         {
             "name": "classpreloader/classpreloader",
@@ -180,6 +264,7 @@
         },
         {
             "name": "filp/whoops",
+<<<<<<< HEAD
             "version": "1.1.5",
             "source": {
                 "type": "git",
@@ -190,6 +275,18 @@
                 "type": "zip",
                 "url": "https://api.github.com/repos/filp/whoops/zipball/c982fe62c44798c433229cb0425c61b487cc1883",
                 "reference": "c982fe62c44798c433229cb0425c61b487cc1883",
+=======
+            "version": "1.1.4",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/filp/whoops.git",
+                "reference": "dcce91553e2e056857f1ea844949e9a8a71b613d"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/filp/whoops/zipball/dcce91553e2e056857f1ea844949e9a8a71b613d",
+                "reference": "dcce91553e2e056857f1ea844949e9a8a71b613d",
+>>>>>>> d6e5ae1adab4c1b7041653122d691939bb09f76d
                 "shasum": ""
             },
             "require": {
@@ -234,7 +331,11 @@
                 "whoops",
                 "zf2"
             ],
+<<<<<<< HEAD
             "time": "2015-03-30 15:26:59"
+=======
+            "time": "2015-02-17 15:50:31"
+>>>>>>> d6e5ae1adab4c1b7041653122d691939bb09f76d
         },
         {
             "name": "ircmaxell/password-compat",
@@ -1408,7 +1509,11 @@
         },
         {
             "name": "symfony/event-dispatcher",
+<<<<<<< HEAD
             "version": "v2.6.6",
+=======
+            "version": "v2.6.5",
+>>>>>>> d6e5ae1adab4c1b7041653122d691939bb09f76d
             "target-dir": "Symfony/Component/EventDispatcher",
             "source": {
                 "type": "git",
@@ -1467,17 +1572,30 @@
         },
         {
             "name": "symfony/filesystem",
+<<<<<<< HEAD
             "version": "v2.6.6",
+=======
+            "version": "v2.6.5",
+>>>>>>> d6e5ae1adab4c1b7041653122d691939bb09f76d
             "target-dir": "Symfony/Component/Filesystem",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/Filesystem.git",
+<<<<<<< HEAD
                 "reference": "4983964b3693e4f13449cb3800c64a9112c301b4"
             },
             "dist": {
                 "type": "zip",
                 "url": "https://api.github.com/repos/symfony/Filesystem/zipball/4983964b3693e4f13449cb3800c64a9112c301b4",
                 "reference": "4983964b3693e4f13449cb3800c64a9112c301b4",
+=======
+                "reference": "fdc5f151bc2db066b51870d5bea3773d915ced0b"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/symfony/Filesystem/zipball/fdc5f151bc2db066b51870d5bea3773d915ced0b",
+                "reference": "fdc5f151bc2db066b51870d5bea3773d915ced0b",
+>>>>>>> d6e5ae1adab4c1b7041653122d691939bb09f76d
                 "shasum": ""
             },
             "require": {
@@ -1513,7 +1631,11 @@
             ],
             "description": "Symfony Filesystem Component",
             "homepage": "http://symfony.com",
+<<<<<<< HEAD
             "time": "2015-03-22 16:55:57"
+=======
+            "time": "2015-03-12 10:28:44"
+>>>>>>> d6e5ae1adab4c1b7041653122d691939bb09f76d
         },
         {
             "name": "symfony/finder",

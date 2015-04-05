@@ -18,7 +18,7 @@
         $count = $count - 1;
         $clave = $new[$count];
         ?>
-        @foreach($condominio as $row)   
+        {{--@foreach($condominio as $row)   
         <tr>
             <td>{{$row->no_condominal }}</td>
             <td>{{$row->tipo_priva }}</td>
@@ -47,7 +47,7 @@
                 </a>
             </td>
         </tr>
-        @endforeach
+        @endforeach--}}
     <tfoot>
         <tr>
             <th scope="col"  colspan="9">

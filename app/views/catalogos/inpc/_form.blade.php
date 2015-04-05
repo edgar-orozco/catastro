@@ -9,7 +9,7 @@
     {{Form::label('mes','Mes')}}
     {{Form::select('mes',$mes, null,['class'=>'form-control', 'autofocus'=> 'autofocus', 'required' => 'required', 'ng-model' => 'inpc.mes', 'tb-focus' => 'focusForm', 'ng-blur' => 'focusForm = false'])}}
     {{$errors->first('mes', '<span class=text-danger error>:message</span>')}}
-    <p class="help-block"></p>
+    <span id="error"></span>
 </div>
 
 <div class="form-group">
@@ -26,7 +26,11 @@
     <p class="help-block">Valor del indice nacional de precios al consumidor.</p>
 </div>
 @section('styles')
-
+#error
+{
+color:red;
+font: bold 85% monospace;
+}
 .error
 {
 color:red;
@@ -53,25 +57,38 @@ font: bold 85% monospace;
         }
 
     });
-
+</script>
+<script>
     $(document).ready(function () {
-
+        $('#form').on('submit', function () {
+            if (form.mes.options[form.mes.selectedIndex].value == 0)
+            {
+                $("#error").text("Por favor, seleccione un Mes");
+                form.mes.focus();
+                return false;
+            }
+        });
+    });
+</script>
+<!--<script>
+    $(document).ready(function () {
         $('#form').validate({// initialize the plugin
+            
             rules: {
                 mes: {
                     selectcheck: true
                 },
-                inpc: {
-                    required: true,
-                },
+//                inpc: {
+//                    required: true,
+//                }
             },
             messages: {
-                inpc: {
-                    required: "Campo requerido:INPC",
-                },
+//                inpc: {
+//                    required: "Campo requerido:INPC",
+//                },
             },
             submitHandler: function (form) { // for demo
-                alert('valido'); // for demo
+//                alert('valido'); // for demo
                 return false; // for demo
             }
         });
@@ -79,7 +96,7 @@ font: bold 85% monospace;
             return (value != '0');
         }, "Elija un Mes");
     });
-</script>
+</script>-->
 <script>
     // Al presionar cualquier tecla en cualquier campo de texto, ejectuamos la siguiente función
     $('input').on('keydown', function (e) {

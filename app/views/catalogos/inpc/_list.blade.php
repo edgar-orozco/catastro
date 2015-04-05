@@ -21,7 +21,56 @@
             @foreach($inpcs as $row)
             <tr>
                 <td>
-                    {{$row->mes}}
+                    <?php 
+                    if($row->mes == 1)
+                    {
+                        echo "Enero";
+                    }
+                     if($row->mes == 2)
+                    {
+                        echo "Febrero";
+                    }
+                     if($row->mes == 3)
+                    {
+                        echo "Marzo";
+                    }
+                     if($row->mes == 4)
+                    {
+                        echo "Abril";
+                    }
+                     if($row->mes == 5)
+                    {
+                        echo "Mayo";
+                    }
+                     if($row->mes == 6)
+                    {
+                        echo "Junio";
+                    }
+                     if($row->mes == 7)
+                    {
+                        echo "Julio";
+                    }
+                     if($row->mes == 8)
+                    {
+                        echo "Agosto";
+                    }
+                     if($row->mes == 9)
+                    {
+                        echo "Septiembre";
+                    }
+                     if($row->mes == 10)
+                    {
+                        echo "Octubre";
+                    }
+                     if($row->mes == 11)
+                    {
+                        echo "Noviembre";
+                    } if($row->mes == 12)
+                    {
+                        echo "Diciembre";
+                    }                    
+                    ?>
+                    
                 </td>
                 <td>
                     {{$row->anio}}

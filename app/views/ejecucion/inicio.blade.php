@@ -230,6 +230,7 @@ $("#fecha").datepicker();
         'method' => 'POST',
         'url'    =>'/ejecucion',
         'name'   =>'busqueda'
+
      )) }}
 
         <div class="table">
@@ -290,7 +291,7 @@ $("#fecha").datepicker();
                 </div>
             @endif
     @if(count($items) > 0)
-    {{ Form::open(array('url' => 'cartainv', 'method' => 'post', 'name' => 'formulario'))}}
+    {{ Form::open(array('url' => 'cartainv', 'method' => 'post', 'name' => 'formulario', 'target'=>'_blank'))}}
     {{$date = new DateTime();}}
 
     <div class="panel-default">

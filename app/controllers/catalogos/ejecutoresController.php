@@ -137,9 +137,13 @@ class catalogos_ejecutoresController extends \BaseController {
         $subtitle_section = $this->ejecutores->titulo;
 
         // Todos los permisos creados actualmente
-        $ejecutoress = $this->ejecutores->join('personas', 'personas.id_p', '=', 'ejecutores.id_p')
+//        $ejecutoress = $this->ejecutores->join('personas', 'personas.id_p', '=', 'ejecutores.id_p')
+//                ->join('personas as p', 'p.id_p', '=', 'ejecutores.id_p_otorga_nombramiento')
+//                ->select('id_ejecutor', 'personas.nombrec', 'cargo', 'titulo', 'f_nombramiento', 'p.nombrec as nombre')
+//                ->get();
+         $ejecutoress = $this->ejecutores->join('personas', 'personas.id_p', '=', 'ejecutores.id_p')
                 ->join('personas as p', 'p.id_p', '=', 'ejecutores.id_p_otorga_nombramiento')
-                ->select('id_ejecutor', 'personas.nombrec', 'cargo', 'titulo', 'f_nombramiento', 'p.nombrec as nombre')
+                ->select('id_ejecutor', 'personas.nombres', 'personas.apellido_paterno', 'personas.apellido_materno', 'cargo', 'titulo', 'f_nombramiento', 'p.nombres as nombre', 'p.apellido_paterno as p_paterno', 'p.apellido_materno as p_materno')
                 ->get();
         //ID del permiso
         $id = $ejecutores;
@@ -275,7 +279,7 @@ class catalogos_ejecutoresController extends \BaseController {
     }
 
     public function getagregarpersona($format = 'html', $id = null) {
-        $title = 'Crar nueva perosana';
+        $title = 'Crear nueva perosana';
         //Titulo de seccion:
         $title_section = "";
         //Subtitulo de seccion:

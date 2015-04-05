@@ -7,7 +7,7 @@
     <h2>{{ Session::get('mensaje') }}</h2>
 
     @endif
-    {{ Form::open(array('url'=> '/agregar',)) }}
+    {{ Form::open(array( 'id' => 'agregar', 'url'=> '/agregar',)) }}
     <br/>
     <div style="margin-left: 20px">
         <div class="input-group">
@@ -15,11 +15,8 @@
         </div>
         <div class="input-group">
             Instalacion:</br>
-            <select name="instalacion" class="form-control" autofocus="autofocus" required="required">
-                @foreach($catalogo as $row) 
-                <option value="{{$row->id}}">{{$row->descripcion}}</option>
-                @endforeach
-            </select>
+            
+            {{Form::select('algo', $catalogo, null, ['id'=>'algo','class'=>'form-control'])}}
         </div>
         <br/>   
 
@@ -32,3 +29,29 @@
     <button type="button" class="btn btn-default" data-dismiss="modal">Salir</button>
 
 </div>
+
+<script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+<script type="text/javascript">
+
+$('#agregar').bind('submit',function () 
+        {   
+            $.ajax(
+            {
+                type: 'POST',
+                data: new FormData( this ), //Toma todo lo que hay en el formulario, en este caso el archivo .txt o .csv
+                processData: false,
+                contentType: false,
+                url: '/agregar',
+                beforeSend: function()
+                {
+                    alert("mandando petición");
+                },
+                success: function (data) 
+                {               
+                    alert("guardado correcto");
+                }
+            });
+            return false;
+        });
+
+</script>

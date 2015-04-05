@@ -2,8 +2,8 @@
 
 class construcciones extends Eloquent
 {
-    protected $table ='construccion';
-    protected $primaryKey = 'gid_construccion';
+    protected $table ='construcciones';
+    protected $primaryKey = 'gid';
     public $timestamps=false;
    // protected $guarded = array("*");
     //protected $fillable = array("clave","uso_construccion","sup_const");

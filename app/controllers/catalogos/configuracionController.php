@@ -66,7 +66,7 @@ class catalogos_configuracionController extends \BaseController
         $subtitle_section = "";
         
         // Municipio list
-        $Municipio =  Municipio::all()->lists('nombre_municipio','gid');
+        $Municipio =  Municipio::orderBy('nombre_municipio')->lists('nombre_municipio','gid');
         
         // agregamos la opción 'Seleccione una Empresa' con índice 0 al array
         array_unshift($Municipio, ' --- Seleccione una Municipio --- ');

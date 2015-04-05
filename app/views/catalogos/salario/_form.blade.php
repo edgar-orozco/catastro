@@ -78,7 +78,7 @@ font: bold 85% monospace;
                 //dateFormat: 'DD, MM d, yy'
                 var theDate = selectedDate;
                 var arr = theDate.split('/');
-                var anio=arr[2];
+                var anio = arr[2];
                 $("#anio").val(anio);
 //                console.log(theDate);
             }
@@ -131,7 +131,8 @@ font: bold 85% monospace;
                 return this.optional(element) || !/Invalid|NaN/.test(new Date(str));
             },
             "Please enter a date in the format dd/mm/yyyy"
-            );</script>
+            );
+</script>
 <script>
     $(document).ready(function () {
 //        $('#form').on('submit', function () {
@@ -188,7 +189,6 @@ font: bold 85% monospace;
             }
         });
     });
-//    });
 </script>
 <script>
     // Al presionar cualquier tecla en cualquier campo de texto, ejectuamos la siguiente función

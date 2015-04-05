@@ -20,7 +20,7 @@
             <span class="glyphicon glyphicon-plus"></span>
         </a>-->
         <div class="form-actions form-group">
-            {{ Form::submit('Crear nuevo ejecutor', array('class' => 'btn btn-primary','id'=>'refresh')) }} 
+            {{ Form::submit('Crear nuevo ejecutor', array('class' => 'btn btn-primary','tabindex'=>'5')) }} 
             {{ Form::reset('Limpiar formato', ['class' => 'btn btn-warning']) }}
         </div>
         {{Form::close()}}
