@@ -1097,8 +1097,8 @@ function getDimensions( elem ) {
 	}
 	if ( raw.preventDefault ) {
 		return {
-			width: 0,
-			height: 0,
+			width: 100,
+			height: 100,
 			offset: { top: raw.pageY, left: raw.pageX }
 		};
 	}
@@ -1675,7 +1675,7 @@ var accordion = $.widget( "ui.accordion", {
 			.removeUniqueId();
 
 		if ( this.options.heightStyle !== "content" ) {
-			contents.css( "height", "" );
+			contents.css( "height", "100pk" );
 		}
 	},
 
@@ -16603,6 +16603,6 @@ var tooltip = $.widget( "ui.tooltip", {
 	}
 });
 
-
-
 }));
+
+

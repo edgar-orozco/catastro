@@ -1,111 +1,470 @@
-<html>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"> 
+<html xmlns="http://www.w3.org/1999/xhtml" lang="es" xml:lang="es"><head>
+ <meta http-equiv="Content-Script-Type" content="text/javascript">
 
-<head>
+ <title>DGCEF-Tabasco</title>
+ <script type="text/javascript" src="/mapper/javascript/jquery_merged.js"></script>
+ <script type="text/javascript" src="/mapper/javascript/custom.js"></script>
+ <script type="text/javascript" src="/js/jquery/jquery-ui.js"></script>
+ <script type="text/javascript" src="/mapper/javascript/zoombox.js"></script>
+ <script type="text/javascript" src="/mapper/javascript/pm.map.js"></script>
 
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="">
-    <meta name="author" content="">
-    <script src="/catastro_info/reqAJAX.js" ></script>
-    <script src="/catastro_info/reqAJAX2.js" ></script>
-    <script src="/catastro_info/gotopage.js" ></script>
-    <title>DGCEF-Tabasco</title>
+<script type="text/javascript">
 
-    <!-- Bootstrap Core CSS -->
-    <link href="/dist/css/bootstrap.min.css" rel="stylesheet">
+PM.msVersion = '<?php echo ms_GetVersion() ?>';
 
-    <!-- Custom CSS -->
-    <style>
-    body {
-        padding-top: 70px;
-        /* Required padding for .navbar-fixed-top. Remove if using .navbar-static-top. Change if height of navigation changes. */
-    }
-    </style>
+ var SID = '';
+ var PM_XAJAX_LOCATION  = '/cartografia/xajax/';
+
+ PM.mapW = 600;
+ PM.mapH = 500;
+ PM.refW = 197;
+ PM.refH = 91; 
+ PM.extent = [0.0,0.0,0.0,0.0];
+ PM.s1 = 1402386;
+ PM.s2 = 1000;
+
+ PM.dgeo_x = 366225.7561717;
+ PM.dgeo_y = 185523.98601058;
+ PM.dgeo_c = 1;
+
+ PM.layerAutoRefresh = 1;
+ PM.tbThm = 'default';
+ PM.activeLayer = ['manzanas','predios','entidades','municipios','localidades','carreteras','calles','rios','hipsografico']; 
+ 
+// Query layers: modify query results in js
+PM.modifyQueryResultsFunctions = [];
+
+</script>
+ 
+ 
+ <link rel="stylesheet" href="/js/jquery/jquery-ui.css" type="text/css">
+ <link rel="shortcut icon" href="/mapper/images/favicon.png" type="image/png">
+ <link rel="stylesheet" href="/mapper/templates/default.css" type="text/css">
+ <link rel="stylesheet" href="/mapper/templates/layout.css" type="text/css">
+ <link rel="stylesheet" href="/mapper/templates/jquery.treeview.css" type="text/css">
+ <link rel="stylesheet" href="/mapper/templates/toc.css" type="text/css">
+ 
+ <link rel="stylesheet" href="/mapper/templates/dialog.css" type="text/css">
+ <link rel="stylesheet" href="/mapper/templates/jquery.layout.css" type="text/css">
+ <!--[if lt IE 7]> 
+ <link rel="stylesheet" href="/mapper/templates/ie6.css" type="text/css" />
+ <![endif]--> 
+ 
+ <style type="text/css">
+ <!--
+ -->
+ </style>
+
+ <link rel="stylesheet" href="/mapper/templates/custom.css" type="text/css">
+ 
+   <script>
+  $(function() {
+  });
+  </script>
+  
+ 	<script type="text/javascript">
+
+	$(document).ready(function() {
+        var mrgH = 6;
+        var mrgV = 6;
+        var lcW = 220;
+        var barH = 32;
+        $('#uiLayoutRoot').css({position:'absolute',  top:76, bottom:10, left:10, right:10});
+        $('#uiLayoutEast').css({position:'absolute', width:0});
+        $('#uiLayoutWest').css({position:'absolute', left:0, width:lcW, height:'100%', 'margin-right':mrgH});
+        $('#uiLayoutNorth').css({position:'absolute', top:0, height:barH, 'margin-bottom':mrgV, 'right':-1});
+        $('#uiLayoutNorthWest').css({position:'absolute', top:0, height:barH, width:lcW, 'margin-bottom':mrgV, 'margin-right':mrgH});
+        $('#uiLayoutSouth').css({position:'absolute', bottom:0, height:barH, 'margin-top':mrgV+2, 'right':-1});
+        $('#uiLayoutSouthWest').css({position:'absolute', bottom:0, height:barH, width:lcW, 'margin-top':mrgV+2, 'margin-right':mrgH});
+        $('#toc, #toclegend, #tocconsult').css({top:10});   // make some space for tabs
+
+
+        resizeContainers();
+
+        $(window).resize(function(){
+            resizeContainers();
+        });        
+
+        $('#uiLayoutCenter').bind('resize', function(){
+            PM.Layout.resizeMapZone();
+        });
+
+    var icons = {
+      header: "ui-icon-circle-arrow-e",
+      activeHeader: "ui-icon-circle-arrow-s"
+    };
+    $( "#consulta" ).accordion({
+      icons: icons,
+      heightStyle: "content"
+    });
+
+
+ 	});
+
+        function resizeContainers() {
+            //var rootElem = $(window);
+            var rootElem = $('#uiLayoutRoot'); 
+            var rootH = rootElem.height();
+            var rootW = rootElem.width();
+            var northH = $('#uiLayoutNorth').outerHeight({margin:true, border:true});
+            var southH = $('#uiLayoutSouth').outerHeight({margin:true});
+            var heightRefMap = $('#refmap').height();
+            var topToc = 16;
+            
+            var mH = rootH - northH - southH;
+            var heightToc = mH-heightRefMap-topToc;
+            
+            $('#uiLayoutCenter').css({position:'absolute'})
+                                .height(mH)
+                                .width(rootW - $('#uiLayoutWest').outerWidth({margin:true}) - $('#uiLayoutEast').outerWidth({margin:true}) - 1);
+            $('#uiLayoutCenter').css('top',northH);                                
+            $('#uiLayoutCenter').css('left', $('#uiLayoutWest').outerWidth({margin:true}));
+
+            $('#uiLayoutWest').height(mH).css('top',northH);
+            $('#uiLayoutNorth, #uiLayoutSouth').css('left',$('#uiLayoutWest').outerWidth({margin:true}));
+            $('#toc').height(heightToc);
+
+            PM.Layout.resizeMapZone();
+            $('#loading').hide();
+                                
+        }
+        
+    
+	</script>
+
 </head>
 
-<body Onload="ConsultaLadoServidor('municipio','tab_municipios','nada','nada','cve_mun','nom_mun','nada','nada');" >
+<body>
 
-    <!-- Navigation -->
-    <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
-        <div class="container">
-            <!-- Brand and toggle get grouped for better mobile display -->
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
-                    <span class="sr-only">Toggle navigation</span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                <a class="navbar-brand" href="/cartografia/consultas">Restaurar</a>
+<!-- ======================= ADAPT START ======================== -->
+
+<div class="ui-layout-header" id="uiLayoutHeader">
+        <div class="logos">
+            <div class="img-cont estatal">
+                <img src="/mapper/images/logos/estado-logo.png" alt="Estado"/>
             </div>
-            <!-- Collect the nav links, forms, and other content for toggling -->
-            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-                
+            <div class="img-cont spf">
+                <img src="/mapper/images/logos/logo-spf.png" alt="SPF"/>
             </div>
-            <!-- /.navbar-collapse -->
+            <div class="img-cont catastro">
+                <img src="/mapper/images/logos/logo-sicare.png" alt="Catastro"/>
+            </div>
         </div>
-        <!-- /.container -->
-    </nav>
+        
+        Sistema Catastral y Registral del Estado de Tabasco 
+</div>
 
-<!-- <div class="container"> -->
+<div class="ui-layout-root" id="uiLayoutRoot" style="position: absolute; top: 76px; bottom: 10px; left: 10px; right: 10px;">
+    
+<div class="ui-layout-north-west" id="uiLayoutNorthWest" style="position: absolute; top: 0px; height: 32px; width: 220px; margin-bottom: 6px; margin-right: 6px;">
+  <ul class="pm-tabs">
+    <li style="width: 32%;">
+      <div id="tocCapas" class="pm-tabs-selected">
+        Capas
+      </div>
+    </li>
+    <li style="width: 32%;">
+      <div id="tocConsultas">
+        Consultas
+      </div>
+    </li>
+  </ul>
+</div>
+
+    <div class="ui-layout-north" id="uiLayoutNorth" style="position: absolute; top: 0px; height: 32px; margin-bottom: 6px; right: -1px; left: 228px;">
+   </div>
+    
+    <div class="ui-layout-west" id="uiLayoutWest" style="position: absolute; left: 0px; width: 220px; height: 509px; margin-right: 6px; top: 40px;">
+        <!-- Legend/TOC -->
+        Legend/ TOC
+        <div id="tocContainer">
+              <form id="layerform" method="get" action="">
+                <!-- Capas -->    
+                <div id="toc" class="TOC treeview" style="height: 402px; top: 10px; overflow: auto;">
+                <ul>
+                    <li id="licat_cat_catastro" class="toccat open">
+                        <div class="toccat-hitarea open-hitarea collapsable-hitarea"></div>
+                        <span class="vis cat-label" id="spxg_cat_catastro">Límites Catastrales</span>
+                        <ul>
+                            <li id="ligrp_Manzanas" class="tocgrp">
+                                <div class="tocgrp-hitarea open-hitarea collapsable-hitarea"></div>
+                                <input type="checkbox" class = "gLayer"  name="groupscbx" value="Manzanas" id="gLayer_manzanas" checked/>
+                                <span class="vis" > <img src="/mapper/images/legend/Manzanas_i0.png"/> </span>
+                                <span class="vis" id="spxg_Manzanas"> <span class="grp-title vis">Manzanas </span> </span>
+                            </li>
+                            <li id="ligrp_Predios" class="tocgrp">
+                                <div class="tocgrp-hitarea open-hitarea collapsable-hitarea"></div>
+                                <input type="checkbox" class = "gLayer"  name="groupscbx" value="Predios" id="gLayer_predios" checked/>
+                                <span class="vis" > <img src="/mapper/images/legend/Predios_i0.png"/> </span>
+                                <span class="vis" id="spxg_Predios"> <span class="grp-title vis">Predios </span> </span>
+                            </li>
+                        </ul>
+                    </li>
+
+                    <li id="licat_cat_admin" class="toccat open ">
+                        <div class="toccat-hitarea open-hitarea collapsable-hitarea"></div>
+                        <span class="vis cat-label" id="spxg_cat_admin">Límites Administrativos</span>
+                        <ul>
+                            <li id="ligrp_Entidades" class="tocgrp">
+                                <div class="tocgrp-hitarea open-hitarea collapsable-hitarea"></div>
+                                <input type="checkbox" class = "gLayer"  name="groupscbx" value="Entidades" id="gLayer_entidades" checked/>
+                                <span class="vis" > <img src="/mapper/images/legend/Entidades_i0.png"/> </span>
+                                <span class="vis" id="spxg_Entidades"> <span class="grp-title vis">Entidades </span> </span>
+                            </li>
+                            <li id="ligrp_Municipios" class="tocgrp">
+                                <div class="tocgrp-hitarea open-hitarea collapsable-hitarea"></div>
+                                <input type="checkbox" class = "gLayer"  name="groupscbx" value="Municipios" id="gLayer_municipios" checked/>
+                                <span class="vis" > <img src="/mapper/images/legend/Municipios_i0.png"/> </span>
+                                <span class="vis" id="spxg_Municipios"> <span class="grp-title vis">Municipios </span> </span>
+                            </li>
+                            <li id="ligrp_Localidades" class="tocgrp">
+                                <div class="tocgrp-hitarea open-hitarea collapsable-hitarea"></div>
+                                <input type="checkbox" class = "gLayer"  name="groupscbx" value="Localidades" id="gLayer_localidades" checked />
+                                <span class="vis" > <img src="/mapper/images/legend/Localidades_i0.png"/> </span>
+                                <span class="vis" id="spxg_Localidades"> <span class="grp-title vis">Localidades </span> </span>
+                            </li>
+                        </ul>
+                    </li>
+                    
+                    <li id="licat_cat_infrastructure" class="toccat open">
+                        <div class="toccat-hitarea open-hitarea collapsable-hitarea"></div>
+                        <span class="vis cat-label" id="spxg_cat_infrastructure">Infraestructura</span>
+                        <ul>
+                            <li id="ligrp_Carreteras" class="tocgrp">
+                                <div class="tocgrp-hitarea open-hitarea collapsable-hitarea"></div>
+                                <input type="checkbox" class = "gLayer"  name="groupscbx" value="Carreteras" id="gLayer_carreteras" checked>
+                                <span class="vis" > <img src="/mapper/images/legend/Carreteras_i0.png"/> </span>
+                                <span class="vis" id="spxg_Carreteras"> <span class="grp-title vis">Carreteras </span> </span>
+                            </li>
+                            <li id="ligrp_Vialidades" class="tocgrp">
+                                <div class="tocgrp-hitarea open-hitarea collapsable-hitarea"></div>
+                                <input type="checkbox" class = "gLayer"  name="groupscbx" value="Vialidades" id="gLayer_calles" checked/>
+                                <span class="vis" > <img src="/mapper/images/legend/Calles_i0.png"/> </span>
+                                <span class="vis" id="spxg_Vialidades"> <span class="grp-title vis">Vialidades </span> </span>
+                            </li>
+                        </ul>
+                    </li>
+                    
+                    <li id="licat_cat_nature" class="toccat open">
+                        <div class="toccat-hitarea open-hitarea collapsable-hitarea"></div>
+                        <span class="vis cat-label" id="spxg_cat_nature">Recursos naturales</span>
+                        <ul>
+                            <li id="ligrp_Rios" class="tocgrp">
+                                <div class="tocgrp-hitarea open-hitarea collapsable-hitarea"></div>
+                                <input type="checkbox" class = "gLayer"  name="groupscbx" value="Rios" id="gLayer_rios" checked/>
+                                <span class="vis" > <img src="/mapper/images/legend/Rivers_i0.png"/> </span>
+                                <span class="vis" id="spxg_Rios"> <span class="grp-title vis">Rios </span> </span>
+                            </li>
+                            <li id="ligrp_Hipso" class="tocgrp">
+                                <div class="tocgrp-hitarea open-hitarea collapsable-hitarea"></div>
+                                <input type="checkbox" class = "gLayer"  name="groupscbx" value="Hipso" id="gLayer_hipsografico" checked/>
+                                <span class="vis" > <img src="/mapper/images/legend/Hipso_i0.png"/> </span>
+                                <span class="vis" id="spxg_Hipso"> <span class="grp-title vis">Hipsográfico </span> </span>
+                            </li>
+                        </ul>
+                    </li>
+
+                    <li id="licat_cat_raster" class="toccat open">
+                        <div class="toccat-hitarea open-hitarea collapsable-hitarea "></div>
+                        <span class="vis cat-label" id="spxg_cat_raster">Datos raster</span>
+                    </li>
+                </ul>
+                </div>                
+                <!-- Consultas -->    
+                <div id="tocconsult" class="TOC" style="height: 402px; display: none; top: 10px; overflow: auto;">
+                    <div id="consulta">
+                      <h3>Clave Catastral</h3>
+                      <div>
+                <div id="consClave">
+                  <form id="searchForm" action="blank.html" onsubmit="PM.Query.submitSearch()" onkeypress="return PM.Query.disableEnterKey(event)">
+                    <table width="100%" class="pm-searchcont pm-toolframe" border="0" cellspacing="0" cellpadding="0">
+                      <tbody>
+                        <tr>
+                          <td id="searchitems" class="pm_search_inline">
+                            <table id="searchitems_container1" class="pm-searchitem" border="0" cellspacing="0" cellpadding="0">
+                              <tbody>
+                                <tr id="searchitems_container2">
+                                  <td class="pm-searchdesc">
+                                    <input type="text" id="pmsfld_numero_mzna" name="numero_mzna" alt="Search Criteria" false="" autocomplete="off" class="ac_input">
+                                  </td>
+                                </tr>
+                                <tr>
+                                  <td>
+                                    <br />
+                                    <input type="button" value="Buscar" size="20" onclick="PM.Query.submitSearch()" onmouseover="PM.changeButtonClr(this,'over')" onmouseout="PM.changeButtonClr(this,'out')" class="button_off">
+                                  </td>
+                                </tr>
+                            </table>
+                          </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                  </form>
+                </div>
+                     </div>
+                      <h3>Número de Cuenta</h3>
+                      <div>
+                <div id="consCuenta">
+                  <form id="searchForm" action="blank.html" onsubmit="PM.Query.submitSearch()" onkeypress="return PM.Query.disableEnterKey(event)">
+                    <table width="100%" class="pm-searchcont pm-toolframe" border="0" cellspacing="0" cellpadding="0">
+                      <tbody>
+                        <tr>
+                          <td id="searchitems" class="pm_search_inline">
+                            <table id="searchitems_container1" class="pm-searchitem" border="0" cellspacing="0" cellpadding="0">
+                              <tbody>
+                                <tr id="searchitems_container2">
+                                  <td class="pm-searchdesc">
+                                    <input type="text" id="pmsfld_numero_mzna" name="numero_mzna" alt="Search Criteria" false="" autocomplete="off" class="ac_input">
+                                  </td>
+                                </tr>
+                                <tr>
+                                  <td>
+                                    <br />
+                                    <input type="button" value="Buscar" size="20" onclick="PM.Query.submitSearch()" onmouseover="PM.changeButtonClr(this,'over')" onmouseout="PM.changeButtonClr(this,'out')" class="button_off">
+                                  </td>
+                                </tr>
+                            </table>
+                          </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                  </form>
+                </div>
+                      </div>
+                      <h3>Domicilio</h3>
+                      <div>
+                <div id="consDomicilio">
+                  <form id="searchForm" action="blank.html" onsubmit="PM.Query.submitSearch()" onkeypress="return PM.Query.disableEnterKey(event)">
+                                    Asentamiento
+                                    <input type="text" id="pmsfld_numero_mzna" name="numero_mzna" alt="Search Criteria" false="" autocomplete="off" class="ac_input">
+                  
+                                    <br />
+                                    <input type="button" value="Buscar" size="20" onclick="PM.Query.submitSearch()" onmouseover="PM.changeButtonClr(this,'over')" onmouseout="PM.changeButtonClr(this,'out')" class="button_off">
+                  </form>
+                </div>
+                      </div>
+                      <h3>Calle-Asentamiento</h3>
+                      <div>
+                        <p>Cras dictum. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Aenean lacinia mauris vel est. </p><p>Suspendisse eu nisl. Nullam ut libero. Integer dignissim consequat lectus. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. </p>
+                      </div>
+                    </div>                
+                </div>
+              </form>
+            </div>
+                    
+        <!-- Reference Map -->
+        <div id="refmap" class="refmap" style="width:197px; height:91px">
+                <img id="refMapImg" src="/mapper/images/reference.png" width="197" height="91" alt="">
+                <div id="refsliderbox" class="sliderbox" style="visibility: hidden;"></div>
+                <div id="refbox" class="refbox" style="left: 24px; top: 13px; width: 148px; height: 61px; visibility: visible;"></div>
+                <div id="refcross" class="refcross" style="visibility: hidden;"><img id="refcrossimg" src="/mapper/images/refcross.gif" alt=""> </div>
+                <div id="refboxCorner"></div>
+            </div>
+            </div>
+
+    <div class="ui-layout-south" id="uiLayoutSouth" style="position: absolute; bottom: 0px; height: 32px; margin-top: 8px; right: -1px; left: 228px;">
+            <div class="legal">
+                <p><b>Gobierno del Estado de Tabasco © Derechos Reservados 2013 - 2018</b><br>
+                    Dirección General de Tecnologías de Información y Comunicaciones</p>
+            </div>
+            <div class="foot_logo">
+                <div class="img-cont">
+                    <img src="/mapper/images/logos/estado-logo.png" alt="Estado">
+                </div>
+            </div>
+    </div>
+    <div class="ui-layout-south-west" id="uiLayoutSouthWest" style="position: absolute; bottom: 0px; height: 32px; width: 220px; margin-top: 8px; margin-right: 6px;">
+        <!-- Coordinates -->
+        <!-- <div id="showcoords" class="showcoords1"><div id="xcoord">X: 581085</div><div id="ycoord">Y: 2028310</div></div>  -->
+    </div> 
+
+    <div class="ui-layout-east" id="uiLayoutEast" style="position: absolute; width: 0px;">
+    </div>
+
+    <div class="ui-layout-center" id="uiLayoutCenter" style="position: absolute; height: 509px; width: 1117px; top: 40px; left: 228px;">
+        <!-- Map Zone -->
+        <div id="map" class="baselayout" style="width: 1117px; height: 509px;">
+                <!-- MAIN MAP -->
+                <div id="mapimgLayer" style="width: 1117px; height: 509px; cursor: url(http://localhost/images/cursors/zoomin.cur), default; top: 0px; left: 0px; clip: rect(auto auto auto auto);">
+                        <img id="mapImg" src="/map_output/1428213583005665800.png" style="overflow: hidden; width: 1117px; height: 509px;" alt="">
+                </div>
+                <div id="measureLayer" class="measureLayer"><div style="font-size: 0px;"></div></div>
+                <div id="measureLayerTmp" class="measureLayer"><div style="font-size: 0px;"></div></div>
+                <div id="zoombox" class="zoombox" style="visibility: hidden;"></div>
+                <div id="helpMessage" style="display: none;"></div>
+                <div id="iqueryContainer"></div>
+                <div id="loading" style="left: 508.5px; top: 204.5px; visibility: hidden;"><img id="loadingimg" src="/mapper/images/loading.gif" alt="loading"></div>
+        </div>
+                
+        <!-- ToolBar -->
+              
+        <div id="toolBar" class="pm-toolframe" style="height: 190px;">
+          <table class="pm-toolbar">
+            <tbody>
+              <tr>
+                <td class="pm-tsepspace" style="height: 15px; width: 15px;">
+                </td>
+              </tr>
+              <tr>
+                <td id="tb_home" class="pm-toolbar-td pm-toolbar-td-off">
+                  <img id="img_home" src="/mapper/images/buttons/default/reload_off.gif" alt="Visualización completa" title="Visualización completa">
+                </td>
+              </tr>
+              <tr>
+                <td class="pm-tsepv" style="height: 1px; width: 1px;">
+                </td>
+              </tr>
+              <tr>
+                <td id="tb_zoomin" class="pm-toolbar-td pm-toolbar-td-on">
+                  <img id="img_zoomin" src="/mapper/images/buttons/default/zoomin_off.gif" alt="Acercar" title="Acercar">
+                </td>
+              </tr>
+              <tr>
+                <td id="tb_zoomout" class="pm-toolbar-td pm-toolbar-td-off">
+                  <img id="img_zoomout" src="/mapper/images/buttons/default/zoomout_off.gif" alt="Alejar" title="Alejar">
+                </td>
+              </tr>
+              <tr>
+                <td id="tb_pan" class="pm-toolbar-td pm-toolbar-td-off">
+                  <img id="img_pan" src="/mapper/images/buttons/default/pan_off.gif" alt="Mover" title="Mover">
+                </td>
+              </tr>
+              <tr>
+                <td class="pm-tsepv" style="height: 1px; width: 1px;">
+                </td>
+              </tr>
+              <tr>
+                <td id="tb_identify" class="pm-toolbar-td pm-toolbar-td-off">
+                  <img id="img_identify" src="/mapper/images/buttons/default/identify_off.gif" alt="Identificar" title="Identificar">
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <div id="mapToolArea" style="display: none;"></div>
+    </div>        
+
+<!-- ======================= ADAPT END ======================== -->
+</div>
+
+<div style="visibility:hidden"><img id="pmMapRefreshImg" src="/mapper/images/pixel.gif" alt=""></div>
+<div style="visibility:hidden"><img src="/mapper/images/pixel.gif" alt=""></div>
+
+<!-- MANDATORY form element for update events; DO NOT REMOVE! -->
+<form id="pm_updateEventForm" action="">
+                    <p><input type="hidden" id="pm_mapUpdateEvent" value=""></p>
+                </form>
 
 
-
-<div class="row">
-@if ($mapserv) 
-
-	{{ Form::open(['route'=> 'cartografia.consultas.store']) }}
-
-<div class="col-xs-2">
-<br>{{Form::radio('zoom', 0, $mapserv['pan'], array('id' => 'pan',))}} Pan
-	<br>{{Form::radio('zoom', 1, $mapserv['zoomin'],array('id' => 'zoomin',))}} Zoom In
-	<br> {{Form::radio('zoom', -1, $mapserv['zoomout'],array('id' => 'zoomout',))}} Zoom Out
-	<br> {{Form::text('zsize', '2')}} Factor Zoom
-	
-	<br> {{Form::checkbox('layer[]', 'Estado',$mapserv['Estado'])}} Estado
-	<br> {{Form::checkbox('layer[]', 'Carreteras',$mapserv['Carreteras'])}}Carreteras
-	<br> {{Form::checkbox('layer[]', 'Predios',$mapserv['Predios'])}} Predios
-	<br> {{Form::checkbox('layer[]', 'Manzanas',$mapserv['Manzanas'])}}Manzanas
-</div>	<!-- cierra col1  -->
-
-<div class="col-xs-7">	
-	 
-	{{Form::image($mapserv['image_url'],'img',
-	array( 'id' => 'img', 'width'=> '800', 'height' => '600'))}}
-
-</div>	<!-- cierra col2  -->
-<div class="col-xs-2">
-<img src='{{$mapserv['ref_url']}}'>
-
-	{{Form::hidden('extent', $mapserv['new_extent'], array('id' =>'extent'))}}
-	<img src='{{$mapserv['leg_url']}}'>
-	<p> Municipio
-	<br>{{Form::select('municipio', array( '0' => 'Seleccione---'), 'default', array( 'id' => 'municipio', 'OnChange'=>"ConsultaLadoServidor('localidad','localidades_a','cve_mun',this.value,'nombre','nombre','nada','nada');"))}}
-	<p> Localidad
-	<br>{{Form::select('localidad', array( '0' => 'Seleccione---'), 'default', array( 'id' => 'localidad', 'OnChange'=>"ConsultaLadoServidor2('manzana','lim_colonias','nada',this.value,'cve_manzana','cve_manzana','nada','nada','nada','1');"))}}
-
-	<p> Manzana
-	<br>{{Form::select('manzana', array( '0' => 'Seleccione---'), 'default', array( 'id' => 'manzana'))}}
-<p><input type="button" name="gen" value="Generar" onclick="gotopage1(document.getElementById('municipio').value,document.getElementById('manzana').value)"> 
-</div>	<!-- cierra col3  -->	
-	
-	<br> {{ Form::close() }} @else No hay Mapa @endif
-
-
-
-
-
-</div><!-- cierra renglon -->
-
-
-
-
-
-
-<!-- </div> -->
-<script src="/dist/js/jquery-1.11.2.min.js"></script>
-<script src="/dist/js/bootstrap.min.js"></script>
+<script type="text/javascript">
+    // use jQuery for intitialization 
+    $(document).ready(function() {
+        PM.Init.main();
+    });
+    
+    
+</script>
 
 </body>
 </html>

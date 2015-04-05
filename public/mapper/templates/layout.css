@@ -1,0 +1,622 @@
+/******************************************************************************
+ *
+ * Purpose: styles for basic layout elements
+ * Author:  Armin Burger
+ *
+ ******************************************************************************
+ *
+ * Copyright (c) 2003-2006 Armin Burger
+ *
+ * This file is part of p.mapper.
+ *
+ * p.mapper is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2 of the License, or
+ * (at your option) any later version. See the COPYING file.
+ *
+ * p.mapper is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with p.mapper; if not, write to the Free Software
+ * Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
+ *
+ ******************************************************************************/
+ 
+.baselayout {
+    position: absolute; 
+    border: none;
+}
+
+#map {
+    position:absolute; 
+    overflow:hidden; 
+    z-index:15;
+}
+
+#mapimgLayer {
+    position: absolute;
+    z-index : 0; /* IMPOTANT FOR MEASURE FUNCTION */
+	overflow: hidden;
+}
+
+#fadeMapimgLayer {
+    position: absolute;
+    z-index : 10; 
+	overflow: hidden;
+}
+
+#infoContainer {
+	visibility: hidden;
+    position: absolute;
+	overflow: auto;
+    width: auto;
+    height: auto;
+    z-index : 90;
+	padding: 4px;
+}
+
+.pm-header {
+    height:30px;
+    padding:6px 10px 4px 10px;
+}
+
+.pm-header, .pm-header a {
+    text-align:left;
+    font-size:14px;
+    font-weight:bold;
+    color:#ffffff;
+}
+
+.pm-header div{
+    display:inline;
+    padding-left:10px;
+}
+
+.pm-logo-img {
+    vertical-align: middle;
+}
+
+
+.pm-footer img, .pm-footer div{
+    padding:4px;
+}
+
+#loading {
+    position: absolute;
+    z-index : 99;
+}
+
+#scaleReference {
+    position:absolute; 
+    bottom:35px; 
+    z-index:98;
+}
+
+#scalebar {
+    padding-bottom:6px;
+    position: absolute;
+    z-index : 98;
+    visibility: hidden;
+    left:0px;
+    bottom:0px;
+    width:220px;
+    height:30px;
+    background:#eeeeee;
+    layer-background-color:#eeeeee;
+    filter: alpha(opacity=85); 
+    -moz-opacity:0.85;
+    opacity:0.85;
+}
+
+.pm-selectbox {   
+    position: absolute;
+    right: 34px;
+    top: 31px;
+	overflow: hidden;
+    width:auto;
+    height:22px;
+    background-color:#e9e9e9;
+    border: 1px solid #cccccc;
+    z-index : 95;
+    padding: 4px 4px 3px 4px;
+    text-align: right;
+    display:inline;
+}
+.pm-selectbox select {
+    margin-left:4px;
+}
+
+
+/* STYLE FOR MEASURE ELEMENTS */
+#measureLayer {
+    position:absolute;
+    top: 0px;
+    left : 0px;
+    visibility: visible;
+    z-index:94;
+}
+
+#measureLayerTmp {
+    z-index:94;
+}
+
+.pm-measure-form {
+    position: absolute;
+    right: 34px;
+    bottom: 0px;
+	overflow: hidden;
+    width:auto;
+    height:27px;
+    background-color:#e9e9e9;
+    border: 1px solid #cccccc;
+    z-index : 95;
+    padding: 4px 4px 3px 4px;
+    text-align: right;
+    display:inline;
+}
+
+
+/*** help messages ***/
+#helpMessage {
+	position:absolute; 
+    right:35px; 
+    top:31px;
+    min-width: 200px;
+    height: auto;
+    display:none;
+    z-index : 92;
+    background:#D1D1D1;
+    color: #000080;
+	layer-background-color:#D1D1D1;
+	filter: alpha(opacity=80); 
+	-moz-opacity:0.8;
+    opacity:0.8;
+    border:none;
+	padding: 4px;
+}
+
+.map-top-bar {
+    position:absolute;
+    top:0px; 
+    left:0px;
+    height:30px;
+    width:100%; 
+    z-index: 80;   
+	background-color:#e2e2e2;
+    layer-background-color:#e2e2e2;
+    filter: alpha(opacity=75); 
+	-moz-opacity:0.75;
+    opacity:0.75;    
+}
+
+
+.zoombox {
+    position: relative;
+    visibility: visible;
+    width: 1px;
+    height: 1px;
+    border-color : #FF0000;
+    border-width : 1px;
+	border-style : solid;
+    z-index:90;
+    background:#eeeeee;
+    layer-background-color:#eeeeee;
+    filter: alpha(opacity=40); 
+    -moz-opacity:0.4;
+    opacity:0.4;
+}
+
+/* STYLE FOR ZOOMBOX FOR OPERA AND KONQUEROR */
+.zoombox-nontransp {
+    position: absolute;
+    visibility: hidden;
+    overflow: hidden;
+    left : 0;
+    top : 0;
+    border-color: #FF0000;
+    border-width: 1px;
+    border-style: solid;
+} 
+
+
+#toolBar {
+    position: absolute;
+    left : 0px;
+    top : 0px;
+    width:34px; 
+    height:100%;
+    z-index : 5;
+	overflow: hidden;
+    z-index:90;
+    /*-moz-border-radius: 0px 12px 12px 0px ;*/
+}
+
+
+#toolMenu {
+    position:absolute; 
+    top:3px; 
+    right:40px; 
+    overflow:visible; 
+    width:90px; 
+    z-index: 100;   
+	background-color:#e2e2e2;
+    layer-background-color:#e2e2e2;
+    filter: alpha(opacity=80); 
+	-moz-opacity:0.8;  
+    opacity:0.8;
+}
+
+
+#searchContainer {
+    position:absolute; 
+    top:0px; 
+    left:4px; 
+    width:auto;
+    z-index: 99;
+    padding:4px;    
+}
+
+#searchContainer div {
+    display:inline;
+}
+
+
+
+/* STYLE FOR REFERENCE MAP */
+.refmap {
+    position:absolute; 
+    left:5px; 
+    bottom:2px;
+    z-index:99;
+}
+
+.ref {
+    position: absolute;
+}
+
+
+/* STYLE FOR REFERENCE MAP BOX */
+.refbox {
+    visibility: visible;
+    overflow: hidden;
+    position: absolute;
+    border-color : #FF0000;
+    border-width : 2px;
+    border-style : solid;
+    cursor: move;
+}
+
+
+/* STYLE FOR REFERENCE MAP CROSS */
+#refcross, .refcrossimg  {
+    visibility: hidden;
+    position: absolute;
+    z-index:90;
+}
+
+
+/* STYLE FOR REFERENCE MAP BOX */
+.sliderbox {
+    visibility: hidden;
+    overflow: hidden;
+    position: absolute;
+    border-color : #FF0000;
+    border-width : 1px;
+    border-style : solid;
+    background:#eeeeee;
+    layer-background-color:#eeeeee;
+    filter: alpha(opacity=60); 
+    -moz-opacity:0.6;
+    opacity:0.6;
+}
+
+
+
+/* Coordinates Display */
+#showcoords {
+    visibility: visible;
+	float: left;
+    width: auto;
+    height: 18px;
+	margin: 6px 10px;
+    color:#000000;
+}
+#xcoord {
+	float:left;
+	padding: 2px 8px;
+}
+#ycoord {
+	float:left;
+	padding: 2px 8px;
+}
+
+
+#selform table{
+	height: 20px;
+}
+
+
+
+/*** Styles for SCALE selection ***/
+#scaleArea {
+	position:absolute; 
+	z-index:99; 
+	overflow: visible;
+	left: 4px; 
+	top: 35px;
+	width: auto; 
+	padding: 1px 4px 1px 3px;
+	border: 1px inset #999999;
+	background-color:#e2e2e2;
+    layer-background-color:#e2e2e2;
+	-moz-opacity:0.8; 
+    opacity:0.8;
+}
+#scaleArea2 {
+    white-space: nowrap;
+}
+#scaleArea2 .celldiv:first-child {
+	padding-top: 4px;
+}
+#scaleSuggest {
+	position: absolute; 
+	background-color: #EBEBEB; 
+	text-align: right; 
+	border: 1px solid #003366;
+	height: auto;
+	width: 72px;
+	overflow: visible;
+	z-index : 99;
+    display:none;
+}
+.scale-link {
+	background-color: #EBEBEB;
+	padding: 1px 4px 1px 4px;
+	cursor: pointer;
+	z-index : 99;
+}
+.scale-link-over {
+	color: #FFFFFF;
+	background-color: #003366;
+	padding: 1px 4px 1px 4px;
+	cursor: pointer;
+	z-index : 99;
+}
+	
+
+
+/*** Table style formatting of DIV's***/
+.celldiv {
+	float:left;/*fix for  buggy browsers*/
+	display: table-cell;
+	padding: 1px;
+}
+.rowdiv {
+	display: table-row;
+	width:auto;
+}
+
+
+/*** Slider ***/
+#sliderArea {
+	position:absolute; 
+	z-index:90; 
+	/*left:4px;*/
+    right: 50px;
+	top:110px;
+	width:30px; 
+	height:200px; 
+	margin-top:5px; 
+	border: 1px solid #999999;
+	background-color:#e2e2e2; 
+	layer-background-color:#e2e2e2;
+	border-radius: 15px;
+	-moz-border-radius: 15px;
+	-webkit-border-radius: 15px;
+}
+#zslider {
+    display:table-row;
+    left:10px;
+}
+#sliderTool {
+    position:absolute; 
+    left:7px; 
+    top:12px; 
+    display:table;
+}
+
+#sliderTool div{
+    display:block;
+}
+
+.slider-area-over {
+	filter: alpha(opacity=95); 
+	-moz-opacity:0.95;
+    opacity:0.95;
+}
+.slider-area-out {
+	filter: alpha(opacity=50); 
+	-moz-opacity:0.5;
+    opacity:0.5;
+}
+.slider-top {
+	width:14px; 
+	height:15px; 
+    cursor: pointer;
+	/*display:table-row;*/
+	background-color:#eeeeee; 
+	border: 1px solid #000000;
+	border-radius: 8px 8px 0px 0px;
+	-moz-border-radius: 8px 8px 0px 0px;
+	-webkit-border-radius: 8px 8px 0px 0px;
+}
+.slider-bottom {
+	width:14px; 
+	height:15px; 
+    cursor: pointer;
+	/*display:table-row;*/
+	background-color:#eeeeee; 
+	border: 1px solid #000000;
+	border-radius: 0px 0px 8px 8px ;
+	-moz-border-radius: 0px 0px 8px 8px ;
+	-webkit-border-radius: 0px 0px 8px 8px ;
+}
+
+
+/**
+ * for DHTML menu
+ * based on a script by Jonathan Sharp
+ */
+.pm-menu, .pm-menu-button, a.pm-menu-button {
+	font-size: 11px;
+	text-decoration: none;
+	text-align: left;
+    padding: 0px;
+	cursor: pointer;
+    z-index: 99;
+}
+a.pm-menu-button {
+    display: block;
+    width: auto;
+    padding: 4px;   
+    color: #000000;
+    border: 1px solid #003366;
+}
+a.pm-menu-button:hover {
+    display: block;
+    width: auto;
+    padding: 4px;
+    color: #ffffff;
+    background-color: #003366;
+    border: 1px outset #f0f0f0;
+}
+.pm-menu-button img{
+    padding: 0px 8px 0px 8px;
+}
+.pm-menu {
+	display: none;
+	position: absolute;
+	width: 90px;
+	list-style-type: none;
+	margin: 0px;
+	color: #000000;
+    background-color: #f0f0f0;
+    border: 1px solid #003366;
+    z-index : 99;
+}
+.pm-menu li {
+	border-top: 1px solid #999999;
+	padding: 5px 2px 5px 4px;
+}
+.pm-menu-active {
+	display: block;
+}
+.pm-menu .pm-menu-hover {
+	color: #FFFFFF;
+    background-color: #003366;
+}
+
+.pm-button {
+	display:inline;
+	text-decoration: none;
+	text-align: left;
+	cursor: pointer;
+    width: auto;
+    padding: 2px 6px;   
+    color: #000000;
+    background-color: #ebebeb;
+    border: 1px solid #003366;
+    z-index : 99;
+}
+
+a.pm-button:hover {
+    text-decoration: none;
+    width: auto;
+    padding: 2px 6px;
+    color: #ffffff;
+    background-color: #003366;
+    border: 1px outset #f0f0f0;
+}
+
+/* Tool links */
+#toolLinkContainer {
+    position:absolute; 
+    top: 6px;
+    right: 2px;
+    z-index : 95;
+}
+
+#toolLinkContainer ul {
+    list-style-image:none;
+    list-style-position:outside;
+    list-style-type:none;
+    margin:0;
+    padding:0 0px;
+}
+
+.pm-tool-links li {
+    display:inline;
+    padding-right:8px;
+    white-space: nowrap;
+}
+
+.pm-tool-links li img{
+    position:relative;
+    top:5px;
+    padding-right:1px;
+}
+
+.pm-tool-links a {
+    color: #000000;
+    text-decoration: none;
+}
+
+.pm-tool-links a span {
+    text-decoration:underline
+}
+
+.ui-layout-north {
+    color:#ffffff;
+}
+
+.pm-tool-links a {
+    color:#ffffff;
+}
+
+
+.pm-map-link {
+    position: absolute;
+    right: 35px;
+    top: 31px;
+	overflow: hidden;
+    width:380px;
+    height:auto;
+    background-color:#e9e9e9;
+    border: 1px solid #cccccc;
+    z-index : 95;
+    padding: 8px;
+}
+
+.pm-map-link input {
+    width:360px;
+    padding: 1px;
+    margin-bottom:5px;
+}
+
+.pm-map-link img {
+    position: absolute;
+    top:3px;
+    right:4px;
+}
+
+.pm-map-link a, .pm-map-link a:hover{
+    color:#000080;
+    text-decoration:underline;
+}
+
+
+
+

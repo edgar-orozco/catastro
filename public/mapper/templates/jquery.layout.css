@@ -1,0 +1,46 @@
+/**
+ *	Basic Layout Theme
+ * 
+ *	This theme uses the default layout class-names for all classes
+ *	Add any 'custom class-names', from options: paneClass, resizerClass, togglerClass
+ */
+
+.ui-layout-pane { /* all 'panes' */ 
+    background: #FFF; 
+    border: 1px solid #BBB; 
+    padding: 10px; 
+} 
+
+.ui-layout-resizer { /* all 'resizer-bars' */ 
+    background: #DDD; 
+} 
+
+.ui-layout-toggler { /* all 'toggler-buttons' */ 
+    background: #AAA; 
+} 
+
+.ui-layout-center {
+    overflow:hidden;
+    padding:0px;
+}
+
+.ui-layout-east {
+    padding:0px;
+    overflow: hidden;
+}
+
+.ui-layout-west {
+    overflow:hidden;
+    padding:0px;
+}
+
+.ui-layout-north {
+    background-color:#EEEEEE;
+    padding:0px;
+}
+
+.ui-layout-south {
+    background-color:#EEEEEE;
+    padding:0px;
+}
+

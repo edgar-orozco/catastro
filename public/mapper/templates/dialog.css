@@ -1,0 +1,127 @@
+/* STYLE FOR PRINT OUTPUT */
+
+
+/* jqmModal dialog CSS courtesy of;
+	Brice Burgess <bhb@iceburg.net> */
+    
+.dragHandle { cursor: move; }
+.resizeHandle { cursor: se-resize; position: absolute; bottom: 1px; right: 1px; z-index:99}
+
+
+div.jqmDialog {
+	width: 350px;
+	height: 250px;
+    left:50px;
+    top:100px;
+	position: absolute;
+	margin: auto;
+    border: 3px ridge #c0c0c0;
+    overflow: hidden;
+    display: none;
+    z-index:99;
+}
+
+.jqmClose {
+    padding-top:2px;
+}
+
+div.jqmWrap { 
+    position: absolute;
+    margin-top: 0px;
+    margin-left: 0px;
+}
+
+
+/* Title / Top Classes */
+div.jqmdTC { 
+	background-color: #000000;
+    height: 22px;
+    color: #ffffff;
+	font-family:"sans serif",verdana,arial,helvetica;
+    font-size: 11px;
+	font-weight: bold;
+    padding: 4px 0px 0px 6px;
+    vertical-align: bottom;
+	/** zoom: 1;*/
+}
+
+div.jqmdBC { 
+	background-color: #d4d0c8;
+    height: 17px;
+    border-top: 2px ridge #c0c0c0;  
+}
+
+div.jqmdMSG { 
+	width: auto;
+    height: 100%;
+    color: #000000;
+    overflow: auto;
+    background-color: #ffffff;
+    top:0px;
+    left:0px;
+    padding: 0px 4px; 
+}
+
+div.jqmdQueryMSG { 
+    background-color: #fafafa;
+}
+
+
+div.jqmdWin {
+    height: 100%;
+    background-color: #ffffff;
+    overflow: hidden;
+}
+
+/* Button classes */
+input.jqmdClose {
+	position: absolute;
+	right: 3px;
+	top: 3px;
+	outline: none;
+}
+
+
+/** Printing settings (dialog and HTML printmap.phtml) **/
+.printdlg {
+    padding: 2px 8px;   
+}
+
+.printdlg div, .dldlg div {
+    background-color: #efefef;
+    border-top:1px solid #ccc; 
+    border-bottom:1px solid #ccc; 
+    border-left:1px solid #ccc; 
+    border-right:1px solid #ccc; 
+    height: 25px;
+    padding:3px 5px 2px 2px;
+    margin: 1px;
+}
+
+.printdlg div.printdlg_main {
+    background-color: #ffffff;
+    border: none;
+    display: inline;
+    padding:0px;
+}
+
+.printdlg div.printdlg_main div{
+    font-size: 14px;
+	font-weight: bold;
+	height: 32px;
+	background-color: #ffffff;
+	border: none;
+}
+
+.printdlg div.printdlg_advanced {
+    display:none;
+}
+
+.pm-dlg-title {
+    font-size: 14px;
+	font-weight: bold;
+}
+
+.printdlg select {
+	width: auto;
+}

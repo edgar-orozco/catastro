@@ -1,0 +1,11 @@
+/* STYLE FOR IE 6 */
+
+div.searchitem select {
+    width: auto;
+}
+
+.search_suggest {
+    height: 200px;
+}	
+
+

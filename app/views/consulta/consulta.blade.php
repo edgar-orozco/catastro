@@ -1,39 +1,39 @@
 
 <table border="1"  id="myTable" class="tablesorter">
      <thead>
-        <tr>   
+        <tr>
                 <th width="500">Clave Catastral</th>
                 <th width="700">Dato 2</th>
                 <th width="700">Dato 3</th>
                 <th width="500">Dato 4</th>
                 <th width="700">Dato 5</th>
                 <th width="700">Dato 6</th>
-                <th width="500">Dato 7</th>   
+                <th width="500">Dato 7</th>
         </tr>
     </thead>
     <tbody>
         <tr>
-       <?php 
-		
-        
+       <?php
+
+
 	//	$val= trim( $val,'');
 		//print_r($vale);
 		//$vale= substr($val, 1);
-		
+
 ?>
-           @foreach ($vale as $key  )     
-           
-            <td> 
+           @foreach ($vale as $key  )
+
+            <td>
                <?php $val= str_replace('(', '',$key[0]);?>
             	{{$calve=$val;}}
-                
+
             </td>
             <td>
                 <?php $val2= str_replace('"', '',$key[1]); ?>
             	{{$mun=$val2;}}
             </td>
             <td>
-                
+
                 {{$mun=$key[2];}}
             </td>
             <td>
@@ -45,7 +45,7 @@
                 {{$mun=$val4;}}
             </td>
             <td>
-                
+
                 {{$mun=$key[5];}}
             </td>
             <td>
@@ -54,7 +54,7 @@
             </td>
         </tr>
         @endforeach
-  
+
         </tr>
     </tbody>
     </table><?php //echo $busqueda->links(); ?>

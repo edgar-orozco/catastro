@@ -1,0 +1,211 @@
+/******************************************************************************
+ *
+ * Purpose: main styles 
+ * Author:  Armin Burger
+ *
+ ******************************************************************************
+ *
+ * Copyright (c) 2003-2006 Armin Burger
+ *
+ * This file is part of p.mapper.
+ *
+ * p.mapper is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2 of the License, or
+ * (at your option) any later version. See the COPYING file.
+ *
+ * p.mapper is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with p.mapper; if not, write to the Free Software
+ * Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
+ *
+ ******************************************************************************/
+
+/** 
+ * Defaults for HTML elements 
+ */
+html {
+    overflow: hidden;
+}
+
+body, th, td, select, input {
+    font-family: verdana,arial,helvetica,sans-serif;
+    font-size : 11px;
+}
+
+body {
+    color: #000000;
+    background : #ffffff;
+    cursor: default;
+    overflow: hidden;
+    margin: 0px 0px ;
+    padding: 0px 0px;
+    width: 100%;
+    border: none;
+}
+     
+th, td {
+    text-align: left;
+    color: #000000;
+}
+
+
+a {
+    color: #000000;
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+img {
+	border: none;
+}
+
+select {
+	background-color : #EBEBEB;
+	width : 100px;
+	padding-left: 5px;
+}
+
+/*------------------------------------------------*/
+
+/** 
+ * TOOL FRAME around map and TOC
+ */
+.pm-toolframe, .infoZone {
+    background-color: #e9e9e9;  
+    color: #000000;
+    /*border: 1px solid #F0F0F0;*/
+}
+
+
+.pm-toolframe input {
+	background-color : #EBEBEB;
+	border: 1px solid #003366;
+}
+
+/* Input Button colors on/off */
+.pm-toolframe input.button_on {
+    background-color : #003366;
+    color: #FFFFFF;
+    border-color: #FFFFFF;
+    border-style: outset;
+}
+
+.pm-toolframe input.button_off {
+    background-color : #EBEBEB;
+}
+
+
+/** 
+ * TOOL buttons in toolbar 
+ * Used for mouseDown/Up and mouseOver/Out actions 
+ */
+.pm-toolbar {
+    color: #000000; 
+    margin-left:1px;
+}
+
+.pm-toolbar-td{
+}
+
+.pm-toolbar-td-off{
+    padding: 2px;
+    text-align:center;
+    vertical-align:middle;
+    width: 24px;
+    height: 24px;
+}
+
+.pm-toolbar-td-on{
+    padding: 1px 1px 1px 1px;
+    width: 24px;
+    height: 24px;
+    overflow: hidden;
+    text-align:center;
+    vertical-align:middle;
+    background-color: #CCCCCC;    
+    border: 1px inset;
+}                
+
+.pm-toolbar-td-over{
+    padding: 1px 1px 1px 1px;
+    width: 24px;
+    height: 24px;
+    overflow: hidden;
+    text-align:center;
+    vertical-align:middle;
+    border: 1px outset;
+}
+
+.pm-toolbar-td img, .pm-toolbar-td-on img, .pm-toolbar-td-over img {
+	border: 0px;
+	vertical-align:middle;
+}
+
+/*** separators ***/
+.pm-tsepv {
+	height: 1px;
+	padding: 1px;
+	vertical-align:middle;
+	border-top: 2px groove #F0F0F0;
+	empty-cells: show;
+}
+.pm-tseph {
+	height: 1px;
+	padding: 1px;
+	border-left: 2px groove #F0F0F0;
+} 
+.pm-tsepspace {
+	height: 1px;
+	padding: 2px;
+	border: none;
+} 
+/* for IE */
+.pm-tsepv td, .pm-tsepv img {
+    border: 0px;
+    height:0px;
+}
+
+.logos {
+    width: 50%;
+    height: 100%;
+    display: inline-block;
+    margin: auto;
+}
+.foot_logo {
+    position: absolute;
+    height: 90%;
+    display: inline-block;
+    right: 10px;
+}
+
+.img-cont {
+max-height: 55px;
+height: 100%;
+display: inline-block;
+}
+
+.img-cont img {
+    height: 100%;
+}
+
+.legal {
+position: absolute;
+top: -8px;
+width: 100%;
+display: block;
+}
+
+
+.TDAL{text-align:left;}
+.TDAR{text-align:right;}
+.TDAC{text-align:center;}
+
+

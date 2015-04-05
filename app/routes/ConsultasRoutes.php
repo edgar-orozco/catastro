@@ -14,3 +14,4 @@ Route::resource('cartografia/mapasajax','MapaAjaxController');
 
 Route::resource('cartografia/consultamz','ConsultaMzPredioAlpha');
 
+Route::resource('cartografia/xajax/loadmap','MapLoadController');
