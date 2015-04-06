@@ -103,9 +103,10 @@ class catalogos_salarioController extends \BaseController {
             if (in_array($factual, $finicio)) {
 //                echo "Ya Existe fecha de inicio ";
 //                echo '<div class="alert alert-danger">Ya Existe fecha de inicio</div>';
-                 return Redirect::back()->with('error', 'Ya Existe la fecha: ');
+                 return Redirect::back()->with('error', 'Ya Existe la fecha de Inicio');
             }elseif (in_array($ftermina,$ffin)) {
 //                echo " y fin ";
+                return Redirect::back()->with('error', 'Ya Existe la fecha de Fin');
             }
             else{
             $n->save();
