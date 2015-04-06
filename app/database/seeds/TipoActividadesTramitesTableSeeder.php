@@ -16,7 +16,7 @@ class TipoActividadesTramitesTableSeeder extends Seeder {
         //Estatus finalizado
         $ef = EstatusTramite::where('pasado','Finalizado')->first();
         //Estatus finalizado con observaciones
-        $efo = EstatusTramite::where('pasado','Finalizado con observaciones')->first();
+        $efo = EstatusTramite::where('pasado','Finalizado observado')->first();
 
         TipoActividadTramite::create([
             'nombre' => 'Iniciar trámite',
@@ -75,10 +75,19 @@ class TipoActividadesTramitesTableSeeder extends Seeder {
         ]);
 
         TipoActividadTramite::create([
+            'nombre' => 'Iniciar subtrámite',
+            'presente' => 'Se inicia subtrámite',
+            'pasado' => 'Se inició subtrámite',
+            'orden' => '6',
+            'estatus_id'=> $ep->id,
+            'manual' => true
+        ]);
+
+        TipoActividadTramite::create([
             'nombre' => 'Finalizar trámite',
             'presente' => 'Se finaliza el trámite',
             'pasado' => 'Trámite finalizado',
-            'orden' => '6',
+            'orden' => '7',
             'estatus_id'=> $ef->id,
             'manual' => true
         ]);
@@ -87,7 +96,7 @@ class TipoActividadesTramitesTableSeeder extends Seeder {
             'nombre' => 'Finalizar con observaciones',
             'presente' => 'Se finaliza con observaciones',
             'pasado' => 'Trámite finalizado con observaciones',
-            'orden' => '7',
+            'orden' => '8',
             'estatus_id'=> $efo->id,
             'manual' => true
         ]);

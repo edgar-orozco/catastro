@@ -45,7 +45,7 @@ class HomeController extends BaseController
             $homepage = 'subdireccioncatastro';
         }
         elseif (Confide::user()->hasRole('Funcionario Cartografía')) {
-            $homepage = 'cartografiamunicipio';
+            $homepage = 'deptocartografia';
         }
         elseif (Confide::user()->hasRole('Usuario final')) {
             $homepage = 'supervisor';

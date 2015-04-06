@@ -56,7 +56,14 @@
                                                     class="btn btn-default dropdown-toggle select-municipio select-municipio-{{$tipotramite->id}}"
                                                     data-municipio=""
                                                     data-toggle="dropdown" aria-expanded="false">
-                                                <span class="dropdown-label">Municipio</span>
+                                                <span class="dropdown-label">
+                                                    @if(count($municipios) == 1)
+                                                        {{$municipios[0]->nombre_municipio}} - {{$municipios[0]->municipio}}
+                                                    @else
+                                                    Municipio
+
+                                                    @endif
+                                                </span>
                                                 <span class="caret"></span></button>
                                             <ul class="dropdown-menu municipio" role="menu">
                                                 @foreach($municipios as $municipio)
@@ -216,4 +223,12 @@
     {{ HTML::script('js/laroute.js') }}
     {{ HTML::script('js/jquery/jquery.mask.min.js') }}
     {{ HTML::script('js/ventanilla/primera-atencion.js') }}
+    @if(count($municipios) == 1)
+    <script>
+        $(function () {
+            var municipio = "{{$municipios[0]->municipio}}";
+            $('.select-municipio').data('municipio', municipio);
+         });
+    </script>
+    @endif
 @append

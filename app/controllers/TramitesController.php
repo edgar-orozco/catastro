@@ -1,17 +1,20 @@
 <?php
 use \Catastro\Repos\Padron\PadronRepositoryInterface;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Input;
 use Laravelrus\LocalizedCarbon\LocalizedCarbon;
+use Webpatser\Uuid\Uuid;
 
 class TramitesController extends BaseController {
 
     protected $padron;
     protected $tipotramite;
     protected $tramite;
-
+    protected $numPags = 10;
     /**
      * @param PadronRepositoryInterface $padron
      * @param Tipotramite $tipotramite
+     * @param Tramite $tramite
      */
     public function __construct(PadronRepositoryInterface $padron, Tipotramite $tipotramite, Tramite $tramite)
     {
@@ -64,7 +67,8 @@ class TramitesController extends BaseController {
 
         $num_requisitos = count($requisitos);
 
-        $uuid = \Webpatser\Uuid\Uuid::generate(4);
+        $uuid = Uuid::generate(4);
+
 
         return View::make('ventanilla.control', compact(
             'title',
@@ -269,7 +273,6 @@ class TramitesController extends BaseController {
         //exit;
 
         //Departamentos donde se atiende el trámite.
-
         $deptos = DepartamentoTramite::all()->sortBy('orden');
         $lista_deptos = array();
         //$lista_deptos[] = '';
@@ -277,6 +280,14 @@ class TramitesController extends BaseController {
             $lista_deptos[$depto->id] =$depto->nombre;
         }
 
+        //Selector de tipo de trámites para que se pueda disparar un subtramite
+        $oTipotramites = Tipotramite::where('id','!=',$tramite->tipotramite_id)->orderBy('nombre')->get();
+        $lista_tipotramites = array();
+        foreach($oTipotramites as $tipotramite){
+            $lista_tipotramites[$tipotramite->id] = $tipotramite->nombre;
+        }
+
+        //Selector de Tipo de actividades
         $tipoactividades = TipoActividadTramite::where('manual',true)->orderBy('orden')->get();
         $lista_tipoactividades = array();
         //$lista_actividades[] = '';
@@ -284,21 +295,24 @@ class TramitesController extends BaseController {
             $lista_tipoactividades[$tipoactividad->id] =$tipoactividad->nombre;
         }
 
-        $estado = "En proceso";
-
+        //Los roles que tiene el usuario actual
         $oRroles = Auth::user()->roles()->get();
         $roles = array();
         foreach($oRroles as $rol){
             $roles[] = $rol->id;
         }
+
+        //Los municipios que está autorizado atender.
         $oMunicipios = Auth::user()->municipios()->get();
         $municipios = array();
         foreach($oMunicipios as $municipio){
             $municipios[] = $municipio->municipio;
         }
 
+        //Indica si es responsable o no del trámite actual
         $esResponsable = Tramite::where('id', $tramite->id)->responsabilidad($roles, $municipios)->first();
 
+        //Bandera que se usa en el timeline del tramite simplemente para la vista.
         $ff=true;
 
         return View::make('ventanilla.flujo', compact(
@@ -307,18 +321,17 @@ class TramitesController extends BaseController {
             'subtitle_section',
             'clave',
             'cuenta',
-            //'requisitos',
             'predio',
             'tramite',
             'tipotramite',
             'tipotramite_id',
             'folio',
-            'estado',
             'tiempo_consumido',
             'tiempo_restante',
             'lista_notarias',
             'lista_deptos',
             'lista_tipoactividades',
+            'lista_tipotramites',
             'uuid',
             'ff',
             'esResponsable'
@@ -342,7 +355,12 @@ class TramitesController extends BaseController {
         $tipo_id = Input::get('tipo_id');
         $departamento_id = Input::get('departamento_id');
 
+        //Se usa cuando existe un nuevo subtrámite que realizar
+        $tipotramite_id = Input::get('tipotramite_id');
+
         $observaciones = Input::get('observaciones');
+
+        $uid = Auth::id();
 
         $actividad = [];
         if($tipo_id) $actividad['tipo_id'] = $tipo_id;
@@ -351,30 +369,121 @@ class TramitesController extends BaseController {
 
         $actividad['tramite_id'] = $tramite_id;
 
-        //Si existe el departamento vemos el rol de usuario que corresponde a dicho depto
-        if($departamento_id){
-            $depto = DepartamentoTramite::findOrFail($departamento_id);
-            $tramite->role_id = $depto->role_id;
-            $tramite->departamento_id = $depto->id;
-
-        }
-
         //vemos si el tipo de tramite corresponde a algun finalizado, si es el caso entonces ponemos el estatus de tramite en finalizado.
         //De lo contrario ponemos el estatus del tramite a En Proceso
+        $esSubtramite = false; //Bandera que nos indica si se trata de un subtramite o no.
         if($tipo_id){
             $tipo = TipoActividadTramite::find($tipo_id);
             $tramite->estatus_id = $tipo->estatus_id;
+
+            //Si se inicia subtramite generamos un nuevo trámite pero con el mismo número de folio.
+            //TODO: Hacer refactoring, esto con eventos
+            if(mb_strtolower($tipo->nombre) == 'iniciar subtrámite'){
+
+                $esSubtramite = true;
+
+                //Sólo si existe un nuevo tipo de trámite creamos uno, si no lo hay no se crea nada
+                if($tipotramite_id){
+
+
+                    //Si existe el departamento vemos el rol de usuario que corresponde a dicho depto
+                    //$role_id = null;
+                    //$departamento_id = null;
+                    if($departamento_id){
+                        $depto = DepartamentoTramite::findOrFail($departamento_id);
+                        $role_id = $depto->role_id;
+                        //$departamento_id = $depto->id;
+                    }
+
+                    //Asociamos el estado iniciado
+                    $estatus = EstatusTramite::where('nombre','Iniciar')->first();
+
+                    $subtramite = Tramite::create([
+                        'padre_id' => $tramite->id,
+                        'tipotramite_id' => $tipotramite_id,
+                        'clave' => $tramite->clave,
+                        'usuario_id' => $uid,
+                        'folio' => $tramite->folio,
+                        'notaria_id' => $tramite->notaria_id,
+                        'solicitante_id' => $tramite->solicitante_id,
+                        'tipo_solicitante' => $tramite->tipo_solicitante,
+                        'uuid' => Uuid::generate(4),
+                        'role_id' => $role_id,
+                        'departamento_id' => $departamento_id,
+                        'estatus_id' => $estatus->id
+                    ]);
+
+
+                    //Se inicializa esta actividad con su actividad inicial
+                    $actividadsub = TipoActividadTramite::where('nombre', 'Iniciar trámite')->first();
+                    ActividadTramite::create([
+                        'tramite_id' => $subtramite->id,
+                        'tipo_id' => $actividadsub->id,
+                        'user_id' => $uid,
+                    ]);
+
+                }
+            }
         }
+
+
+        //Si existe el departamento y no se ha generado un subtramite vemos el rol de usuario que corresponde a dicho depto
+        if($departamento_id && !$esSubtramite){
+            $depto = DepartamentoTramite::findOrFail($departamento_id);
+            $tramite->role_id = $depto->role_id;
+            $tramite->departamento_id = $depto->id;
+        }
+
+        //Si se trata de un subtramite dejamos el rol y el depto como estaban antes de crear el subtrámite.
 
         $tramite->save();
 
-        $uid = Auth::user()->id;
         $actividad['user_id'] = $uid;
 
         ActividadTramite::create($actividad);
 
         return Redirect::to('/')->with('success',"Se ha guardado trámite con folio: ".sprintf("%06d", $folio));
     }
+
+
+    public function buscar(){
+
+        $q = Input::get('q');
+        $tipo = Input::get('tipo');
+        $tramites = null;
+
+        $municipios = array();
+        $roles = array();
+        $uid = Auth::id();
+
+        $user = Auth::user();
+        if($user) {
+            $municipios = $user->municipioIdArray();
+            $roles = $user->roleIdArray();
+        }
+
+        if($tipo == 'folio'){
+            $tramites = Tramite::where('folio', $q)->involucrado($uid, $roles, $municipios)->paginate($this->numPags);
+        }
+        if($tipo == 'solicitante'){
+            $tramites = Tramite::involucrado($uid, $roles, $municipios)->solicitanteNombreCompleto($q)->paginate($this->numPags);
+        }
+        if($tipo == 'notaría'){
+
+        }
+        if($tipo == 'tipo de trámite'){
+
+        }
+
+
+        if (Request::ajax())
+        {
+            return View::make('ventanilla._lista_tramites',compact(['tramites']));
+        }
+
+        return $tramites;
+    }
+
 
 }
 

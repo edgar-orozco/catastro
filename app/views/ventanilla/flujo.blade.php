@@ -25,7 +25,7 @@
 
     <div class="row clearfix">
         <?php $nocontrol = false;?>
-        @if($tramite->estatus->pasado != 'Finalizado' && $esResponsable != null)
+        @if(($tramite->estatus->pasado != 'Finalizado' && $tramite->estatus->pasado != 'Finalizado observado' ) && $esResponsable != null)
 
         <div class="col-md-4 column">
 
@@ -46,6 +46,12 @@
                         {{Form::select('tipo_id', [null => ''] + $lista_tipoactividades, null, ['id'=>'tipo_id', 'class' => 'form-control'] )}}
                     </div>
 
+                    <div class="form-group" id="select-tipotramites" style="">
+                        {{Form::label('tipotramite_id','Subtrámite', ['class'=>''])}}
+                        <br>
+                        {{Form::select('tipotramite_id', [null => ''] + $lista_tipotramites, null, ['id'=>'tipotramite_id', 'class' => 'form-control'] )}}
+                    </div>
+
                     <div class="form-group">
                         {{Form::label('departamento_id','Turnar a departamento', ['class'=>''])}}
                         {{Form::select('departamento_id', [null => ''] + $lista_deptos, null, ['id'=>'departamento_id', 'class' => 'form-control', 'autofocus'=> 'autofocus'] )}}
@@ -58,13 +64,14 @@
 
                 </div>
 
+            </div>
+
             <div class="form-actions form-group">
                 <button type="submit" class="btn btn-success">
                     <i class="glyphicon glyphicon-arrow-right"></i>
                     Continuar trámite
                 </button>
                 {{ Form::reset('Limpiar formato', ['class' => 'btn btn-warning', 'id'=>'btn-reset']) }}
-            </div>
             </div>
 
             {{Form::close()}}
@@ -184,15 +191,31 @@
                 allowClear: true
             });
 
-            //Si se devuelve con observaciones o finaliza con observaciones (opcion == 2 o 8)
+            $("#tipotramite_id").select2({
+                language: "es",
+                placeholder: "Seleccione un trámite",
+                allowClear: true
+            });
+
+            $("#select-tipotramites").hide();
+
+            //Si se devuelve con observaciones o finaliza con observaciones (opcion == 2 o 9)
             //Entonces se muestra para captura el textarea de observaciones
+            //TODO: refactoring de los números mágicos por constantes de otro tipo
+
             $("#tipo_id").change(function (ev) {
                 console.log($(this).val());
-                if($(this).val() == 2 || $(this).val() == 8) {
+                if($(this).val() == 2 || $(this).val() == 9) {
                     $('#observaciones').show();
                     return true;
                 }
+                //Si el tipo de actividad es iniciar un subtrámite entonces se muestra el selector de tiposdetramite
+                if($(this).val() == 7){
+                    $("#select-tipotramites").show();
+                    return true;
+                }
                 $('#observaciones').hide();
+                $('#select-tipotramites').hide();
             });
 
 

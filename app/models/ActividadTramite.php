@@ -37,5 +37,15 @@ class ActividadTramite extends Ardent {
         return $this->hasOne('TipoActividadTramite','id','tipo_id');
     }
 
-
+    /**
+     * Cuando la actividad tiene un subtrámite asociado lo devuelve, esto es en el caso
+     * cuando se ha disparado la actividad de iniciar subtrámite.
+     */
+    public function subtramiteAsociado(){
+        $sub = null;
+        if($this->tipoActividad && mb_strtolower($this->tipoActividad->presente) == 'se inicia subtrámite'){
+            $sub = Tramite::where('padre_id', $this->tramite_id)->whereBetween('created_at',[$this->created_at->subSeconds(5), $this->created_at->addSeconds(5)  ])->first();
+        }
+        return $sub;
+    }
 }

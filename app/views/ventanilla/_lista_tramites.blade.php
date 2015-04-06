@@ -1,8 +1,7 @@
-
-
+<div id="lista-tramites">
+{{DiffFormatter::alias('es_mx', 'es');}}
 <div class="panel">
     <div class="panel-heading">
-        <h3 class="panel-title">Trámites</h3>
     </div>
     @if($tramites->count() == 0)
         <div class="panel-body">
@@ -15,7 +14,6 @@
             <tr>
                 <th>Trámite</th>
                 <th>Folio</th>
-                <th style="text-align: center;">Clave</th>
                 <th style="text-align: center;">Solicitante</th>
                 <th style="text-align: center;">Notaría</th>
                 <th style="text-align: center;">Inicio</th>
@@ -34,9 +32,6 @@
                         {{ sprintf("%06d",$tramite->folio)}}
                     </td>
                     <td>
-                        {{$tramite->clave}}
-                    </td>
-                    <td>
                         {{$tramite->solicitante->nombrec}}
                     </td>
                     <td>
@@ -45,7 +40,7 @@
                         @endif
                     </td>
                     <td>
-                        {{$tramite->created_at->format("Y-m-d H:i")}}
+                        {{LocalizedCarbon::instance($tramite->created_at)->diffForHumans()}}
                     </td>
                     <td>
                         {{$tramite->departamento->descripcion}}
@@ -56,9 +51,23 @@
                         @Endif
                     </td>
                     <td style="text-align: right;" nowrap>
-                        <a href="{{ action('TramitesController@proceso', ['id' => $tramite->id]) }}" class="btn btn-warning" title="Ver detalle">
-                            <span class="glyphicon glyphicon-pencil"></span>
-                        </a>
+                        @if(Auth::user()->hasRoleId($tramite->role_id))
+
+                                @if($tramite->estatus->pasado == 'Finalizado' || $tramite->estatus->pasado == 'Finalizado observado')
+                                    <a href="{{ action('TramitesController@proceso', ['id' => $tramite->id]) }}" class="btn btn-info" title="Editar">
+                                        <span class="glyphicon glyphicon-eye-open"></span>
+                                    </a>
+                                    @else
+                                    <a href="{{ action('TramitesController@proceso', ['id' => $tramite->id]) }}" class="btn btn-success" title="Editar">
+                                        <span class="glyphicon glyphicon-pencil"></span>
+                                    </a>
+                                @endif
+
+                        @else
+                            <a href="{{ action('TramitesController@proceso', ['id' => $tramite->id]) }}" class="btn btn-info" title="Ver detalle">
+                                <span class="glyphicon glyphicon-eye-open"></span>
+                            </a>
+                        @endif
                     </td>
                 </tr>
             @endforeach
@@ -67,3 +76,6 @@
     </div>
 </div>
 
+{{ $tramites->links() }}
+
+</div>

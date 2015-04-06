@@ -19,7 +19,7 @@ class EstatusTramitesTableSeeder extends Seeder {
             'nombre' => 'Procesar',
             'descripcion' => 'Es cuando se está trabajando en el trámite',
             'presente' => 'En proceso',
-            'pasado' => 'Procesado',
+            'pasado' => 'En proceso',
             'orden' => 1
         ]);
         EstatusTramite::create([
@@ -33,7 +33,7 @@ class EstatusTramitesTableSeeder extends Seeder {
             'nombre' => 'Finalizar con observaciones',
             'descripcion' => 'Es cuando el proceso se está concluyendo con observaciones',
             'presente' => 'Finalizando con observaciones',
-            'pasado' => 'Finalizado con observaciones',
+            'pasado' => 'Finalizado observado',
             'orden' => 3
         ]);
 	}

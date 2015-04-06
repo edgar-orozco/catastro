@@ -5,7 +5,20 @@ use LaravelBook\Ardent\Ardent;
 class Tramite extends Ardent
 {
 
-    protected $fillable = ['clave', 'tipotramite_id', 'usuario_id', 'folio', 'uuid', 'role_id', 'departamento_id'];
+    protected $fillable = [
+        'clave',
+        'tipotramite_id',
+        'usuario_id',
+        'folio',
+        'uuid',
+        'role_id',
+        'notaria_id',
+        'estatus_id',
+        'solicitante_id',
+        'tipo_solicitante',
+        'departamento_id',
+        'padre_id'
+    ];
 
 
     public function documentos()
@@ -72,8 +85,13 @@ class Tramite extends Ardent
         return $q->whereIn('role_id', $roles);
     }
 
-    public function scopeSolicitante($q, $apepat){
-        return $q->leftJoin('personas','personas.id_p', '=', 'tramites.solicitante_id')->where('personas.apellido_paterno', $apepat);
+    public function scopeSolicitanteNombreCompleto($q, $nombre){
+        //return $q->leftJoin('personas','personas.id_p', '=', 'tramites.solicitante_id')->where('personas.apellido_paterno', $apepat);
+        return $q->whereHas('solicitante', function($qry) use ($nombre)
+        {
+            $qry->whereRaw('nombrec ~* ?', [$nombre]);
+
+        });
     }
 
     /**
@@ -86,9 +104,11 @@ class Tramite extends Ardent
     public function scopeResponsabilidad($q, $roles, $municipios) {
 
         $select = $q->whereIn('role_id', $roles);
+
         if(count($municipios))
         {
-            return $select->whereRaw('substring(clave FROM 4 FOR 3) IN (?)', [$municipios]);
+            $munargs = implode("','",$municipios);
+            return $select->whereRaw('substring( clave FROM 4 FOR 3 ) IN ( ? )', [$munargs]);
         }
 
         return $select;
@@ -98,13 +118,48 @@ class Tramite extends Ardent
      * Obtiene registros en los que el usuario se ha involucrado o está por involucrarse
      * @param $q
      * @param $user_id
+     * @param $roles
+     * @param $municipios
      * @return mixed
      */
-/*    public function scopeInvolucrado($q, $user_id) {
+   public function scopeInvolucrado($q, $user_id, $roles, $municipios) {
 
-        //$q->
+       $munw = "";
+       $sroles = implode(",",$roles);
+       $variables = [$user_id];
 
-        return $q;
+       if(count($municipios)>0){
+           $munw = "AND substring(clave FROM 4 FOR 3) IN (?)";
+           $variables[] = $municipios;
+       }
+
+       $sql = "
+       (   id IN (
+                SELECT distinct tramite_id
+                FROM actividades_tramites WHERE user_id = ?
+            )
+           OR
+           (
+               role_id IN ($sroles)
+               $munw
+           )
+       )
+
+       ";
+        //dd($variables);
+       $q->whereRaw($sql , $variables);
+       return $q;
+   }
+
+
+    /**
+     * Regresa el primer subtrámite involucrado del trámite.
+     * @return mixed
+     */
+    public function tieneSubtramites(){
+
+        return Tramites::where('padre_id', $this->id)->first();
+
     }
-*/
+
 }

@@ -229,4 +229,55 @@ class User extends Eloquent implements ConfideUserInterface
         return self::all()->count();
     }
 
+
+    /**
+     * Regresa un arregla con los ids de los roles.
+     * @return array
+     */
+    public function roleIdArray(){
+        $roles = $this->roles;
+        $rids = array();
+        if(count($roles) > 0){
+            foreach($roles as $rol) {
+                $rids[] = $rol->id;
+            }
+        }
+        return $rids;
+    }
+
+    /**
+     * Regresa un arreglo de ids de municipios a los que pertenece el usuario.
+     * @return array
+     */
+    public function municipioIdArray(){
+        $municipios = $this->municipios;
+        $mids = array();
+        if(count($municipios) > 0){
+            foreach($municipios as $municipio){
+                $mids[] = $municipio->municipio;
+            }
+        }
+        return $mids;
+    }
+
+
+    /**
+     * Checa si el usuario tiene un rol dado el id del rol
+     *
+     * @param string $id Role id.
+     *
+     * @return bool
+     */
+    public function hasRoleId($id)
+    {
+        foreach ($this->roles as $role) {
+            if ($role->id == $id) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+
 }

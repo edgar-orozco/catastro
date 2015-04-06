@@ -14,30 +14,19 @@
 
     <div class="row">
 
-        <div class="col-lg-3 col-md-6">
-            <div class="panel panel-info">
-                <div class="panel-heading">
-                    <div class="row">
-                        <div class="col-xs-3">
-                            <i class="glyphicon glyphicon-list-alt gi-5x"></i>
-                        </div>
-                        <div class="col-xs-9 text-right">
-                            <div class="huge">0</div>
-                            <div>Trámites</div>
-                        </div>
-                    </div>
-                </div>
-                <a href="{{URL::to('ventanilla/primera-atencion')}}">
-                    <div class="panel-footer">
-                        <span class="pull-left">Nuevo trámite</span>
-                        <span class="pull-right"><i class="glyphicon glyphicon-circle-arrow-right"></i></span>
-                        <div class="clearfix"></div>
-                    </div>
+        <div class="col-sm-6">
+
+            <div class="col-lg-3 col-md-6">
+                <a class="btn btn-primary" href="{{URL::to('ventanilla/primera-atencion')}}" role="button">
+                    <span class="glyphicon glyphicon-plus"></span> Iniciar trámite
                 </a>
             </div>
+
         </div>
+
+        @include('ventanilla._form_buscador')
 
     </div>
 
-    @include('ventanilla._lista_tramites',['tramites' => Tramite::all()->sortBy('created_at',null,true)])
+    @include('ventanilla._lista_tramites',['tramites' => Tramite::orderBy('created_at','desc')->paginate(10)])
 @stop

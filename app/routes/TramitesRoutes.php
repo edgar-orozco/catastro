@@ -61,4 +61,12 @@ Route::post(
     )
 );
 
-
+//Búsqueda de trámites
+Route::post(
+    'tramites/buscar',
+    array(
+        'as' => 'tramite.buscar',
+        'uses' => 'TramitesController@buscar',
+        'before' => 'auth',
+    )
+);

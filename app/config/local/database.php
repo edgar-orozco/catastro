@@ -45,6 +45,6 @@ return array(
 	),
 
 	//Bandera para generar log de querys ejecutados por eloquent
-	'log' => false,
+	'log' => true,
 
 );
