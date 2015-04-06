@@ -8,5 +8,8 @@ Thumbs.db
 .idea
 _ide_helper.php
 
-public/js/laroute.js
+/public/js/laroute.js
 /nbproject/private/
+/app/storage/shapes/*
+/public/css/images/logos/*
+/composer.lock
