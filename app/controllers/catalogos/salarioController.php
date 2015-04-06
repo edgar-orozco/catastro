@@ -1,7 +1,7 @@
 <?php
 
-class catalogos_salarioController extends \BaseController 
-{
+class catalogos_salarioController extends \BaseController {
+
     /**
      * Instancia del status
      * @var status
@@ -11,7 +11,7 @@ class catalogos_salarioController extends \BaseController
     public function __construct(salario $salario) {
         $this->salario = $salario;
     }
-    
+
     public function index($format = 'html') {
         $salario = $this->salario;
 
@@ -47,19 +47,16 @@ class catalogos_salarioController extends \BaseController
             else
                 $anio[$i] = $i;;
         }
-        
-        
+
+
         //Todos los status creados actualmente
         $salarios = $this->salario->all();
-
-        return View::make('catalogos.salario.create', 
-            compact('title', 'title_section', 'subtitle_section', 'salario', 'salarios', 'anio'));
+        return View::make('catalogos.salario.create', compact('title', 'title_section', 'subtitle_section', 'salario', 'salarios', 'anio'));
     }
-    
-    public function store($format = 'html') 
-    {
+
+    public function store($format = 'html') {
         //obtengo el id del salario en caso de que exista 
-        $id=Input::get('id');
+        $id = Input::get('id');
         //Obtengo todos los datos del formulario
         $inputs = Input::All();
         //reglas
@@ -79,24 +76,46 @@ class catalogos_salarioController extends \BaseController
         //en caso que no pesa la validacion se regresa a la pagina cargando los mensajes de validacion
         if ($validar->fails()) {
             return Redirect::back()->withErrors($validar);
-        }  else {
-             $n = new salario;
+        } else {
+            $n = new salario;
             //$n->id_salario_minimo=10;
             $n->zona = $inputs["zona"];
             $n->anio = $inputs["anio"];
             $n->salario_minimo = $inputs["salario_minimo"];
-            $n->fecha_inicio_periodo = $inputs["fecha_inicio_periodo"];
-            $n->fecha_termino_periodo = $inputs["fecha_termino_periodo"];
+            $fechaactual = $inputs['fecha_inicio_periodo'];
+            $n->fecha_inicio_periodo = $fechaactual;
+            $fechatermino = $inputs["fecha_termino_periodo"];
+            $n->fecha_termino_periodo = $fechatermino;
+            $fecha = salario::select('fecha_inicio_periodo', 'fecha_termino_periodo')->get();
+
+            foreach ($fecha as $key) {
+                $inicio = $key['fecha_inicio_periodo'];
+                $finicio[] = $inicio;
+            }
+            foreach ($fecha as $fechafin) {
+                $fin = $key['fecha_termino_periodo'];
+                $ffin[] = $fin;
+            }
+            $factual = date("Y-d-m", strtotime($fechaactual));
+            $ftermina = date("Y-d-m", strtotime($fechatermino));
+            var_dump($finicio);
+
+            if (in_array($factual, $finicio)) {
+//                echo "Ya Existe fecha de inicio ";
+//                echo '<div class="alert alert-danger">Ya Existe fecha de inicio</div>';
+                 return Redirect::back()->with('error', 'Ya Existe la fecha: ');
+            }elseif (in_array($ftermina,$ffin)) {
+//                echo " y fin ";
+            }
+            else{
             $n->save();
             //Se a guardado los datos y ya tengo hambreeeeeee...... jejeje lol 
-            return Redirect::to('catalogos/salario/create')->with('success',
-            '¡Se ha creado correctamente el salario minimo: ' . $this->salario->salario_minimo . " !");
-           
-       }        
+            return Redirect::to('catalogos/salario/create')->with('success', '¡Se ha creado correctamente el salario minimo: ' . $this->salario->salario_minimo . " !");
+            }
+        }
     }
-    
-    public function edit($id) 
-    {
+
+    public function edit($id) {
         //Buscamos el requisito en cuestión y lo asignamos a la instancia
         $salario = salario::find($id);
 
@@ -114,7 +133,7 @@ class catalogos_salarioController extends \BaseController
             else
                 $anio[$i] = $i;;
         }
-        
+
         //Subtítulo de sección:
         $subtitle_section = $this->salario->salario;
 
@@ -124,33 +143,28 @@ class catalogos_salarioController extends \BaseController
 
         //ID del permiso
         $id = $salario->id;
-        return View::make('catalogos.salario.edit', 
-                compact('title', 'title_section', 'subtitle_section', 'salario', 'salarios', 'id','anio'));
+        return View::make('catalogos.salario.edit', compact('title', 'title_section', 'subtitle_section', 'salario', 'salarios', 'id', 'anio'));
     }
 
-    public function update($id, $format = 'html') 
-    {
+    public function update($id, $format = 'html') {
         $inputs = Input::All();
         $datos = salario::find($id);
-        $datos->zona=$inputs["zona"];
-        $datos->anio=$inputs["anio"];
+        $datos->zona = $inputs["zona"];
+        $datos->anio = $inputs["anio"];
         $datos->salario_minimo = $inputs["salario_minimo"];
         $datos->fecha_inicio_periodo = $inputs["fecha_inicio_periodo"];
         $datos->fecha_termino_periodo = $inputs["fecha_termino_periodo"];
-        $mostrar=$inputs["salario_minimo"];
+        $mostrar = $inputs["salario_minimo"];
         $datos->save();
         //Se han actualizado los valores expresamos la felicidad que se logro Wiiiii....
         return Redirect::to('catalogos/salario/' . $id . '/edit')->with
-       ('success', '¡Se ha actualizado correctamente el salario minimo: ' . $mostrar . " !");
+                        ('success', '¡Se ha actualizado correctamente el salario minimo: ' . $mostrar . " !");
     }
-    
-    public function destroy($id = null) 
-    {
+
+    public function destroy($id = null) {
         $salario = salario::findOrFail($id);
         $salario->delete($id);
-        return Redirect::to('catalogos/salario')->with('success',
-            '¡Se ha eliminado correctamente el tipo de trámite: ' . $salario->salario_minimo . " !");
-        
+        return Redirect::to('catalogos/salario')->with('success', '¡Se ha eliminado correctamente el tipo de trámite: ' . $salario->salario_minimo . " !");
     }
 
 }

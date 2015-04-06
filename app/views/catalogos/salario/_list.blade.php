@@ -26,10 +26,17 @@
                         {{$row->anio}}
                     </td>
                     <td>
-                        {{$row->fecha_inicio_periodo}}
+                        <!--$row->fecha_inicio_periodo-->
+                        <?php
+                       echo date("d-m-Y", strtotime($row->fecha_inicio_periodo));
+                        ?>
                     </td>
                     <td>
-                        {{$row->fecha_termino_periodo}}
+                        <!--$row->fecha_termino_periodo-->
+                        <?php
+                       echo date("d-m-Y", strtotime($row->fecha_termino_periodo));
+                        ?>
+                        
                     </td>
                     <td>
                         {{$row->zona}}
