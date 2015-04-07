@@ -8,7 +8,7 @@
 
 {{ Form::open
  (
-array('url'=>'/agregar-condominio',
+array('url'=>'/agregar-condominio', 'name'=>'construcciones'
   )
  )
 }}

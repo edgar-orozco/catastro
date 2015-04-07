@@ -148,11 +148,10 @@ class complementarios_ComplementariosController extends BaseController {
                             ->join('tipoinstalacionesespeciales', 'tipoinstalacionesespeciales.id_tipoie', '=', 'instalacionesespeciales.id_tipoie')
                             ->get();
 
-        /*
+        
         
 
-        $condominio = condominios::WHERE('clave', 'LIKE', '%' . $id . '%')
-                ->orderBy('id_condominio', 'ASC')
+        $condominio = condominios::WHERE('gid_predio', '=',  $id)
                 ->get();
 //      $prop = predios::WHERE('predios.clave', '=', '002-0007-000008')
 //                ->join('propietarios', 'propietarios.clave', '=', 'predios.clave')
@@ -160,7 +159,7 @@ class complementarios_ComplementariosController extends BaseController {
 //                ->select()
 //                ->get();
         
-        $nombre = tiposervicios::WHERE('id', '=', $id);
+  /*      $nombre = tiposervicios::WHERE('id', '=', $id);
 
         $servicios = servicios::
                 join('tiposervicios', 'serviciospredio.id_tiposerviciopredio', '=', 'tiposervicios.id_tiposervicio')
@@ -194,12 +193,12 @@ class complementarios_ComplementariosController extends BaseController {
                 ->join('pisospredio', 'construccion.gid_construccion', '=', 'pisospredio.gid_construccion')
                 ->join('tipopisos', 'pisospredio.id_pisopredio', '=', 'tipopisos.id_tipopiso')
                 ->get();
-        
+
         return View::make('complementarios.cargar', compact("datos", "const", "predios", "condominio", "prop", "cat", "servicios", "asociados", "nombre", "techos", "muros", "clases", "ventanas", "giros", "girosasociados", "puertas", "pisos"));
         */
 
 
-        return View::make('complementarios.cargar', compact("predios","const", "tuc" ,"tcc", "ttc", "tec", "tmc", "tpic", "tpuc", "tvc", "catalogo", "gid", "clave_catas", "estado", "municipio", "cat", "asociados", "giros", "girosasociados", "datos"));
+        return View::make('complementarios.cargar', compact("predios","const", "tuc" ,"tcc", "ttc", "tec", "tmc", "tpic", "tpuc", "tvc", "catalogo", "gid", "clave_catas", "estado", "municipio", "cat", "asociados", "giros", "girosasociados", "datos", "condominio"));
     }
 
     /**
@@ -367,13 +366,11 @@ class complementarios_ComplementariosController extends BaseController {
         $municipio= predios::where('gid', $id)->pluck('municipio');
 
         $inputs = Input::All();
-        //print_r($inputs);
        $max_id = condominios::where('gid_predio', '=',  $id )->max('no_condominal');
         $no_condominal = $max_id+1;
         $n = new condominios();
-         $n->entidad=$entidad;
+        $n->entidad=$entidad;
         $n->municipio=$municipio;
-        //$n->id_propietarios = $inputs["id_propietarios"]
         $n->clave_catas = $clave_catas;
         $n->no_condominal = $no_condominal;
         $n->tipo_priva = $inputs["tipo_priva"];

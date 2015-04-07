@@ -18,7 +18,8 @@
         $count = $count - 1;
         $clave = $new[$count];
         ?>
-        {{@foreach($condominio as $row)
+        @if($condominio!='')
+        @foreach($condominio as $row)
         <tr>
             <td>{{$row->no_condominal }}</td>
             <td>{{$row->tipo_priva }}</td>
@@ -47,24 +48,57 @@
                 </a>
             </td>
         </tr>
-        @endforeach}}
+        @endforeach
+        @endif
+    </tbody>
     <tfoot>
         <tr>
             <th scope="col"  colspan="9">
                 <a data-toggle="modal" data-target="#condominio"  href="/agregar-condominio/{{$clave}}" class="btn btn-primary">Agregar Nuevo</a>
             </th>
         </tr>
-    <div class="modal fade" id="condominio" tabindex="-1" role="dialog"  aria-labelledby="condominio" aria-hidden="true">  
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-body">
-                    @include('complementarios.agregarcondominio')
+        <div class   ="modal fade" id="condominio" tabindex="-1" role="dialog"  aria-labelledby="condominio" aria-hidden="true">  
+            <div class   ="modal-dialog">
+                <div class   ="modal-content">
+                    <div class   ="modal-body">
+                        @include('complementarios.agregarcondominio')
+                    </div>
+                    <div class   ="modal-footer">
+                        <button type ="button" class="btn btn-default" data-dismiss="modal">Salir</button>
+                    </div>
                 </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-default" data-dismiss="modal">Salir</button>
-                </div>
-            </div>
+             </div>
         </div>
-    </div>
 </tfoot>
 </table>
+@section('javascript')
+
+
+<script type="text/javascript">
+
+$('#formConstruccion').bind('submit',function ()
+    {
+        $.ajax(
+        {
+            type: 'POST',
+            data: new FormData( this ), //Toma todo lo que hay en el formulario, en este caso el archivo .txt o .csv
+            processData: false,
+            contentType: false,
+            url: '/guardar-construccion',
+            beforeSend: function()
+            {
+                alert("mandando petición");
+            },
+            success: function (data)
+            {
+                alert("guardado correcto");
+
+
+            }
+        });
+        return false;
+    });
+
+</script>
+
+@append
