@@ -32,7 +32,7 @@ class CartaInvitacion_PdfpruebaController extends BaseController {
 					  $fecha=date("d/m/Y");
 
 					  			//--$vista = View::make('CartaInvitacion.carta', compact('data', 'fecha', 'nombre_eje', '--mun_actual','--vale'));
-									$vista    = View::make('CartaInvitacion.carta2', compact('gid','vale','fecha', 'clave','nombre','municipio','configutacion'));
+									$vista    = View::make('CartaInvitacion.carta', compact('gid','vale','fecha', 'clave','nombre','municipio','configutacion'));
 									$pdf      = PDF::load($vista)->show("Copia-CartaInvitacion");
 									$response = Response::make($pdf, 200);
 									$response->header('Content-Type', 'application/pdf');

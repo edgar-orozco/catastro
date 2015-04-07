@@ -363,21 +363,30 @@ class complementarios_ComplementariosController extends BaseController {
     public function post_addcondominio() {
         $id = Input::get('id');
         $inputs = Input::All();
-        $max_id = condominios::where('clave', 'LIKE', '%' . $id . '%')->max('no_condominal');
-        $no_condominal = $max_id + 1;
+        $max_id = condominios::where('gid_predio', '=',  $id )->max('no_condominal');
+       
+        $no_condominal = $max_id+1;
         $n = new condominios();
-        $n->id_propietarios = $inputs["id_propietarios"];
-        $n->clave = $id;
+         $n->entidad='27';
+        $n->municipio='008';
+        //$n->id_propietarios = $inputs["id_propietarios"]
+        $n->clave_catas = $id;
         $n->no_condominal = $no_condominal;
         $n->tipo_priva = $inputs["tipo_priva"];
         $n->sup_comun = $inputs["sup_comun"];
         $n->indiviso = $inputs["indiviso"];
+        $n->sup_comun_magno=0;
+        $n->indiviso_magno=0;
+        $n->cve_magno=' ';
         $n->sup_total_comun = $inputs["sup_total_comun"];
         $n->no_unidades = $inputs["no_unidades"];
-
+        $n->gid_predio=$id;
+        $n->sup_privativa='0';
+        $n->clave_INEGI_cond='1';
         $n->save();
         return Redirect::back();
     }
+    
 
     public function getEliminarCondominio($id = null) {
         $eliminar = condominios::find($id);
