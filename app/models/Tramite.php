@@ -75,21 +75,68 @@ class Tramite extends Ardent
         return self::where('uuid',$uuid)->first();
     }
 
-
+    /**
+     * Scope para consultar tramites por municipio
+     * @param $q
+     * @param $municipios
+     * @return mixed
+     */
     public function scopeMunicipios($q, $municipios){
 
         return $q->whereRaw('substring(clave FROM 4 FOR 3) IN (?)', [$municipios]);
     }
 
+    /**
+     * Scope para consultar tramites por rol
+     * @param $q
+     * @param $roles
+     * @return mixed
+     */
     public function scopeRol($q, $roles){
         return $q->whereIn('role_id', $roles);
     }
 
+    /**
+     * Scope para consultar tramites por el nombre del solicitante, puede consultar por el nombre exacto o por nombre parcial (una fraccion del nombre)
+     * @param $q
+     * @param $nombre
+     * @return mixed
+     */
     public function scopeSolicitanteNombreCompleto($q, $nombre){
-        //return $q->leftJoin('personas','personas.id_p', '=', 'tramites.solicitante_id')->where('personas.apellido_paterno', $apepat);
+
         return $q->whereHas('solicitante', function($qry) use ($nombre)
         {
             $qry->whereRaw('nombrec ~* ?', [$nombre]);
+
+        });
+    }
+
+    /**
+     * Scope para consultar tramites por el nombre de la notaría, puede consultar por el nombre completo de la notaría o sólo por el número o una fracción del nombre completo
+     * @param $q
+     * @param $nombre
+     * @return mixed
+     */
+    public function scopeNotariaNombre($q, $nombre){
+
+        return $q->whereHas('notaria', function($qry) use ($nombre)
+        {
+            $qry->whereRaw('nombre ~* ?', [$nombre]);
+
+        });
+    }
+
+    /**
+     * Scope para consultar tramites por su tipo de trámite, puede consultar por el nombre completo del trámite o una fracción del nombre.
+     * @param $q
+     * @param $nombre
+     * @return mixed
+     */
+    public function scopeTipoTramiteNombre($q, $nombre){
+
+        return $q->whereHas('tipotramite', function($qry) use ($nombre)
+        {
+            $qry->whereRaw('nombre ~* ?', [$nombre]);
 
         });
     }

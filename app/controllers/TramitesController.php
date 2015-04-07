@@ -469,10 +469,10 @@ class TramitesController extends BaseController {
             $tramites = Tramite::involucrado($uid, $roles, $municipios)->solicitanteNombreCompleto($q)->paginate($this->numPags);
         }
         if($tipo == 'notaría'){
-
+            $tramites = Tramite::involucrado($uid, $roles, $municipios)->notariaNombre($q)->paginate($this->numPags);
         }
         if($tipo == 'tipo de trámite'){
-
+            $tramites = Tramite::involucrado($uid, $roles, $municipios)->tipoTramiteNombre($q)->paginate($this->numPags);
         }
 
 

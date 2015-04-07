@@ -15,7 +15,7 @@
                 <li><a href="javascript:void(0);" data-tipo="Folio">Folio</a></li>
                 <li><a href="javascript:void(0);" data-tipo="Solicitante">Solicitante</a></li>
                 <li><a href="javascript:void(0);" data-tipo="Notaría">Notaría</a></li>
-                <li><a href="javascript:void(0);" data-tipo="Notaría">Tipo de trámite</a></li>
+                <li><a href="javascript:void(0);" data-tipo="Tipo de trámite">Tipo de trámite</a></li>
             </ul>
         </div><!-- /btn-group -->
     </div><!-- /input-group -->
