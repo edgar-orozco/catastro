@@ -4,7 +4,7 @@
  */
 
 
-Route::group(array('before' => 'admin'), function () {
+Route::group(array('before'=>'Ejecucion fiscal'),  function (){
 
     //Rutas para carga masiva
 
@@ -20,6 +20,13 @@ Route::group(array('before' => 'admin'), function () {
 
     Route::resource('ejecucion/cargaEjecucion', 'ejecucion_cargaEjecucion_CargaEjecucionController');
 
-
-
 });
+
+ Route::filter('Ejecucion fiscal', function () {
+
+    if (! ( Entrust::hasRole('Ejecucion fiscal') ||  Entrust::hasRole('Super usuario') ) )
+    {
+        return Redirect::to('/');
+    }
+});
+

@@ -57,7 +57,6 @@ class HomeController extends BaseController
             $homepage = 'ejecucionFiscal';
         }
         
-        
         return View::make($homepage);
     }
 

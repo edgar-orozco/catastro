@@ -34,10 +34,13 @@ Route::get("/reimprimir/{clave?}", "CartaInvitacion_PdfpruebaController@imprimir
 
     });
 
-    Route::filter('Ejecucion fiscal', function () {
 
-    if (! ( Entrust::hasRole('Administrador') ||  Entrust::hasRole('Super usuario') ) )
+ Route::filter('Ejecucion fiscal', function () {
+
+    if (! ( Entrust::hasRole('Ejecucion fiscal') ||  Entrust::hasRole('Super usuario') ) )
     {
         return Redirect::to('/');
     }
 });
+
+

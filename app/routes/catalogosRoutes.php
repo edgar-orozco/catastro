@@ -79,10 +79,12 @@ Route::group(array('before'=>'Ejecucion fiscal'),  function (){
     
     });
 
-    Route::filter('Ejecucion fiscal', function () {
 
-    if (! ( Entrust::hasRole('Administrador') ||  Entrust::hasRole('Super usuario') ) )
+ Route::filter('Ejecucion fiscal', function () {
+
+    if (! ( Entrust::hasRole('Ejecucion fiscal') ||  Entrust::hasRole('Super usuario') ) )
     {
         return Redirect::to('/');
     }
 });
+
