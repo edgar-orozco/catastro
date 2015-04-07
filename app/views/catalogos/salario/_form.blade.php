@@ -14,7 +14,7 @@
 <div class="form-group">
     {{Form::label('anio','Año')}}
     <!--{{Form::select('anio',$anio, null,['Under 18', 'tabindex'=>'2','class'=>'form-control', 'autofocus'=> 'autofocus', 'required' => 'required', 'ng-model' => 'inpc.anio', 'tb-focus' => 'focusForm', 'ng-blur' => 'focusForm = false'])}}-->
-    {{Form::text('anio', null, ['tabindex'=>'2','class'=>'form-control','autofocus'=> 'autofocus', 'required' => 'required', 'ng-model' => 'inpc.anio','readonly'=>'readonly','tb-focus' => 'focusForm', 'ng-blur' => 'focusForm = false'] )}}
+    {{Form::text('anio', null, ['class'=>'form-control','autofocus'=> 'autofocus', 'required' => 'required', 'ng-model' => 'inpc.anio','readonly'=>'readonly','tb-focus' => 'focusForm', 'ng-blur' => 'focusForm = false'] )}}
     {{$errors->first('anio', '<span class=text-danger>:message</span>')}}
     <p class="help-block"></p>
 </div>
@@ -22,21 +22,21 @@
 
 <div class="form-group">
     {{Form::label('salario_minimo','Salario minimo')}}
-    {{Form::text('salario_minimo', null, ['Placeholder'=>'Salario Minimo','tabindex'=>'3','class'=>'form-control','autofocus'=> 'autofocus', 'required' => 'required', 'ng-model' => 'salario.salario_minimo', 'onkeypress'=>'return justNumbers(event)'] )}}
+    {{Form::text('salario_minimo', null, ['Placeholder'=>'Salario Minimo','tabindex'=>'2','class'=>'form-control','autofocus'=> 'autofocus', 'required' => 'required', 'ng-model' => 'salario.salario_minimo', 'onkeypress'=>'return justNumbers(event)'] )}}
     {{$errors->first('salario_minimo', '<span class=text-danger>:message</span>')}}
     <p class="help-block">Valor del salario minimo.</p>
 </div>
 
 <div class="form-group">
     {{Form::label('fecha_inicio_periodo','Fecha inicio')}}
-    {{Form::input('date2','fecha_inicio_periodo', null, ['Placeholder'=>'Fecha Inicio','tabindex'=>'4','class'=>'form-control','autofocus'=> 'autofocus', 'required' => 'required', 'ng-model' => 'salario.fecha_inicio_periodo'] )}}
+    {{Form::input('date2','fecha_inicio_periodo', null, ['Placeholder'=>'Fecha Inicio','tabindex'=>'3','class'=>'form-control','autofocus'=> 'autofocus', 'required' => 'required', 'ng-model' => 'salario.fecha_inicio_periodo'] )}}
     {{$errors->first('fecha_inicio_periodo', '<span class=text-danger>:message</span>')}}
     <p class="help-block"></p>
 </div>
 
 <div class="form-group">
     {{Form::label('fecha_termino_periodo','Fecha termino')}}
-    {{Form::input('date2','fecha_termino_periodo', null, ['Placeholder'=>'Fecha Termino','tabindex'=>'5','class'=>'fecha form-control','autofocus'=> 'autofocus', 'required' => 'required', 'ng-model' => 'salario.fecha_termino_periodo'] )}}
+    {{Form::input('date2','fecha_termino_periodo', null, ['Placeholder'=>'Fecha Termino','tabindex'=>'4','class'=>'fecha form-control','autofocus'=> 'autofocus', 'required' => 'required', 'ng-model' => 'salario.fecha_termino_periodo'] )}}
     {{$errors->first('fecha_termino_periodo', '<span class=text-danger>:message</span>')}}
     <p class="help-block"></p>
 </div>
