@@ -116,7 +116,7 @@ class complementarios_ComplementariosController extends BaseController {
 
     }
 
-    public function getInstalacion($id = null) 
+    public function getInstalacion($id = null)
     {
         $predios = predios::WHERE('predios.gid', '=', $id)
                 ->join('municipios', 'predios.municipio', '=', 'municipios.municipio')
@@ -362,14 +362,19 @@ class complementarios_ComplementariosController extends BaseController {
 
     public function post_addcondominio() {
         $id = Input::get('id');
+        $clave_catas= predios::where('gid', $id)->pluck('clave_catas');
+        $entidad= predios::where('gid', $id)->pluck('entidad');
+        $municipio= predios::where('gid', $id)->pluck('municipio');
+
         $inputs = Input::All();
-        $max_id = condominios::where('gid_predio', '=',  $id )->max('no_condominal');
+        //print_r($inputs);
+       $max_id = condominios::where('gid_predio', '=',  $id )->max('no_condominal');
         $no_condominal = $max_id+1;
         $n = new condominios();
-         $n->entidad='27';
-        $n->municipio='008';
+         $n->entidad=$entidad;
+        $n->municipio=$municipio;
         //$n->id_propietarios = $inputs["id_propietarios"]
-        $n->clave_catas = $id;
+        $n->clave_catas = $clave_catas;
         $n->no_condominal = $no_condominal;
         $n->tipo_priva = $inputs["tipo_priva"];
         $n->sup_comun = $inputs["sup_comun"];
