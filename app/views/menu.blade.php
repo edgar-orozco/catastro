@@ -1,4 +1,4 @@
-<!--@if(!Auth::guest() && (Auth::user()->hasRole("Administrador_ejecucion") || Auth::user()->can("ejecucion_fiscal")) )
+@if(!Auth::guest() && (Auth::user()->hasRole("Administrador_ejecucion") || Auth::user()->can("ejecucion_fiscal")) )
 
     <li class="dropdown @if(Request::is('Ejecucion/*')) active @endif">
 
@@ -66,4 +66,4 @@
         </ul>
     </li>
 
-@endif-->
+@endif
