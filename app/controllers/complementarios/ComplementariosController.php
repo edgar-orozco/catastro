@@ -52,12 +52,7 @@ class complementarios_ComplementariosController extends BaseController {
     public function postConstruccion()
     {
 
-    	
-    	
-
-
-
-        $gid_predio     =   Input::get('gid');
+        $gid            =   Input::get('gid');
         $entidad        =   input::get('estado');
         $municipio      =   input::get('municipio');
         $clave_cata     =   input::get('clave_cata');
@@ -67,49 +62,7 @@ class complementarios_ComplementariosController extends BaseController {
         $edad           =   input::get('edad');
         $uso_constru    =   input::get('uso_construccion');
         $clase_constru  =   input::get('clase_construccion');
-        $techo_constru  = 	input::get('techo_construccion');
-        $estado_conser  = 	input::get('estado_conservacion');
-        $muro_constru 	=	input::get('muro_construccion');
-        $piso_constru   = 	input::get('piso_construccion');
-        $puerta_constru = 	input::get('puerta_construccion');
-        $venta_constru 	= 	input::get('ventana_construccion');
 
-
-        
-
-        $constru=construcciones::where(['gid_predio'=> $gid_predio, 'municipio'=>$municipio])->get();
-        
-
-        if($constru->count()>0)
-        {
-        	$gid 		= 	$constru[0]->gid;
-        	$constru 	=	construcciones::find($gid);
-
-        }
-        else
-        {
-        	$gid=construcciones::orderBy('gid', 'DESC')->first()->gid+1;
-        	$constru 	=	new construcciones();
-
-        }
-        $constru->gid 			= 	$gid;
-        $constru->entidad 		= 	$entidad;
-        $constru->municipio 	= 	$municipio;
-        $constru->clave_catas	=	$clave_cata;
-        $constru->gid_predio 	= 	$gid_predio;
-        $constru->nivel 		=	$nivel;
-        $constru->sup_const 	= 	$sup_const;
-        $constru->edad_const 	=	$edad_const;
-        $constru->id_tuc 		=	$uso_constru;
-        $constru->id_tcc 		= 	$clase_constru;
-        $constru->id_ttc   		=	$techo_constru;
-        $constru->id_tec 		= 	$estado_conser;
-        $constru->id_tmc 		= 	$muro_constru;
-        $constru->id_tpic 		= 	$piso_constru;
-        $constru->id_tpuc 		= 	$puerta_constru;
-        $constru->id_tvc 		= 	$venta_constru;
-        $constru->save();
-        	
 
 
 
@@ -142,7 +95,7 @@ class complementarios_ComplementariosController extends BaseController {
         $predios->niveles = $niveles;
         $predios->folio = $folio;
         $predios->superficie_terreno = $super_terreno;
-        $predios->uso_construccion = $uso_constru;
+        $predios->uso_construccion_gen = $uso_constru;
         $predios->save();
         Session::flash('mensaje', 'El registro ha sido ingresado exitosamente');
        
@@ -180,7 +133,7 @@ class complementarios_ComplementariosController extends BaseController {
         $tmc            = ['' => '--seleccione una opción--'] +     TiposMuros::orderBy('descripcion', 'ASC')->lists('descripcion','id_tmc');
         $tpic           = ['' => '--seleccione una opción--'] +     TiposPisos::orderBy('descripcion', 'ASC')->lists('descripcion','id_tpic');
         $tpuc           = ['' => '--seleccione una opción--'] +     TiposPuertas::orderBy('descripcion', 'ASC')->lists('descripcion','id_tpuc');
-        $tvc            = ['' => '--seleccione una opción--'] +     TiposVentana::orderBy('descripcion', 'ASC')->lists('descripcion','id_tvc');
+        $tvc            = ['' => '--seleccione una opción--'] +     TiposTechos::orderBy('descripcion', 'ASC')->lists('descripcion','id_ttc');
         $catalogo       = ['' => '--seleccione una opción--'] +     InstalacionesEspeciales::orderBy('descripcion', 'ASC')->lists('descripcion','id_tipoie');
         $gid            = $id;
         $estado         = $predios[0]->entidad;
@@ -194,8 +147,6 @@ class complementarios_ComplementariosController extends BaseController {
         $datos          = instalaciones::WHERE('instalacionesespeciales.gid_predio', '=', $id)
                             ->join('tipoinstalacionesespeciales', 'tipoinstalacionesespeciales.id_tipoie', '=', 'instalacionesespeciales.id_tipoie')
                             ->get();
-
-
 
         /*
         
@@ -267,13 +218,14 @@ class complementarios_ComplementariosController extends BaseController {
         $inputs = Input::get('instalaciones');
         $reglas = array
             (
-            	'instalaciones' => 'required',
-        	);
+            'instalacion' => 'required',
+        );
         $mensajes = array
             (
-            	'required' => 'este campo es obligatorio'
-        	);
-        $validar = Validator::make(array($inputs), $reglas, $mensajes);
+            "required" => "este campo es obligatorio",
+            "min" => "debe tener como minimo 5 caracteres"
+        );
+        $validar = Validator::make($inputs, $reglas, $mensajes);
 
         if ($validar->fails()) {
             return Response::json(array
@@ -294,7 +246,7 @@ class complementarios_ComplementariosController extends BaseController {
             //return Redirect::to('complementarios/agregar');
             return Response::json(array
                 (
-                    'instalaciones' => 'lol' 
+                    'instalaciones' => '' 
                 ));
         }
     }
@@ -412,7 +364,6 @@ class complementarios_ComplementariosController extends BaseController {
         $id = Input::get('id');
         $inputs = Input::All();
         $max_id = condominios::where('gid_predio', '=',  $id )->max('no_condominal');
-       
         $no_condominal = $max_id+1;
         $n = new condominios();
          $n->entidad='27';
@@ -425,12 +376,12 @@ class complementarios_ComplementariosController extends BaseController {
         $n->indiviso = $inputs["indiviso"];
         $n->sup_comun_magno=0;
         $n->indiviso_magno=0;
-        $n->cve_magno=' ';
+        $n->cve_magno='';
         $n->sup_total_comun = $inputs["sup_total_comun"];
         $n->no_unidades = $inputs["no_unidades"];
         $n->gid_predio=$id;
-        $n->sup_privativa='0';
-        $n->clave_INEGI_cond='1';
+        $n->sup_privativa='';
+        $n->clave_INEGI_cond='';
         $n->save();
         return Redirect::back();
     }
