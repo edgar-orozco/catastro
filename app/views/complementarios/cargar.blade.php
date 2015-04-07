@@ -198,7 +198,7 @@
             <div class="col-xs-12">
                 <div class="col-md-12">
                     <h3>Condominios</h3>
-                    @include('complementarios.complementos.condominio')
+                    {{--@include('complementarios.complementos.condominio')--}}
 
                     <button type="button" class="btn btn-primary next">
                         Next

@@ -518,47 +518,48 @@ class complementarios_ComplementariosController extends BaseController {
         return View::make('complementarios.complementos.servicio', compact("cat"));
     }
 
-    public function post_agregarservicio() {
+    public function post_agregarservicio() 
+    {
 
-        $serviciopredio=instalaciones::where(['gid_predio'=> $gid_predio, 'municipio'=>$municipio])->get();
+        $inputs             =   Input::All();
+        $entidad            =   $inputs['entidad'];
+        $municipio          =   $inputs['municipio'];
+        $clave_cata         =   $inputs['clave_cata'];
+        $gid_predio         =   $inputs['gid_predio']; 
+        $id_tiposervicio    =   $inputs['opcion'];
+
+        $serviciopredio=servicios::where(['gid_predio'=> $gid_predio, 'municipio'=>$municipio])->get();
+
         if($serviciopredio->count()>0)
         {
-            $serviciopredio->delete();
-            $id_serviciopredio=instalaciones::orderBy('id_serviciopredio', 'DESC')->first()->id_serviciopredio;
+            foreach($serviciopredio as $sp)
+            {
+                $sp->delete();
+            }
+            $id_serviciopredio=servicios::orderBy('id_serviciopredio', 'DESC')->first()->id_serviciopredio;
         }
         else
         {
             $id_serviciopredio=0;
         }
 
+                
+        for ($x = 1; $x <= count($id_tiposervicio); $x++) 
+        {
+            $n = new servicios();        
+            $n->id_serviciopredio   =   $id_serviciopredio+$x;
+            $n->entidad             =   $entidad;
+            $n->municipio           =   $municipio;
+            $n->clave_catas         =   $clave_cata;
+            $n->gid_predio          =   $gid_predio;
+            $n->id_tiposervicio     =   $id_tiposervicio[$x-1]; ;
+            $n->save();
+        }
 
-
-        $inputs = Input::All();
-        $opcion = $inputs['opcion'];
-        $opcion = count($opcion);
-        dd($opcion);
-
-
-       
-        $gid_predio     =   $inputs['gid_predio'];  
-        $opcion         =   $inputs['opcion'];
-        
-
-
-            for ($x = 1; $x == count($opcion); $x++) {
-                $n = new servicios();
-//          
-                $n->id_serviciopredio   =   $id_serviciopredio+$x;
-                $n->entidad             =   $entidad;
-                $n->entidad             =   $municipio;
-                $n->entidad             =   $clave_cata;
-                $n->entidad             =   $gid_predio;
-                $n->entidad             =   $opcion[$x-1]; ;
-                $n->save();
-            }
-//        return View::make('complementarios.agregar-servicios');
-            return Redirect::back();
-//        }
+            return Response::json(array
+                (
+                    'respuesta' =>  'si guarda'
+                ));
         }
     
 
