@@ -53,7 +53,11 @@ class HomeController extends BaseController
         elseif (Confide::user()->hasRole('Cartógrafo')) {
             $homepage = 'cartografo';
         }
-
+        elseif (Confide::user()->hasRole('Ejecucion fiscal')) {
+            $homepage = 'ejecucionFiscal';
+        }
+        
+        
         return View::make($homepage);
     }
 

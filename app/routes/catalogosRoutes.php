@@ -1,5 +1,6 @@
-<?php //
-Route::group(array('before'=>'admin'),  function (){
+<?php 
+Route::group(array('before'=>'Ejecucion fiscal'),  function (){
+    
 //Rutas para el catalago de status 
     Route::post('catalogos/status.{format}',
         array('as'=>'storeStatus','uses'=>'catalogos_statusController@store'));
@@ -74,5 +75,14 @@ Route::group(array('before'=>'admin'),  function (){
     
     Route::get('catalogos/configuracionE/{id}',
         array('as' => 'destroyEjecucion', 'uses' => 'catalogos_configuracionController@destroy'));
-});
 
+    
+    });
+
+    Route::filter('Ejecucion fiscal', function () {
+
+    if (! ( Entrust::hasRole('Administrador') ||  Entrust::hasRole('Super usuario') ) )
+    {
+        return Redirect::to('/');
+    }
+});
