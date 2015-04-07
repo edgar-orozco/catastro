@@ -1,7 +1,7 @@
 
 <div class="panel panel-default">
         <!-- Default panel contents -->
-
+        
 
 	<div class="panel-heading">Datos Complementarios</div>
 
@@ -15,7 +15,7 @@
             </tr>
         </thead>
         <tbody>
-            <tr>
+            <tr>    
                 @foreach($predios as $predio)
                 <th scope="row">{{$predio->clave_catas}}</th>
                 <td>{{$predio->nom_ent}}</td>
@@ -37,17 +37,17 @@
 					{{Form::text('cuenta_agua',null,['class'=>'form-control', 'required', 'id'=>'cuenta_agua' ])}}
 				</div>
 			</div>
-
+			
 			<div class="col-md-6">
 				<div class="form-group">
-					{{Form::label('Ltipo_predio','Tipo Predio')}}
+					{{Form::label('Ltipo_predio','Tipo Predio')}}		
 					{{Form::select('tipo_predio', ['U' => 'U','R' => 'R'], null, ['id'=>'tipo_predio', 'class' => 'form-control'])}}
 				</div>
 			</div>
 			<div class="col-md-6">
 				<div class="form-group">
 					{{Form::label('Ltipo_propiedad', 'Tipo Propiedad')}}
-					{{Form::text('tipo_propiedad','', ['class'=>'form-control', 'id'=>'tipo_propiedad', 'required'])}}
+					{{Form::text('tipo_propiedad',$predios[0]->tipo_propiedad, ['class'=>'form-control', 'id'=>'tipo_propiedad', 'required'])}}
 				</div>
 			</div>
 			<div class="col-md-6">
@@ -72,10 +72,11 @@
 				<div class="form-group">
 					{{Form::label('Luso_construccion','Uso Connstrucción')}}
 					{{Form::select('uso_construccion',  $tuc, null, ['id'=>'uso_construccion', 'class' => 'form-control'])}}
-
+					
 				</div>
 			</div>
-
+			
+		
 		</div>
 		<button type="submit" class="btn btn-primary next">
             Siguiente
@@ -91,11 +92,11 @@
 
 @section('javascript')
 
-<script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+
 <script type="text/javascript">
 
-$('#formPredios').bind('submit',function ()
-    {
+$('#formPredios').bind('submit',function () 
+    {   
         $.ajax(
         {
             type: 'POST',
@@ -103,14 +104,10 @@ $('#formPredios').bind('submit',function ()
             processData: false,
             contentType: false,
             url: '/guardar-predios',
-            beforeSend: function()
-            {
-                alert("mandando petición");
-            },
-            success: function (data)
-            {
-                alert("guardado correcto");
-
+            
+            success: function (data) 
+            {               
+                
 
 
             }
@@ -122,3 +119,4 @@ $('#formPredios').bind('submit',function ()
 
 @append
 
+	

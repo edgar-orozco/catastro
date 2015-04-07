@@ -52,7 +52,12 @@ class complementarios_ComplementariosController extends BaseController {
     public function postConstruccion()
     {
 
-        $gid            =   Input::get('gid');
+        
+        
+
+
+
+        $gid_predio     =   Input::get('gid');
         $entidad        =   input::get('estado');
         $municipio      =   input::get('municipio');
         $clave_cata     =   input::get('clave_cata');
@@ -62,7 +67,49 @@ class complementarios_ComplementariosController extends BaseController {
         $edad           =   input::get('edad');
         $uso_constru    =   input::get('uso_construccion');
         $clase_constru  =   input::get('clase_construccion');
+        $techo_constru  =   input::get('techo_construccion');
+        $estado_conser  =   input::get('estado_conservacion');
+        $muro_constru   =   input::get('muro_construccion');
+        $piso_constru   =   input::get('piso_construccion');
+        $puerta_constru =   input::get('puerta_construccion');
+        $venta_constru  =   input::get('ventana_construccion');
 
+
+        
+
+        $constru=construcciones::where(['gid_predio'=> $gid_predio, 'municipio'=>$municipio])->get();
+        
+
+        if($constru->count()>0)
+        {
+            $gid        =   $constru[0]->gid;
+            $constru    =   construcciones::find($gid);
+
+        }
+        else
+        {
+            $gid=construcciones::orderBy('gid', 'DESC')->first()->gid+1;
+            $constru    =   new construcciones();
+
+        }
+        $constru->gid           =   $gid;
+        $constru->entidad       =   $entidad;
+        $constru->municipio     =   $municipio;
+        $constru->clave_catas   =   $clave_cata;
+        $constru->gid_predio    =   $gid_predio;
+        $constru->nivel         =   $nivel;
+        $constru->sup_const     =   $sup_const;
+        $constru->edad_const    =   $edad_const;
+        $constru->id_tuc        =   $uso_constru;
+        $constru->id_tcc        =   $clase_constru;
+        $constru->id_ttc        =   $techo_constru;
+        $constru->id_tec        =   $estado_conser;
+        $constru->id_tmc        =   $muro_constru;
+        $constru->id_tpic       =   $piso_constru;
+        $constru->id_tpuc       =   $puerta_constru;
+        $constru->id_tvc        =   $venta_constru;
+        $constru->save();
+            
 
 
 
@@ -95,7 +142,7 @@ class complementarios_ComplementariosController extends BaseController {
         $predios->niveles = $niveles;
         $predios->folio = $folio;
         $predios->superficie_terreno = $super_terreno;
-        $predios->uso_construccion_gen = $uso_constru;
+        $predios->uso_construccion = $uso_constru;
         $predios->save();
         Session::flash('mensaje', 'El registro ha sido ingresado exitosamente');
        
@@ -116,7 +163,7 @@ class complementarios_ComplementariosController extends BaseController {
 
     }
 
-    public function getInstalacion($id = null)
+    public function getInstalacion($id = null) 
     {
         $predios = predios::WHERE('predios.gid', '=', $id)
                 ->join('municipios', 'predios.municipio', '=', 'municipios.municipio')
@@ -133,7 +180,7 @@ class complementarios_ComplementariosController extends BaseController {
         $tmc            = ['' => '--seleccione una opción--'] +     TiposMuros::orderBy('descripcion', 'ASC')->lists('descripcion','id_tmc');
         $tpic           = ['' => '--seleccione una opción--'] +     TiposPisos::orderBy('descripcion', 'ASC')->lists('descripcion','id_tpic');
         $tpuc           = ['' => '--seleccione una opción--'] +     TiposPuertas::orderBy('descripcion', 'ASC')->lists('descripcion','id_tpuc');
-        $tvc            = ['' => '--seleccione una opción--'] +     TiposTechos::orderBy('descripcion', 'ASC')->lists('descripcion','id_ttc');
+        $tvc            = ['' => '--seleccione una opción--'] +     TiposVentana::orderBy('descripcion', 'ASC')->lists('descripcion','id_tvc');
         $catalogo       = ['' => '--seleccione una opción--'] +     InstalacionesEspeciales::orderBy('descripcion', 'ASC')->lists('descripcion','id_tipoie');
         $gid            = $id;
         $estado         = $predios[0]->entidad;
@@ -148,10 +195,17 @@ class complementarios_ComplementariosController extends BaseController {
                             ->join('tipoinstalacionesespeciales', 'tipoinstalacionesespeciales.id_tipoie', '=', 'instalacionesespeciales.id_tipoie')
                             ->get();
 
-        
+        $condominio = condominios::WHERE('gid_predio', '=',  $id)
+        ->get();
+
+
+
+
+        /*
         
 
-        $condominio = condominios::WHERE('gid_predio', '=',  $id)
+        $condominio = condominios::WHERE('clave', 'LIKE', '%' . $id . '%')
+                ->orderBy('id_condominio', 'ASC')
                 ->get();
 //      $prop = predios::WHERE('predios.clave', '=', '002-0007-000008')
 //                ->join('propietarios', 'propietarios.clave', '=', 'predios.clave')
@@ -159,7 +213,7 @@ class complementarios_ComplementariosController extends BaseController {
 //                ->select()
 //                ->get();
         
-  /*      $nombre = tiposervicios::WHERE('id', '=', $id);
+        $nombre = tiposervicios::WHERE('id', '=', $id);
 
         $servicios = servicios::
                 join('tiposervicios', 'serviciospredio.id_tiposerviciopredio', '=', 'tiposervicios.id_tiposervicio')
@@ -193,7 +247,7 @@ class complementarios_ComplementariosController extends BaseController {
                 ->join('pisospredio', 'construccion.gid_construccion', '=', 'pisospredio.gid_construccion')
                 ->join('tipopisos', 'pisospredio.id_pisopredio', '=', 'tipopisos.id_tipopiso')
                 ->get();
-
+        
         return View::make('complementarios.cargar', compact("datos", "const", "predios", "condominio", "prop", "cat", "servicios", "asociados", "nombre", "techos", "muros", "clases", "ventanas", "giros", "girosasociados", "puertas", "pisos"));
         */
 
@@ -214,38 +268,60 @@ class complementarios_ComplementariosController extends BaseController {
 
     public function post_agregar() {
 
-        $inputs = Input::get('instalaciones');
+        $inputs = Input::All();
+
+
+
         $reglas = array
             (
-            'instalacion' => 'required',
-        );
+                'instalaciones' => 'required',
+            );
         $mensajes = array
             (
-            "required" => "este campo es obligatorio",
-            "min" => "debe tener como minimo 5 caracteres"
-        );
+                'required' => 'este campo es obligatorio'
+            );
         $validar = Validator::make($inputs, $reglas, $mensajes);
+        
 
         if ($validar->fails()) {
             return Response::json(array
                 (
-                    "estado" => $validar
+                    "estado" => $validar->messages()
                 ));
-        } 
+        }
+
         else 
-        {
         
-            $id = Input::get('id');
+        {
             
+            $gid_predio     =   $inputs['gid_predio'];
+            $entidad        =   $inputs['entidad'];
+            $municipio      =   $inputs['municipio'];
+            $clave_cata     =   $inputs['clave_catas'];
+            
+
+            
+            $gid_ie=instalaciones::orderBy('id_ie', 'DESC')->first()->id_ie+1;
             $n = new instalaciones();
-            $n->clave = $id;
-            $n->id_tipo_ie = $input;
+            $n->id_ie       =   $gid_ie;
+            $n->entidad     =   $inputs['entidad'];
+            $n->municipio   =   $inputs['municipio'];
+            $n->clave_catas =   $inputs['clave_catas'];
+            $n->gid_predio  =   $inputs['gid_predio'];      
+            $n->id_tipoie   =   $inputs['instalaciones'];
             $n->save();
             Session::flash('mensaje', 'El registro ha sido ingresado exitosamente');
+
+            $tipo_ie    =   instalaciones::where('id_ie', '=', $gid_ie)
+            ->join('tipoinstalacionesespeciales', 'tipoinstalacionesespeciales.id_tipoie', '=', 'instalacionesespeciales.id_tipoie')
+            ->select('tipoinstalacionesespeciales.descripcion', 'id_ie')
+            ->get();
+            
             //return Redirect::to('complementarios/agregar');
             return Response::json(array
                 (
-                    'instalaciones' => '' 
+                    'instalaciones' =>  $tipo_ie[0]->descripcion,
+                    'id_ie'         =>  $tipo_ie[0]->id_ie
                 ));
         }
     }
@@ -322,7 +398,8 @@ class complementarios_ComplementariosController extends BaseController {
         return View::make('complementarios.agregarconstruccion', ['datos' => $id], compact("catalogo", "clases"));
     }
 
-    public function post_AgregarAgregarConstruccion() {
+    public function post_AgregarAgregarConstruccion() 
+    {
         $inputs = Input::All();
         $reglas = array
             (
@@ -355,7 +432,24 @@ class complementarios_ComplementariosController extends BaseController {
         }
     }
 
-    public function getAgregarCondominio($id = null) {
+    public function eliminar_instalacion()
+    {
+        $id_ie = Input::get('id_ie');
+        $elim = instalaciones::find($id_ie);
+        $elim->delete();
+
+        return Response::json(array
+            (
+                'id_ie'     =>  $id_ie
+            ));
+
+        
+    }
+
+
+
+    public function getAgregarCondominio($id = null) 
+    {
         return View::make('complementarios.agregarcondominio', ['datos' => $id]);
     }
 
@@ -387,7 +481,6 @@ class complementarios_ComplementariosController extends BaseController {
         $n->save();
         return Redirect::back();
     }
-    
 
     public function getEliminarCondominio($id = null) {
         $eliminar = condominios::find($id);
@@ -426,55 +519,48 @@ class complementarios_ComplementariosController extends BaseController {
     }
 
     public function post_agregarservicio() {
-        $inputs = Input::All();
-        $gid = Input::get('gid');
-        $actuales = $inputs['serv'];
-        $opcion = $inputs['opcion'];
-        $fuera = $inputs['fuera'];
-        $contar = count($actuales);
-        $confuera = count($fuera);
 
-        if ($confuera >= 1) {
-            foreach ($fuera as $key) {
-                $id = $key;
-                $eliminar = servicios::where('id_tiposerviciopredio', '=', $id);
-                $eliminar->delete();
-                return Redirect::back();
-            }
+        $serviciopredio=instalaciones::where(['gid_predio'=> $gid_predio, 'municipio'=>$municipio])->get();
+        if($serviciopredio->count()>0)
+        {
+            $serviciopredio->delete();
+            $id_serviciopredio=instalaciones::orderBy('id_serviciopredio', 'DESC')->first()->id_serviciopredio;
         }
-        if (!$contar) {
-            if (sizeof($actuales) == 0) {
-                $count = count($opcion);
-                for ($x = 0; $x < $count; $x++) {
-                    $n = new servicios();
-                    $n->gid_predio = $gid;
-                    $n->id_tiposerviciopredio = $opcion[$x];
-                    $n->save();
-                }
-                return Redirect::back();
-            }
-        } else {
+        else
+        {
+            $id_serviciopredio=0;
+        }
 
-            foreach ($opcion as $id) {
-                if (in_array($id, $actuales)) {
-                    
-                } else {
-                    $total[] = $id;
-                }
-            }
-            $count = count($total);
-            for ($x = 0; $x < $count; $x++) {
+
+
+        $inputs = Input::All();
+        $opcion = $inputs['opcion'];
+        $opcion = count($opcion);
+        dd($opcion);
+
+
+       
+        $gid_predio     =   $inputs['gid_predio'];  
+        $opcion         =   $inputs['opcion'];
+        
+
+
+            for ($x = 1; $x == count($opcion); $x++) {
                 $n = new servicios();
-//                $id = 2;
-                $n->gid_predio = $gid;
-                $n->id_tiposerviciopredio = $total[$x];
+//          
+                $n->id_serviciopredio   =   $id_serviciopredio+$x;
+                $n->entidad             =   $entidad;
+                $n->entidad             =   $municipio;
+                $n->entidad             =   $clave_cata;
+                $n->entidad             =   $gid_predio;
+                $n->entidad             =   $opcion[$x-1]; ;
                 $n->save();
             }
 //        return View::make('complementarios.agregar-servicios');
             return Redirect::back();
 //        }
         }
-    }
+    
 
     public function getEliminarServicio($id = null) {
 
