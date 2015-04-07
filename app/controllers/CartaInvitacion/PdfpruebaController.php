@@ -14,23 +14,25 @@ class CartaInvitacion_PdfpruebaController extends BaseController {
 		//print_r($resultado);
 		foreach ($resultado as $key)
             {
-                $items = explode(',', $key->sp_get_datos_predio);
+                $vale = explode(',', $key->sp_get_datos_predio);
             }
            //print_r($items);
-						 $clave  = str_replace('(', '',$items[0]);
-						$nombre = str_replace('"', '',$items[1]);
-						$municipio = str_replace('"', '',$items[2]);
+						 $clave  = str_replace('(', '',$vale[0]);
+						$nombre = str_replace('"', '',$vale[1]);
+						$municipio = str_replace('"', '',$vale[2]);
 						$id_mun =substr($clave, 3, 3);
+						$mun_actual    =Municipio::where('municipio',$id_mun)->pluck('nombre_municipio');
 
 						$gid    =Municipio::where('municipio',$id_mun)->pluck('gid');
 						$configutacion = configuracionMunicipal::where('municipio',$gid)->take(1)->get();
 					//print_r($configutacion);
 
 						$id_ejecucion=ejecucion::where('clave',$clave)->pluck('id_ejecucion_fiscal');
-					  $fecha=requerimientos::where('id_ejecucion_fiscal',$id_ejecucion)->pluck('f_requerimiento');
+					 // $fecha=requerimientos::where('id_ejecucion_fiscal',$id_ejecucion)->pluck('f_requerimiento');
+					  $fecha=date("d/m/Y");
 
-
-									$vista    = View::make('CartaInvitacion.carta2', compact('gid','items','fecha', 'clave','nombre','municipio','configutacion'));
+					  			//--$vista = View::make('CartaInvitacion.carta', compact('data', 'fecha', 'nombre_eje', '--mun_actual','--vale'));
+									$vista    = View::make('CartaInvitacion.carta2', compact('gid','vale','fecha', 'clave','nombre','municipio','configutacion'));
 									$pdf      = PDF::load($vista)->show("Copia-CartaInvitacion");
 									$response = Response::make($pdf, 200);
 									$response->header('Content-Type', 'application/pdf');
