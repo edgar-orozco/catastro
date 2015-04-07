@@ -376,12 +376,12 @@ class complementarios_ComplementariosController extends BaseController {
         $n->indiviso = $inputs["indiviso"];
         $n->sup_comun_magno=0;
         $n->indiviso_magno=0;
-        $n->cve_magno='';
+        $n->cve_magno='0';
         $n->sup_total_comun = $inputs["sup_total_comun"];
         $n->no_unidades = $inputs["no_unidades"];
         $n->gid_predio=$id;
-        $n->sup_privativa='';
-        $n->clave_INEGI_cond='';
+        $n->sup_privativa='0';
+        $n->clave_INEGI_cond='0';
         $n->save();
         return Redirect::back();
     }
