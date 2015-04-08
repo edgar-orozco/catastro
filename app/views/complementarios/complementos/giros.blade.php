@@ -36,11 +36,61 @@
     }
 
 </style>
-{{ Form::open
-        (
-                array('url'=>'/cargar-complementos/guardar-giros',)
-        )
-}}
+
+@section('javascript')
+    
+    <script type="text/javascript">
+
+        $('#giroForm').bind('submit',function () 
+            {   
+                $.ajax(
+                {
+                    type: 'POST',
+                    data: new FormData( this ), 
+                    processData: false,
+                    contentType: false,
+                    url: '/cargar-complementos/guardar-giros',
+                    beforeSend: function()
+                    {
+                        alert("mandando petición");
+                    },
+                    success: function (data) 
+                    {               
+                        alert("guardado correcto");
+                    }
+                });
+                return false;
+            });
+    </script>
+    
+
+
+
+@append
+
+
+{{ Form::open(array('url'=>'/cargar-complementos/guardar-giros', 'id' => 'giroForm'))}}
+
+<div class="input-group">
+    {{ Form::hidden('clave_cata',$clave_catas) }}
+    {{ Form::hidden('gid_predio',$gid) }}
+    {{ Form::hidden('entidad',$estado) }}
+    {{ Form::hidden('municipio',$municipio) }}
+</div>
+
+<div class="col-md-6">
+    <div class="form-group">
+        {{Form::label('Lsuperficie_terreno', 'Superficie Terreno')}}
+        {{Form::text('superficie_terreno', '', ['class'=>'form-control', 'id'=>'superficie_terreno', 'required'])}}
+    </div>
+</div>
+<div class="col-md-6">
+    <div class="form-group">
+        {{Form::label('Lsuperficie_construccion','Superficie Construccion')}}
+        {{Form::text('superficie_construccion','',['class'=>'form-control','required', 'id'=>'superficie_construccion'])}}
+    </div>
+</div>
+
 <?php
 $cat = array();
 foreach ($giros as $catal) {

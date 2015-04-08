@@ -190,6 +190,9 @@ class complementarios_ComplementariosController extends BaseController {
                             ->orderBy('id_serviciopredio', 'ASC')
                             ->get();
         $giros          = TipoGiros::orderBy('descripcion', 'ASC')->get();
+        $girosasociados = Giros::WHERE('gid_predio', '=', $id)
+                            ->orderBy('id_giro', 'ASC')
+                            ->get();
         
         $datos          = instalaciones::WHERE('instalacionesespeciales.gid_predio', '=', $id)
                             ->join('tipoinstalacionesespeciales', 'tipoinstalacionesespeciales.id_tipoie', '=', 'instalacionesespeciales.id_tipoie')
@@ -197,6 +200,12 @@ class complementarios_ComplementariosController extends BaseController {
 
         $condominio = condominios::WHERE('gid_predio', '=',  $id)
         ->get();
+
+
+        $servicios = servicios::
+                join('tiposervicios', 'serviciospredio.id_tiposervicio', '=', 'tiposervicios.id_tiposervicio')
+                ->orderBy('tiposervicios.id_tiposervicio', 'ASC')
+                ->get();
 
 
 
@@ -266,7 +275,8 @@ class complementarios_ComplementariosController extends BaseController {
         return View::make('complementarios.agregar', ['datos' => $id], compact("catalogo"));
     }
 
-    public function post_agregar() {
+    public function post_agregar() 
+    {
 
         $inputs = Input::All();
 
@@ -514,7 +524,7 @@ class complementarios_ComplementariosController extends BaseController {
     }
 
     public function get_servicios() {
-        $cat = tiposervicios::All();
+        //$cat = tiposervicios::All();
         return View::make('complementarios.complementos.servicio', compact("cat"));
     }
 
@@ -672,53 +682,52 @@ class complementarios_ComplementariosController extends BaseController {
         return Redirect::back();
     }
 
-    public function post_agregargiros() {
-        $inputs = Input::All();
-        $gid = Input::get('gid');
-        $actuales = $inputs['select'];
-        $giros = $inputs['giros'];
-        $eliminar = $inputs['eliminar'];
-        $contar = count($actuales);
-        $confuera = count($eliminar);
+    public function post_agregargiros() 
+    {
+        $inputs         =   Input::All();
+        $entidad        =   $inputs['entidad'];
+        $municipio      =   $inputs['municipio'];
+        $clave_cata     =   $inputs['clave_cata'];
+        $gid_predio     =   $inputs['gid_predio']; 
+        $id_tipogiro    =   $inputs['giros'];
+        $sup_terreno    =   $inputs['superficie_terreno'];
+        $sup_constru    =   $inputs['superficie_construccion'];
+        
+        $giropredio = Giros::where(['gid_predio'=> $gid_predio])->get();
 
-        if ($confuera >= 1) {
-            foreach ($eliminar as $key) {
-                $id = $key;
-                $eliminar = Giros::where('id_giroconstruccion', '=', $id);
-                $eliminar->delete();
-                return Redirect::back();
+        if($giropredio->count()>0)
+        {
+            foreach($giropredio as $gp)
+            {
+                $gp->delete();
             }
+            $id_giropredio=Giros::orderBy('id_giro', 'DESC')->first()->id_giro;
         }
-        if (!$contar) {
-            if (sizeof($actuales) == 0) {
-                $count = count($giros);
-                for ($x = 0; $x < $count; $x++) {
-                    $n = new Giros();
-                    $n->gid_construccion = $gid;
-                    $n->id_giroconstruccion = $giros[$x];
-                    $n->save();
-                }
-                return Redirect::back();
-            }
-        } else {
-            foreach ($giros as $id) {
-                if (in_array($id, $actuales)) {
-                    
-                } else {
-                    $total[] = $id;
-                }
-            }
-            $count = count($total);
-            for ($x = 0; $x < $count; $x++) {
-                $n = new Giros();
-                $n->gid_construccion = $gid;
-                $n->id_giroconstruccion = $total[$x];
-                $n->save();
-            }
-//        return View::make('complementarios.agregar-servicios');
-            return Redirect::back();
-//        }
+        else
+        {
+            $id_giro=0;
         }
+
+                
+        for ($x = 1; $x <= count($id_tipogiro); $x++) 
+        {
+            $n = new Giros();        
+            $n->id_giro                 =   $id_giro+$x;
+            $n->entidad                 =   $entidad;
+            $n->municipio               =   $municipio;
+            $n->clave_catas             =   $clave_cata;
+            $n->gid_predio              =   $gid_predio;
+            $n->id_tipogiro             =   $id_tipogiro[$x-1]; ;
+            $n->superficie_terreno      =   $sup_terreno;
+            $n->superficie_construccion =   $sup_constru;
+            $n->save();
+        }
+
+        return Response::json(array
+            (
+                'respuesta' =>  'si guarda'
+            ));
+        
     }
 
     public function getMostrarPuertas($id = null) {

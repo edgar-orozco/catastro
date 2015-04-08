@@ -148,10 +148,14 @@
                 </div>
                 <div class="stepwizard-step">
                     <a href="#step-6" type="button" class="btn btn-default btn-circle" disabled="disabled">6</a>
-                    <p>Giro</p>
+                    <p>Giros</p>
                 </div>
                 <div class="stepwizard-step">
                     <a href="#step-7" type="button" class="btn btn-default btn-circle" disabled="disabled">7</a>
+                    <p>Anexos</p>
+                </div>
+                <div class="stepwizard-step">
+                    <a href="#step-8" type="button" class="btn btn-default btn-circle" disabled="disabled">7</a>
                     <p>Final</p>
                 </div>
             </div>
@@ -223,7 +227,7 @@
             <div class="col-xs-12">
                 <div class="col-md-12">
                     <h3>Giros</h3>
-                    {{--@include('complementarios.complementos.giros')--}}
+                    @include('complementarios.complementos.giros')
                     <button type="button" class="btn btn-primary next">
                         Next
                         <i class="glyphicon glyphicon-chevron-right"></i>
@@ -231,7 +235,19 @@
                 </div>
             </div>
         </div>
-        <div class="row setup-content" id="step-7">
+         <div class="row setup-content" id="step-7">
+            <div class="col-xs-12">
+                <div class="col-md-12">
+                    <h3>Anexos</h3>
+                    @include('complementarios.cargar.cargaArchivos')
+                    <button type="button" class="btn btn-primary next">
+                        Next
+                        <i class="glyphicon glyphicon-chevron-right"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+        <div class="row setup-content" id="step-8">
             <div class="col-xs-12">
                 <div class="col-md-12">
                     <h3> Final</h3>
