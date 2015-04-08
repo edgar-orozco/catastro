@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Created by PhpStorm.
  *
@@ -9,12 +10,13 @@
  * Class ShapesHelper
  * Clase con helper para la carga cartografica
  */
-class ShapesHelper{
+class ShapesHelper {
+
     /**
      * Funcion para contar el numero de archivos guardados en la ruta storage/shapes
      * @return int|string
      */
-    public static function countShapes(){
+    public static function countShapes() {
         $dir = __DIR__ . '/../storage/shapes';
 
         if (!file_exists($dir) && !is_dir($dir)) {
@@ -29,7 +31,7 @@ class ShapesHelper{
      * Funcion para obtener el tamaño maximo de archivos soportado por el servidor
      * @return float
      */
-    public static function serverUploadSize(){
+    public static function serverUploadSize() {
 
         return self::parseSize(ini_get('upload_max_filesize'));
     }
@@ -59,7 +61,7 @@ class ShapesHelper{
      * @param $size
      * @return float
      */
-    private static function parseSize($size){
+    private static function parseSize($size) {
         $unit = preg_replace('/[^bkmgtpezy]/i', '', $size); // Remove the non-unit characters from the size.
         $size = preg_replace('/[^0-9\.]/', '', $size); // Remove the non-numeric characters from the size.
         if ($unit) {
@@ -69,4 +71,13 @@ class ShapesHelper{
             return round($size);
         }
     }
+
+    public static function check_in_range($start_date, $end_date, $evaluame) {
+        $start_ts = $start_date;
+        $end_ts = $end_date;
+        $user_ts = $evaluame;
+        return (($user_ts >= $start_ts) && ($user_ts <= $end_ts));
+    }
+
+
 }

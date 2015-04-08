@@ -12,8 +12,8 @@
             @include('catalogos.salario._form')
 
             <div class="form-actions form-group">
-               {{ Form::submit('Crear nuevo salario minimo', array('class' => 'btn btn-primary')) }} 
-               {{ Form::reset('Limpiar formato', ['class' => 'btn btn-warning']) }}
+               {{ Form::submit('Crear nuevo salario minimo', array('class' => 'btn btn-primary','id'=>'sal')) }} 
+               {{ Form::reset('Limpiar formato', ['class' => 'btn btn-warning','id'=>'reset']) }}
             </div>
         {{Form::close()}}
 

@@ -96,23 +96,25 @@ class catalogos_salarioController extends \BaseController {
                 $fin = $key['fecha_termino_periodo'];
                 $ffin[] = $fin;
             }
-            $factual = date("Y-d-m", strtotime($fechaactual));
-            $ftermina = date("Y-d-m", strtotime($fechatermino));
-            var_dump($finicio);
+            $factual =$fechaactual;
+            $ftermina=$fechatermino;
+            foreach ($fecha as $f1) {
 
-            if (in_array($factual, $finicio)) {
-//                echo "Ya Existe fecha de inicio ";
-//                echo '<div class="alert alert-danger">Ya Existe fecha de inicio</div>';
-                 return Redirect::back()->with('error', 'Ya Existe la fecha de Inicio');
-            }elseif (in_array($ftermina,$ffin)) {
-//                echo " y fin ";
-                return Redirect::back()->with('error', 'Ya Existe la fecha de Fin');
+                $fecha1 = $f1['fecha_inicio_periodo'];
+                $fecha2 = $f1['fecha_termino_periodo'];
+                if (ShapesHelper::check_in_range($fecha1, $fecha2, $factual)) {
+//                  return Redirect::back()->with('error', 'Traslape de rango de fecha ');                    
+                    return Response::json(array('id' => 'Traslape de rango de fecha'));
+                }
+                if (ShapesHelper::check_in_range($fecha1, $fecha2, $ftermina)) {
+                    return Response::json(array('id' => 'Traslape de rango de fecha'));
+//                    return Redirect::back()->with('id', 'Traslape de rango de fecha ');
+                }
             }
-            else{
+
             $n->save();
-            //Se a guardado los datos y ya tengo hambreeeeeee...... jejeje lol 
-            return Redirect::to('catalogos/salario/create')->with('success', '¡Se ha creado correctamente el salario minimo: ' . $this->salario->salario_minimo . " !");
-            }
+//            return Redirect::to('catalogos/salario/create')->with('success', '¡Se ha creado correctamente el salario minimo: ' . $this->salario->salario_minimo . " !");
+//            }
         }
     }
 

@@ -1,14 +1,15 @@
-{{ HTML::script('js/jquery/jquery.validate.min.js') }}
+
 {{ HTML::style('js/jquery/jquery-ui.css') }}
 @section('javascript')
 {{ HTML::script('js/jquery/jquery-ui.js') }}
+{{ HTML::script('js/jquery/jquery.validate.min.js') }}
 @stop
-
 
 <div class="form-group">
     {{Form::label('zona','Zona')}}
     {{Form::text('zona', null, ['Placeholder'=>'Zona','tabindex'=>'1','class'=>'form-control', 'autofocus'=> 'autofocus', 'required' => 'required', 'ng-model' => 'salario.zona', 'tb-focus' => 'focusForm', 'ng-blur' => 'focusForm = false', 'onblur'=>'aMayusculas(this.value,this.id)','maxlength'=>'1'] )}}
     {{$errors->first('zona', '<span class=text-danger>:message</span>')}}
+
     <p class="help-block">Zona geografica en la que aplica el salario minimo.</p>
 </div>
 <div class="form-group">
@@ -29,7 +30,7 @@
 
 <div class="form-group">
     {{Form::label('fecha_inicio_periodo','Fecha inicio')}}
-    {{Form::input('date2','fecha_inicio_periodo', null, ['Placeholder'=>'Fecha Inicio','tabindex'=>'3','class'=>'form-control','autofocus'=> 'autofocus', 'required' => 'required', 'ng-model' => 'salario.fecha_inicio_periodo'] )}}
+    {{Form::input('date2','fecha_inicio_periodo', null, ['Placeholder'=>'Fecha Inicio','tabindex'=>'3','class'=>'fecha form-control','autofocus'=> 'autofocus', 'required' => 'required', 'ng-model' => 'salario.fecha_inicio_periodo'] )}}
     {{$errors->first('fecha_inicio_periodo', '<span class=text-danger>:message</span>')}}
     <p class="help-block"></p>
 </div>
@@ -47,17 +48,22 @@
 color:red;
 font: bold 85% monospace;
 }
+#result
+{
+color:red;
+font: bold 85% monospace;
+}
 
 @stop
 @section('javascript')
-{{ HTML::script('js/jquery/jquery.validate.min.js') }}
+
 <script>
 
     function aMayusculas(obj, id) {
         obj = obj.toUpperCase();
         document.getElementById(id).value = obj;
     }
-//Numero    
+//Numero
     function justNumbers(e)
     {
         var keynum = window.event ? window.event.keyCode : e.which;
@@ -77,8 +83,8 @@ font: bold 85% monospace;
             onSelect: function (selectedDate) {
                 //dateFormat: 'DD, MM d, yy'
                 var theDate = selectedDate;
-                var arr = theDate.split('/');
-                var anio = arr[2];
+                var arr = theDate.split('-');
+                var anio = arr[0];
                 $("#anio").val(anio);
 //                console.log(theDate);
             }
@@ -103,7 +109,7 @@ font: bold 85% monospace;
         dayNamesShort: ['Dom', 'Lun', 'Mar', 'Mié', 'Juv', 'Vie', 'Sáb'],
         dayNamesMin: ['Do', 'Lu', 'Ma', 'Mi', 'Ju', 'Vi', 'Sá'],
         weekHeader: 'Sm',
-        dateFormat: 'dd/mm/yy',
+        dateFormat: 'yy-mm-dd',
         firstDay: 1,
         isRTL: false,
         showMonthAfterYear: false,
@@ -127,14 +133,15 @@ font: bold 85% monospace;
                 var bits = value.match(/([0-9]+)/gi), str;
                 if (!bits)
                     return this.optional(element) || false;
-                str = bits[ 1 ] + '/' + bits[ 0 ] + '/' + bits[ 2 ];
+                str = bits[ 1 ] + '-' + bits[ 0 ] + '-' + bits[ 2 ];
                 return this.optional(element) || !/Invalid|NaN/.test(new Date(str));
             },
-            "Please enter a date in the format dd/mm/yyyy"
+            "Please enter a date in the format yy-mm-dd"
             );
 </script>
 <script>
     $(document).ready(function () {
+
 //        $('#form').on('submit', function () {
         $("#form").validate({
             errorClass: "my-error-class",
@@ -153,16 +160,16 @@ font: bold 85% monospace;
                                 {
                                     required: true,
                                 },
-                        fecha_inicio_periodo:
-                                {
-                                    required: true,
-                                    date: true,
-                                },
-                        fecha_termino_periodo:
-                                {
-                                    required: true,
-                                    date: true
-                                }
+//                        fecha_inicio_periodo:
+//                                {
+//                                    required: true,
+//                                    date: true,
+//                                },
+//                        fecha_termino_periodo:
+//                                {
+//                                    required: true,
+//                                    date: true
+//                                }
                     },
             messages: {
                 zona: {
@@ -176,16 +183,16 @@ font: bold 85% monospace;
                         {
                             required: "Campo requerido: Año",
                         },
-                fecha_inicio_periodo:
-                        {
-                            required: "Campo requerido:Fecha Inicio",
-                            date: "Fecha Invalida",
-                        },
-                fecha_termino_periodo:
-                        {
-                            required: "Campo requerido: Fecha Termino",
-                            date: "Fecha Invalida"
-                        }
+//                fecha_inicio_periodo:
+//                        {
+//                            required: "Campo requerido:Fecha Inicio",
+//                            date: "Fecha Invalida",
+//                        },
+//                fecha_termino_periodo:
+//                        {
+//                            required: "Campo requerido: Fecha Termino",
+//                            date: "Fecha Invalida"
+//                        }
             }
         });
     });
@@ -213,5 +220,32 @@ font: bold 85% monospace;
             // Si no se encontro ningún elemento, no hacemos nada (se envia el formulario)
         }
     });
+</script>
+<script>
+    $(document).ready(function () {
+        $('#form').submit(function () {
+            $.ajax({
+                type: 'POST',
+                url: $(this).attr('action'),
+                data: $(this).serialize(),
+                success: function (data) {
+//                    $('#result').text("Datos Creado Correctamente");
+//                    alert(data.id);
+                    if (data.id === "Traslape de rango de fecha") {
+//                        console.log("Traslape");
+                        alert("Traslape de rango de fecha");
+                    }
+                    if (data.id != "Traslape de rango de fecha") {
+                        // if (data.id === data.id) {
+                        location.reload();
+                        $('#reset').click();
+//                        console.log("Guardando  y hay que refrescar");
+                        alert("Guardando");
+//                        alert(data.id);
+                    }
+                }})
+            return false;
+        });
+    })
 </script>
 @append
