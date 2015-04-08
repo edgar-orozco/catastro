@@ -161,6 +161,15 @@ class Tramite extends Ardent
         return $select;
     }
 
+    public function scopeFecha($q, $fecha) {
+
+        if(trim($fecha)) {
+
+            $q->whereRaw("created_at::varchar ~* ?",[$fecha]);
+        }
+        return $q;
+    }
+
     /**
      * Obtiene registros en los que el usuario se ha involucrado o está por involucrarse
      * @param $q

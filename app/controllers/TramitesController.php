@@ -252,7 +252,32 @@ class TramitesController extends BaseController {
         $tramite_id = $tramite->id;
         $solicitante = $tramite->solicitante;
         $notaria = $tramite->notaria;
-        $tiempo = $tipotramite->tiempo;
+        $tiempo_tramite = $tipotramite->tiempo;
+
+        //Fecha de inicio del tramite
+        $fecha_iniciado = Carbon::createFromTimeStamp($tramite->created_at->timestamp);
+
+
+        $estatus = $tramite->estatus->pasado;
+
+        //Si el estado es final, entonces ya no contamos más el tiempo
+        if($estatus == 'Finalizado' || $estatus == 'Finalizado observado') {
+            $fecha_finalizado = Carbon::createFromTimeStamp($tramite->updated_at->timestamp);
+
+            $tiempo_transcurrido_dias = $fecha_iniciado->diffInDays($fecha_finalizado);
+            $tiempo_transcurrido_hrs = $fecha_iniciado->diffInHours($fecha_finalizado);
+            $tiempo_transcurrido = 0;
+            if($tiempo_transcurrido_dias == 0 && $tiempo_transcurrido_hrs > 0)
+            {
+                $tiempo_transcurrido = $tiempo_transcurrido_hrs. " horas ";
+            }
+
+        }
+        else {
+            $tiempo_transcurrido = $fecha_iniciado->diffInDays();
+        }
+
+//echo $tiempo_transcurrido;
 
         $folio = $tramite->folio;
 
@@ -263,12 +288,15 @@ class TramitesController extends BaseController {
 
         $title_section = $tipotramite->nombre;
         //echo $tramite->created_at."<br>";
-        $transcurrido = Carbon::createFromTimeStamp($tramite->created_at->timestamp)->diffInDays();
+
+
         //echo $transcurrido."<br>";
         //echo "Han transcurrido ".$transcurrido ." días de ".$tiempo. " días para fin de trámite <br>";
 
         $hace = LocalizedCarbon::instance($tramite->created_at)->diffForHumans();
         //echo $hace."<br>";
+
+
 
         //exit;
 
@@ -326,8 +354,8 @@ class TramitesController extends BaseController {
             'tipotramite',
             'tipotramite_id',
             'folio',
-            'tiempo_consumido',
-            'tiempo_restante',
+            'tiempo_transcurrido',
+            'tiempo_tramite',
             'lista_notarias',
             'lista_deptos',
             'lista_tipoactividades',
@@ -445,7 +473,10 @@ class TramitesController extends BaseController {
         return Redirect::to('/')->with('success',"Se ha guardado trámite con folio: ".sprintf("%06d", $folio));
     }
 
-
+    /**
+     * Implementa la búsqueda y regresa la vista parcial de la tabla de tramites.
+     * @return \Illuminate\View\View|null
+     */
     public function buscar(){
 
         $q = Input::get('q');
@@ -462,17 +493,25 @@ class TramitesController extends BaseController {
             $roles = $user->roleIdArray();
         }
 
-        if($tipo == 'folio'){
+        if($tipo == 'folio')
+        {
             $tramites = Tramite::where('folio', $q)->involucrado($uid, $roles, $municipios)->paginate($this->numPags);
         }
-        if($tipo == 'solicitante'){
+        if($tipo == 'solicitante')
+        {
             $tramites = Tramite::involucrado($uid, $roles, $municipios)->solicitanteNombreCompleto($q)->paginate($this->numPags);
         }
-        if($tipo == 'notaría'){
+        if($tipo == 'notaría')
+        {
             $tramites = Tramite::involucrado($uid, $roles, $municipios)->notariaNombre($q)->paginate($this->numPags);
         }
-        if($tipo == 'tipo de trámite'){
+        if($tipo == 'tipo de trámite')
+        {
             $tramites = Tramite::involucrado($uid, $roles, $municipios)->tipoTramiteNombre($q)->paginate($this->numPags);
+        }
+        if($tipo == 'fecha')
+        {
+            $tramites = Tramite::involucrado($uid, $roles, $municipios)->fecha($q)->paginate($this->numPags);
         }
 
 

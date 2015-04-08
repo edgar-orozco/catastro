@@ -18,7 +18,7 @@
             <div class="col-md-6">
                 <div class="form-group">
                     {{Form::label('Lsuperficie_construccion', 'Superficie Construcción')}}
-                    {{Form::text('Superficie Construccion', null, ['id'=>'superficie_construccion','class'=>'form-control'])}}
+                    {{Form::text('superficie_construccion', null, ['id'=>'superficie_construccion','class'=>'form-control'])}}
                 </div>
             </div>
             <div class="col-md-6">

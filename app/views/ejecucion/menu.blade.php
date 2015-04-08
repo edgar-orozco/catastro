@@ -1,6 +1,6 @@
-@if(!Auth::guest() && ( Auth::user()->hasRole("Administrador") || Auth::user()->hasRole("Super usuario")))
+@if(!Auth::guest() && (Auth::user()->hasRole("Administrador_ejecucion") || Auth::user()->can("ejecucion_fiscal")) )
 
-    <li class="dropdown @if(Request::is('Ejecucion')) active @endif">
+    <li class="dropdown @if(Request::is('Ejecucion/*')) active @endif">
 
         <a data-toggle="dropdown" class="dropdown-toggle" href="#">Ejecución Fiscal <b class="caret"></b></a>
         <ul role="menu" class="dropdown-menu">

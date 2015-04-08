@@ -11,8 +11,12 @@
 
     <div class="row clearfix">
         @if($folio)
-            <div class="col-md-2 col-md-offset-7">
+            <div class="col-md-2 col-md-offset-4">
                 <h4>Folio: {{sprintf("%06d",$folio)}}</h4>
+            </div>
+
+            <div class="col-md-3 ">
+                <h4>Consumidos: {{$tiempo_transcurrido}} de {{$tiempo_tramite}} días</h4>
             </div>
 
             <div class="col-md-3">

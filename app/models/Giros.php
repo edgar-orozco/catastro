@@ -2,7 +2,7 @@
 
 class Giros Extends Eloquent
 {
-    protected $table = 'girosconstruccion';
-    protected $primaryKey = 'id';
-    public $timestamps = false;
+    protected $table = 'giros';
+    protected $primaryKey = 'id_giro';
+    public $timestamps = true;
 }

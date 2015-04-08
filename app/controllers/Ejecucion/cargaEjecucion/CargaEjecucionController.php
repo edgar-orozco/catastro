@@ -56,24 +56,48 @@ class ejecucion_cargaEjecucion_CargaEjecucionController extends \BaseController 
 				foreach(file($file) as $line) 
 				{
 	    			$num = $num+1;
+	    			$digitos = explode("-", $line);
+	    			
 					$validator = Validator::make
 					(
-	    				array('name' => $line),
-	    				array('name' => 'integer'),
-	    				array('name' => 'required')
+	    				array
+	    				(
+	    					'est' 	=> trim($digitos[0]),
+	    					'mun' 	=> trim($digitos[1]),
+	    					'zon' 	=> trim($digitos[2]),
+	    					'dig1' 	=> trim($digitos[3]),
+	    					'dig2' 	=> trim($digitos[4])
+	    				),
+	    				array
+	    				(
+	    					'est' 	=> 'digits:2',
+	    					'mun' 	=> 'digits:3',
+	    					'zon' 	=> 'digits:3',
+	    					'dig1' 	=> 'digits:4',
+	    					'dig2' 	=> 'digits:6' 
+	    				)
+	    				
 					);
-
+					
 	    			if ($validator->fails())
 	    			{
 	    				$fallaV[]='Error de sintaxis en la linea '.$num.' Formato no valido '.$line;
 	    				$numF=$numF+1;
 	    			}
+	    			elseif (strcmp($digitos[0], '27') !== 0)  
+	    			{
+	    				$fallaV[]='Error de sintaxis en la linea '.$num.' Numero de estado no valido '.$line;
+	    				$numF=$numF+1;		
+	    			}
 	    			else  			
 	    			{
-	    				$consulta= predios::find($line);
-	    					if ($consulta) 
-	    					{
-	    						$predios[]= $consulta.'<br>';
+	    				$consulta2= PadronFiscal::where("clave","like", $line)->count();
+	    				
+	    					if ($consulta2 > 0) 
+	    					{   						
+	    						$fallaR[]='Se encontro el registroooo '.$line;
+	    						$numNE=$numNE+1;
+	    				
 	    					}
 	    					else 
 	    					{

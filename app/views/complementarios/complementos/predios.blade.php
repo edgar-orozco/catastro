@@ -47,7 +47,7 @@
 			<div class="col-md-6">
 				<div class="form-group">
 					{{Form::label('Ltipo_propiedad', 'Tipo Propiedad')}}
-					{{Form::text('tipo_propiedad','', ['class'=>'form-control', 'id'=>'tipo_propiedad', 'required'])}}
+					{{Form::text('tipo_propiedad',$predios[0]->tipo_propiedad, ['class'=>'form-control', 'id'=>'tipo_propiedad', 'required'])}}
 				</div>
 			</div>
 			<div class="col-md-6">
@@ -92,7 +92,7 @@
 
 @section('javascript')
 
-<script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+
 <script type="text/javascript">
 
 $('#formPredios').bind('submit',function () 
@@ -104,16 +104,10 @@ $('#formPredios').bind('submit',function ()
             processData: false,
             contentType: false,
             url: '/guardar-predios',
-            beforeSend: function()
-            {
-                alert("mandando petición");
-            },
+            
             success: function (data) 
             {               
-                alert("guardado correcto");
                 
-               
-            
 
 
             }
