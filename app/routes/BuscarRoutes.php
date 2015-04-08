@@ -1,4 +1,6 @@
 <?php
+Route::group(array('before'=>'Ejecucion fiscal'),  function (){
+
 //pantalla principal de carta invvitacion
 Route::post("/ejecucion/", "Ejecucion_BuscarController@getIndex");
 Route::get("/ejecucion/", "Ejecucion_BuscarController@getIndex");
@@ -29,3 +31,16 @@ Route::controller("/consulta", "Consulta_ConsultaController");
 //rutas de prueba para pdf :
 Route::get("/pruebapdf/{clave?}", "CartaInvitacion_pdfpruebaController@getIndex");
 Route::get("/reimprimir/{clave?}", "CartaInvitacion_PdfpruebaController@imprimir");
+
+    });
+
+
+ Route::filter('Ejecucion fiscal', function () {
+
+    if (! ( Entrust::hasRole('Ejecucion fiscal') ||  Entrust::hasRole('Super usuario') ) )
+    {
+        return Redirect::to('/');
+    }
+});
+
+

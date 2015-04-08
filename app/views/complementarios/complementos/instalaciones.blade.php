@@ -1,9 +1,12 @@
 
-{{ Form::open(array( 'id' => 'instalaciones', 'url'=> '/agregar',)) }}
+{{ Form::open(array( 'id' => 'instalaciones')) }}
     <br/>
     
         <div class="input-group">
-            {{ Form::hidden('id',$predios[1]->clave_catas) }}
+            {{ Form::hidden('clave_catas',$clave_cata) }}
+            {{ Form::hidden('gid_predio',$gid) }}
+            {{ Form::hidden('entidad',$estado) }}
+            {{ Form::hidden('municipio',$municipio) }}
         </div>
         
         <div class="col-md-5">
@@ -19,8 +22,8 @@
         </div>
         
 {{ Form::close() }}
-
-<table class="table">
+<div id="div-table" class="row">
+<table class="table" id="table-instalaciones">
     <thead>
         <tr>
 <!--            <th>ID</th>
@@ -30,22 +33,15 @@
         </tr>
     </thead>
     <tbody>
-        <?php
-        $url = URL::current();
-        $new = explode("/", $url);
-//        var_dump($new);
-        $count = count($new);
-        $count = $count - 1;
-        $clave=$new[$count];
-        ?>
+       
         @foreach($datos as $row)
         <tr>
            
             <td>{{$row->descripcion}}</td>
-            <td nowrap>
+            <td>
                 <!--borrar-->
-                <a href="/cargar-complementose/{{$row->id_ie }}" class="btn btn-danger" title="Borrar">
-                    <span class="glyphicon glyphicon-trash"></span>
+                <a id="anchor-delete{{$row->id_ie}}" onclick="eliminar('{{$row->id_ie}}')" class="btn btn-warning eliminar" title="Editar Predio">
+                    <span class="glyphicon glyphicon-remove"></span>
                 </a>
             </td>
         </tr>
@@ -55,10 +51,11 @@
     
     </tfoot>
 </table>
+</div>
 
 @section('javascript')
 
-<script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+
 <script type="text/javascript">
 
 $('#instalaciones').bind('submit',function () 
@@ -72,46 +69,29 @@ $('#instalaciones').bind('submit',function ()
             url: '/agregar',
             beforeSend: function()
             {
-                alert("mandando petición");
+
             },
             success: function (data) 
             {               
-                alert("guardado correcto");
+
                  //Se obtiene el elemento table
-                var tables = document.getElementById("table");
+                var table = document.getElementById("table-instalaciones");
                 //En caso de que exista, la eliminara.
-                if (tables) tables.parentNode.removeChild(tables);
-                
+                             
                 
                 //Se crea la tabla de predios dinamicamente
-                for (i = 0; i < data.size; i++) 
-                {
-                    
-                    var div = document.getElementById("div-table");
-                    var x = document.createElement("TABLE");
-                    x.setAttribute("id", "table");
-                    x.setAttribute("class", "table");
-                    div.appendChild(x);
-                    var table = document.getElementById("table");
-                    var header = table.createTHead();
-                    var row = header.insertRow(0);
-                    var cell = row.insertCell(0);
-                    cell.innerHTML = "<b>Tipos</b>";
-                    cell =row.insertCell(1);
-                    cell.innerHTML = "<b>Acciones<b>";
-                    var tbody = table.appendChild(document.createElement('tbody'));
-                    row = tbody.insertRow(0);
-                    cell = row.insertCell(0);
-                    cell.innerHTML=data.busqueda[0].clave_catas;
-                    cell = row.insertCell(1);
-                    cell.innerHTML=data.busqueda[0].clave_ori;
-                    cell = row.insertCell(2);
-                    var clave_catas = '<input type="text" name="hide_catas" id = "hide_catas" value="'+data.busqueda[0].clave_catas+'" hidden>';
-                    var municipio = '<input type="text" name="hide_municipio" id = "hide_municipio" value="'+document.getElementById('municipio').value+'" hidden>'
-                    cell.innerHTML='<a href="/cargar-complementos/'+data.busqueda[0].gid+'" class="btn btn-warning nuevo" title="Editar Predio"> <span class="glyphicon glyphicon-pencil"></span></a>'+clave_catas+municipio;
-                    $('.mensaje').html('');
+                
+                
+                var tbody = table.getElementsByTagName('tbody')[0];
+                row = tbody.insertRow();
+                cell = row.insertCell(0);
+                cell.innerHTML=data.instalaciones;
+                cell = row.insertCell(1);
+                var id_ie = '<input type="text" name="hide_idie" id = "hide_idie" value="'+data.id_ie+'" hidden>';
+                cell.innerHTML='<a id="anchor-delete'+data.id_ie+'" onclick="eliminar('+data.id_ie+')" data-eliminar-type="'+data.id_ie+'" class="btn btn-warning eliminar" title="Editar Predio"> <span class="glyphicon glyphicon-remove"></span></a>';
+                
 
-                }
+                
 
                
             
@@ -121,6 +101,35 @@ $('#instalaciones').bind('submit',function ()
         });
         return false;
     });
+
+
+function eliminar(id_ie)
+{
+    
+   
+
+    $.ajax(
+        {
+            type: 'POST',
+            data: {id_ie:id_ie}, //Toma todo lo que hay en el formulario, en este caso el archivo .txt o .csv
+            url: '/eliminar-inst',
+            beforeSend: function()
+            {
+                alert("mandando petición");
+            },
+            success: function (data) 
+            {               
+                alert("guardado correcto");
+                 //Se obtiene el elemento table
+                var td = $('#anchor-delete'+data.id_ie).parent();
+                var tr = td.parent().remove();
+
+
+            }
+        });
+}
+
+
 
 </script>
 

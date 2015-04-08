@@ -38,12 +38,54 @@
 
 </style>
 @section('javascript')
-@stop
+    
+    <script type="text/javascript">
+
+        $('#servicioForm').bind('submit',function () 
+            {   
+                $.ajax(
+                {
+                    type: 'POST',
+                    data: new FormData( this ), 
+                    processData: false,
+                    contentType: false,
+                    url: '/cargar-servicios',
+                    beforeSend: function()
+                    {
+                        alert("mandando petición");
+                    },
+                    success: function (data) 
+                    {               
+                        alert("guardado correcto");
+                         //Se obtiene el elemento table
+                        
+
+                       
+                    
+
+
+                    }
+                });
+                return false;
+            });
+    </script>
+    
+
+
+
+@append
 {{ Form::open
         (
-                array('url'=> '/cargar-servicios',)
+                array('url'=> '/cargar-servicios', 'id' => 'servicioForm')
         )
 }}
+
+<div class="input-group">
+    {{ Form::hidden('clave_cata',$clave_catas) }}
+    {{ Form::hidden('gid_predio',$gid) }}
+    {{ Form::hidden('entidad',$estado) }}
+    {{ Form::hidden('municipio',$municipio) }}
+</div>
 
 <ul class="list-unstyled column">
     <?php
