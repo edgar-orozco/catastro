@@ -243,7 +243,7 @@ font: bold 85% monospace;
                         alert("Guardando");
 //                        alert(data.id);
                     }
-                }})
+                }}) 
             return false;
         });
     })

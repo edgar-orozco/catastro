@@ -77,7 +77,7 @@ class ShapesHelper {
         $end_ts = $end_date;
         $user_ts = $evaluame;
         return (($user_ts >= $start_ts) && ($user_ts <= $end_ts));
-    }
+    } 
 
 
 }
