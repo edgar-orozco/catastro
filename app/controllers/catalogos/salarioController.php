@@ -88,16 +88,9 @@ class catalogos_salarioController extends \BaseController {
             $n->fecha_termino_periodo = $fechatermino;
             $fecha = salario::select('fecha_inicio_periodo', 'fecha_termino_periodo')->get();
 
-            foreach ($fecha as $key) {
-                $inicio = $key['fecha_inicio_periodo'];
-                $finicio[] = $inicio;
-            }
-            foreach ($fecha as $fechafin) {
-                $fin = $key['fecha_termino_periodo'];
-                $ffin[] = $fin;
-            }
+//           
             $factual =$fechaactual;
-            $ftermina=$fechatermino;
+            $ftermina=$fechatermino; 
             foreach ($fecha as $f1) {
 
                 $fecha1 = $f1['fecha_inicio_periodo'];
