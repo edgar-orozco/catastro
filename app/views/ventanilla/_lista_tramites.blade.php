@@ -25,7 +25,7 @@
             <tbody>
             @foreach($tramites as $tramite)
                 <tr>
-                    <td nowrap>
+                    <td >
                         {{$tramite->tipotramite->nombre}}
                     </td>
                     <td>
@@ -39,13 +39,13 @@
                             {{$tramite->notaria->nombre}}
                         @endif
                     </td>
-                    <td>
-                        {{LocalizedCarbon::instance($tramite->created_at)->diffForHumans()}}
+                    <td nowrap>
+                        {{$tramite->created_at->format("Y-m-d")}}
                     </td>
                     <td>
                         {{$tramite->departamento->descripcion}}
                     </td>
-                    <td>
+                    <td nowrap>
                         @if($tramite->estatus)
                             {{$tramite->estatus->pasado}}
                         @Endif

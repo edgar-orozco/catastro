@@ -4,11 +4,7 @@
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-<<<<<<< HEAD
-    "hash": "89539b65f7330590cfa747e0976efe8e",
-=======
-    "hash": "f2db41c169d1b8437828ebcc1fd65f82",
->>>>>>> d6e5ae1adab4c1b7041653122d691939bb09f76d
+    "hash": "4753e915f470a401332f1741b8972f9c",
     "packages": [
         {
             "name": "barryvdh/laravel-dompdf",
@@ -60,16 +56,17 @@
         },
         {
             "name": "captcha-com/captcha",
-            "version": "3.0.0",
+            "version": "3.0.1",
             "source": {
                 "type": "git",
                 "url": "http://git.captcha.com/botdetect-php-captcha-library.git",
-                "reference": "e32cfb38096b59aa110afcb80453b77c79855210"
+                "reference": "98bb9c86cd0d934abe7a194c6bd201174bae1845"
             },
             "require": {
                 "php": ">=5.2.1"
             },
             "suggest": {
+                "captcha-com/cakephp-captcha": "BotDetect 3 PHP Captcha integration for the CakePHP framework.",
                 "captcha-com/laravel-captcha": "BotDetect 3 PHP Captcha integration for the Laravel framework."
             },
             "type": "library",
@@ -94,7 +91,7 @@
             "keywords": [
                 "captcha"
             ],
-            "time": "2015-01-08 05:38:45"
+            "time": "2015-04-07 10:43:30"
         },
         {
             "name": "captcha-com/laravel-captcha",
@@ -143,12 +140,12 @@
             "version": "1.0.2",
             "source": {
                 "type": "git",
-                "url": "https://github.com/ClassPreloader/ClassPreloader.git",
+                "url": "https://github.com/mtdowling/ClassPreloader.git",
                 "reference": "2c9f3bcbab329570c57339895bd11b5dd3b00877"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/ClassPreloader/ClassPreloader/zipball/2c9f3bcbab329570c57339895bd11b5dd3b00877",
+                "url": "https://api.github.com/repos/mtdowling/ClassPreloader/zipball/2c9f3bcbab329570c57339895bd11b5dd3b00877",
                 "reference": "2c9f3bcbab329570c57339895bd11b5dd3b00877",
                 "shasum": ""
             },
@@ -264,7 +261,6 @@
         },
         {
             "name": "filp/whoops",
-<<<<<<< HEAD
             "version": "1.1.5",
             "source": {
                 "type": "git",
@@ -275,18 +271,6 @@
                 "type": "zip",
                 "url": "https://api.github.com/repos/filp/whoops/zipball/c982fe62c44798c433229cb0425c61b487cc1883",
                 "reference": "c982fe62c44798c433229cb0425c61b487cc1883",
-=======
-            "version": "1.1.4",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/filp/whoops.git",
-                "reference": "dcce91553e2e056857f1ea844949e9a8a71b613d"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/filp/whoops/zipball/dcce91553e2e056857f1ea844949e9a8a71b613d",
-                "reference": "dcce91553e2e056857f1ea844949e9a8a71b613d",
->>>>>>> d6e5ae1adab4c1b7041653122d691939bb09f76d
                 "shasum": ""
             },
             "require": {
@@ -331,11 +315,7 @@
                 "whoops",
                 "zf2"
             ],
-<<<<<<< HEAD
             "time": "2015-03-30 15:26:59"
-=======
-            "time": "2015-02-17 15:50:31"
->>>>>>> d6e5ae1adab4c1b7041653122d691939bb09f76d
         },
         {
             "name": "ircmaxell/password-compat",
@@ -378,6 +358,54 @@
                 "password"
             ],
             "time": "2014-11-20 16:49:30"
+        },
+        {
+            "name": "jenssegers/date",
+            "version": "v2.0.21",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/jenssegers/laravel-date.git",
+                "reference": "485208fc2c085be0449b9fb46abcf116d80daad2"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/jenssegers/laravel-date/zipball/485208fc2c085be0449b9fb46abcf116d80daad2",
+                "reference": "485208fc2c085be0449b9fb46abcf116d80daad2",
+                "shasum": ""
+            },
+            "require": {
+                "nesbot/carbon": "~1.0,<1.18",
+                "php": ">=5.3.0",
+                "symfony/translation": "~2.0"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "~4.0",
+                "satooshi/php-coveralls": "~0.6"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-0": {
+                    "Jenssegers\\Date": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Jens Segers",
+                    "homepage": "http://jenssegers.be"
+                }
+            ],
+            "description": "A date library to help you work with dates",
+            "keywords": [
+                "date",
+                "datetime",
+                "laravel",
+                "time"
+            ],
+            "time": "2015-03-26 22:43:43"
         },
         {
             "name": "jeremeamia/SuperClosure",
@@ -1509,11 +1537,7 @@
         },
         {
             "name": "symfony/event-dispatcher",
-<<<<<<< HEAD
             "version": "v2.6.6",
-=======
-            "version": "v2.6.5",
->>>>>>> d6e5ae1adab4c1b7041653122d691939bb09f76d
             "target-dir": "Symfony/Component/EventDispatcher",
             "source": {
                 "type": "git",
@@ -1572,30 +1596,17 @@
         },
         {
             "name": "symfony/filesystem",
-<<<<<<< HEAD
             "version": "v2.6.6",
-=======
-            "version": "v2.6.5",
->>>>>>> d6e5ae1adab4c1b7041653122d691939bb09f76d
             "target-dir": "Symfony/Component/Filesystem",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/Filesystem.git",
-<<<<<<< HEAD
                 "reference": "4983964b3693e4f13449cb3800c64a9112c301b4"
             },
             "dist": {
                 "type": "zip",
                 "url": "https://api.github.com/repos/symfony/Filesystem/zipball/4983964b3693e4f13449cb3800c64a9112c301b4",
                 "reference": "4983964b3693e4f13449cb3800c64a9112c301b4",
-=======
-                "reference": "fdc5f151bc2db066b51870d5bea3773d915ced0b"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/symfony/Filesystem/zipball/fdc5f151bc2db066b51870d5bea3773d915ced0b",
-                "reference": "fdc5f151bc2db066b51870d5bea3773d915ced0b",
->>>>>>> d6e5ae1adab4c1b7041653122d691939bb09f76d
                 "shasum": ""
             },
             "require": {
@@ -1631,11 +1642,7 @@
             ],
             "description": "Symfony Filesystem Component",
             "homepage": "http://symfony.com",
-<<<<<<< HEAD
             "time": "2015-03-22 16:55:57"
-=======
-            "time": "2015-03-12 10:28:44"
->>>>>>> d6e5ae1adab4c1b7041653122d691939bb09f76d
         },
         {
             "name": "symfony/finder",
@@ -2137,12 +2144,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/Zizaco/confide.git",
-                "reference": "00e29fe32f47ec0fd2f34babf9d8631df57b063a"
+                "reference": "f9c3d09f68589cc3242a3527464bb871d9815a0f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Zizaco/confide/zipball/00e29fe32f47ec0fd2f34babf9d8631df57b063a",
-                "reference": "00e29fe32f47ec0fd2f34babf9d8631df57b063a",
+                "url": "https://api.github.com/repos/Zizaco/confide/zipball/f9c3d09f68589cc3242a3527464bb871d9815a0f",
+                "reference": "f9c3d09f68589cc3242a3527464bb871d9815a0f",
                 "shasum": ""
             },
             "require": {
@@ -2195,7 +2202,7 @@
                 "illuminate",
                 "laravel"
             ],
-            "time": "2015-04-02 23:32:03"
+            "time": "2015-02-09 18:48:33"
         },
         {
             "name": "zizaco/entrust",
@@ -2367,6 +2374,7 @@
         "fzaninotto/faker": 20
     },
     "prefer-stable": false,
+    "prefer-lowest": false,
     "platform": [],
     "platform-dev": []
 }
