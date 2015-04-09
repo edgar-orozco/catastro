@@ -36,7 +36,7 @@
        
         @foreach($datos as $row)
         <tr>
-           
+
             <td>{{$row->descripcion}}</td>
             <td>
                 <!--borrar-->
@@ -47,8 +47,7 @@
         </tr>
         @endforeach
     <tfoot>
-        
-    
+
     </tfoot>
 </table>
 </div>
@@ -71,17 +70,14 @@ $('#instalaciones').bind('submit',function ()
             {
 
             },
-            success: function (data) 
-            {               
-
+            success: function (data)
+            {
                  //Se obtiene el elemento table
                 var table = document.getElementById("table-instalaciones");
                 //En caso de que exista, la eliminara.
-                             
-                
+
                 //Se crea la tabla de predios dinamicamente
-                
-                
+
                 var tbody = table.getElementsByTagName('tbody')[0];
                 row = tbody.insertRow();
                 cell = row.insertCell(0);
@@ -89,12 +85,6 @@ $('#instalaciones').bind('submit',function ()
                 cell = row.insertCell(1);
                 var id_ie = '<input type="text" name="hide_idie" id = "hide_idie" value="'+data.id_ie+'" hidden>';
                 cell.innerHTML='<a id="anchor-delete'+data.id_ie+'" onclick="eliminar('+data.id_ie+')" data-eliminar-type="'+data.id_ie+'" class="btn btn-warning eliminar" title="Editar Predio"> <span class="glyphicon glyphicon-remove"></span></a>';
-                
-
-                
-
-               
-            
 
 
             }
@@ -105,8 +95,7 @@ $('#instalaciones').bind('submit',function ()
 
 function eliminar(id_ie)
 {
-    
-   
+
 
     $.ajax(
         {
@@ -118,7 +107,7 @@ function eliminar(id_ie)
                 alert("mandando petición");
             },
             success: function (data) 
-            {               
+            {
                 alert("guardado correcto");
                  //Se obtiene el elemento table
                 var td = $('#anchor-delete'+data.id_ie).parent();

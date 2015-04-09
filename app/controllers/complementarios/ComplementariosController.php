@@ -463,7 +463,7 @@ class complementarios_ComplementariosController extends BaseController {
         return View::make('complementarios.agregarcondominio', ['datos' => $id]);
     }
 
-    public function post_addcondominio() {
+       public function post_addcondominio() {
         $id = Input::get('id');
         $clave_catas= predios::where('gid', $id)->pluck('clave_catas');
         $entidad= predios::where('gid', $id)->pluck('entidad');
@@ -489,37 +489,66 @@ class complementarios_ComplementariosController extends BaseController {
         $n->sup_privativa='0';
         $n->clave_INEGI_cond='0';
         $n->save();
-        return Redirect::back();
+
+         $id_condominio = condominios::orderBy('id_condominio', 'DESC')->first()->id_condominio;
+         $no_condominal1= condominios::where('id_condominio',  $id_condominio)->pluck('no_condominal');
+        return Response::json(array
+            (
+                'id_condominio' => $id_condominio,
+                'no_condominal' => $no_condominal1,
+                'tipo_priva'     =>  $inputs["tipo_priva"],
+                'sup_comun' =>  $inputs["sup_comun"],
+                'indiviso' => $inputs["indiviso"]
+            ));
+        //Session::flash('mensaje', 'El registro ha sido ingresado exitosamente');
+        //return Redirect::back();
     }
 
-    public function getEliminarCondominio($id = null) {
+      public function getEliminarCondominio() {
+        $id=Input::get('id_condominio');
         $eliminar = condominios::find($id);
         $eliminar->delete();
-        return Redirect::back();
+         return Response::json(array
+            (
+                'id_condominio'     =>  $id
+            ));
+      //  return Redirect::back();
     }
 
-    public function getEditarCondominio($id = null) {
-        $condominio = condominios::find($id);
-        return View::make('complementarios.editarcondominio', compact("condominio"));
+   public function getEditarCondominio() {
+        $id_condominio=Input::get('id_condominio');
+        $condominios = condominios::find($id_condominio);
+
+        return Response::json(array
+            (
+                'id_condominio' => $condominios->id_condominio,
+                'entidad'     => $condominios->entidad,
+                'municipio'     => $condominios->municipio,
+                'tipo_priva'     => $condominios->tipo_priva,
+                'sup_comun'     => $condominios->sup_comun,
+                'indiviso'     => $condominios->indiviso,
+                'sup_total_comun'     => $condominios->sup_total_comun,
+                'no_unidades'     => $condominios->no_unidades
+
+            ));
+         //return View::make('complementarios.complementos.condominio', compact("condominios"));
     }
 
-    public function getCondominio() {
+         public function getCondominio() {
         $inputs = Input::All();
+       // print_r($inputs);
         $id = Input::get('id');
         $n = condominios::find($id);
         $n->entidad = $inputs["entidad"];
-        $n->municipio = $inputs["municipio"];
-        $n->no_condominal = $inputs["no_condominal"];
+        $n->municipio = $inputs["municipios"];
         $n->tipo_priva = $inputs["tipo_priva"];
         $n->sup_comun = $inputs["sup_comun"];
         $n->indiviso = $inputs["indiviso"];
-        $n->sup_comun_magno = $inputs["superf_comun_magno"];
-        $n->indiviso_magno = $inputs["indiviso_magno"];
-        $n->cve_magno = $inputs["cve_magno"];
         $n->sup_total_comun = $inputs["sup_total_comun"];
         $n->no_unidades = $inputs["no_unidades"];
         $n->save();
         Session::flash('mensaje', 'El registro ha sido ingresado exitosamente');
+
         return Redirect::back();
     }
 

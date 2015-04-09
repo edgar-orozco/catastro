@@ -96,7 +96,7 @@
 <script type="text/javascript">
 
 $('#formPredios').bind('submit',function () 
-    {   
+    {
         $.ajax(
         {
             type: 'POST',
@@ -104,10 +104,9 @@ $('#formPredios').bind('submit',function ()
             processData: false,
             contentType: false,
             url: '/guardar-predios',
-            
+
             success: function (data) 
-            {               
-                
+            {
 
 
             }

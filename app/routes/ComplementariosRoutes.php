@@ -43,8 +43,8 @@ Route::group(['before' => 'auth'], function() {
     Route::get('/cargar-complementos/{id?}', "complementarios_ComplementariosController@getInstalacion");
     Route::get('/agregar-condominio/{id?}', "complementarios_ComplementariosController@getAgregarCondominio");
     Route::post('/agregar-condominio/{id?}', "complementarios_ComplementariosController@post_addcondominio");
-    Route::get('/cargar-condominio-destroy/{id?}', 'complementarios_ComplementariosController@getEliminarCondominio');
-    Route::get('/cargar-condominio-editar/{id?}', 'complementarios_ComplementariosController@getEditarCondominio');
+    Route::post('/cargar-condominio-destroy/{id?}', 'complementarios_ComplementariosController@getEliminarCondominio');
+    Route::post('/cargar-condominio/{id_condominio?}', 'complementarios_ComplementariosController@getEditarCondominio');
     Route::post('/cargar-condominio-editar/{id?}', 'complementarios_ComplementariosController@getCondominio');
     //servicio
     Route::get('/agregar-servicios/{id?}', 'complementarios_ComplementariosController@get_servicios');
