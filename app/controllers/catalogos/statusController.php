@@ -27,13 +27,13 @@ class catalogos_statusController extends \BaseController
         $title = 'Administracion de catalogo de status de ejecucion predial';
         
         //Titulo de seccion:
-        $title_section = "Administracion del catalogo de status";
+        $title_section = "Catalogo de Estatus de Ejecución";
         
         //Subtitulo de seccion:
-        $subtitle_section = "Crear, modificar y eliminar status";
+        $subtitle_section = "";
         
         //Todos los status creados actulmente
-        $statuss = $this->status->select('id_status as id','cve_status','descrip','orden','fecha_alta', 'usuario_alta','notificacion')->orderBy('orden', 'asc')->get();
+        $statuss = $this->status->select('id_status as id','cve_status','descrip','dias_vigencia','orden','notificacion')->orderBy('orden', 'asc')->get();
             
         return ($format == 'json') ? $statuss : View::make('catalogos.status.index',
             compact('title', 'title_section', 'subtitle_section', 'status', 'statuss'));
@@ -72,9 +72,11 @@ class catalogos_statusController extends \BaseController
      */
     public function store($format = 'html')
     {
+        $inputs = Input::All();
+        $notificacion=Input::get('notificacion');
         $this->status->cve_status   =   Input::get('cve_status');
         $this->status->descrip      =   Input::get('descrip');
-        $this->status->usuario_alta =   Input::get('usuario_alta');
+        $this->status->dias_vigencia =  Input::get('dias_vigencia');
         $this->status->notificacion =   "No";
         $this->status->orden        =   status::all()->count()+1;
 
@@ -85,7 +87,7 @@ class catalogos_statusController extends \BaseController
             if ($format == 'json'){
                 return array (
                     'status' => 'error',
-                    'msg' => 'Datos inscorrectos',
+                    'msg' => 'Datos incorrectos',
                     'data' => array ('idx' => Input::get('idx'), 'errors' => $this->status->errors())
                 );
             }
@@ -115,14 +117,16 @@ class catalogos_statusController extends \BaseController
         $this->status = status::find($id);
         $this->status->cve_status = Input::get('cve_status');
         $this->status->descrip = Input::get('descrip');
-        $this->status->usuario_alta =   Input::get('usuario_alta');
+        $this->status->notificacion =   Input::get('notificacion');
+        $this->status->dias_vigencia =   Input::get('dias_vigencia');
+        
         
         //si no es posible guardar la instancia mandamos errores
         if (!$this->status->save()){
             if ($format == 'json'){
                 return array (
                     'status' => 'success',
-                    'msg' => 'Satatus incorrecto',
+                    'msg' => 'Status incorrecto',
                     'data' => array ('idx' => Input::get('idx'), 'errors' => $this->status->errors())
                 );
             }
@@ -172,7 +176,7 @@ class catalogos_statusController extends \BaseController
        }
 
         return Response::json(array(
-                'prueba' =>    $orden,
+                'prueba' => $orden,
                 'prueba2'=> $id));
         }
     }

@@ -25,10 +25,10 @@ class catalogos_inpcController extends \BaseController {
         $title = 'Administracion de catalogo de INPC de ejecucion predial';
 
         //Titulo de seccion:
-        $title_section = "Administracion del catalogo de INPC";
+        $title_section = "Catalogo de INPC";
 
         //Subtitulo de seccion:
-        $subtitle_section = "Crear, modificar y eliminar INPC";
+        $subtitle_section = "";
 
         //Todos los status creados actulmente
         $inpcs = $this->inpc->all();
@@ -102,7 +102,7 @@ class catalogos_inpcController extends \BaseController {
              
         //Se han guardado los valores, expresamos al usuario nuestra felicidad al respecto.
         return Redirect::to('catalogos/inpc/create')->with('success',
-            '¡Se ha creado correctamente el INPC: ' . $this->inpc->inpc . " !");
+            'Los datos se han creado correctamente ' . " !");
 
     }
     
@@ -121,7 +121,7 @@ class catalogos_inpcController extends \BaseController {
         $title_section = "Editar requisito: ";
 
         //Subtítulo de sección:
-        $subtitle_section = $this->inpc->inpc;
+        $subtitle_section = "";
 
         // Todos los permisos creados actualmente
         $inpcs = $this->inpc->all();
@@ -157,7 +157,7 @@ class catalogos_inpcController extends \BaseController {
         $datos->save();
         //Se han actualizado los valores expresamos la felicidad que se logro Wiiiii....
         return Redirect::to('catalogos/inpc/' . $id . '/edit')->with('success',
-            '¡Se ha actualizado correctamente el inpc: ' . $mostrar . " !");
+            'Se han actualizado los datos correctamente ' . " !");
 
     }
     
@@ -167,6 +167,6 @@ class catalogos_inpcController extends \BaseController {
         $inpc = inpc::find($id);
         $inpc->delete();
         return Redirect::to('catalogos/inpc')->with('success',
-            '¡Se ha eliminado correctamente el tipo de trámite: ' . $inpc->inpc . " !");
+            'Se han eliminado los datos correctamente ');
     }
 }

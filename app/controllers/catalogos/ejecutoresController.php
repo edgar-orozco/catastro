@@ -22,13 +22,13 @@ class catalogos_ejecutoresController extends \BaseController {
     public function index($format = 'html', $id = null) {
         $ejecutores = $this->ejecutores;
 
-        $title = 'Administracion de catalogo del personal de ejecuci&oacute;n fiscal';
+        $title = 'Administración de catalogo del personal de ejecuci&oacute;n fiscal';
 
         //Titulo de seccion:
-        $title_section = "Administracion del personal de ejecuci&oacute;n fiscal";
+        $title_section = "Administración del personal de ejecuci&oacute;n fiscal";
 
         //Subtitulo de seccion:
-        $subtitle_section = "Crear, modificar y eliminar de ejeci&oacute;n fiscal";
+        $subtitle_section = "";
 
         //Todos los ejecutores creados actulmente
 
@@ -99,7 +99,7 @@ class catalogos_ejecutoresController extends \BaseController {
             $n->save();
             Session::flash('mensaje', 'El registro ha sido ingresado exitosamente');
             //Se han guardado los valores
-            return Redirect::to('catalogos/ejecutores/create')->with('success', '¡Se ha creado correctamente el ejecutor' . " !");
+            return Redirect::to('catalogos/ejecutores/create')->with('success', '¡Dato Correctamente Guardados' ." !");
 //            return Redirect::back();
         }
     }
@@ -167,7 +167,7 @@ class catalogos_ejecutoresController extends \BaseController {
         $mostrar = $inputs["id_p"];
         $n->save();
         //Se han actualizado los valores expresamos la felicidad que se logro Wiiiii....
-        return Redirect::to('catalogos/ejecutores/' . $id . '/edit')->with('success', '¡Se ha actualizado correctamente el ejecutor!');
+        return Redirect::to('catalogos/ejecutores/' . $id . '/edit')->with('success', '¡Se han actualizado los datos correctamente!');
     }
 
     /*
@@ -177,7 +177,7 @@ class catalogos_ejecutoresController extends \BaseController {
     public function destroy($id = null) {
         $ejecutores = ejecutores::find($id);
         $ejecutores->delete();
-        return Redirect::to('catalogos/ejecutores')->with('success', '¡Se ha eliminado correctamente el ejecutor' . " !");
+        return Redirect::to('catalogos/ejecutores')->with('success', '¡Se ha eliminado correctamente los datos'." !");
     }
 
     /*

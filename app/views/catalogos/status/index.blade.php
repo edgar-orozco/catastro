@@ -1,9 +1,6 @@
 @extends('layouts.default')
 
-
-
 {{ HTML::style('js/jquery/jquery-ui.css') }}
-
 
 @section('styles')
 
