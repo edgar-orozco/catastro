@@ -90,16 +90,16 @@ class catalogos_salarioController extends \BaseController {
 
 //           
             $factual =$fechaactual;
-            $ftermina=$fechatermino; 
+            $ftermina=$fechatermino;
             foreach ($fecha as $f1) {
 
                 $fecha1 = $f1['fecha_inicio_periodo'];
                 $fecha2 = $f1['fecha_termino_periodo'];
-                if (ShapesHelper::check_in_range($fecha1, $fecha2, $factual)) {
+                if (FechasHelper::check_in_range($fecha1, $fecha2, $factual)) {
 //                  return Redirect::back()->with('error', 'Traslape de rango de fecha ');                    
                     return Response::json(array('id' => 'Traslape de rango de fecha'));
                 }
-                if (ShapesHelper::check_in_range($fecha1, $fecha2, $ftermina)) {
+                if (FechasHelper::check_in_range($fecha1, $fecha2, $ftermina)) {
                     return Response::json(array('id' => 'Traslape de rango de fecha'));
 //                    return Redirect::back()->with('id', 'Traslape de rango de fecha ');
                 }

@@ -160,16 +160,16 @@ font: bold 85% monospace;
                                 {
                                     required: true,
                                 },
-//                        fecha_inicio_periodo:
-//                                {
-//                                    required: true,
-//                                    date: true,
-//                                },
-//                        fecha_termino_periodo:
-//                                {
-//                                    required: true,
-//                                    date: true
-//                                }
+                        fecha_inicio_periodo:
+                                {
+                                    required: true,
+                                  
+                                },
+                        fecha_termino_periodo:
+                                {
+                                    required: true,
+                                
+                                }
                     },
             messages: {
                 zona: {
@@ -183,16 +183,16 @@ font: bold 85% monospace;
                         {
                             required: "Campo requerido: Año",
                         },
-//                fecha_inicio_periodo:
-//                        {
-//                            required: "Campo requerido:Fecha Inicio",
-//                            date: "Fecha Invalida",
-//                        },
-//                fecha_termino_periodo:
-//                        {
-//                            required: "Campo requerido: Fecha Termino",
-//                            date: "Fecha Invalida"
-//                        }
+                fecha_inicio_periodo:
+                        {
+                            required: "Campo requerido:Fecha Inicio",
+                           
+                        },
+                fecha_termino_periodo:
+                        {
+                            required: "Campo requerido: Fecha Termino",
+                           
+                        }
             }
         });
     });
@@ -240,7 +240,7 @@ font: bold 85% monospace;
                         location.reload();
                         $('#reset').click();
 //                        console.log("Guardando  y hay que refrescar");
-                        alert("Guardando");
+//                        alert("Guardando");
 //                        alert(data.id);
                     }
                 }}) 

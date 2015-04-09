@@ -16,7 +16,7 @@
 
 
 <div class="form-group">
-    {{Form::label('usuario_alta2','Fecha de alta usuario')}}
+    {{Form::label('dias_vigencia','Dias Vigencia')}}
     {{Form::text('usuario_alta', null, ['class'=>'form-control', 'required' => 'required', 'ng-model' => 'status.usuario_alta','placeholder'=>'Ejemplo User'] )}}
     {{$errors->first('usuario_alta', '<span class=text-danger>:message</span>')}}
     <p class="help-block">Fecha del usuario.</p>
