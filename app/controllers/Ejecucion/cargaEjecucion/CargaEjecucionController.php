@@ -12,11 +12,11 @@ class ejecucion_cargaEjecucion_CargaEjecucionController extends \BaseController 
 
 	public function index()
 	{      
-        $title = 'Modulo de ejecucion';
+        $title = 'Carta invitación masiva';
         //Título de sección:
-        $title_section = "Modulo de ejecución.";
+        $title_section = "Carta invitación masiva";
         //Subtítulo de sección:
-        $subtitle_section = "Cargado de datos.";
+        $subtitle_section = "";
 
         $catalogo = ejecutores::All();
 

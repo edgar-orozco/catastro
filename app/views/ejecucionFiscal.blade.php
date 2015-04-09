@@ -73,13 +73,13 @@
                         </div>
                         <div class="col-xs-9 text-right">
                            
-                            <div>Carga Gasto Ejecución</div>
+                            <div>Carta invitación masiva</div>
                         </div>
                     </div>
                 </div>
                 <a href="{{URL::to('ejecucion/cargaEjecucion')}}">
                     <div class="panel-footer">
-                        <span class="pull-left">Carga Gasto Ejecución</span>
+                        <span class="pull-left">Carta invitación masiva</span>
                         <span class="pull-right"><i class="glyphicon glyphicon-circle-arrow-right"></i></span>
                         <div class="clearfix"></div>
                     </div>
@@ -169,13 +169,13 @@
                         </div>
                         <div class="col-xs-9 text-right">
                             
-                            <div>Catalogo Status</div>
+                            <div>Status Ejecución</div>
                         </div>
                     </div>
                 </div>
                 <a href="{{URL::to('catalogos/status')}}">
                     <div class="panel-footer">
-                        <span class="pull-left">Catalogo Status</span>
+                        <span class="pull-left">Status Ejecución</span>
                         <span class="pull-right"><i class="glyphicon glyphicon-circle-arrow-right"></i></span>
 
                         <div class="clearfix"></div>

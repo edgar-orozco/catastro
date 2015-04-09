@@ -15,7 +15,7 @@
                 <div class="form-actions form-group" id="form-boton" hidden="hidden">
                     <button id ="boton" type="submit" class="btn btn-info">
                         <i class="glyphicon glyphicon-plus"> </i>
-                        Cargar Claves
+                        Validar Claves
                     </button>
                 </div>
 
