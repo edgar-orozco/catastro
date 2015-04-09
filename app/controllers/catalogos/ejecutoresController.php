@@ -22,7 +22,7 @@ class catalogos_ejecutoresController extends \BaseController {
     public function index($format = 'html', $id = null) {
         $ejecutores = $this->ejecutores;
 
-        $title = 'Administración de catalogo del personal de ejecuci&oacute;n fiscal';
+        $title = 'Administración de catálogo del personal de ejecuci&oacute;n fiscal';
 
         //Titulo de seccion:
         $title_section = "Administración del personal de ejecuci&oacute;n fiscal";
@@ -49,7 +49,7 @@ class catalogos_ejecutoresController extends \BaseController {
 
         $ejecutores = $this->ejecutores;
 
-        $title = 'Adminstraci�n de catalago del personal de ejecuci&oacute;n fiscal';
+        $title = 'Adminstración de catalago del personal de ejecuci&oacute;n fiscal';
 
         //Titulo de seccion:
         $title_section = "Crear nuevo personal de ejecuci&oacute;n fiscal.";

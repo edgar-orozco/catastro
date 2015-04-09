@@ -25,7 +25,7 @@ class catalogos_inpcController extends \BaseController {
         $title = 'Administracion de catalogo de INPC de ejecucion predial';
 
         //Titulo de seccion:
-        $title_section = "Catalogo de INPC";
+        $title_section = "Catálogo de INPC";
 
         //Subtitulo de seccion:
         $subtitle_section = "";
@@ -41,7 +41,7 @@ class catalogos_inpcController extends \BaseController {
     {
         $inpc = $this->inpc;
         
-        $title = 'Adminstraci�n de catalagos de inpc';
+        $title = 'Adminstración de catalagos de inpc';
         
         //Titulo de seccion:
         $title_section = "Crear nuevo INPC.";

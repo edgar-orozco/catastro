@@ -15,7 +15,7 @@
                 @include('catalogos.status._form', compact('status'))
 
                 <div class="form-actions form-group">
-                  {{ Form::submit('Modificar status', array('class' => 'btn btn-primary')) }}
+                  {{ Form::submit('Actualizar', array('class' => 'btn btn-primary')) }}
                   {{ Form::reset('Cancelar', ['class' => 'btn btn-warning']) }}
                 </div>
             {{Form::close()}}

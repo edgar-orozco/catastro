@@ -15,10 +15,10 @@ class catalogos_salarioController extends \BaseController {
     public function index($format = 'html') {
         $salario = $this->salario;
 
-        $title = 'Catalogo de salario minimo';
+        $title = 'Catálogo de salario mínimo';
 
         //Titulo de seccion:
-        $title_section = "Catalogo de Salario Minimo";
+        $title_section = "Catálogo de Salario Mínimo";
 
         //Subtitulo de seccion:
         $subtitle_section = "";

@@ -16,7 +16,7 @@
         @include('catalogos.salario._form', compact('salario'))
 
         <div class="form-actions form-group">
-            {{ Form::submit('Modificar salario minimo', array('class' => 'btn btn-primary')) }}
+            {{ Form::submit('Actualizar', array('class' => 'btn btn-primary')) }}
             <a href="{{URL::route('catalogos.salario.index')}}" class="btn btn-warning" role="button">Cancelar</a>
         </div>
         {{Form::close()}}
