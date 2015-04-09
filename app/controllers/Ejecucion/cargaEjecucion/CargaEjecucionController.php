@@ -91,7 +91,7 @@ class ejecucion_cargaEjecucion_CargaEjecucionController extends \BaseController 
 	    			}
 	    			else  			
 	    			{                                        
-	    				$consulta2=PadronFiscal::where('clave','=',$line)->count();
+	    				$consulta2=PadronFiscal::where('clave','=',trim($line))->count();
 	    				
 	    					if ($consulta2 > 0) 
 	    					{   						
