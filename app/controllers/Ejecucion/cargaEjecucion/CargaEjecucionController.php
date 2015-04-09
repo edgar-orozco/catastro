@@ -90,12 +90,12 @@ class ejecucion_cargaEjecucion_CargaEjecucionController extends \BaseController 
 	    				$numF=$numF+1;		
 	    			}
 	    			else  			
-	    			{
-	    				$consulta2= PadronFiscal::where("clave","like", $line)->count();
+	    			{                                        
+	    				$consulta2=PadronFiscal::where('clave','=',$line)->count();
 	    				
 	    					if ($consulta2 > 0) 
 	    					{   						
-	    						$fallaR[]='Se encontro el registroooo '.$line;
+	    						$fallaR[]='Se encontro el registro '.$line;
 	    						$numNE=$numNE+1;
 	    				
 	    					}
@@ -104,7 +104,9 @@ class ejecucion_cargaEjecucion_CargaEjecucionController extends \BaseController 
 	    						$fallaR[]='No existe ningun registro con la clave '.$line;
 	    						$numNE=$numNE+1;
 	    					}
-	    			}
+	    			$consulta2 = 0;
+                                                
+                                }
 				}
 				return Response::json(array(
 	            'predios' =>    $predios,
