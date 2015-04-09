@@ -569,6 +569,7 @@ class complementarios_ComplementariosController extends BaseController {
 
         $serviciopredio=servicios::where(['gid_predio'=> $gid_predio, 'municipio'=>$municipio])->get();
 
+
         if($serviciopredio->count()>0)
         {
             foreach($serviciopredio as $sp)
@@ -579,7 +580,8 @@ class complementarios_ComplementariosController extends BaseController {
         }
         else
         {
-            $id_serviciopredio=0;
+            $id_serviciopredio=servicios::orderBy('id_serviciopredio', 'DESC')->first()->id_serviciopredio;
+
         }
 
                 
@@ -730,12 +732,9 @@ class complementarios_ComplementariosController extends BaseController {
             {
                 $gp->delete();
             }
-            $id_giropredio=Giros::orderBy('id_giro', 'DESC')->first()->id_giro;
+            
         }
-        else
-        {
-            $id_giro=0;
-        }
+        $id_giro=Giros::orderBy('id_giro', 'DESC')->first()->id_giro;
 
                 
         for ($x = 1; $x <= count($id_tipogiro); $x++) 

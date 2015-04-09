@@ -40,7 +40,7 @@
             <td>{{$row->descripcion}}</td>
             <td>
                 <!--borrar-->
-                <a id="anchor-delete{{$row->id_ie}}" onclick="eliminar('{{$row->id_ie}}')" class="btn btn-warning eliminar" title="Editar Predio">
+                <a id="anchor-delete{{$row->id_ie}}" onclick="eliminar_instalacion('{{$row->id_ie}}')" class="btn btn-warning eliminar" title="Editar Predio">
                     <span class="glyphicon glyphicon-remove"></span>
                 </a>
             </td>
@@ -84,7 +84,7 @@ $('#instalaciones').bind('submit',function ()
                 cell.innerHTML=data.instalaciones;
                 cell = row.insertCell(1);
                 var id_ie = '<input type="text" name="hide_idie" id = "hide_idie" value="'+data.id_ie+'" hidden>';
-                cell.innerHTML='<a id="anchor-delete'+data.id_ie+'" onclick="eliminar('+data.id_ie+')" data-eliminar-type="'+data.id_ie+'" class="btn btn-warning eliminar" title="Editar Predio"> <span class="glyphicon glyphicon-remove"></span></a>';
+                cell.innerHTML='<a id="anchor-delete'+data.id_ie+'" onclick="eliminar_instalacion('+data.id_ie+')" data-eliminar-type="'+data.id_ie+'" class="btn btn-warning eliminar" title="Editar Predio"> <span class="glyphicon glyphicon-remove"></span></a>';
 
 
             }
@@ -93,7 +93,7 @@ $('#instalaciones').bind('submit',function ()
     });
 
 
-function eliminar(id_ie)
+function eliminar_instalacion(id_ie)
 {
 
 

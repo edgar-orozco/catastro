@@ -92,25 +92,25 @@ Bienvenido :: @parent
                 //comprueba si trae predios
                 if(data.size>1)
                 {
+                    var div = document.getElementById("div-table");
+                    var x = document.createElement("TABLE");
+                    x.setAttribute("id", "table");
+                    x.setAttribute("class", "table");
+                    div.appendChild(x);
+                    var table = document.getElementById("table");
+                    var header = table.createTHead();
+                    var row = header.insertRow(0);
+                    var cell = row.insertCell(0);
+                    cell.innerHTML = "<b>Predio</b>";
+                    cell =row.insertCell(1);
+                    cell.innerHTML = "<b>Clave<b>";
+                    cell =row.insertCell(2);
+                    cell.innerHTML = "<b>Acciones<b>";
+                    var tbody = table.appendChild(document.createElement('tbody'));
                     //Se crea la tabla de predios dinamicamente
                     for (i = 0; i < data.size; i++) 
                     {
                         
-                        var div = document.getElementById("div-table");
-                        var x = document.createElement("TABLE");
-                        x.setAttribute("id", "table");
-                        x.setAttribute("class", "table");
-                        div.appendChild(x);
-                        var table = document.getElementById("table");
-                        var header = table.createTHead();
-                        var row = header.insertRow(0);
-                        var cell = row.insertCell(0);
-                        cell.innerHTML = "<b>Predio</b>";
-                        cell =row.insertCell(1);
-                        cell.innerHTML = "<b>Clave<b>";
-                        cell =row.insertCell(2);
-                        cell.innerHTML = "<b>Acciones<b>";
-                        var tbody = table.appendChild(document.createElement('tbody'));
                         row = tbody.insertRow(0);
                         cell = row.insertCell(0);
                         cell.innerHTML=data.busqueda[0].clave_catas;

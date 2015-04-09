@@ -8,85 +8,80 @@
         {{Form::text('clave_cata',$clave_catas,['id'=>'clave_cata', "hidden" ])}}
 
         <div class="row">
-        <div class="col-md-6">
+        <div class="col-md-3">
                 <div class="form-group">
-                    {{Form::label('Lnivel','Nivel')}}
+                    {{Form::label('Lnivel','Nivel:')}}
                     {{Form::text('nivel',null,['class'=>'form-control', 'required', 'id'=>'nivel' ])}}
                 </div>
             </div>
             
-            <div class="col-md-6">
+            <div class="col-md-3">
                 <div class="form-group">
-                    {{Form::label('Lsuperficie_construccion', 'Superficie Construcción')}}
+                    {{Form::label('Lsuperficie_construccion', 'Superficie:')}}
                     {{Form::text('superficie_construccion', null, ['id'=>'superficie_construccion','class'=>'form-control'])}}
                 </div>
             </div>
-            <div class="col-md-6">
+            <div class="col-md-3">
                 <div class="form-group">
-                    {{Form::label('Ledad_construccion','Edad de Construcción')}}
+                    {{Form::label('Ledad_construccion','Edad:')}}
                     {{Form::text('edad_construccion', null, ['id'=>'edad_construccion','class'=>'form-control'])}}
                 </div>
             </div>
-            <div class="col-md-6">
-                <div class="form-group">
-                    {{Form::label('Ledad','Edad')}}
-                    {{Form::text('edad', null, ['id'=>'edad','class'=>'form-control'])}}
-                </div>
-            </div>
+            
            
             
             
         </div>
 
         <div class="row">
-            <div class="col-md-6">
+            <div class="col-md-3">
                 <div class="form-group">
-                    {{Form::label('Luso_construccion','Uso Construcción')}}
+                    {{Form::label('Luso_construccion','Uso:')}}
                     {{Form::select('uso_construccion', $tuc, ['seleccione'], ['id'=>'uso_construccion', 'class' => 'form-control'])}}
                 </div>
             </div>
             
-            <div class="col-md-6">
+            <div class="col-md-3">
                 <div class="form-group">
-                    {{Form::label('Lclase_construccion', 'Clase Construcción')}}
+                    {{Form::label('Lclase_construccion', 'Clase:')}}
                     {{Form::select('clase_construccion', $tcc, null, ['id'=>'clase_construccion', 'class' => 'form-control'])}}
                 </div>
             </div>
-            <div class="col-md-6">
+            <div class="col-md-3">
                 <div class="form-group">
-                    {{Form::label('Ltecho_construccion','Techo Construcción')}}
+                    {{Form::label('Ltecho_construccion','Techo:')}}
                     {{Form::select('techo_construccion', $ttc, null, ['id'=>'techo_construccion', 'class' => 'form-control'])}}
                 </div>
             </div>
-            <div class="col-md-6">
+            <div class="col-md-3">
                 <div class="form-group">
-                    {{Form::label('Lestado_conservacion','Estado Conservación')}}
+                    {{Form::label('Lestado_conservacion','Estado:')}}
                     {{Form::select('estado_conservacion', $tec, null, ['id'=>'estado_conservacion', 'class' => 'form-control'])}}
                 </div>
             </div>
 
-            <div class="col-md-6">
+            <div class="col-md-3">
                 <div class="form-group">
-                    {{Form::label('Lmuro_construccion','Muro Construcción')}}
+                    {{Form::label('Lmuro_construccion','Muros:')}}
                     {{Form::select('muro_construccion', $tmc, null, ['id'=>'muro_construccion', 'class' => 'form-control'])}}
                 </div>
             </div>
             
-            <div class="col-md-6">
+            <div class="col-md-3">
                 <div class="form-group">
-                    {{Form::label('Lpiso_construccion', 'Piso Construcción')}}
+                    {{Form::label('Lpiso_construccion', 'Pisos:')}}
                     {{Form::select('piso_construccion', $tpic, null, ['id'=>'piso_construccion', 'class' => 'form-control'])}}
                 </div>
             </div>
-            <div class="col-md-6">
+            <div class="col-md-3">
                 <div class="form-group">
-                    {{Form::label('Lpuerta_construccion','Puerta Construcción')}}
+                    {{Form::label('Lpuerta_construccion','Puertas:')}}
                     {{Form::select('puerta_construccion', $tpuc, null, ['id'=>'puerta_construccion', 'class' => 'form-control'])}}
                 </div>
             </div>
-            <div class="col-md-6">
+            <div class="col-md-3">
                 <div class="form-group">
-                    {{Form::label('Lventana_construccion','Ventana Construcción')}}
+                    {{Form::label('Lventana_construccion','Ventanas:')}}
                     {{Form::select('ventana_construccion', $tvc, null, ['id'=>'ventana_construccion', 'class' => 'form-control'])}}
                 </div>
             </div>
