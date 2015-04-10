@@ -35,20 +35,20 @@
     </div>
          
               
-    <div class="container" hidden="hidden" id="form-group">         
+    <div class="container" hidden="hidden" id="form-group">
 
         {{Form::label('label_fecha', 'Fecha Emision Carta Invitacion: ', array('class'=>'col-md-2')) }}
         {{Form::input('date', 'date1', null, array('required', 'class'=>'col-md-2' ))}}
         {{Form::label('label_ejecutores', 'Ejecutores:', array('class'=>'col-md-1')) }}
 
         <select name="ejecutores" class="col-md-2" autofocus="autofocus" >
-            @foreach($catalogo as $row) 
+            @foreach($catalogo as $row)
                 <option value="{{$row->id_ejecutor}}">{{$row->cargo}}</option>
             @endforeach
         </select>
-            
+
     </div>
-       
+
 
         <br>
         <br>

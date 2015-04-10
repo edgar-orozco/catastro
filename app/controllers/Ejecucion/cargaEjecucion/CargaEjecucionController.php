@@ -74,41 +74,50 @@ class ejecucion_cargaEjecucion_CargaEjecucionController extends \BaseController 
 	    					'mun' 	=> 'digits:3',
 	    					'zon' 	=> 'digits:3',
 	    					'dig1' 	=> 'digits:4',
-	    					'dig2' 	=> 'digits:6' 
+	    					'dig2' 	=> 'digits:6'
 	    				)
-	    				
+
 					);
-					
+
 	    			if ($validator->fails())
 	    			{
 	    				$fallaV[]='Error de sintaxis en la linea '.$num.' Formato no valido '.$line;
 	    				$numF=$numF+1;
 	    			}
-	    			elseif (strcmp($digitos[0], '27') !== 0)  
+	    			elseif (strcmp($digitos[0], '27') !== 0)
 	    			{
 	    				$fallaV[]='Error de sintaxis en la linea '.$num.' Numero de estado no valido '.$line;
-	    				$numF=$numF+1;		
+	    				$numF=$numF+1;
 	    			}
-	    			else  			
-	    			{                                        
+	    			else
+	    			{
 	    				$consulta2=PadronFiscal::where('clave','=',trim($line))->count();
 	    				
-	    					if ($consulta2 > 0) 
-	    					{   						
+	    					if ($consulta2 > 0)
+	    					{
 	    						$fallaR[]='Se encontro el registro '.$line;
+
 	    						$numNE=$numNE+1;
-	    				
+	    						$id_propietarios    =propietarios::where('clave',trim($line))->pluck('id_propietarios');
+	    						$nombre    =personas::where('id_p',$id_propietarios)->pluck('nombrec');
+	    						$vale[] = array('0' => trim($line), '1' => $nombre );
+	    						
+
 	    					}
-	    					else 
+	    					else
 	    					{
 	    						$fallaR[]='No existe ningun registro con la clave '.$line;
 	    						$numNE=$numNE+1;
 	    					}
 	    			$consulta2 = 0;
-                                                
+
                                 }
 				}
+				
+					 //generamos el pdf
+			
 				return Response::json(array(
+							'vale' => $vale,
 	            'predios' =>    $predios,
 	            'fallasR' =>	$fallaR,
 	            'fallasV' =>	$fallaV,
@@ -116,7 +125,7 @@ class ejecucion_cargaEjecucion_CargaEjecucionController extends \BaseController 
 	            'totalFV' =>	$numF,
 	            'totalNE' =>	$numNE,
 	            'descarga'=> 	""));
-			}//si la validación falla redirigimos al formulario de registro con los errores          
+			}//si la validación falla redirigimos al formulario de registro con los errores
    		}	
 	}
 

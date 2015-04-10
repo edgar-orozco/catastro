@@ -78,6 +78,7 @@
             $mun = $key[0];
             $id_mun =substr($mun, 3, 3);
             $gid    =Municipio::where('municipio',$id_mun)->pluck('gid');
+            $mun_actual =Municipio::where('municipio',$id_mun)->pluck('nombre_municipio');
 
             $configutacion = configuracionMunicipal::where('municipio',$gid)->take(1)->get();
             foreach ($configutacion as $keys ) {
