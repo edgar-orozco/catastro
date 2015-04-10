@@ -199,13 +199,20 @@ $.extend(PM.Layout,
         $('#map, #mapimgLayer, #mapImg').width(PM.mapW).height(PM.mapH); 
         var loadimg = $('#loadingimg');
         $('#loading').left(PM.mapW/2 - loadimg.width()/2).top(PM.mapH/2 - loadimg.height()/2 ).showv();
-        var mapurl = PM_XAJAX_LOCATION + 'x_load.php?'+SID+ '&mapW=' + PM.mapW + '&mapH=' + PM.mapH + '&zoom_type=zoompoint';
+        var mapurl = PM_XAJAX_LOCATION + 'loadmap';
+        //alert(mapurl);
+        var data = {
+            "zoom_type":"zoompoint",
+            "mapW":PM.mapW,
+            "mapH":PM.mapH,
+            "groups":PM.activeLayer
+        };
         
         // avoid multiple resize events 
         clearTimeout(this.resizeTimer);
-        //this.resizeTimer = setTimeout("PM.Map.updateMap('" + mapurl + "', '')", this.resizeTimeoutThreshold);     
-        
-        //PM.Init.updateSlider_s1(PM.mapW, PM.mapH) ;        
+        //this.resizeTimer = setTimeout("PM.Map.updateMap('" + mapurl + "',"+data+")", this.resizeTimeoutThreshold);     
+        PM.Map.updateMap(mapurl, data);
+        //PM.Init.updateSlider_s1(PM.mapW, PM.mapH) ;
     }
     
 });
@@ -234,6 +241,8 @@ function _$() {
     return elements;
 }
 
+
+
     /**
      * Mouse click button functions (for toolbar)
      */
@@ -241,7 +250,7 @@ function domouseclick(button) {
                 
         switch (button) {
             case 'home':
-                this.zoomfullext();
+                PM.Map.zoomfullext();
                 break;
             
             case 'zoomin':
@@ -280,7 +289,6 @@ function domouseclick(button) {
         }
 }
 
-
 /**
  * Generic number functions
  */
@@ -314,3 +322,107 @@ function hideObj(obj) {
 function showObj(obj) {
     obj.style.visibility = 'visible';
 }
+
+
+
+$.extend(PM,
+    {
+        /**
+         * Reset parameters of some DIV's
+         */
+        resetMapImgParams: function () {
+            $("#mapImg").width(PM.mapW).height(PM.mapH);
+            $("#mapimgLayer").top(0).left(0).width(PM.mapW).height(PM.mapH).css({clip: 'rect(auto auto auto auto)'});
+            $('#zoombox, #loading').hidev();
+
+            if (PM.Map.mode == 'measure') {
+                PM.Draw.resetMeasure();
+                PM.Draw.polyline = PM.Draw.toPxPolygon(PM.Draw.geoPolyline);
+                if (PM.Draw.polyline.getPointsNumber() > 0) {
+                    PM.Draw.drawPolyline(jg, PM.Draw.polyline);
+                }
+            }
+        },
+
+        /**
+         * set the cursor to standard internal cursors
+         * or special *.cur url (IE6+ only)
+         */
+        setCursor: function(rmc, ctype) {
+            if (!rmc) {
+                if (PM.Map) {
+                    var toolType = PM.Map.tool;
+                } else {
+                    var toolType = 'zoomin';
+                }
+            } else {
+                toolType = 'pan';
+            }
+
+            // take definition from js_config.php
+            var iC = PM.useInternalCursors;
+            // don't use custom cursors for safari & chrome
+            if ($.browser.webkit) iC = false;
+
+            var rootPath = this.getRootPath();
+            var usedCursor = (iC) ? toolType : 'url("' +rootPath + 'images/cursors/zoomin.cur"), default';
+
+            switch (toolType) {
+                case "zoomin" :
+                    var usedCursor = (iC) ? 'crosshair' : 'url("' +rootPath + 'images/cursors/zoomin.cur"), default';
+                    break;
+
+                case "zoomout" :
+                    var usedCursor = (iC) ? 'e-resize' : 'url(' +rootPath + 'images/cursors/zoomout.cur), default';
+                    break;
+
+                case "identify" :
+                    //var usedCursor = (iC) ? 'help' : 'url(' +rootPath + 'images/cursors/identify.cur), default';
+                    var usedCursor = 'help';
+                    break;
+
+                case "auto_identify" :
+                    var usedCursor = 'pointer';
+                    break;
+
+                case "pan" :
+                    //var usedCursor = (iC) ? 'move' : 'url(' +rootPath + 'images/cursors/pan.cur), default';
+                    var usedCursor = 'move';
+                    break;
+
+                case "select" :
+                    //var usedCursor = (iC) ? 'help' : 'url(' +rootPath + 'images/cursors/select.cur), default';
+                    var usedCursor = (iC) ? 'help' : 'help';
+                    break;
+
+                case "measure" :
+                    var usedCursor = (iC) ? 'crosshair' : 'url(' +rootPath + 'images/cursors/measure.cur), default';
+                    break;
+
+                case "digitize" :
+                    var usedCursor =  'crosshair';
+                    break;
+
+                default:
+                    var usedCursor = 'default';
+            }
+
+            if (ctype) usedCursor = ctype;
+            $('#mapimgLayer').css({'cursor': usedCursor});
+
+        },
+
+        /**
+         * return root path of application
+         */
+        getRootPath: function() {
+            var theLoc = document.location.href;
+            var theLastPos = theLoc.indexOf('?');
+            theLoc = theLoc.substr(0, theLastPos);
+
+            theLastPos = theLoc.lastIndexOf('/');
+            var RootPath = theLoc.substr(0,theLastPos) + '/';
+
+            return RootPath;
+        }
+    });

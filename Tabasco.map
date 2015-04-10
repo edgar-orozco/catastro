@@ -380,7 +380,7 @@ LAYER  NAME "manzanas"
   TYPE polygon
   STATUS ON
   #CONNECTION "dbname='piloto' host=localhost port=5434 user='postgres' password='admin' sslmode=disable"
-  CONNECTION  "user='postgres' password='secret' dbname='catastro-dev' host=localhost port=5432"
+  CONNECTION  "user='postgres' password='pass' dbname='catastro' host=localhost port=5432"
   CONNECTIONTYPE postgis
   DATA "geom from manzanas using unique gid"
 
@@ -424,7 +424,7 @@ LAYER  NAME "predios"
   TYPE polygon
   STATUS ON
   #CONNECTION "dbname='piloto' host=localhost port=5434 user='postgres' password='admin' sslmode=disable"
-  CONNECTION  "user='postgres' password='secret' dbname='catastro-dev' host=127.0.0.1 port=5432"
+  CONNECTION  "user='postgres' password='pass' dbname='catastro' host=127.0.0.1 port=5432"
   CONNECTIONTYPE postgis
   DATA "geom from predios"
 

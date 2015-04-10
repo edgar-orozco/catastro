@@ -34,9 +34,9 @@ return array(
 		'pgsql' => array(
 			'driver'   => 'pgsql',
 			'host'     => 'localhost',
-			'database' => 'catastro-dev',
+			'database' => 'catastro',
 			'username' => 'postgres',
-			'password' => 'secret',
+			'password' => 'pass',
 			'charset'  => 'utf8',
 			'prefix'   => '',
 			'schema'   => 'public',

@@ -28,6 +28,8 @@ class MapLoadController extends \BaseController {
         $strJS .= '"refW":"' . $mapJS['refW'] . '", ';
         $strJS .= '"refH":"' . $mapJS['refH'] . '", ';
         $strJS .= '"minx_geo":"' . $mapJS['minx_geo'] . '", ';
+        $strJS .= '"miny_geo":"' . $mapJS['miny_geo'] . '", ';
+        $strJS .= '"maxx_geo":"' . $mapJS['maxx_geo'] . '", ';
         $strJS .= '"maxy_geo":"' . $mapJS['maxy_geo'] . '", ';
         $strJS .= '"xdelta_geo":"' . $mapJS['xdelta_geo'] . '", ';
         $strJS .= '"ydelta_geo":"' . $mapJS['ydelta_geo'] . '", ';
@@ -38,7 +40,7 @@ class MapLoadController extends \BaseController {
         $urlPntStr = '';
         
         // return JS object literals "{}" for XMLHTTP request 
-        echo "{\"sessionerror\":\"false\",  \"mapURL\":\"$mapURL\", \"scalebarURL\":\"$scalebarURL\", \"geo_scale\":\"$geo_scale\"}";
+        echo "{\"sessionerror\":\"false\",  \"mapURL\":\"$mapURL\", \"scalebarURL\":\"$scalebarURL\", \"geo_scale\":\"$geo_scale\",".$strJS."}";
     
 	}    
 

@@ -20,7 +20,7 @@ PM.msVersion = '<?php echo ms_GetVersion() ?>';
  PM.mapH = 500;
  PM.refW = 197;
  PM.refH = 91; 
- PM.extent = [0.0,0.0,0.0,0.0];
+ PM.extent = [313761.97060415,1891919.6349885,784318.26239461,2077443.6209991];
  PM.s1 = 1402386;
  PM.s2 = 1000;
 
@@ -126,7 +126,7 @@ PM.modifyQueryResultsFunctions = [];
             $('#toc').height(heightToc);
 
             PM.Layout.resizeMapZone();
-            $('#loading').hide();
+            $('#loading').hidev();
                                 
         }
         
@@ -346,7 +346,6 @@ PM.modifyQueryResultsFunctions = [];
                       </div>
                       <h3>Calle-Asentamiento</h3>
                       <div>
-                        <p>Cras dictum. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Aenean lacinia mauris vel est. </p><p>Suspendisse eu nisl. Nullam ut libero. Integer dignissim consequat lectus. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. </p>
                       </div>
                     </div>                
                 </div>

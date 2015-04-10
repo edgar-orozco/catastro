@@ -85,6 +85,8 @@ class PMap extends \BaseController
         $mstr['refW'] = $this->refW;
         $mstr['refH'] = $this->refH;    
         $mstr['minx_geo'] = $this->GEOEXT["minx"];
+        $mstr['miny_geo'] = $this->GEOEXT["miny"];
+        $mstr['maxx_geo'] = $this->GEOEXT["maxx"];
         $mstr['maxy_geo'] = $this->GEOEXT["maxy"];
         $mstr['xdelta_geo'] = $this->xdelta_geo;
         $mstr['ydelta_geo'] = $this->ydelta_geo;
@@ -156,11 +158,16 @@ class PMap extends \BaseController
     {
         // 2nd or higher call
         if (isset($_REQUEST["GEOEXT"])) {
-            $this->GEOEXT = $_REQUEST["GEOEXT"];
+            $this->GEOEXT["minx"] = $_REQUEST["GEOEXT"][0];
+            $this->GEOEXT["miny"] = $_REQUEST["GEOEXT"][1];
+            $this->GEOEXT["maxx"] = $_REQUEST["GEOEXT"][2];
+            $this->GEOEXT["maxy"] = $_REQUEST["GEOEXT"][3];
+            
+            //$this->GEOEXT = $_REQUEST["GEOEXT"];
             $this->geoext0 = ms_newrectObj();
             $this->geoext0->setExtent($this->GEOEXT["minx"],$this->GEOEXT["miny"],$this->GEOEXT["maxx"],$this->GEOEXT["maxy"]);
         
-            $this->old_geo_scale = $_REQUEST["geo_scale"];
+            //$this->old_geo_scale = $_REQUEST["geo_scale"];
         
         } else {
             // Extent set via URL
@@ -334,7 +341,7 @@ class PMap extends \BaseController
         
         // CHECK IF THERE ARE RESULTLAYERS (HIGHLIGHT) AND ADD THEM TO MAP
         $this->pmap_checkResultLayers();
-    
+
         //
         // GET ZOOMTYPE
         // zoomrect, zoompoint, zoomscale, zoomfull, zoomextent, ref, zoomback, zoomfwd
@@ -473,7 +480,7 @@ class PMap extends \BaseController
         if (isset($_REQUEST["imgxy"])) {
             if ($_REQUEST["imgxy"] != "") {
                 $imgxy_str = $_REQUEST["imgxy"];
-                $imgxy_arr = explode(" ", $imgxy_str);
+                $imgxy_arr = explode("+", $imgxy_str);
             } else {
                 $imgxy_arr = array ($this->mapwidth/2, $this->mapheight/2);
             }
@@ -526,7 +533,7 @@ class PMap extends \BaseController
     protected function pmap_zoomref()
     {
         $imgxy_str = $_REQUEST["imgxy"];
-        $imgxy_arr = explode(" ", $imgxy_str);
+        $imgxy_arr = explode("+", $imgxy_str);
         $x_pix = $imgxy_arr[0];
         $y_pix = $imgxy_arr[1];
 
@@ -534,9 +541,13 @@ class PMap extends \BaseController
         $refmapwidth = $refmap->width;
         $refmapheight = $refmap->height;
 
-        $GEOEXT = $_REQUEST["GEOEXT"];
-        $geo0DeltaX = $_REQUEST["maxx"] - $_REQUEST["minx"];
-        $geo0DeltaY = $_REQUEST["maxy"] - $_REQUEST["miny"];
+        //$GEOEXT = $_REQUEST["GEOEXT"];
+            $GEOEXT["minx"] = $_REQUEST["GEOEXT"][0];
+            $GEOEXT["miny"] = $_REQUEST["GEOEXT"][1];
+            $GEOEXT["maxx"] = $_REQUEST["GEOEXT"][2];
+            $GEOEXT["maxy"] = $_REQUEST["GEOEXT"][3];
+        $geo0DeltaX = $GEOEXT["maxx"] - $GEOEXT["minx"];
+        $geo0DeltaY = $GEOEXT["maxy"] - $GEOEXT["miny"];
         $newMapExtent = $this->refMapClick ($this->map, $x_pix, $y_pix, $refmapwidth, $refmapheight, $geo0DeltaX, $geo0DeltaY);
 
         $this->map->setExtent($newMapExtent[0], $newMapExtent[1], $newMapExtent[2], $newMapExtent[3] );
@@ -728,8 +739,6 @@ class PMap extends \BaseController
             $this->map->moveLayerUp($newResLayerIdx);
         }
     }
-    
-    
     
     
     /**

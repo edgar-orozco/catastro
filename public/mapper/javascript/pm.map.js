@@ -115,13 +115,12 @@ $.extend(PM.Map,
      * Zoom to point
      */
     zoompoint: function(zoomfactor, imgxy) {
-        var mapurl = PM_XAJAX_LOCATION + 'loadmap'+SID+'&mode=map&zoom_type=zoompoint&zoom_factor='+zoomfactor+'&imgxy='+imgxy;
         var mapurl = PM_XAJAX_LOCATION + 'loadmap';
         //alert(mapurl);
         var data = {
             "mode":"map",
             "zoom_type":"zoompoint",
-            "zoom_factor":zoom_factor,
+            "zoom_factor":zoomfactor,
             'imgxy':imgxy,
             "mapW":PM.mapW,
             "mapH":PM.mapH,
@@ -306,8 +305,16 @@ $.extend(PM.Map,
      * Reference image zoom/pan
      */
     zoomref: function(imgxy) {
-        var mapurl = PM_XAJAX_LOCATION + 'x_load.php?'+SID+'&mode=map&zoom_type=ref&imgxy='+imgxy  ;
-        this.updateMap(mapurl);
+        var mapurl = PM_XAJAX_LOCATION + 'loadmap';
+        var data = {
+            "mode":"map",
+            "zoom_type":"ref",
+            "imgxy":imgxy,
+            "mapW":PM.mapW,
+            "mapH":PM.mapH,
+            "groups":PM.activeLayer
+        };
+        this.updateMap(mapurl, data);
     },
 
     /**
@@ -514,8 +521,9 @@ $.extend(PM.Map,
      * For loading/updating the MAP
      */
     updateMap: function(murl, ajax_data) {
-        $("#loading").showv();
+        $("#loading").css('visibility','visible');
         //if (window.console) console.log(murl);
+        ajax_data.GEOEXT = PM.extent;
         $.ajax({
             url: murl,
             data: ajax_data,
@@ -532,11 +540,12 @@ $.extend(PM.Map,
                    return false;
                 }
                 
-                //var rBxL = response.refBoxStr.split(',');
+                var rBxL = response.refBoxStr.split(',');
                 PM.minx_geo = parseFloat(response.minx_geo);
                 PM.maxy_geo = parseFloat(response.maxy_geo);
                 PM.xdelta_geo = parseFloat(response.xdelta_geo);
                 PM.ydelta_geo = parseFloat(response.ydelta_geo);
+                PM.extent = [parseFloat(response.minx_geo),parseFloat(response.miny_geo),parseFloat(response.maxx_geo),parseFloat(response.maxy_geo)];
                 var geo_scale = response.geo_scale;
                 //var urlPntStr = response.urlPntStr;
                 
@@ -544,35 +553,16 @@ $.extend(PM.Map,
                 PM.Map.swapMapImg(response.mapURL);
                 
                 
-                // Check if TOC and legend have to be updated
-/*                var refreshLegend = eval(response.refreshLegend);
-                var refreshToc = eval(response.refreshToc);
-                if (PM.Map.forceRefreshToc) {
-                    refreshToc = true;
-                    PM.Map.forceRefreshToc = false;
-                }
-                if (refreshToc) {
-                    var tocurl = PM_XAJAX_LOCATION + 'x_toc_update.php?' + SID;
-                    PM.Toc.tocUpdateScale(tocurl);
-                }
-                
-                if (refreshLegend) {
-                    if ($('#' + PM.Toc.legendContainer).is(":visible") || PM.Toc.updateHiddenLegend) {
-                        PM.Toc.updateLegend();
-                    }
-                }
-                
-                
                 // Scale-related activities
                 PM.Map.writescale(geo_scale);
-                PM.Map.setSlider(geo_scale);
+                //PM.Map.setSlider(geo_scale);
                 PM.scale = geo_scale;
-
+/*
                 // trigger event to lauch all functions bound to map update
                 $("#pm_mapUpdateEvent").trigger("change");
                */
                 // Reference image: set DHTML objects
-                //PM.ZoomBox.setRefBox(rBxL[0], rBxL[1], rBxL[2], rBxL[3]);
+                PM.ZoomBox.setRefBox(rBxL[0], rBxL[1], rBxL[2], rBxL[3]);
                 
                 // Update SELECT tool OPTIONs in case of 'select' mode
                 var vMode = PM.Map.mode;
