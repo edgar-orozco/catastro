@@ -16,7 +16,8 @@
                     <th style="display:none" >Orden</th>
                     <th>Clave estatus</th>
                     <th>Descripción del estatus</th>
-                    <th>Notificacion</th>
+                    <th>Notificación</th>
+                    <th>Días Vigencia</th>
                     <th>Acciones</th>
                 </tr>
             </thead>
@@ -37,7 +38,9 @@
                      <td>
                         {[{ status.notificacion }]}
                     </td>
-                    
+                    <td>
+                        {[{ status.dias_vigencia }]}
+                    </td>
                     <td>
                         <button ng-show="status.idx !== undefinied && status.error === undefinied" type="button" class="btn btn-success" title="Guardando datos ..." disabled="disabled">
                             <span class="glyphicon glyphicon-refresh spin"></span>

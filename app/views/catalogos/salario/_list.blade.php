@@ -15,7 +15,7 @@
                     <th>Fecha Inicio</th>
                     <th>Fecha Termino</th>
                     <th>Zona</th>
-                    <th>Salario Minimo</th>
+                    <th>Salario Mínimo</th>
                     <th>Acciones</th>
                 </tr>
             </thead>

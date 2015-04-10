@@ -29,10 +29,10 @@ class catalogos_configuracionController extends \BaseController
         $title = 'Administración de catálogo de configuración de municipal';
 
         //Título de sección:
-        $title_section = "Administración del catálogo de configuración de municipal.";
+        $title_section = "Catálogo de configuración de municipal.";
 
         //Subtítulo de sección:
-        $subtitle_section = "Crear, modificar y eliminar.";
+        $subtitle_section = "";
 
         //Todos las configuraciones municipales creadas
         $configuracionMunicipales = $this->configuracionMunicipal->join('municipios', 'configuracion_municipal.municipio','=','municipios.gid' )
@@ -140,7 +140,7 @@ class catalogos_configuracionController extends \BaseController
             $n->save();
             //Se a guardado los datos y ya tengo hambreeeeeee...... jejeje lol 
             return Redirect::to('catalogos/configuracion/create')->with('success',
-            '¡Se ha creado correctamente!');
+            'Los datos se han creado correctamente');
         }
         
        }
@@ -180,10 +180,10 @@ class catalogos_configuracionController extends \BaseController
         $title = 'Administración de catálogo de configuración de municipal';
 
         //Título de sección:
-        $title_section = "Editar configuración municipal:";
+        $title_section = "";
         
         //subtitulo de seccion.
-        $subtitle_section = $this->configuracionMunicipal->configuracionMunicipal;
+        $subtitle_section = "";
         
         // Todos los permisos creados actualmente
         $configuracionMunicipales = $this->configuracionMunicipal->join('municipios', 'configuracion_municipal.municipio','=','municipios.gid' )
@@ -237,7 +237,7 @@ class catalogos_configuracionController extends \BaseController
             $n->save();
             //Se han actualizado los valores expresamos la felicidad que se logro Wiiiii....
             return Redirect::to('catalogos/configuracion/' . $id . '/edit')->with('success',
-            '¡Se ha actualizado correctamente la configuracion municipal!');
+            'Los datos se han creado correctamente');
         } 
         return Redirect::to('catalogos/configuracion/' . $id . '/edit')->with('error',
             '¡El archivo no se cargo correctamente!');
@@ -263,7 +263,7 @@ class catalogos_configuracionController extends \BaseController
             $n->save();
             //Se han actualizado los valores expresamos la felicidad que se logro Wiiiii....
             return Redirect::to('catalogos/configuracion/' . $id . '/edit')->with('success',
-        '¡Se ha actualizado correctamente la configuracion municipal!');
+        'Los datos se han actualizado correctamente');
             
         }
     }
@@ -280,7 +280,7 @@ class catalogos_configuracionController extends \BaseController
         $configuracionMunicipal = configuracionMunicipal::find($id);
         $configuracionMunicipal -> delete();
         return Redirect::to('catalogos/configuracion')->with('success',
-            '¡Se ha eliminado correctamente la configuracion municipal'." !");
+            'Los datos se han eliminado correctamente'." !");
     }
     
 

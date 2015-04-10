@@ -14,7 +14,7 @@
 
             <div class="form-actions form-group">
                 <button disabled="disabled" class="btn btn-primary" ng-disabled="formStatus.$invalid || isInvalid()" type="button" ng-click="store()">
-                                            {[{ status.id_status !== undefinied ? 'Editar status' : 'Crear nuevo status' }]}
+                                            {[{ status.id_status !== undefinied ? 'Actualizar' : 'Guardar' }]}
                 </button>
               {{ Form::reset('Limpiar formato', ['class' => 'btn btn-warning']) }}
             </div>

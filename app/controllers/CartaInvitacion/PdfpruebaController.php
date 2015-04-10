@@ -11,15 +11,15 @@ class CartaInvitacion_PdfpruebaController extends BaseController {
 	{
 		//echo $clave;
 		$resultado = DB::select("select sp_get_datos_predio('$clave')");
-		//print_r($resultado);
+	//	print_r($resultado);
 		foreach ($resultado as $key)
             {
-                $vale = explode(',', $key->sp_get_datos_predio);
+                $vales = explode(',', $key->sp_get_datos_predio);
             }
-           //print_r($items);
-						 $clave  = str_replace('(', '',$vale[0]);
-						$nombre = str_replace('"', '',$vale[1]);
-						$municipio = str_replace('"', '',$vale[2]);
+       //  print_r($vale);
+						$clave  = str_replace('(', '',$vales[0]);
+						$nombre = str_replace('"', '',$vales[1]);
+						 $municipio = str_replace('"', '',$vales[2]);
 						$id_mun =substr($clave, 3, 3);
 						$mun_actual    =Municipio::where('municipio',$id_mun)->pluck('nombre_municipio');
 
@@ -29,10 +29,25 @@ class CartaInvitacion_PdfpruebaController extends BaseController {
 
 						$id_ejecucion=ejecucion::where('clave',$clave)->pluck('id_ejecucion_fiscal');
 					 // $fecha=requerimientos::where('id_ejecucion_fiscal',$id_ejecucion)->pluck('f_requerimiento');
-					  $fecha=date("d/m/Y");
+					 $fecha=date("Y-m-d");
+
+					  			
+
+        
+         $vale[] = array('0' =>str_replace('(', '',$vales[0]), '1' => str_replace('"', '',$vales[1]));
+         //print_r($vale);
+          //  $id_mun =substr($mun, 3, 3);
+          //  $gid    =Municipio::where('municipio',$id_mun)->pluck('gid');
+
+           
+
+
+
+
+
 
 					  			//--$vista = View::make('CartaInvitacion.carta', compact('data', 'fecha', 'nombre_eje', '--mun_actual','--vale'));
-									$vista    = View::make('CartaInvitacion.carta', compact('gid','vale','fecha', 'clave','nombre','municipio','configutacion'));
+									$vista    = View::make('CartaInvitacion.carta', compact('gid','vale','fecha', 'clave','nombre','mun_actual','configutacion'));
 									$pdf      = PDF::load($vista)->show("Copia-CartaInvitacion");
 									$response = Response::make($pdf, 200);
 									$response->header('Content-Type', 'application/pdf');

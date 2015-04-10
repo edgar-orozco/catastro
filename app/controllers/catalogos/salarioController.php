@@ -15,13 +15,13 @@ class catalogos_salarioController extends \BaseController {
     public function index($format = 'html') {
         $salario = $this->salario;
 
-        $title = 'Administracion de catalogo de salario minimo';
+        $title = 'Catálogo de salario mínimo';
 
         //Titulo de seccion:
-        $title_section = "Administracion del catalogo de salario minimo";
+        $title_section = "Catálogo de Salario Mínimo";
 
         //Subtitulo de seccion:
-        $subtitle_section = "Crear, modificar y eliminar salario minimo";
+        $subtitle_section = "";
 
         //Todos los status creados actulmente
         $salarios = $this->salario->all();
@@ -35,7 +35,7 @@ class catalogos_salarioController extends \BaseController {
         $title = 'Adminstración de catalagos de salario minimo';
 
         //Titulo de seccion:
-        $title_section = "Crear nuevo salario minimo.";
+        $title_section = "Crear salario minimo.";
 
         //subtitulo de seccion:
         $subtitle_section = "";
@@ -106,7 +106,7 @@ class catalogos_salarioController extends \BaseController {
             }
 
             $n->save();
-//            return Redirect::to('catalogos/salario/create')->with('success', '¡Se ha creado correctamente el salario minimo: ' . $this->salario->salario_minimo . " !");
+            return Redirect::to('catalogos/salario/create')->with('success', '¡Los datos se han creado correctamente: ' . $this->salario->salario_minimo . " !");
 //            }
         }
     }
@@ -117,10 +117,10 @@ class catalogos_salarioController extends \BaseController {
 
         $this->salario = $salario;
 
-        $title = 'Administración de catálogo de salario minimo';
+        $title = 'Catálogo de salario mínimo';
 
         //Título de sección:
-        $title_section = "Editar salario minimo: ";
+        $title_section = "Editar salario mínimo: ";
 
         //Select del los años 
         for ($i = date('o'); $i >= 1910; $i--) {
@@ -154,13 +154,13 @@ class catalogos_salarioController extends \BaseController {
         $datos->save();
         //Se han actualizado los valores expresamos la felicidad que se logro Wiiiii....
         return Redirect::to('catalogos/salario/' . $id . '/edit')->with
-                        ('success', '¡Se ha actualizado correctamente el salario minimo: ' . $mostrar . " !");
+                        ('success', 'Los datos se han actualizado correctamente ');
     }
 
     public function destroy($id = null) {
         $salario = salario::findOrFail($id);
         $salario->delete($id);
-        return Redirect::to('catalogos/salario')->with('success', '¡Se ha eliminado correctamente el tipo de trámite: ' . $salario->salario_minimo . " !");
+        return Redirect::to('catalogos/salario')->with('success', 'Se han eliminado los datos correctamente'." ");
     }
 
 }

@@ -464,6 +464,36 @@ class complementarios_ComplementariosController extends BaseController {
     }
 
        public function post_addcondominio() {
+        $id_condominio= Input::get('id_condominio');
+        if($id_condominio!='')
+        {
+        $inputs = Input::All();
+       // print_r($inputs);
+        $id = Input::get('id');
+        $n = condominios::find($id_condominio);
+        $n->tipo_priva = $inputs["tipo_priva"];
+        $n->sup_comun = $inputs["sup_comun"];
+        $n->indiviso = $inputs["indiviso"];
+        $n->sup_total_comun = $inputs["sup_total_comun"];
+        $n->no_unidades = $inputs["no_unidades"];
+        $n->save();
+        Session::flash('mensaje', 'El registro ha sido ingresado exitosamente');
+        $no_condominal1= condominios::where('id_condominio',  $id_condominio)->pluck('no_condominal');
+        return Response::json(array
+            (
+                'valor' => 1,
+                'id_condominio' => $id_condominio,
+                'tipo_priva' => $inputs["tipo_priva"],
+                'sup_comun' => $inputs["sup_comun"],
+                'indiviso' => $inputs["indiviso"],
+                'sup_total_comun' => $inputs["sup_total_comun"],
+                'no_unidades' => $inputs["no_unidades"],
+                'no_condominal' => $no_condominal1
+
+
+            ));
+
+        }else{
         $id = Input::get('id');
         $clave_catas= predios::where('gid', $id)->pluck('clave_catas');
         $entidad= predios::where('gid', $id)->pluck('entidad');
@@ -494,6 +524,7 @@ class complementarios_ComplementariosController extends BaseController {
          $no_condominal1= condominios::where('id_condominio',  $id_condominio)->pluck('no_condominal');
         return Response::json(array
             (
+                'valor' => 0,
                 'id_condominio' => $id_condominio,
                 'no_condominal' => $no_condominal1,
                 'tipo_priva'     =>  $inputs["tipo_priva"],
@@ -502,6 +533,7 @@ class complementarios_ComplementariosController extends BaseController {
             ));
         //Session::flash('mensaje', 'El registro ha sido ingresado exitosamente');
         //return Redirect::back();
+    }
     }
 
       public function getEliminarCondominio() {

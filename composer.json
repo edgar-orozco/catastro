@@ -27,10 +27,11 @@
 			"app/database/migrations",
 			"app/database/seeds",
 		  	"app/providers",
-		  	"app/tests/TestCase.php"
+		  	"app/tests/TestCase.php",
+                        "app/libraries"
 		],
 		"files": [
-		  "app/libraries/ShapesHelper.php"
+		
 		]
 
 	},
