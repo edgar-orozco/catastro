@@ -17,7 +17,7 @@
         @include('catalogos.configuracion._form', compact('configuracionMunicipal'))
 
         <div class="form-actions form-group">
-            {{ Form::submit('Modificar configuracion municipal', array('class' => 'btn btn-primary')) }}
+            {{ Form::submit('Actualizar', array('class' => 'btn btn-primary')) }}
             
             <a href="{{URL::route('catalogos.configuracion.index')}}" class="btn btn-warning" role="button">Cancelar</a>
         </div>

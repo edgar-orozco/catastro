@@ -117,10 +117,10 @@ class catalogos_salarioController extends \BaseController {
 
         $this->salario = $salario;
 
-        $title = 'Catálogo de salario minimo';
+        $title = 'Catálogo de salario mínimo';
 
         //Título de sección:
-        $title_section = "Editar salario minimo: ";
+        $title_section = "Editar salario mínimo: ";
 
         //Select del los años 
         for ($i = date('o'); $i >= 1910; $i--) {
