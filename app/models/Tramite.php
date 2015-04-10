@@ -161,6 +161,12 @@ class Tramite extends Ardent
         return $select;
     }
 
+    /**
+     * Consulta los trámites por fecha o por un extracto de la misma
+     * @param $q
+     * @param $fecha
+     * @return mixed
+     */
     public function scopeFecha($q, $fecha) {
 
         if(trim($fecha)) {
@@ -169,6 +175,35 @@ class Tramite extends Ardent
         }
         return $q;
     }
+
+
+    public function scopeDepartamento($q, $departamento) {
+
+        if(trim($departamento)) {
+
+            return $q->whereHas('departamento', function($qry) use ($departamento)
+            {
+                $qry->whereRaw('nombre ~* ?', [$departamento]);
+
+            });
+        }
+        return $q;
+    }
+
+    public function scopeEstatus($q, $estatus) {
+
+        if(trim($estatus)) {
+
+            return $q->whereHas('estatus', function($qry) use ($estatus)
+            {
+                $qry->whereRaw('pasado ~* ?', [$estatus]);
+
+            });
+        }
+        return $q;
+    }
+
+
 
     /**
      * Obtiene registros en los que el usuario se ha involucrado o está por involucrarse

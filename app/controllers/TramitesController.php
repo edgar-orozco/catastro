@@ -23,9 +23,6 @@ class TramitesController extends BaseController {
         $this->tramite = $tramite;
     }
 
-
-
-
     /**
      * Pantalla para subir los documentos escaneados
      */
@@ -42,7 +39,6 @@ class TramitesController extends BaseController {
         $title = $tipotramite->nombre;
 
         $title_section = $tipotramite->nombre;
-        //$subtitle_section = $tipotramite->nombre;
 
         //TODO: catálogo de folios por municipio.
         $folio = "";
@@ -53,7 +49,7 @@ class TramitesController extends BaseController {
         //TODO: Tiempo restante de trámite
         $tiempo_restante = 0;
 
-        //TODO: crear catalogo de estados de trámite: Iniciado, En proceso, Finalizado, Finalizado con observaciones,
+        //TODO: crear catalogo de estados de trámite: Iniciado, En proceso, Finalizado, Finalizado con observaciones, ¿Atrasado?
         $estado = 'Iniciado';
 
         $notarias = Notaria::all();
@@ -65,10 +61,7 @@ class TramitesController extends BaseController {
 
         $requisitos = $tipotramite->requisitos;
 
-        $num_requisitos = count($requisitos);
-
         $uuid = Uuid::generate(4);
-
 
         return View::make('ventanilla.control', compact(
             'title',
@@ -105,7 +98,6 @@ class TramitesController extends BaseController {
         $tipotramite_id = Input::get('tipotramite_id');
         $tipo_persona = Input::get('tipo_persona');
 
-
         //Por el momento en lo que se implementa la dependencia foliable, se asocia al municipio
 
         $municipio = substr($cuenta, 0, 2);
@@ -124,7 +116,6 @@ class TramitesController extends BaseController {
 
         $this->tramite->clave= $clave;
         $this->tramite->tipotramite_id = $tipotramite_id;
-        //$this->tramite->tipo_p = $tipotramite_id;
         $this->tramite->usuario_id = Auth::id();
         if($notaria_id) {
             $this->tramite->notaria_id = $notaria_id;
@@ -204,14 +195,14 @@ class TramitesController extends BaseController {
         $docs = Input::file('documento');
         $requisito_ids = Input::get('requisito_ids');
 
-//dd($requisito_ids);
+        //dd($requisito_ids);
         $rules = array();
         foreach($requisito_ids as $requisito_id){
             $rules[] = array('documento.'.$requisito_id => ['required', 'max:2000', 'mimes:jpeg,png,pdf']);
             //$rules[] = array('documento.'.$requisito_id => 'required|max:2000|mimes:jpeg,png,pdf');
 
         }
-//dd($rules);
+        //dd($rules);
         //print_r($docs);
         //print_r($requisito_ids);
 
@@ -233,7 +224,11 @@ class TramitesController extends BaseController {
     }
 
 
-
+    /**
+     * Va levando y actualizando el flujo del proceso
+     * @param $tramite_id
+     * @return \Illuminate\View\View
+     */
     public function proceso($tramite_id) {
 
         $tramite = Tramite::findOrFail($tramite_id);
@@ -277,33 +272,15 @@ class TramitesController extends BaseController {
             $tiempo_transcurrido = $fecha_iniciado->diffInDays();
         }
 
-//echo $tiempo_transcurrido;
-
         $folio = $tramite->folio;
-
-        //echo sprintf("%06d",$folio) ,"<br>";
-        //echo $fiscal->clave ,"<br>";
 
         $title = $tipotramite->nombre;
 
         $title_section = $tipotramite->nombre;
-        //echo $tramite->created_at."<br>";
-
-
-        //echo $transcurrido."<br>";
-        //echo "Han transcurrido ".$transcurrido ." días de ".$tiempo. " días para fin de trámite <br>";
-
-        $hace = LocalizedCarbon::instance($tramite->created_at)->diffForHumans();
-        //echo $hace."<br>";
-
-
-
-        //exit;
 
         //Departamentos donde se atiende el trámite.
         $deptos = DepartamentoTramite::all()->sortBy('orden');
         $lista_deptos = array();
-        //$lista_deptos[] = '';
         foreach($deptos as $depto) {
             $lista_deptos[$depto->id] =$depto->nombre;
         }
@@ -318,7 +295,6 @@ class TramitesController extends BaseController {
         //Selector de Tipo de actividades
         $tipoactividades = TipoActividadTramite::where('manual',true)->orderBy('orden')->get();
         $lista_tipoactividades = array();
-        //$lista_actividades[] = '';
         foreach($tipoactividades as $tipoactividad) {
             $lista_tipoactividades[$tipoactividad->id] =$tipoactividad->nombre;
         }
@@ -441,7 +417,6 @@ class TramitesController extends BaseController {
                         'estatus_id' => $estatus->id
                     ]);
 
-
                     //Se inicializa esta actividad con su actividad inicial
                     $actividadsub = TipoActividadTramite::where('nombre', 'Iniciar trámite')->first();
                     ActividadTramite::create([
@@ -495,6 +470,7 @@ class TramitesController extends BaseController {
 
         if($tipo == 'folio')
         {
+            $q = intval($q);
             $tramites = Tramite::where('folio', $q)->involucrado($uid, $roles, $municipios)->paginate($this->numPags);
         }
         if($tipo == 'solicitante')
@@ -512,6 +488,14 @@ class TramitesController extends BaseController {
         if($tipo == 'fecha')
         {
             $tramites = Tramite::involucrado($uid, $roles, $municipios)->fecha($q)->paginate($this->numPags);
+        }
+        if($tipo == 'departamento')
+        {
+            $tramites = Tramite::involucrado($uid, $roles, $municipios)->departamento($q)->paginate($this->numPags);
+        }
+        if($tipo == 'estatus')
+        {
+            $tramites = Tramite::involucrado($uid, $roles, $municipios)->estatus($q)->paginate($this->numPags);
         }
 
 
