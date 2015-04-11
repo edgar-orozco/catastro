@@ -15,5 +15,6 @@
 <div class="row">
     @include('catalogos.inpc._list', compact('inpcs'))
 </div>
+<!-- prueba -->
 @stop
 
