@@ -13,11 +13,13 @@
     </div>
 
     <div class="row">
-        <div class="col-sm-6"></div>
-        @include('ventanilla._form_buscador')
 
+        @include('ventanilla._form_buscador', [
+            'por_atender' => count(Tramite::porAtender(Auth::user()->roleIdArray())->get())
+        ])
     </div>
+
     @include('ventanilla._lista_tramites',[
-        'tramites' => Tramite::involucrado( Auth::id(), Auth::user()->roleIdArray(), Auth::user()->municipioIdArray() )->orderBy('created_at','desc')->paginate(10)
+        'tramites' => Tramite::orderBy('created_at','desc')->paginate(10)
     ])
 @stop

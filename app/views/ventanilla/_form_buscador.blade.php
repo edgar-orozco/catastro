@@ -1,3 +1,12 @@
+<div class="col-sm-6">
+    <a class="btn btn-success btn-poratender" href="javascript:void(0);" role="button" >
+       Por atender &nbsp;
+        <span class="badge badge-num">{{$por_atender}}</span>
+        <span class="glyphicon glyphicon-refresh spin" style="display: none;"></span>
+    </a>
+</div>
+
+
 {{ Form::open(array('url' => 'tramites/buscar', 'method' => 'POST', 'name' => 'forma-buscador', 'id'=>'forma-buscador')) }}
 <div class="col-sm-6">
     <div class="input-group">
@@ -22,7 +31,7 @@
             </ul>
         </div><!-- /btn-group -->
     </div><!-- /input-group -->
-</div><!-- /.col-lg-6 -->
+</div><!-- /.col-lg-4 -->
 
 {{Form::hidden('tipo','folio',['id'=>'tipo'])}}
 {{Form::close()}}
@@ -51,6 +60,19 @@
             //$('#q').val('');
             $('.dropdown-label').text(tipo);
             $('#tipo').val(tipo.toLowerCase());
+        });
+
+        $('.btn-poratender').click(function () {
+            var tipo = $(this).data('tipo');
+
+            $('.btn-poratender .badge-num').hide();
+            $('.btn-poratender .spin').show();
+            $( "#lista-tramites" ).load( "{{URL::to('tramites/poratender')}}", function() {
+                console.log('Se ha cargado la lista de trámites por atender');
+                $('.btn-poratender .badge-num').show();
+                $('.btn-poratender .spin').hide();
+
+            });
         });
 
         //Spinner de cargando

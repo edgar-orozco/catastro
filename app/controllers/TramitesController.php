@@ -508,6 +508,22 @@ class TramitesController extends BaseController {
     }
 
 
+    /**
+     * Regresa la vista de la lista de tramites por atender
+     */
+    public function listaPorAtender(){
+
+
+        $tramites = Tramite::porAtender(Auth::user()->roleIdArray())->orderBy('created_at')->paginate($this->numPags);
+
+        if (Request::ajax())
+        {
+            return View::make('ventanilla._lista_tramites',compact(['tramites']));
+        }
+
+        return $tramites;
+    }
+
 }
 
 
