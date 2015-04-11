@@ -13,8 +13,10 @@
     </div>
 
     <div class="row">
-        <div class="col-sm-6"></div>
-        @include('ventanilla._form_buscador')
+
+        @include('ventanilla._form_buscador', [
+            'por_atender' => count(Tramite::porAtender(Auth::user()->roleIdArray())->get())
+        ])
 
     </div>
     @include('ventanilla._lista_tramites',[

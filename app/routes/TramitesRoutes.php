@@ -70,3 +70,13 @@ Route::post(
         'before' => 'auth',
     )
 );
+
+//Carga tabla con trámites por atender por el usuario
+Route::get(
+    'tramites/poratender',
+    array(
+        'as' => 'tramites.poratender',
+        'uses' => 'TramitesController@listaPorAtender',
+        'before' => 'auth',
+    )
+);

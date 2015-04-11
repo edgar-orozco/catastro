@@ -207,6 +207,8 @@ class complementarios_ComplementariosController extends BaseController {
                 ->orderBy('tiposervicios.id_tiposervicio', 'ASC')
                 ->get();
 
+        $tta = TiposTomasAgua::orderBy('descripcion', 'ASC')->lists('descripcion', 'id_tipotoma');
+
 
 
 
@@ -261,7 +263,7 @@ class complementarios_ComplementariosController extends BaseController {
         */
 
 
-        return View::make('complementarios.cargar', compact("predios","const", "tuc" ,"tcc", "ttc", "tec", "tmc", "tpic", "tpuc", "tvc", "catalogo", "gid", "clave_catas", "estado", "municipio", "cat", "asociados", "giros", "girosasociados", "datos", "condominio"));
+        return View::make('complementarios.cargar', compact("predios","const", "tuc" ,"tcc", "ttc", "tec", "tmc", "tpic", "tpuc", "tvc", "catalogo", "gid", "clave_catas", "estado", "municipio", "cat", "asociados", "giros", "girosasociados", "datos", "condominio", "tta"));
     }
 
     /**

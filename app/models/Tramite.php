@@ -176,7 +176,12 @@ class Tramite extends Ardent
         return $q;
     }
 
-
+    /**
+     * Consulta los trámites por nombre de depto o por un extracto del nombre
+     * @param $q
+     * @param $departamento
+     * @return mixed
+     */
     public function scopeDepartamento($q, $departamento) {
 
         if(trim($departamento)) {
@@ -190,6 +195,12 @@ class Tramite extends Ardent
         return $q;
     }
 
+    /**
+     * Consulta los trámites por estatus o por un extracto del estatus
+     * @param $q
+     * @param $estatus
+     * @return mixed
+     */
     public function scopeEstatus($q, $estatus) {
 
         if(trim($estatus)) {
@@ -201,6 +212,21 @@ class Tramite extends Ardent
             });
         }
         return $q;
+    }
+
+    /**
+     * Regresa los registros de trámite que tiene por atender un usuario dados sus roles.
+     * @param $q
+     * @param $roles
+     * @return mixed
+     */
+    public function scopePorAtender($q, $roles) {
+        $estatus = ['Finalizado', 'Finalizado observado'];
+        return $q->whereIn('role_id', $roles)->whereHas('estatus', function($qry) use ($estatus)
+        {
+            $qry->whereNotIn('pasado', $estatus);
+
+        });
     }
 
 

@@ -26,69 +26,98 @@
     </table>
 </div>
 
-
-<div class="panel-body">
-	{{ Form::open(array('url' => 'guardar-predios', 'method' => 'POST', 'name' => 'formPredios', 'id' => 'formPredios')) }}
+{{Form::open(array('url' => 'guardar-predios', 'method' => 'POST', 'name' => 'formPredios', 'id' => 'formPredios'))}}
+	<div class="panel-body">
 		{{Form::text('gid',$gid,['id'=>'gid', "hidden" ])}}
 		<div class="row">
-			<div class="col-md-6">
-				<div class="form-group">
-					{{Form::label('Lcuenta_agua','Cuenta con Agua')}}
-					{{Form::text('cuenta_agua',null,['class'=>'form-control', 'required', 'id'=>'cuenta_agua' ])}}
-				</div>
-			</div>
-			
-			<div class="col-md-6">
+			<div class="col-md-4">
 				<div class="form-group">
 					{{Form::label('Ltipo_predio','Tipo Predio')}}		
-					{{Form::select('tipo_predio', ['U' => 'U','R' => 'R'], null, ['id'=>'tipo_predio', 'class' => 'form-control'])}}
+					{{Form::select('tipo_predio', ['U' => 'Urbano','R' => 'Rústico'], null, ['id'=>'tipo_predio', 'class' => 'form-control'])}}
 				</div>
 			</div>
-			<div class="col-md-6">
+			<div class="col-md-4">
 				<div class="form-group">
 					{{Form::label('Ltipo_propiedad', 'Tipo Propiedad')}}
 					{{Form::text('tipo_propiedad',$predios[0]->tipo_propiedad, ['class'=>'form-control', 'id'=>'tipo_propiedad', 'required'])}}
 				</div>
 			</div>
-			<div class="col-md-6">
+			<div class="col-md-4">
 				<div class="form-group">
 					{{Form::label('Lniveles','Niveles')}}
-					{{Form::text('niveles','',['class'=>'form-control','required', 'id'=>'niveles'])}}
+					{{Form::number('niveles','',['class'=>'form-control bfh-number','required', 'id'=>'niveles', 'min' => '1' ])}}
 				</div>
 			</div>
-			<div class="col-md-6">
+			<div class="col-md-4">
 				<div class="form-group">
 					{{Form::label('Lfolio','Folio')}}
 					{{Form::text('folio','',['class'=>'form-control','required', 'id'=>'folio'])}}
 				</div>
 			</div>
-			<div class="col-md-6">
+			<div class="col-md-4">
 				<div class="form-group">
 					{{Form::label('Lsuperficie_terreno','Superficie Terreno')}}
 					{{Form::text('superficie_terreno','',['class'=>'form-control','required', 'id'=>'superficie_terreno'])}}
 				</div>
 			</div>
-			<div class="col-md-6">
+			<div class="col-md-4">
 				<div class="form-group">
 					{{Form::label('Luso_construccion','Uso Connstrucción')}}
 					{{Form::select('uso_construccion',  $tuc, null, ['id'=>'uso_construccion', 'class' => 'form-control'])}}
 					
 				</div>
 			</div>
-			
-		
 		</div>
-		<button type="submit" class="btn btn-primary next">
-            Siguiente
-        	<i class="glyphicon glyphicon-chevron-right"></i>
-        </button>
-	{{Form::close()}}
+	</div>
+
+<div class="page-header">
+	<h2>
+		Tomas Agua
+    </h2>
 </div>
 
+<div class="panel-body">
+		{{Form::text('gid',$gid,['id'=>'gid', "hidden" ])}}
+		<div class="row">
+			<div class="col-md-3">
+			
+				<div class="form-group">
+				{{Form::label('Lmedidor_instalado','Medidor Instalado')}}
+				<br>
+					Si {{Form::radio('medidor_instalado', 'Si')}}
+					No {{Form::radio('medidor_instalado', 'No')}}
+				</div>
+			</div>
+						
+			<div class="col-md-3">
+				<div class="form-group">
+					{{Form::label('Lnum_medidor', 'Numero de medidor')}}
+					{{Form::text('num_medidor',$predios[0]->tipo_propiedad, ['class'=>'form-control', 'required'])}}
+				</div>
+			</div>
+			<div class="col-md-3">
+				<div class="form-group">
+					{{Form::label('Lnum_contrato','Numero de contrato')}}
+					{{Form::text('num_contrato','',['class'=>'form-control','required'])}}
+				</div>
+			</div>
+			<div class="col-md-3">
+				<div class="form-group">
+					{{Form::label('Ltipo_toma','Tipo Toma')}}
+					{{Form::select('tipo_toma',  $tta, null, ['class' => 'form-control'])}}
+					
+				</div>
+			</div>
+						
+		</div>
+	</div>
 
+<button type="submit" class="btn btn-primary next">
+	Siguiente
+	<i class="glyphicon glyphicon-chevron-right"></i>
+</button>
 
-
-
+{{Form::close()}}
 
 @section('javascript')
 

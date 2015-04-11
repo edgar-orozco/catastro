@@ -13,6 +13,10 @@
 </div>
 
 
+<select name="instalaciones" class="form-control" id="instalaciones"><option selected="selected" value="">--Seleccione una opción--</option><option value="Frontal">Frontal</option><option value="Lateral">Lateral</option></select>
+
+
+
 @section('javascript')   
 
 <script src="../js/jquery/fileinput.js" type="text/javascript"></script>
@@ -22,27 +26,38 @@
 
 
 
-var footerTemplate = '<div class="btn-group"> '+
-            '<button type="button" data-toggle="dropdown" class="btn btn-primary dropdown-toggle" aria-expanded="false">Action <span class="caret"></span></button>'+
-            '<ul class="dropdown-menu">'+
-                '<li><a href="#">Frente</a></li>'+
-                '<li><a href="#">Lateral</a></li>'+
-                '<li class="divider"></li>'+
-                '<li><a href="#">Molestar</a></li>'+
-            '</ul>'+
-'</div> ';
+var footerTemplate = '<select name="select-instalaciones" class="form-control" id="instalaciones"> '+
+            		 	'<option selected="selected" value="">--Seleccione una opción--</option>'+
+            			'<option value="1">Frontal</option>'+
+                		'<option value="2">Lateral</option>'+
+                	 '</select>';
+                
 	$("#file").fileinput(
 	{
 		uploadUrl: "/cargarArchivo",
 		uploadAsync: false,
 		maxFileCount: 5,
 		layoutTemplates: {footer: footerTemplate},
-		uploadExtraData: 
+		initialPreview: [
+        "<img src='http://lorempixel.com/200/150/people/1'>",
+        "<img src='http://lorempixel.com/200/150/people/2'>",
+   	 ],
+		uploadExtraData: function()
 		{
-        	gid_predio	: document.getElementById('gid_predioC').value,
-        	entidad		: document.getElementById('entidadC').value,
-        	municipio 	: document.getElementById('municipioC').value,
-        	clave_catas : document.getElementById('clave_catasC').value,
+			
+
+        	var gid_predio = document.getElementById('gid_predioC').value;
+        	var entidad = document.getElementById('entidadC').value;
+        	var municipio = document.getElementById('municipioC').value;
+        	var clave_catas = document.getElementById('clave_catasC').value;
+        	var toma = document.getElementsByName('select-instalaciones');
+        	var tomas = [];
+        	for (var x = 0; x<toma.length; x++) 
+        	{
+        		tomas[x]= toma[x].value;
+        	};
+
+        	return {gid_predio:gid_predio, entidad:entidad, municipio:municipio, clave_catas:clave_catas, tomas:tomas};
     	}
 	});
 </script>
