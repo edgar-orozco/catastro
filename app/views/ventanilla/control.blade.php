@@ -155,16 +155,7 @@
 
                     <div class="tab-pane" id="panel-docs">
                         <br/>
-                        @foreach($requisitos as $requisito)
-                            <div class="form-group">
-                                {{ Form::label('documento['.$requisito->id.']', $requisito->nombre) }}
-
-                                {{ Form::file('documento['.$requisito->id.']', ['class'=>'form-control']) }}
-                                {{$errors->first('documento['.$requisito->id.']', '<span class=text-danger>:message</span>')}}
-                                {{Form::hidden('requisito_ids[]',$requisito->id) }}
-                            </div>
-                        @endforeach
-
+                        @include('ventanilla._documentos',compact('tramites'))
 
                     </div>
 

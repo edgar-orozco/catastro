@@ -1,24 +1,12 @@
-@extends('layouts.default')
+{{ HTML::style('css/fileinput.min.css') }}
 
-@section('title')
-    {{{ $title }}} :: @parent
-@stop
-
-@section('content')
-
-    <h3>{{$clave}}</h3>
-
-    @if($errors->any())
-        {{dd($errors->all())}}
-    @endif
-
-    {{ Form::open(array('url' => 'tramites/guardar-documentos', 'method' => 'POST', 'files'=>true)) }}
+{{ Form::open(array('url' => 'tramites/guardar-documentos', 'method' => 'POST', 'files'=>true)) }}
 
     @foreach($requisitos as $requisito)
         <div class="form-group">
         {{ Form::label('documento['.$requisito->id.']', $requisito->nombre) }}
 
-        {{ Form::file('documento['.$requisito->id.']', ['class'=>'form-control']) }}
+        {{ Form::file('documento['.$requisito->id.']', ['class'=>'form-control upload-inputs']) }}
         {{$errors->first('documento['.$requisito->id.']', '<span class=text-danger>:message</span>')}}
         {{Form::hidden('requisito_ids[]',$requisito->id) }}
         </div>
@@ -34,8 +22,21 @@
 
     {{ Form::close() }}
 
-    <script type="text/javascript">
+    @section('javascript')
+        {{ HTML::script('js/fileinput.min.js') }}
+        {{ HTML::script('js/fileinput_locale_es.js') }}
+        <script type="text/javascript">
+
         $(function() {
+
+            //Función de upload asincrono.
+            $(".upload-inputs").fileinput({
+                uploadUrl: "{{URL::to('tramites/documentos')}}", // server upload action
+                uploadAsync: true,
+                showPreview: false,
+                allowedFileExtensions: ["pdf", "png", "jpg"]
+            });
+
 
             $("input:file").change(function (){
                 var todos = true;
@@ -54,5 +55,4 @@
             });
         });
     </script>
-
-@stop
+    @append
