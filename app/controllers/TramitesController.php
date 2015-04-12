@@ -468,6 +468,12 @@ class TramitesController extends BaseController {
             $roles = $user->roleIdArray();
         }
 
+
+        if(trim($q) == '')
+        {
+            $tramites = [];
+
+        }
         if($tipo == 'folio')
         {
             $q = intval($q);

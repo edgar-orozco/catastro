@@ -46,6 +46,7 @@
                 e.preventDefault();
                 var tipo = $('#tipo').val();
                 var q = $('#q').val();
+                if(q=='') return false;
                 $( "#lista-tramites" ).load( "{{URL::to('tramites/buscar')}}", { tipo: tipo, q: q }, function() {
                     console.log('Se ha cargado la lista de trámites');
                 });
