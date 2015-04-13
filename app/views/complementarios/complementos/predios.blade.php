@@ -6,13 +6,12 @@
 	<div class="panel-body">
 		{{Form::text('gid',$gid,['id'=>'gid', "hidden" ])}}
 		<div class="row">
-			
-			<div class="col-md-4">
-				<div class="form-group">
-					{{Form::label('Ltipo_propiedad', 'Tipo Propiedad')}}
-					{{Form::text('tipo_propiedad',$predios[0]->tipo_propiedad, ['class'=>'form-control', 'id'=>'tipo_propiedad', 'required'])}}
-				</div>
-			</div>
+			<div class="col-md-6">
+        <div class="form-group">
+          {{Form::label('Ltipo_predio','Tipo Predio')}}   
+          {{Form::select('tipo_predio', ['U' => 'U','R' => 'R'], null, ['id'=>'tipo_predio', 'class' => 'form-control'])}}
+        </div>
+      </div>
 			<div class="col-md-4">
 				<div class="form-group">
 					{{Form::label('Lniveles','Niveles')}}
@@ -35,7 +34,7 @@
 				<div class="form-group">
 					{{Form::label('Luso_construccion','Uso Connstrucción')}}
 					{{Form::select('uso_construccion',  $tuc, null, ['id'=>'uso_construccion', 'class' => 'form-control'])}}
-					
+
 				</div>
 			</div>
 		</div>
@@ -71,6 +70,30 @@ $('#formPredios').bind('submit',function ()
         return false;
     });
 
+
+$(document).ready(function(){
+  $("#niveles").keydown(function(event) {
+     if(event.shiftKey)
+     {
+          event.preventDefault();
+     }
+
+     if (event.keyCode == 46 || event.keyCode == 8 || event.keyCode == 189 || event.keyCode == 109 )    {
+     }
+     else {
+          if (event.keyCode < 95) {
+            if (event.keyCode < 48 || event.keyCode > 57) {
+                  event.preventDefault();
+            }
+          }
+          else {
+                if (event.keyCode < 96 || event.keyCode > 105) {
+                    event.preventDefault();
+                }
+          }
+        }
+     });
+  });
 </script>
 
 @append

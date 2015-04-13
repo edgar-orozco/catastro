@@ -268,7 +268,7 @@
             <div class="col-xs-12">
                 <div class="col-md-12">
                     <h3> Persona entrevistada</h3>
-                    @include('complementarios.complementos.personaentrevistada')
+                    @include('complementarios.complementos.personaEntrevistada')
                 </div>
             </div>
         </div>
