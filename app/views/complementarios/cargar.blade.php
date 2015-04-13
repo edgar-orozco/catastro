@@ -227,7 +227,6 @@
                 <div class="col-md-12">
                     <h3>Instalaciones Especiales</h3>
                     @include('complementarios.complementos.instalaciones')
-
                     <button type="button" class="btn btn-primary next">
                         Siguiente
                         <i class="glyphicon glyphicon-chevron-right"></i>
