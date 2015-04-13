@@ -42,13 +42,17 @@ class complementarios_ComplementariosController extends BaseController {
         
     }
 
-    public function getPredio($id = null) 
+    public function getConstruccion()
     {
-        $predios = predios::find($id);
-        return View::make('complementarios.complementarios', compact("predios"));
+        $gid = (integer)Input::get('gid');
+        $datos_construcciones = construcciones::where('gid', '=', $gid)->get();
+
+        
+
+        return Response::json(array(
+            'gid'   =>  $datos_construcciones
+            ));
     }
-
-
     public function postConstruccion()
     {
 
@@ -56,7 +60,7 @@ class complementarios_ComplementariosController extends BaseController {
         
 
 
-
+        $gid_construccion = Input::get('gid_construccion');
         $gid_predio     =   Input::get('gid');
         $entidad        =   input::get('estado');
         $municipio      =   input::get('municipio');
@@ -77,19 +81,22 @@ class complementarios_ComplementariosController extends BaseController {
 
         
 
-        $constru=construcciones::where(['gid_predio'=> $gid_predio, 'municipio'=>$municipio])->get();
+        
         
 
-        if($constru->count()>0)
+        if((integer)$gid_construccion==0)
         {
-            $gid        =   $constru[0]->gid;
-            $constru    =   construcciones::find($gid);
-
+           
+            
+            $gid=construcciones::orderBy('gid', 'DESC')->first()->gid+1;
+            $constru    =   new construcciones();
+            
         }
         else
         {
-            $gid=construcciones::orderBy('gid', 'DESC')->first()->gid+1;
-            $constru    =   new construcciones();
+            $constru    =   construcciones::where(['gid'=> $gid_construccion])->get();
+            $gid        =   $constru[0]->gid;
+            $constru    =   construcciones::find($gid);
 
         }
         $constru->gid           =   $gid;
@@ -116,12 +123,32 @@ class complementarios_ComplementariosController extends BaseController {
 
         return Response::json(array
             (
-                'entra' =>  'siii'
+                'gid_construccion' => $gid_construccion, 
+                'nivel'         =>  $nivel,
+                'sup_const'     =>  $sup_const,
+                'edad_const'    =>  $edad_const
             ));
 
 
     }
+
+    public function eliminarConstruccion()
+    {
+        $gid_construccion = Input::get('gid_construccion');
+        $elim = construcciones::find($gid_construccion);
+        $elim->delete();
+
+        return Response::json(array
+            (
+                'gid_construccion'     =>  $gid_construccion
+            ));
+    }
     //Guardar en la tabla Predio
+    public function getPredio($id = null) 
+    {
+        $predios = predios::find($id);
+        return View::make('complementarios.complementarios', compact("predios"));
+    }
 
     public function postPredio()
     {
@@ -133,6 +160,11 @@ class complementarios_ComplementariosController extends BaseController {
         $super_terreno  =   input::get('superficie_terreno');
         $uso_constru    =   input::get('uso_construccion');
         $gid            =   input::get('gid');
+        $entidad        =   input::get('entidad');
+        $municipio      =   input::get('municipio');
+        $clave_cata     =   input::get('clave_catas');
+
+
 
         
             
@@ -144,6 +176,10 @@ class complementarios_ComplementariosController extends BaseController {
         $predios->superficie_terreno = $super_terreno;
         $predios->uso_construccion = $uso_constru;
         $predios->save();
+
+        $tomasagua =  
+
+
         Session::flash('mensaje', 'El registro ha sido ingresado exitosamente');
        
        
@@ -209,6 +245,8 @@ class complementarios_ComplementariosController extends BaseController {
 
         $tta = TiposTomasAgua::orderBy('descripcion', 'ASC')->lists('descripcion', 'id_tipotoma');
 
+        $datos_construcciones = construcciones::where('gid_predio', '=', $id)->get();
+
 
 
 
@@ -263,7 +301,7 @@ class complementarios_ComplementariosController extends BaseController {
         */
 
 
-        return View::make('complementarios.cargar', compact("predios","const", "tuc" ,"tcc", "ttc", "tec", "tmc", "tpic", "tpuc", "tvc", "catalogo", "gid", "clave_catas", "estado", "municipio", "cat", "asociados", "giros", "girosasociados", "datos", "condominio", "tta"));
+        return View::make('complementarios.cargar', compact("predios","const", "tuc" ,"tcc", "ttc", "tec", "tmc", "tpic", "tpuc", "tvc", "catalogo", "gid", "clave_catas", "estado", "municipio", "cat", "asociados", "giros", "girosasociados", "datos", "condominio", "tta", "datos_construcciones"));
     }
 
     /**
@@ -280,9 +318,10 @@ class complementarios_ComplementariosController extends BaseController {
     public function post_agregar() 
     {
 
+
         $inputs = Input::All();
 
-
+        
 
         $reglas = array
             (
@@ -360,13 +399,7 @@ class complementarios_ComplementariosController extends BaseController {
         return Redirect::back();
     }
 
-    //construcciones 
-    public function getConstruccion($id = null) {
-        $const = construcciones::WHERE('clave', 'LIKE', '%' . $id . '%')
-                ->orderBy('gid_construccion', 'ASC')
-                ->get();
-        return View::make('complementarios.cargar', compact("const"));
-    }
+    
 
     public function getCargarconstruccion($id) {
         $construcciones = construcciones::find($id);
@@ -845,5 +878,100 @@ class complementarios_ComplementariosController extends BaseController {
     public function getRedireccionar() {
         return View::make('complementarios.cargar');
     }
+    /*
+     * Personas Entrevistada
+     */
+    public function personasEntrevistada() {
+        return View::make('complementarios.complementos.personaEntrevistada');
+    }
+    
+    public function autocomplete() {
 
+        $term = Str::upper(Input::get('term'));
+        //ARRAY DONDE CARGA LOS DATOS
+        $results = array();
+
+        $id_p = array();
+        //CONSULTA A LA TABLA PERSONAS
+        $queries = DB::select(DB::raw("SELECT * FROM personas WHERE nombres || ' '||apellido_paterno || ' ' ||  apellido_materno LIKE '%" . $term . "%' limit 5"));
+        //DONDE LLAMA LOS DATOS Y LOS PASA A LAS VARIABLES CORRESPONDIENTES
+        foreach ($queries as $query) {
+            //ARRAY DONDE CARGA LOS DATOS
+            $id_p[] = ['id_p' => $query->id_p];
+            $results[] = ['value' => $query->nombres . ' ' . $query->apellido_paterno . ' ' . $query->apellido_materno, 'id' => $query->id_p];
+        }
+        if ($results) {
+            //SI EXITE LA PERSONA            
+            return Response::json($results);
+        } else {
+//            //SI NO EXITE LA PAERSONA
+//            $mensaje[] = ['id' => 0];
+            $mensaje[] = "NO EXISTE LA PERSONAS";
+            return Response::json($mensaje);
+        }
+    }
+    
+    public function postEntrevista (){
+        $entidad     = Input::get('entidad');
+        $municipio   = Input::get('municipio');
+        $clave_catas = Input::get('clave_catas');
+        $gid_predio  = Input::get('gid_predio');
+        $id_p        = Input::get('id_p');
+        
+        $n = new Entrevistado();
+        $n->entidad      = $entidad;
+        $n->municipio    = $municipio;
+        $n->clave_catas  = $clave_catas;
+        $n->gid_predio   = $gid_predio;
+        $n->id_p         = $id_p;
+        
+        $n->save();
+        Session::flash('mensaje', 'El registro ha sido ingresado exitosamente');
+        return Redirect::back();
+      
+    }
+    
+    public function postPersonas (){
+        
+        $inputs = Input::All();
+        //Reglas 
+        $reglas = array(
+            'apellido_paterno' => 'required',
+            'apellido_materno' => 'required',
+            'nombres' => 'required',
+            'curp' => 'required',
+        );
+
+        $apellido_paterno = Input::get('apellido_paterno');
+        $apellido_materno = Input::get('apellido_materno');
+        $nombres = Input::get('nombres');
+        $term = $nombres . ' ' . $apellido_paterno . ' ' . $apellido_materno;
+        //echo $nombrec=$apellido_materno." ".$apellido_paterno." ".$nombres ; 
+        //Mensaje
+        $mensajes = array(
+            "required" => "*",
+        );
+        //valida
+        $validar = Validator::make($inputs, $reglas, $mensajes);
+        //en caso no pase la validacion
+        if ($validar->fails()) {
+            return Redirect::back()->withErrors($validar);
+        } else {
+            $n = new personas();
+            $n->apellido_paterno = $inputs["apellido_paterno"];
+            $n->apellido_materno = $inputs["apellido_materno"];
+            $n->nombres = $inputs["nombres"];
+            $n->nombrec = $apellido_paterno . " " . $apellido_materno . " " . $nombres;
+            $n->curp = $inputs["curp"];
+            $n->save();
+            $queries = DB::select(DB::raw("SELECT id_p FROM personas WHERE nombres || ' ' || apellido_paterno || ' ' ||  apellido_materno LIKE '%" . $term . "%' limit 1"));
+            //Se han guardado los valores
+            foreach ($queries as $key) {
+                $id = $key->id_p;
+            }
+            Session::flash('mensaje', 'El registro ha sido ingresado exitosamente');
+            return Response::json(array('id_p' => $id));
+            // return Redirect::back();
+        }
+    }
 }
