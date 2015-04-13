@@ -2,7 +2,8 @@ $(document).ready(function()
 {	
 
 	window.onload = function () 
-	{
+	{ 
+        alert('si entra');
 	    document.getElementById("file").onchange = function () 
 	    {
 	        document.getElementById('form-boton').hidden="";
@@ -16,7 +17,7 @@ $(document).ready(function()
     //petición al enviar el formulario de registro
 	var form = $('.register_ajax');
     form.bind('submit',function () 
-    {	
+    {
     	$.ajax(
         {
         	type: 'POST',
@@ -35,7 +36,7 @@ $(document).ready(function()
 
 				//<br> <a class="btn btn-warning" title="Editar Predio" href="data:application/octet-stream;charset=utf-8;base64, '+encodedString+'" download="error.txt" > <span class="glyphicon glyphicon-pencil"></span> </a>
 
-              	var encodedString = btoa(data.fallasV+" "+data.fallasR);          
+              	var encodedString = btoa(data.fallasV+" "+data.fallasR);
                 $('.load_ajax').html("El total de registros: "+data.totalR+"<br> Error de sintaxis: "+data.totalFV+
                 	"<br> Claves sin registro: "+data.totalNE+
                 	' <br> <a class="btn btn-info" title="Editar Predio" href="data:application/octet-stream;charset=utf-8;base64, '+encodedString+'" download="error.txt" >  <span class="glyphicon glyphicon-save"> Descargar Errores </span> </a>')
@@ -44,6 +45,6 @@ $(document).ready(function()
             }
         });
       		return false;
-    });  
+    });
 });
 

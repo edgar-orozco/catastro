@@ -9,8 +9,8 @@
 
     @endif
     {{ Form::open(
-                array(                    
-                    'url'=> '/cargar-complementos-editar',                    
+                array(
+                    'url'=> '/cargar-complementos-editar',
                     )
                  )
     }}

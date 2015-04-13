@@ -1,7 +1,7 @@
 <div class="modal-header">
     <h4 class="modal-titulo" id="condominio-titulo">Agregar Instalacion</h4>
 </div>
-<div class="panel-body">  
+<div class="panel-body">
     @if(Session::has('mensaje'))
 
     <h2>{{ Session::get('mensaje') }}</h2>
@@ -15,10 +15,10 @@
         </div>
         <div class="input-group">
             Instalacion:</br>
-            
+
             {{Form::select('algo', $catalogo, null, ['id'=>'algo','class'=>'form-control'])}}
         </div>
-        <br/>   
+        <br/>
 
         {{ Form::submit('Guardar', array('class' => 'btn btn-primary')) }}
         {{ Form::close() }}
@@ -33,8 +33,8 @@
 <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
 <script type="text/javascript">
 
-$('#agregar').bind('submit',function () 
-        {   
+$('#agregar').bind('submit',function ()
+        {
             $.ajax(
             {
                 type: 'POST',
@@ -46,8 +46,8 @@ $('#agregar').bind('submit',function ()
                 {
                     alert("mandando petición");
                 },
-                success: function (data) 
-                {               
+                success: function (data)
+                {
                     alert("guardado correcto");
                 }
             });

@@ -9,7 +9,6 @@ class ConstruccionesTableSeeder extends Seeder {
 	{
 		DB::statement("COPY construcciones FROM '/var/www/html/sources/construcciones.csv' delimiter '|'");
 		DB::statement("ALTER SEQUENCE construcciones_gid_seq RESTART WITH 892");
-		
 	}
 
 }

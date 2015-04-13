@@ -17,41 +17,38 @@ Bienvenido :: @parent
     <div class="row">
 
         <div class="col-md-3">
-            
+
             <div class="input-group">
                 <span class="input-group-addon">
                     <span class="glyphicon glyphicon-search"></span>
                 </span>
-               
+
                 {{Form::select('municipio', $municipios, null, ['id'=>'municipio','class'=>'form-control'])}}
-                 
-                
                 </br>
             </div><!-- /input-group -->
-        </div> 
+        </div>
         <div class="col-md-3">
 
             <div class="input-group">
                 <span class="input-group-addon">
                     <span class="glyphicon glyphicon-search"></span>
                 </span>
-               
+
                 {{ Form::text('b',null, array('class' => 'form-control focus', 'id' => 'busqueda', 'placeholder'=>'Clave...', 'autofocus'=> 'autofocus','ng-model' => 'b', 'required' )) }}
-                
+
                 </br>
             </div><!-- /input-group -->
-        </div>    
+        </div>
     </div>
 
     {{ Form::submit('Buscar', array('class' => 'btn btn-primary')) }}
     {{ Form::close() }}
-    
         <div class="mensaje">
-            
+
         </div>
 
     <div class="list-group" id="div-table">
-           
+
 
     </div>
 </div>
@@ -63,17 +60,16 @@ Bienvenido :: @parent
 
 <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
 <script>
-    
+
     $(document).ready(function()
     {
         var form = $('.formComplemen');
-    form.bind('submit',function () 
-    {   
-        
+    form.bind('submit',function ()
+    {
         $.ajax(
         {
             type: 'GET',
-            data: 
+            data:
                 {
                     data:document.getElementById('busqueda').value,
                     municipio:document.getElementById('municipio').value
@@ -83,7 +79,7 @@ Bienvenido :: @parent
             {
                 $('.mensaje').html('Buscando predio... <span class="glyphicon glyphicon-refresh spin"></span>');
             },
-            success: function (data) 
+            success: function (data)
             {
                 //Se obtiene el elemento table
                 var tables = document.getElementById("table");
@@ -108,9 +104,9 @@ Bienvenido :: @parent
                     cell.innerHTML = "<b>Acciones<b>";
                     var tbody = table.appendChild(document.createElement('tbody'));
                     //Se crea la tabla de predios dinamicamente
-                    for (i = 0; i < data.size; i++) 
+                    for (i = 0; i < data.size; i++)
                     {
-                        
+
                         row = tbody.insertRow(0);
                         cell = row.insertCell(0);
                         cell.innerHTML=data.busqueda[0].clave_catas;
@@ -128,18 +124,18 @@ Bienvenido :: @parent
                 else if(data.size>0)
                 {
                     window.location = "/cargar-complementos/"+data.busqueda[0].gid;
-                } 
+                }
                 else
                    {
                         $('.mensaje').html('<div class="alert alert-danger">No se encontro ningun predio. Verifique Clave y Municipio.</div>');
                    }
-                
+
 
 
             }
         });
             return false;
-    });  
+    });
 
     });
 
