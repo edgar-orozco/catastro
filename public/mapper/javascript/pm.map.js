@@ -75,8 +75,20 @@ $.extend(PM.Map,
             // QUERY/IDENTIFY ACTIONS
             // query on all visible groups
             } else if (vmode == 'query') {
-                PM.Query.showQueryResult('query', imgxy);
+                //PM.Query.showQueryResult('query', imgxy);
+                //this.zoom2extent('Predios','7156','457902.65760919+1972485.8417572+457923.44066106+1972515.6707137','0');
             // query only on selected group with multiselect
+        var mapurl = PM_XAJAX_LOCATION + 'loadmap';
+        //alert(mapurl);
+        var data = {
+            "mode":"query",
+            'imgxy':imgxy,
+            "mapW":PM.mapW,
+            "mapH":PM.mapH,
+            "groups":PM.activeLayer
+        };
+        this.updateMap(mapurl, data);
+
             } else if (vmode == 'nquery') {
                 var selform = _$("selform");
                 if (!selform) return false;
@@ -535,11 +547,77 @@ $.extend(PM.Map,
                 // Reload application when PHP session expired
                 var sessionerror = response.sessionerror;
                 if (sessionerror == 'true') {
-                   errormsg = _p('Session expired - Reloading application'); 
                    window.location.reload();
                    return false;
                 }
                 
+                if (sessionerror == 'QueryError') {
+                    alert(response.msgError);
+                   //window.location.reload();
+                   $("#loading").css('visibility','hidden');
+                   return false;
+                }
+                
+                if(ajax_data.mode == 'query'){
+                    // Sample how to open a link in a p.mapper dialog box
+                    DlgOptions = {width:400, height:400, resizeable:true, newsize:false, container:'pmDlgContainerHyperlink'};
+                    var dlg = PM.Dlg.createDnRDlg(DlgOptions, 'Resultado', false);
+var h = "      <div>";
+h += "        <div class=\"pm-info-layerheader\">";
+h += "          Datos del Predio";
+h += "        </div>";
+h += "        <table cellspacing=\"0\" cellpadding=\"0\" border=\"0\">";
+h += "          <tbody>";
+h += "            <tr>";
+h += '                <td colspan="2" style="text-align: center";><img id="refMapImg" src="'+response.mapURL+'" width="200" height="200" alt=""></td>';
+h += "            </tr>";
+h += "            <tr>";
+h += '                <td style="text-align: right; font-weight: bold;">Clave Catastral: </td>' ;
+h += '                <td>'+response.clave_catas+'</td>' ;
+h += "            </tr>";
+h += "            <tr>";
+h += '                <td style="text-align: right; font-weight: bold;">Número de Cuenta: </td>' ;
+h += '                <td></td>' ;
+h += "            </tr>";
+h += "            <tr>";
+h += '                <td style="text-align: right; font-weight: bold;">Municipio: </td>' ;
+h += '                <td>'+response.municipio+'</td>' ;
+h += "            </tr>";
+h += "            <tr>";
+h += '                <td style="text-align: right; font-weight: bold;">Propietario: </td>' ;
+h += '                <td></td>' ;
+h += "            </tr>";
+h += "            <tr>";
+h += '                <td style="text-align: right; font-weight: bold;">Calle y Número: </td>' ;
+h += '                <td"></td>' ;
+h += "            </tr>";
+h += "            <tr>";
+h += '                <td style="text-align: right; font-weight: bold;">Localidad: </td>' ;
+h += '                <td"></td>' ;
+h += "            </tr>";
+h += "            <tr>";
+h += '                <td style="text-align: right; font-weight: bold;">Superficie de Terreno: </td>' ;
+h += '                <td>'+response.sup_terr+' m2 </td>' ;
+h += "            </tr>";
+h += "            <tr>";
+h += '                <td style="text-align: right; font-weight: bold;">Superficie de Construcción: </td>' ;
+h += '                <td>'+response.sup_terr+' m2</td>' ;
+h += "            </tr>";
+h += "            <tr>";
+h += '                <td style="text-align: right; font-weight: bold;">Tipo de Predio: </td>' ;
+h += '                <td>'+response.tipo_predio+'</td>' ;
+h += "            </tr>";
+h += "            <tr>";
+h += '                <td style="text-align: right; font-weight: bold;">Último Pago de Impuesto (fecha/monto): </td>' ;
+h += '                <td"></td>' ;
+h += "            </tr>";
+h += "          </tbody>";
+h += "        </table>";
+h += "      </div>";
+                    $('#pmDlgContainerHyperlink_MSG').html(h);
+                    $("#loading").css('visibility','hidden');
+                }else{
+
                 var rBxL = response.refBoxStr.split(',');
                 PM.minx_geo = parseFloat(response.minx_geo);
                 PM.maxy_geo = parseFloat(response.maxy_geo);
@@ -563,6 +641,7 @@ $.extend(PM.Map,
                */
                 // Reference image: set DHTML objects
                 PM.ZoomBox.setRefBox(rBxL[0], rBxL[1], rBxL[2], rBxL[3]);
+            }
                 
                 // Update SELECT tool OPTIONs in case of 'select' mode
                 var vMode = PM.Map.mode;
@@ -695,7 +774,38 @@ $.extend(PM.Map,
                 if (window.console) console.log(errorThrown);
             }
         });
+    },
+    
+
+    submitSearch: function(TipoConsulta) {
+        var tagselect = $("#mpio"+TipoConsulta);
+        var municipio = tagselect.val();
+        if (municipio == "000"){
+            alert("Necesita seleccionar un Municipio");
+            return false;
+        }
+        var inputext = $("#txt"+TipoConsulta);
+        var txtval = inputext.val();
+        if (txtval == "" ){
+            alert("Necesita escribir una Clave Catastral");
+            return false;
+        }
+        
+        var mapurl = PM_XAJAX_LOCATION + 'consultaalfa';
+        //alert(mapurl);}
+        var variables = [municipio,txtval];
+        var data = {
+            "query":TipoConsulta,
+            "mode":"map",
+            "zoom_type":"zoomextent",
+            "mapW":PM.mapW,
+            "mapH":PM.mapH,
+            "groups":PM.activeLayer,
+            "variables":variables
+        };
+        this.updateMap(mapurl, data);
     }
+    
 
 });
 

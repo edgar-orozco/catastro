@@ -1,0 +1,144 @@
+#
+# Template Map file used for 
+# -> highlighting query results  
+# -> POI layer template
+#
+
+MAP
+
+#FONTSET "fonts/msfontset.txt"  
+
+
+# Symbols used in p.mapper
+Symbol
+  Name 'circle'
+  Type ELLIPSE
+  Filled TRUE
+  Points
+    1 1
+  END
+END 
+
+
+#
+# Layer for POINT highlight
+#
+LAYER
+  NAME "highlight_0"
+  TYPE point
+  OPACITY 50
+  CLASS
+    STYLE
+      COLOR 0 255 255
+      SYMBOL 'circle' 
+      SIZE 10
+    END
+  END  
+END 
+
+
+#
+# Layer for LINE highlight
+#
+LAYER
+  NAME "highlight_1"
+  TYPE line
+  OPACITY 70
+  CLASS
+## MS < 6
+    STYLE
+      COLOR 0 255 255
+      SYMBOL 'circle' 
+      SIZE 3
+    END
+## MS >= 6
+#    STYLE
+#	  GEOMTRANSFORM "start"
+#	  ANGLE auto
+#      COLOR 0 255 255
+#      SYMBOL 'circle' 
+#      SIZE 3
+#    END
+#    STYLE
+#      COLOR 0 255 255
+#      SYMBOL 'square' 
+#      SIZE 3
+#    END
+#    STYLE
+#	  GEOMTRANSFORM "end"
+#	  ANGLE auto
+#      COLOR 0 255 255
+#      SYMBOL 'circle' 
+#      SIZE 3
+#    END
+  END  
+END  
+
+
+#
+# Layer for POLYGON highlight
+#
+LAYER
+  NAME "highlight_2"
+  TYPE polygon
+  OPACITY 30
+  CLASS
+    STYLE
+      COLOR 0 255 255
+      OUTLINECOLOR 255 255 0
+    END
+    STYLE
+      OUTLINECOLOR 255 255 0
+      SIZE 3
+    END
+  END  
+END  
+ 
+ 
+#================================================
+
+#
+# Layer for POI
+#
+LAYER
+  NAME "poi"
+  TYPE point
+  OPACITY 50
+  CLASS
+    STYLE
+      COLOR 0 0 255
+      OUTLINECOLOR 255 0 0
+      SYMBOL 'circle' 
+      SIZE 10
+    END  
+    LABEL
+      POSITION Auto
+      COLOR 0 0 150 
+## MS < 6
+      #BACKGROUNDCOLOR 255 255 210
+      #BACKGROUNDSHADOWCOLOR 170 170 170
+      #BACKGROUNDSHADOWSIZE 2 2
+## MS >= 6
+#      STYLE # a shadow
+#        GEOMTRANSFORM 'labelpoly'
+#        COLOR 170 170 170
+#        OFFSET 2 2
+#      END
+#      STYLE # bbox
+#        GEOMTRANSFORM 'labelpoly'
+#        COLOR 255 255 210
+#        #OUTLINECOLOR 0 0 0
+#      END
+      BUFFER 2
+      WRAP ","
+      TYPE truetype
+      ENCODING "UTF-8"
+      FONT FreeSans
+      SIZE 8
+      MAXSIZE 9
+    END #Label
+  END  
+END 
+
+
+END  #Map

@@ -1,4 +1,4 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"> 
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="es" xml:lang="es"><head>
  <meta http-equiv="Content-Script-Type" content="text/javascript">
 
@@ -8,6 +8,7 @@
  <script type="text/javascript" src="/js/jquery/jquery-ui.js"></script>
  <script type="text/javascript" src="/mapper/javascript/zoombox.js"></script>
  <script type="text/javascript" src="/mapper/javascript/pm.map.js"></script>
+ <script type="text/javascript" src="/mapper/javascript/pm.pmapper.js"></script>
 
 <script type="text/javascript">
 
@@ -275,78 +276,153 @@ PM.modifyQueryResultsFunctions = [];
                 <div id="tocconsult" class="TOC" style="height: 402px; display: none; top: 10px; overflow: auto;">
                     <div id="consulta">
                       <h3>Clave Catastral</h3>
-                      <div>
-                <div id="consClave">
-                  <form id="searchForm" action="blank.html" onsubmit="PM.Query.submitSearch()" onkeypress="return PM.Query.disableEnterKey(event)">
-                    <table width="100%" class="pm-searchcont pm-toolframe" border="0" cellspacing="0" cellpadding="0">
-                      <tbody>
-                        <tr>
-                          <td id="searchitems" class="pm_search_inline">
-                            <table id="searchitems_container1" class="pm-searchitem" border="0" cellspacing="0" cellpadding="0">
+                      <div style="padding:1em;">
+                        <div id="consClave">
+                            <table width="100%" class="pm-searchcont pm-toolframe" border="0" cellspacing="0" cellpadding="0">
                               <tbody>
-                                <tr id="searchitems_container2">
-                                  <td class="pm-searchdesc">
-                                    <input type="text" id="pmsfld_numero_mzna" name="numero_mzna" alt="Search Criteria" false="" autocomplete="off" class="ac_input">
-                                  </td>
-                                </tr>
                                 <tr>
-                                  <td>
-                                    <br />
-                                    <input type="button" value="Buscar" size="20" onclick="PM.Query.submitSearch()" onmouseover="PM.changeButtonClr(this,'over')" onmouseout="PM.changeButtonClr(this,'out')" class="button_off">
+                                  <td id="searchitems" class="pm_search_inline">
+                                    <table id="searchitems_container1" class="pm-searchitem" border="0" cellspacing="0" cellpadding="0">
+                                      <tbody>
+                                        <tr id="searchitems_municipios1">
+                                          <td class="pm-searchdesc">
+                                                <p>Municpio</p>
+                                                <select id="mpioClave" name="D3" size="1" style="width: 100%;">
+                                                    <option value="000"> Seleccione... </option>
+                                                    
+                                                    @foreach($municipios as $municipio => $nombre)
+                                                        <option value="{{$municipio}}"> {{$nombre}} </option>
+                                                    @endforeach
+                                                </select>                                  
+        
+                                            <p>Clave Catastral</p>
+                                            <input type="text" id="txtClave" name="numero_mzna" alt="Search Criteria" false="" autocomplete="off" class="ac_input">
+                                          </td>
+                                        </tr>
+                                        <tr>
+                                          <td>
+                                            <br />
+                                            <input type="button" value="Buscar" size="20" onclick="PM.Map.submitSearch('Clave')" onmouseover="PM.changeButtonClr(this,'over')" onmouseout="PM.changeButtonClr(this,'out')" class="button_off">
+                                          </td>
+                                        </tr>
+                                    </table>
                                   </td>
                                 </tr>
+                                </tbody>
                             </table>
-                          </td>
-                        </tr>
-                        </tbody>
-                    </table>
-                  </form>
-                </div>
+                        </div>
                      </div>
                       <h3>Número de Cuenta</h3>
-                      <div>
-                <div id="consCuenta">
-                  <form id="searchForm" action="blank.html" onsubmit="PM.Query.submitSearch()" onkeypress="return PM.Query.disableEnterKey(event)">
-                    <table width="100%" class="pm-searchcont pm-toolframe" border="0" cellspacing="0" cellpadding="0">
-                      <tbody>
-                        <tr>
-                          <td id="searchitems" class="pm_search_inline">
-                            <table id="searchitems_container1" class="pm-searchitem" border="0" cellspacing="0" cellpadding="0">
+                      <div style="padding:1em;">
+                        <div id="consCuenta">
+                            <table width="100%" class="pm-searchcont pm-toolframe" border="0" cellspacing="0" cellpadding="0">
                               <tbody>
-                                <tr id="searchitems_container2">
-                                  <td class="pm-searchdesc">
-                                    <input type="text" id="pmsfld_numero_mzna" name="numero_mzna" alt="Search Criteria" false="" autocomplete="off" class="ac_input">
-                                  </td>
-                                </tr>
                                 <tr>
-                                  <td>
-                                    <br />
-                                    <input type="button" value="Buscar" size="20" onclick="PM.Query.submitSearch()" onmouseover="PM.changeButtonClr(this,'over')" onmouseout="PM.changeButtonClr(this,'out')" class="button_off">
+                                  <td id="searchitems" class="pm_search_inline">
+                                    <table id="searchitems_container1" class="pm-searchitem" border="0" cellspacing="0" cellpadding="0">
+                                      <tbody>
+                                        <tr id="searchitems_municipios1">
+                                          <td class="pm-searchdesc">
+                                                <p>Municpio</p>
+                                                <select name="D3" size="1" style="width: 100%;">
+                                                    <option value="000"> Seleccione... </option>
+                                                    
+                                                    @foreach($municipios as $municipio => $nombre)
+                                                        <option value="{{$municipio}}"> {{$nombre}} </option>
+                                                    @endforeach
+                                                </select>                                  
+        
+                                            <p>Clave Catastral</p>
+                                            <input type="text" id="pmsfld_numero_mzna" name="numero_mzna" alt="Search Criteria" false="" autocomplete="off" class="ac_input">
+                                          </td>
+                                        </tr>
+                                        <tr>
+                                          <td>
+                                            <br />
+                                            <input type="button" value="Buscar" size="20" onclick="PM.Query.submitSearch()" onmouseover="PM.changeButtonClr(this,'over')" onmouseout="PM.changeButtonClr(this,'out')" class="button_off">
+                                          </td>
+                                        </tr>
+                                    </table>
                                   </td>
                                 </tr>
+                                </tbody>
                             </table>
-                          </td>
-                        </tr>
-                        </tbody>
-                    </table>
-                  </form>
-                </div>
-                      </div>
+                        </div>
+                     </div>
                       <h3>Domicilio</h3>
-                      <div>
-                <div id="consDomicilio">
-                  <form id="searchForm" action="blank.html" onsubmit="PM.Query.submitSearch()" onkeypress="return PM.Query.disableEnterKey(event)">
-                                    Asentamiento
-                                    <input type="text" id="pmsfld_numero_mzna" name="numero_mzna" alt="Search Criteria" false="" autocomplete="off" class="ac_input">
-                  
-                                    <br />
-                                    <input type="button" value="Buscar" size="20" onclick="PM.Query.submitSearch()" onmouseover="PM.changeButtonClr(this,'over')" onmouseout="PM.changeButtonClr(this,'out')" class="button_off">
-                  </form>
-                </div>
-                      </div>
+                      <div style="padding:1em;">
+                        <div id="consDomicilio">
+                            <table width="100%" class="pm-searchcont pm-toolframe" border="0" cellspacing="0" cellpadding="0">
+                              <tbody>
+                                <tr>
+                                  <td id="searchitems" class="pm_search_inline">
+                                    <table id="searchitems_container1" class="pm-searchitem" border="0" cellspacing="0" cellpadding="0">
+                                      <tbody>
+                                        <tr id="searchitems_municipios1">
+                                          <td class="pm-searchdesc">
+                                                <p>Municpio</p>
+                                                <select name="D3" size="1" style="width: 100%;">
+                                                    <option value="000"> Seleccione... </option>
+                                                    
+                                                    @foreach($municipios as $municipio => $nombre)
+                                                        <option value="{{$municipio}}"> {{$nombre}} </option>
+                                                    @endforeach
+                                                </select>                                  
+        
+                                            <p>Clave Catastral</p>
+                                            <input type="text" id="pmsfld_numero_mzna" name="numero_mzna" alt="Search Criteria" false="" autocomplete="off" class="ac_input">
+                                          </td>
+                                        </tr>
+                                        <tr>
+                                          <td>
+                                            <br />
+                                            <input type="button" value="Buscar" size="20" onclick="PM.Query.submitSearch()" onmouseover="PM.changeButtonClr(this,'over')" onmouseout="PM.changeButtonClr(this,'out')" class="button_off">
+                                          </td>
+                                        </tr>
+                                    </table>
+                                  </td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                     </div>
                       <h3>Calle-Asentamiento</h3>
-                      <div>
-                      </div>
+                      <div style="padding:1em;">
+                        <div id="consCalle>
+                            <table width="100%" class="pm-searchcont pm-toolframe" border="0" cellspacing="0" cellpadding="0">
+                              <tbody>
+                                <tr>
+                                  <td id="searchitems" class="pm_search_inline">
+                                    <table id="searchitems_container1" class="pm-searchitem" border="0" cellspacing="0" cellpadding="0">
+                                      <tbody>
+                                        <tr id="searchitems_municipios1">
+                                          <td class="pm-searchdesc">
+                                                <p>Municpio</p>
+                                                <select name="D3" size="1" style="width: 100%;">
+                                                    <option value="000"> Seleccione... </option>
+                                                    
+                                                    @foreach($municipios as $municipio => $nombre)
+                                                        <option value="{{$municipio}}"> {{$nombre}} </option>
+                                                    @endforeach
+                                                </select>                                  
+        
+                                            <p>Clave Catastral</p>
+                                            <input type="text" id="pmsfld_numero_mzna" name="numero_mzna" alt="Search Criteria" false="" autocomplete="off" class="ac_input">
+                                          </td>
+                                        </tr>
+                                        <tr>
+                                          <td>
+                                            <br />
+                                            <input type="button" value="Buscar" size="20" onclick="PM.Query.submitSearch()" onmouseover="PM.changeButtonClr(this,'over')" onmouseout="PM.changeButtonClr(this,'out')" class="button_off">
+                                          </td>
+                                        </tr>
+                                    </table>
+                                  </td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                     </div>
                     </div>                
                 </div>
               </form>
@@ -450,6 +526,7 @@ PM.modifyQueryResultsFunctions = [];
 <div style="visibility:hidden"><img id="pmMapRefreshImg" src="/mapper/images/pixel.gif" alt=""></div>
 <div style="visibility:hidden"><img src="/mapper/images/pixel.gif" alt=""></div>
 
+<!-- Dialog Result Query -->
 <!-- MANDATORY form element for update events; DO NOT REMOVE! -->
 <form id="pm_updateEventForm" action="">
                     <p><input type="hidden" id="pm_mapUpdateEvent" value=""></p>

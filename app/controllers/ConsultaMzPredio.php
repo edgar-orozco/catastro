@@ -22,9 +22,20 @@ class ConsultaMzPredio extends \BaseController {
 	 */
 	public function index()
 	{
-	$view = View::make('cartografia.consultas.form');
+	   
+    $result = DB::select('SELECT municipio, nombre_municipio from municipios order by municipio');
+    
+    $municipios = array();
 
-	return Response::make($view);
+    foreach($result as $registro){
+        $municipios[$registro->municipio] = $registro->nombre_municipio;
+    }       
+       
+	//$view = View::make('cartografia.consultas.form') ;
+
+	return View::make('cartografia.consultas.form') 
+							    ->with ('municipios',$municipios);
+                                	//return Response::make($view)->compact('municipios');
 
 
 	}

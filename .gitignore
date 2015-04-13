@@ -13,3 +13,4 @@ _ide_helper.php
 /app/storage/shapes/*
 /public/css/images/logos/*
 /composer.lock
+/app/config/local/database.php

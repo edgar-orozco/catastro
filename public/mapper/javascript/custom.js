@@ -47,6 +47,7 @@ $(document).ready(function() {
                 PM.activeLayer.splice(x,1);
             }
         }
+        PM.resize_timer = setTimeout("PM.Map.zoompoint(1,'268+228')",300);
     });
   
 });
@@ -176,6 +177,10 @@ $.extend(PM.Init,
                 function(){ $(this).addClass("button_off").removeClass("button_on"); }
             );
         });
+    },
+
+    cLayerOnOff: function() {
+        PM.resize_timer = setTimeout("PM.Map.zoompoint(1,'" + imgxy + "')",300);    
     }
 
 });
@@ -323,106 +328,7 @@ function showObj(obj) {
     obj.style.visibility = 'visible';
 }
 
-
-
-$.extend(PM,
-    {
-        /**
-         * Reset parameters of some DIV's
-         */
-        resetMapImgParams: function () {
-            $("#mapImg").width(PM.mapW).height(PM.mapH);
-            $("#mapimgLayer").top(0).left(0).width(PM.mapW).height(PM.mapH).css({clip: 'rect(auto auto auto auto)'});
-            $('#zoombox, #loading').hidev();
-
-            if (PM.Map.mode == 'measure') {
-                PM.Draw.resetMeasure();
-                PM.Draw.polyline = PM.Draw.toPxPolygon(PM.Draw.geoPolyline);
-                if (PM.Draw.polyline.getPointsNumber() > 0) {
-                    PM.Draw.drawPolyline(jg, PM.Draw.polyline);
-                }
-            }
-        },
-
-        /**
-         * set the cursor to standard internal cursors
-         * or special *.cur url (IE6+ only)
-         */
-        setCursor: function(rmc, ctype) {
-            if (!rmc) {
-                if (PM.Map) {
-                    var toolType = PM.Map.tool;
-                } else {
-                    var toolType = 'zoomin';
-                }
-            } else {
-                toolType = 'pan';
-            }
-
-            // take definition from js_config.php
-            var iC = PM.useInternalCursors;
-            // don't use custom cursors for safari & chrome
-            if ($.browser.webkit) iC = false;
-
-            var rootPath = this.getRootPath();
-            var usedCursor = (iC) ? toolType : 'url("' +rootPath + 'images/cursors/zoomin.cur"), default';
-
-            switch (toolType) {
-                case "zoomin" :
-                    var usedCursor = (iC) ? 'crosshair' : 'url("' +rootPath + 'images/cursors/zoomin.cur"), default';
-                    break;
-
-                case "zoomout" :
-                    var usedCursor = (iC) ? 'e-resize' : 'url(' +rootPath + 'images/cursors/zoomout.cur), default';
-                    break;
-
-                case "identify" :
-                    //var usedCursor = (iC) ? 'help' : 'url(' +rootPath + 'images/cursors/identify.cur), default';
-                    var usedCursor = 'help';
-                    break;
-
-                case "auto_identify" :
-                    var usedCursor = 'pointer';
-                    break;
-
-                case "pan" :
-                    //var usedCursor = (iC) ? 'move' : 'url(' +rootPath + 'images/cursors/pan.cur), default';
-                    var usedCursor = 'move';
-                    break;
-
-                case "select" :
-                    //var usedCursor = (iC) ? 'help' : 'url(' +rootPath + 'images/cursors/select.cur), default';
-                    var usedCursor = (iC) ? 'help' : 'help';
-                    break;
-
-                case "measure" :
-                    var usedCursor = (iC) ? 'crosshair' : 'url(' +rootPath + 'images/cursors/measure.cur), default';
-                    break;
-
-                case "digitize" :
-                    var usedCursor =  'crosshair';
-                    break;
-
-                default:
-                    var usedCursor = 'default';
-            }
-
-            if (ctype) usedCursor = ctype;
-            $('#mapimgLayer').css({'cursor': usedCursor});
-
-        },
-
-        /**
-         * return root path of application
-         */
-        getRootPath: function() {
-            var theLoc = document.location.href;
-            var theLastPos = theLoc.indexOf('?');
-            theLoc = theLoc.substr(0, theLastPos);
-
-            theLastPos = theLoc.lastIndexOf('/');
-            var RootPath = theLoc.substr(0,theLastPos) + '/';
-
-            return RootPath;
-        }
-    });
+function _p($string)
+{
+    return $string;
+}

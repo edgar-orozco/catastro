@@ -716,10 +716,10 @@ $.extend(PM.ZoomBox,
             
             clearTimeout(PM.resize_timer);
             if (wD < 0) {
-                PM.resize_timer = setTimeout("PM.Map.zoompoint(2,'" + imgxy + "')",300);  
+                PM.resize_timer = setTimeout("PM.Map.zoompoint(-2,'" + imgxy + "')",300);  
                 return false;
             } else if (wD > 0) {
-                PM.resize_timer = setTimeout("PM.Map.zoompoint(-2,'" + imgxy + "')",300);  
+                PM.resize_timer = setTimeout("PM.Map.zoompoint(2,'" + imgxy + "')",300);  
                 return false;
             }
         }

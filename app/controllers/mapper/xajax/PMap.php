@@ -128,7 +128,7 @@ class PMap extends \BaseController
             //$this->layers = explode(",", $drawLayerStr);
             $this->layers = $_REQUEST["groups"];
         } else {
-            $this->layers = ['manzanas','predios','entidades','municipios','localidades','carreteras','calles','rios','hipsografico'];
+            $this->layers = array("manzanas","predios","entidades","municipios","localidades","carreteras","calles","rios","hipsografico");
         }
     }
 
@@ -515,7 +515,7 @@ class PMap extends \BaseController
     protected function pmap_zoomextent()
     {
         $extent_str = $_REQUEST["extent"];
-        $extent_arr = explode(" ", $extent_str);
+        $extent_arr = explode("+", $extent_str);
         $this->map->setExtent($extent_arr[0], $extent_arr[1], $extent_arr[2],$extent_arr[3]);
         if ($minscaledenom = $this->map->web->minscaledenom) {
             if ($this->map->scaledenom < $minscaledenom) {
