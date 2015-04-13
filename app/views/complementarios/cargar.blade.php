@@ -124,7 +124,7 @@
         }
         </style>
 
-
+    
     <div class="stepwizard">
             <div class="stepwizard-row setup-panel">
                 <div class="stepwizard-step">
@@ -157,18 +157,18 @@
                 </div>
             </div>
         </div>
-   
+
     <div style="float: right;margin-top: -7px;margin-right: -66px;">
         <!--<iframe src="https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d15179.10423749334!2d-92.83543432609864!3d17.989152844348357!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e0!3m2!1ses!2smx!4v1423185076690" width="600" height="450" frameborder="0" style="border:0"></iframe>-->  
     </div>
     <div class="container">
-        
+
         <div class="row setup-content" id="step-1">
             <div class="col-xs-12">
                 <div class="col-md-12">
-                    <h3>Predios</h3> 
+                    <h3>Predios</h3>
                      @include('complementarios.complementos.predios')
-                    
+
 
                 </div>
             </div>
@@ -178,7 +178,7 @@
                 <div class="col-md-12">
                     <h3>Construcciones</h3>
                     @include('complementarios.complementos.construcciones')
-                    
+
                 </div>
             </div>
         </div>
@@ -189,7 +189,7 @@
                     @include('complementarios.complementos.instalaciones')
 
                     <button type="button" class="btn btn-primary next">
-                        Next
+                        Siguiente
                         <i class="glyphicon glyphicon-chevron-right"></i>
                     </button>
                 </div>
@@ -202,7 +202,7 @@
                     @include('complementarios.complementos.condominio')
 
                     <button type="button" class="btn btn-primary next">
-                        Next
+                        Siguiente
                         <i class="glyphicon glyphicon-chevron-right"></i>
                     </button>
                 </div>
@@ -213,10 +213,6 @@
                 <div class="col-md-12">
                     <h3>Servicios</h3>
                     @include('complementarios.complementos.servicio')
-                    <button type="button" class="btn btn-primary next">
-                        Next
-                        <i class="glyphicon glyphicon-chevron-right"></i>
-                    </button>
                 </div>
             </div>
         </div>
@@ -225,10 +221,6 @@
                 <div class="col-md-12">
                     <h3>Giros</h3>
                     @include('complementarios.complementos.giros')
-                    <button type="button" class="btn btn-primary next">
-                        Next
-                        <i class="glyphicon glyphicon-chevron-right"></i>
-                    </button>
                 </div>
             </div>
         </div>

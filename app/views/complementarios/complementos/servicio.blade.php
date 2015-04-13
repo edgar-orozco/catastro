@@ -56,7 +56,7 @@
                     },
                     success: function (data) 
                     {               
-                        alert("guardado correcto");
+                        alert("datos guardados");
                          //Se obtiene el elemento table
                         
 
@@ -124,7 +124,7 @@
 //    echo $li;
     ?>
     <li> <?php echo $input; ?>
-        <div class="btn-group btn-toggle botones-requisitos" data-toggle="buttons">           
+        <div class="btn-group btn-toggle botones-requisitos" data-toggle="buttons">
             <label class="btn btn-sm btn-default <?php echo $css ?>">{{$row->descripcion}}
                 <input type='checkbox' name='opcion[]' value="{{$row->id_tiposervicio }}">
             </label>
@@ -132,7 +132,13 @@
     </li>
     @endforeach
 </ul>
-{{ Form::submit('Guardar', array('class' => 'btn btn-primary','id'=>'btn-guardar')) }}
+<br><br><br><br><br><br><br><br><br><br><br><br><br>
+<div class="form-group">
+ <button type="submit" class="btn btn-primary next">
+            Siguiente
+            <i class="glyphicon glyphicon-chevron-right"></i>
+        </button>
+    </div>
 {{ Form::close() }}
 
 <br/>

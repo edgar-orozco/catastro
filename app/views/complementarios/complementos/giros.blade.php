@@ -129,7 +129,15 @@ foreach ($girosasociados as $asoc) {
     @endforeach
 
 </ul>
-{{ Form::submit('Guardar', array('class' => 'btn btn-primary','id'=>'btn-guardar')) }}
+<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+<div class="col-md-6">
+<div class="form-group">
+ <button type="submit" class="btn btn-primary next">
+            Siguiente
+            <i class="glyphicon glyphicon-chevron-right"></i>
+        </button>
+    </div>
+</div>
 {{ Form::close() }}
 <br/>
 <hr>
