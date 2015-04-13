@@ -1,35 +1,5 @@
 
-<div class="panel panel-default">
-        <!-- Default panel contents -->
-        <div class="panel-heading">Datos Complementarios</div>
 
-          <!-- Table -->
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Clave</th>
-                <th>Entidad</th>
-                <th>Municipio</th>
-                <th>Propietario</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr>
-                @foreach($predios as $predio)
-                <th scope="row">{{$predio->clave_catas}}</th>
-                <td>{{$predio->nom_ent}}</td>
-                <td>{{$predio->nombre_municipio }}</td>
-                <?php $clave=$predio->entidad.'-'.$predio->municipio.'-'.$predio->clave_catas ?>
-                <td><?php $propietarios = DB::select("select sp_get_propietarios('$clave')"); 
-                foreach ($propietarios as $keys) {
-               $propie = explode(',', $keys->sp_get_propietarios);
-               echo $propie[0];
-                }?></td>
-                @endforeach
-            </tr>
-        </tbody>
-    </table>
-</div>
 
 
 {{Form::open(array('url' => 'guardar-predios', 'method' => 'POST', 'name' => 'formPredios', 'id' => 'formPredios'))}}
