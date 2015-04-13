@@ -13,10 +13,12 @@ Route::group(['before' => 'auth'], function() {
     Route::post("cargar-complementos-editar/{id?}", "complementarios_ComplementariosController@getEditar");
     Route::get("cargar-complementose/{id?}", "complementarios_ComplementariosController@getEliminar");
     Route::get("agregar/{id?}", "complementarios_ComplementariosController@getAgregar");
-    Route::post("agregar/{id?}", "complementarios_ComplementariosController@post_agregar");
+    Route::post("/agregar/{id?}", "complementarios_ComplementariosController@post_agregar");
     Route::post("eliminar-inst", "complementarios_ComplementariosController@eliminar_instalacion");
     //construcciones
     Route::post("guardar-construccion", "complementarios_ComplementariosController@postConstruccion");
+    Route::get("cargar-construccion", "complementarios_ComplementariosController@getConstruccion");
+    Route::post("eliminar-construccion", "complementarios_ComplementariosController@eliminarConstruccion");
     Route::get("cargar-complementos/{id?}", "complementarios_ComplementariosController@getConstruccion");
     Route::get('/complementos-editar/{id?}', "complementarios_ComplementariosController@getCargarconstruccion");
     Route::post('/complementos-editar/{id?}', "complementarios_ComplementariosController@getEditarConstruccionConstruccion");
@@ -64,7 +66,7 @@ Route::group(['before' => 'auth'], function() {
 
 
     //Cargado de archivos
-    Route::get('/cargarArchivo', 'complementarios_CargarController@index');
-    Route::post('/cargarArchivo', 'complementarios_CargarController@cargar');
+    Route::get('/cargarArchivo', 'CargarController@index');
+    Route::post('/cargarArchivo', 'CargarController@cargar');
     
 });
