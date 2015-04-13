@@ -1,41 +1,42 @@
 
 <div class="panel panel-default">
         <!-- Default panel contents -->
-        
+        <div class="panel-heading">Datos Complementarios</div>
 
-	<div class="panel-heading">Datos Complementarios</div>
-
-	      <!-- Table -->
+          <!-- Table -->
     <table class="table">
         <thead>
             <tr>
                 <th>Clave</th>
                 <th>Entidad</th>
                 <th>Municipio</th>
+                <th>Propietario</th>
             </tr>
         </thead>
         <tbody>
-            <tr>    
+            <tr>
                 @foreach($predios as $predio)
                 <th scope="row">{{$predio->clave_catas}}</th>
                 <td>{{$predio->nom_ent}}</td>
                 <td>{{$predio->nombre_municipio }}</td>
+                <?php $clave=$predio->entidad.'-'.$predio->municipio.'-'.$predio->clave_catas ?>
+                <td><?php $propietarios = DB::select("select sp_get_propietarios('$clave')"); 
+                foreach ($propietarios as $keys) {
+               $propie = explode(',', $keys->sp_get_propietarios);
+               echo $propie[0];
+                }?></td>
                 @endforeach
             </tr>
         </tbody>
     </table>
 </div>
 
+
 {{Form::open(array('url' => 'guardar-predios', 'method' => 'POST', 'name' => 'formPredios', 'id' => 'formPredios'))}}
 	<div class="panel-body">
 		{{Form::text('gid',$gid,['id'=>'gid', "hidden" ])}}
 		<div class="row">
-			<div class="col-md-4">
-				<div class="form-group">
-					{{Form::label('Ltipo_predio','Tipo Predio')}}		
-					{{Form::select('tipo_predio', ['U' => 'Urbano','R' => 'Rústico'], null, ['id'=>'tipo_predio', 'class' => 'form-control'])}}
-				</div>
-			</div>
+			
 			<div class="col-md-4">
 				<div class="form-group">
 					{{Form::label('Ltipo_propiedad', 'Tipo Propiedad')}}
@@ -80,7 +81,7 @@
 		{{Form::text('gid',$gid,['id'=>'gid', "hidden" ])}}
 		<div class="row">
 			<div class="col-md-3">
-			
+
 				<div class="form-group">
 				{{Form::label('Lmedidor_instalado','Medidor Instalado')}}
 				<br>
@@ -88,7 +89,7 @@
 					No {{Form::radio('medidor_instalado', 'No')}}
 				</div>
 			</div>
-						
+
 			<div class="col-md-3">
 				<div class="form-group">
 					{{Form::label('Lnum_medidor', 'Numero de medidor')}}
@@ -105,10 +106,10 @@
 				<div class="form-group">
 					{{Form::label('Ltipo_toma','Tipo Toma')}}
 					{{Form::select('tipo_toma',  $tta, null, ['class' => 'form-control'])}}
-					
+
 				</div>
 			</div>
-						
+
 		</div>
 	</div>
 
