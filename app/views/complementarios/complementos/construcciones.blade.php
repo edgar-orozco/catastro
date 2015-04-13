@@ -185,10 +185,10 @@ $('#formConstruccion').bind('submit',function ()
                 cell = row.insertCell(2);
                 cell.innerHTML=data.edad_const;
                 cell = row.insertCell(3);
-                var editar = '<a id="construccion-edit{{$row->gid}}" onclick="editar_construccion("'+{{$row->gid}}+'")" class="btn btn-warning editar" title="Editar Construcción">'+
+                var editar = '<a id="construccion-edit{{$row->gid}}" onclick="editar_construccion("'+data.gid+'")" class="btn btn-warning editar" title="Editar Construcción">'+
                                     '<span class="glyphicon glyphicon-edit"></span>'+
                                 '</a> ';
-                var eliminar = '<a id="construccion-delete{{$row->gid}}" onclick="eliminar_construccion("'+{{$row->gid}}+'")" class="btn btn-danger eliminar" title="Eliminar Construcción">'+
+                var eliminar = '<a id="construccion-delete{{$row->gid}}" onclick="eliminar_construccion("'+data.gid+'")" class="btn btn-danger eliminar" title="Eliminar Construcción">'+
                                     '<span class="glyphicon glyphicon-remove"></span>'
                                 '</a>';
 
