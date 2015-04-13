@@ -78,19 +78,6 @@
     {{ Form::hidden('municipio',$municipio) }}
 </div>
 
-<div class="col-md-6">
-    <div class="form-group">
-        {{Form::label('Lsuperficie_terreno', 'Superficie Terreno')}}
-        {{Form::text('superficie_terreno', '', ['class'=>'form-control', 'id'=>'superficie_terreno', 'required'])}}
-    </div>
-</div>
-<div class="col-md-6">
-    <div class="form-group">
-        {{Form::label('Lsuperficie_construccion','Superficie Construccion')}}
-        {{Form::text('superficie_construccion','',['class'=>'form-control','required', 'id'=>'superficie_construccion'])}}
-    </div>
-</div>
-
 <?php
 $cat = array();
 foreach ($giros as $catal) {

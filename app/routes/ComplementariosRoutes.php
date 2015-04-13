@@ -64,9 +64,16 @@ Route::group(['before' => 'auth'], function() {
     Route::post('/cargar-complementos/agregar-pisos/{id?}', "complementarios_ComplementariosController@postAgregarPisos");
     Route::get('/cargar-complementos/eliminar-pisos/{id?}/{gid?}', "complementarios_ComplementariosController@getEliminarPisos");
 
-
     //Cargado de archivos
     Route::get('/cargarArchivo', 'CargarController@index');
     Route::post('/cargarArchivo', 'CargarController@cargar');
+    
+    //Persona entrevistada
+    Route::get('personas', 'complementarios_ComplementariosController@personasEntrevistada');
+    Route::get('autocomplete', 'complementarios_ComplementariosController@autocomplete');
+    //
+    Route::post("guardar-entrevista", "complementarios_ComplementariosController@postEntrevista");
+    
+    
     
 });
