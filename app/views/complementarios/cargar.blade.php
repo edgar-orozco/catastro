@@ -208,6 +208,10 @@
                 <div class="col-md-12">
                     <h3>Construcciones</h3>
                     @include('complementarios.complementos.construcciones')
+                    <button type="button" class="btn btn-primary next">
+                        Siguiente
+                        <i class="glyphicon glyphicon-chevron-right"></i>
+                    </button>
 
                 </div>
             </div>
