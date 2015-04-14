@@ -287,7 +287,9 @@ class complementarios_ComplementariosController extends BaseController {
     $tomas_agua=TomasAgua::where('gid_predio', '=', $id)->get()->toArray();
 
 
+
         return View::make('complementarios.cargar', compact("tomas_agua", "datos_p", "predios","const", "tuc" ,"tcc", "ttc", "tec", "tmc", "tpic", "tpuc", "tvc", "catalogo", "gid", "clave_catas", "estado", "municipio", "cat", "asociados", "giros", "girosasociados", "datos", "condominio", "tta", "datos_construcciones"));
+
     }
 
     /**
@@ -1043,7 +1045,9 @@ class complementarios_ComplementariosController extends BaseController {
             if(Input::file($file)) 
             {
                 // Se valida el directorio para subir shapes
-                $dir = public_path() . '/complementarios/anexos/'.$entidad.'/'.$municipio.'/'.$clave_catas.'/' ;
+
+               $dir = public_path() . '/complementarios/anexos/'.$entidad.'/'.$municipio.'/'.$clave_catas.'/'.$array_clave[0].'/'.$array_clave[1].'/';
+
                 
                 if (!file_exists($dir) && !is_dir($dir)) 
                 {
@@ -1061,7 +1065,9 @@ class complementarios_ComplementariosController extends BaseController {
                     $imagenes->clave_catas=$clave_catas;
                     $imagenes->gid_predio=$gid_predio;
                     $imagenes->id_tipoimagen=$id_tipoimagen2[$i];
-                    $imagenes->nombre_archivo=$dir.$file2->getClientOriginalName().'.'.$file2->getClientOriginalExtension();
+
+                    $imagenes->nombre_archivo='/public/complementarios/anexos/'.$entidad.'/'.$municipio.'/'.$array_clave[0].'/'.$array_clave[1].'/'.$clave_catas.'/'.$gid_predio.'-'.$id_tipoimagen.'.'.$file2->getClientOriginalExtension();
+
                     $imagenes->save();
                     $respuesta[]  =   '¡Se guardo correctamente el archivo: '. $file2->getClientMimeType();
                         
