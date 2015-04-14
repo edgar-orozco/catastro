@@ -309,7 +309,15 @@ class complementarios_ComplementariosController extends BaseController {
      * @return type
      */
     public function getAgregar($id = null) {
-        $catalogo = ['' => '--seleccione una opción--'] +InstalacionesEspeciales::orderBy('descripcion', 'ASC')->lists('descripcion','id_tipoie');
+//        $catalogo = ['' => '--seleccione una opción--'] +InstalacionesEspeciales::orderBy('descripcion', 'ASC')->lists('descripcion','id_tipoie');
+        $selection=array();
+
+        $instala= DB::table('instalaciones_especiales')->select('id_tipo_ie')->where('clave', 'like', $id)->get();
+        foreach ($instala as $row) 
+        {
+            $selection[]=$row->id_tipo_ie;
+        }
+        $catalogo = InstalacionesEspeciales::whereNotIn('id', $selection)->get();
 
         return View::make('complementarios.agregar', ['datos' => $id], compact("catalogo"));
     }
@@ -820,8 +828,8 @@ class complementarios_ComplementariosController extends BaseController {
         $clave_cata     =   $inputs['clave_cata'];
         $gid_predio     =   $inputs['gid_predio']; 
         $id_tipogiro    =   $inputs['giros'];
-        $sup_terreno    =   $inputs['superficie_terreno'];
-        $sup_constru    =   $inputs['superficie_construccion'];
+        $sup_terreno    =   0;
+        $sup_constru    =   0;
         
         $giropredio = Giros::where(['gid_predio'=> $gid_predio])->get();
 
@@ -960,8 +968,6 @@ class complementarios_ComplementariosController extends BaseController {
         $n->updated_at=date("Y-m-d");          
         $n->save();
         Session::flash('mensaje', 'El registro ha sido ingresado exitosamente');
-        return Redirect::back();
-      
     }
     
     public function postPersonas (){

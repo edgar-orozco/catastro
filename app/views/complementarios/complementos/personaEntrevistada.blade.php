@@ -24,12 +24,14 @@
     {{$errors->first('id_p', '<span class=text-danger>:message</span>')}}
 
 </div>
-
-<button type="submit" class="btn btn-primary next">
-	Siguiente
-	<i class="glyphicon glyphicon-chevron-right"></i>
-</button>
-
+<div class="col-md-6">
+    <div class="form-group">
+        <button type="submit" class="btn btn-primary next">
+            Siguiente
+            <i class="glyphicon glyphicon-chevron-right"></i>
+        </button>
+    </div>
+</div>
 {{Form::close()}}
 <!-- Modal -->
 <div class="modal fade" id="Nuevo" data-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">

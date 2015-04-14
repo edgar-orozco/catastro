@@ -271,11 +271,7 @@
             <div class="col-xs-12">
                 <div class="col-md-12">
                     <h3> Persona entrevistada</h3>
-                    {{--@include('complementarios.complementos.personaEntrevistada')--}}
-                    <button type="button" class="btn btn-primary next">
-                        Siguiente
-                        <i class="glyphicon glyphicon-chevron-right"></i>
-                    </button>
+                    @include('complementarios.complementos.personaEntrevistada')
                 </div>
             </div>
         </div>
