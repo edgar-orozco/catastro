@@ -123,7 +123,8 @@ class complementarios_ComplementariosController extends BaseController {
 
         return Response::json(array
             (
-                'gid_construccion' => $gid_construccion, 
+                'gid_construccion' => $gid_construccion,
+                'gid_construccion2'=> $gid,
                 'nivel'         =>  $nivel,
                 'sup_const'     =>  $sup_const,
                 'edad_const'    =>  $edad_const
