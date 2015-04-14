@@ -125,7 +125,7 @@
             </tr>
             </thead>
             <?php
-            $vencido = DB::select("select sp_get_('$mun')");
+            $vencido = DB::select("select sp_get_anios_vencidos('$mun')");
             $total_adeudo = 0;
             foreach ($vencido as $keys) {
                 $vencidos = explode(',', $keys->sp_get_anios_vencidos);

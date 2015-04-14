@@ -252,11 +252,21 @@ class complementarios_ComplementariosController extends BaseController {
         $datos_construcciones = construcciones::where('gid_predio', '=', $id)->get();
 
 
-
+ foreach($predios as $predio)
+         {
+         $muni=$predio->municipio;
+        $entid=$predio->entidad;
+    }
+        $datos_predios= DB::select("select sp_get_datos_pre('$clave_catas', '$muni', '$entid')");
+            foreach ($datos_predios as $keys)
+            {
+                $datos_p[] = explode(',', $keys->sp_get_datos_pre);
+            }
 
         /*
 
 
+<<<<<<< HEAD
           $condominio = condominios::WHERE('clave', 'LIKE', '%' . $id . '%')
           ->orderBy('id_condominio', 'ASC')
           ->get();
@@ -305,7 +315,6 @@ class complementarios_ComplementariosController extends BaseController {
          */
 
 
-        return View::make('complementarios.cargar', compact("predios", "const", "tuc", "tcc", "ttc", "tec", "tmc", "tpic", "tpuc", "tvc", "catalogo", "gid", "clave_catas", "estado", "municipio", "cat", "asociados", "giros", "girosasociados", "datos", "condominio", "tta", "datos_construcciones"));
     }
 
     /**
@@ -798,6 +807,7 @@ class complementarios_ComplementariosController extends BaseController {
                 DB::delete("DELETE FROM giros WHERE id_tipogiro=$id AND clave_catas='$clave_cata'");
             }
         }
+
         if (!$contar) {
             if (sizeof($actuales) == 0) {
                 $count = count($id_tipogiro);
@@ -839,6 +849,7 @@ class complementarios_ComplementariosController extends BaseController {
                 $n->updated_at = date('Y-m-d');
                 $n->save();
             }
+
         }
     }
 
@@ -1014,6 +1025,7 @@ class complementarios_ComplementariosController extends BaseController {
             // Se valida que exista un archivo
             if (Input::file($file)) {
                 // Se valida el directorio para subir shapes
+<<<<<<< HEAD
                 $dir = public_path() . '/complementarios/anexos/' . $entidad . '/' . $municipio . '/' . $clave_catas . '/';
 
                 if (!file_exists($dir) && !is_dir($dir)) {
@@ -1031,6 +1043,30 @@ class complementarios_ComplementariosController extends BaseController {
                     $imagenes->gid_predio = $gid_predio;
                     $imagenes->id_tipoimagen = $id_tipoimagen2[$i];
                     $imagenes->nombre_archivo = $dir . $file2->getClientOriginalName() . '.' . $file2->getClientOriginalExtension();
+=======
+
+
+
+                $dir = public_path() . '/complementarios/anexos/'.$entidad.'/'.$municipio.'/'.$clave_catas.'/'.$array_clave[0].'/'.$array_clave[1].'/';
+                
+                if (!file_exists($dir) && !is_dir($dir)) 
+                {
+                    File::makeDirectory($dir, $mode = 0777, true, true);
+                }
+                // Se valida la extensión del archivo
+                
+                if(in_array(strtolower($file2->getClientMimeType()), array('image/png','image/jpeg','image/jpeg','image/jpeg','image/gif','image/bmp','image/vnd.microsoft.icon', 'text/plain', 'application/vnd.ms-excel', 'application/msword', 'application/pdf')))
+                {
+                    $j=$j+1;
+                    $file2->move($dir, $file2->getClientOriginalName().'.'.$file2->getClientOriginalExtension());
+                    $imagenes = new ImagenesLevantamiento();
+                    $imagenes->entidad = $entidad;
+                    $imagenes->municipio = $municipio;
+                    $imagenes->clave_catas=$clave_catas;
+                    $imagenes->gid_predio=$gid_predio;
+                    $imagenes->id_tipoimagen=$id_tipoimagen2[$i];
+                    $imagenes->nombre_archivo='/public/complementarios/anexos/'.$entidad.'/'.$municipio.'/'.$array_clave[0].'/'.$array_clave[1].'/'.$clave_catas.'/'.$gid_predio.'-'.$id_tipoimagen.'.'.$file2->getClientOriginalExtension();
+>>>>>>> 805fc231e8b82ec61bae0fd32df9ce8ee1e02bc9
                     $imagenes->save();
                     $respuesta[] = '¡Se guardo correctamente el archivo: ' . $file2->getClientMimeType();
                 } else {

@@ -1,5 +1,12 @@
-
-
+<?php 
+foreach ($datos_p as $k) {
+    $tipo_predio=str_replace('(', '', $k[0]);
+    $niveles=$k[1];
+    $folio=$k[2];
+    $superficie_terreno=$k[3];
+    $uso_construccion=str_replace(')', '',$k[4]);
+}
+ ?>
 
 
 {{Form::open(array('url' => 'guardar-predios', 'method' => 'POST', 'name' => 'formPredios', 'id' => 'formPredios'))}}
@@ -9,31 +16,31 @@
 			<div class="col-md-6">
         <div class="form-group">
           {{Form::label('Ltipo_predio','Tipo Predio')}}   
-          {{Form::select('tipo_predio', ['U' => 'U','R' => 'R'], null, ['id'=>'tipo_predio', 'class' => 'form-control'])}}
+          {{Form::select('tipo_predio', ['U' => 'Urbano','R' => 'Rustico'], $tipo_predio, ['id'=>'tipo_predio', 'class' => 'form-control'])}}
         </div>
       </div>
 			<div class="col-md-4">
 				<div class="form-group">
 					{{Form::label('Lniveles','Niveles')}}
-					{{Form::number('niveles','',['class'=>'form-control bfh-number','required', 'id'=>'niveles', 'min' => '1' ])}}
+					{{Form::number('niveles', $niveles ,['class'=>'form-control bfh-number','required', 'id'=>'niveles', 'min' => '1' ])}}
 				</div>
 			</div>
 			<div class="col-md-4">
 				<div class="form-group">
 					{{Form::label('Lfolio','Folio')}}
-					{{Form::text('folio','',['class'=>'form-control','required', 'id'=>'folio'])}}
+					{{Form::text('folio',$folio,['class'=>'form-control','required', 'id'=>'folio'])}}
 				</div>
 			</div>
 			<div class="col-md-4">
 				<div class="form-group">
 					{{Form::label('Lsuperficie_terreno','Superficie Terreno')}}
-					{{Form::text('superficie_terreno','',['class'=>'form-control','required', 'id'=>'superficie_terreno'])}}
+					{{Form::text('superficie_terreno',$superficie_terreno,['class'=>'form-control','required', 'id'=>'superficie_terreno'])}}
 				</div>
 			</div>
 			<div class="col-md-4">
 				<div class="form-group">
 					{{Form::label('Luso_construccion','Uso Connstrucción')}}
-					{{Form::select('uso_construccion',  $tuc, null, ['id'=>'uso_construccion', 'class' => 'form-control'])}}
+					{{Form::select('uso_construccion',  $tuc, $uso_construccion, ['id'=>'uso_construccion', 'class' => 'form-control'])}}
 
 				</div>
 			</div>
