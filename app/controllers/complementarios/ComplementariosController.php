@@ -284,6 +284,8 @@ class complementarios_ComplementariosController extends BaseController {
                 $datos_p[] = explode(',', $keys->sp_get_datos_pre);
             }
 
+    $tomas_agua=TomasAgua::where('gid_predio', '=', $id)->get()->toArray();
+//print_r($tomas_agua);
         /*
         
 
@@ -335,7 +337,7 @@ class complementarios_ComplementariosController extends BaseController {
         */
 
 
-        return View::make('complementarios.cargar', compact("datos_p", "predios","const", "tuc" ,"tcc", "ttc", "tec", "tmc", "tpic", "tpuc", "tvc", "catalogo", "gid", "clave_catas", "estado", "municipio", "cat", "asociados", "giros", "girosasociados", "datos", "condominio", "tta", "datos_construcciones"));
+        return View::make('complementarios.cargar', compact("tomas_agua", "datos_p", "predios","const", "tuc" ,"tcc", "ttc", "tec", "tmc", "tpic", "tpuc", "tvc", "catalogo", "gid", "clave_catas", "estado", "municipio", "cat", "asociados", "giros", "girosasociados", "datos", "condominio", "tta", "datos_construcciones"));
     }
 
     /**
@@ -416,6 +418,65 @@ class complementarios_ComplementariosController extends BaseController {
         $datos = instalaciones::find($id);
         return View::make('complementarios.editar', compact("datos", "catalogo"));
     }
+
+     public function postAgua()
+    {
+        $gid_p=Input::get('gid_p');
+        $gid=Input::get('gid');
+        $estado=Input::get('estado');
+        $municipio=Input::get('municipio');
+        $clave_cata=Input::get('clave_cata');
+        $medidor_instalado=Input::get('medidor_instalado');
+        $num_medidor=Input::get('num_medidor');
+        $num_contrato=Input::get('num_contrato');
+        $tipo_toma=Input::get('tipo_toma');
+        $id_usuariotoma=Input::get('id_p');
+
+            if($gid_p=='')
+            {
+
+        $agua = new TomasAgua();
+        $agua->entidad=$estado;
+        $agua->municipio=$municipio;
+        $agua->clave_catas=$clave_cata;
+        $agua->gid_predio=$gid;
+        $agua->medidor_instalado=$medidor_instalado;
+        $agua->num_medidor=$num_medidor;
+        $agua->num_contrato=$num_contrato;
+        $agua->id_tipotoma=$tipo_toma;
+        $agua->id_usuariotoma=$id_usuariotoma;
+        $agua->save();
+        return Response::json(array
+                (
+                    'medidor_instalado' => $medidor_instalado,
+                    'num_medidor' => $num_medidor,
+                    'num_contrato' => $num_contrato,
+                    'tipo_toma' => $tipo_toma,
+                    'total_datos' => $total_datos,
+                    'total_datos' => $total_datos
+                ));
+    }
+    else
+    {
+        $aguas = TomasAgua::find($gid_p);
+        $aguas->medidor_instalado=$medidor_instalado;
+        $aguas->num_medidor=$num_medidor;
+        $aguas->num_contrato=$num_contrato;
+        $aguas->id_tipotoma=$tipo_toma;
+        $aguas->id_usuariotoma=$id_usuariotoma;
+        $aguas->save();
+        return Response::json(array
+                (
+                    'medidor_instalado' => $medidor_instalado,
+                    'num_medidor' => $num_medidor,
+                    'num_contrato' => $num_contrato,
+                    'tipo_toma' => $tipo_toma
+                ));
+    }
+    }
+
+
+
 
     public function getEditar() {
         $inputs = Input::All();
