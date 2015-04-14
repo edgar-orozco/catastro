@@ -3,7 +3,7 @@
     <br/>
     
         <div class="input-group">
-            {{ Form::hidden('clave_catas',$clave_cata) }}
+            {{ Form::hidden('clave_catas',$clave_catas) }}
             {{ Form::hidden('gid_predio',$gid) }}
             {{ Form::hidden('entidad',$estado) }}
             {{ Form::hidden('municipio',$municipio) }}
