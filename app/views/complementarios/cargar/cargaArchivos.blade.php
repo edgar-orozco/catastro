@@ -13,7 +13,11 @@
 </div>
 
 
-<div id="" data-array="{{$imagenes}}"></div>
+
+
+
+
+<div id="div-array" data-array="{{$file}}"></div>
 
 
 
@@ -23,6 +27,9 @@
 
 <script>
 
+
+
+
 var footerTemplate = '<select name="select-instalaciones" class="form-control" id="instalaciones"> '+
                         '<option selected="selected" value="">--Seleccione una opción--</option>'+
                         '<option value="1">Frontal</option>'+
@@ -31,14 +38,23 @@ var footerTemplate = '<select name="select-instalaciones" class="form-control" i
                      '<button type="button" class="kv-file-remove btn btn-xs btn-default" title="Remove file" data-url="/molestar.com" data-key="1">'+
                         '<i class="glyphicon glyphicon-trash text-danger"></i>'+
                      '</button>';
+var imagen = [];
+
+
+@foreach($file as $fil)
+    
+    
+    imagen.push("{{$fil}}");
+
+    
+
+@endforeach
 
 
 
 $('#file').on('fileloaded', function(event, file, previewId, index, reader) 
 {
-    //alert(file.type);
-
-    
+        
 
 });
 
@@ -50,10 +66,7 @@ $('#file').on('fileloaded', function(event, file, previewId, index, reader)
 		uploadAsync: false,
 		maxFileCount: 5,
 		layoutTemplates: {footer: footerTemplate},
-        /*initialPreview: [
-        "<img src='http://lorempixel.com/200/150/people/1'>",
-        "<img src='http://lorempixel.com/200/150/people/2'>",
-    ],*/
+        initialPreview: imagen,
 		uploadExtraData: function()
 		{
 			

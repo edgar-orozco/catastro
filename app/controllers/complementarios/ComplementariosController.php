@@ -50,7 +50,19 @@ class complementarios_ComplementariosController extends BaseController {
         
 
         return Response::json(array(
-            'gid'   =>  $datos_construcciones
+            'gid'   =>  $datos_construcciones[0]->gid,
+            'nivel'   =>  $datos_construcciones[0]->nivel,
+            'sup_const'   =>  $datos_construcciones[0]->sup_const,
+            'edad_const'   =>  $datos_construcciones[0]->edad_const,
+            'id_tuc'   =>  $datos_construcciones[0]->id_tuc,
+            'id_tcc'   =>  $datos_construcciones[0]->id_tcc,
+            'id_ttc'   =>  $datos_construcciones[0]->id_ttc,
+            'id_tec'   =>  $datos_construcciones[0]->id_tec,
+            'id_tmc'   =>  $datos_construcciones[0]->id_tmc,
+            'id_tpic'   =>  $datos_construcciones[0]->id_tpic,
+            'id_tpuc'   =>  $datos_construcciones[0]->id_tpuc,
+            'id_tvc'   =>  $datos_construcciones[0]->id_tvc
+
             ));
     }
     public function postConstruccion()
@@ -1112,8 +1124,9 @@ class complementarios_ComplementariosController extends BaseController {
             {
                 // Se valida el directorio para subir shapes
 
-               $dir = public_path() . '/complementarios/anexos/'.$entidad.'/'.$municipio.'/'.$clave_catas.'/'.$array_clave[0].'/'.$array_clave[1].'/';
 
+
+                $dir = public_path() . '/complementarios/anexos/'.$entidad.'/'.$municipio.'/'.$array_clave[0].'/'.$array_clave[1].'/'.$clave_catas.'/';
                 
                 if (!file_exists($dir) && !is_dir($dir)) 
                 {
@@ -1121,19 +1134,17 @@ class complementarios_ComplementariosController extends BaseController {
                 }
                 // Se valida la extensión del archivo
                 
-                if(in_array(strtolower($file2->getClientMimeType()), array('image/png','image/jpeg','image/jpeg','image/jpeg','image/gif','image/bmp','image/vnd.microsoft.icon')))
+                if(in_array(strtolower($file2->getClientMimeType()), array('image/png','image/jpeg','image/jpeg','image/jpeg','image/gif','image/bmp','image/vnd.microsoft.icon', 'text/plain', 'application/vnd.ms-excel', 'application/msword', 'application/pdf')))
                 {
                     $j=$j+1;
-                    $file2->move($dir, $file2->getClientOriginalName().'.'.$file2->getClientOriginalExtension());
+                    $file2->move($dir, $gid_predio.'-'.$id_tipoimagen.'.'.$file2->getClientOriginalExtension());
                     $imagenes = new ImagenesLevantamiento();
                     $imagenes->entidad = $entidad;
                     $imagenes->municipio = $municipio;
                     $imagenes->clave_catas=$clave_catas;
                     $imagenes->gid_predio=$gid_predio;
                     $imagenes->id_tipoimagen=$id_tipoimagen2[$i];
-
-                    $imagenes->nombre_archivo='/public/complementarios/anexos/'.$entidad.'/'.$municipio.'/'.$array_clave[0].'/'.$array_clave[1].'/'.$clave_catas.'/'.$gid_predio.'-'.$id_tipoimagen.'.'.$file2->getClientOriginalExtension();
-
+                    $imagenes->nombre_archivo='/complementarios/anexos/'.$entidad.'/'.$municipio.'/'.$array_clave[0].'/'.$array_clave[1].'/'.$clave_catas.'/'.$gid_predio.'-'.$id_tipoimagen.'.'.$file2->getClientOriginalExtension();
                     $imagenes->save();
                     $respuesta[]  =   '¡Se guardo correctamente el archivo: '. $file2->getClientMimeType();
                         

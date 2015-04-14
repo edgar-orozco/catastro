@@ -236,20 +236,20 @@ function editar_construccion(gid)
                 success: function (data) 
                 {               
                    
-                document.getElementById('nivel').value = data.gid[0].nivel;
-                document.getElementById('superficie_construccion').value = data.gid[0].sup_const;
-                document.getElementById('edad_construccion').value = data.gid[0].edad_const;
-                document.getElementById('uso_construccionc').value = data.gid[0].id_tuc;
-                document.getElementById('clase_construccion').value = data.gid[0].id_tcc;
-                document.getElementById('techo_construccion').value = data.gid[0].id_ttc;
-                document.getElementById('estado_conservacion').value = data.gid[0].id_tec;
-                document.getElementById('muro_construccion').value = data.gid[0].id_tmc;
-                document.getElementById('piso_construccion').value = data.gid[0].id_tpic;
-                document.getElementById('puerta_construccion').value = data.gid[0].id_tpuc;
-                document.getElementById('ventana_construccion').value = data.gid[0].id_tvc;
+                document.getElementById('nivel').value = data.nivel;
+                document.getElementById('superficie_construccion').value = data.sup_const;
+                document.getElementById('edad_construccion').value = data.edad_const;
+                document.getElementById('uso_construccionc').value = data.id_tuc;
+                document.getElementById('clase_construccion').value = data.id_tcc;
+                document.getElementById('techo_construccion').value = data.id_ttc;
+                document.getElementById('estado_conservacion').value = data.id_tec;
+                document.getElementById('muro_construccion').value = data.id_tmc;
+                document.getElementById('piso_construccion').value = data.id_tpic;
+                document.getElementById('puerta_construccion').value = data.id_tpuc;
+                document.getElementById('ventana_construccion').value = data.id_tvc;
                 $('.mensaje').html('');
                 $('#panel-construccion').show();
-                document.getElementById('gid_construccion').value = data.gid[0].gid;
+                document.getElementById('gid_construccion').value = data.gid;
                 
 
 
