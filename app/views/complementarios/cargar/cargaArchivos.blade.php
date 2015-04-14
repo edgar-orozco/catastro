@@ -30,7 +30,10 @@ var footerTemplate = '<select name="select-instalaciones" class="form-control" i
             		 	'<option selected="selected" value="">--Seleccione una opción--</option>'+
             			'<option value="1">Frontal</option>'+
                 		'<option value="2">Lateral</option>'+
-                	 '</select>';
+                	 '</select>'+
+                	 '<button type="button" class="kv-file-remove btn btn-xs btn-default" title="Remove file" data-url="/molestar.com" data-key="1">'+
+                	 	'<i class="glyphicon glyphicon-trash text-danger"></i>'+
+                	 '</button>';
                 
 	$("#file").fileinput(
 	{
@@ -38,10 +41,6 @@ var footerTemplate = '<select name="select-instalaciones" class="form-control" i
 		uploadAsync: false,
 		maxFileCount: 5,
 		layoutTemplates: {footer: footerTemplate},
-		initialPreview: [
-        "<img src='http://lorempixel.com/200/150/people/1'>",
-        "<img src='http://lorempixel.com/200/150/people/2'>",
-   	 ],
 		uploadExtraData: function()
 		{
 			

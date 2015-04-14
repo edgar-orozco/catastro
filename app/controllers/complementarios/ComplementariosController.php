@@ -56,10 +56,7 @@ class complementarios_ComplementariosController extends BaseController {
     public function postConstruccion()
     {
 
-        
-        
-
-
+        $inputs = Input::all();
         $gid_construccion = Input::get('gid_construccion');
         $gid_predio     =   Input::get('gid');
         $entidad        =   input::get('estado');
@@ -78,6 +75,35 @@ class complementarios_ComplementariosController extends BaseController {
         $puerta_constru =   input::get('puerta_construccion');
         $venta_constru  =   input::get('ventana_construccion');
 
+
+
+        $reglas = array
+            (
+                'nivel' => 'required|integer',
+                'superficie_construccion' => 'required|integer',
+                'edad_construccion' => 'required|integer',
+                'uso_construccion' => 'required',
+                'clase_construccion' => 'required',
+                'techo_construccion' => 'required',
+                'estado_conservacion' => 'required',
+                'muro_construccion' => 'required',
+                'piso_construccion' => 'required',
+                'puerta_construccion' => 'required',
+                'ventana_construccion' => 'required',
+            );
+        $mensajes = array
+            (
+                'required' => 'este campo es obligatorio'
+            );
+        $validar = Validator::make($inputs, $reglas, $mensajes);
+
+        
+        if($validar->fails())
+        {
+            
+            return Response::json($validar->messages()->toArray());
+            
+        }
 
         
 
@@ -123,6 +149,7 @@ class complementarios_ComplementariosController extends BaseController {
 
         return Response::json(array
             (
+                'estado' => 'success',
                 'gid_construccion' => $gid_construccion,
                 'gid_construccion2'=> $gid,
                 'nivel'         =>  $nivel,
@@ -912,7 +939,7 @@ class complementarios_ComplementariosController extends BaseController {
     public function postEntrevista (){
         $entidad     = Input::get('entidad');
         $municipio   = Input::get('municipio');
-        $clave_catas = Input::get('clave_cata');
+        $clave_catas = Input::get('clave_catas');
         $gid_predio  = Input::get('gid_predio');
         $id_p        = Input::get('id_p');
         
@@ -922,8 +949,7 @@ class complementarios_ComplementariosController extends BaseController {
         $n->clave_catas  = $clave_catas;
         $n->gid_predio   = $gid_predio;
         $n->id_p         = $id_p;
-        $n->created_at=date("Y-m-d");
-        $n->updated_at=date("Y-m-d");          
+        
         $n->save();
         Session::flash('mensaje', 'El registro ha sido ingresado exitosamente');
         return Redirect::back();
@@ -972,5 +998,73 @@ class complementarios_ComplementariosController extends BaseController {
             return Response::json(array('id_p' => $id));
             // return Redirect::back();
         }
+    }
+
+    public function cargar_imagen()
+    {
+        $entidad = Input::get('entidad');
+        $municipio = Input::get('municipio');
+        $clave_catas = Input::get('clave_catas');
+        $gid_predio = Input::get('gid_predio');
+        $id_tipoimagen = Input::get('tomas');
+        $files = Input::file('file');
+        $id_tipoimagen2 = explode(',', $id_tipoimagen);
+        $array_clave = explode('-', $clave_catas);
+        
+
+        
+        
+        for ($i = 0; $i < count($files); $i++)
+        {
+            
+
+            $file2 = $files[$i];
+            
+            // Se valida que exista un archivo
+            if(Input::file($file)) 
+            {
+                // Se valida el directorio para subir shapes
+                $dir = public_path() . '/complementarios/anexos/'.$entidad.'/'.$municipio.'/'.$clave_catas.'/' ;
+                
+                if (!file_exists($dir) && !is_dir($dir)) 
+                {
+                    File::makeDirectory($dir, $mode = 0777, true, true);
+                }
+                // Se valida la extensión del archivo
+                
+                if(in_array(strtolower($file2->getClientMimeType()), array('image/png','image/jpeg','image/jpeg','image/jpeg','image/gif','image/bmp','image/vnd.microsoft.icon')))
+                {
+                    $j=$j+1;
+                    $file2->move($dir, $file2->getClientOriginalName().'.'.$file2->getClientOriginalExtension());
+                    $imagenes = new ImagenesLevantamiento();
+                    $imagenes->entidad = $entidad;
+                    $imagenes->municipio = $municipio;
+                    $imagenes->clave_catas=$clave_catas;
+                    $imagenes->gid_predio=$gid_predio;
+                    $imagenes->id_tipoimagen=$id_tipoimagen2[$i];
+                    $imagenes->nombre_archivo=$dir.$file2->getClientOriginalName().'.'.$file2->getClientOriginalExtension();
+                    $imagenes->save();
+                    $respuesta[]  =   '¡Se guardo correctamente el archivo: '. $file2->getClientMimeType();
+                        
+                }
+                else
+                {
+                    $respuesta[]  =   '¡Extension de archivo invalida: '. $file2->getClientMimeType();
+                }      
+            }
+            else
+            {
+                $respuesta[]  =   '¡Es necesario seleccionar un archivo!'; 
+            }
+        }
+
+        return Response::json(array
+                        (
+                            'respuesta' =>    $respuesta
+                        ));
+
+        
+
+    
     }
 }
