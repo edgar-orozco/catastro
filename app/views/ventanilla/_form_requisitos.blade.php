@@ -1,7 +1,7 @@
 <div class="btn-group btn-toggle botones-requisitos" data-toggle="buttons" data-requisito="{{$requisito->id}}"
      style="display: none;">
     <label class="btn btn-sm btn-default">
-        <input type="radio" class="radio-requisito" name="requisitos[{{$tipotramite->id}}][{{$requisito->id}}]"
+        <input type="radio" class="radio-requisito radio-requisito-si-{{$tipotramite->id}}" name="requisitos[{{$tipotramite->id}}][{{$requisito->id}}]"
                value="1" data-tipotramite="{{$tipotramite->id}}" data-requisito="{{$requisito->id}}"> SI
     </label>
     <label class="btn btn-sm btn-default">
