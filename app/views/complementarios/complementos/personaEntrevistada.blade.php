@@ -1,6 +1,6 @@
 {{ HTML::style('js/jquery/jquery-ui.css') }}
 
-{{Form::open(array('url' => 'guardar-predios', 'method' => 'POST', 'name' => 'formPredios', 'id' => 'formEntrevista'))}}
+{{Form::open(array( 'method' => 'POST',  'id' => 'formEntrevista'))}}
 <div class="input-group">
             {{ Form::hidden('clave_cata',$clave_catas) }}
             {{ Form::hidden('gid_predio',$gid) }}
@@ -25,13 +25,14 @@
 
 </div>
 <div class="col-md-6">
-    <div class="form-group">
-        <button type="submit" class="btn btn-primary next">
+<div class="form-group">
+ <button type="submit" class="btn btn-primary next">
             Siguiente
             <i class="glyphicon glyphicon-chevron-right"></i>
         </button>
     </div>
 </div>
+
 {{Form::close()}}
 <!-- Modal -->
 <div class="modal fade" id="Nuevo" data-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
