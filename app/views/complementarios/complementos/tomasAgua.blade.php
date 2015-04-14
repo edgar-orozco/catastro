@@ -1,6 +1,6 @@
 {{ HTML::style('js/jquery/jquery-ui.css') }}
 
-<?php// print_r($tomas_agua);
+<?php
 if(count($tomas_agua)=='')
     {
          $checekdn='checked';
@@ -11,8 +11,7 @@ if(count($tomas_agua)=='')
     $num_medidor=$ta['num_medidor'];
     $num_contrato=$ta['num_contrato'];
     $id_usuariotoma=$ta['id_usuariotoma'];
-    
-    
+
     if($medidor_instalado==1)
     {
         $checkeds='checked';
@@ -21,16 +20,13 @@ if(count($tomas_agua)=='')
     {
          $checekdn='checked';
     }
-} 
+}
 $nombress=personas::where('id_p', '=', $id_usuariotoma)->pluck('nombres');
 $apellidop=personas::where('id_p', '=', $id_usuariotoma)->pluck('apellido_paterno');
 $apellidom=personas::where('id_p', '=', $id_usuariotoma)->pluck('apellido_materno');
 $nombre_p=$nombress.' '.$apellidop.' '.$apellidom;
+?>
 
-   ?>
-<div class="page-header">
-
-</div>
 {{Form::open(array('url' => 'guardar-agua', 'method' => 'POST', 'name' => 'formAgua', 'id' => 'formAgua'))}}
 <div class="panel-body">
         {{Form::text('gid_p',$gid_p,['id'=>'gid_p', "hidden" ])}}
