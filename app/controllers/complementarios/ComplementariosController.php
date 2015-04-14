@@ -703,7 +703,7 @@ class complementarios_ComplementariosController extends BaseController {
         return View::make('complementarios.complementos.servicio', compact("cat"));
     }
 
-  public function post_agregarservicio() {
+  public function post_agregarservicio() { 
 
         $inputs = Input::All();
         $entidad = $inputs['entidad'];
@@ -881,6 +881,7 @@ class complementarios_ComplementariosController extends BaseController {
         $id_tipogiro = $inputs['giros'];
         $sup_terreno = $inputs['superficie_terreno'];
         $sup_constru = $inputs['superficie_construccion'];
+        //mios
         $eliminar = $inputs['eliminar'];
         $actuales = $inputs['select'];
         $contar = count($actuales);
