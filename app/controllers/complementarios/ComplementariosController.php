@@ -273,7 +273,16 @@ class complementarios_ComplementariosController extends BaseController {
         $datos_construcciones = construcciones::where('gid_predio', '=', $id)->get();
 
 
-
+ foreach($predios as $predio)
+         {
+         $muni=$predio->municipio;
+        $entid=$predio->entidad;
+    }
+        $datos_predios= DB::select("select sp_get_datos_pre('$clave_catas', '$muni', '$entid')");
+            foreach ($datos_predios as $keys)
+            {
+                $datos_p[] = explode(',', $keys->sp_get_datos_pre);
+            }
 
         /*
         
@@ -326,7 +335,7 @@ class complementarios_ComplementariosController extends BaseController {
         */
 
 
-        return View::make('complementarios.cargar', compact("predios","const", "tuc" ,"tcc", "ttc", "tec", "tmc", "tpic", "tpuc", "tvc", "catalogo", "gid", "clave_catas", "estado", "municipio", "cat", "asociados", "giros", "girosasociados", "datos", "condominio", "tta", "datos_construcciones"));
+        return View::make('complementarios.cargar', compact("datos_p", "predios","const", "tuc" ,"tcc", "ttc", "tec", "tmc", "tpic", "tpuc", "tvc", "catalogo", "gid", "clave_catas", "estado", "municipio", "cat", "asociados", "giros", "girosasociados", "datos", "condominio", "tta", "datos_construcciones"));
     }
 
     /**
