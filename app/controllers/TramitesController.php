@@ -184,43 +184,38 @@ class TramitesController extends BaseController {
     }
 
 
-    public function storeDocumentos() {
+    public function documentos() {
 
-        $clave = Input::get('clave');
-        $cuenta = Input::get('cuenta');
+        $tramite_id = Input::get('tramite_id');
+        $tramite = Tramite::findOrFail($tramite_id);
 
+        $tipotramite_id = $tramite->tipotramite_id;
 
         //echo $clave." ".$cuenta." ".$num_requisitos."<br>";
 
         $docs = Input::file('documento');
-        $requisito_ids = Input::get('requisito_ids');
 
-        //dd($requisito_ids);
-        $rules = array();
-        foreach($requisito_ids as $requisito_id){
-            $rules[] = array('documento.'.$requisito_id => ['required', 'max:2000', 'mimes:jpeg,png,pdf']);
-            //$rules[] = array('documento.'.$requisito_id => 'required|max:2000|mimes:jpeg,png,pdf');
+        foreach($docs as $idx => $doc){
 
-        }
-        //dd($rules);
-        //print_r($docs);
-        //print_r($requisito_ids);
-
-        if(count($docs) <  count($requisito_ids)) {
-
+            $datos = [
+                'path' => $doc->getRealPath(),
+                'size' => $doc->getSize(),
+                'mime' => $doc->getMimeType(),
+                'name' => $doc->getClientOriginalName(),
+                'ext' => $doc->getClientOriginalExtension(),
+            ];
+            print_r($idx);
+            print_r($datos);
         }
 
-        $tipotramite_id = Input::get('tipotramite_id');
-
-        $tipotramite = $this->tipotramite->findOrFail($tipotramite_id);
-        $predio = $this->padron->getByClaveOCuenta($cuenta);
-
+        /*
         $validator = Validator::make($docs, $rules);
 
         if($validator->fails())
         {
             return Redirect::back()->withErrors($validator->errors());
         }
+        */
     }
 
 

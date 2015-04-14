@@ -113,9 +113,6 @@
                         <a href="#panel-generales" data-toggle="tab">Generales</a>
                     </li>
                     <li>
-                        <a href="#panel-docs" data-toggle="tab">Documentos Digitalizados</a>
-                    </li>
-                    <li>
                         <a href="#panel-cartografia" data-toggle="tab">Cartografía</a>
                     </li>
                     <li>
@@ -151,21 +148,6 @@
 
                         @endforeach
                         </ul>
-                    </div>
-
-                    <div class="tab-pane" id="panel-docs">
-                        <br/>
-                        @foreach($requisitos as $requisito)
-                            <div class="form-group">
-                                {{ Form::label('documento['.$requisito->id.']', $requisito->nombre) }}
-
-                                {{ Form::file('documento['.$requisito->id.']', ['class'=>'form-control']) }}
-                                {{$errors->first('documento['.$requisito->id.']', '<span class=text-danger>:message</span>')}}
-                                {{Form::hidden('requisito_ids[]',$requisito->id) }}
-                            </div>
-                        @endforeach
-
-
                     </div>
 
                     <div class="tab-pane" id="panel-cartografia">
