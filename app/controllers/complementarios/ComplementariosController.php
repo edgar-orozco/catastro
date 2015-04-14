@@ -56,10 +56,7 @@ class complementarios_ComplementariosController extends BaseController {
     public function postConstruccion()
     {
 
-        
-        
-
-
+        $inputs = Input::all();
         $gid_construccion = Input::get('gid_construccion');
         $gid_predio     =   Input::get('gid');
         $entidad        =   input::get('estado');
@@ -78,6 +75,35 @@ class complementarios_ComplementariosController extends BaseController {
         $puerta_constru =   input::get('puerta_construccion');
         $venta_constru  =   input::get('ventana_construccion');
 
+
+
+        $reglas = array
+            (
+                'nivel' => 'required|integer',
+                'superficie_construccion' => 'required|integer',
+                'edad_construccion' => 'required|integer',
+                'uso_construccion' => 'required',
+                'clase_construccion' => 'required',
+                'techo_construccion' => 'required',
+                'estado_conservacion' => 'required',
+                'muro_construccion' => 'required',
+                'piso_construccion' => 'required',
+                'puerta_construccion' => 'required',
+                'ventana_construccion' => 'required',
+            );
+        $mensajes = array
+            (
+                'required' => 'este campo es obligatorio'
+            );
+        $validar = Validator::make($inputs, $reglas, $mensajes);
+
+        
+        if($validar->fails())
+        {
+            
+            return Response::json($validar->messages()->toArray());
+            
+        }
 
         
 
@@ -123,6 +149,7 @@ class complementarios_ComplementariosController extends BaseController {
 
         return Response::json(array
             (
+                'estado' => 'success',
                 'gid_construccion' => $gid_construccion,
                 'gid_construccion2'=> $gid,
                 'nivel'         =>  $nivel,
@@ -177,7 +204,6 @@ class complementarios_ComplementariosController extends BaseController {
         $predios->superficie_terreno = $super_terreno;
         $predios->uso_construccion = $uso_constru;
         $predios->save();
-
 
         Session::flash('mensaje', 'El registro ha sido ingresado exitosamente');
        
@@ -242,7 +268,7 @@ class complementarios_ComplementariosController extends BaseController {
                 ->orderBy('tiposervicios.id_tiposervicio', 'ASC')
                 ->get();
 
-        $tta = ['' => '--seleccione una opción--'] + TiposTomasAgua::orderBy('descripcion', 'ASC')->lists('descripcion', 'id_tipotoma');
+        $tta = TiposTomasAgua::orderBy('descripcion', 'ASC')->lists('descripcion', 'id_tipotoma');
 
         $datos_construcciones = construcciones::where('gid_predio', '=', $id)->get();
 
@@ -309,15 +335,7 @@ class complementarios_ComplementariosController extends BaseController {
      * @return type
      */
     public function getAgregar($id = null) {
-//        $catalogo = ['' => '--seleccione una opción--'] +InstalacionesEspeciales::orderBy('descripcion', 'ASC')->lists('descripcion','id_tipoie');
-        $selection=array();
-
-        $instala= DB::table('instalaciones_especiales')->select('id_tipo_ie')->where('clave', 'like', $id)->get();
-        foreach ($instala as $row) 
-        {
-            $selection[]=$row->id_tipo_ie;
-        }
-        $catalogo = InstalacionesEspeciales::whereNotIn('id', $selection)->get();
+        $catalogo = ['' => '--seleccione una opción--'] +InstalacionesEspeciales::orderBy('descripcion', 'ASC')->lists('descripcion','id_tipoie');
 
         return View::make('complementarios.agregar', ['datos' => $id], compact("catalogo"));
     }
@@ -365,7 +383,7 @@ class complementarios_ComplementariosController extends BaseController {
             $n->entidad     =   $inputs['entidad'];
             $n->municipio   =   $inputs['municipio'];
             $n->clave_catas =   $inputs['clave_catas'];
-            $n->gid_predio  =   $inputs['gid_predio'];
+            $n->gid_predio  =   $inputs['gid_predio'];      
             $n->id_tipoie   =   $inputs['instalaciones'];
             $n->save();
             Session::flash('mensaje', 'El registro ha sido ingresado exitosamente');
@@ -389,39 +407,6 @@ class complementarios_ComplementariosController extends BaseController {
         $datos = instalaciones::find($id);
         return View::make('complementarios.editar', compact("datos", "catalogo"));
     }
-
-    public function postAgua()
-    {
-        $gid=Input::get('gid');
-        $estado=Input::get('estado');
-        $municipio=Input::get('municipio');
-        $clave_cata=Input::get('clave_cata');
-        $medidor_instalado=Input::get('medidor_instalado');
-        $num_medidor=Input::get('num_medidor');
-        $num_contrato=Input::get('num_contrato');
-        $tipo_toma=Input::get('tipo_toma');
-        $id_usuariotoma=Input::get('id_p');
-
-        $agua = new TomasAgua();
-        $agua->entidad=$estado;
-        $agua->municipio=$municipio;
-        $agua->clave_catas=$clave_cata;
-        $agua->gid_predio=$gid;
-        $agua->medidor_instalado=$medidor_instalado;
-        $agua->num_medidor=$num_medidor;
-        $agua->num_contrato=$num_contrato;
-        $agua->id_tipotoma=$tipo_toma;
-        $agua->id_usuariotoma=$id_usuariotoma;
-        $agua->save();
-        return Response::json(array
-                (
-                    'medidor_instalado' => $medidor_instalado,
-                    'num_medidor' => $num_medidor,
-                    'num_contrato' => $num_contrato,
-                    'tipo_toma' => $tipo_toma
-                ));
-    }
-
 
     public function getEditar() {
         $inputs = Input::All();
@@ -828,8 +813,8 @@ class complementarios_ComplementariosController extends BaseController {
         $clave_cata     =   $inputs['clave_cata'];
         $gid_predio     =   $inputs['gid_predio']; 
         $id_tipogiro    =   $inputs['giros'];
-        $sup_terreno    =   0;
-        $sup_constru    =   0;
+        $sup_terreno    =   $inputs['superficie_terreno'];
+        $sup_constru    =   $inputs['superficie_construccion'];
         
         $giropredio = Giros::where(['gid_predio'=> $gid_predio])->get();
 
@@ -954,7 +939,7 @@ class complementarios_ComplementariosController extends BaseController {
     public function postEntrevista (){
         $entidad     = Input::get('entidad');
         $municipio   = Input::get('municipio');
-        $clave_catas = Input::get('clave_cata');
+        $clave_catas = Input::get('clave_catas');
         $gid_predio  = Input::get('gid_predio');
         $id_p        = Input::get('id_p');
         
@@ -964,10 +949,11 @@ class complementarios_ComplementariosController extends BaseController {
         $n->clave_catas  = $clave_catas;
         $n->gid_predio   = $gid_predio;
         $n->id_p         = $id_p;
-        $n->created_at=date("Y-m-d");
-        $n->updated_at=date("Y-m-d");          
+        
         $n->save();
         Session::flash('mensaje', 'El registro ha sido ingresado exitosamente');
+        return Redirect::back();
+      
     }
     
     public function postPersonas (){
@@ -1012,5 +998,73 @@ class complementarios_ComplementariosController extends BaseController {
             return Response::json(array('id_p' => $id));
             // return Redirect::back();
         }
+    }
+
+    public function cargar_imagen()
+    {
+        $entidad = Input::get('entidad');
+        $municipio = Input::get('municipio');
+        $clave_catas = Input::get('clave_catas');
+        $gid_predio = Input::get('gid_predio');
+        $id_tipoimagen = Input::get('tomas');
+        $files = Input::file('file');
+        $id_tipoimagen2 = explode(',', $id_tipoimagen);
+        $array_clave = explode('-', $clave_catas);
+        
+
+        
+        
+        for ($i = 0; $i < count($files); $i++)
+        {
+            
+
+            $file2 = $files[$i];
+            
+            // Se valida que exista un archivo
+            if(Input::file($file)) 
+            {
+                // Se valida el directorio para subir shapes
+                $dir = public_path() . '/complementarios/anexos/'.$entidad.'/'.$municipio.'/'.$clave_catas.'/' ;
+                
+                if (!file_exists($dir) && !is_dir($dir)) 
+                {
+                    File::makeDirectory($dir, $mode = 0777, true, true);
+                }
+                // Se valida la extensión del archivo
+                
+                if(in_array(strtolower($file2->getClientMimeType()), array('image/png','image/jpeg','image/jpeg','image/jpeg','image/gif','image/bmp','image/vnd.microsoft.icon')))
+                {
+                    $j=$j+1;
+                    $file2->move($dir, $file2->getClientOriginalName().'.'.$file2->getClientOriginalExtension());
+                    $imagenes = new ImagenesLevantamiento();
+                    $imagenes->entidad = $entidad;
+                    $imagenes->municipio = $municipio;
+                    $imagenes->clave_catas=$clave_catas;
+                    $imagenes->gid_predio=$gid_predio;
+                    $imagenes->id_tipoimagen=$id_tipoimagen2[$i];
+                    $imagenes->nombre_archivo=$dir.$file2->getClientOriginalName().'.'.$file2->getClientOriginalExtension();
+                    $imagenes->save();
+                    $respuesta[]  =   '¡Se guardo correctamente el archivo: '. $file2->getClientMimeType();
+                        
+                }
+                else
+                {
+                    $respuesta[]  =   '¡Extension de archivo invalida: '. $file2->getClientMimeType();
+                }      
+            }
+            else
+            {
+                $respuesta[]  =   '¡Es necesario seleccionar un archivo!'; 
+            }
+        }
+
+        return Response::json(array
+                        (
+                            'respuesta' =>    $respuesta
+                        ));
+
+        
+
+    
     }
 }

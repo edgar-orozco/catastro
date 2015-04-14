@@ -35,26 +35,26 @@
             <div class="col-md-3">
                 <div class="form-group">
                     {{Form::label('Luso_construccion','Uso:')}}
-                    {{Form::select('uso_construccion', $tuc, ['seleccione'], ['id'=>'uso_construccion', 'class' => 'form-control'])}}
+                    {{Form::select('uso_construccion', $tuc, ['seleccione'], ['id'=>'uso_construccionc', 'class' => 'form-control', 'required'])}}
                 </div>
             </div>
             
             <div class="col-md-3">
                 <div class="form-group">
                     {{Form::label('Lclase_construccion', 'Clase:')}}
-                    {{Form::select('clase_construccion', $tcc, null, ['id'=>'clase_construccion', 'class' => 'form-control'])}}
+                    {{Form::select('clase_construccion', $tcc, null, ['id'=>'clase_construccion', 'class' => 'form-control', 'required'])}}
                 </div>
             </div>
             <div class="col-md-3">
                 <div class="form-group">
                     {{Form::label('Ltecho_construccion','Techo:')}}
-                    {{Form::select('techo_construccion', $ttc, null, ['id'=>'techo_construccion', 'class' => 'form-control'])}}
+                    {{Form::select('techo_construccion', $ttc, null, ['id'=>'techo_construccion', 'class' => 'form-control', 'required'])}}
                 </div>
             </div>
             <div class="col-md-3">
                 <div class="form-group">
                     {{Form::label('Lestado_conservacion','Estado:')}}
-                    {{Form::select('estado_conservacion', $tec, null, ['id'=>'estado_conservacion', 'class' => 'form-control'])}}
+                    {{Form::select('estado_conservacion', $tec, null, ['id'=>'estado_conservacion', 'class' => 'form-control', 'required'])}}
                 </div>
             </div>
 
@@ -161,43 +161,51 @@ $('#formConstruccion').bind('submit',function ()
                 $('.mensaje').html('<div class="alert alert-info">Guardando....</div>');
             },
             success: function (data) 
-            {         
-                var table = document.getElementById("table-construcciones");
+            {   
 
-                if (data.gid_construccion>0)
+                if(data.estado!='success')
                 {
-                    var td = $('#construccion-edit'+data.gid_construccion).parent();
-                    var tr = td.parent().index()+1;
-                    alert(tr);
-                    table.deleteRow(tr);
-                }     
+                    alert(data[1]);
+                    $('.mensaje').html('<div class="alert alert-danger">Error al guardar, verifique sus datos.</div>');  
+                }
+                else 
+                {    
+                    var table = document.getElementById("table-construcciones");
+
+                    if (data.gid_construccion>0)
+                    {
+                        var td = $('#construccion-edit'+data.gid_construccion).parent();
+                        var tr = td.parent().index()+1;
+                        alert(tr);
+                        table.deleteRow(tr);
+                    }     
+                    
+                    //En caso de que exista, la eliminara.
+
+                    //Se crea la tabla de predios dinamicamente
+
+                    var tbody = table.getElementsByTagName('tbody')[0];
+                    row = tbody.insertRow();
+                    cell = row.insertCell(0);
+                    cell.innerHTML=data.nivel;
+                    cell = row.insertCell(1);
+                    cell.innerHTML=data.sup_const;
+                    cell = row.insertCell(2);
+                    cell.innerHTML=data.edad_const;
+                    cell = row.insertCell(3);
+                    var editar = '<a id="construccion-edit{{$row->gid}}" onclick="editar_construccion('+"'"+data.gid_construccion2+"'"+')" class="btn btn-warning editar" title="Editar Construcción">'+
+                                        '<span class="glyphicon glyphicon-edit"></span>'+
+                                    '</a> ';
+                    var eliminar = '<a id="construccion-delete{{$row->gid}}" onclick="eliminar_construccion('+"'"+data.gid_construccion2+"'"+')" class="btn btn-danger eliminar" title="Eliminar Construcción">'+
+                                        '<span class="glyphicon glyphicon-remove"></span>'
+                                    '</a>';
+
+                   
+                    cell.innerHTML=editar+eliminar;
+                    $('.mensaje').html('<div class="alert alert-success">Datos guardados correctamente.</div>');
+
                 
-                //En caso de que exista, la eliminara.
-
-                //Se crea la tabla de predios dinamicamente
-
-                var tbody = table.getElementsByTagName('tbody')[0];
-                row = tbody.insertRow();
-                cell = row.insertCell(0);
-                cell.innerHTML=data.nivel;
-                cell = row.insertCell(1);
-                cell.innerHTML=data.sup_const;
-                cell = row.insertCell(2);
-                cell.innerHTML=data.edad_const;
-                cell = row.insertCell(3);
-                var editar = '<a id="construccion-edit{{$row->gid}}" onclick="editar_construccion('+"'"+data.gid_construccion2+"'"+')" class="btn btn-warning editar" title="Editar Construcción">'+
-                                    '<span class="glyphicon glyphicon-edit"></span>'+
-                                '</a> ';
-                var eliminar = '<a id="construccion-delete{{$row->gid}}" onclick="eliminar_construccion('+"'"+data.gid_construccion2+"'"+')" class="btn btn-danger eliminar" title="Eliminar Construcción">'+
-                                    '<span class="glyphicon glyphicon-remove"></span>'
-                                '</a>';
-
-               
-                cell.innerHTML=editar+eliminar;
-                $('.mensaje').html('<div class="alert alert-success">Datos guardados correctamente.</div>');
-
-                
-               
+               }
             
 
 
@@ -231,7 +239,7 @@ function editar_construccion(gid)
                 document.getElementById('nivel').value = data.gid[0].nivel;
                 document.getElementById('superficie_construccion').value = data.gid[0].sup_const;
                 document.getElementById('edad_construccion').value = data.gid[0].edad_const;
-                document.getElementById('uso_construccion').value = data.gid[0].id_tuc;
+                document.getElementById('uso_construccionc').value = data.gid[0].id_tuc;
                 document.getElementById('clase_construccion').value = data.gid[0].id_tcc;
                 document.getElementById('techo_construccion').value = data.gid[0].id_ttc;
                 document.getElementById('estado_conservacion').value = data.gid[0].id_tec;
