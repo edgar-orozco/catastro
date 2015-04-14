@@ -229,6 +229,7 @@ class complementarios_ComplementariosController extends BaseController {
                 ->get();
 
         $clave_catas = $predios[0]->clave_catas;
+
         $const = construcciones::WHERE('clave_catas', '=', '"'.$clave_catas.'"')->get();
 
         $tuc            = ['' => '--seleccione una opción--'] +     UsoConstruccion::orderBy('descripcion', 'ASC')->lists('descripcion','id_tuc');
@@ -256,8 +257,43 @@ class complementarios_ComplementariosController extends BaseController {
                             ->join('tipoinstalacionesespeciales', 'tipoinstalacionesespeciales.id_tipoie', '=', 'instalacionesespeciales.id_tipoie')
                             ->get();
 
-        $condominio = condominios::WHERE('gid_predio', '=',  $id)
-        ->get();
+        $condominio = condominios::WHERE('gid_predio', '=',  $id)->get();
+
+        $const = construcciones::WHERE('clave_catas', '=', '"' . $clave_catas . '"')->get();
+
+        $tuc = ['' => '--seleccione una opción--'] + UsoConstruccion::orderBy('descripcion', 'ASC')->lists('descripcion', 'id_tuc');
+        $tcc = ['' => '--seleccione una opción--'] + TiposClaseConstruccion::orderBy('descripcion', 'ASC')->lists('descripcion', 'id_tcc');
+        $ttc = ['' => '--seleccione una opción--'] + TiposTechos::orderBy('descripcion', 'ASC')->lists('descripcion', 'id_ttc');
+        $tec = ['' => '--seleccione una opción--'] + TiposEstadosConservacion::orderBy('descripcion', 'ASC')->lists('descripcion', 'id_tec');
+        $tmc = ['' => '--seleccione una opción--'] + TiposMuros::orderBy('descripcion', 'ASC')->lists('descripcion', 'id_tmc');
+        $tpic = ['' => '--seleccione una opción--'] + TiposPisos::orderBy('descripcion', 'ASC')->lists('descripcion', 'id_tpic');
+        $tpuc = ['' => '--seleccione una opción--'] + TiposPuertas::orderBy('descripcion', 'ASC')->lists('descripcion', 'id_tpuc');
+        $tvc = ['' => '--seleccione una opción--'] + TiposVentana::orderBy('descripcion', 'ASC')->lists('descripcion', 'id_tvc');
+        //$catalogo = ['' => '--seleccione una opción--'] + InstalacionesEspeciales::orderBy('descripcion', 'ASC')->lists('descripcion', 'id_tipoie');
+         $gid = $id;
+        $catalogo = InstalacionesEspeciales::orderBy('descripcion', 'ASC')->get();
+        $ieasociados =  instalaciones::WHERE('gid_predio', '=', $gid)
+                ->orderBy('id_tipoie', 'ASC')
+                ->get();
+        
+        $estado = $predios[0]->entidad;
+        $municipio = $predios[0]->municipio;
+        $cat = tiposervicios::orderBy('descripcion', 'ASC')->get();
+        $asociados = servicios::WHERE('gid_predio', '=', $gid)
+                ->orderBy('id_serviciopredio', 'ASC')
+                ->select('id_tiposervicio')
+                ->get();
+        $giros = TipoGiros::orderBy('descripcion', 'ASC')->get();
+        $girosasociados = Giros::WHERE('gid_predio', '=', $gid)
+                ->orderBy('id_tipogiro', 'ASC')
+                ->get();
+
+        $datos = instalaciones::WHERE('instalacionesespeciales.gid_predio', '=', $id)
+                ->join('tipoinstalacionesespeciales', 'tipoinstalacionesespeciales.id_tipoie', '=', 'instalacionesespeciales.id_tipoie')
+                ->get();
+
+        $condominio = condominios::WHERE('gid_predio', '=', $id)->get();
+
 
 
         $servicios = servicios::
@@ -667,52 +703,64 @@ class complementarios_ComplementariosController extends BaseController {
         return View::make('complementarios.complementos.servicio', compact("cat"));
     }
 
-    public function post_agregarservicio() 
-    {
+  public function post_agregarservicio() {
 
-        $inputs             =   Input::All();
-        $entidad            =   $inputs['entidad'];
-        $municipio          =   $inputs['municipio'];
-        $clave_cata         =   $inputs['clave_cata'];
-        $gid_predio         =   $inputs['gid_predio']; 
-        $id_tiposervicio    =   $inputs['opcion'];
+        $inputs = Input::All();
+        $entidad = $inputs['entidad'];
+        $municipio = $inputs['municipio'];
+        $clave_cata = $inputs['clave_cata'];
+        $gid_predio = $inputs['gid_predio'];
+        $id_tiposervicio = $inputs['servicios'];
+        //mios
+        $eliminar = $inputs['eliminar'];
+        $actuales = $inputs['serv'];
+        $contar = count($actuales);
+        $confuera = count($eliminar);
 
-        $serviciopredio=servicios::where(['gid_predio'=> $gid_predio, 'municipio'=>$municipio])->get();
 
-
-        if($serviciopredio->count()>0)
-        {
-            foreach($serviciopredio as $sp)
-            {
-                $sp->delete();
+        if ($confuera >= 1) {
+            foreach ($eliminar as $key) {
+                $id = $key;
+                DB::delete("DELETE FROM serviciospredio WHERE id_tiposervicio=$id AND clave_catas='$clave_cata'");
             }
-            $id_serviciopredio=servicios::orderBy('id_serviciopredio', 'DESC')->first()->id_serviciopredio;
         }
-        else
-        {
-            $id_serviciopredio=servicios::orderBy('id_serviciopredio', 'DESC')->first()->id_serviciopredio;
-
+        if (!$contar) {
+            if (sizeof($actuales) == 0) {
+                $count = count($id_tiposervicio);
+                for ($x=0;$x<$count;$x++) {
+                    $n = new servicios();
+                    $n->entidad = $entidad;
+                    $n->municipio = $municipio;
+                    $n->clave_catas = $clave_cata;
+                    $n->gid_predio = $gid_predio;
+                    $n->id_tiposervicio = $id_tiposervicio[$x];
+                    $n->created_at = date('Y-m-d');
+                    $n->updated_at = date('Y-m-d');
+                    $n->save();
+                }
+            }
+        } else {
+            foreach ($id_tiposervicio as $id) {
+                if (in_array($id, $actuales)) {
+                    
+                } else {
+                    $total[] = $id;
+                }
+            }
+            $count = count($total);
+            for ($x=0;$x<$count;$x++) {
+                $n = new servicios();
+                $n->entidad = $entidad;
+                $n->municipio = $municipio;
+                $n->clave_catas = $clave_cata;
+                $n->gid_predio = $gid_predio;
+                $n->id_tiposervicio = $id_tiposervicio[$x];
+                $n->created_at = date('Y-m-d');
+                $n->updated_at = date('Y-m-d');
+                $n->save();
+            }
         }
-
-                
-        for ($x = 1; $x <= count($id_tiposervicio); $x++) 
-        {
-            $n = new servicios();        
-            $n->id_serviciopredio   =   $id_serviciopredio+$x;
-            $n->entidad             =   $entidad;
-            $n->municipio           =   $municipio;
-            $n->clave_catas         =   $clave_cata;
-            $n->gid_predio          =   $gid_predio;
-            $n->id_tiposervicio     =   $id_tiposervicio[$x-1]; ;
-            $n->save();
-        }
-
-            return Response::json(array
-                (
-                    'respuesta' =>  'si guarda'
-                ));
-        }
-    
+    }
 
     public function getEliminarServicio($id = null) {
 
@@ -823,49 +871,69 @@ class complementarios_ComplementariosController extends BaseController {
         return Redirect::back();
     }
 
-    public function post_agregargiros() 
-    {
-        $inputs         =   Input::All();
-        $entidad        =   $inputs['entidad'];
-        $municipio      =   $inputs['municipio'];
-        $clave_cata     =   $inputs['clave_cata'];
-        $gid_predio     =   $inputs['gid_predio']; 
-        $id_tipogiro    =   $inputs['giros'];
-        $sup_terreno    =   $inputs['superficie_terreno'];
-        $sup_constru    =   $inputs['superficie_construccion'];
-        
-        $giropredio = Giros::where(['gid_predio'=> $gid_predio])->get();
+     public function post_agregargiros() {
 
-        if($giropredio->count()>0)
-        {
-            foreach($giropredio as $gp)
-            {
-                $gp->delete();
+        $inputs = Input::All();
+        $entidad = $inputs['entidad'];
+        $municipio = $inputs['municipio'];
+        $clave_cata = $inputs['clave_cata'];
+        $gid_predio = $inputs['gid_predio'];
+        $id_tipogiro = $inputs['giros'];
+        $sup_terreno = $inputs['superficie_terreno'];
+        $sup_constru = $inputs['superficie_construccion'];
+        $eliminar = $inputs['eliminar'];
+        $actuales = $inputs['select'];
+        $contar = count($actuales);
+        $confuera = count($eliminar);
+
+        if ($confuera >= 1) {
+            foreach ($eliminar as $key) {
+                $id = $key;
+                DB::delete("DELETE FROM giros WHERE id_tipogiro=$id AND clave_catas='$clave_cata'");
             }
-            
         }
-        $id_giro=Giros::orderBy('id_giro', 'DESC')->first()->id_giro;
-
-                
-        for ($x = 1; $x <= count($id_tipogiro); $x++) 
-        {
-            $n = new Giros();        
-            $n->id_giro                 =   $id_giro+$x;
-            $n->entidad                 =   $entidad;
-            $n->municipio               =   $municipio;
-            $n->clave_catas             =   $clave_cata;
-            $n->gid_predio              =   $gid_predio;
-            $n->id_tipogiro             =   $id_tipogiro[$x-1]; ;
-            $n->superficie_terreno      =   $sup_terreno;
-            $n->superficie_construccion =   $sup_constru;
-            $n->save();
+        if (!$contar) {
+            if (sizeof($actuales) == 0) {
+                $count = count($id_tipogiro);
+                for ($x = 0; $x < $count; $x++) {
+                    $n = new Giros();
+                    $n->entidad = $entidad;
+                    $n->municipio = $municipio;
+                    $n->clave_catas = $clave_cata;
+                    $n->gid_predio = $gid_predio;
+                    $n->gid_predio = $gid_predio;
+                    $n->id_tipogiro = $id_tipogiro[$x];
+                    $n->superficie_terreno = '0';
+                    $n->superficie_construccion = '0';
+                    $n->created_at = date('Y-m-d');
+                    $n->updated_at = date('Y-m-d');
+                    $n->save();
+                }
+            }
+        } else {
+            foreach ($id_tipogiro as $id) {
+                if (in_array($id, $actuales)) {
+                    
+                } else {
+                    $total[] = $id;
+                }
+            }
+            $count = count($total);
+            for ($x = 0; $x < $count; $x++) {
+                $n = new Giros();
+                $n->entidad = $entidad;
+                $n->municipio = $municipio;
+                $n->clave_catas = $clave_cata;
+                $n->gid_predio = $gid_predio;
+                $n->gid_predio = $gid_predio;
+                $n->id_tipogiro = $total[$x];
+                $n->superficie_terreno = '0';
+                $n->superficie_construccion = '0';
+                $n->created_at = date('Y-m-d');
+                $n->updated_at = date('Y-m-d');
+                $n->save();
+            }
         }
-
-        return Response::json(array
-            (
-                'respuesta' =>  'si guarda'
-            ));
-        
     }
 
     public function getMostrarPuertas($id = null) {
