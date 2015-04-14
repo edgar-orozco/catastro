@@ -91,11 +91,13 @@
     <?php
     $catas = array();
     foreach ($cat as $cata) {
-        $catas[] = $cata->id;
+     $catas[] = $cata->id_tiposervicio;
     }
+    print_r($catas);
+    
     $asocia = array();
     foreach ($asociados as $asoc) {
-        $asocia[] = $asoc->id_tiposerviciopredio;
+        $asocia[] = $asoc->id_tiposervicio;
     }
     ?>
 
@@ -103,10 +105,13 @@
     {{ Form::hidden('gid',$predio->gid) }}
     @endforeach
 
-    @foreach($asocia as $asoc)
+   
+    @foreach($asociados as $asoc)
     {{Form::hidden('serv[]',$asoc) }}
     @endforeach
-
+<?php 
+    
+    ?>
     @foreach($cat as $row)<?php
     if (in_array($row->id_tiposervicio, $asocia)) {
         $css = 'active';

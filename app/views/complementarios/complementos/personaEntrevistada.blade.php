@@ -11,11 +11,11 @@
     {{Form::label('id_p','Nombre')}}
     <!--SI "TRAE" ALGO LA VARIABLE $nombrec -->
     @if(!empty($nombrec))
-    {{Form::text('nombrec',$nombrec, ['tabindex'=>'1','id' => 'nombrec','required' => 'required', 'class'=>'form-control', 'autofocus'=> 'autofocus', 'ng-model' => 'ejecutores.nombrec'] )}}
+    {{Form::text('nombrec',$nombrec, ['tabindex'=>'1','id' => 'nombrec','class'=>'form-control', 'autofocus'=> 'autofocus', 'ng-model' => 'ejecutores.nombrec'] )}}
     @endif
     <!--SI "NO" TRAE ALGO LA VARIABLE $nombrec -->
     @if(empty($nombrec))
-    {{Form::text('nombrec',null, ['tabindex'=>'1','id' => 'nombrec', 'required' => 'required','class'=>'form-control', 'autofocus'=> 'autofocus', 'ng-model' => 'ejecutores.nombrec'] )}}
+    {{Form::text('nombrec',null, ['tabindex'=>'1','id' => 'nombrec','class'=>'form-control', 'autofocus'=> 'autofocus', 'ng-model' => 'ejecutores.nombrec'] )}}
     @endif
     <a data-toggle="modal"  data-target="#Nuevo" >
         <span class="glyphicon glyphicon-plus" style="margin-left: 365px;"></span>
@@ -24,24 +24,15 @@
     {{$errors->first('id_p', '<span class=text-danger>:message</span>')}}
 
 </div>
-<div class="col-md-6">
-<div class="form-group">
- <button type="submit" class="btn btn-primary next">
-            Siguiente
-            <i class="glyphicon glyphicon-chevron-right"></i>
-        </button>
-    </div>
-</div>
 
+
+
+<button type="submit" class="btn btn-primary next">
+	Siguiente
+	<i class="glyphicon glyphicon-chevron-right"></i>
+</button>
 {{Form::close()}}
-<!-- Modal -->
-<div class="modal fade" id="Nuevo" data-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            @include('complementarios.complementos.personas')
-        </div>
-    </div>
-</div>
+
 
 @section('javascript')
 <script type="text/javascript">
@@ -90,3 +81,12 @@ $('#formEntrevista').bind('submit',function ()
 
 </script>  
 @append
+
+<!-- Modal -->
+<div class="modal fade" id="Nuevo" data-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            @include('complementarios.complementos.personas')
+        </div>
+    </div>
+</div>

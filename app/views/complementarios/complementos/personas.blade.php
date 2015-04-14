@@ -88,28 +88,28 @@
         <div style="margin-left: 14px;margin-right: 14px;">
             <div class="form-group">
                 {{Form::label('nombres','Nombres')}}
-                {{Form::text('nombres', null, ['tabindex'=>'1','class'=>'form-control','autofocus'=> 'autofocus', 'required' => 'required', 'ng-model' => 'personas.nombres','onblur'=>'aMayusculas(this.value,this.id)'] )}}
+                {{Form::text('nombres', null, ['tabindex'=>'1','class'=>'form-control','autofocus'=> 'autofocus',  'ng-model' => 'personas.nombres','onblur'=>'aMayusculas(this.value,this.id)'] )}}
                 {{$errors->first('nombres', '<span class=text-danger>:message</span>')}}
                 <p class="help-block"></p>
             </div>
             
             <div class="form-group">
                 {{Form::label('apellido_paterno','Apellido Paterno')}}
-                {{Form::text('apellido_paterno', null, ['tabindex'=>'2','class'=>'form-control','autofocus'=> 'autofocus', 'required' => 'required', 'ng-model' => 'personas.apellido_paterno','onblur'=>'aMayusculas(this.value,this.id)'] )}}
+                {{Form::text('apellido_paterno', null, ['tabindex'=>'2','class'=>'form-control','autofocus'=> 'autofocus',  'ng-model' => 'personas.apellido_paterno','onblur'=>'aMayusculas(this.value,this.id)'] )}}
                 {{$errors->first('apellido_paterno', '<span class=text-danger>:message</span>')}}
                 <p class="help-block"></p>
             </div>
 
             <div class="form-group">
                 {{Form::label('apellido_materno','Apellido Materno')}}
-                {{Form::text('apellido_materno', null, ['tabindex'=>'3','class'=>'form-control','autofocus'=> 'autofocus', 'required' => 'required', 'ng-model' => 'personas.apellido_materno','onblur'=>'aMayusculas(this.value,this.id)'] )}}
+                {{Form::text('apellido_materno', null, ['tabindex'=>'3','class'=>'form-control','autofocus'=> 'autofocus',  'ng-model' => 'personas.apellido_materno','onblur'=>'aMayusculas(this.value,this.id)'] )}}
                 {{$errors->first('apellido_materno', '<span class=text-danger>:message</span>')}}
                 <p class="help-block"></p>
             </div>
             
             <div class="form-group">
                 {{Form::label('curp','CURP')}}
-                {{Form::text('curp', null, ['tabindex'=>'5','class'=>'form-control','autofocus'=> 'autofocus', 'required' => 'required', 'ng-model' => 'personas.curp','onblur'=>'aMayusculas(this.value,this.id)','pattern'=>'^[a-zA-Z]{4}\d{6}[a-zA-Z]{6}\d{2}$'] )}}
+                {{Form::text('curp', null, ['tabindex'=>'5','class'=>'form-control','autofocus'=> 'autofocus',  'ng-model' => 'personas.curp','onblur'=>'aMayusculas(this.value,this.id)','pattern'=>'^[a-zA-Z]{4}\d{6}[a-zA-Z]{6}\d{2}$'] )}}
                 {{$errors->first('curp', '<span class=text-danger>:message</span>')}}
                 <p class="help-block"></p>
             </div>

@@ -247,12 +247,12 @@ class complementarios_ComplementariosController extends BaseController {
         $estado         = $predios[0]->entidad;
         $municipio      = $predios[0]->municipio;
         $cat            = tiposervicios::orderBy('descripcion', 'ASC')->get();
-        $asociados      = servicios::WHERE('gid_predio', '=', '2')
+        $asociados      = servicios::WHERE('gid_predio', '=', '4219')
                             ->orderBy('id_serviciopredio', 'ASC')
                             ->get();
         $giros          = TipoGiros::orderBy('descripcion', 'ASC')->get();
-        $girosasociados = Giros::WHERE('gid_predio', '=', $id)
-                            ->orderBy('id_giro', 'ASC')
+        $girosasociados = Giros::WHERE('gid_predio', '=', '4219')
+                            ->orderBy('id_tipogiro', 'ASC')
                             ->get();
         
         $datos          = instalaciones::WHERE('instalacionesespeciales.gid_predio', '=', $id)

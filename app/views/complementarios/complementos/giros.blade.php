@@ -83,10 +83,11 @@ $cat = array();
 foreach ($giros as $catal) {
     $cat[] = $catal->id_tipogiro;
 }
+print_r($cat);
 
 $asocia = array();
 foreach ($girosasociados as $asoc) {
-    $asocia[] = $asoc->id_giroconstruccion;
+    $asocia[] = $asoc->id_tipogiro;
 }
 ?>
 @foreach($predios as $predio)
