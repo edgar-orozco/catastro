@@ -188,11 +188,11 @@
                     <p>Persona entrevistada</p>
                 </div>
                 <div class="stepwizard-step">
-                    <a href="#step-7" type="button" class="btn btn-default btn-circle" disabled="disabled">7</a>
+                    <a href="#step-8" type="button" class="btn btn-default btn-circle" disabled="disabled">8</a>
                     <p>Tomas de agua</p>
                 </div>
                 <div class="stepwizard-step">
-                    <a href="#step-7" type="button" class="btn btn-default btn-circle" disabled="disabled">7</a>
+                    <a href="#step-9" type="button" class="btn btn-default btn-circle" disabled="disabled">9</a>
                     <p>Anexos</p>
                 </div>
             </div>
@@ -271,11 +271,15 @@
             <div class="col-xs-12">
                 <div class="col-md-12">
                     <h3> Persona entrevistada</h3>
-                    @include('complementarios.complementos.personaEntrevistada')
+                    {{--@include('complementarios.complementos.personaEntrevistada')--}}
+                    <button type="button" class="btn btn-primary next">
+                        Siguiente
+                        <i class="glyphicon glyphicon-chevron-right"></i>
+                    </button>
                 </div>
             </div>
         </div>
-        <div class="row setup-content" id="step-7">
+        <div class="row setup-content" id="step-8">
             <div class="col-xs-12">
                 <div class="col-md-12">
                     <h3>Tomas de agua</h3>
@@ -283,7 +287,7 @@
                 </div>
             </div>
         </div>
-        <div class="row setup-content" id="step-7">
+        <div class="row setup-content" id="step-9">
             <div class="col-xs-12">
                 <div class="col-md-12">
                     <h3> Anexo</h3>

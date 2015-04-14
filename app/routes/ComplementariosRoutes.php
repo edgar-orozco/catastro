@@ -74,7 +74,6 @@ Route::group(['before' => 'auth'], function() {
     //
     Route::post("guardar-entrevista", "complementarios_ComplementariosController@postEntrevista");
     Route::post("guardar-personas", "complementarios_ComplementariosController@postPersonas");
-    
-    
-    
+    //tomasAguat
+     Route::post("guardar-agua", "complementarios_ComplementariosController@postAgua");
 });

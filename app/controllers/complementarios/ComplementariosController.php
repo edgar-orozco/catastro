@@ -178,7 +178,7 @@ class complementarios_ComplementariosController extends BaseController {
         $predios->uso_construccion = $uso_constru;
         $predios->save();
 
-        $tomasagua =  
+    
 
 
         Session::flash('mensaje', 'El registro ha sido ingresado exitosamente');
@@ -244,7 +244,7 @@ class complementarios_ComplementariosController extends BaseController {
                 ->orderBy('tiposervicios.id_tiposervicio', 'ASC')
                 ->get();
 
-        $tta = TiposTomasAgua::orderBy('descripcion', 'ASC')->lists('descripcion', 'id_tipotoma');
+        $tta = ['' => '--seleccione una opción--'] + TiposTomasAgua::orderBy('descripcion', 'ASC')->lists('descripcion', 'id_tipotoma');
 
         $datos_construcciones = construcciones::where('gid_predio', '=', $id)->get();
 
@@ -359,7 +359,7 @@ class complementarios_ComplementariosController extends BaseController {
             $n->entidad     =   $inputs['entidad'];
             $n->municipio   =   $inputs['municipio'];
             $n->clave_catas =   $inputs['clave_catas'];
-            $n->gid_predio  =   $inputs['gid_predio'];      
+            $n->gid_predio  =   $inputs['gid_predio'];
             $n->id_tipoie   =   $inputs['instalaciones'];
             $n->save();
             Session::flash('mensaje', 'El registro ha sido ingresado exitosamente');
@@ -383,6 +383,39 @@ class complementarios_ComplementariosController extends BaseController {
         $datos = instalaciones::find($id);
         return View::make('complementarios.editar', compact("datos", "catalogo"));
     }
+
+    public function postAgua()
+    {
+        $gid=Input::get('gid');
+        $estado=Input::get('estado');
+        $municipio=Input::get('municipio');
+        $clave_cata=Input::get('clave_cata');
+        $medidor_instalado=Input::get('medidor_instalado');
+        $num_medidor=Input::get('num_medidor');
+        $num_contrato=Input::get('num_contrato');
+        $tipo_toma=Input::get('tipo_toma');
+        $id_usuariotoma=Input::get('id_p');
+
+        $agua = new TomasAgua();
+        $agua->entidad=$estado;
+        $agua->municipio=$municipio;
+        $agua->clave_catas=$clave_cata;
+        $agua->gid_predio=$gid;
+        $agua->medidor_instalado=$medidor_instalado;
+        $agua->num_medidor=$num_medidor;
+        $agua->num_contrato=$num_contrato;
+        $agua->id_tipotoma=$tipo_toma;
+        $agua->id_usuariotoma=$id_usuariotoma;
+        $agua->save();
+        return Response::json(array
+                (
+                    'medidor_instalado' => $medidor_instalado,
+                    'num_medidor' => $num_medidor,
+                    'num_contrato' => $num_contrato,
+                    'tipo_toma' => $tipo_toma
+                ));
+    }
+
 
     public function getEditar() {
         $inputs = Input::All();
