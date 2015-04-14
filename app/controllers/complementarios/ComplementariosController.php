@@ -178,9 +178,6 @@ class complementarios_ComplementariosController extends BaseController {
         $predios->uso_construccion = $uso_constru;
         $predios->save();
 
-        $tomasagua =  
-
-
         Session::flash('mensaje', 'El registro ha sido ingresado exitosamente');
        
        
