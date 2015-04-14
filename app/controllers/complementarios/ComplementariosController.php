@@ -285,56 +285,6 @@ class complementarios_ComplementariosController extends BaseController {
             }
 
     $tomas_agua=TomasAgua::where('gid_predio', '=', $id)->get()->toArray();
-//print_r($tomas_agua);
-        /*
-        
-
-        $condominio = condominios::WHERE('clave', 'LIKE', '%' . $id . '%')
-                ->orderBy('id_condominio', 'ASC')
-                ->get();
-//      $prop = predios::WHERE('predios.clave', '=', '002-0007-000008')
-//                ->join('propietarios', 'propietarios.clave', '=', 'predios.clave')
-//                ->join('personas', 'personas.id_p', '=', 'propietarios.id_propietario')
-//                ->select()
-//                ->get();
-        
-        $nombre = tiposervicios::WHERE('id', '=', $id);
-
-        $servicios = servicios::
-                join('tiposervicios', 'serviciospredio.id_tiposerviciopredio', '=', 'tiposervicios.id_tiposervicio')
-                ->orderBy('tiposervicios.id_tiposervicio', 'ASC')
-                ->get();
-
-        $techos = construcciones::WHERE('clave', '=', $id, 'and', 'gid_construccion', 'IN', $const)
-                ->join('techosconstruccion', 'construccion.gid_construccion', '=', 'techosconstruccion.gid_construccion')
-                ->join('tipostecho', 'techosconstruccion.id_tipotecho', '=', 'tipostecho.id')
-                ->get();
-
-        $muros = construcciones::WHERE('clave', '=', $id, 'and', 'gid_construccion', 'IN', $const)
-                ->join('murosconstruccion', 'construccion.gid_construccion', '=', 'murosconstruccion.gid_construccion')
-                ->join('tipomuros', 'murosconstruccion.id_tipomuro', '=', 'tipomuros.id')
-                ->get();
-
-        $clases = construcciones::WHERE('clave', '=', $id, 'and', 'gid_construccion', 'IN', $const)
-                ->join('clasesconstruccion', 'construccion.gid_construccion', '=', 'clasesconstruccion.gid_construccion')
-                ->join('tipoclasesconstruccion', 'clasesconstruccion.id_tipoclaseconstruccion', '=', 'tipoclasesconstruccion.id')
-                ->get();
-
-        $ventanas = construcciones::WHERE('clave', '=', $id, 'and', 'gid_construccion', 'IN', $const)
-                ->join('ventanasconstruccion', 'construccion.gid_construccion', '=', 'ventanasconstruccion.gid_construccion')
-                ->join('tiposventana', 'ventanasconstruccion.id', '=', 'tiposventana.id')
-                ->get();
-        $puertas = construcciones::WHERE('clave', '=', $id, 'and', 'gid_construccion', 'IN', $const)
-                ->join('puertaspredio', 'construccion.gid_construccion', '=', 'puertaspredio.gid_construccion')
-                ->join('TiposPuertas', 'puertaspredio.id_tipopuerta', '=', 'TiposPuertas.id_tipopuerta')
-                ->get();
-        $pisos = construcciones::WHERE('clave', '=', $id, 'and', 'gid_construccion', 'IN', $const)
-                ->join('pisospredio', 'construccion.gid_construccion', '=', 'pisospredio.gid_construccion')
-                ->join('tipopisos', 'pisospredio.id_pisopredio', '=', 'tipopisos.id_tipopiso')
-                ->get();
-        
-        return View::make('complementarios.cargar', compact("datos", "const", "predios", "condominio", "prop", "cat", "servicios", "asociados", "nombre", "techos", "muros", "clases", "ventanas", "giros", "girosasociados", "puertas", "pisos"));
-        */
 
 
         return View::make('complementarios.cargar', compact("tomas_agua", "datos_p", "predios","const", "tuc" ,"tcc", "ttc", "tec", "tmc", "tpic", "tpuc", "tvc", "catalogo", "gid", "clave_catas", "estado", "municipio", "cat", "asociados", "giros", "girosasociados", "datos", "condominio", "tta", "datos_construcciones"));
@@ -357,7 +307,6 @@ class complementarios_ComplementariosController extends BaseController {
 
         $inputs = Input::All();
 
-        
 
         $reglas = array
             (
@@ -418,7 +367,7 @@ class complementarios_ComplementariosController extends BaseController {
         $datos = instalaciones::find($id);
         return View::make('complementarios.editar', compact("datos", "catalogo"));
     }
-
+//nuevo hoy
      public function postAgua()
     {
         $gid_p=Input::get('gid_p');

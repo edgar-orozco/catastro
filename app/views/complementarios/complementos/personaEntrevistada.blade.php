@@ -2,13 +2,14 @@
 
 {{Form::open(array( 'method' => 'POST',  'id' => 'formEntrevista'))}}
 <div class="input-group">
-            {{ Form::hidden('clave_cata',$clave_catas) }}
-            {{ Form::hidden('gid_predio',$gid) }}
-            {{ Form::hidden('entidad',$estado) }}
-            {{ Form::hidden('municipio',$municipio) }}
-        </div>
+    {{ Form::hidden('clave_cata',$clave_catas) }}
+    {{ Form::hidden('gid_predio',$gid) }}
+    {{ Form::hidden('entidad',$estado) }}
+    {{ Form::hidden('municipio',$municipio) }}
+</div>
+
 <div>
-    {{Form::label('id_p','Nombre')}}
+    {{Form::label('id_p','Nombre del ejecutor')}}
     <!--SI "TRAE" ALGO LA VARIABLE $nombrec -->
     @if(!empty($nombrec))
     {{Form::text('nombrec',$nombrec, ['tabindex'=>'1','id' => 'nombrec','class'=>'form-control', 'autofocus'=> 'autofocus', 'ng-model' => 'ejecutores.nombrec'] )}}
@@ -17,7 +18,7 @@
     @if(empty($nombrec))
     {{Form::text('nombrec',null, ['tabindex'=>'1','id' => 'nombrec','class'=>'form-control', 'autofocus'=> 'autofocus', 'ng-model' => 'ejecutores.nombrec'] )}}
     @endif
-    <a data-toggle="modal"  data-target="#Nuevo" >
+    <a data-toggle="modal"  data-target="#Nuevo"  href="/catalogos/personas">
         <span class="glyphicon glyphicon-plus" style="margin-left: 365px;"></span>
     </a>
     {{Form::text('id_p',null, ['id' => 'response','hidden'])}}
@@ -25,11 +26,9 @@
 
 </div>
 
-
-
 <button type="submit" class="btn btn-primary next">
-	Siguiente
-	<i class="glyphicon glyphicon-chevron-right"></i>
+    Siguiente
+    <i class="glyphicon glyphicon-chevron-right"></i>
 </button>
 {{Form::close()}}
 
@@ -37,22 +36,21 @@
 @section('javascript')
 <script type="text/javascript">
 //Guardar
-$('#formEntrevista').bind('submit',function () 
+    $('#formEntrevista').bind('submit', function ()
     {
         $.ajax(
-        {
-            type: 'POST',
-            data: new FormData( this ), //Toma todo lo que hay en el formulario, en este caso el archivo .txt o .csv
-            processData: false,
-            contentType: false,
-            url: '/guardar-entrevista',
+                {
+                    type: 'POST',
+                    data: new FormData(this), //Toma todo lo que hay en el formulario, en este caso el archivo .txt o .csv
+                    processData: false,
+                    contentType: false,
+                    url: '/guardar-entrevista',
+                    success: function (data)
+                    {
 
-            success: function (data) 
-            {
 
-
-            }
-        });
+                    }
+                });
         return false;
     });
 
@@ -68,7 +66,7 @@ $('#formEntrevista').bind('submit',function ()
             }
         });
     });
-    
+
 
 
 </script>

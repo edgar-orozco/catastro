@@ -83,16 +83,13 @@ $cat = array();
 foreach ($giros as $catal) {
     $cat[] = $catal->id_tipogiro;
 }
-print_r($cat);
+//print_r($cat);
 
 $asocia = array();
 foreach ($girosasociados as $asoc) {
     $asocia[] = $asoc->id_tipogiro;
 }
 ?>
-@foreach($predios as $predio)
-{{ Form::hidden('gid',$predio->gid) }}
-@endforeach
 @foreach($asocia as $asoc)
 {{Form::hidden('select[]',$asoc) }}
 @endforeach
