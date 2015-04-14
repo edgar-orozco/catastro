@@ -944,7 +944,7 @@ class complementarios_ComplementariosController extends BaseController {
     public function postEntrevista() {
         $entidad = Input::get('entidad');
         $municipio = Input::get('municipio');
-        $clave_catas = Input::get('clave_catas');
+        $clave_catas = Input::get('clave_cata');
         $gid_predio = Input::get('gid_predio');
         $id_p = Input::get('id_p');
 
@@ -968,7 +968,7 @@ class complementarios_ComplementariosController extends BaseController {
             'apellido_paterno' => 'required',
             'apellido_materno' => 'required',
             'nombres' => 'required',
-            'curp' => 'required',
+            
         );
 
         $apellido_paterno = Input::get('apellido_paterno');
@@ -991,7 +991,6 @@ class complementarios_ComplementariosController extends BaseController {
             $n->apellido_materno = $inputs["apellido_materno"];
             $n->nombres = $inputs["nombres"];
             $n->nombrec = $apellido_paterno . " " . $apellido_materno . " " . $nombres;
-            $n->curp = $inputs["curp"];
             $n->save();
             $queries = DB::select(DB::raw("SELECT id_p FROM personas WHERE nombres || ' ' || apellido_paterno || ' ' ||  apellido_materno LIKE '%" . $term . "%' limit 1"));
             //Se han guardado los valores
@@ -1060,4 +1059,13 @@ class complementarios_ComplementariosController extends BaseController {
         ));
     }
 
+    public function getPersonas($format = 'html', $id = null) {
+        $title = 'Crar nueva perosana';
+        //Titulo de seccion:
+        $title_section = "";
+        //Subtitulo de seccion:
+        $subtitle_section = "Crear nueva persona";
+        return View::make('complementarios.complementos.personas', compact('title', 'title_section', 'subtitle_section'));
+    }
+    
 }

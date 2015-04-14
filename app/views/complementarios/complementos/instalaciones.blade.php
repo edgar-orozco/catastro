@@ -10,14 +10,14 @@
         </div>
         
         <div class="col-md-5">
-            <div class="form-group">
+            <div class="form-group" id="midiv">
                 {{Form::select('instalaciones', $catalogo, null, ['id'=>'instalaciones','class'=>'form-control'])}}
             </div>
         </div>  
 
         <div class="col-md-6">
             <div class="form-group">
-                {{Form::submit('Agregar', array('class' => 'btn btn-primary'))}}
+                {{Form::submit('Agregar', array('class' => 'btn btn-primary', 'onclick'=>'ajaxget()'))}}
             </div>
         </div>
         
@@ -56,6 +56,26 @@
 
 
 <script type="text/javascript">
+ function ajaxget(){
+        var conexion;
+        if(window.XMLHttpRequest)
+        {
+            conexion=new XMLHttpRequest();
+        }
+        else 
+        {
+            conexion=new ActiveXObject("Microsoft.XMLHTTP");
+        }
+        conexion.onreadystatechange=function()
+        {
+            if(conexion.readyState== 4 && conexion.status==200)
+            {
+                document.getElementById("midiv").innerHTML=conexion.responseText;
+            }
+        }
+        conexion.open("GET","/cargar-complementos");
+        conexion.send();
+    }
 
 $('#instalaciones').bind('submit',function () 
     {   

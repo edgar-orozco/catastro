@@ -18,12 +18,11 @@
     @if(empty($nombrec))
     {{Form::text('nombrec',null, ['tabindex'=>'1','id' => 'nombrec','class'=>'form-control', 'autofocus'=> 'autofocus', 'ng-model' => 'ejecutores.nombrec'] )}}
     @endif
-    <a data-toggle="modal"  data-target="#Nuevo"  href="/catalogos/personas">
+    <a data-toggle="modal"  data-target="#Nuevo"  href="/personas/p">
         <span class="glyphicon glyphicon-plus" style="margin-left: 365px;"></span>
     </a>
     {{Form::text('id_p',null, ['id' => 'response','hidden'])}}
     {{$errors->first('id_p', '<span class=text-danger>:message</span>')}}
-
 </div>
 
 <button type="submit" class="btn btn-primary next">
