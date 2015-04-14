@@ -98,6 +98,8 @@ $(function () {
             $('#requisitos-lista-'+tipotramite_id+' .botones-requisitos').show();
             $('#requisitos-lista-'+tipotramite_id+' ul').addClass('list-unstyled');
             $('#requisitos-lista-'+tipotramite_id+' .cancelar-tramite').show();
+
+            $(document).trigger( "tipotramite.desplegado", [ tipotramite_id ] );
         });
     });
 
@@ -188,7 +190,15 @@ $(function () {
         e.preventDefault();
     });
 
+    //Se agraga para que aparezca por default chequeados todos los requisitos
+    $( document).on( "tipotramite.desplegado", function(ev, tipotramite_id) {
+        $('.radio-requisito-si-' + tipotramite_id).each(function(){
+            $(this).click();
+        });
+    });
+
 });
+
 
 //Spinners de cargando.
 $(document).bind("ajaxSend", function(){
@@ -211,3 +221,4 @@ String.prototype.lpad = function(pad, length) {
         str = pad + str;
     return str;
 }
+
