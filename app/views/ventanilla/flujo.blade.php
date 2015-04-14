@@ -143,6 +143,8 @@
 
                     <div class="tab-pane" id="panel-docs">
                         <br/>
+                        @include('ventanilla._documentos',compact('tramite','tipotramite'))
+
                     </div>
 
                     <div class="tab-pane" id="panel-solicitante">
@@ -246,13 +248,7 @@
 
         });
 
-
-
-
-
-
-
     </script>
 
-@stop
+@append
 

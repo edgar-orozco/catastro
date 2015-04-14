@@ -61,6 +61,16 @@ Route::post(
     )
 );
 
+//Ruta para manejar los archivos de los documentos.
+Route::post(
+    'tramites/documentos',
+    array(
+        'as' => 'tramites.documentos',
+        'uses' => 'TramitesController@documentos',
+        'before' => 'auth',
+    )
+);
+
 //Búsqueda de trámites
 Route::post(
     'tramites/buscar',

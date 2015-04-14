@@ -113,9 +113,6 @@
                         <a href="#panel-generales" data-toggle="tab">Generales</a>
                     </li>
                     <li>
-                        <a href="#panel-docs" data-toggle="tab">Documentos Digitalizados</a>
-                    </li>
-                    <li>
                         <a href="#panel-cartografia" data-toggle="tab">Cartografía</a>
                     </li>
                     <li>
@@ -151,12 +148,6 @@
 
                         @endforeach
                         </ul>
-                    </div>
-
-                    <div class="tab-pane" id="panel-docs">
-                        <br/>
-                        @include('ventanilla._documentos',compact('tramites'))
-
                     </div>
 
                     <div class="tab-pane" id="panel-cartografia">
