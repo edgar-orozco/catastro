@@ -711,7 +711,7 @@ class complementarios_ComplementariosController extends BaseController {
         $clave_cata = $inputs['clave_cata'];
         $gid_predio = $inputs['gid_predio'];
         $id_tiposervicio = $inputs['servicios'];
-        //mios
+        //mios  
         $eliminar = $inputs['eliminar'];
         $actuales = $inputs['serv'];
         $contar = count($actuales);
@@ -881,7 +881,7 @@ class complementarios_ComplementariosController extends BaseController {
         $id_tipogiro = $inputs['giros'];
         $sup_terreno = $inputs['superficie_terreno'];
         $sup_constru = $inputs['superficie_construccion'];
-        //mios
+        //mios 
         $eliminar = $inputs['eliminar'];
         $actuales = $inputs['select'];
         $contar = count($actuales);
@@ -904,8 +904,8 @@ class complementarios_ComplementariosController extends BaseController {
                     $n->gid_predio = $gid_predio;
                     $n->gid_predio = $gid_predio;
                     $n->id_tipogiro = $id_tipogiro[$x];
-                    $n->superficie_terreno = '0';
-                    $n->superficie_construccion = '0';
+                    $n->superficie_terreno = '000';
+                    $n->superficie_construccion = '000';
                     $n->created_at = date('Y-m-d');
                     $n->updated_at = date('Y-m-d');
                     $n->save();
@@ -928,8 +928,8 @@ class complementarios_ComplementariosController extends BaseController {
                 $n->gid_predio = $gid_predio;
                 $n->gid_predio = $gid_predio;
                 $n->id_tipogiro = $total[$x];
-                $n->superficie_terreno = '0';
-                $n->superficie_construccion = '0';
+                $n->superficie_terreno = '000';
+                $n->superficie_construccion = '000';
                 $n->created_at = date('Y-m-d');
                 $n->updated_at = date('Y-m-d');
                 $n->save();
