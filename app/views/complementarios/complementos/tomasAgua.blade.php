@@ -1,6 +1,6 @@
 {{ HTML::style('js/jquery/jquery-ui.css') }}
 
-<?php //print_r($tomas_agua);
+<?php// print_r($tomas_agua);
 if(count($tomas_agua)=='')
     {
          $checekdn='checked';
@@ -10,6 +10,7 @@ if(count($tomas_agua)=='')
    $medidor_instalado=$ta['medidor_instalado'];
     $num_medidor=$ta['num_medidor'];
     $num_contrato=$ta['num_contrato'];
+    $id_usuariotoma=$ta['id_usuariotoma'];
     
     
     if($medidor_instalado==1)
@@ -20,12 +21,15 @@ if(count($tomas_agua)=='')
     {
          $checekdn='checked';
     }
-}    ?>
+} 
+$nombress=personas::where('id_p', '=', $id_usuariotoma)->pluck('nombres');
+$apellidop=personas::where('id_p', '=', $id_usuariotoma)->pluck('apellido_paterno');
+$apellidom=personas::where('id_p', '=', $id_usuariotoma)->pluck('apellido_materno');
+$nombre_p=$nombress.' '.$apellidop.' '.$apellidom;
+
+   ?>
 <div class="page-header">
-	<h2>
-		Tomas Agua
-        
-    </h2>
+
 </div>
 {{Form::open(array('url' => 'guardar-agua', 'method' => 'POST', 'name' => 'formAgua', 'id' => 'formAgua'))}}
 <div class="panel-body">
@@ -70,18 +74,15 @@ if(count($tomas_agua)=='')
 	</div>
 <div>
     {{Form::label('Nombre')}}
-    <!--SI "TRAE" ALGO LA VARIABLE $nombrec -->
-    @if(!empty($nombrec))
-    {{Form::text('personasp',$nombrec, ['tabindex'=>'1','id' => 'personasp','class'=>'form-control', 'autofocus'=> 'autofocus', 'ng-model' => 'ejecutores.nombrec'] )}}
-    @endif
+
     <!--SI "NO" TRAE ALGO LA VARIABLE $nombrec -->
     @if(empty($nombrec))
-    {{Form::text('personasp',null, ['tabindex'=>'1','id' => 'personasp','class'=>'form-control', 'autofocus'=> 'autofocus', 'ng-model' => 'ejecutores.nombrec'] )}}
+    {{Form::text('personasp',$nombre_p, ['tabindex'=>'1','id' => 'personasp','class'=>'form-control', 'autofocus'=> 'autofocus', 'ng-model' => 'ejecutores.nombrec'] )}}
     @endif
     <a data-toggle="modal"  data-target="#Nuevo1" >
         <span class="glyphicon glyphicon-plus" style="margin-left: 365px;"></span>
     </a>
-    {{Form::text('id_p',null, ['id' => 'response2','hidden'])}}
+    {{Form::text('id_p',$id_usuariotoma, ['id' => 'response2','hidden'])}}
     {{$errors->first('id_p', '<span class=text-danger>:message</span>')}}
 
 </div>
