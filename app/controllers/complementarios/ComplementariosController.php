@@ -846,7 +846,7 @@ class complementarios_ComplementariosController extends BaseController {
             $n->municipio               =   $municipio;
             $n->clave_catas             =   $clave_cata;
             $n->gid_predio              =   $gid_predio;
-            $n->id_tipogiro             =   $id_tipogiro[$x-1]; ;
+            $n->id_tipogiro             =   $id_tipogiro[$x-1];
             $n->superficie_terreno      =   $sup_terreno;
             $n->superficie_construccion =   $sup_constru;
             $n->save();
@@ -1033,7 +1033,10 @@ class complementarios_ComplementariosController extends BaseController {
             if(Input::file($file)) 
             {
                 // Se valida el directorio para subir shapes
-                $dir = public_path() . '/complementarios/anexos/'.$entidad.'/'.$municipio.'/'.$clave_catas.'/' ;
+
+
+
+                $dir = public_path() . '/complementarios/anexos/'.$entidad.'/'.$municipio.'/'.$clave_catas.'/'.$array_clave[0].'/'.$array_clave[1].'/';
                 
                 if (!file_exists($dir) && !is_dir($dir)) 
                 {
@@ -1041,7 +1044,7 @@ class complementarios_ComplementariosController extends BaseController {
                 }
                 // Se valida la extensión del archivo
                 
-                if(in_array(strtolower($file2->getClientMimeType()), array('image/png','image/jpeg','image/jpeg','image/jpeg','image/gif','image/bmp','image/vnd.microsoft.icon')))
+                if(in_array(strtolower($file2->getClientMimeType()), array('image/png','image/jpeg','image/jpeg','image/jpeg','image/gif','image/bmp','image/vnd.microsoft.icon', 'text/plain', 'application/vnd.ms-excel', 'application/msword', 'application/pdf')))
                 {
                     $j=$j+1;
                     $file2->move($dir, $file2->getClientOriginalName().'.'.$file2->getClientOriginalExtension());
@@ -1051,7 +1054,7 @@ class complementarios_ComplementariosController extends BaseController {
                     $imagenes->clave_catas=$clave_catas;
                     $imagenes->gid_predio=$gid_predio;
                     $imagenes->id_tipoimagen=$id_tipoimagen2[$i];
-                    $imagenes->nombre_archivo=$dir.$file2->getClientOriginalName().'.'.$file2->getClientOriginalExtension();
+                    $imagenes->nombre_archivo='/public/complementarios/anexos/'.$entidad.'/'.$municipio.'/'.$array_clave[0].'/'.$array_clave[1].'/'.$clave_catas.'/'.$gid_predio.'-'.$id_tipoimagen.'.'.$file2->getClientOriginalExtension();
                     $imagenes->save();
                     $respuesta[]  =   '¡Se guardo correctamente el archivo: '. $file2->getClientMimeType();
                         

@@ -290,6 +290,8 @@
                     @include('complementarios.cargar.cargaArchivos')
                 </div>
             </div>
+            <a href="/compleme" class="btn btn-success" role="button">Finalizar</a>
         </div>
+
     </div>
     @stop
