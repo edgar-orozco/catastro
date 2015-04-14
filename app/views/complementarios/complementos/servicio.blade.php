@@ -93,21 +93,22 @@
     foreach ($cat as $cata) {
      $catas[] = $cata->id_tiposervicio;
     }
-    print_r($catas);
+    
     
     $asocia = array();
     foreach ($asociados as $asoc) {
         $asocia[] = $asoc->id_tiposervicio;
     }
+//    print_r($asocia);
     ?>
-
-    @foreach($predios as $predio)
-    {{ Form::hidden('gid',$predio->gid) }}
-    @endforeach
-
    
-    @foreach($asociados as $asoc)
-    {{Form::hidden('serv[]',$asoc) }}
+    <?php
+    
+
+    ?>
+    @foreach($asocia as $key)
+    {{Form::hidden('serv[]',$key)}}
+   
     @endforeach
 <?php 
     
@@ -115,23 +116,16 @@
     @foreach($cat as $row)<?php
     if (in_array($row->id_tiposervicio, $asocia)) {
         $css = 'active';
-        $input = "<label class='btn btn-sm btn-default uncheck'>$row->descripcion<input type='checkbox' name='fuera[]' value=$row->id_tiposervicio ></label>";
+        $input = "<label class='btn btn-sm btn-default uncheck'>$row->descripcion<input type='checkbox' name='eliminar[]' value=$row->id_tiposervicio ></label>";
     } else {
         $css = '';
         $input = '';
     }
     ?>
-    <?php
-//    $count = count($cat);
-//    $count;
-//    $li = $count / 3;
-//    $li = round($li);
-//    echo $li;
-    ?>
     <li> <?php echo $input; ?>
         <div class="btn-group btn-toggle botones-requisitos" data-toggle="buttons">
             <label class="btn btn-sm btn-default <?php echo $css ?>">{{$row->descripcion}}
-                <input type='checkbox' name='opcion[]' value="{{$row->id_tiposervicio }}">
+                <input type='checkbox' name='servicios[]' value="{{$row->id_tiposervicio }}">
             </label>
         </div>
     </li>

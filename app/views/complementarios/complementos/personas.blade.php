@@ -106,7 +106,7 @@
                 {{$errors->first('apellido_materno', '<span class=text-danger>:message</span>')}}
                 <p class="help-block"></p>
             </div>
-            
+          
             <div class="form-group">
                 {{Form::label('curp','CURP')}}
                 {{Form::text('curp', null, ['tabindex'=>'5','class'=>'form-control','autofocus'=> 'autofocus',  'ng-model' => 'personas.curp','onblur'=>'aMayusculas(this.value,this.id)','pattern'=>'^[a-zA-Z]{4}\d{6}[a-zA-Z]{6}\d{2}$'] )}}
@@ -125,27 +125,3 @@
     </body>
 </html>
 
-@section('javascript')
-<script type="text/javascript">
-
-$('#fo3').bind('submit',function () 
-    {
-        $.ajax(
-        {
-            type: 'POST',
-            data: new FormData( this ), //Toma todo lo que hay en el formulario, en este caso el archivo .txt o .csv
-            processData: false,
-            contentType: false,
-            url: '/guardar-personas',
-
-            success: function (data) 
-            {
-
-
-            }
-        });
-        return false;
-    });
-
-</script>
-@append
