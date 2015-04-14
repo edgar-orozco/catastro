@@ -193,9 +193,6 @@ class complementarios_ComplementariosController extends BaseController {
         $clave_cata     =   input::get('clave_catas');
 
 
-
-        
-            
         $predios = predios::find($gid);
         $predios->tipo_predio = $tipo_predio;
         $predios->tipo_propiedad = $tipo_propiedad;

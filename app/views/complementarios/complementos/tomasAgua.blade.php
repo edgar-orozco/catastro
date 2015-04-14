@@ -24,6 +24,7 @@ if(count($tomas_agua)=='')
 <div class="page-header">
 	<h2>
 		Tomas Agua
+        
     </h2>
 </div>
 {{Form::open(array('url' => 'guardar-agua', 'method' => 'POST', 'name' => 'formAgua', 'id' => 'formAgua'))}}
