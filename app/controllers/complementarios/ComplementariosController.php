@@ -330,10 +330,34 @@ class complementarios_ComplementariosController extends BaseController {
             }
 
     $tomas_agua=TomasAgua::where('gid_predio', '=', $id)->get()->toArray();
+
+
+    //BUSCA LAS IMAGENES GUARDADAS EN EL SERVIDOR
+
+    $imagenes = ImagenesLevantamiento::where('gid_predio', '=', $id)->select('nombre_archivo')->get();
+    $file=[];
+    foreach ($imagenes as $imagen) 
+    {
+        $extension = split('[.]', $imagen->nombre_archivo);
+        
+        if($extension[1]=="jpg")
+        {
+            $select = "<select name='select-instalaciones' class='form-control' id='instalaciones'><option selected='selected' value=''>--Seleccione una opción--</option> <option value='1'>Frontal</option><option value='2'>Lateral</option> </select>";
+            $eliminar = "<button type='button' class='kv-file-remove btn btn-xs btn-default' title='Remove file' data-url='/molestar.com' data-key='1'><i class='glyphicon glyphicon-trash text-danger'></i></button>";
+            $file[] = "<img src='".$imagen->nombre_archivo."' class='file-preview-image' >".$select.$eliminar;
+            
+
+        }
+        elseif ($extension[1]=="pdf")
+        {
+            $file[] = "<img src='".$imagen->nombre_archivo."' class='file-preview-image' > ";
+            
+        }
+    }
     
 
 
-        return View::make('complementarios.cargar', compact("tomas_agua", "datos_p", "predios","const", "tuc" ,"tcc", "ttc", "tec", "tmc", "tpic", "tpuc", "tvc", "catalogo", "gid", "clave_catas", "estado", "municipio", "cat", "asociados", "giros", "girosasociados", "datos", "condominio", "tta", "datos_construcciones"));
+        return View::make('complementarios.cargar', compact("tomas_agua", "datos_p", "predios","const", "tuc" ,"tcc", "ttc", "tec", "tmc", "tpic", "tpuc", "tvc", "catalogo", "gid", "clave_catas", "estado", "municipio", "cat", "asociados", "giros", "girosasociados", "datos", "condominio", "tta", "datos_construcciones", "file"));
 
     }
 
