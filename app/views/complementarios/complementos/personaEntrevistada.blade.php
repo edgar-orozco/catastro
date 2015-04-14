@@ -2,7 +2,7 @@
 
 {{Form::open(array('url' => 'guardar-predios', 'method' => 'POST', 'name' => 'formPredios', 'id' => 'formEntrevista'))}}
 <div class="input-group">
-            {{ Form::hidden('clave_catas',$clave_cata) }}
+            {{ Form::hidden('clave_cata',$clave_catas) }}
             {{ Form::hidden('gid_predio',$gid) }}
             {{ Form::hidden('entidad',$estado) }}
             {{ Form::hidden('municipio',$municipio) }}
@@ -42,7 +42,7 @@
 
 @section('javascript')
 <script type="text/javascript">
-
+//Guardar
 $('#formEntrevista').bind('submit',function () 
     {
         $.ajax(
@@ -64,6 +64,7 @@ $('#formEntrevista').bind('submit',function ()
 
 </script>
 <script>
+    //autocomplete
     $(function () {
         $("#nombrec").autocomplete({
             source: "/search/autocomplete1",

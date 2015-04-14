@@ -912,7 +912,7 @@ class complementarios_ComplementariosController extends BaseController {
     public function postEntrevista (){
         $entidad     = Input::get('entidad');
         $municipio   = Input::get('municipio');
-        $clave_catas = Input::get('clave_catas');
+        $clave_catas = Input::get('clave_cata');
         $gid_predio  = Input::get('gid_predio');
         $id_p        = Input::get('id_p');
         
@@ -922,7 +922,8 @@ class complementarios_ComplementariosController extends BaseController {
         $n->clave_catas  = $clave_catas;
         $n->gid_predio   = $gid_predio;
         $n->id_p         = $id_p;
-        
+        $n->created_at=date("Y-m-d");
+        $n->updated_at=date("Y-m-d");          
         $n->save();
         Session::flash('mensaje', 'El registro ha sido ingresado exitosamente');
         return Redirect::back();
