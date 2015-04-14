@@ -1025,29 +1025,7 @@ class complementarios_ComplementariosController extends BaseController {
             // Se valida que exista un archivo
             if (Input::file($file)) {
                 // Se valida el directorio para subir shapes
-<<<<<<< HEAD
-                $dir = public_path() . '/complementarios/anexos/' . $entidad . '/' . $municipio . '/' . $clave_catas . '/';
-
-                if (!file_exists($dir) && !is_dir($dir)) {
-                    File::makeDirectory($dir, $mode = 0777, true, true);
-                }
-                // Se valida la extensión del archivo
-
-                if (in_array(strtolower($file2->getClientMimeType()), array('image/png', 'image/jpeg', 'image/jpeg', 'image/jpeg', 'image/gif', 'image/bmp', 'image/vnd.microsoft.icon'))) {
-                    $j = $j + 1;
-                    $file2->move($dir, $file2->getClientOriginalName() . '.' . $file2->getClientOriginalExtension());
-                    $imagenes = new ImagenesLevantamiento();
-                    $imagenes->entidad = $entidad;
-                    $imagenes->municipio = $municipio;
-                    $imagenes->clave_catas = $clave_catas;
-                    $imagenes->gid_predio = $gid_predio;
-                    $imagenes->id_tipoimagen = $id_tipoimagen2[$i];
-                    $imagenes->nombre_archivo = $dir . $file2->getClientOriginalName() . '.' . $file2->getClientOriginalExtension();
-=======
-
-
-
-                $dir = public_path() . '/complementarios/anexos/'.$entidad.'/'.$municipio.'/'.$clave_catas.'/'.$array_clave[0].'/'.$array_clave[1].'/';
+               $dir = public_path() . '/complementarios/anexos/'.$entidad.'/'.$municipio.'/'.$clave_catas.'/'.$array_clave[0].'/'.$array_clave[1].'/';
                 
                 if (!file_exists($dir) && !is_dir($dir)) 
                 {
@@ -1066,7 +1044,6 @@ class complementarios_ComplementariosController extends BaseController {
                     $imagenes->gid_predio=$gid_predio;
                     $imagenes->id_tipoimagen=$id_tipoimagen2[$i];
                     $imagenes->nombre_archivo='/public/complementarios/anexos/'.$entidad.'/'.$municipio.'/'.$array_clave[0].'/'.$array_clave[1].'/'.$clave_catas.'/'.$gid_predio.'-'.$id_tipoimagen.'.'.$file2->getClientOriginalExtension();
->>>>>>> 805fc231e8b82ec61bae0fd32df9ce8ee1e02bc9
                     $imagenes->save();
                     $respuesta[] = '¡Se guardo correctamente el archivo: ' . $file2->getClientMimeType();
                 } else {
