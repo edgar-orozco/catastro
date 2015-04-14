@@ -318,7 +318,7 @@ class complementarios_ComplementariosController extends BaseController {
             }
 
     $tomas_agua=TomasAgua::where('gid_predio', '=', $id)->get()->toArray();
-
+    
 
 
         return View::make('complementarios.cargar', compact("tomas_agua", "datos_p", "predios","const", "tuc" ,"tcc", "ttc", "tec", "tmc", "tpic", "tpuc", "tvc", "catalogo", "gid", "clave_catas", "estado", "municipio", "cat", "asociados", "giros", "girosasociados", "datos", "condominio", "tta", "datos_construcciones"));
