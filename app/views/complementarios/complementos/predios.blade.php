@@ -16,31 +16,31 @@ foreach ($datos_p as $k) {
 			<div class="col-md-6">
         <div class="form-group">
           {{Form::label('Ltipo_predio','Tipo Predio')}}   
-          {{Form::select('tipo_predio', ['U' => 'Urbano','R' => 'Rustico'], $tipo_predio, ['id'=>'tipo_predio', 'class' => 'form-control'])}}
+          {{Form::select('tipo_predio', ['U' => 'Urbano','R' => 'Rustico'], $tipo_predio, ['id'=>'tipo_predio', 'class' => 'form-control', 'tabindex'=>'1'])}}
         </div>
       </div>
 			<div class="col-md-4">
 				<div class="form-group">
 					{{Form::label('Lniveles','Niveles')}}
-					{{Form::number('niveles', $niveles ,['class'=>'form-control bfh-number','required', 'id'=>'niveles', 'min' => '1' ])}}
+					{{Form::number('niveles', $niveles ,['class'=>'form-control bfh-number','required', 'id'=>'niveles', 'min' => '1' , 'tabindex'=>'2'])}}
 				</div>
 			</div>
 			<div class="col-md-4">
 				<div class="form-group">
 					{{Form::label('Lfolio','Folio')}}
-					{{Form::text('folio',$folio,['class'=>'form-control','required', 'id'=>'folio'])}}
+					{{Form::text('folio',$folio,['class'=>'form-control','required', 'id'=>'folio', 'tabindex'=>'3'])}}
 				</div>
 			</div>
 			<div class="col-md-4">
 				<div class="form-group">
 					{{Form::label('Lsuperficie_terreno','Superficie Terreno')}}
-					{{Form::text('superficie_terreno',$superficie_terreno,['class'=>'form-control','required', 'id'=>'superficie_terreno'])}}
+					{{Form::text('superficie_terreno',$superficie_terreno,['class'=>'form-control','required', 'id'=>'superficie_terreno', 'tabindex'=>'4'])}}
 				</div>
 			</div>
 			<div class="col-md-4">
 				<div class="form-group">
 					{{Form::label('Luso_construccion','Uso Connstrucción')}}
-					{{Form::select('uso_construccion',  $tuc, $uso_construccion, ['id'=>'uso_construccion', 'class' => 'form-control'])}}
+					{{Form::select('uso_construccion',  $tuc, $uso_construccion, ['id'=>'uso_construccion', 'class' => 'form-control', 'tabindex'=>'5'])}}
 
 				</div>
 			</div>
@@ -101,6 +101,30 @@ $(document).ready(function(){
         }
      });
   });
+
+
+//tabindex
+ $('input').on('keydown', function (e) {
+
+                if (e.keyCode === 13)
+                {
+                    // Obtenemos el número del tabindex del campo actual
+                    var currentTabIndex = $(this).attr('tabindex');
+                    // Le sumamos 1 :P
+                    var nextTabIndex = parseInt(currentTabIndex) + 1;
+                    // Obtenemos (si existe) el siguiente elemento usando la variable nextTabIndex
+                    var nextField = $('[tabindex=' + nextTabIndex + ']');
+                    // Si se encontró un elemento:
+                    if (nextField.length > 0)
+                    {
+                        // Hacerle focus / seleccionarlo
+                        nextField.focus();
+                        // Ignorar el funcionamiento predeterminado (enviar el formulario)
+                        e.preventDefault();
+                    }
+                    // Si no se encontro ningún elemento, no hacemos nada (se envia el formulario)
+                }
+            });
 </script>
 
 @append

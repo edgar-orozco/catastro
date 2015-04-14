@@ -1,11 +1,35 @@
 {{ HTML::style('js/jquery/jquery-ui.css') }}
-<div class="page-header">
-	<h2>
-		Tomas Agua
-    </h2>
-</div>
+
+<?php
+if(count($tomas_agua)=='')
+    {
+         $checekdn='checked';
+    }
+ foreach ($tomas_agua as $ta ) {
+   $gid_p=$ta['gid'];
+   $medidor_instalado=$ta['medidor_instalado'];
+    $num_medidor=$ta['num_medidor'];
+    $num_contrato=$ta['num_contrato'];
+    $id_usuariotoma=$ta['id_usuariotoma'];
+
+    if($medidor_instalado==1)
+    {
+        $checkeds='checked';
+    }
+    if($medidor_instalado=='')
+    {
+         $checekdn='checked';
+    }
+}
+$nombress=personas::where('id_p', '=', $id_usuariotoma)->pluck('nombres');
+$apellidop=personas::where('id_p', '=', $id_usuariotoma)->pluck('apellido_paterno');
+$apellidom=personas::where('id_p', '=', $id_usuariotoma)->pluck('apellido_materno');
+$nombre_p=$nombress.' '.$apellidop.' '.$apellidom;
+?>
+
 {{Form::open(array('url' => 'guardar-agua', 'method' => 'POST', 'name' => 'formAgua', 'id' => 'formAgua'))}}
 <div class="panel-body">
+        {{Form::text('gid_p',$gid_p,['id'=>'gid_p', "hidden" ])}}
 		{{Form::text('gid',$gid,['id'=>'gid', "hidden" ])}}
 		{{Form::text('estado',$estado,['id'=>'estado', "hidden" ])}}
     {{Form::text('municipio',$municipio,['id'=>'municipio', "hidden" ])}}
@@ -16,49 +40,49 @@
 				<div class="form-group">
 				{{Form::label('Lmedidor_instalado','Medidor Instalado')}}
 				<br>
-					Si {{Form::radio('medidor_instalado', 'Si')}}
-					No {{Form::radio('medidor_instalado', 'No', 'checked')}}
+					Si {{Form::radio('medidor_instalado', '1', $checkeds)}}
+					No {{Form::radio('medidor_instalado', '0', $checekdn)}}
 				</div>
 			</div>
 
 			<div class="col-md-3">
 				<div class="form-group">
 					{{Form::label('Lnum_medidor', 'Numero de medidor')}}
-					{{Form::text('num_medidor',$predios[0]->tipo_propiedad, ['class'=>'form-control', 'required'])}}
+					{{Form::text('num_medidor',$num_medidor, ['class'=>'form-control'])}}
 				</div>
 			</div>
 			<div class="col-md-3">
 				<div class="form-group">
 					{{Form::label('Lnum_contrato','Numero de contrato')}}
-					{{Form::text('num_contrato','',['class'=>'form-control','required'])}}
+					{{Form::text('num_contrato',$num_contrato,['class'=>'form-control'])}}
 				</div>
 			</div>
 			<div class="col-md-3">
 				<div class="form-group">
 					{{Form::label('Ltipo_toma','Tipo Toma')}}
-					{{Form::select('tipo_toma',  $tta, null, ['class' => 'form-control'])}}
+					{{Form::select('tipo_toma',  $tta, $id_tipotoma, ['class' => 'form-control'])}}
 
 				</div>
 			</div>
 
+
+		</div>
+	</div>
 <div>
-    {{Form::label('id_p','Nombre')}}
-    <!--SI "TRAE" ALGO LA VARIABLE $nombrec -->
-    @if(!empty($nombrec))
-    {{Form::text('nombrec',$nombrec, ['tabindex'=>'1','id' => 'nombrec','required' => 'required', 'class'=>'form-control', 'autofocus'=> 'autofocus', 'ng-model' => 'ejecutores.nombrec'] )}}
-    @endif
+    {{Form::label('Nombre')}}
+
     <!--SI "NO" TRAE ALGO LA VARIABLE $nombrec -->
     @if(empty($nombrec))
-    {{Form::text('nombrec',null, ['tabindex'=>'1','id' => 'nombrec', 'required' => 'required','class'=>'form-control', 'autofocus'=> 'autofocus', 'ng-model' => 'ejecutores.nombrec'] )}}
+    {{Form::text('personasp',$nombre_p, ['tabindex'=>'1','id' => 'personasp','class'=>'form-control', 'autofocus'=> 'autofocus', 'ng-model' => 'ejecutores.nombrec'] )}}
     @endif
-  
-    {{Form::text('id_p',null, ['id' => 'response','hidden'])}}
+    <a data-toggle="modal"  data-target="#Nuevo1" >
+        <span class="glyphicon glyphicon-plus" style="margin-left: 365px;"></span>
+    </a>
+    {{Form::text('id_p',$id_usuariotoma, ['id' => 'response2','hidden'])}}
     {{$errors->first('id_p', '<span class=text-danger>:message</span>')}}
 
 </div>
 
-		</div>
-	</div>
 <button type="submit" class="btn btn-primary next">
 	Siguiente
 	<i class="glyphicon glyphicon-chevron-right"></i>
@@ -87,17 +111,29 @@ $('#formAgua').bind('submit',function ()
         return false;
     });
 </script>
-
 <script>
+    //autocomplete
     $(function () {
-        $("#nombrec").autocomplete({
+        $("#personasp").autocomplete({
             source: "/search/autocomplete1",
             minLength: 1,
             select: function (event, ui) {
-                $('#response').val(ui.item.id);
+                $('#response2').val(ui.item.id);
             }
         });
     });
+    
+
+
 </script>
 
+
 @append
+<!-- Modal -->
+<div class="modal fade" id="Nuevo1" data-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            @include('complementarios.complementos.personas')
+        </div>
+    </div>
+</div>
