@@ -52,11 +52,11 @@
                     url: '/cargar-servicios',
                     beforeSend: function()
                     {
-                        alert("mandando petición");
+                        
                     },
                     success: function (data) 
                     {               
-                        alert("datos guardados");
+                        
                          //Se obtiene el elemento table
                         
 

@@ -125,3 +125,27 @@
     </body>
 </html>
 
+@section('javascript')
+<script type="text/javascript">
+
+$('#fo3').bind('submit',function () 
+    {
+        $.ajax(
+        {
+            type: 'POST',
+            data: new FormData( this ), //Toma todo lo que hay en el formulario, en este caso el archivo .txt o .csv
+            processData: false,
+            contentType: false,
+            url: '/guardar-personas',
+
+            success: function (data) 
+            {
+
+
+            }
+        });
+        return false;
+    });
+
+</script>
+@append

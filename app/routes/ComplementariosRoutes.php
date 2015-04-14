@@ -73,6 +73,7 @@ Route::group(['before' => 'auth'], function() {
     Route::get('autocomplete', 'complementarios_ComplementariosController@autocomplete');
     //
     Route::post("guardar-entrevista", "complementarios_ComplementariosController@postEntrevista");
+    Route::post("guardar-personas", "complementarios_ComplementariosController@postPersonas");
     
     
     

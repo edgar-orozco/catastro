@@ -52,11 +52,11 @@
                     url: '/cargar-complementos/guardar-giros',
                     beforeSend: function()
                     {
-                        alert("mandando petición");
+                        
                     },
                     success: function (data) 
                     {               
-                        alert("guardado correcto");
+                        
                     }
                 });
                 return false;
