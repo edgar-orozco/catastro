@@ -1,125 +1,131 @@
+<style>
+    #map-canvas {
+        height: 30%;
+        margin: 0px;
+        padding: 0px
+    }
+    .uncheck
+    {
+        /*display: none;*/
+        position: absolute;
+        z-index: 7;
+        opacity: -0.5;
+        /* opacity: 1.5;*/
+    }
+   .column ul{
+        width:760px;
+        overflow:hidden;
+        border-top:1px solid #ccc;
+    }
+    .column li{
+        line-height: 1.5em;
+        float: left;
+        display: inline;
+        width: 47.333%;
+        margin-top: 5px;
+        margin-left: 17px;
+    }
+    .list-unstyled
+    {
+        border-top:none;
+    }
+      #btn-guardar
+    {
+        margin-left: 250px;
+        margin-top: 52px;
+    }
 
-{{ Form::open(array( 'id' => 'instalaciones')) }}
-    <br/>
-    
-        <div class="input-group">
-            {{ Form::hidden('clave_catas',$clave_catas) }}
-            {{ Form::hidden('gid_predio',$gid) }}
-            {{ Form::hidden('entidad',$estado) }}
-            {{ Form::hidden('municipio',$municipio) }}
-        </div>
-        
-        <div class="col-md-5">
-            <div class="form-group">
-                {{Form::select('instalaciones', $catalogo, null, ['id'=>'instalaciones','class'=>'form-control'])}}
-            </div>
-        </div>  
-
-        <div class="col-md-6">
-            <div class="form-group">
-                {{Form::submit('Agregar', array('class' => 'btn btn-primary'))}}
-            </div>
-        </div>
-        
-{{ Form::close() }}
-<div id="div-table" class="row">
-<table class="table" id="table-instalaciones">
-    <thead>
-        <tr>
-<!--            <th>ID</th>
-            <th>Clave</th> -->
-            <th>Tipos</th>
-            <th>Acciones</th>
-        </tr>
-    </thead>
-    <tbody>
-       
-        @foreach($datos as $row)
-        <tr>
-
-            <td>{{$row->descripcion}}</td>
-            <td>
-                <!--borrar-->
-                <a id="anchor-delete{{$row->id_ie}}" onclick="eliminar_instalacion('{{$row->id_ie}}')" class="btn btn-warning eliminar" title="Editar Predio">
-                    <span class="glyphicon glyphicon-remove"></span>
-                </a>
-            </td>
-        </tr>
-        @endforeach
-    <tfoot>
-
-    </tfoot>
-</table>
-</div>
+</style>
 
 @section('javascript')
+    
+    <script type="text/javascript">
+
+        $('#ieForm').bind('submit',function () 
+            {   
+                $.ajax(
+                {
+                    type: 'POST',
+                    data: new FormData( this ), 
+                    processData: false,
+                    contentType: false,
+                    url: '/agregar',
+                    beforeSend: function()
+                    {
+                        
+                    },
+                    success: function (data) 
+                    {               
+                        
+                    }
+                });
+                return false;
+            });
+    </script>
+    
 
 
-<script type="text/javascript">
 
-$('#instalaciones').bind('submit',function () 
-    {   
-        $.ajax(
-        {
-            type: 'POST',
-            data: new FormData( this ), //Toma todo lo que hay en el formulario, en este caso el archivo .txt o .csv
-            processData: false,
-            contentType: false,
-            url: '/agregar',
-            beforeSend: function()
-            {
+@append
 
-            },
-            success: function (data)
-            {
-                 //Se obtiene el elemento table
-                var table = document.getElementById("table-instalaciones");
-                //En caso de que exista, la eliminara.
-
-                //Se crea la tabla de predios dinamicamente
-
-                var tbody = table.getElementsByTagName('tbody')[0];
-                row = tbody.insertRow();
-                cell = row.insertCell(0);
-                cell.innerHTML=data.instalaciones;
-                cell = row.insertCell(1);
-                var id_ie = '<input type="text" name="hide_idie" id = "hide_idie" value="'+data.id_ie+'" hidden>';
-                cell.innerHTML='<a id="anchor-delete'+data.id_ie+'" onclick="eliminar_instalacion('+data.id_ie+')" data-eliminar-type="'+data.id_ie+'" class="btn btn-warning eliminar" title="Editar Predio"> <span class="glyphicon glyphicon-remove"></span></a>';
-
-
-            }
-        });
-        return false;
-    });
-
-
-function eliminar_instalacion(id_ie)
-{
-
-
-    $.ajax(
-        {
-            type: 'POST',
-            data: {id_ie:id_ie}, //Toma todo lo que hay en el formulario, en este caso el archivo .txt o .csv
-            url: '/eliminar-inst',
-            beforeSend: function()
-            {
-                alert("mandando petición");
-            },
-            success: function (data) 
-            {
-                alert("guardado correcto");
-                 //Se obtiene el elemento table
-                var td = $('#anchor-delete'+data.id_ie).parent();
-                var tr = td.parent().remove();
-
-
-            }
-        });
+{{ Form::open(array( 'name'=> 'ieForm', 'id' => 'ieForm')) }}
+<div class="input-group">
+    {{ Form::hidden('clave_cata',$clave_catas) }}
+    {{ Form::hidden('gid_predio',$gid) }}
+    {{ Form::hidden('entidad',$estado) }}
+    {{ Form::hidden('municipio',$municipio) }}
+</div>
+        
+<?php
+$catie = array();
+foreach ($catalogo as $ie) {
+    $catie[] = $ie->id_tipoie;
 }
 
 
+$ie = array();
+foreach ($ieasociados as $ie_asoc) {
+    $ie[] = $ie_asoc->id_tipoie;
+}
 
-</script>
+?>
 
-@append
+@foreach($ie as $asoc)
+{{Form::hidden('instalacion[]',$asoc) }}
+@endforeach
+<ul class="list-unstyled column">  
+    @foreach($catalogo as $row)
+    <?php
+    if (in_array($row->id_tipoie, $ie)) {
+        $css = 'active';
+        $input = "<label class='btn btn-sm btn-default uncheck'>$row->descripcion<input type='checkbox' name='eliminar[]' value=$row->id_tipoie ></label>";
+    } else {
+        $css = '';
+        $input = '';
+    }
+    ?>
+    <li class="column"><?php echo $input; ?>
+        <div class="btn-group btn-toggle botones-requisitos" data-toggle="buttons">
+            <label class="btn btn-sm btn-default <?php echo $css ?>">{{$row->descripcion}}
+                <input type='checkbox'  name='instalaciones[]' value="{{$row->id_tipoie}}">
+            </label>
+        </div>
+    </li>
+    @endforeach
+
+</ul>
+
+<br/>
+<hr>
+<br><br><br><br><br><br><br><br><br><br><br>
+<div class="col-md-6">
+<div class="form-group">
+ <button type="submit" class="btn btn-primary next">
+            Siguiente
+            <i class="glyphicon glyphicon-chevron-right"></i>
+        </button>
+    </div>
+</div>
+{{ Form::close() }}
+<br/>
+<hr>
