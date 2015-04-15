@@ -10,7 +10,7 @@ class InstalacionesEspeciales Extends Eloquent
     {
      $selection=array();
 
-        $instala= DB::table('instalaciones_especiales')->select('id_tipo_ie')->where('clave', 'like', $id)->get();
+        $instala= DB::table('instalacionesespeciales')->select('id_tipoie')->where('clave_catas', 'like', $id)->get();
         foreach ($instala as $row) 
         {
             $selection[]=$row->id_tipo_ie;

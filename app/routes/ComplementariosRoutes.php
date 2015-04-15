@@ -73,6 +73,10 @@ Route::group(['before' => 'auth'], function() {
     Route::get('personas', 'complementarios_ComplementariosController@personasEntrevistada');
     Route::get('autocomplete', 'complementarios_ComplementariosController@autocomplete');
     //
+    Route::get('personas/p', 'complementarios_ComplementariosController@getPersonas');
+    Route::post('personas/p', "complementarios_ComplementariosController@postPersonas");
+    
+    
     Route::post("guardar-entrevista", "complementarios_ComplementariosController@postEntrevista");
     Route::post("guardar-personas", "complementarios_ComplementariosController@postPersonas");
     //tomasAguat

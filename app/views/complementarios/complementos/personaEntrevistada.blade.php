@@ -1,3 +1,14 @@
+<?php
+foreach ($entrevistados as $ev ) {
+    $id_pe=$ev['id_p'];
+    
+}
+$nombresss=personas::where('id_p', '=', $id_pe)->pluck('nombres');
+$apellidope=personas::where('id_p', '=', $id_pe)->pluck('apellido_paterno');
+$apellidome=personas::where('id_p', '=', $id_pe)->pluck('apellido_materno');
+$nombre_pe = $nombresss.' '.$apellidope.' '.$apellidome;
+?>
+
 {{ HTML::style('js/jquery/jquery-ui.css') }}
 
 {{Form::open(array( 'method' => 'POST',  'id' => 'formEntrevista'))}}
@@ -8,22 +19,23 @@
     {{ Form::hidden('municipio',$municipio) }}
 </div>
 
+
+
 <div>
     {{Form::label('id_p','Nombre del ejecutor')}}
     <!--SI "TRAE" ALGO LA VARIABLE $nombrec -->
     @if(!empty($nombrec))
-    {{Form::text('nombrec',$nombrec, ['tabindex'=>'1','id' => 'nombrec','class'=>'form-control', 'autofocus'=> 'autofocus', 'ng-model' => 'ejecutores.nombrec'] )}}
+    {{Form::text('nombrec',$nombre_pe, ['tabindex'=>'1','id' => 'nombrec','class'=>'form-control', 'autofocus'=> 'autofocus', 'ng-model' => 'ejecutores.nombrec'] )}}
     @endif
     <!--SI "NO" TRAE ALGO LA VARIABLE $nombrec -->
     @if(empty($nombrec))
-    {{Form::text('nombrec',null, ['tabindex'=>'1','id' => 'nombrec','class'=>'form-control', 'autofocus'=> 'autofocus', 'ng-model' => 'ejecutores.nombrec'] )}}
+    {{Form::text('nombrec',$nombre_pe, ['tabindex'=>'1','id' => 'nombrec','class'=>'form-control', 'autofocus'=> 'autofocus', 'ng-model' => 'ejecutores.nombrec'] )}}
     @endif
-    <a data-toggle="modal"  data-target="#Nuevo"  href="/catalogos/personas">
+    <a data-toggle="modal"  data-target="#Nuevo"  href="/personas/p">
         <span class="glyphicon glyphicon-plus" style="margin-left: 365px;"></span>
     </a>
-    {{Form::text('id_p',null, ['id' => 'response','hidden'])}}
+    {{Form::text('id_p',$id_pe, ['id' => 'response','hidden'])}}
     {{$errors->first('id_p', '<span class=text-danger>:message</span>')}}
-
 </div>
 
 <button type="submit" class="btn btn-primary next">

@@ -44,7 +44,18 @@ class complementarios_ComplementariosController extends BaseController {
 
 
         return Response::json(array(
-                    'gid' => $datos_construcciones
+                    'gid' => $datos_construcciones[0]->gid,
+                    'nivel' => $datos_construcciones[0]->nivel,
+                    'sup_const' => $datos_construcciones[0]->sup_const,
+                    'edad_const' => $datos_construcciones[0]->edad_const,
+                    'id_tuc' => $datos_construcciones[0]->id_tuc,
+                    'id_tcc' => $datos_construcciones[0]->id_tcc,
+                    'id_ttc' => $datos_construcciones[0]->id_ttc,
+                    'id_tec' => $datos_construcciones[0]->id_tec,
+                    'id_tmc' => $datos_construcciones[0]->id_tmc,
+                    'id_tpic' => $datos_construcciones[0]->id_tpic,
+                    'id_tpuc' => $datos_construcciones[0]->id_tpuc,
+                    'id_tvc' => $datos_construcciones[0]->id_tvc
         ));
     }
 
@@ -156,7 +167,7 @@ class complementarios_ComplementariosController extends BaseController {
         ));
     }
 
-    //Guardar en la tabla Predio
+//Guardar en la tabla Predio
     public function getPredio($id = null) {
         $predios = predios::find($id);
         return View::make('complementarios.complementarios', compact("predios"));
@@ -247,7 +258,7 @@ class complementarios_ComplementariosController extends BaseController {
         $tpic = ['' => '--seleccione una opción--'] + TiposPisos::orderBy('descripcion', 'ASC')->lists('descripcion', 'id_tpic');
         $tpuc = ['' => '--seleccione una opción--'] + TiposPuertas::orderBy('descripcion', 'ASC')->lists('descripcion', 'id_tpuc');
         $tvc = ['' => '--seleccione una opción--'] + TiposVentana::orderBy('descripcion', 'ASC')->lists('descripcion', 'id_tvc');
-        //$catalogo = ['' => '--seleccione una opción--'] + InstalacionesEspeciales::orderBy('descripcion', 'ASC')->lists('descripcion', 'id_tipoie');
+//$catalogo = ['' => '--seleccione una opción--'] + InstalacionesEspeciales::orderBy('descripcion', 'ASC')->lists('descripcion', 'id_tipoie');
         $gid = $id;
         $catalogo = InstalacionesEspeciales::orderBy('descripcion', 'ASC')->get();
         $ieasociados = instalaciones::WHERE('gid_predio', '=', $gid)
@@ -294,10 +305,28 @@ class complementarios_ComplementariosController extends BaseController {
         }
 
         $tomas_agua = TomasAgua::where('gid_predio', '=', $id)->get()->toArray();
+        $entrevistados = Entrevistado::where('gid_predio', '=', $id)->get()->toArray();
+
+
+//BUSCA LAS IMAGENES GUARDADAS EN EL SERVIDOR
+
+        $imagenes = ImagenesLevantamiento::where('gid_predio', '=', $id)->select('nombre_archivo')->get();
+        $file = [];
+        foreach ($imagenes as $imagen) {
+            $extension = split('[.]', $imagen->nombre_archivo);
+
+            if ($extension[1] == "jpg") {
+                $select = "<select name='select-instalaciones' class='form-control' id='instalaciones'><option selected='selected' value=''>--Seleccione una opción--</option> <option value='1'>Frontal</option><option value='2'>Lateral</option> </select>";
+                $eliminar = "<button type='button' class='kv-file-remove btn btn-xs btn-default' title='Remove file' data-url='/molestar.com' data-key='1'><i class='glyphicon glyphicon-trash text-danger'></i></button>";
+                $file[] = "<img src='" . $imagen->nombre_archivo . "' class='file-preview-image' >" . $select . $eliminar;
+            } elseif ($extension[1] == "pdf") {
+                $file[] = "<img src='" . $imagen->nombre_archivo . "' class='file-preview-image' > ";
+            }
+        }
 
 
 
-        return View::make('complementarios.cargar', compact("tomas_agua", "datos_p", "predios", "const", "tuc", "tcc", "ttc", "tec", "tmc", "tpic", "tpuc", "tvc", "catalogo", "gid", "clave_catas", "estado", "municipio", "cat", "asociados", "giros", "girosasociados", "datos", "condominio", "tta", "datos_construcciones","ieasociados"));
+        return View::make('complementarios.cargar', compact("entrevistados", "tomas_agua", "datos_p", "predios", "const", "tuc", "tcc", "ttc", "tec", "tmc", "tpic", "tpuc", "tvc", "catalogo", "gid", "clave_catas", "estado", "municipio", "cat", "asociados", "giros", "girosasociados", "datos", "condominio", "tta", "datos_construcciones", "file", "ieasociados"));
     }
 
     /**
@@ -318,10 +347,10 @@ class complementarios_ComplementariosController extends BaseController {
         $clave_cata = $inputs['clave_cata'];
         $gid_predio = $inputs['gid_predio'];
         $id_tipoie = $inputs['instalaciones'];
-        //mio
+//mio
         $eliminar = $inputs['eliminar'];
         $actuales = $id_tipoie;
-        //$contar = count($actuales);
+//$contar = count($actuales);
         $confuera = count($eliminar);
 
         if ($confuera >= 1) {
@@ -541,7 +570,7 @@ class complementarios_ComplementariosController extends BaseController {
         $id_condominio = Input::get('id_condominio');
         if ($id_condominio != '') {
             $inputs = Input::All();
-            // print_r($inputs);
+// print_r($inputs);
             $id = Input::get('id');
             $n = condominios::find($id_condominio);
             $n->tipo_priva = $inputs["tipo_priva"];
@@ -601,8 +630,8 @@ class complementarios_ComplementariosController extends BaseController {
                         'sup_comun' => $inputs["sup_comun"],
                         'indiviso' => $inputs["indiviso"]
             ));
-            //Session::flash('mensaje', 'El registro ha sido ingresado exitosamente');
-            //return Redirect::back();
+//Session::flash('mensaje', 'El registro ha sido ingresado exitosamente');
+//return Redirect::back();
         }
     }
 
@@ -614,7 +643,7 @@ class complementarios_ComplementariosController extends BaseController {
                     (
                     'id_condominio' => $id
         ));
-        //  return Redirect::back();
+//  return Redirect::back();
     }
 
     public function getEditarCondominio() {
@@ -632,12 +661,12 @@ class complementarios_ComplementariosController extends BaseController {
                     'sup_total_comun' => $condominios->sup_total_comun,
                     'no_unidades' => $condominios->no_unidades
         ));
-        //return View::make('complementarios.complementos.condominio', compact("condominios"));
+//return View::make('complementarios.complementos.condominio', compact("condominios"));
     }
 
     public function getCondominio() {
         $inputs = Input::All();
-        // print_r($inputs);
+// print_r($inputs);
         $id = Input::get('id');
         $n = condominios::find($id);
         $n->entidad = $inputs["entidad"];
@@ -654,7 +683,7 @@ class complementarios_ComplementariosController extends BaseController {
     }
 
     public function get_servicios() {
-        //$cat = tiposervicios::All();
+//$cat = tiposervicios::All();
         return View::make('complementarios.complementos.servicio', compact("cat"));
     }
 
@@ -666,7 +695,7 @@ class complementarios_ComplementariosController extends BaseController {
         $clave_cata = $inputs['clave_cata'];
         $gid_predio = $inputs['gid_predio'];
         $id_tiposervicio = $inputs['servicios'];
-        //mios  
+//mios  
         $eliminar = $inputs['eliminar'];
         $actuales = $inputs['serv'];
         $contar = count($actuales);
@@ -682,7 +711,7 @@ class complementarios_ComplementariosController extends BaseController {
         if (!$contar) {
             if (sizeof($actuales) == 0) {
                 $count = count($id_tiposervicio);
-                for ($x=0; $x<$count;$x++) {
+                for ($x = 0; $x < $count; $x++) {
                     $n = new servicios();
                     $n->entidad = $entidad;
                     $n->municipio = $municipio;
@@ -836,7 +865,7 @@ class complementarios_ComplementariosController extends BaseController {
         $id_tipogiro = $inputs['giros'];
         $sup_terreno = $inputs['superficie_terreno'];
         $sup_constru = $inputs['superficie_construccion'];
-        //mios 
+//mios 
         $eliminar = $inputs['eliminar'];
         $actuales = $inputs['select'];
         $contar = count($actuales);
@@ -851,7 +880,7 @@ class complementarios_ComplementariosController extends BaseController {
         if (!$contar) {
             if (sizeof($actuales) == 0) {
                 $count = count($id_tipogiro);
-                for ($x=0;$x<$count;$x++) {
+                for ($x = 0; $x < $count; $x++) {
                     $n = new Giros();
                     $n->entidad = $entidad;
                     $n->municipio = $municipio;
@@ -957,20 +986,20 @@ class complementarios_ComplementariosController extends BaseController {
     public function autocomplete() {
 
         $term = Str::upper(Input::get('term'));
-        //ARRAY DONDE CARGA LOS DATOS
+//ARRAY DONDE CARGA LOS DATOS
         $results = array();
 
         $id_p = array();
-        //CONSULTA A LA TABLA PERSONAS
+//CONSULTA A LA TABLA PERSONAS
         $queries = DB::select(DB::raw("SELECT * FROM personas WHERE nombres || ' '||apellido_paterno || ' ' ||  apellido_materno LIKE '%" . $term . "%' limit 5"));
-        //DONDE LLAMA LOS DATOS Y LOS PASA A LAS VARIABLES CORRESPONDIENTES
+//DONDE LLAMA LOS DATOS Y LOS PASA A LAS VARIABLES CORRESPONDIENTES
         foreach ($queries as $query) {
-            //ARRAY DONDE CARGA LOS DATOS
+//ARRAY DONDE CARGA LOS DATOS
             $id_p[] = ['id_p' => $query->id_p];
             $results[] = ['value' => $query->nombres . ' ' . $query->apellido_paterno . ' ' . $query->apellido_materno, 'id' => $query->id_p];
         }
         if ($results) {
-            //SI EXITE LA PERSONA            
+//SI EXITE LA PERSONA            
             return Response::json($results);
         } else {
 //            //SI NO EXITE LA PAERSONA
@@ -983,7 +1012,7 @@ class complementarios_ComplementariosController extends BaseController {
     public function postEntrevista() {
         $entidad = Input::get('entidad');
         $municipio = Input::get('municipio');
-        $clave_catas = Input::get('clave_catas');
+        $clave_catas = Input::get('clave_cata');
         $gid_predio = Input::get('gid_predio');
         $id_p = Input::get('id_p');
 
@@ -993,6 +1022,8 @@ class complementarios_ComplementariosController extends BaseController {
         $n->clave_catas = $clave_catas;
         $n->gid_predio = $gid_predio;
         $n->id_p = $id_p;
+        $n->created_at = date('Y-m-d');
+        $n->updated_at = date('Y-m-d');
 
         $n->save();
         Session::flash('mensaje', 'El registro ha sido ingresado exitosamente');
@@ -1002,26 +1033,25 @@ class complementarios_ComplementariosController extends BaseController {
     public function postPersonas() {
 
         $inputs = Input::All();
-        //Reglas 
+//Reglas 
         $reglas = array(
             'apellido_paterno' => 'required',
             'apellido_materno' => 'required',
             'nombres' => 'required',
-            'curp' => 'required',
         );
 
         $apellido_paterno = Input::get('apellido_paterno');
         $apellido_materno = Input::get('apellido_materno');
         $nombres = Input::get('nombres');
         $term = $nombres . ' ' . $apellido_paterno . ' ' . $apellido_materno;
-        //echo $nombrec=$apellido_materno." ".$apellido_paterno." ".$nombres ; 
-        //Mensaje
+//echo $nombrec=$apellido_materno." ".$apellido_paterno." ".$nombres ; 
+//Mensaje
         $mensajes = array(
             "required" => "*",
         );
-        //valida
+//valida
         $validar = Validator::make($inputs, $reglas, $mensajes);
-        //en caso no pase la validacion
+//en caso no pase la validacion
         if ($validar->fails()) {
             return Redirect::back()->withErrors($validar);
         } else {
@@ -1030,16 +1060,15 @@ class complementarios_ComplementariosController extends BaseController {
             $n->apellido_materno = $inputs["apellido_materno"];
             $n->nombres = $inputs["nombres"];
             $n->nombrec = $apellido_paterno . " " . $apellido_materno . " " . $nombres;
-            $n->curp = $inputs["curp"];
             $n->save();
             $queries = DB::select(DB::raw("SELECT id_p FROM personas WHERE nombres || ' ' || apellido_paterno || ' ' ||  apellido_materno LIKE '%" . $term . "%' limit 1"));
-            //Se han guardado los valores
+//Se han guardado los valores
             foreach ($queries as $key) {
                 $id = $key->id_p;
             }
             Session::flash('mensaje', 'El registro ha sido ingresado exitosamente');
             return Response::json(array('id_p' => $id));
-            // return Redirect::back();
+// return Redirect::back();
         }
     }
 
@@ -1052,39 +1081,28 @@ class complementarios_ComplementariosController extends BaseController {
         $files = Input::file('file');
         $id_tipoimagen2 = explode(',', $id_tipoimagen);
         $array_clave = explode('-', $clave_catas);
-
-
-
-
         for ($i = 0; $i < count($files); $i++) {
-
-
             $file2 = $files[$i];
 
-            // Se valida que exista un archivo
+// Se valida que exista un archivo
             if (Input::file($file)) {
-                // Se valida el directorio para subir shapes
+// Se valida el directorio para subir shapes
 
-                $dir = public_path() . '/complementarios/anexos/' . $entidad . '/' . $municipio . '/' . $clave_catas . '/' . $array_clave[0] . '/' . $array_clave[1] . '/';
-
-
+                $dir = public_path() . '/complementarios/anexos/' . $entidad . '/' . $municipio . '/' . $array_clave[0] . '/' . $array_clave[1] . '/' . $clave_catas . '/';
                 if (!file_exists($dir) && !is_dir($dir)) {
                     File::makeDirectory($dir, $mode = 0777, true, true);
                 }
-                // Se valida la extensión del archivo
-
-                if (in_array(strtolower($file2->getClientMimeType()), array('image/png', 'image/jpeg', 'image/jpeg', 'image/jpeg', 'image/gif', 'image/bmp', 'image/vnd.microsoft.icon'))) {
+// Se valida la extensión del archivo
+                if (in_array(strtolower($file2->getClientMimeType()), array('image/png', 'image/jpeg', 'image/jpeg', 'image/jpeg', 'image/gif', 'image/bmp', 'image/vnd.microsoft.icon', 'text/plain', 'application/vnd.ms-excel', 'application/msword', 'application/pdf'))) {
                     $j = $j + 1;
-                    $file2->move($dir, $file2->getClientOriginalName() . '.' . $file2->getClientOriginalExtension());
+                    $file2->move($dir, $gid_predio . '-' . $id_tipoimagen . '.' . $file2->getClientOriginalExtension());
                     $imagenes = new ImagenesLevantamiento();
                     $imagenes->entidad = $entidad;
                     $imagenes->municipio = $municipio;
                     $imagenes->clave_catas = $clave_catas;
                     $imagenes->gid_predio = $gid_predio;
                     $imagenes->id_tipoimagen = $id_tipoimagen2[$i];
-
-                    $imagenes->nombre_archivo = '/public/complementarios/anexos/' . $entidad . '/' . $municipio . '/' . $array_clave[0] . '/' . $array_clave[1] . '/' . $clave_catas . '/' . $gid_predio . '-' . $id_tipoimagen . '.' . $file2->getClientOriginalExtension();
-
+                    $imagenes->nombre_archivo = '/complementarios/anexos/' . $entidad . '/' . $municipio . '/' . $array_clave[0] . '/' . $array_clave[1] . '/' . $clave_catas . '/' . $gid_predio . '-' . $id_tipoimagen . '.' . $file2->getClientOriginalExtension();
                     $imagenes->save();
                     $respuesta[] = '¡Se guardo correctamente el archivo: ' . $file2->getClientMimeType();
                 } else {
@@ -1099,6 +1117,15 @@ class complementarios_ComplementariosController extends BaseController {
                     (
                     'respuesta' => $respuesta
         ));
+    }
+
+    public function getPersonas($format = 'html', $id = null) {
+        $title = 'Crar nueva perosana';
+        //Titulo de seccion:
+        $title_section = "";
+        //Subtitulo de seccion:
+        $subtitle_section = "Crear nueva persona";
+        return View::make('complementarios.complementos.personas', compact('title', 'title_section', 'subtitle_section'));
     }
 
 }
