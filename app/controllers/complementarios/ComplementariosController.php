@@ -577,10 +577,11 @@ class complementarios_ComplementariosController extends BaseController {
             $n->sup_comun = $inputs["sup_comun"];
             $n->indiviso = $inputs["indiviso"];
             $n->sup_total_comun = $inputs["sup_total_comun"];
-            $n->no_unidades = $inputs["no_unidades"];
+            $n->no_condominal = $inputs["no_condominal"];
+            $n->no_unidades = 0;
             $n->save();
             Session::flash('mensaje', 'El registro ha sido ingresado exitosamente');
-            $no_condominal1 = condominios::where('id_condominio', $id_condominio)->pluck('no_condominal');
+           // $no_condominal1 = condominios::where('id_condominio', $id_condominio)->pluck('no_condominal');
             return Response::json(array
                         (
                         'valor' => 1,
@@ -590,7 +591,7 @@ class complementarios_ComplementariosController extends BaseController {
                         'indiviso' => $inputs["indiviso"],
                         'sup_total_comun' => $inputs["sup_total_comun"],
                         'no_unidades' => $inputs["no_unidades"],
-                        'no_condominal' => $no_condominal1
+                        'no_condominal' => $inputs["no_condominal"]
             ));
         } else {
             $id = Input::get('id');
@@ -600,12 +601,12 @@ class complementarios_ComplementariosController extends BaseController {
 
             $inputs = Input::All();
             $max_id = condominios::where('gid_predio', '=', $id)->max('no_condominal');
-            $no_condominal = $max_id + 1;
+            //$no_condominal = $max_id + 1;
             $n = new condominios();
             $n->entidad = $entidad;
             $n->municipio = $municipio;
             $n->clave_catas = $clave_catas;
-            $n->no_condominal = $no_condominal;
+            $n->no_condominal = $inputs["no_condominal"];
             $n->tipo_priva = $inputs["tipo_priva"];
             $n->sup_comun = $inputs["sup_comun"];
             $n->indiviso = $inputs["indiviso"];
@@ -617,6 +618,7 @@ class complementarios_ComplementariosController extends BaseController {
             $n->gid_predio = $id;
             $n->sup_privativa = '0';
             $n->clave_INEGI_cond = '0';
+            $n->no_unidades = 0;
             $n->save();
 
             $id_condominio = condominios::orderBy('id_condominio', 'DESC')->first()->id_condominio;
@@ -659,7 +661,8 @@ class complementarios_ComplementariosController extends BaseController {
                     'sup_comun' => $condominios->sup_comun,
                     'indiviso' => $condominios->indiviso,
                     'sup_total_comun' => $condominios->sup_total_comun,
-                    'no_unidades' => $condominios->no_unidades
+                    'no_unidades' => $condominios->no_unidades,
+                    'no_condominal' => $condominios->no_condominal
         ));
 //return View::make('complementarios.complementos.condominio', compact("condominios"));
     }

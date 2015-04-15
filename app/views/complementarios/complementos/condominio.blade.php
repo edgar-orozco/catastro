@@ -12,9 +12,9 @@
         <tr>
             <th>{{Form::label('tipo_priva','Superficie Privativa:') }}</th>
             <th>{{Form::label('sup_comun','Superficie Comun:') }}</th>
-            <th>{{Form::label('indiviso','Indiviso:') }}</th>
+            <th>{{Form::label('indiviso','Porcentaje indiviso:') }}</th>
             <th>{{Form::label('sup_total_comun','Superfie Total Común:') }}</th>
-            <th>{{Form::label('no_unidades','No Unidades:') }}</th>
+            <th>{{Form::label('no_condominal','Número condominal:') }}</th>
         </tr>
     </thead>
      <tbody>
@@ -22,16 +22,19 @@
     <td>
     {{ Form::hidden('id',$clave) }}
     {{ Form::hidden('id_condominio','',array('id' => 'id_condominio')) }}
-    {{ Form::text('tipo_priva', null, array('class' => 'form-control focus  ', 'placeholder'=>'Tipo Priva', 'autofocus'=> 'autofocus')) }}
+     <span style=" margin-left: 154px;">M<sup>2</sup></span>
+    {{ Form::text('tipo_priva', null, array('class' => 'form-control focus  ', 'placeholder'=>'Tipo Priva', 'autofocus'=> 'autofocus','style'=>'width: 150px;margin-top: -24px;')) }}
     </td><td>
-    {{ Form::text('sup_comun', null, array('class' => 'form-control focus  ', 'placeholder'=>'Superficie Comun', 'autofocus'=> 'autofocus')) }}
+    <span style=" margin-left: 161px;">M<sup>2</sup></span>
+    {{ Form::text('sup_comun', null, array('class' => 'form-control focus  ', 'placeholder'=>'Superficie Comun', 'autofocus'=> 'autofocus','style'=>'width: 158px;margin-top: -24px;')) }}
     </td><td>
-    {{ Form::text('indiviso', null, array('class' => 'form-control focus  ', 'placeholder'=>'Indiviso', 'autofocus'=> 'autofocus')) }}
+    {{ Form::text('indiviso', null, array('class' => 'form-control focus  ', 'placeholder'=>'Porcentaje Indiviso', 'autofocus'=> 'autofocus','style'=>'width: 120px;margin-top: -4px;')) }}
     {{$errors->first("indiviso")}}
     </td><td>
-    {{ Form::text('sup_total_comun', null, array('class' => 'form-control focus  ', 'placeholder'=>'Superficie Total', 'autofocus'=> 'autofocus')) }}
+    <span style=" margin-left: 154px;">M<sup>2</sup></span>
+    {{ Form::text('sup_total_comun', null, array('class' => 'form-control focus  ', 'placeholder'=>'Superficie Total', 'autofocus'=> 'autofocus','style'=>'width: 150px;margin-top: -24px;')) }}
     </td><td>
-   {{ Form::text('no_unidades', null, array('class' => 'form-control focus  ', 'placeholder'=>'No Unidades', 'autofocus'=> 'autofocus')) }}
+   {{ Form::text('no_condominal', null, array('class' => 'form-control focus  ', 'placeholder'=>'No Unidades', 'autofocus'=> 'autofocus','style'=>'width: 120px')) }}
     </td>
 </tr>
 </tbody>
@@ -206,7 +209,7 @@ function update(id_condominio)
                 document.getElementById('sup_comun').value =data.sup_comun;
                 document.getElementById('indiviso').value =data.indiviso;
                 document.getElementById('sup_total_comun').value =data.sup_total_comun;
-                document.getElementById('no_unidades').value =data.no_unidades;
+                document.getElementById('no_condominal').value =data.no_condominal;
                 $('.mensaje').html('');
             }
         });
