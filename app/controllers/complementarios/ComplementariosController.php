@@ -1058,7 +1058,7 @@ class complementarios_ComplementariosController extends BaseController {
             return Response::json($mensaje);
         }
     }
-<<<<<<< HEAD
+
 
     public function postEntrevista() {
         $entidad = Input::get('entidad');
@@ -1067,16 +1067,6 @@ class complementarios_ComplementariosController extends BaseController {
         $gid_predio = Input::get('gid_predio');
         $id_p = Input::get('id_p');
 
-=======
-    
-    public function postEntrevista (){
-        $entidad     = Input::get('entidad');
-        $municipio   = Input::get('municipio');
-        $clave_catas = Input::get('clave_catas');
-        $gid_predio  = Input::get('gid_predio');
-        $id_p        = Input::get('id_p');
-        
->>>>>>> 563aaf8eeaaedc07275831da150a271a647240fd
         $n = new Entrevistado();
         $n->entidad      = $entidad;
         $n->municipio    = $municipio;
@@ -1199,7 +1189,8 @@ class complementarios_ComplementariosController extends BaseController {
                             'respuesta' =>    $respuesta
                         ));
 
-<<<<<<< HEAD
+    }
+
     public function getPersonas($format = 'html', $id = null) {
         $title = 'Crar nueva perosana';
         //Titulo de seccion:
@@ -1209,10 +1200,4 @@ class complementarios_ComplementariosController extends BaseController {
         return View::make('complementarios.complementos.personas', compact('title', 'title_section', 'subtitle_section'));
     }
     
-=======
-        
-
-    
-    }
->>>>>>> 563aaf8eeaaedc07275831da150a271a647240fd
 }
