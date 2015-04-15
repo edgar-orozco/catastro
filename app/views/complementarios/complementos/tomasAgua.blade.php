@@ -74,7 +74,7 @@ $nombre_p=$nombress.' '.$apellidop.' '.$apellidom;
     {{Form::text('id_p',$id_usuariotoma, ['id' => 'response2','hidden'])}}
     {{$errors->first('id_p', '<span class=text-danger>:message</span>')}}
 </div>
-
+<br/><br/>
 <button type="submit" class="btn btn-primary next">
 	Siguiente
 	<i class="glyphicon glyphicon-chevron-right"></i>
