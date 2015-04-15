@@ -22,7 +22,7 @@
             <div class="col-md-3">
                 <div class="form-group">
                     {{Form::label('Lsuperficie_construccion', 'Superficie:')}}
-                    {{Form::number('superficie_construccion', 1, ['id'=>'superficie_construccion','class'=>'form-control', 'min' => '1'])}}
+                    {{Form::number('superficie_construccion', 1, ['id'=>'superficie_construccion','class'=>'form-control', 'min' => '1','step'=>'0.01'])}}
                 </div>
             </div>
             <div class="col-md-3">
