@@ -13,34 +13,36 @@ foreach ($datos_p as $k) {
 	<div class="panel-body">
 		{{Form::text('gid',$gid,['id'=>'gid', "hidden" ])}}
 		<div class="row">
-			<div class="col-md-6">
+			<div class="col-md-4">
         <div class="form-group">
           {{Form::label('Ltipo_predio','Tipo Predio')}}   
-          {{Form::select('tipo_predio', ['U' => 'Urbano','R' => 'Rustico'], $tipo_predio, ['id'=>'tipo_predio', 'class' => 'form-control', 'tabindex'=>'1'])}}
+          {{Form::select('tipo_predio', ['U' => 'Urbano','R' => 'Rustico'], $tipo_predio, ['id'=>'tipo_predio', 'class' => 'form-control focus', 'tabindex'=>'1', 'autofocus'=> 'autofocus','style'=>'width: 250px'])}}
         </div>
       </div>
 			<div class="col-md-4">
 				<div class="form-group">
 					{{Form::label('Lniveles','Niveles')}}
-					{{Form::number('niveles', $niveles ,['class'=>'form-control bfh-number','required', 'id'=>'niveles', 'min' => '1' , 'tabindex'=>'2'])}}
+					{{Form::number('niveles', $niveles ,['class'=>'form-control bfh-number','required', 'id'=>'niveles', 'min' => '1' , 'tabindex'=>'2','style'=>'width: 250px'])}}
 				</div>
 			</div>
 			<div class="col-md-4">
 				<div class="form-group">
-					{{Form::label('Lfolio','Folio')}}
-					{{Form::text('folio',$folio,['class'=>'form-control','required', 'id'=>'folio', 'tabindex'=>'3'])}}
+					{{Form::label('Lfolio','Folio Real')}}
+					{{Form::text('folio',$folio,['class'=>'form-control','required', 'id'=>'folio', 'tabindex'=>'3', 'max' =>'50','style'=>'width: 250px'])}}
 				</div>
 			</div>
 			<div class="col-md-4">
 				<div class="form-group">
 					{{Form::label('Lsuperficie_terreno','Superficie Terreno')}}
-					{{Form::text('superficie_terreno',$superficie_terreno,['class'=>'form-control','required', 'id'=>'superficie_terreno', 'tabindex'=>'4'])}}
+          <br>
+          <span style=" margin-left: 154px;">M<sup>2</sup></span>
+					{{Form::text('superficie_terreno',$superficie_terreno,['class'=>'form-control','required', 'id'=>'superficie_terreno', 'tabindex'=>'4','style'=>'width: 150px;margin-top: -24px;'])}}
 				</div>
 			</div>
 			<div class="col-md-4">
 				<div class="form-group">
-					{{Form::label('Luso_construccion','Uso Connstrucción')}}
-					{{Form::select('uso_construccion',  $tuc, $uso_construccion, ['id'=>'uso_construccion', 'class' => 'form-control', 'tabindex'=>'5'])}}
+					{{Form::label('Luso_construccion','Uso de suelo')}}
+					{{Form::select('uso_construccion',  $tuc, $uso_construccion, ['id'=>'uso_construccion', 'class' => 'form-control', 'tabindex'=>'5','style'=>'width: 200px'])}}
 
 				</div>
 			</div>
@@ -80,6 +82,30 @@ $('#formPredios').bind('submit',function ()
 
 $(document).ready(function(){
   $("#niveles").keydown(function(event) {
+     if(event.shiftKey)
+     {
+          event.preventDefault();
+     }
+
+     if (event.keyCode == 46 || event.keyCode == 8 || event.keyCode == 189 || event.keyCode == 109 )    {
+     }
+     else {
+          if (event.keyCode < 95) {
+            if (event.keyCode < 48 || event.keyCode > 57) {
+                  event.preventDefault();
+            }
+          }
+          else {
+                if (event.keyCode < 96 || event.keyCode > 105) {
+                    event.preventDefault();
+                }
+          }
+        }
+     });
+  });
+
+$(document).ready(function(){
+  $("#superficie_terreno").keydown(function(event) {
      if(event.shiftKey)
      {
           event.preventDefault();
