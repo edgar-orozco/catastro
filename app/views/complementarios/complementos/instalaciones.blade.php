@@ -128,4 +128,4 @@ foreach ($ieasociados as $ie_asoc) {
 </div>
 {{ Form::close() }}
 <br/>
-<hr>
+<hr>   

@@ -397,7 +397,7 @@ class complementarios_ComplementariosController extends BaseController {
                     
                 ));
             }
-        }
+        } 
     }
 
     public function getCargar($id) {
