@@ -19,31 +19,18 @@ $nombre_pe = $nombresss.' '.$apellidope.' '.$apellidome;
     {{ Form::hidden('municipio',$municipio) }}
 </div>
 
-
-
 <div>
-    {{Form::label('id_p','Nombre del ejecutor')}}
-    <!--SI "TRAE" ALGO LA VARIABLE $nombrec -->
-    @if(!empty($nombrec))
-    {{Form::text('nombrec',$nombre_pe, ['tabindex'=>'1','id' => 'nombrec','class'=>'form-control', 'autofocus'=> 'autofocus', 'ng-model' => 'ejecutores.nombrec'] )}}
-    @endif
-    <!--SI "NO" TRAE ALGO LA VARIABLE $nombrec -->
-    @if(empty($nombrec))
-    {{Form::text('nombrec',$nombre_pe, ['tabindex'=>'1','id' => 'nombrec','class'=>'form-control', 'autofocus'=> 'autofocus', 'ng-model' => 'ejecutores.nombrec'] )}}
-    @endif
-    <a data-toggle="modal"  data-target="#Nuevo"  href="/personas/p">
-        <span class="glyphicon glyphicon-plus" style="margin-left: 365px;"></span>
-    </a>
+    {{Form::text('nombrec',$nombre_pe, ['tabindex'=>'1','id' => 'nombrec','autofocus'=> 'autofocus', 'style'=>'width: 321px'] )}}
+    <a data-toggle="modal"  data-target="#Nuevo" href="/personas/p" class="btn btn-primary" id="nuevo">NUEVA PERSONA</a>
     {{Form::text('id_p',$id_pe, ['id' => 'response','hidden'])}}
     {{$errors->first('id_p', '<span class=text-danger>:message</span>')}}
 </div>
-
+<br/><br/><br/>
 <button type="submit" class="btn btn-primary next">
     Siguiente
     <i class="glyphicon glyphicon-chevron-right"></i>
 </button>
 {{Form::close()}}
-
 
 @section('javascript')
 <script type="text/javascript">
@@ -96,7 +83,7 @@ $nombre_pe = $nombresss.' '.$apellidope.' '.$apellidome;
 <div class="modal fade" id="Nuevo" data-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
-            @include('complementarios.complementos.personas')
+            
         </div>
     </div>
 </div>

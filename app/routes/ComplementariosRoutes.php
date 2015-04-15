@@ -66,7 +66,8 @@ Route::group(['before' => 'auth'], function() {
 
     //Cargado de archivos
     Route::get('/cargarArchivo', 'complementarios_CargarController@index');
-    Route::post('/cargarArchivo', 'complementarios_ComplementariosController@cargar_imagen');
+    Route::post('/guardar-anexo', 'complementarios_ComplementariosController@guardar_anexo');
+    Route::delete('/eliminar-anexo/{id}', 'complementarios_ComplementariosController@eliminar_anexo');
     
     
     //Persona entrevistada
@@ -75,6 +76,9 @@ Route::group(['before' => 'auth'], function() {
     //
     Route::get('personas/p', 'complementarios_ComplementariosController@getPersonas');
     Route::post('personas/p', "complementarios_ComplementariosController@postPersonas");
+    
+    Route::get('personas/p2', 'complementarios_ComplementariosController@getPersonas2');
+    Route::post('personas/p2', "complementarios_ComplementariosController@postPersonas");
     
     
     Route::post("guardar-entrevista", "complementarios_ComplementariosController@postEntrevista");

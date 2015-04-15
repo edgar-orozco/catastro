@@ -290,7 +290,7 @@ class complementarios_ComplementariosController extends BaseController {
                 ->orderBy('tiposervicios.id_tiposervicio', 'ASC')
                 ->get();
 
-        $tta = TiposTomasAgua::orderBy('descripcion', 'ASC')->lists('descripcion', 'id_tipotoma');
+        $tta =['' => '--seleccione una opción--'] + TiposTomasAgua::orderBy('descripcion', 'ASC')->lists('descripcion', 'id_tipotoma');
 
         $datos_construcciones = construcciones::where('gid_predio', '=', $id)->get();
 
@@ -310,14 +310,15 @@ class complementarios_ComplementariosController extends BaseController {
 
 //BUSCA LAS IMAGENES GUARDADAS EN EL SERVIDOR
 
-        $imagenes = ImagenesLevantamiento::where('gid_predio', '=', $id)->select('nombre_archivo')->get();
+        $imagenes = ImagenesLevantamiento::where('gid_predio', '=', $id)->select('nombre_archivo', 'id_il')->get();
         $file = [];
-        foreach ($imagenes as $imagen) {
+        foreach ($imagenes as $imagen) 
+        {
             $extension = split('[.]', $imagen->nombre_archivo);
 
             if ($extension[1] == "jpg") {
                 $select = "<select name='select-instalaciones' class='form-control' id='instalaciones'><option selected='selected' value=''>--Seleccione una opción--</option> <option value='1'>Frontal</option><option value='2'>Lateral</option> </select>";
-                $eliminar = "<button type='button' class='kv-file-remove btn btn-xs btn-default' title='Remove file' data-url='/molestar.com' data-key='1'><i class='glyphicon glyphicon-trash text-danger'></i></button>";
+                $eliminar = "<button type='button' class='kv-file-remove btn btn-xs btn-default' title='Remove file' data-url='/eliminar-anexo/".$imagen->id_il."' data-key='1'><i class='glyphicon glyphicon-trash text-danger'></i></button>";
                 $file[] = "<img src='" . $imagen->nombre_archivo . "' class='file-preview-image' >" . $select . $eliminar;
             } elseif ($extension[1] == "pdf") {
                 $file[] = "<img src='" . $imagen->nombre_archivo . "' class='file-preview-image' > ";
@@ -1063,6 +1064,8 @@ class complementarios_ComplementariosController extends BaseController {
             $n->apellido_materno = $inputs["apellido_materno"];
             $n->nombres = $inputs["nombres"];
             $n->nombrec = $apellido_paterno . " " . $apellido_materno . " " . $nombres;
+            $n->rfc = $inputs["rfc"];
+            $n->curp = $inputs["curp"];
             $n->save();
             $queries = DB::select(DB::raw("SELECT id_p FROM personas WHERE nombres || ' ' || apellido_paterno || ' ' ||  apellido_materno LIKE '%" . $term . "%' limit 1"));
 //Se han guardado los valores
@@ -1075,7 +1078,8 @@ class complementarios_ComplementariosController extends BaseController {
         }
     }
 
-    public function cargar_imagen() {
+    public function guardar_anexo()
+    {
         $entidad = Input::get('entidad');
         $municipio = Input::get('municipio');
         $clave_catas = Input::get('clave_catas');
@@ -1084,42 +1088,105 @@ class complementarios_ComplementariosController extends BaseController {
         $files = Input::file('file');
         $id_tipoimagen2 = explode(',', $id_tipoimagen);
         $array_clave = explode('-', $clave_catas);
-        for ($i = 0; $i < count($files); $i++) {
+        $fileFooter = [];
+
+        
+        
+        for ($i = 0; $i < count($files); $i++)
+        {
+            
+
             $file2 = $files[$i];
 
-// Se valida que exista un archivo
-            if (Input::file($file)) {
-// Se valida el directorio para subir shapes
+            
+            // Se valida que exista un archivo
+            if(Input::file($file)) 
+            {
+                // Se valida el directorio para subir shapes
 
-                $dir = public_path() . '/complementarios/anexos/' . $entidad . '/' . $municipio . '/' . $array_clave[0] . '/' . $array_clave[1] . '/' . $clave_catas . '/';
-                if (!file_exists($dir) && !is_dir($dir)) {
+
+
+                $dir = public_path() . '/complementarios/anexos/'.$entidad.'/'.$municipio.'/'.$array_clave[0].'/'.$array_clave[1].'/'.$clave_catas.'/';
+                $nombre_archivo = '/complementarios/anexos/'.$entidad.'/'.$municipio.'/'.$array_clave[0].'/'.$array_clave[1].'/'.$clave_catas.'/'.$gid_predio.'-'.$id_tipoimagen2[$i].'-'.$file2->getClientOriginalName();
+                
+                if (!file_exists($dir) && !is_dir($dir)) 
+                {
                     File::makeDirectory($dir, $mode = 0777, true, true);
                 }
-// Se valida la extensión del archivo
-                if (in_array(strtolower($file2->getClientMimeType()), array('image/png', 'image/jpeg', 'image/jpeg', 'image/jpeg', 'image/gif', 'image/bmp', 'image/vnd.microsoft.icon', 'text/plain', 'application/vnd.ms-excel', 'application/msword', 'application/pdf'))) {
-                    $j = $j + 1;
-                    $file2->move($dir, $gid_predio . '-' . $id_tipoimagen . '.' . $file2->getClientOriginalExtension());
+                // Se valida la extensión del archivo
+                
+                if(in_array(!file_exists($nombre_archivo) && strtolower($file2->getClientMimeType()), array('image/png','image/jpeg','image/jpeg','image/jpeg','image/gif','image/bmp','image/vnd.microsoft.icon', 'text/plain', 'application/vnd.ms-excel', 'application/msword', 'application/pdf')))
+                {
+                    
+                    $file2->move($dir, $gid_predio.'-'.$id_tipoimagen2[$i].'-'.$file2->getClientOriginalName());
                     $imagenes = new ImagenesLevantamiento();
                     $imagenes->entidad = $entidad;
                     $imagenes->municipio = $municipio;
-                    $imagenes->clave_catas = $clave_catas;
-                    $imagenes->gid_predio = $gid_predio;
-                    $imagenes->id_tipoimagen = $id_tipoimagen2[$i];
-                    $imagenes->nombre_archivo = '/complementarios/anexos/' . $entidad . '/' . $municipio . '/' . $array_clave[0] . '/' . $array_clave[1] . '/' . $clave_catas . '/' . $gid_predio . '-' . $id_tipoimagen . '.' . $file2->getClientOriginalExtension();
+                    $imagenes->clave_catas=$clave_catas;
+                    $imagenes->gid_predio=$gid_predio;
+                    $imagenes->id_tipoimagen=$id_tipoimagen2[$i];
+                    $imagenes->nombre_archivo= $nombre_archivo;
                     $imagenes->save();
-                    $respuesta[] = '¡Se guardo correctamente el archivo: ' . $file2->getClientMimeType();
-                } else {
-                    $respuesta[] = '¡Extension de archivo invalida: ' . $file2->getClientMimeType();
+                    $imagenes = ImagenesLevantamiento::where('nombre_archivo', '=', $nombre_archivo)->select('nombre_archivo', 'id_il')->get();
+
+                    $extension = split('[.]', $imagenes[0]->nombre_archivo);
+                    
+
+                    if ($extension[1] == "jpg") 
+                    {
+                        $select = "<select name='select-instalaciones' class='form-control' id='instalaciones'><option selected='selected' value=''>--Seleccione una opción--</option> <option value='1'>Frontal</option><option value='2'>Lateral</option> </select>";
+                        $eliminar = "<button type='button' class='kv-file-remove btn btn-xs btn-default' title='Remove file' data-url='/eliminar-anexo/".$imagenes[0]->id_il."' data-key='1'><i class='glyphicon glyphicon-trash text-danger'></i></button>";
+                        $fileFooter[] = "<img src='" . $imagenes[0]->nombre_archivo . "' class='file-preview-image' >" . $select . $eliminar;
+                    } 
+                    elseif ($extension[1] == "pdf") 
+                    {
+                        $fileFooter[] = "<img src='" . $imagenes[0]->nombre_archivo . "' class='file-preview-image' > ";
+                    }
+
+
+                    $respuesta[]  =   '¡Se guardo correctamente el archivo: '. $file2->getClientMimeType();
+                        
                 }
-            } else {
-                $respuesta[] = '¡Es necesario seleccionar un archivo!';
+                else
+                {
+                    $respuesta[]  =   '¡Extension de archivo invalida: '. $file2->getClientMimeType();
+                }      
+            }
+            else
+            {
+                $respuesta[]  =   '¡Es necesario seleccionar un archivo!'; 
             }
         }
 
+       
+    
+
         return Response::json(array
-                    (
-                    'respuesta' => $respuesta
-        ));
+                        (
+                            'respuesta'         =>  $respuesta,
+                            'initialPreview'    =>  $fileFooter      
+                        ));
+
+        
+
+    
+    }
+
+    public function eliminar_anexo($id = null)
+    {
+
+        $archivo = ImagenesLevantamiento::find($id);
+
+        if (File::exists(public_path().$archivo->nombre_archivo))
+        {
+            File::delete(public_path().$archivo->nombre_archivo);
+        }
+        $archivo->delete();
+
+        return Response::json(
+            [
+                'filebatchuploadsuccess' => 'se guardo'
+            ]);
     }
 
     public function getPersonas($format = 'html', $id = null) {
@@ -1131,4 +1198,13 @@ class complementarios_ComplementariosController extends BaseController {
         return View::make('complementarios.complementos.personas', compact('title', 'title_section', 'subtitle_section'));
     }
 
+     public function getPersonas2($format = 'html', $id = null) {
+        $title = 'Crar nueva perosana';
+        //Titulo de seccion:
+        $title_section = "";
+        //Subtitulo de seccion:
+        $subtitle_section = "Crear nueva persona";
+        return View::make('complementarios.complementos.personas2', compact('title', 'title_section', 'subtitle_section'));
+    }
+    
 }

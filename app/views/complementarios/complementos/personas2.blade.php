@@ -11,7 +11,7 @@
                     $('#loading').hide();
                     $('#result').fadeIn('slow');
                 });
-                $('#form, #fat, #fo3').submit(function () {
+                $('#form, #fat, #fo4').submit(function () {
                     $.ajax({
                         type: 'POST',
                         url: $(this).attr('action'),
@@ -20,7 +20,7 @@
                             $('#result').text("Datos Creado Correctamente");
                             $('#reset').click();
                             $('#cerrar').click();
-                            $('#response').val(data.id_p);
+                            $('#response2').val(data.id_p);
                         }
                     })
 
@@ -31,14 +31,14 @@
                 $('#reset').click();
             });
 
-            $('#fo3').on('submit', function () {
+            $('#fo4').on('submit', function () {
                 var Value = $("#nombres").val();
                 var appa = $("#apellido_paterno").val();
                 var apma = $("#apellido_materno").val();
-                $('#nombrec').val(Value + " " + appa + " " + apma);
+                $('#personasp').val(Value + " " + appa + " " + apma);
+                $('#cerrar').click();
+                
             });
-            
-            
         </script>
         <script language="JavaScript">
             function ValidaRfc(rfcStr) {
@@ -80,13 +80,14 @@
                 }
             });
         </script>
+       
     </head>
 
     <body>
         <div class="modal-header">
             <h4 class="modal-titulo" id="condominio-titulo">Personas</h4>
         </div>
-        {{ Form::open(array('id'=>'fo3','name'=>'fo3')) }}
+        {{ Form::open(array('id'=>'fo4','name'=>'fo4')) }}
         <div style="margin-left: 14px;margin-right: 14px;">
             <div class="form-group">
                 {{Form::label('nombres','Nombres')}}
@@ -133,25 +134,3 @@
         <!--<div id="result"></div>-->
     </body>
 </html>
-
-<!--<script type="text/javascript">
-//Guardar
-    $('#formEntrevista').bind('submit', function ()
-    {
-        $.ajax(
-                {
-                    type: 'POST',
-                    data: new FormData(this), //Toma todo lo que hay en el formulario, en este caso el archivo .txt o .csv
-                    processData: false,
-                    contentType: false,
-                    url: '/personas/p',
-                    success: function (data)
-                    {
-
-
-                    }
-                });
-        return false;
-    });
-
-</script>-->

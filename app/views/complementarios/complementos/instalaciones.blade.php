@@ -117,7 +117,7 @@ foreach ($ieasociados as $ie_asoc) {
 
 <br/>
 <hr>
-<br><br><br><br><br><br><br><br><br><br><br>
+<br><br><br><br><br><br>
 <div class="col-md-6">
 <div class="form-group">
  <button type="submit" class="btn btn-primary next">
