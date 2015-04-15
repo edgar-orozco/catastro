@@ -23,7 +23,12 @@ class Tramite extends Ardent
 
     public function documentos()
     {
-        return $this->hasManyThrough('Documento','RequisitoTramite','id','documentable_id');
+        return $this->morphMany('Documento', 'documentable');
+    }
+
+    public function documentosTramite()
+    {
+        return $this->hasMany('DocumentoTramite','tramite_id', 'id');
     }
 
     public function usuario()

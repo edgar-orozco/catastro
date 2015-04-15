@@ -23,6 +23,15 @@
                 allowedFileExtensions: ["pdf", "png", "jpg"],
                 uploadExtraData: {'tramite_id': "{{$tramite->id}}"}
             });
+
+            $(".upload-inputs").on('fileuploaded', function(event, data, previewId, index) {
+                alert(index);
+
+                var form = data.form, files = data.files, extra = data.extra,
+                        response = data.response, reader = data.reader;
+
+            });
+
         });
     </script>
     @append

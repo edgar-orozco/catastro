@@ -1,7 +1,10 @@
 <?php
 use \Catastro\Repos\Padron\PadronRepositoryInterface;
 use Carbon\Carbon;
+use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Input;
+use Illuminate\Support\Facades\URL;
 use Laravelrus\LocalizedCarbon\LocalizedCarbon;
 use Webpatser\Uuid\Uuid;
 
@@ -188,34 +191,62 @@ class TramitesController extends BaseController {
 
         $tramite_id = Input::get('tramite_id');
         $tramite = Tramite::findOrFail($tramite_id);
-
+        $clave = $tramite->clave;
         $tipotramite_id = $tramite->tipotramite_id;
 
         //echo $clave." ".$cuenta." ".$num_requisitos."<br>";
 
         $docs = Input::file('documento');
 
-        foreach($docs as $idx => $doc){
+        $path_archivo = "/documentos/".$clave."/".$tramite_id;
+        error_log("PAT ARCHIVO: $path_archivo");
 
-            $datos = [
-                'path' => $doc->getRealPath(),
-                'size' => $doc->getSize(),
-                'mime' => $doc->getMimeType(),
-                'name' => $doc->getClientOriginalName(),
-                'ext' => $doc->getClientOriginalExtension(),
+        $path = public_path().$path_archivo;
+        error_log($path);
+
+        foreach($docs as $requisito_id => $doc){
+
+            if (!file_exists($path) && !is_dir($path)) {
+                mkdir($path, 755, true);
+            }
+
+            $file = time() . "-".$doc->getClientOriginalName();
+
+            $adoc = [
+                'descripcion' => $doc->getClientOriginalName(),
+                'path' => $path_archivo,
+                'archivo'=> $file,
+                'size'=>$doc->getSize(),
+                'mimetype' => $doc->getMimeType(),
             ];
-            print_r($idx);
-            print_r($datos);
+
+            try {
+
+                error_log("FILE: $file");
+
+                $doc->move($path , $file);
+            }
+            catch(Exception $e)
+            {
+                return "ERROR EN MOVE: ".$e->getMessage();
+            }
+
+            $documento = $tramite->documentos()->create($adoc);
+
+            DocumentoTramite::create([
+                'tramite_id' => $tramite_id,
+                'tipotramite_id' => $tipotramite_id,
+                'requisito_id' => $requisito_id,
+                'documento_id' => $documento->id,
+            ]);
+
+            return JsonResponse::create([
+                'url' => URL::to($path_archivo."/".$file),
+                'archivo' => $file,
+                'requisito_id' => $requisito_id
+            ]);
         }
 
-        /*
-        $validator = Validator::make($docs, $rules);
-
-        if($validator->fails())
-        {
-            return Redirect::back()->withErrors($validator->errors());
-        }
-        */
     }
 
 
