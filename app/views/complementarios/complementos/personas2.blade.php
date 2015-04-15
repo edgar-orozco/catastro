@@ -11,7 +11,7 @@
                     $('#loading').hide();
                     $('#result').fadeIn('slow');
                 });
-                $('#form, #fat, #fo3').submit(function () {
+                $('#form, #fat, #fo4').submit(function () {
                     $.ajax({
                         type: 'POST',
                         url: $(this).attr('action'),
@@ -20,7 +20,7 @@
                             $('#result').text("Datos Creado Correctamente");
                             $('#reset').click();
                             $('#cerrar').click();
-                            $('#response').val(data.id_p);
+                            $('#response2').val(data.id_p);
                         }
                     })
 
@@ -31,65 +31,26 @@
                 $('#reset').click();
             });
 
-            $('#fo3').on('submit', function () {
+            $('#fo4').on('submit', function () {
                 var Value = $("#nombres").val();
                 var appa = $("#apellido_paterno").val();
                 var apma = $("#apellido_materno").val();
-                $('#nombrec').val(Value + " " + appa + " " + apma);
+                $('#personasp').val(Value + " " + appa + " " + apma);
                 $('#cerrar').click();
-            });
-            
-        </script>
-        <script language="JavaScript">
-            function ValidaRfc(rfcStr) {
-                var strCorrecta;
-                strCorrecta = rfcStr;
-                if (rfcStr.length == 12) {
-                    var valid = '[A-ZÑ\x26]{3,4}([0-9]{2})(0[1-9]|1[0-2])(0[1-9]|1[0-9]|2[0-9]|3[0-1])[A-Z|\d]{3})$';
-                } else {
-                    var valid = '^(([A-Z]|[a-z]|\s){1})(([A-Z]|[a-z]){3})([0-9]{6})((([A-Z]|[a-z]|[0-9]){3}))';
-                }
-                var validRfc = new RegExp(valid);
-                var matchArray = strCorrecta.match(validRfc);
-                if (matchArray == null) {
-                    alert('RFC Invalido');
-                    return false;
-                }
-            }
-
-            // Al presionar cualquier tecla en cualquier campo de texto, ejectuamos la siguiente función
-            $('input').on('keydown', function (e) {
-                // Solo nos importa si la tecla presionada fue ENTER... (Para ver el código de otras teclas: http://www.webonweboff.com/tips/js/event_key_codes.aspx)
-                if (e.keyCode === 13)
-                {
-                    // Obtenemos el número del tabindex del campo actual
-                    var currentTabIndex = $(this).attr('tabindex');
-                    // Le sumamos 1 :P
-                    var nextTabIndex = parseInt(currentTabIndex) + 1;
-                    // Obtenemos (si existe) el siguiente elemento usando la variable nextTabIndex
-                    var nextField = $('[tabindex=' + nextTabIndex + ']');
-                    // Si se encontró un elemento:
-                    if (nextField.length > 0)
-                    {
-                        // Hacerle focus / seleccionarlo
-                        nextField.focus();
-                        // Ignorar el funcionamiento predeterminado (enviar el formulario)
-                        e.preventDefault();
-                    }
-                    // Si no se encontro ningún elemento, no hacemos nada (se envia el formulario)
-                }
+                
             });
         </script>
+       
     </head>
 
     <body>
         <div class="modal-header">
             <h4 class="modal-titulo" id="condominio-titulo">Personas</h4>
         </div>
-        {{ Form::open(array('id'=>'fo3','name'=>'fo3')) }}
+        {{ Form::open(array('id'=>'fo4','name'=>'fo4')) }}
         <div style="margin-left: 14px;margin-right: 14px;">
             <div class="form-group">
-                {{Form::label('nombres','Nombres')}}
+                {{Form::label('nombres','Nombressssss')}}
                 {{Form::text('nombres', null, ['tabindex'=>'1','class'=>'form-control','autofocus'=> 'autofocus', 'ng-model' => 'personas.nombres','onblur'=>'aMayusculas(this.value,this.id)'] )}}
                 {{$errors->first('nombres', '<span class=text-danger>:message</span>')}}
                 <p class="help-block"></p>
@@ -133,25 +94,3 @@
         <!--<div id="result"></div>-->
     </body>
 </html>
-
-<!--<script type="text/javascript">
-//Guardar
-    $('#formEntrevista').bind('submit', function ()
-    {
-        $.ajax(
-                {
-                    type: 'POST',
-                    data: new FormData(this), //Toma todo lo que hay en el formulario, en este caso el archivo .txt o .csv
-                    processData: false,
-                    contentType: false,
-                    url: '/personas/p',
-                    success: function (data)
-                    {
-
-
-                    }
-                });
-        return false;
-    });
-
-</script>-->

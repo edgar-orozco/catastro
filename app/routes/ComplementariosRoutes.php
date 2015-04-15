@@ -77,6 +77,9 @@ Route::group(['before' => 'auth'], function() {
     Route::get('personas/p', 'complementarios_ComplementariosController@getPersonas');
     Route::post('personas/p', "complementarios_ComplementariosController@postPersonas");
     
+    Route::get('personas/p2', 'complementarios_ComplementariosController@getPersonas2');
+    Route::post('personas/p2', "complementarios_ComplementariosController@postPersonas");
+    
     
     Route::post("guardar-entrevista", "complementarios_ComplementariosController@postEntrevista");
     Route::post("guardar-personas", "complementarios_ComplementariosController@postPersonas");

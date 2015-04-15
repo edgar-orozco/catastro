@@ -69,18 +69,10 @@ $nombre_p=$nombress.' '.$apellidop.' '.$apellidom;
 		</div>
 	</div>
 <div>
-    {{Form::label('Nombre')}}
-
-    <!--SI "NO" TRAE ALGO LA VARIABLE $nombrec -->
-    @if(empty($nombrec))
-    {{Form::text('personasp',$nombre_p, ['tabindex'=>'1','id' => 'personasp','class'=>'form-control', 'autofocus'=> 'autofocus', 'ng-model' => 'ejecutores.nombrec'] )}}
-    @endif
-    <a data-toggle="modal"  data-target="#Nuevo1" >
-        <span class="glyphicon glyphicon-plus" style="margin-left: 365px;"></span>
-    </a>
+   {{Form::text('personasp',$nombre_p, ['tabindex'=>'1','id' => 'personasp', 'autofocus'=> 'autofocus', 'style'=>'width: 321px'] )}}
+    <a data-toggle="modal"  data-target="#Nuevo1" href="/personas/p2" class="btn btn-primary" id="nuevo">NUEVA PERSONA</a>
     {{Form::text('id_p',$id_usuariotoma, ['id' => 'response2','hidden'])}}
     {{$errors->first('id_p', '<span class=text-danger>:message</span>')}}
-
 </div>
 
 <button type="submit" class="btn btn-primary next">
@@ -130,10 +122,11 @@ $('#formAgua').bind('submit',function ()
 
 @append
 <!-- Modal -->
+<!-- Modal -->
 <div class="modal fade" id="Nuevo1" data-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
-            @include('complementarios.complementos.personas')
+            
         </div>
     </div>
 </div>

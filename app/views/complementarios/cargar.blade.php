@@ -158,7 +158,6 @@ $(document).ready(function () {
         </tbody>
     </table>
 </div>
-
 <div class="stepwizard">
     <div class="stepwizard-row setup-panel">
         <div class="stepwizard-step">
@@ -187,11 +186,11 @@ $(document).ready(function () {
         </div>
         <div class="stepwizard-step">
             <a href="#step-7" type="button" class="btn btn-default btn-circle" disabled="disabled">7</a>
-            <p>Persona entrevistada</p>
+            <p>Tomas de agua</p>
         </div>
         <div class="stepwizard-step">
             <a href="#step-8" type="button" class="btn btn-default btn-circle" disabled="disabled">8</a>
-            <p>Tomas de agua</p>
+            <p>Persona entrevistada</p>
         </div>
         <div class="stepwizard-step">
             <a href="#step-9" type="button" class="btn btn-default btn-circle" disabled="disabled">9</a>
@@ -210,8 +209,6 @@ $(document).ready(function () {
             <div class="col-md-12">
                 <h3>Predios</h3>
                 @include('complementarios.complementos.predios')
-
-
             </div>
         </div>
     </div>
@@ -265,22 +262,23 @@ $(document).ready(function () {
             </div>
         </div>
     </div>
-    <div class="row setup-content" id="step-7">
-        <div class="col-xs-12">
-            <div class="col-md-12">
-                <h3> Persona entrevistada</h3>
-                @include('complementarios.complementos.personaEntrevistada')
+   
+        <div class="row setup-content" id="step-7">
+            <div class="col-xs-12">
+                <div class="col-md-12">
+                    <h3>Tomas de agua</h3>
+                    @include('complementarios.complementos.tomasAgua')
+                </div>
             </div>
         </div>
-    </div>
-    <div class="row setup-content" id="step-8">
-        <div class="col-xs-12">
-            <div class="col-md-12">
-                <h3>Tomas de agua</h3>
-                @include('complementarios.complementos.tomasAgua')
+        <div class="row setup-content" id="step-8">
+            <div class="col-xs-12">
+                <div class="col-md-12">
+                    <h3> Persona entrevistada</h3>
+                    @include('complementarios.complementos.personaEntrevistada')
+                </div>
             </div>
         </div>
-    </div>
     <div class="row setup-content" id="step-9">
         <div class="col-xs-12">
             <div class="col-md-12">
@@ -290,6 +288,5 @@ $(document).ready(function () {
         </div>
         <a href="/compleme" class="btn btn-success" role="button">Finalizar</a>
     </div>
-
 </div>
 @stop

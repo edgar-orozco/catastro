@@ -290,7 +290,7 @@ class complementarios_ComplementariosController extends BaseController {
                 ->orderBy('tiposervicios.id_tiposervicio', 'ASC')
                 ->get();
 
-        $tta = TiposTomasAgua::orderBy('descripcion', 'ASC')->lists('descripcion', 'id_tipotoma');
+        $tta =['' => '--seleccione una opción--'] + TiposTomasAgua::orderBy('descripcion', 'ASC')->lists('descripcion', 'id_tipotoma');
 
         $datos_construcciones = construcciones::where('gid_predio', '=', $id)->get();
 
@@ -1061,6 +1061,8 @@ class complementarios_ComplementariosController extends BaseController {
             $n->apellido_materno = $inputs["apellido_materno"];
             $n->nombres = $inputs["nombres"];
             $n->nombrec = $apellido_paterno . " " . $apellido_materno . " " . $nombres;
+            $n->rfc = $inputs["rfc"];
+            $n->curp = $inputs["curp"];
             $n->save();
             $queries = DB::select(DB::raw("SELECT id_p FROM personas WHERE nombres || ' ' || apellido_paterno || ' ' ||  apellido_materno LIKE '%" . $term . "%' limit 1"));
 //Se han guardado los valores
@@ -1193,4 +1195,13 @@ class complementarios_ComplementariosController extends BaseController {
         return View::make('complementarios.complementos.personas', compact('title', 'title_section', 'subtitle_section'));
     }
 
+     public function getPersonas2($format = 'html', $id = null) {
+        $title = 'Crar nueva perosana';
+        //Titulo de seccion:
+        $title_section = "";
+        //Subtitulo de seccion:
+        $subtitle_section = "Crear nueva persona";
+        return View::make('complementarios.complementos.personas2', compact('title', 'title_section', 'subtitle_section'));
+    }
+    
 }
