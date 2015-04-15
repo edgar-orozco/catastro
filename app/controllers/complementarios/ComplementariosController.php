@@ -338,62 +338,65 @@ class complementarios_ComplementariosController extends BaseController {
 
     public function post_agregar() 
     {
-
-
-        $inputs = Input::All();
-
-
-        $reglas = array
-            (
-                'instalaciones' => 'required',
-            );
-        $mensajes = array
-            (
-                'required' => 'este campo es obligatorio'
-            );
-        $validar = Validator::make($inputs, $reglas, $mensajes);
-        
-
-        if ($validar->fails()) {
-            return Response::json(array
-                (
-                    "estado" => $validar->messages()
-                ));
+ $inputs = Input::All();
+        $entidad = $inputs['entidad'];
+        $municipio = $inputs['municipio'];
+        $clave_cata = $inputs['clave_cata'];
+        $gid_predio = $inputs['gid_predio'];
+        $id_tipoie = $inputs['instalaciones'];
+        //mio
+        $eliminar = $inputs['eliminar'];
+        $actuales = $id_tipoie;
+        //$contar = count($actuales);
+        $confuera = count($eliminar);
+     
+       if ($confuera >= 1) {
+            foreach ($eliminar as $key) {
+                $id = $key;
+                DB::delete("DELETE FROM instalacionesespeciales WHERE id_tipoie =$id AND clave_catas='$clave_cata'");
+            }
         }
-
-        else 
-        
-        {
-            
-            $gid_predio     =   $inputs['gid_predio'];
-            $entidad        =   $inputs['entidad'];
-            $municipio      =   $inputs['municipio'];
-            $clave_cata     =   $inputs['clave_catas'];
-            
-
-            
-            $gid_ie=instalaciones::orderBy('id_ie', 'DESC')->first()->id_ie+1;
-            $n = new instalaciones();
-            $n->id_ie       =   $gid_ie;
-            $n->entidad     =   $inputs['entidad'];
-            $n->municipio   =   $inputs['municipio'];
-            $n->clave_catas =   $inputs['clave_catas'];
-            $n->gid_predio  =   $inputs['gid_predio'];      
-            $n->id_tipoie   =   $inputs['instalaciones'];
-            $n->save();
-            Session::flash('mensaje', 'El registro ha sido ingresado exitosamente');
-
-            $tipo_ie    =   instalaciones::where('id_ie', '=', $gid_ie)
-            ->join('tipoinstalacionesespeciales', 'tipoinstalacionesespeciales.id_tipoie', '=', 'instalacionesespeciales.id_tipoie')
-            ->select('tipoinstalacionesespeciales.descripcion', 'id_ie')
-            ->get();
-            
-            //return Redirect::to('complementarios/agregar');
-            return Response::json(array
+        if (count($id_tipoie)>0) {
+          
+                $count = count($id_tipoie);
+                for ($x = 0; $x < $count; $x++) {
+                    $n = new instalaciones();
+                    $n->entidad = $entidad;
+                    $n->municipio = $municipio;
+                    $n->clave_catas = $clave_cata;
+                    $n->gid_predio = $gid_predio;
+                    $n->id_tipoie = $id_tipoie[$x];
+                    $n->created_at = date('Y-m-d');
+                    $n->updated_at = date('Y-m-d');
+                    $n->save();
+                     
+                }
+            unset($id_tipoie); 
+        } else {
+            foreach ($id_tipoie as $id) {
+                if (in_array($id, $id_tipoie)) {
+                    
+                } else {
+                    $total[] = $id;
+                }
+            }
+            $count = count($total);
+            for ($x = 0; $x < $count; $x++) {
+                $n = new instalaciones();
+                $n->entidad = $entidad;
+                $n->municipio = $municipio;
+                $n->clave_catas = $clave_cata;
+                $n->gid_predio = $gid_predio;
+                $n->id_tipoie = $total[$x];
+                $n->created_at = date('Y-m-d');
+                $n->updated_at = date('Y-m-d');
+                $n->save();
+                return Response::json(array
                 (
-                    'instalaciones' =>  $tipo_ie[0]->descripcion,
-                    'id_ie'         =>  $tipo_ie[0]->id_ie
+                    'mensaje' => 'guardo'
+                    
                 ));
+            }
         }
     }
 
