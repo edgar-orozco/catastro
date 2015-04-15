@@ -1074,6 +1074,8 @@ class complementarios_ComplementariosController extends BaseController {
         $n->clave_catas  = $clave_catas;
         $n->gid_predio   = $gid_predio;
         $n->id_p         = $id_p;
+        $n->created_at   = date('Y-m-d');
+        $n->updated_at   = date('Y-m-d');
         
         $n->save();
         Session::flash('mensaje', 'El registro ha sido ingresado exitosamente');
