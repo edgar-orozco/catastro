@@ -40,6 +40,46 @@
                 
             });
         </script>
+        <script language="JavaScript">
+            function ValidaRfc(rfcStr) {
+                var strCorrecta;
+                strCorrecta = rfcStr;
+                if (rfcStr.length == 12) {
+                    var valid = '[A-ZÑ\x26]{3,4}([0-9]{2})(0[1-9]|1[0-2])(0[1-9]|1[0-9]|2[0-9]|3[0-1])[A-Z|\d]{3})$';
+                } else {
+                    var valid = '^(([A-Z]|[a-z]|\s){1})(([A-Z]|[a-z]){3})([0-9]{6})((([A-Z]|[a-z]|[0-9]){3}))';
+                }
+                var validRfc = new RegExp(valid);
+                var matchArray = strCorrecta.match(validRfc);
+                if (matchArray == null) {
+                    alert('RFC Invalido');
+                    return false;
+                }
+            }
+
+            // Al presionar cualquier tecla en cualquier campo de texto, ejectuamos la siguiente función
+            $('input').on('keydown', function (e) {
+                // Solo nos importa si la tecla presionada fue ENTER... (Para ver el código de otras teclas: http://www.webonweboff.com/tips/js/event_key_codes.aspx)
+                if (e.keyCode === 13)
+                {
+                    // Obtenemos el número del tabindex del campo actual
+                    var currentTabIndex = $(this).attr('tabindex');
+                    // Le sumamos 1 :P
+                    var nextTabIndex = parseInt(currentTabIndex) + 1;
+                    // Obtenemos (si existe) el siguiente elemento usando la variable nextTabIndex
+                    var nextField = $('[tabindex=' + nextTabIndex + ']');
+                    // Si se encontró un elemento:
+                    if (nextField.length > 0)
+                    {
+                        // Hacerle focus / seleccionarlo
+                        nextField.focus();
+                        // Ignorar el funcionamiento predeterminado (enviar el formulario)
+                        e.preventDefault();
+                    }
+                    // Si no se encontro ningún elemento, no hacemos nada (se envia el formulario)
+                }
+            });
+        </script>
        
     </head>
 
@@ -50,7 +90,7 @@
         {{ Form::open(array('id'=>'fo4','name'=>'fo4')) }}
         <div style="margin-left: 14px;margin-right: 14px;">
             <div class="form-group">
-                {{Form::label('nombres','Nombressssss')}}
+                {{Form::label('nombres','Nombres')}}
                 {{Form::text('nombres', null, ['tabindex'=>'1','class'=>'form-control','autofocus'=> 'autofocus', 'ng-model' => 'personas.nombres','onblur'=>'aMayusculas(this.value,this.id)'] )}}
                 {{$errors->first('nombres', '<span class=text-danger>:message</span>')}}
                 <p class="help-block"></p>

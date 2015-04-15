@@ -36,8 +36,8 @@
                 var appa = $("#apellido_paterno").val();
                 var apma = $("#apellido_materno").val();
                 $('#nombrec').val(Value + " " + appa + " " + apma);
-                $('#cerrar').click();
             });
+            
             
         </script>
         <script language="JavaScript">

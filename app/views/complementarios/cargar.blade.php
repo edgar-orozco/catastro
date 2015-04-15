@@ -262,20 +262,19 @@ $(document).ready(function () {
             </div>
         </div>
     </div>
-   
+   <div class="row setup-content" id="step-8">
+            <div class="col-xs-12">
+                <div class="col-md-12">
+                    <h3> Persona entrevistada</h3>
+                    @include('complementarios.complementos.personaEntrevistada')
+                </div>
+            </div>
+        </div>
         <div class="row setup-content" id="step-7">
             <div class="col-xs-12">
                 <div class="col-md-12">
                     <h3>Tomas de agua</h3>
                     @include('complementarios.complementos.tomasAgua')
-                </div>
-            </div>
-        </div>
-        <div class="row setup-content" id="step-8">
-            <div class="col-xs-12">
-                <div class="col-md-12">
-                    <h3> Persona entrevistada</h3>
-                    @include('complementarios.complementos.personaEntrevistada')
                 </div>
             </div>
         </div>
