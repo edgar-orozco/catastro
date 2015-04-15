@@ -13,7 +13,7 @@ Route::group(['before' => 'auth'], function() {
     Route::post("cargar-complementos-editar/{id?}", "complementarios_ComplementariosController@getEditar");
     Route::get("cargar-complementose/{id?}", "complementarios_ComplementariosController@getEliminar");
     Route::get("agregar/{id?}", "complementarios_ComplementariosController@getAgregar");
-    Route::post("/agregar/{id?}", "complementarios_ComplementariosController@post_agregar");
+    Route::post("/agregar", "complementarios_ComplementariosController@post_agregar");
     Route::post("eliminar-inst", "complementarios_ComplementariosController@eliminar_instalacion");
     //construcciones
     Route::post("guardar-construccion", "complementarios_ComplementariosController@postConstruccion");

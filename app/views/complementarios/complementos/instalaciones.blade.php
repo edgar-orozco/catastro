@@ -78,8 +78,8 @@
         
 <?php
 $catie = array();
-foreach ($catalogo as $ie) {
-    $catie[] = $ie->id_tipoie;
+foreach ($catalogo as $ieas) {
+    $catie[] = $ieas->id_tipoie;
 }
 
 
@@ -128,4 +128,4 @@ foreach ($ieasociados as $ie_asoc) {
 </div>
 {{ Form::close() }}
 <br/>
-<hr>   
+<hr>
