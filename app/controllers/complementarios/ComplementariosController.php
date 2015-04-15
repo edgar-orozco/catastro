@@ -292,7 +292,9 @@ class complementarios_ComplementariosController extends BaseController {
 
         $tta =['' => '--seleccione una opción--'] + TiposTomasAgua::orderBy('descripcion', 'ASC')->lists('descripcion', 'id_tipotoma');
 
-        $datos_construcciones = construcciones::where('gid_predio', '=', $id)->get();
+        $datos_construcciones = construcciones::where('gid_predio', '=', $id)
+        ->join('tiposclasesconstruccion', 'construcciones.id_tcc', '=', 'tiposclasesconstruccion.id_tcc')
+        ->get();
 
 
         foreach ($predios as $predio) {
