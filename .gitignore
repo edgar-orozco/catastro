@@ -16,3 +16,5 @@ _ide_helper.php
 /app/config/local/database.php
 public/complementarios/anexos/*
 !public/complementarios/anexos/.gitkeep
+public/documentos/*
+!public/documentos/.gitkeep
