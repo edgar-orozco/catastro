@@ -330,7 +330,8 @@ class complementarios_ComplementariosController extends BaseController {
             }
 
     $tomas_agua=TomasAgua::where('gid_predio', '=', $id)->get()->toArray();
-
+    $entrevistados=Entrevistado::where('gid_predio', '=', $id)->get()->toArray();
+   
 
     //BUSCA LAS IMAGENES GUARDADAS EN EL SERVIDOR
 
@@ -357,7 +358,7 @@ class complementarios_ComplementariosController extends BaseController {
     
 
 
-        return View::make('complementarios.cargar', compact("tomas_agua", "datos_p", "predios","const", "tuc" ,"tcc", "ttc", "tec", "tmc", "tpic", "tpuc", "tvc", "catalogo", "gid", "clave_catas", "estado", "municipio", "cat", "asociados", "giros", "girosasociados", "datos", "condominio", "tta", "datos_construcciones", "file"));
+        return View::make('complementarios.cargar', compact("entrevistados", "tomas_agua", "datos_p", "predios","const", "tuc" ,"tcc", "ttc", "tec", "tmc", "tpic", "tpuc", "tvc", "catalogo", "gid", "clave_catas", "estado", "municipio", "cat", "asociados", "giros", "girosasociados", "datos", "condominio", "tta", "datos_construcciones", "file"));
 
     }
 
