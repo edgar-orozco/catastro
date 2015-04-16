@@ -396,14 +396,6 @@ $("#fecha").datepicker();
 {{Form::text('mun',$mun=$key[2],array('hidden'))}}
 {{Form::label('Fecha Emision Carta Invitacion: ') }}
 {{Form::text('date', $fecha, ['id'=>'datepicker', 'class'=>'btn btn-default btn-sm dropdown-toggle','autofocus'=> 'autofocus', 'disabled'] )}}
-
-
-            {{Form::label('Ejecutores:') }}
-                <select name="ejecutores" class="btn btn-default btn-sm dropdown-toggle" disabled>
-                     @foreach($catalogo as $row)
-                        <option value="{{$row->id}}">{{$row->nombre}}</option>
-                    @endforeach
-                </select>
 </div>
 <br>
 {{ Form::submit('Generar Carta Invitacion', array('class' => 'btn btn-primary', 'name' => 'boton', 'disabled','id' => 'boton')) }}
