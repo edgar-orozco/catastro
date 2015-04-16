@@ -87,10 +87,10 @@
                 
                 
         </div>
-        <button type="submit" class="btn btn-primary">
-            Agregar
-            <i class=""></i>
-        </button>
+        
+        {{form::button('Agregar', ['class' => 'btn btn-primary',  'type' => 'submit', 'id' => 'agregar-const'])}}
+        {{form::button('Cancelar', ['class' => 'btn btn-warning', 'id' => 'cancelar-construccion'])}}
+
     {{Form::close()}}
 </div>
 
@@ -112,7 +112,7 @@
 
             <td>{{$row->nivel}}</td>
             <td>{{$row->sup_const}}</td>
-            <td>{{$row->edad_const}}</td>
+            <td>{{$row->descripcion}}</td>
             <td>
                 
                 <!--Editar-->
@@ -142,9 +142,31 @@ $("#const-nuevo").click(function(){
         $("#panel-construccion").toggle();
         document.getElementById('gid_construccion').value=0;
         $('.mensaje').html('');
+        $("#const-nuevo").toggle();
+        document.getElementById('nivel').value = '';
+        document.getElementById('superficie_construccion').value = '';
+        document.getElementById('edad_construccion').value = '';
+        document.getElementById('uso_construccionc').value = '';
+        document.getElementById('clase_construccion').value = '';
+        document.getElementById('techo_construccion').value = '';
+        document.getElementById('estado_conservacion').value = '';
+        document.getElementById('muro_construccion').value = '';
+        document.getElementById('piso_construccion').value = '';
+        document.getElementById('puerta_construccion').value = '';
+        document.getElementById('ventana_construccion').value = '';
 
 
     });
+
+$("#cancelar-construccion").click(function(){
+        $("#panel-construccion").toggle();
+        
+        $("#const-nuevo").toggle();
+        $('.mensaje').html('');
+
+
+    });
+
 
 $('#formConstruccion').bind('submit',function () 
     {   
@@ -249,6 +271,7 @@ function editar_construccion(gid)
                 document.getElementById('ventana_construccion').value = data.id_tvc;
                 $('.mensaje').html('');
                 $('#panel-construccion').show();
+                $("#const-nuevo").hide();
                 document.getElementById('gid_construccion').value = data.gid;
                 
 
