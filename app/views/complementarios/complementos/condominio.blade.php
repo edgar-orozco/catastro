@@ -10,11 +10,12 @@
     <table class="table">
     <thead>
         <tr>
-            <th>{{Form::label('tipo_priva','Superficie Privativa:') }}</th>
+            <th>{{Form::label('no_condominal','Número condominal:') }}</th>
             <th>{{Form::label('sup_comun','Superficie Comun:') }}</th>
             <th>{{Form::label('indiviso','Porcentaje indiviso:') }}</th>
             <th>{{Form::label('sup_total_comun','Superfie Total Común:') }}</th>
-            <th>{{Form::label('no_condominal','Número condominal:') }}</th>
+            <th>{{Form::label('tipo_priva','Superficie Privativa:') }}</th>
+            
         </tr>
     </thead>
      <tbody>
@@ -22,20 +23,22 @@
     <td>
     {{ Form::hidden('id',$clave) }}
     {{ Form::hidden('id_condominio','',array('id' => 'id_condominio')) }}
-     <span style=" margin-left: 154px;">M<sup>2</sup></span>
-    {{ Form::text('tipo_priva', null, array('class' => 'form-control focus  ', 'placeholder'=>'Tipo Priva', 'autofocus'=> 'autofocus','style'=>'width: 150px;margin-top: -24px;')) }}
+       {{ Form::text('no_condominal', null, array('class' => 'form-control focus  ', 'placeholder'=>'No Condominal', 'autofocus'=> 'autofocus','style'=>'width: 120px;margin-top: -4px;')) }}
+
     </td><td>
-    <span style=" margin-left: 161px;">M<sup>2</sup></span>
+    <span style=" margin-left: 161px;"><strong>M<sup>2</sup></strong></span>
     {{ Form::text('sup_comun', null, array('class' => 'form-control focus  ', 'placeholder'=>'Superficie Comun', 'autofocus'=> 'autofocus','style'=>'width: 158px;margin-top: -24px;')) }}
     </td><td>
-    {{ Form::text('indiviso', null, array('class' => 'form-control focus  ', 'placeholder'=>'Porcentaje Indiviso', 'autofocus'=> 'autofocus','style'=>'width: 120px;margin-top: -4px;')) }}
+    {{ Form::text('indiviso', null, array('class' => 'form-control focus  ', 'placeholder'=>'Porcentaje Indiviso', 'autofocus'=> 'autofocus','style'=>'width: 150px;margin-top: -4px;')) }}
     {{$errors->first("indiviso")}}
     </td><td>
-    <span style=" margin-left: 154px;">M<sup>2</sup></span>
+    <span style=" margin-left: 154px;"><strong>M<sup>2</sup></strong></span>
     {{ Form::text('sup_total_comun', null, array('class' => 'form-control focus  ', 'placeholder'=>'Superficie Total', 'autofocus'=> 'autofocus','style'=>'width: 150px;margin-top: -24px;')) }}
     </td><td>
-   {{ Form::text('no_condominal', null, array('class' => 'form-control focus  ', 'placeholder'=>'No Unidades', 'autofocus'=> 'autofocus','style'=>'width: 120px')) }}
-    </td>
+         <span style=" margin-left: 154px;"><strong>M<sup>2</sup></strong></span>
+    {{ Form::text('tipo_priva', null, array('class' => 'form-control focus  ', 'placeholder'=>'Superficie Priva', 'autofocus'=> 'autofocus','style'=>'width: 150px;margin-top: -24px;')) }}
+
+   </td>
 </tr>
 </tbody>
 </table>

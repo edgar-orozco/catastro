@@ -12,7 +12,7 @@ public function get_pdf()
         //limpiamos y ordenamos el array
         $token      = $clave['_token'];
         $fecha      = $clave['date'];
-        $ejecutor   = $clave['ejecutores'];
+        
         $boton      = $clave['boton'];
         $mun_actual = strtoupper($clave['mun']);
         $pagi       =$clave['pagi'];
@@ -27,13 +27,13 @@ public function get_pdf()
         unset($clave['id_municipio']);
         unset($clave['pagi']);
         unset($clave['mun']);
-        unset($clave['ejecutores']);
+       
         unset($clave['boton']);
         unset($clave['_token']);
         unset($clave['date']);
             //BUCLE PARA GUARDAR LOS DATOS A LA BASE DE DATOS
-       $ejecutor     =($claves2['captura']['ejecutores']=$ejecutor);
-       $nombre_eje   =personas::where('id_p', $ejecutor)->pluck('nombrec');
+      
+       
        $usuario      =Auth::user()->id;
        $fecha_server =date('Y-m-d');
 

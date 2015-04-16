@@ -35,14 +35,14 @@ foreach ($datos_p as $k) {
 				<div class="form-group">
 					{{Form::label('Lsuperficie_terreno','Superficie Terreno')}}
           <br>
-          <span style=" margin-left: 154px;">M<sup>2</sup></span>
-					{{Form::text('superficie_terreno',$superficie_terreno,['class'=>'form-control','required', 'id'=>'superficie_terreno', 'tabindex'=>'4','style'=>'width: 150px;margin-top: -24px;'])}}
+          <span style=" margin-left: 154px;"><strong>M<sup>2</sup></strong></span>
+					{{Form::number('superficie_terreno',$superficie_terreno,['class'=>'form-control bfh-number','required', 'step' => '0.01' , 'id'=>'superficie_terreno', 'tabindex'=>'4','style'=>'width: 150px;margin-top: -24px;'])}}
 				</div>
 			</div>
 			<div class="col-md-4">
 				<div class="form-group">
 					{{Form::label('Luso_construccion','Uso de suelo')}}
-					{{Form::select('uso_construccion',  $tuc, $uso_construccion, ['id'=>'uso_construccion', 'class' => 'form-control', 'tabindex'=>'5','style'=>'width: 200px'])}}
+					{{Form::select('uso_construccion',  $tus, $uso_construccion, ['id'=>'uso_construccion', 'class' => 'form-control', 'tabindex'=>'5','style'=>'width: 200px'])}}
 
 				</div>
 			</div>

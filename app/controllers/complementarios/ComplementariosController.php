@@ -193,7 +193,7 @@ class complementarios_ComplementariosController extends BaseController {
         $predios->niveles = $niveles;
         $predios->folio = $folio;
         $predios->superficie_terreno = $super_terreno;
-        $predios->uso_construccion = $uso_constru;
+        $predios->uso_suelo = $uso_constru;
         $predios->save();
 
         Session::flash('mensaje', 'El registro ha sido ingresado exitosamente');
@@ -251,6 +251,7 @@ class complementarios_ComplementariosController extends BaseController {
         $const = construcciones::WHERE('clave_catas', '=', '"' . $clave_catas . '"')->get();
 
         $tuc = ['' => '--seleccione una opción--'] + UsoConstruccion::orderBy('descripcion', 'ASC')->lists('descripcion', 'id_tuc');
+        $tus = ['' => '--seleccione una opción--'] + TipoSuelo::orderBy('descripcion', 'ASC')->lists('descripcion', 'id');
         $tcc = ['' => '--seleccione una opción--'] + TiposClaseConstruccion::orderBy('descripcion', 'ASC')->lists('descripcion', 'id_tcc');
         $ttc = ['' => '--seleccione una opción--'] + TiposTechos::orderBy('descripcion', 'ASC')->lists('descripcion', 'id_ttc');
         $tec = ['' => '--seleccione una opción--'] + TiposEstadosConservacion::orderBy('descripcion', 'ASC')->lists('descripcion', 'id_tec');
@@ -329,7 +330,7 @@ class complementarios_ComplementariosController extends BaseController {
 
 
 
-        return View::make('complementarios.cargar', compact("entrevistados", "tomas_agua", "datos_p", "predios", "const", "tuc", "tcc", "ttc", "tec", "tmc", "tpic", "tpuc", "tvc", "catalogo", "gid", "clave_catas", "estado", "municipio", "cat", "asociados", "giros", "girosasociados", "datos", "condominio", "tta", "datos_construcciones", "file", "ieasociados"));
+        return View::make('complementarios.cargar', compact("tus", "entrevistados", "tomas_agua", "datos_p", "predios", "const", "tuc", "tcc", "ttc", "tec", "tmc", "tpic", "tpuc", "tvc", "catalogo", "gid", "clave_catas", "estado", "municipio", "cat", "asociados", "giros", "girosasociados", "datos", "condominio", "tta", "datos_construcciones", "file", "ieasociados"));
     }
 
     /**
