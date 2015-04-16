@@ -53,7 +53,7 @@
             </div>
             <div class="col-md-3">
                 <div class="form-group">
-                    {{Form::label('Lestado_conservacion','Estado:')}}
+                    {{Form::label('Lestado_conservacion','Estado de conservación:')}}
                     {{Form::select('estado_conservacion', $tec, null, ['id'=>'estado_conservacion', 'class' => 'form-control', 'required'])}}
                 </div>
             </div>
@@ -120,7 +120,7 @@
                     <span class="glyphicon glyphicon-edit"></span>
                 </a>
                 <!--borrar-->
-                <a id="construccion-delete{{$row->gid}}" onclick="eliminar_construccion('{{$row->gid}}')" class="btn btn-danger eliminar" title="Eliminar Construcción">
+                <a id="construccion-delete{{$row->gid}}" data-onclickcon="eliminar_construccion('{{$row->gid}}')" data-toggle="modal"  data-target="#construcciones-alert-modal" href="#" class="btn btn-danger construcciones-eliminar" title="Eliminar Construcción">
                     <span class="glyphicon glyphicon-remove"></span>
                 </a>
 
@@ -134,10 +134,47 @@
 </div>
 
 
+
+
+
+
+<!-- Modal -->
+<div class="modal fade" id="construcciones-alert-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="false">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      
+      <div class="modal-body" id="construcciones-modalBody">
+
+      </div>
+      <div class="modal-footer" id="construcciones-modal-footer">
+        
+      </div>
+    </div>
+  </div>
+</div>
+
+
 @section('javascript')
 
 
 <script type="text/javascript">
+
+
+    $(".construcciones-eliminar").click(function(){
+
+        var href = $(this).attr('href');
+
+        var onclick = $(this).attr('data-onclickcon');
+
+
+            
+        $('#construcciones-modalBody').html('¿Esta seguro de eliminar esta construcción?');
+        $('#construcciones-modal-footer').html('<button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button><button data-dismiss="modal" type="button" onclick="'+onclick+'" class="btn btn-danger">Eliminar</button>'); 
+        
+    });
+
+
+
 $("#const-nuevo").click(function(){
         $("#panel-construccion").toggle();
         document.getElementById('gid_construccion').value=0;
