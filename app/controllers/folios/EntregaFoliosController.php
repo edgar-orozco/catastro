@@ -31,14 +31,16 @@ class folios_EntregaFoliosController extends BaseController {
 		->orderBy('numero_folio', 'DESC')
 		->first();
 
-		$fh = FoliosHistorial::where('perito_id', $perito->id)
+	 $fh = FoliosHistorial::where('perito_id', $perito->id)
 		->get();
+	  $conf = FoliosConf::first();
 
 		return View::make('folios.entregafoliose.detalles')
 		->withPerito($perito)
 		->withFu($fu)
 		->withFr($fr)
-		->withFh($fh);
+		->withFh($fh)
+		->withFc($conf);
 	}
 
 	public function get_urbanose($id){ //muestra todos los folios Urbanos del perito especificado

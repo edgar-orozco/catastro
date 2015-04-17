@@ -11,7 +11,9 @@
 		<h4 class="panel-title">Datos del Perito</h4>
 
 	</div>
-	<?php $conf =Conf::first(); ?>
+	<?php $conf = FoliosConf::first();
+
+	 ?>
 	<div class="panel-body">
 
 	<table class="table">
