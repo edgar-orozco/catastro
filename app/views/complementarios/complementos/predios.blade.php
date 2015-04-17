@@ -111,7 +111,7 @@ $(document).ready(function(){
           event.preventDefault();
      }
 
-     if (event.keyCode == 46 || event.keyCode == 8 || event.keyCode == 189 || event.keyCode == 109 )    {
+     if (event.keyCode == 46 || event.keyCode == 8 || event.keyCode == 189 || event.keyCode == 109 || event.keyCode == 110 )    {
      }
      else {
           if (event.keyCode < 95) {
