@@ -116,29 +116,15 @@ foreach ($ieasociados as $ie_asoc) {
         
     </li>
     @endforeach
-    
 </ul>
-
-<br/>
-<hr>
-<br><br><br><br>
-<div class="col-md-6">
+<br><br><br><br><br><br><br><br><br>
 <div class="form-group">
  <button type="submit" class="btn btn-primary next">
             Siguiente
             <i class="glyphicon glyphicon-chevron-right"></i>
         </button>
     </div>
-</div>
 {{ Form::close() }}
+
 <br/>
 <hr>
-<script>
-var countChecked = function() {
-  var n = $( "input:checked" ).length;
-  $( "div" ).text( n + (n === 1 ? " is" : " are") + " checked!" );
-};
-countChecked();
- 
-$( "input[type=checkbox]" ).on( "click", countChecked );
-</script>
