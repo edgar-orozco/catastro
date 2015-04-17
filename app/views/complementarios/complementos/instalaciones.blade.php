@@ -34,7 +34,6 @@
         margin-left: 250px;
         margin-top: 52px;
     }
-
 </style>
 
 @section('javascript')
@@ -61,6 +60,7 @@
                 });
                 return false;
             });
+            
     </script>
     
 
@@ -75,7 +75,8 @@
     {{ Form::hidden('entidad',$estado) }}
     {{ Form::hidden('municipio',$municipio) }}
 </div>
-        
+   
+
 <?php
 $catie = array();
 foreach ($catalogo as $ieas) {
@@ -94,38 +95,36 @@ foreach ($ieasociados as $ie_asoc) {
 {{Form::hidden('instalacion[]',$asoc) }}
 @endforeach
 <ul class="list-unstyled column">  
-    @foreach($catalogo as $row)
+       @foreach($catalogo as $row)
+      
     <?php
     if (in_array($row->id_tipoie, $ie)) {
-        $css = 'active';
-        $input = "<label class='btn btn-sm btn-default uncheck'>$row->descripcion<input type='checkbox' name='eliminar[]' value=$row->id_tipoie ></label>";
-    } else {
-        $css = '';
+        
+        $bot = '';
+        $input = "<div class='btn-group btn-toggle botones-requisitos' data-toggle='buttons'><label class='btn btn-sm btn-info'>$row->descripcion<input type='checkbox' name='eliminar[]' value=$row->id_tipoie ></label></div>";
+        
+    } 
+    elseif ($row->id_tipoie <> $ie) 
+        {
+        
         $input = '';
+        $bot =   "<div class='btn-group btn-toggle botones-requisitos' data-toggle='buttons'><label class='btn btn-sm btn-default'>$row->descripcion<input type='checkbox'  name='instalaciones[]' value='$row->id_tipoie'></label></div>";
     }
     ?>
-    <li class="column"><?php echo $input; ?>
-        <div class="btn-group btn-toggle botones-requisitos" data-toggle="buttons">
-            <label class="btn btn-sm btn-default <?php echo $css ?>">{{$row->descripcion}}
-                <input type='checkbox'  name='instalaciones[]' value="{{$row->id_tipoie}}">
-            </label>
-        </div>
+    <li class="column"><?php echo $input; echo $bot;?>
+      
+        
     </li>
     @endforeach
-
 </ul>
-
-<br/>
-<hr>
-<br><br><br><br><br><br>
-<div class="col-md-6">
+<br><br><br><br><br><br><br><br><br>
 <div class="form-group">
  <button type="submit" class="btn btn-primary next">
             Siguiente
             <i class="glyphicon glyphicon-chevron-right"></i>
         </button>
     </div>
-</div>
 {{ Form::close() }}
+
 <br/>
 <hr>

@@ -97,19 +97,16 @@ foreach ($girosasociados as $asoc) {
     @foreach($giros as $row)
     <?php
     if (in_array($row->id_tipogiro, $asocia)) {
-        $css = 'active';
-        $input = "<label class='btn btn-sm btn-default uncheck'>$row->descripcion<input type='checkbox' name='eliminar[]' value=$row->id_tipogiro ></label>";
-    } else {
-        $css = '';
+        $bot = '';
+        $input = "<div class='btn-group btn-toggle botones-requisitos' data-toggle='buttons'><label class='btn btn-sm btn-info'>$row->descripcion<input type='checkbox' name='eliminar[]' value=$row->id_tipogiro ></label></div>";
+    } elseif($row->id_tipogiro <> $asocia) {
+        
         $input = '';
+        $bot = "<div class='btn-group btn-toggle botones-requisitos' data-toggle='buttons'><label class='btn btn-sm btn-default'>$row->descripcion<input type='checkbox'  name='giros[]' value='$row->id_tipogiro'></label></div>";
     }
     ?>
-    <li class="column"><?php echo $input; ?>
-        <div class="btn-group btn-toggle botones-requisitos" data-toggle="buttons">
-            <label class="btn btn-sm btn-default <?php echo $css ?>">{{$row->descripcion}}
-                <input type='checkbox'  name='giros[]' value="{{$row->id_tipogiro}}">
-            </label>
-        </div>
+    <li class="column"><?php echo $input; echo $bot; ?>
+        
     </li>
     @endforeach
 
