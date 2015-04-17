@@ -115,19 +115,16 @@
     ?>
     @foreach($cat as $row)<?php
     if (in_array($row->id_tiposervicio, $asocia)) {
-        $css = 'active';
-        $input = "<label class='btn btn-sm btn-default uncheck'>$row->descripcion<input type='checkbox' name='eliminar[]' value=$row->id_tiposervicio ></label>";
-    } else {
-        $css = '';
+        $bot = "";
+        $input = "<div class='btn-group btn-toggle botones-requisitos' data-toggle='buttons'><label class='btn btn-sm btn-info'>$row->descripcion<input type='checkbox' name='eliminar[]' value=$row->id_tiposervicio ></label></div>";
+    } elseif($row->id_tiposervicio <> $asocia) {
+        
         $input = '';
+        $bot = "<div class='btn-group btn-toggle botones-requisitos' data-toggle='buttons'><label class='btn btn-sm btn-default'>$row->descripcion<input type='checkbox' name='servicios[]' value='$row->id_tiposervicio'></label></div>";
     }
     ?>
-    <li> <?php echo $input; ?>
-        <div class="btn-group btn-toggle botones-requisitos" data-toggle="buttons">
-            <label class="btn btn-sm btn-default <?php echo $css ?>">{{$row->descripcion}}
-                <input type='checkbox' name='servicios[]' value="{{$row->id_tiposervicio }}">
-            </label>
-        </div>
+    <li> <?php echo $input; echo $bot; ?>
+        
     </li>
     @endforeach
 </ul>
