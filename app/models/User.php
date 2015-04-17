@@ -216,7 +216,7 @@ class User extends Eloquent implements ConfideUserInterface
                 'nombre'         => $this->nombre,
                 'apepat'         => $this->apepat,
                 'apemat'         => $this->apemat,
-                'roles'          => $roles
+                //'roles'          => $roles
             )), ENT_QUOTES, 'UTF-8');
     }
 

@@ -235,6 +235,13 @@ class Tramite extends Ardent
     }
 
 
+    public function scopeDocumentoRequsito($q, $requisito_id){
+
+        return $q->whereHas('documento_tramite', function($qry) use ($requisito_id)
+        {
+            $qry->where('requisito_id', $requisito_id);
+        });
+    }
 
     /**
      * Obtiene registros en los que el usuario se ha involucrado o está por involucrarse

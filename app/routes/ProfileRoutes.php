@@ -18,3 +18,9 @@ Route::get('profile/editar', array(
     'uses' => 'ProfileController@edit',
     'before' => 'auth'
 ));
+
+Route::put('profile/editar/{user}.{format}', array(
+    'as' => 'profle.update',
+    'uses' => 'AdminUserController@update',
+    'before' => 'auth'
+));

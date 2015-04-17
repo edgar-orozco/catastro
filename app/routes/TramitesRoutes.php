@@ -71,6 +71,16 @@ Route::post(
     )
 );
 
+Route::post(
+    'tramites/documentos/eliminar',
+    array(
+        'as' => 'tramites.documentos.eliminar',
+        'uses' => 'TramitesController@documentosEliminar',
+        'before' => 'auth',
+    )
+);
+
+
 //Búsqueda de trámites
 Route::post(
     'tramites/buscar',
@@ -87,6 +97,16 @@ Route::get(
     array(
         'as' => 'tramites.poratender',
         'uses' => 'TramitesController@listaPorAtender',
+        'before' => 'auth',
+    )
+);
+
+//Carga tabla con tabla de archivos de documentos requeridos por tramite
+Route::get(
+    'tramite/lista/documentos/{tramite_id}/{requisito_id}',
+    array(
+        'as' => 'tramites.listadocs',
+        'uses' => 'TramitesController@listaDocumentosTramite',
         'before' => 'auth',
     )
 );

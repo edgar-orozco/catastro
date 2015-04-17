@@ -18,3 +18,4 @@ public/complementarios/anexos/*
 !public/complementarios/anexos/.gitkeep
 public/documentos/*
 !public/documentos/.gitkeep
+public/js/laroute.js

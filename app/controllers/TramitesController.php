@@ -64,6 +64,8 @@ class TramitesController extends BaseController {
 
         $requisitos = $tipotramite->requisitos;
 
+
+
         $uuid = Uuid::generate(4);
 
         return View::make('ventanilla.control', compact(
@@ -204,6 +206,7 @@ class TramitesController extends BaseController {
         $path = public_path().$path_archivo;
         error_log($path);
 
+        $archivo_original = "";
         foreach($docs as $requisito_id => $doc){
 
             if (!file_exists($path) && !is_dir($path)) {
@@ -211,7 +214,7 @@ class TramitesController extends BaseController {
             }
 
             $file = time() . "-".$doc->getClientOriginalName();
-
+            $archivo_original = $doc->getClientOriginalName();
             $adoc = [
                 'descripcion' => $doc->getClientOriginalName(),
                 'path' => $path_archivo,
@@ -243,6 +246,7 @@ class TramitesController extends BaseController {
             return JsonResponse::create([
                 'url' => URL::to($path_archivo."/".$file),
                 'archivo' => $file,
+                'archivo_original' => $archivo_original,
                 'requisito_id' => $requisito_id
             ]);
         }
@@ -554,6 +558,40 @@ class TramitesController extends BaseController {
         }
 
         return $tramites;
+    }
+
+
+    /**
+     * Deveuelve la tabla html con los documentos de requisitos que haya para un tramite y requisito dado
+     * @param $tramite_id
+     * @param $requisito_id
+     * @return \Illuminate\View\View
+     */
+    public function listaDocumentosTramite($tramite_id, $requisito_id) {
+
+        $documentos = Tramite::find($tramite_id)->documentosTramite()->where('requisito_id', $requisito_id)->whereNull('deleted_at')->get();
+        $requisito = Requisito::find($requisito_id);
+        if (Request::ajax())
+        {
+            return View::make('ventanilla._documentos_tramite',compact(['documentos','requisito']));
+        }
+
+        return $documentos;
+    }
+
+
+    public function documentosEliminar() {
+
+        $documento_id = Input::get('documento_id');
+        $doc = DocumentoTramite::find($documento_id);
+        $requisito_id = $doc->requisito_id;
+        $doc->delete();
+
+        return JsonResponse::create([
+            'requisito_id' => $requisito_id
+        ]);
+
+
     }
 
 }
