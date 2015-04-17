@@ -35,7 +35,9 @@ class catalogos_ejecutoresController extends \BaseController {
 
         $ejecutoress = $this->ejecutores->join('personas', 'personas.id_p', '=', 'ejecutores.id_p')
                 ->join('personas as p', 'p.id_p', '=', 'ejecutores.id_p_otorga_nombramiento')
-                ->select('id_ejecutor', 'personas.nombres', 'personas.apellido_paterno', 'personas.apellido_materno', 'cargo', 'titulo', 'f_nombramiento', 'p.nombres as nombre', 'p.apellido_paterno as p_paterno', 'p.apellido_materno as p_materno')
+                ->join('municipios', 'ejecutores.municipio','=','municipios.municipio' )
+                ->where('activo','=','1')
+                ->select('id_ejecutor', 'personas.nombres', 'personas.apellido_paterno', 'personas.apellido_materno', 'cargo', 'titulo', 'f_nombramiento', 'p.nombres as nombre', 'p.apellido_paterno as p_paterno', 'p.apellido_materno as p_materno','municipios.nombre_municipio')
                 ->get();
 
         return ($format == 'json') ? $ejecutoress : View::make('catalogos.ejecutores.index', compact('title', 'title_section', 'subtitle_section', 'ejecutores', 'ejecutoress'));
@@ -56,14 +58,18 @@ class catalogos_ejecutoresController extends \BaseController {
 
         //subtitulo de seccion:
         $subtitle_section = "";
-
+        
+        $Municipio = ['' => '--seleccione una opción--'] + Municipio::all()->lists('nombre_municipio','municipio');
+        
         //Todos los ejecutores creados actualmente
         $ejecutoress = $this->ejecutores->join('personas', 'personas.id_p', '=', 'ejecutores.id_p')
                 ->join('personas as p', 'p.id_p', '=', 'ejecutores.id_p_otorga_nombramiento')
-                ->select('id_ejecutor', 'personas.nombres', 'personas.apellido_paterno', 'personas.apellido_materno', 'cargo', 'titulo', 'f_nombramiento', 'p.nombres as nombre', 'p.apellido_paterno as p_paterno', 'p.apellido_materno as p_materno')
+                ->join('municipios', 'ejecutores.municipio','=','municipios.municipio' )
+                ->where('activo','=','1')
+                ->select('id_ejecutor', 'personas.nombres', 'personas.apellido_paterno', 'personas.apellido_materno', 'cargo', 'titulo', 'f_nombramiento', 'p.nombres as nombre', 'p.apellido_paterno as p_paterno', 'p.apellido_materno as p_materno','municipios.nombre_municipio')
                 ->get();
 
-        return View::make('catalogos.ejecutores.create', compact('title', 'title_section', 'subtitle_section', 'ejecutores', 'ejecutoress', 'personas', 'propietario'));
+        return View::make('catalogos.ejecutores.create', compact('title', 'title_section', 'subtitle_section', 'ejecutores', 'ejecutoress', 'personas', 'propietario','Municipio'));
     }
 
     /*
@@ -96,6 +102,8 @@ class catalogos_ejecutoresController extends \BaseController {
             $n->titulo = $inputs["titulo"];
             $n->f_nombramiento = $inputs["f_nombramiento"];
             $n->id_p_otorga_nombramiento = $inputs["id_p_otorga_nombramiento"];
+            $n->f_alta = date('Y-m-d');
+            $n->municipio = $inputs["municipio"];
             $n->save();
             Session::flash('mensaje', 'El registro ha sido ingresado exitosamente');
             //Se han guardado los valores
@@ -118,11 +126,20 @@ class catalogos_ejecutoresController extends \BaseController {
 //                ->where('ejecutores.id_ejecutor','=',$id)
 //                ->get();
         $idpe = ejecutores::where('id_ejecutor', $id)->pluck('id_p');
-        $nombrec = personas::where('id_p', $idpe)->pluck('nombrec');
+        $nombre1 = personas::where('id_p', $idpe)->pluck('nombres');
+        $a_paterno1 = personas::where('id_p', $idpe)->pluck('apellido_paterno');
+        $a_materno = personas::where('id_p', $idpe)->pluck('apellido_materno');            
+        
+        
+        $nombrec = $nombre1. " " .$a_paterno1. " " .$a_materno;
 
         $idpo = ejecutores::where('id_ejecutor', $id)->pluck('id_p_otorga_nombramiento');
-
-        $nombre = personas::where('id_p', $idpo)->pluck('nombrec');
+        $nombre2 = personas::where('id_p', $idpo)->pluck('nombres');
+        $a_paterno2 = personas::where('id_p', $idpo)->pluck('apellido_paterno');
+        $a_materno2 = personas::where('id_p', $idpo)->pluck('apellido_materno');
+        
+        $nombre = $nombre2. " " .$a_paterno2. " " .$a_materno2;
+        
         //('id_p','=','43468')->select('nombres')->get();
         //var_dump($nombre);
         //var_dump($ejecutores);
@@ -135,7 +152,9 @@ class catalogos_ejecutoresController extends \BaseController {
 
         //Subtítulo de sección:
         $subtitle_section = $this->ejecutores->titulo;
-
+        
+        $Municipio = ['' => '--seleccione una opción--'] + Municipio::all()->lists('nombre_municipio','municipio');
+        
         // Todos los permisos creados actualmente
 //        $ejecutoress = $this->ejecutores->join('personas', 'personas.id_p', '=', 'ejecutores.id_p')
 //                ->join('personas as p', 'p.id_p', '=', 'ejecutores.id_p_otorga_nombramiento')
@@ -143,13 +162,15 @@ class catalogos_ejecutoresController extends \BaseController {
 //                ->get();
          $ejecutoress = $this->ejecutores->join('personas', 'personas.id_p', '=', 'ejecutores.id_p')
                 ->join('personas as p', 'p.id_p', '=', 'ejecutores.id_p_otorga_nombramiento')
-                ->select('id_ejecutor', 'personas.nombres', 'personas.apellido_paterno', 'personas.apellido_materno', 'cargo', 'titulo', 'f_nombramiento', 'p.nombres as nombre', 'p.apellido_paterno as p_paterno', 'p.apellido_materno as p_materno')
+                ->join('municipios', 'ejecutores.municipio','=','municipios.municipio' )
+                ->where('activo','=','1')
+                ->select('id_ejecutor', 'personas.nombres', 'personas.apellido_paterno', 'personas.apellido_materno', 'cargo', 'titulo', 'f_nombramiento', 'p.nombres as nombre', 'p.apellido_paterno as p_paterno', 'p.apellido_materno as p_materno','municipios.nombre_municipio')
                 ->get();
         //ID del permiso
         $id = $ejecutores;
         //echo $id;
 
-        return View::make('catalogos.ejecutores.edit', compact('title', 'title_section', 'subtitle_section', 'ejecutores', 'ejecutoress', 'id', 'nombrec', 'nombre'));
+        return View::make('catalogos.ejecutores.edit', compact('title', 'title_section', 'subtitle_section', 'ejecutores', 'ejecutoress', 'id', 'nombrec', 'nombre','Municipio'));
     }
 
     /*
@@ -164,7 +185,9 @@ class catalogos_ejecutoresController extends \BaseController {
         $n->titulo = $inputs["titulo"];
         $n->f_nombramiento = $inputs["f_nombramiento"];
         $n->id_p_otorga_nombramiento = $inputs["id_p_otorga_nombramiento"];
-        $mostrar = $inputs["id_p"];
+        $n->f_modificacion = date('Y-m-d');
+        $n->municipio = $inputs["municipio"];
+        $n->activo = 1;
         $n->save();
         //Se han actualizado los valores expresamos la felicidad que se logro Wiiiii....
         return Redirect::to('catalogos/ejecutores/' . $id . '/edit')->with('success', '¡Se han actualizado los datos correctamente!');
@@ -175,8 +198,12 @@ class catalogos_ejecutoresController extends \BaseController {
      */
 
     public function destroy($id = null) {
-        $ejecutores = ejecutores::find($id);
-        $ejecutores->delete();
+//        $ejecutores = ejecutores::find($id);
+//        $ejecutores->delete();
+        $inputs = Input::All();
+        $n = ejecutores::find($id);
+        $n->activo = 0;
+        $n->save();
         return Redirect::to('catalogos/ejecutores')->with('success', '¡Se ha eliminado correctamente los datos'." !");
     }
 

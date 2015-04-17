@@ -19,7 +19,7 @@
 
 <div class="form-group">
     {{Form::label('cargo','Cargo')}}
-    {{Form::text('cargo', null, ['placeholder'=>'cargo','tabindex'=>'3','class'=>'form-control', 'autofocus'=> 'autofocus', 'required' => 'required', 'ng-model' => 'configuracionMunicipal.cargo', 'tb-focus' => 'focusForm', 'ng-blur' => 'focusForm = false'] )}}
+    {{Form::text('cargo', null, ['placeholder'=>'cargo','tabindex'=>'3','class'=>'form-control', 'autofocus'=> 'autofocus', 'required' => 'required', 'ng-model' => 'configuracionMunicipal.cargo', 'tb-focus' => 'focusForm', 'ng-blur' => 'focusForm = false','onblur'=>'aMayusculas(this.value,this.id)'] )}}
     {{$errors->first('cargo', '<span class=text-danger>:message</span>')}}
     <p class="help-block"></p>
 </div>

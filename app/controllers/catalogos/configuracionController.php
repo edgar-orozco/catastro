@@ -26,7 +26,7 @@ class catalogos_configuracionController extends \BaseController
         $configuracionMunicipal = $this-> configuracionMunicipal;
         $Municipio = $this-> Municipio;
 
-        $title = 'Administración de catálogo de configuración de municipal';
+        $title = 'Administración de catálogo de configuración municipal';
 
         //Título de sección:
         $title_section = "Catálogo de configuración de municipal.";
@@ -63,13 +63,15 @@ class catalogos_configuracionController extends \BaseController
         $title_section = "Administración del catálogo de configuración de municipal.";
 
         //Subtítulo de sección:
-        $subtitle_section = "";
+        $subtitle_section = "";        
         
-        // Municipio list
-        $Municipio =  Municipio::orderBy('nombre_municipio')->lists('nombre_municipio','gid');
-        
-        // agregamos la opción 'Seleccione una Empresa' con índice 0 al array
-        array_unshift($Municipio, ' --- Seleccione una Municipio --- ');
+        $configuracion= DB::table('configuracion_municipal')->select('municipio')->get();
+        foreach ($configuracion as $row) 
+        {
+            $cion[]=$row->municipio;
+        }
+        $Municipio = ['' => '--seleccione una opción--'] + Municipio::whereNotIn('gid', $cion)->lists('nombre_municipio','gid');
+       
 
         // Todos los permisos creados actualmente
         $configuracionMunicipales = $this->configuracionMunicipal->join('municipios', 'configuracion_municipal.municipio','=','municipios.gid' )
@@ -137,6 +139,7 @@ class catalogos_configuracionController extends \BaseController
             $n->descuento_recargo = $inputs["descuento_recargo"];
             $n->descuento_actualizacion = $inputs["descuento_actualizacion"];
             $n->file = $url_imagen;
+            $n->f_alta =date('Y-m-d');
             $n->save();
             //Se a guardado los datos y ya tengo hambreeeeeee...... jejeje lol 
             return Redirect::to('catalogos/configuracion/create')->with('success',
@@ -175,7 +178,7 @@ class catalogos_configuracionController extends \BaseController
          
         $this-> configuracionMunicipal = $configuracionMunicipal;
         
-        $Municipio =  Municipio::all()->lists('nombre_municipio','gid');
+        $Municipio = ['' => '--seleccione una opción--'] + Municipio::all()->lists('nombre_municipio','gid');
         
         $title = 'Administración de catálogo de configuración de municipal';
 

@@ -7,18 +7,9 @@
 
     <div class="col-md-4">
 
-        <!--Boton Modal -->
-        <!--<button data-toggle="modal"  data-target="#Nuevo" href="/catalogos/personas" class="btn btn-primary" id="nuevo">NUEVA PERSONA</button>-->
-        <!-- Fin Boton Moodal -->
-<!--        <a data-toggle="modal"  data-target="#Nuevo"  href="/catalogos/personas">
-            <span class="glyphicon glyphicon-plus"></span>
-        </a>-->
-
         {{ Form::open(array('id'=>'form','url' => 'catalogos/ejecutores', 'method' => 'POST', 'files' => true)) }}
         @include('catalogos.ejecutores._form')
-<!--        <a data-toggle="modal"  data-target="#quien"  href="/catalogos/nombrador">
-            <span class="glyphicon glyphicon-plus"></span>
-        </a>-->
+
         <div class="form-actions form-group">
             {{ Form::submit('Crear nuevo ejecutor', array('class' => 'btn btn-primary','tabindex'=>'5')) }} 
             {{ Form::reset('Limpiar formato', ['class' => 'btn btn-warning']) }}

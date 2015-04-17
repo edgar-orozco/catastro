@@ -11,6 +11,7 @@
         <table class="table">
             <thead>
                 <tr>
+                    <th>Municipio</th>
                     <th>Titulo</th>
                     <th>Nombre del ejecutor</th>
                     <th>cargo</th>
@@ -22,6 +23,9 @@
             <tbody>
                 @foreach($ejecutoress as $row)
                 <tr>
+                    <td>
+                        {{$row->nombre_municipio}}
+                    </td>
                     <td>
                         {{$row->titulo}}
                     </td>

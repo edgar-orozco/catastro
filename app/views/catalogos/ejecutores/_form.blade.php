@@ -2,6 +2,12 @@
 @section('javascript')
 {{ HTML::script('js/jquery/jquery-ui.js') }}
 @stop
+<div class="form-group">
+    {{Form::label('municipio','Seleccione el municipio')}}
+    {{Form::select('municipio',$Municipio, null,['tabindex'=>'1','class'=>'form-control', 'autofocus'=> 'autofocus', 'required' => 'required', 'ng-model' => 'configuracionMunicipal.municipio', 'tb-focus' => 'focusForm', 'ng-blur' => 'focusForm = false'])}}
+    {{$errors->first('municipio', '<span class=text-danger>:message</span>')}}
+    <span id="error"></span>
+</div>
 
 <div>
     {{Form::label('id_p','Nombre del ejecutor')}}
