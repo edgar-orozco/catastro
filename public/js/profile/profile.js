@@ -17,7 +17,7 @@ angular.module('app', ['ngAnimate', 'ngResource', 'ngSanitize']).
      */
     factory('Users', function($resource)
     {
-        var urlUpdate = decodeURIComponent(laroute.action('AdminUserController@update', {user : ':id', format : 'json' }));
+        var urlUpdate = decodeURIComponent(laroute.action('profle.update', {user : ':id', format : 'json' }));
         return $resource(urlUpdate, {},
             {
                 update  : {method:'PUT', params: { id : '@id' }, data: {}, isArray: false}
