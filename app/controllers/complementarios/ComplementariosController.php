@@ -85,7 +85,7 @@ class complementarios_ComplementariosController extends BaseController {
         $reglas = array
             (
             'nivel' => 'required|integer',
-            'superficie_construccion' => 'required|integer',
+            'superficie_construccion' => 'required',
             'edad_construccion' => 'required|integer',
             'uso_construccion' => 'required',
             'clase_construccion' => 'required',
