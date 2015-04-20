@@ -1,4 +1,4 @@
-@if(!Auth::guest() && ( Auth::user()->hasRole("Administrador") || Auth::user()->hasRole("Super usuario")))
+@if(!Auth::guest() && ( Auth::user()->hasRole("Administrador") || Auth::user()->hasRole("Folios")))
 
     <li class="dropdown @if(Request::is('Ejecucion/*')) active @endif">
 
