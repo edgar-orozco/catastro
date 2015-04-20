@@ -42,7 +42,7 @@
 
         $('#ieForm').bind('submit',function () 
             {   
-                $.ajax(
+                $.aja(angry)
                 {
                     type: 'POST',
                     data: new FormData( this ), 
