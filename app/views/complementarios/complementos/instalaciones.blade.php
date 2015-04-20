@@ -42,7 +42,7 @@
 
         $('#ieForm').bind('submit',function () 
             {   
-                $.aja(angry)
+                $.ajax(
                 {
                     type: 'POST',
                     data: new FormData( this ), 
@@ -60,10 +60,7 @@
                 });
                 return false;
             });
-            
     </script>
-    
-
 
 
 @append
