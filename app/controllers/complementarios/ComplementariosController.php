@@ -193,7 +193,7 @@ class complementarios_ComplementariosController extends BaseController {
         $predios->niveles = $niveles;
         $predios->folio = $folio;
         $predios->superficie_terreno = $super_terreno;
-        $predios->uso_suelo = $uso_constru;
+        $predios->uso_construccion = $uso_constru;
         $predios->save();
 
         Session::flash('mensaje', 'El registro ha sido ingresado exitosamente');
