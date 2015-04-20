@@ -2,7 +2,7 @@
 
 
 
-Route::group(['before'=>'auth'], function(){
+Route::group(array('before'=>'Folios'),  function (){
   //Route::Metodo de envio('/direccion que aparecera en la barra de direccion', controlador@objeto del controlador);
 
 		/* -- FILTRO DE USUARIO MUNICIPIO, NO PODRÁ ACCEDER A ESTAS RUTAS -- */
@@ -59,4 +59,11 @@ Route::group(['before'=>'auth'], function(){
 		Route::get('/entregafoliosm/rusticos/{id}', 'folios_EntregaFoliosController@get_rusticosm');
 		Route::post('/entregafoliosm/urbanos/{id}', 'folios_EntregaFoliosController@post_foliosm');
 		Route::post('/entregafoliosm/rusticos/{id}', 'folios_EntregaFoliosController@post_foliosm');
+});
+ Route::filter('Folios', function () {
+
+    if (! ( Entrust::hasRole('Folios') ||  Entrust::hasRole('Super usuario') ) )
+    {
+        return Redirect::to('/');
+    }
 });
