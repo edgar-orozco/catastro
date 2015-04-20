@@ -21,4 +21,9 @@ class Ejecucion_BuscaController extends BaseController
         $mensaje='';
        return View::make('ejecucion.inicio', compact("catalogo","municipio","status","mensaje",'title','title_section','subtitle_section'));
     }
+    public function configuracion()
+    {
+      $conf =FoliosConf::first();
+      print_r($conf);
+    }
 }

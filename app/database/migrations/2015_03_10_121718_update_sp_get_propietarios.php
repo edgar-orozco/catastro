@@ -31,10 +31,10 @@ BEGIN
 				 WHERE pp.clave = p_clave;
 
 				IF v_cuantos > 1 THEN -- Si tiene mas de un propietario
-						SELECT array_to_string(ARRAY_AGG(ps.nombrec),' ;') 
+						SELECT array_to_string(ARRAY_AGG(ps.nombres||' '||ps.apellido_paterno||' '||ps.apellido_materno),' ;') 
 							INTO v_propietario
 							FROM propietarios pt LEFT JOIN 
-									 (SELECT * FROM personas ORDER BY nombrec)  ps 
+									 (SELECT * FROM personas ORDER BY nombres)  ps 
 								ON (pt.id_propietario = ps.id_p)
 						  WHERE pt.clave = p_clave;				
 				ELSE

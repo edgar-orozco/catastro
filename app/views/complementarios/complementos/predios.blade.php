@@ -33,7 +33,7 @@ foreach ($datos_p as $k) {
 			</div>
 			<div class="col-md-4">
 				<div class="form-group">
-					{{Form::label('Lsuperficie_terreno','Superficie Terreno')}}
+					{{Form::label('Lsuperficie_terreno','Superficie Predio')}}
           <br>
           <span style=" margin-left: 154px;"><strong>M<sup>2</sup></strong></span>
 					{{Form::number('superficie_terreno',$superficie_terreno,['class'=>'form-control bfh-number','required', 'step' => '0.01' , 'id'=>'superficie_terreno', 'tabindex'=>'4','style'=>'width: 150px;margin-top: -24px;'])}}
