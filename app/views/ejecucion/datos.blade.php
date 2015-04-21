@@ -53,6 +53,10 @@ $("#fecha").datepicker();
                     // Si no se encontro ningún elemento, no hacemos nada (se envia el formulario)
                 }
             });
+
+$("#datepicker").on('change', function () {
+    alert($('#id').val());
+})
 </script>
 <?php $fecha= date("d/m/Y"); ?>
 <div class="modal-header">
@@ -64,7 +68,7 @@ $("#fecha").datepicker();
 <div style="margin-left: 20px">
     <div style="margin-right: 20px">
         <div class="form-group">
-            {{Form::text('id',$idrequerimiento,['id' => 'id', 'hidden'] )}}
+            {{Form::text('id',$idrequerimiento,['id' => 'id'] )}}
             {{$errors->first('id', '<span class=text-danger>:message</span>')}}
             <p class="help-block"></p>
         </div>

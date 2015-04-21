@@ -69,6 +69,7 @@ $nombre_p=$nombress.' '.$apellidop.' '.$apellidom;
 		</div>
 	</div>
 <div>
+    {{Form::label('personasp','Nombre Persona:')}}
    {{Form::text('personasp',$nombre_p, ['tabindex'=>'1','id' => 'personasp', 'autofocus'=> 'autofocus', 'style'=>'width: 321px'] )}}
     <a data-toggle="modal"  data-target="#Nuevo1" href="/personas/p2" class="btn btn-primary" id="nuevo">NUEVA PERSONA</a>
     {{Form::text('id_p',$id_usuariotoma, ['id' => 'response2','hidden'])}}
@@ -97,7 +98,7 @@ $('#formAgua').bind('submit',function ()
 
             success: function (data)
             {
-
+                $('.mensaje').html('<div class="alert alert-success">El registro se actualizo correctamente.</div>');
             }
         });
         return false;

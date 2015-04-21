@@ -1,6 +1,9 @@
 <?php
 Route::group(array('before'=>'Ejecucion fiscal'),  function (){
 
+
+//ruta prueba
+Route::get("/configuracion", "Ejecucion_BuscaController@configuracion");
 //pantalla principal de carta invvitacion
 Route::post("/ejecucion/", "Ejecucion_BuscarController@getIndex");
 Route::get("/ejecucion/", "Ejecucion_BuscarController@getIndex");
@@ -25,7 +28,7 @@ Route::controller("/consulta", "Consulta_ConsultaController");
  Route::post('/ejecucion/guardar', 'Ejecucion_SeguimientobusController@update');
 
 // rutas modal cancelacion
- Route::get('/ejecucion/cancelar/{idrequerimiento}', 'Ejecucion_SeguimientobusController@cancelar');
+ Route::get('/ejecucion/cancelar/{idreq}', 'Ejecucion_SeguimientobusController@cancelar');
  Route::post('/ejecucion/guardarcancelacion', 'Ejecucion_SeguimientobusController@guardarcancelacion');
 
 //rutas de prueba para pdf :
