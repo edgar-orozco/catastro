@@ -60,10 +60,7 @@
                 });
                 return false;
             });
-            
     </script>
-    
-
 
 
 @append

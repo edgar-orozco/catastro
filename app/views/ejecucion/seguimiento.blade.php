@@ -48,6 +48,37 @@ Bienvenido :: @parent
                    document.getElementById('paginado').value = document.getElementById('pagi').value;
                    document.busqueda.submit();
                 });
+
+
+</script>
+
+<script type="text/javascript">
+    $(document).ready(function(){
+            $("body").delegate('.editar-ejecucion', 'click', function(){
+
+            var href = $(this).attr('data-requerimiento');
+
+            $('#id').val(href)
+            $('#modal-footer').html('');
+            $('#nuevo').modal('toggle');
+
+
+    });
+        });
+</script>
+<script type="text/javascript">
+    $(document).ready(function(){
+            $("body").delegate('.cancelar-ejecucion', 'click', function(){
+
+            var href = $(this).attr('data-cancelar');
+            
+            $('#idc').val(href)
+            $('#modal-footer').html('');
+            $('#nuevo').modal('toggle');
+
+
+    });
+        });
 </script>
 @stop
 
@@ -97,7 +128,7 @@ Bienvenido :: @parent
                 </tr>
                 <tr>
                         <td>{{ Form::submit('Buscar', array('class' => 'btn btn-primary')) }}</td>
-                        <td>{{ Form::reset('Limpiar', array('class' => 'btn btn-primary')) }} </td>
+                        <td>{{ Form::reset('Limpiar', array('class' => 'btn btn-primary limpiar')) }} </td>
                 </tr>
             </table>
         </div>
@@ -184,7 +215,7 @@ Bienvenido :: @parent
                 <!-- agrgar datos requerimiento-->
                 @if($requerimiento=='Si')
                 @if($fechainicio=='' || $fechavencimiento=='')
-                <a data-toggle ="modal"  data-target="#Nuevo" href="/ejecucion/modal/{{$idrequerimiento}}" title="Agregar Requerimiento" ><span class="glyphicon glyphicon-pencil"></span></a>
+                <a data-toggle ="modal" class="editar-ejecucion" data-requerimiento="{{$idrequerimiento}}" data-target="#Nuevo" href="/ejecucion/modal/{{$idrequerimiento}}" title="Agregar Requerimiento" ><span class="glyphicon glyphicon-pencil"></span></a>
                 @endif
                 @endif
             </td>
@@ -204,7 +235,7 @@ Bienvenido :: @parent
                    }?>
             </td>
             <td>
-                <a data-toggle ="modal"  data-target="#cancelar" href="/ejecucion/cancelar/{{$idrequerimiento}}" title="Cancelar Requerimiento"><span class="glyphicon glyphicon-remove"></span></a>
+                <a data-toggle ="modal"  data-cancelar="{{$idrequerimiento}}" class="cancelar-ejecucion" data-target="#cancelar" href="/ejecucion/cancelar/{{$idrequerimiento}}" title="Cancelar Requerimiento"><span class="glyphicon glyphicon-remove"></span></a>
 
             </td> <?php } else {?>
              <td>
@@ -241,10 +272,10 @@ Bienvenido :: @parent
     <div class="modal-dialog">
         <div class="modal-content">
 
-            <div class="modal-body" id="modalBody" >
+            <div class="modal-body" id="modalBody1" >
 
             </div>
-            <div class="modal-footer" id="modal-footer">
+            <div class="modal-footer" id="modal-footer1">
 
             </div>
         </div>
