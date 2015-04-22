@@ -19,7 +19,7 @@
                 <th style="text-align: center;">Inicio</th>
                 <th style="text-align: center;">Departamento</th>
                 <th style="text-align: center;">Estatus</th>
-                <th style="text-align: center;">Detalle</th>
+                <th style="text-align: center;">Acción</th>
             </tr>
             </thead>
             <tbody>
