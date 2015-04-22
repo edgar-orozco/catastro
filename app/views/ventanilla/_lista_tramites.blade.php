@@ -19,7 +19,7 @@
                 <th style="text-align: center;">Inicio</th>
                 <th style="text-align: center;">Departamento</th>
                 <th style="text-align: center;">Estatus</th>
-                <th style="text-align: center;">Detalle</th>
+                <th style="text-align: center;">Acción</th>
             </tr>
             </thead>
             <tbody>
@@ -54,17 +54,17 @@
                         @if(Auth::user()->hasRoleId($tramite->role_id))
 
                                 @if($tramite->estatus->pasado == 'Finalizado' || $tramite->estatus->pasado == 'Finalizado observado')
-                                    <a href="{{ action('TramitesController@proceso', ['id' => $tramite->id]) }}" class="btn btn-info" title="Editar">
+                                    <a href="{{ action('TramitesController@proceso', ['id' => $tramite->id]) }}" class="btn btn-info" title="Revisar">
                                         <span class="glyphicon glyphicon-eye-open"></span>
                                     </a>
                                     @else
-                                    <a href="{{ action('TramitesController@proceso', ['id' => $tramite->id]) }}" class="btn btn-success" title="Editar">
+                                    <a href="{{ action('TramitesController@proceso', ['id' => $tramite->id]) }}" class="btn btn-success" title="Atender">
                                         <span class="glyphicon glyphicon-pencil"></span>
                                     </a>
                                 @endif
 
                         @else
-                            <a href="{{ action('TramitesController@proceso', ['id' => $tramite->id]) }}" class="btn btn-info" title="Ver detalle">
+                            <a href="{{ action('TramitesController@proceso', ['id' => $tramite->id]) }}" class="btn btn-info" title="Revisar">
                                 <span class="glyphicon glyphicon-eye-open"></span>
                             </a>
                         @endif

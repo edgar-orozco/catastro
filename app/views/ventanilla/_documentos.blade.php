@@ -17,7 +17,7 @@
     @endforeach
 
     <!-- Modal para confirmar cuando se borra un documento -->
-    <div class="modal fade" id="confirm-delete" tabindex="-1" role="dialog" aria-labelledby="confirm-delete"
+    <div class="modal fade modal-borrar" id="confirm-delete" tabindex="-1" role="dialog" aria-labelledby="confirm-delete"
          aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
@@ -32,8 +32,8 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default" data-dismiss="modal">No</button>
-                    <button type="submit" class="btn btn-danger" data-dismiss="modal">
-                        <span class="glyphicon glyphicon-trash "></span> Borrar documento</button>
+                    <button type="submit" class="btn btn-danger btn-submit-borrar" data-documento_id="" data-dismiss="modal">
+                        <span class="glyphicon glyphicon-trash " ></span> Borrar documento</button>
                     <input type="hidden" name="documento_id" id="documento_id">
                 </div>
             </div>
@@ -49,17 +49,30 @@
 
         $(function() {
 
+            //Esta es la configuración del input upload
+            var inputUploadCfg = {
+                uploadUrl: "{{URL::to('tramites/documentos')}}", // server upload action
+                uploadAsync: true,
+                showPreview: false,
+                allowedFileExtensions: ["pdf", "png", "jpg"],
+                uploadExtraData: {'tramite_id': "{{$tramite->id}}"}
+            };
+
+            //Escuchamos todos los eventos ajax, debido a una falla en el evento onupload del input upload.
             $( document ).ajaxComplete(function( event, xhr, settings ) {
                 var res = jQuery.parseJSON(xhr.responseText);
                 var tramite_id = '{{$tramite->id}}';
-                //console.log( [res, res.url, res.archivo, res.requisito_id] );
+
                 //Cuando termina de subir un archivo recargamos la lista de archivos para ese requisito
                 if(settings.url.indexOf('tramites/documentos') >= 0)
                 {
-                    console.log('Regresa de subir archivo');
                     var requisito_id = res.requisito_id;
                     $( "#docs-requisito-" + requisito_id ).load( "{{URL::to('tramite/lista/documentos')}}/" + tramite_id + "/" + requisito_id, function() {
-                        console.log('Se ha cargado la lista de documentos');
+                        //Se vuelven a acargar las funciones para el nuevo nodo del documento que se ha cargado via ajax y no tiene las funciones asociadas
+                        $(".upload-inputs").fileinput(inputUploadCfg);
+                        $(".upload-inputs").on('filebatchuploadcomplete', function(event, data, previewId, index, jqXHR) {
+                            $('#docs-requisito-' + $(event.currentTarget).data('requisito_id') + ' .file-input' ).hide();
+                        });
                     });
                 }
 
@@ -68,29 +81,32 @@
                 {
                     console.log('Regresa de recargar lista');
                 }
-
             });
 
-            //Función de upload asincrono. Sirve para los uploads de archivos
-            $(".upload-inputs").fileinput({
-                uploadUrl: "{{URL::to('tramites/documentos')}}", // server upload action
-                uploadAsync: true,
-                showPreview: false,
-                allowedFileExtensions: ["pdf", "png", "jpg"],
-                uploadExtraData: {'tramite_id': "{{$tramite->id}}"}
+            //Plugin para el manejo de los uploads archivos mediante ajax
+            $(".upload-inputs").fileinput(inputUploadCfg);
+            $(".upload-inputs").on('filebatchuploadcomplete', function(event, data, previewId, index, jqXHR) {
+                $('#docs-requisito-' + $(event.currentTarget).data('requisito_id') + ' .file-input' ).hide();
             });
 
+            //Cuando se activa la modal se pasa el documento_id correspondiente al botón que mostró la modal
+            $('.modal-borrar').on('show.bs.modal', function (event) {
+                var button = $(event.relatedTarget);
+                var documento_id = button.data('documento_id');
+                $('#documento_id').val(documento_id);
+                $('.btn-submit-borrar').data('documento_id',documento_id);
+            });
 
-            $('.btn-borrar').click(function(){
-                /*
+            //Cuando se da click en el botón de borrar de la modal:
+            $('.btn-submit-borrar').click(function(){
+
                 var documento_id = $(this).data('documento_id');
                 console.log('se quiere borrar este: '+documento_id);
                 $.post("{{URL::to('tramites/documentos/eliminar')}}", {'documento_id': documento_id}, function (data) {
                     console.log('Regresa de borrar el docid:' + documento_id);
                     return false;
-                })
-                ;
-                */
+                });
+
             });
 
         });
