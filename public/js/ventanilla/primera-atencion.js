@@ -114,11 +114,17 @@ $(function () {
             });
             $('.select-busqueda .dropdown-label').text('Cuenta');
             $('.select-busqueda').data('tipobusqueda','cuenta');
+            $('.control-municipios').show();
+            $('.control-tipopredio').show();
+
         }
         else {
             $('.clave-catastral').mask("00-000-000-0000-000000", {placeholder: "__-___-___-____-______"});
             $('.select-busqueda .dropdown-label').text('Clave');
             $('.select-busqueda').data('tipobusqueda','clave');
+            $('.control-municipios').hide();
+            $('.control-tipopredio').hide();
+
         }
     });
 

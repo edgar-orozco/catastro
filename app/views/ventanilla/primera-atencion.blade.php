@@ -51,7 +51,7 @@
                                         </div>
 
                                         <!-- Select municipios -->
-                                        <div class="input-group-btn">
+                                        <div class="input-group-btn control-municipios">
                                             <button type="button"
                                                     class="btn btn-default dropdown-toggle select-municipio select-municipio-{{$tipotramite->id}}"
                                                     data-municipio=""
@@ -76,7 +76,7 @@
                                         <!-- //Select municipios -->
 
                                         <!-- Select Urbano o Rustico -->
-                                        <div class="input-group-btn">
+                                        <div class="input-group-btn control-tipopredio">
                                             <button type="button"
                                                     class="btn btn-default dropdown-toggle select-tipopredio select-tipopredio-{{$tipotramite->id}}"
                                                     data-tipopredio="U"
