@@ -1,5 +1,7 @@
 <?php
 
+use Symfony\Component\HttpFoundation\Response;
+
 class HomeController extends BaseController
 {
 
@@ -59,8 +61,11 @@ class HomeController extends BaseController
         elseif (Confide::user()->hasRole('Folios')) {
             $homepage = 'folios';
         }
-        
-        
+        elseif (Confide::user()->hasRole('Supervisor Cartográfico')) {
+            //$homepage = 'folios';
+            return Redirect::to('cartografia/consultas');
+        }
+
         return View::make($homepage);
     }
 
