@@ -33,7 +33,7 @@ class catalogos_statusController extends \BaseController
         $subtitle_section = "";
         
         //Todos los status creados actulmente
-        $statuss = $this->status->select('id_status as id','cve_status','descrip','dias_vigencia','orden','notificacion')->orderBy('orden', 'asc')->get();
+        $statuss = $this->status->select('id_status as id','cve_status','descrip','dias_vigencia','orden','notificacion','dias_habiles')->orderBy('orden', 'asc')->get();
             
         return ($format == 'json') ? $statuss : View::make('catalogos.status.index',
             compact('title', 'title_section', 'subtitle_section', 'status', 'statuss'));
@@ -76,8 +76,9 @@ class catalogos_statusController extends \BaseController
         $notificacion=Input::get('notificacion');
         $this->status->cve_status   =   Input::get('cve_status');
         $this->status->descrip      =   Input::get('descrip');
-        $this->status->dias_vigencia =  Input::get('dias_vigencia');
-        $this->status->notificacion =   "No";
+        $this->status->dias_vigencia =  Input::get('dias_vigencia');       
+        $this->status->notificacion =   Input::get('notificacion');
+        $this->status->dias_habiles =   Input::get('dias_habiles');
         $this->status->orden        =   status::all()->count()+1;
 
 
@@ -118,7 +119,8 @@ class catalogos_statusController extends \BaseController
         $this->status->cve_status = Input::get('cve_status');
         $this->status->descrip = Input::get('descrip');
         $this->status->notificacion =   Input::get('notificacion');
-        $this->status->dias_vigencia =   Input::get('dias_vigencia');
+        $this->status->dias_vigencia =  Input::get('dias_vigencia');
+        $this->status->dias_habiles =   Input::get('dias_habiles');
         
         
         //si no es posible guardar la instancia mandamos errores

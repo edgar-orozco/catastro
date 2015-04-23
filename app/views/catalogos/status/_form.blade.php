@@ -19,6 +19,12 @@
     <input ng-model="status.notificacion" type="radio" name="notificacion" value="No">No 
 </div>
 <div class="form-group">
+    {{Form::label('Dias Habiles','Dias Habiles')}}
+    <br>
+    <input ng-model="status.dias_habiles" type="radio" name="dias_habiles" value="Naturales">Naturales  
+    <input ng-model="status.dias_habiles" type="radio" name="dias_habiles" value="Habiles">Habiles 
+</div>
+<div class="form-group">
     {{Form::label('dias_vigencia','Dias Vigencia')}}
     {{Form::text('dias_vigencia', null, ['class'=>'form-control', 'required' => 'required', 'ng-model' => 'status.dias_vigencia','placeholder'=>'Num De Dias'] )}}
     {{$errors->first('dias_vigencia', '<span class=text-danger>:message</span>')}}
