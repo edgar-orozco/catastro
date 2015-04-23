@@ -1,6 +1,6 @@
 {{ HTML::style('js/jquery/jquery-ui.css') }}
-{{ HTML::script('js/jquery/jquery-ui.js') }}
 
+{{ HTML::script('js/jquery/jquery-ui.js') }}
 <script>
    //Calendario
 $(function() {
@@ -54,10 +54,25 @@ $("#fecha").datepicker();
                 }
             });
 
-$("#datepicker").on('change', function () {
-    alert($('#id').val());
-})
+
 </script>
+
+<script >
+    $(document).ready(function(){
+  $("#datepicker").on('change', function () {
+    var fecha_e = $('#datepicker').val();
+    var fecha_traida =$('#fecha_r').val();
+    var validacion = $('#validacion').val();
+    if(fecha_e < fecha_traida)
+    {
+        alert('La fecha debe de ser mayor a la fecha de emisón requerimiento'+ validacion);
+        $('#datepicker').val(validacion);
+    }
+
+     });
+  });
+</script>
+
 <?php $fecha= date("d/m/Y"); ?>
 <div class="modal-header">
     <h4 class="modal-titulo" id="condominio-titulo">Datos Entrega</h4>
@@ -68,7 +83,9 @@ $("#datepicker").on('change', function () {
 <div style="margin-left: 20px">
     <div style="margin-right: 20px">
         <div class="form-group">
-            {{Form::text('id',$idrequerimiento,['id' => 'id'] )}}
+            {{Form::text('id',$idrequerimiento,['id' => 'id', 'hidden'] )}}
+             {{Form::text('validacion',$fechas,['id' => 'validacion', 'hidden'] )}}
+            {{Form::text('fecha_r',$fecha,['id' => 'fecha_r', 'hidden'] )}}
             {{$errors->first('id', '<span class=text-danger>:message</span>')}}
             <p class="help-block"></p>
         </div>

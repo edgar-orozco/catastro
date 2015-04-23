@@ -206,11 +206,18 @@ Bienvenido :: @parent
             <td align="center">
                <!-- impuesto-->
                <?php $fechavencimiento= str_replace(')', '',$key[7]);?>
-               {{$fechavencimiento;}}
-               <?php $fechacancelacion = str_replace(')', '',$key[8]);?>
-
+                <?php $vigencia = str_replace(')', '',$key[10]);?>
+                <?php $fecharequerimiento = str_replace(')', '',$key[11]);?>
+               <?php if($fechainicio != '')
+               {
+                $fechaven = FechasHelper::diasprueba($vigencia,$fechainicio);
+                echo $fechaven;
+               }
+               ?>
             </td>
             <td align="center">
+                  <?php $fechacancelacion = str_replace(')', '',$key[8]);?>
+
                 <?php if(empty($fechacancelacion))  { ?>
                 <!-- agrgar datos requerimiento-->
                 @if($requerimiento=='Si')

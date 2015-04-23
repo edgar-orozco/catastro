@@ -155,9 +155,13 @@ class Ejecucion_SeguimientobusController extends \BaseController {
 	 * @param  int  $id
 	 * @return Response
 	 */
-	public function show($id)
+	public function validar()
 	{
-		//
+		$fecha = Input::get('fecha');
+          return Response::json(array
+                (
+                    'fecha' => $fecha
+                ));
 	}
 
 
@@ -218,10 +222,12 @@ class Ejecucion_SeguimientobusController extends \BaseController {
         //Subtitulo de seccion:
         $subtitle_section = "Crear nueva persona";
         //$format = 'html';
+        $fechas = requerimientos::where('id_requerimiento', $idrequerimiento)->pluck('f_requerimiento');
          $catalogo       = ejecutores::join('personas', 'ejecutores.id_p', '=', 'personas.id_p')//->lists('cargo', 'id_ejecutor');
             ->select('ejecutores.id_ejecutor AS id', 'personas.nombrec AS nombre')
             ->get();
-         return  View::make('ejecucion.datos',compact('title','title_section','subtitle_section','idrequerimiento','catalogo'));
+
+       return  View::make('ejecucion.datos',compact('title','title_section','subtitle_section','idrequerimiento','catalogo', 'fechas'));
 
     }
     public function cancelar( $idrequerimiento = null)
