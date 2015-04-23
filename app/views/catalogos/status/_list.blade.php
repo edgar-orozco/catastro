@@ -18,6 +18,7 @@
                     <th>Descripción del estatus</th>
                     <th>Notificación</th>
                     <th>Días Vigencia</th>
+                    <th>Días Habiles</th>
                     <th>Acciones</th>
                 </tr>
             </thead>
@@ -40,6 +41,9 @@
                     </td>
                     <td>
                         {[{ status.dias_vigencia }]}
+                    </td>
+                    <td>
+                        {[{ status.dias_habiles }]}
                     </td>
                     <td>
                         <button ng-show="status.idx !== undefinied && status.error === undefinied" type="button" class="btn btn-success" title="Guardando datos ..." disabled="disabled">
