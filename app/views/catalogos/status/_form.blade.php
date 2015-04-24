@@ -18,10 +18,10 @@
     <input ng-model="status.notificacion" type="radio" name="notificacion" value="Si">Si  
     <input ng-model="status.notificacion" type="radio" name="notificacion" value="No">No 
 </div>
-<div class="form-group">
+<div class="form-group" ng-model="master">
     {{Form::label('Dias Habiles','Dias Habiles')}}
     <br>
-    <input ng-model="status.dias_habiles" type="radio" name="dias_habiles" value="Naturales">Naturales  
+    <input ng-model="status.dias_habiles" ng-model="$parent.selectedPerson" id="radio_1" type="radio" name="dias_habiles" value="Naturales">Naturales  
     <input ng-model="status.dias_habiles" type="radio" name="dias_habiles" value="Habiles">Habiles 
 </div>
 <div class="form-group">
@@ -29,5 +29,9 @@
     {{Form::text('dias_vigencia', null, ['class'=>'form-control', 'required' => 'required', 'ng-model' => 'status.dias_vigencia','placeholder'=>'Num De Dias'] )}}
     {{$errors->first('dias_vigencia', '<span class=text-danger>:message</span>')}}
 </div>
-
-
+@section('javascript')
+<script>
+  $("div.form-group #radio_1").attr("checked",true);
+  $("div.form-group #radio_1").addClass("ng-touched").attr("checked",true);
+</script>
+@stop
