@@ -58,6 +58,13 @@ class HomeController extends BaseController
             //$homepage = 'folios';
             return Redirect::to('cartografia/consultas');
         }
+        elseif (Confide::user()->hasRole('Folios usuario')) {
+            $homepage = 'folios';
+        }
+        elseif (Confide::user()->hasRole('Folios municipio')) {
+            //$homepage = 'folios';
+            return Redirect::to('/entregafoliosestatal');
+        }
         return View::make($homepage);
     }
-}
+} 
