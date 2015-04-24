@@ -311,26 +311,46 @@ class complementarios_ComplementariosController extends BaseController {
         $entrevistados = Entrevistado::where('gid_predio', '=', $id)->get()->toArray();
 
 
-//BUSCA LAS IMAGENES GUARDADAS EN EL SERVIDOR
-
-        $imagenes = ImagenesLevantamiento::where('gid_predio', '=', $id)->select('nombre_archivo', 'id_il')->get();
+        //IMAGENES
+        $imagenes = ImagenesLevantamiento::where('gid_predio', '=', $id)->select('nombre_archivo', 'id_il', 'id_tipoimagen')->get();
         $file = [];
+        $tipo_imagen = TipoImagenes::lists('descripcion', 'id_tipoimagen');
+        //For para recorrer cada imagen
         foreach ($imagenes as $imagen) 
         {
+            $select_opc = '';
+            $select_opcFooter = '';
             $extension = split('[.]', $imagen->nombre_archivo);
-
-            if ($extension[1] == "jpg") {
-                $select = "<select name='select-instalaciones' class='form-control' id='instalaciones'><option selected='selected' value=''>--Seleccione una opción--</option> <option value='1'>Frontal</option><option value='2'>Lateral</option> </select>";
-                $eliminar = "<button type='button' class='kv-file-remove btn btn-xs btn-default' title='Remove file' data-url='/eliminar-anexo/".$imagen->id_il."' data-key='1'><i class='glyphicon glyphicon-trash text-danger'></i></button>";
-                $file[] = "<img src='" . $imagen->nombre_archivo . "' class='file-preview-image' >" . $select . $eliminar;
-            } elseif ($extension[1] == "pdf") {
-                $file[] = "<img src='" . $imagen->nombre_archivo . "' class='file-preview-image' > ";
+            foreach ($tipo_imagen as $key => $descripcion) 
+            {
+                if ($key==$imagen->id_tipoimagen) 
+                {
+                    $select_opc = $select_opc."<option selected = 'selected' value='".$key."'>".$descripcion."</option>";
+                }
+                else
+                {
+                    $select_opc = $select_opc."<option value='".$key."'>".$descripcion."</option>";
+                }
+                $select_opcFooter = $select_opcFooter."<option value='".$key."'>".$descripcion."</option>";
+            }
+            $select = "<select name='select-instalaciones' class='form-control' id='instalaciones'><option selected='selected' value=''>--Seleccione una opción--</option>".print_r($select_opc, true)."</select>";
+            $eliminar = "<button type='button' class='kv-file-remove btn btn-xs btn-default' title='Remove file' data-url='/eliminar-anexo/".$imagen->id_il."' data-key='1'><i class='glyphicon glyphicon-trash text-danger'></i></button>";
+            $download = "<a href='".$imagen->nombre_archivo."' download='".$extension[0]."' class='btn btn-xs btn-default' title='Descargar'><i class='glyphicon glyphicon-download'></i></a>";
+            if(in_array(strtolower($extension[1]), array('png','jpeg','gif','bmp','vnd.microsoft.icon', 'jpg')))
+            {
+                $file[] = "<img src='" . $imagenes[0]->nombre_archivo . "' class='file-preview-image' >" . $select . $eliminar . $download;
+            }
+            else
+            {
+                $file[] = "<span class='glyphicon glyphicon-file' ></span>" . $select . $eliminar . $download;
             }
         }
-
-
-
-        return View::make('complementarios.cargar', compact("tus", "entrevistados", "tomas_agua", "datos_p", "predios", "const", "tuc", "tcc", "ttc", "tec", "tmc", "tpic", "tpuc", "tvc", "catalogo", "gid", "clave_catas", "estado", "municipio", "cat", "asociados", "giros", "girosasociados", "datos", "condominio", "tta", "datos_construcciones", "file", "ieasociados"));
+        $select_opcFooter = '';
+        foreach ($tipo_imagen as $key => $descripcion) 
+            {
+                $select_opcFooter = $select_opcFooter."<option value='".$key."'>".$descripcion."</option>";
+            }
+        return View::make('complementarios.cargar', compact("tus", "entrevistados", "tomas_agua", "datos_p", "predios", "const", "tuc", "tcc", "ttc", "tec", "tmc", "tpic", "tpuc", "tvc", "catalogo", "gid", "clave_catas", "estado", "municipio", "cat", "asociados", "giros", "girosasociados", "datos", "condominio", "tta", "datos_construcciones", "file", "ieasociados","select_opcFooter"));
     }
 
     /**
@@ -1081,7 +1101,7 @@ class complementarios_ComplementariosController extends BaseController {
         }
     }
 
-    public function guardar_anexo()
+   public function guardar_anexo()
     {
         $entidad = Input::get('entidad');
         $municipio = Input::get('municipio');
@@ -1092,100 +1112,92 @@ class complementarios_ComplementariosController extends BaseController {
         $id_tipoimagen2 = explode(',', $id_tipoimagen);
         $array_clave = explode('-', $clave_catas);
         $fileFooter = [];
-
-        
-        
+        $opciones = [''];
+        //for para contar los archivos a cargar
         for ($i = 0; $i < count($files); $i++)
         {
-            
-
+            //se toma la imagen
             $file2 = $files[$i];
-
-            
             // Se valida que exista un archivo
-            if(Input::file($file)) 
+            if($file2) 
             {
                 // Se valida el directorio para subir shapes
-
-
-
-                $dir = public_path() . '/complementarios/anexos/'.$entidad.'/'.$municipio.'/'.$array_clave[0].'/'.$array_clave[1].'/'.$clave_catas.'/';
-                $nombre_archivo = '/complementarios/anexos/'.$entidad.'/'.$municipio.'/'.$array_clave[0].'/'.$array_clave[1].'/'.$clave_catas.'/'.$gid_predio.'-'.$id_tipoimagen2[$i].'-'.$file2->getClientOriginalName();
-                
-                if (!file_exists($dir) && !is_dir($dir)) 
+                $dir =  '/complementarios/anexos/'.$entidad.'/'.$municipio.'/'.$array_clave[0].'/'.$array_clave[1].'/'.$clave_catas.'/';
+                $nombre_archivo = $gid_predio.'-'.$id_tipoimagen2[$i].'-'.$file2->getClientOriginalName();
+                if (!file_exists(public_path().$dir) && !is_dir(public_path().$dir)) 
                 {
-                    File::makeDirectory($dir, $mode = 0777, true, true);
+                    File::makeDirectory(public_path().$dir, $mode = 0777, true, true);
                 }
                 // Se valida la extensión del archivo
-                
-                if(in_array(!file_exists($nombre_archivo) && strtolower($file2->getClientMimeType()), array('image/png','image/jpeg','image/jpeg','image/jpeg','image/gif','image/bmp','image/vnd.microsoft.icon', 'text/plain', 'application/vnd.ms-excel', 'application/msword', 'application/pdf')))
+                if(!file_exists($dir.$nombre_archivo) && in_array(strtolower($file2->getClientMimeType()), array('image/png','image/jpeg','image/jpeg','image/jpeg','image/gif','image/bmp','image/vnd.microsoft.icon', 'text/plain', 'application/vnd.ms-excel', 'application/msword', 'application/pdf')))
                 {
-                    
-                    $file2->move($dir, $gid_predio.'-'.$id_tipoimagen2[$i].'-'.$file2->getClientOriginalName());
+                    $file2->move(public_path().$dir, $gid_predio.'-'.$id_tipoimagen2[$i].'-'.$file2->getClientOriginalName());
                     $imagenes = new ImagenesLevantamiento();
                     $imagenes->entidad = $entidad;
                     $imagenes->municipio = $municipio;
                     $imagenes->clave_catas=$clave_catas;
                     $imagenes->gid_predio=$gid_predio;
                     $imagenes->id_tipoimagen=$id_tipoimagen2[$i];
-                    $imagenes->nombre_archivo= $nombre_archivo;
+                    $imagenes->nombre_archivo= $dir.$nombre_archivo;
                     $imagenes->save();
-                    $imagenes = ImagenesLevantamiento::where('nombre_archivo', '=', $nombre_archivo)->select('nombre_archivo', 'id_il')->get();
-
+                    $imagenes = ImagenesLevantamiento::where('nombre_archivo', '=', $dir.$nombre_archivo)->select('nombre_archivo', 'id_il', 'id_tipoimagen')->get();
+                    $tipo_imagen = TipoImagenes::lists('descripcion', 'id_tipoimagen');
+                    $select_opc = '';
                     $extension = split('[.]', $imagenes[0]->nombre_archivo);
+                    //for para saber opcion elegida
+                    foreach ($tipo_imagen as $key => $descripcion) 
+                    {
                     
-
-                    if ($extension[1] == "jpg") 
-                    {
-                        $select = "<select name='select-instalaciones' class='form-control' id='instalaciones'><option selected='selected' value=''>--Seleccione una opción--</option> <option value='1'>Frontal</option><option value='2'>Lateral</option> </select>";
-                        $eliminar = "<button type='button' class='kv-file-remove btn btn-xs btn-default' title='Remove file' data-url='/eliminar-anexo/".$imagenes[0]->id_il."' data-key='1'><i class='glyphicon glyphicon-trash text-danger'></i></button>";
-                        $fileFooter[] = "<img src='" . $imagenes[0]->nombre_archivo . "' class='file-preview-image' >" . $select . $eliminar;
-                    } 
-                    elseif ($extension[1] == "pdf") 
-                    {
-                        $fileFooter[] = "<img src='" . $imagenes[0]->nombre_archivo . "' class='file-preview-image' > ";
+                        if ($key==$imagenes[0]->id_tipoimagen) 
+                        {
+                            $select_opc = $select_opc."<option selected = 'selected' value='".$key."'>".$descripcion."</option>";
+                        }
+                        else
+                        {
+                            $select_opc = $select_opc."<option value='".$key."'>".$descripcion."</option>";
+                        }
                     }
-
-
+                    
+                    $select = "<select name='select-instalaciones' class='form-control' id='instalaciones'><option selected='selected' value=''>--Seleccione una opción--</option>".print_r($select_opc, true)."</select>";
+                    $eliminar = "<button type='button' class='kv-file-remove btn btn-xs btn-default' title='Remove file' data-url='/eliminar-anexo/".$imagenes[0]->id_il."' data-key='1'><i class='glyphicon glyphicon-trash text-danger'></i></button>";
+                    $download = "<a href='".$dir.$nombre_archivo."' download='".$extension[0]."' class='btn btn-xs btn-default' title='Descargar'><i class='glyphicon glyphicon-download'></i></a>";
+                    //Condicion para saber si es imagen o archivo
+                    if(in_array(strtolower($file2->getClientMimeType()), array('image/png','image/jpeg','image/gif','image/bmp','image/vnd.microsoft.icon')))
+                    {
+                        $file_footer[] = "<img src='" . $imagenes[0]->nombre_archivo . "' class='file-preview-image' >" . $select . $eliminar . $download;
+                    }
+                    else
+                    {
+                        $file_footer[] = "<span class='glyphicon glyphicon-file' ></span>" . $select . $eliminar . $download;
+                    }
                     $respuesta[]  =   '¡Se guardo correctamente el archivo: '. $file2->getClientMimeType();
-                        
                 }
                 else
                 {
-                    $respuesta[]  =   '¡Extension de archivo invalida: '. $file2->getClientMimeType();
+                    $error[]  =   '¡Extension de archivo invalida: '. $file2->getClientMimeType();
                 }      
             }
             else
             {
-                $respuesta[]  =   '¡Es necesario seleccionar un archivo!'; 
+                $error[]  =   '¡Es necesario seleccionar un archivo!'; 
             }
         }
-
-       
-    
-
         return Response::json(array
                         (
                             'respuesta'         =>  $respuesta,
-                            'initialPreview'    =>  $fileFooter      
+                            'initialPreview'    =>  $file_footer,
+                            'error'             =>  $error      
                         ));
-
-        
-
-    
     }
 
     public function eliminar_anexo($id = null)
     {
-
         $archivo = ImagenesLevantamiento::find($id);
-
         if (File::exists(public_path().$archivo->nombre_archivo))
         {
             File::delete(public_path().$archivo->nombre_archivo);
         }
         $archivo->delete();
-
         return Response::json(
             [
                 'filebatchuploadsuccess' => 'se guardo'
