@@ -60,11 +60,10 @@
         <?php
         $fechas = date_parse($fecha);
         $fecha = array();
-
         $fecha['1'] = "Enero";
         $fecha['2'] = "Febrero";
         $fecha['3'] = "Marzo";
-        $fecha['4'] = "Aabril";
+        $fecha['4'] = "Abril";
         $fecha['5'] = "Mayo";
         $fecha['6'] = "Junio";
         $fecha['7'] = "Julio";
@@ -81,7 +80,6 @@
             $id_mun = substr($mun, 3, 3);
             $gid = Municipio::where('municipio', $id_mun)->pluck('gid');
             $mun_actual = Municipio::where('municipio', $id_mun)->pluck('nombre_municipio');
-
             $configutacion = configuracionMunicipal::where('municipio', $gid)->take(1)->get();
             foreach ($configutacion as $keys) {
                 $nombrec = $keys->nombre;
@@ -97,7 +95,7 @@
                 <table width ="100%" border="0" align="center">
                     <tr>
                         <td width    ="12%"><img src="logos/escudo.png" width="70" height="70"></td>
-                        <td width    ="72%"><p align="center">AYUNTAMIENTO CONSTITUCIONAL DE <?php echo $mun_actual; ?>, TAB.<br>DIRECCIÓN DE FINANZAS MUNICIPALES</p></td>
+                        <td width    ="72%"><p align="center">AYUNTAMIENTO CONSTITUCIONAL DE <?php echo strtoupper($mun_actual); ?>, TAB.<br>DIRECCIÓN DE FINANZAS MUNICIPALES</p></td>
 
                         <td width    ="16%"><img src="css/images/logos/{{$logo}}" width="70" height="70"><br/></td>
 
