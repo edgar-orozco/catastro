@@ -32,6 +32,6 @@
 @section('javascript')
 <script>
   $("div.form-group #radio_1").attr("checked",true);
-   $("div.form-group #radio_1").addClass("ng-touched").attr("checked",true);
+  $("div.form-group #radio_1").addClass("ng-touched").attr("checked",true);
 </script>
 @stop
