@@ -55,8 +55,9 @@ class Ejecucion_BuscarController extends BaseController
              $totaldatos     = count($resultado);
              if ($totaldatos == 0)
                 {
-                    $mensaje = 'No se encontraron coincidencias con los parametros de busqueda';
-                    return View::make('ejecucion.inicio', compact('busqueda', "catalogo", "municipio", "status", "mensaje",'title','title_section','subtitle_section'));
+                    
+                    Session::flash('mensaje', 'No hubo resultados para la busqueda');
+                    return View::make('ejecucion.inicio', compact('busqueda', "catalogo", "municipio", "status",'title','title_section','subtitle_section','propietario','clave','menor','mayor','municipios'));
                 }
              else
                 {

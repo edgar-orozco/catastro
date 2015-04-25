@@ -221,7 +221,7 @@ Bienvenido :: @parent
                 <?php if(empty($fechacancelacion))  { ?>
                 <!-- agrgar datos requerimiento-->
                 @if($requerimiento=='Si')
-                @if($fechainicio=='' || $fechavencimiento=='')
+                @if($fechainicio=='' || $fechaven=='')
                 <a data-toggle ="modal" class="editar-ejecucion" data-requerimiento="{{$idrequerimiento}}" data-target="#Nuevo" href="/ejecucion/modal/{{$idrequerimiento}}" title="Agregar Requerimiento" ><span class="glyphicon glyphicon-pencil"></span></a>
                 @endif
                 @endif
@@ -233,10 +233,10 @@ Bienvenido :: @parent
             </td>
             <td>
                 <?php $fecha= date("d/m/Y");
-                    if($fechavencimiento>$fecha)
+                    if($fechaven>$fecha)
                     {
-                       echo '<a   href ="#" ><span class="glyphicon glyphicon-forward" title="Continuar Proceso"></span></a>';
-                   }elseif ($fechavencimiento<=$fecha)
+                       echo '<a   href ="/consulta" ><span class="glyphicon glyphicon-forward" title="Continuar Proceso"></span></a>';
+                   }elseif ($fechaven<=$fecha)
                    {
                          echo '<span class="glyphicon glyphicon-ok" title="Proceso VIgente"></span>';
                    }?>

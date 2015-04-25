@@ -6,7 +6,7 @@ Route::group(array('before'=>'Ejecucion fiscal'),  function (){
 Route::get("/configuracion", "Ejecucion_BuscaController@configuracion");
 //pantalla principal de carta invvitacion
 Route::post("/ejecucion/", "Ejecucion_BuscarController@getIndex");
-Route::get("/ejecucion/", "Ejecucion_BuscarController@getIndex");
+//Route::get("/ejecucion/", "Ejecucion_BuscarController@getIndex");
 Route::controller("/ejecuciones", "Ejecucion_BuscaController");
 //pantalla principal de seguimiento ejecucion
 Route::get("/seguimiento", "Ejecucion_SeguimientoController@getIndex");
@@ -23,7 +23,8 @@ Route::get("/reimprimircarta/{clave?}/{date1?}", "CartaInvitacion_PdfController@
 //ruta validar fecha
 Route::post("/validar", "Ejecucion_SeguimientobusController@validar");
 
-Route::controller("/consulta", "Consulta_ConsultaController");
+//Route::controller("/consulta", "Consulta_ConsultaController");
+Route::get("/consulta", "Consulta_ConsultaController@pdf");
 //rutas modal agregar notificacion
  Route::get('/ejecucion/modal/{idrequerimiento}', 'Ejecucion_SeguimientobusController@modal');
  Route::post('/ejecucion/guardar', 'Ejecucion_SeguimientobusController@update');

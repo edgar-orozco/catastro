@@ -19,11 +19,7 @@
     </div>
 
 </div>
-    @if(Session::has('mensaje'))
-
-    <h2>{{ Session::get('mensaje') }}</h2>
-
-    @endif
+     
     {{ HTML::style('css/style.css') }}
     {{ HTML::style('css/theme.default.css') }}
     {{ HTML::style('js/jquery/jquery-ui.css') }}
@@ -62,7 +58,7 @@
             //actualiza el paginado cuando se cambia el numero de registros a mostrar
              $('#pagi').on('change', function()
                 {
-                   document.getElementById('paginado').value = document.getElementById('pagi').value;
+                   $('#paginado').val($('#pagi').val());
                    document.busqueda.submit();
                 });
 </script>
@@ -71,12 +67,12 @@
             //actualiza el paginado cuando se cambia el numero de registros a mostrar
             $('#limpiar').on('click', function()
                 {
-                  document.getElementById('nombre').value ='';
-                  document.getElementById('clave').value ='';
-                  document.getElementById('mayor').value ='';
-                  document.getElementById('menor').value ='';
-                  document.getElementById('municipio').value ='';
-                  document.getElementById('adeudos').value ='';
+                  $('#nombre').val() ='';
+                  $('#clave').val() ='';
+                  $('#mayor').val() ='';
+                  $('#menor').val() ='';
+                  $('#municipio').val() ='';
+                  $('#adeudos').val() ='';
                 });
 </script>
 <script type="text/javascript">
@@ -255,7 +251,7 @@ $("#fecha").datepicker();
                         {{ Form::number('mayor',$mayor, array('class' => 'form-control focus', 'placeholder'=>'Mayor a :'))  }}
                     </td>
                     <td>
-                        {{ Form::number('menor',menor, array('class' => 'form-control focus', 'placeholder'=>'Menor a :'))  }}
+                        {{ Form::number('menor',$menor, array('class' => 'form-control focus', 'placeholder'=>'Menor a :'))  }}
                     </td>
                         {{$errors->first("predios")}}
                     <td>
@@ -283,11 +279,12 @@ $("#fecha").datepicker();
 </div>
             @if(count($items) == 0)
                 <div class="panel-body">
-                    <h3>
-                        <p>
-                            {{$mensaje;}}
-                        </p>
-                    </h3>
+                    
+                             @if(Session::has('mensaje'))
+
+    <h2><div class="alert alert-danger">No hubo resultados para la busqueda, Intente de nuevo.</div></h2>
+
+    @endif
                 </div>
             @endif
     @if(count($items) > 0)
@@ -324,7 +321,9 @@ $("#fecha").datepicker();
         @foreach ($pagination as $key  )
                     <?php $i++ ?>
                     <?php $clave  = str_replace('(', '',$key[0]);?>
-                    <?php $nombre = str_replace('"', '',$key[1]); ?>
+                    <?php $nombre = str_replace('"', '',$key[1]); 
+                    $nombre = str_replace('{','',$nombre);
+                     $nombre = str_replace('}','',$nombre);?>
                     <?php //$impuesto = Number_format($key[5], 2, '.',',' )?>
                     <?php $impuesto = $key[4]?>
                     <?php $valorcc  =$key[6]; ?>
@@ -335,7 +334,7 @@ $("#fecha").datepicker();
                     <div class="col-lg-6">
                     <div class="input-group">
                     <span class="input-group-addon">
-                    {{ Form::checkbox('clave'.$i, $clave.','.$nombre.','.$total, false, ['onclick'=>'validar(this)'], array('id' => 'checkAll'))}}
+                    {{ Form::checkbox('clave'.$i, $clave, false, ['onclick'=>'validar(this)'], array('id' => 'checkAll'))}}
                     <?php  $id_mun =substr($clave, 3, 3);?>
                     {{ Form::text('id_municipio',$id_mun,array('hidden'))}}
                     </samp>
