@@ -27,7 +27,7 @@
     background: #F27007;
 }
 
-.panel-heading{
+.panel-default > .panel-heading{
     border: none;
     background: none;
     border-bottom: 1px solid #F27007;
