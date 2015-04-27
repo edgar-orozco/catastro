@@ -57,9 +57,6 @@
     font-weight: normal;
 }
 
-.input-group{
-    display: block;
-}
 
 .input-group-addon:last-child {
     border: none;
