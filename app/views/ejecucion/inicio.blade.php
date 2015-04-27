@@ -309,77 +309,76 @@ setlocale(LC_MONETARY, 'es_MX');
                         </tr>
                     </thead>
                     <tbody>
+                    <!--Variable de control-->
+                    <?php $i = 0; ?>
+                    <!--Se imprimen resultados de la busqueda-->
+                    @foreach ($pagination as $key  )
+                        <?php $i++ ?>
+                        <?php $clave = str_replace('(', '', $key[0]);?>
+                        <?php $nombre = str_replace('"', '', $key[1]);
+                        $nombre = str_replace('{', '', $nombre);
+                        $nombre = str_replace('}', '', $nombre);?>
+                        <?php //$impuesto = Number_format($key[5], 2, '.',',' )?>
+                        <?php $impuesto = $key[4]?>
+                        <?php $valorcc  =$key[6]; ?>
+                        <?php $total    =$impuesto+$valorcc ?>
                         <tr>
-                            <!--Variable de control-->
-                            <?php $i = 0; ?>
-                            <!--Se imprimen resultados de la busqueda-->
-                            @foreach ($pagination as $key  )
-                                <?php $i++ ?>
-                                <?php $clave = str_replace('(', '', $key[0]);?>
-                                <?php $nombre = str_replace('"', '', $key[1]);
-                                $nombre = str_replace('{', '', $nombre);
-                                $nombre = str_replace('}', '', $nombre);?>
-                                <?php //$impuesto = Number_format($key[5], 2, '.',',' )?>
-                                <?php $impuesto = $key[4]?>
-                                <?php $valorcc  =$key[6]; ?>
-                                <?php $total    =$impuesto+$valorcc ?>
-
-                                <td align="center">
-                                    <div class="row">
-                                        <div class="col-lg-6">
-                                            <div class="input-group">
-                                                <span class="input-group-addon">
-                                                    {{ Form::checkbox('clave'.$i, $clave, false, ['onclick'=>'validar(this)'], array('id' => 'checkAll'))}}
-                                                    <?php  $id_mun =substr($clave, 3, 3);?>
-                                                    {{ Form::text('id_municipio',$id_mun,array('hidden'))}}
-                                                </span>
-                                            </div>
+                            <td align="center">
+                                <div class="row">
+                                    <div class="col-lg-6">
+                                        <div class="input-group">
+                                            <span class="input-group-addon">
+                                                {{ Form::checkbox('clave'.$i, $clave, false, ['onclick'=>'validar(this)'], array('id' => 'checkAll'))}}
+                                                <?php  $id_mun =substr($clave, 3, 3);?>
+                                                {{ Form::text('id_municipio',$id_mun,array('hidden'))}}
+                                            </span>
                                         </div>
                                     </div>
-                                </td>
-                                <td align="center">
-                                    <!-- CLAVE -->
-                                    {{$clave;}}
-                                </td>
-                                <td align="center">
-                                    <!-- NOMBRE -->
-                                    {{$nombre;}}
-                                </td>
-                                <td align="center">
-                                    <!-- MUNICIPIO -->
-                                    {{$municipio=$key[2];}}
-                                </td>
-                                <td align="center">
-                                    <!--Limpia el registro-->
-                                    <?php $domicilio = str_replace('"', '',$key[3]); ?>
-                                    <!-- domicilio -->
-                                    {{domicilio;}}
-                                </td>
-                                <td align="center">
-                                    <!--Limpia el registro-->
-                                    <?php $periodo = str_replace(')', '',$key[6]); ?>
-                                    <!-- periodo -->
-                                    {{$periodo;}}
-                                </td>
-                                <td align="right">
-                                    <!-- impuesto-->
-                                    $ {{$impuesto}}
-                                </td>
-                                <td align="right">
-                                    <!--Convierte formato a moneda mexico-->
-                                    <?php //$valorc1 = money_format('%i', $key[6]) . "\n"; ?>
-                                    <?php $valorc = Number_format($key[5], 2, '.',',' ) ?>
-                                    <!-- Valor Catastral-->
-                                    $ {{$valorc}}
-                                </td>
-                                <td align="right">
-                                    <!--Limpia el registro-->
-                                    <?php $rezago = str_replace(')', '',$key[7]); ?>
-                                    <!-- CLAVE -->
-                                    $ {{$rezago}}
-                                </td>
-                            @endforeach
+                                </div>
+                            </td>
+                            <td align="center">
+                                <!-- CLAVE -->
+                                {{$clave;}}
+                            </td>
+                            <td align="center">
+                                <!-- NOMBRE -->
+                                {{$nombre;}}
+                            </td>
+                            <td align="center">
+                                <!-- MUNICIPIO -->
+                                {{$municipio=$key[2];}}
+                            </td>
+                            <td align="center">
+                                <!--Limpia el registro-->
+                                <?php $domicilio = str_replace('"', '',$key[3]); ?>
+                                <!-- domicilio -->
+                                {{domicilio;}}
+                            </td>
+                            <td align="center">
+                                <!--Limpia el registro-->
+                                <?php $periodo = str_replace(')', '',$key[6]); ?>
+                                <!-- periodo -->
+                                {{$periodo;}}
+                            </td>
+                            <td align="right">
+                                <!-- impuesto-->
+                                $ {{$impuesto}}
+                            </td>
+                            <td align="right">
+                                <!--Convierte formato a moneda mexico-->
+                                <?php //$valorc1 = money_format('%i', $key[6]) . "\n"; ?>
+                                <?php $valorc = Number_format($key[5], 2, '.',',' ) ?>
+                                <!-- Valor Catastral-->
+                                $ {{$valorc}}
+                            </td>
+                            <td align="right">
+                                <!--Limpia el registro-->
+                                <?php $rezago = str_replace(')', '',$key[7]); ?>
+                                <!-- CLAVE -->
+                                $ {{$rezago}}
+                            </td>
                         </tr>
+                    @endforeach
                     </tbody>
                 </table>
                 {{ $pagination->appends(Request::except('page'))->links() }}
