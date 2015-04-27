@@ -67,12 +67,12 @@
             //actualiza el paginado cuando se cambia el numero de registros a mostrar
             $('#limpiar').on('click', function()
                 {
-                  $('#nombre').val() ='';
-                  $('#clave').val() ='';
-                  $('#mayor').val() ='';
-                  $('#menor').val() ='';
-                  $('#municipio').val() ='';
-                  $('#adeudos').val() ='';
+                  $('#nombre').val("");
+                  $('#clave').val("");
+                  $('#mayor').val("");
+                  $('#menor').val("");
+                  $('#municipio').val("");
+                  $('#adeudos').val("");
                 });
 </script>
 <script type="text/javascript">
@@ -337,7 +337,7 @@ $("#fecha").datepicker();
                     {{ Form::checkbox('clave'.$i, $clave, false, ['onclick'=>'validar(this)'], array('id' => 'checkAll'))}}
                     <?php  $id_mun =substr($clave, 3, 3);?>
                     {{ Form::text('id_municipio',$id_mun,array('hidden'))}}
-                    </samp>
+                    </span>
                 </div></div></div>
                   </td>
                   <td align="center">
