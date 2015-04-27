@@ -2,6 +2,7 @@
     max-width: 950px;
     padding: 40px 0;
     margin: 0 auto;
+    color: gray;
 }
 .page-header{
     border: none;
@@ -9,7 +10,7 @@
 }
 .page-header h2{
     padding-bottom: 14px;
-    border-bottom: 5px solid #d3d3d3;
+    border: none;
 }
 .row{
     margin: 0;
