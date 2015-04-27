@@ -261,13 +261,10 @@ setlocale(LC_MONETARY, 'es_MX');
                         <td>
                             {{Form::select('adeudos', array('1' => '1', '1' => '1', '3' => '3', '4' => '4', '5' => '5'),array('class'=>'btn btn-default btn-sm dropdown-toggle'))}}
                         </td>
-                        <td>
-
-                        </td>
                     </tr>
                     <tr>
-                        <td>{{ Form::submit('Buscar', array('class' => 'btn btn-primary')) }}</td>
-                        <td>{{ Form::button('limpiar', array('class' => 'btn btn-primary', 'id' => 'limpiar')) }} </td>
+                        <td colspan="6">{{ Form::submit('Buscar', array('class' => 'btn btn-primary')) }}</td>
+                        <td  colspan="6">{{ Form::button('limpiar', array('class' => 'btn btn-primary', 'id' => 'limpiar')) }} </td>
                     </tr>
                 </table>
             </div>
