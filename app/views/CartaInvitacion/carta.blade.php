@@ -110,7 +110,7 @@
             </p>
 
             <p class     ="texto" align="justify">
-                <strong>La dirección de finanzas del municipio de <?php echo ucwords(strtolower($mun_actual)); ?>, no tiene registrado el cumplimiento del pago impuesto predial de un predio inscrito a su nombre, con número  de cuenta: <b> <?php echo $mun ?>, Ubicado en: CHICOACAN ?, Sup. Predio: 710430m2, Sup. Construcion: 0 m2 de este municipio; por lo que confundamento   en los artículos 1,6,8 fracción IV, 16 fracciones I, II y XII, 19, 22, 24, 31, 44, 45, 46, 47, 48, 72 fracciones I y IV, 87, 88 fracciones I, II y III, 103 y 105 fracciones IV y VII, 153, 154 y 155   de la ley de Hacienda Municipal del Estado de Tabasco; se le invita   a que realice su pago correspondiente de  a los años detallados a continuación:</strong></p>
+                <strong>La dirección de finanzas del municipio de <?php echo ucwords(strtolower($mun_actual)); ?>, no tiene registrado el cumplimiento del pago impuesto predial de un predio inscrito a su nombre, con número  de cuenta: <b> <?php echo $mun ?>, Ubicado en: CHICOACAN ?, Sup. Predio: <b> <?php echo str_replace(')', '',$key[3]) ?>m2, Sup. Construcion: <b> <?php echo $key[2] ?> m2 de este municipio; por lo que confundamento   en los artículos 1,6,8 fracción IV, 16 fracciones I, II y XII, 19, 22, 24, 31, 44, 45, 46, 47, 48, 72 fracciones I y IV, 87, 88 fracciones I, II y III, 103 y 105 fracciones IV y VII, 153, 154 y 155   de la ley de Hacienda Municipal del Estado de Tabasco; se le invita   a que realice su pago correspondiente de  a los años detallados a continuación:</strong></p>
         </p>
         <table width ="100%" border="0" class="texto">
             <tr>
