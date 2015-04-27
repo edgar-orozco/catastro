@@ -164,7 +164,7 @@
 <div class="main-container container">
     <div class="row">
         <div class="col-sm-6 col-md-8 col-lg-8">
-            <img src="css/images/home/logo-catastro.jpg" alt="Logotipo Catastro"/>
+            <img src="css/images/home/logo-catastro.jpg" style="width: 415px; margin: 0 auto; display: block;" alt="Logotipo Catastro"/>
         </div>
         <div class="col-sm-6 col-md-4 col-lg-4">
             <div class="banner">
