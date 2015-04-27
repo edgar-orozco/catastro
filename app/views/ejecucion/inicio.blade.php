@@ -283,7 +283,8 @@ setlocale(LC_MONETARY, 'es_MX');
                 @endif
             </div>
         @endif
-        
+        @if(count($items) > 0)
+            
+        @endif
     </div>
-    <br><br><br>
 @stop
