@@ -2,7 +2,6 @@
 
 @section('title')
     {{{ $title }}} :: @parent
-    <h1>Geooo!!!</h1>
 @stop
 
 @section('content')
