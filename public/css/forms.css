@@ -13,3 +13,8 @@
     display: block;
     color: #F27007;
 }
+
+.panel-body .btn{
+    display: block;
+    width: 100%;
+}
