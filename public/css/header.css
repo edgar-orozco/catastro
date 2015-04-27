@@ -46,6 +46,9 @@ header.catatro-df .container .social li a.youtube{
     padding-right: 0;
 }
 header.catatro-df .container .img-cont{
+    width: 82px;    
+}
+header.catatro-df .container .img-cont{
     max-width: 180px;
     width: 100%;
     display:inline-block;
