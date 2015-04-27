@@ -14,13 +14,17 @@ if(count($clave)==1)
         $vales = explode(',', $key->sp_get_datos_predio);
       }
         $fecha=date("Y-m-d");
+         $nombre=str_replace('"', '',$vales[1]);
+           $nombre=str_replace('{', '',$nombre);
+           $nombre=str_replace('}', '',$nombre);
+
         //array de fecha y nombre para el pdf
-        $vale[] = array('0' =>str_replace('(', '',$vales[0]), '1' => str_replace('"', '',$vales[1]));
+        $vale[] = array('0' =>str_replace('(', '',$vales[0]), '1' => $nombre, '2' => str_replace('"', '',$vales[8]), '3' => str_replace('"', '',$vales[9]));
         $vista    = View::make('CartaInvitacion.carta', compact('vale','fecha'));
         $pdf      = PDF::load($vista)->show("Copia-CartaInvitacion");
         $response = Response::make($pdf, 200);
         $response->header('Content-Type', 'application/pdf');
-        return $response; 
+        return $response;
 }
 
 
@@ -36,7 +40,11 @@ if(count($clave) > 1)
             }
            $fecha=date("Y-m-d");
            //array de fecha y nombre para el pdf
-          $vale[] = array('0' =>str_replace('(', '',$vales[0]), '1' => str_replace('"', '',$vales[1]));
+           $nombre=str_replace('"', '',$vales[1]);
+           $nombre=str_replace('{', '',$nombre);
+           $nombre=str_replace('}', '',$nombre);
+
+          $vale[] = array('0' =>str_replace('(', '',$vales[0]), '1' => $nombre, '2' => str_replace('"', '',$vales[8]), '3' => str_replace('"', '',$vales[9]));
 
   }
 

@@ -172,12 +172,14 @@ setlocale(LC_MONETARY, 'es_MX');
                   <?php $i++ ?>
                   <?php $idrequerimiento = $key[5]; ?>
                   <?php $clave           = str_replace('(', '',$key[0]);?>
-                  <?php $nombre          = str_replace('"', '',$key[1]); ?>
+                  <?php $nombre          = str_replace('"', '',$key[1]); $nombre=str_replace('{', '',$nombre);$nombre=str_replace('}', '',$nombre);?>
                   <?php $impuesto        = $key[5]; ?>
                   <?php $valorcc         = $key[6]; ?>
                   <?php $total           = $impuesto+$valorcc ?>
-                  <?php $requerimiento   = str_replace(')','',$key[9]);?>
-
+                  <?php $fechacancelacion = str_replace(')', '',$key[8]); ?>
+                  <?php $requerimiento   =  str_replace(')','',$key[9]);?>
+                    <?php if ( $fechacancelacion == '') { ?>
+                   
             <td align="center">
                 {{ Form::checkbox('clave'.$i, $clave.','.$nombre.','.$total, false, ['onclick'=>'validar(this)'], array('id' => 'checkAll'))}}
             </td>
@@ -248,8 +250,9 @@ setlocale(LC_MONETARY, 'es_MX');
 
             </td>
                 <?php } ?>
-        </tr>
+        </tr> <?php } ?>
         @endforeach
+       
     </tbody>
     </table>
    {{ $pagination->appends(Request::except('page'))->links() }}
