@@ -40,8 +40,16 @@
 .table > thead > tr > th, .table > tbody > tr > th, .table > tfoot > tr > th, .table > thead > tr > td, .table > tbody > tr > td, .table > tfoot > tr > td {
     padding: 8px;
     vertical-align: middle;
-    border-right: 1px solid #ddd;
     border:none;
+    border-right: 1px solid #ddd;
     border-bottom: 1px solid #ddd;
     text-align: center;
+}
+
+.table > thead > tr > th, .table > tbody > tr > th, .table > tfoot > tr > th{
+    background: darkgray;
+    border-top: 0;
+    border-right: 1px solid white;
+    color: white;
+    font-weight: normal;
 }
