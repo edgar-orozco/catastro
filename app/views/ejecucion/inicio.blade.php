@@ -388,17 +388,17 @@ setlocale(LC_MONETARY, 'es_MX');
                 </table>
                 {{ $pagination->appends(Request::except('page'))->links() }}
             </div>
+            <br>
+            <div>
+                <?php $fecha= date("Y-m-d"); ?>
+                {{Form::text('mun',$mun=$key[2],array('hidden'))}}
+                {{Form::label('Fecha Emision Carta Invitacion: ') }}
+                {{Form::text('date', $fecha, ['id'=>'datepicker', 'class'=>'btn btn-default btn-sm dropdown-toggle','autofocus'=> 'autofocus', 'disabled'] )}}
+            </div>
+            <br>
+            {{ Form::submit('Generar Carta Invitacion', array('class' => 'btn btn-primary', 'name' => 'boton', 'disabled','id' => 'boton')) }}
+            {{ Form::close() }}
+        @endif
     </div>
-    <br>
-    <div>
-        <?php $fecha= date("Y-m-d"); ?>
-        {{Form::text('mun',$mun=$key[2],array('hidden'))}}
-        {{Form::label('Fecha Emision Carta Invitacion: ') }}
-        {{Form::text('date', $fecha, ['id'=>'datepicker', 'class'=>'btn btn-default btn-sm dropdown-toggle','autofocus'=> 'autofocus', 'disabled'] )}}
-    </div>
-    <br>
-    {{ Form::submit('Generar Carta Invitacion', array('class' => 'btn btn-primary', 'name' => 'boton', 'disabled','id' => 'boton')) }}
-    {{ Form::close() }}
-    @endif
     <br><br><br>
 @stop
