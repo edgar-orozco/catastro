@@ -89,7 +89,7 @@ setlocale(LC_MONETARY, 'es_MX');
                    'name'   =>'busqueda'
                    )) }}
 
-            <div class="input-group">
+            <div>
                 <table class="table">
                     <tr>
                         <th>{{Form::label('Clave Catastral:') }}</th>
