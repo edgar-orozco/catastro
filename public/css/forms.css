@@ -1,0 +1,73 @@
+.container{
+    max-width: 950px;
+    padding: 40px 0;
+    margin: 0 auto;
+    color: gray;
+}
+.page-header{
+    border: none;
+    text-align: center;
+}
+.page-header h2{
+    padding-bottom: 14px;
+    border: none;
+}
+.row{
+    margin: 0;
+}
+input{
+    background: #d3d3d3;
+}
+.page-header h2 small {
+    display: block;
+    color: #F27007;
+}
+
+.panel-body{
+    padding: 0;
+}
+
+.panel-body .btn{
+    display: block;
+    width: 100%;
+}
+
+.panel-body .btn.btn-warning{
+    background: #F27007;
+}
+
+.panel-heading{
+    border: none;
+    background: none;
+    border-bottom: 3px solid #F27007;
+}
+.panel-heading .panel-title{
+    font-weight: lighter;
+    color: gray;
+}
+
+.table > thead > tr > th, .table > tbody > tr > th, .table > tfoot > tr > th, .table > thead > tr > td, .table > tbody > tr > td, .table > tfoot > tr > td {
+    padding: 8px;
+    vertical-align: middle;
+    border:none;
+    border-right: 1px solid #ddd;
+    border-bottom: 1px solid #ddd;
+    text-align: center;
+}
+
+.table > thead > tr > th, .table > tbody > tr > th, .table > tfoot > tr > th{
+    background: darkgray;
+    border-top: 0;
+    border-right: 1px solid white;
+    color: white;
+    font-weight: normal;
+}
+.table > tbody > tr > th label{
+    font-weight: normal;
+}
+
+
+.input-group-addon:last-child {
+    border: none;
+    background: none;
+}
