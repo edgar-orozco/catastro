@@ -6,7 +6,9 @@ Bienvenido :: @parent
 
 @section('content')
 {{ HTML::style('css/forms.css') }}
-<h1>Captura de Datos Complementarios </h1>
+<div class="page-header">
+    <h2>Captura de <small>Datos Complementarios </small></h2>
+</div>
 @if(Session::has('mensaje'))
 
     <h2>{{ Session::get('mensaje') }}</h2>
@@ -15,29 +17,15 @@ Bienvenido :: @parent
 <div class="panel-body">
     {{ Form::open(array('id' => 'formComplemen', 'class' => 'formComplemen', 'role' => 'form', 'method' => 'GET' )) }}
     <div class="row">
-
-        <div class="col-md-3">
-
-            <div class="input-group">
-                <span class="input-group-addon">
-                    <span class="glyphicon glyphicon-search"></span>
-                </span>
-
-                {{Form::select('municipio', $municipios, null, ['id'=>'municipio','class'=>'form-control'])}}
-                </br>
-            </div><!-- /input-group -->
+        <div>
+            {{Form::select('municipio', $municipios, null, ['id'=>'municipio','class'=>'form-control'])}}
         </div>
-        <div class="col-md-3">
 
-            <div class="input-group">
-                <span class="input-group-addon">
-                    <span class="glyphicon glyphicon-search"></span>
-                </span>
-
-                {{ Form::text('b',null, array('class' => 'form-control focus', 'id' => 'busqueda', 'placeholder'=>'Clave...', 'autofocus'=> 'autofocus','ng-model' => 'b', 'required' , 'pattern'=> '\d{3}[\-]\d{4}[\-]\d{6}')) }}
-
-                </br>
-            </div><!-- /input-group -->
+        <div class="input-group">
+            <span class="input-group-addon">
+                <span class="glyphicon glyphicon-search"></span>
+            </span>
+            {{ Form::text('b',null, array('class' => 'form-control focus', 'id' => 'busqueda', 'placeholder'=>'Clave...', 'autofocus'=> 'autofocus','ng-model' => 'b', 'required' , 'pattern'=> '\d{3}[\-]\d{4}[\-]\d{6}')) }}
         </div>
     </div>
 
