@@ -70,6 +70,23 @@ class Ejecucion_BuscarController extends BaseController
                     return View::make('ejecucion.inicio', compact('busqueda', "catalogo", "municipio", "status", "mensaje", 'items', 'pagination','por_pagina','datos','title','title_section','subtitle_section','propietario','clave','menor','mayor','municipios'));
                 }
     }
+    public function inicio()
+   { //abre function
+
+        $title = "Generacion De Carta Invitación.";
+
+        //Título de sección:
+        $title_section = "Generacion De Carta Invitación";
+
+        //Subtítulo de sección:
+        $subtitle_section = "Ejecucion Fiscal.";
+
+        $catalogo = ejecutores::All();//->lists('cargo', 'id_ejecutor');
+        $municipio = Municipio::All();
+        $status = status::All();
+        $mensaje='';
+       return View::make('ejecucion.inicio', compact("catalogo","municipio","status","mensaje",'title','title_section','subtitle_section'));
+    }
     /**
      * Filtra y sanea cadenas de entrada de nombre para realizar la búsqueda
      * @param $string

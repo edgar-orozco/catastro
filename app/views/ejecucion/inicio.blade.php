@@ -62,17 +62,25 @@
                    document.busqueda.submit();
                 });
 </script>
+<script>
+  
+       $('#boton').on('click', function()
+                {
+                   document.busqueda.submit();
+                });
+
+</script>
 
 <script>
             //actualiza el paginado cuando se cambia el numero de registros a mostrar
             $('#limpiar').on('click', function()
                 {
-                  $('#nombre').val() ='';
-                  $('#clave').val() ='';
-                  $('#mayor').val() ='';
-                  $('#menor').val() ='';
-                  $('#municipio').val() ='';
-                  $('#adeudos').val() ='';
+                  $('#nombre').val('');
+                  $('#clave').val('');
+                  $('#mayor').val('');
+                  $('#menor').val('');
+                  $('#municipio').val('');
+                  $('#adeudos').val('');
                 });
 </script>
 <script type="text/javascript">

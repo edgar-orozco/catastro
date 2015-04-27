@@ -8,9 +8,11 @@ class CartaInvitacion_PdfpruebaController extends BaseController {
 	 * @return Response
 	 */
 	public function imprimir($clave = null)
-	{
-
-		$fechaven = PdfHelper::imprimirpdf($clave);
+	{	//recibe la clave catastral y la guarda en un array
+		$claves[]=$clave;
+		//se envia el array a la funcion para poder ser procesado y generar el pdf
+		$fechaven = PdfHelper::imprimirpdf($claves);
+		//se imprime lo que retorna la funcion en este caso el pdf de la carta invitacion
 		echo $fechaven;
 
 	}

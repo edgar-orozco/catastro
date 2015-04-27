@@ -8,7 +8,7 @@ public function get_pdf()
     {
       //creamos array de todas las claves enviadas para generar carta invitacióm
        $clave = Input::all();
-    print_r($clave);
+    //print_r($clave);
         //limpiamos y ordenamos el array
         $token      = $clave['_token'];
         $fecha      = $clave['date'];
@@ -40,12 +40,12 @@ public function get_pdf()
           $vale[] = $cv;
           $fecha  =($claves2['captura']['fecha']=$fecha);
 
-          foreach ($vale as $clave ) 
-            {
-                $claves=$clave[0];
+         for ($i=0; $i <count($vale) ; $i++) { 
+        
+               $claves=$vale[$i];
                 $verificacion = ejecucion::where('clave',$claves)->pluck('clave');
                  //echo $resul=$verificacion;
-                  if($verificacion=='')
+                 if($verificacion=='')
                   {
                   //insert a la tabla ejecucion_fiscal
                       $ejecucion = new ejecucion;
@@ -72,10 +72,10 @@ public function get_pdf()
                 }
             }
         }
-
+//print_r($vale);
 //$valeee=array_push($vale, "2" => "manzana","2" =>  "arándano");
-$fechaven = PdfHelper::imprimirpdf($clave);
-  echo $fechaven;
+$fechaven = PdfHelper::imprimirpdf($vale);
+echo $fechaven;
 
 
    //ENVIO A LA VISTA DEL PDF CARTA INVITACION
