@@ -212,7 +212,65 @@ setlocale(LC_MONETARY, 'es_MX');
 
         @stop
 
-        
+        <div class="panel-body">
+            {{ Form::open(array(
+                'class'  => 'busqueda',
+                'role'   => 'form',
+                'method' => 'BuscarController@index',
+                'method' => 'POST',
+                'url'    =>'/ejecucion',
+                'name'   =>'busqueda'
+
+             )) }}
+
+            <div class="table">
+                <table class="table">
+                    <tr>
+                        <th>{{Form::label('clave','Clave Catastral:') }}</th>
+                        <th>{{Form::label('nombre','Nombre Propietario:') }}</th>
+                        <th>{{Form::label('mayor','Mayor a:') }}</th>
+                        <th>{{Form::label('menor','Menor a:') }}</th>
+                        <th>{{Form::label('municipios','Municipio:') }}</th>
+                        <th>{{Form::label('adeudos','Años de Adeudo:') }}</th>
+                    </tr>
+                    <tr>
+                        <td>
+                            {{ Form::text('clave',$clave, array('class' => 'form-control focus', 'placeholder'=>'xx-xxx-xxx-xxxx-xxxxxx', 'autofocus'=> 'autofocus', 'pattern'=> '\d{2}[\-]\d{3}[\-]\d{3}[\-]\d{4}[\-]\d{6}'))}}
+                        </td>
+                        <td>
+                            {{ Form::text('nombre',$propietario, array('class' => 'form-control focus', 'placeholder'=>'Nombre', 'onkeypress' => 'return soloLetras(event)')) }}
+                            {{ Form::number('paginado',10, array('id'=>'paginado', 'hidden')) }}
+                        </td>
+                        <td>
+                            {{ Form::number('mayor',$mayor, array('class' => 'form-control focus', 'placeholder'=>'Mayor a :'))  }}
+                        </td>
+                        <td>
+                            {{ Form::number('menor',$menor, array('class' => 'form-control focus', 'placeholder'=>'Menor a :'))  }}
+                        </td>
+                        {{$errors->first("predios")}}
+                        <td>
+                            <select name="municipios" class="btn btn-default btn-sm dropdown-toggle">
+                                <option value=''>Seleccione un municipio...</option>
+                                @foreach($municipio as $row)
+                                    <option value="{{$row->municipio}}">{{$row->nombre_municipio}}</option>
+                                @endforeach
+                            </select>
+                        </td>
+                        <td>
+                            {{Form::select('adeudos', array('1' => '1', '1' => '1', '3' => '3', '4' => '4', '5' => '5'),array('class'=>'btn btn-default btn-sm dropdown-toggle'))}}
+                        </td>
+                        <td>
+
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>{{ Form::submit('Buscar', array('class' => 'btn btn-primary')) }}</td>
+                        <td>{{ Form::button('limpiar', array('class' => 'btn btn-primary', 'id' => 'limpiar')) }} </td>
+                    </tr>
+                </table>
+            </div>
+            {{ Form::close() }}
+        </div>
         @if(count($items) == 0)
             <div class="panel-body">
 
