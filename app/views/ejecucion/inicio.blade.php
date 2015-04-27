@@ -336,7 +336,7 @@ setlocale(LC_MONETARY, 'es_MX');
                                     </div>
                                 </div>
                             </td>
-                            <td align="center" class="bg-info">
+                            <td align="center">
                                 <!-- CLAVE -->
                                 {{$clave;}}
                             </td>
