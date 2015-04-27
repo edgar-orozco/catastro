@@ -210,7 +210,7 @@ setlocale(LC_MONETARY, 'es_MX');
                 }
             </script>
 
-        @stop
+        
 
         <div class="panel-body">
             {{ Form::open(array(
