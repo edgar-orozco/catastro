@@ -20,6 +20,8 @@ Bienvenido :: @parent
         <div>
             {{Form::select('municipio', $municipios, null, ['id'=>'municipio','class'=>'form-control'])}}
         </div>
+        <br/>
+        <br/>
 
         <div class="input-group">
             <span class="input-group-addon">
@@ -27,6 +29,8 @@ Bienvenido :: @parent
             </span>
             {{ Form::text('b',null, array('class' => 'form-control focus', 'id' => 'busqueda', 'placeholder'=>'Clave...', 'autofocus'=> 'autofocus','ng-model' => 'b', 'required' , 'pattern'=> '\d{3}[\-]\d{4}[\-]\d{6}')) }}
         </div>
+        <br/>
+        <br/>
     </div>
 
     {{ Form::submit('Buscar', array('class' => 'btn btn-primary')) }}
