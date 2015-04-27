@@ -13,7 +13,8 @@
     }
     .panel-heading{
         width: 100%;
-        max-width: 340px;
+        max-width: 246px;
+        margin: 0 auto;
     }
     .panel-heading img{
         width: 100%
