@@ -28,6 +28,7 @@ Bienvenido :: @parent
                 <span class="glyphicon glyphicon-search"></span>
             </span>
             {{ Form::text('b',null, array('class' => 'form-control focus', 'id' => 'busqueda', 'placeholder'=>'Clave...', 'autofocus'=> 'autofocus','ng-model' => 'b', 'required' , 'pattern'=> '\d{3}[\-]\d{4}[\-]\d{6}')) }}
+            <span>666-6666-666666</span>
         </div>
         <br/>
         <br/>
