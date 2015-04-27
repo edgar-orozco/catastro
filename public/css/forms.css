@@ -53,3 +53,6 @@
     color: white;
     font-weight: normal;
 }
+.table > tbody > tr > th label{
+    font-weight: normal;
+}
