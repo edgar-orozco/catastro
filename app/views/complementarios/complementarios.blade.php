@@ -33,7 +33,7 @@ Bienvenido :: @parent
         <br/>
     </div>
 
-    {{ Form::submit('Buscar', array('class' => 'btn btn-primary')) }}
+    {{ Form::submit('Buscar', array('class' => 'btn btn-warning')) }}
     {{ Form::close() }}
         <div class="mensaje">
 
