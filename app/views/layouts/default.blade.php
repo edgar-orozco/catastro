@@ -161,7 +161,7 @@
         </div>
     </div>
 </div>
-{{--<footer>
+<footer>
     <div class="container">
         <div class="col-md-4 col-lg-4 col-sm-4">
             <h2>Gobierno de <b>Tabasco</b></h2>
@@ -215,7 +215,7 @@
             <img src="/css/images/main/main-logo.png" alt="Catastro">
         </div>
     </div>
-</div>--}}
+</div>
 <!-- JQuery -->
 {{ HTML::script('js/jquery/jquery.min.js') }}
 
