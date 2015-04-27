@@ -294,7 +294,7 @@ setlocale(LC_MONETARY, 'es_MX');
                     {{Form::select('pagi', array('10' => '10', '20' => '20', '30' => '30', '40' => '40', '50' => '50','60' => '60'))}}
                 </div>
 
-                <table id="myTable" class="table">
+                <table id="myTable" class="table table-striped">
                     <thead>
                         <tr>
                             <th width="100"><p align="center">{{ Form::checkbox('checkMain', 'checkMain', false, array('name' => 'checktodos'))}}</p></th>
@@ -336,7 +336,7 @@ setlocale(LC_MONETARY, 'es_MX');
                                     </div>
                                 </div>
                             </td>
-                            <td align="center">
+                            <td align="center" class="bg-info">
                                 <!-- CLAVE -->
                                 {{$clave;}}
                             </td>
