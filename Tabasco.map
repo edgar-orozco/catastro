@@ -46,22 +46,22 @@ END  # Reference
 # Start of legend object
 #
 LEGEND
-	STATUS OFF
-	IMAGECOLOR 255 255 255
-#	OUTLINECOLOR 0 0 0
-	POSITION ll
-	KEYSIZE 18 12
-	KEYSPACING 10 5 
-	TEMPLATE "void"
-	LABEL
-		TYPE TRUETYPE
-		FONT "vera"
-		SIZE small
-		POSITION AUTO
-		COLOR 0 0 89
-		OUTLINECOLOR 255 255 255
-		ANTIALIAS TRUE
-	END
+  STATUS OFF
+  IMAGECOLOR 255 255 255
+# OUTLINECOLOR 0 0 0
+  POSITION ll
+  KEYSIZE 18 12
+  KEYSPACING 10 5 
+  TEMPLATE "void"
+  LABEL
+    TYPE TRUETYPE
+    FONT "vera"
+    SIZE small
+    POSITION AUTO
+    COLOR 0 0 89
+    OUTLINECOLOR 255 255 255
+    ANTIALIAS TRUE
+  END
 END
 
 #
@@ -403,7 +403,6 @@ END  # Layer
 LAYER  NAME "manzanas"
   TYPE polygon
   STATUS ON
-  #CONNECTION "dbname='piloto' host=localhost port=5434 user='postgres' password='admin' sslmode=disable"
   CONNECTION  "user='postgres' password='pass' dbname='catastro' host=localhost port=5432"
   CONNECTIONTYPE postgis
   DATA "geom from manzanas using unique gid"
@@ -449,7 +448,6 @@ END  # Layer
 LAYER  NAME "predios"
   TYPE polygon
   STATUS ON
-  #CONNECTION "dbname='piloto' host=localhost port=5434 user='postgres' password='admin' sslmode=disable"
   CONNECTION  "user='postgres' password='pass' dbname='catastro' host=localhost port=5432"
   CONNECTIONTYPE postgis
   DATA "geom from predios"
@@ -484,6 +482,33 @@ LAYER  NAME "predios"
       #SIZE small
     END #Label  
     
+  END  # Class
+END  # Layer
+
+#
+# Start of Layer Construcciones
+#
+LAYER  NAME "construcciones"
+  TYPE polygon
+  STATUS ON
+  CONNECTION  "user='postgres' password='pass' dbname='catastro' host=localhost port=5432"
+  CONNECTIONTYPE postgis
+  DATA "geom from construcciones using unique gid"
+
+  TOLERANCE 3
+  TOLERANCEUNITS pixels
+  TEMPLATE void
+  PROJECTION
+    #"init=epsg:4326"
+    "+proj=utm +zone=15 +datum=WGS84 +units=m +no_defs"
+  END
+  #MINSCALEDENOM 250000
+  MAXSCALEDENOM 7000
+  
+  CLASS
+    Name 'Construcciones'
+    COLOR 255 255 85
+    OUTLINECOLOR 0 0 0
   END  # Class
 END  # Layer
 
