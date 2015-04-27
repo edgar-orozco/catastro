@@ -1,4 +1,27 @@
 <?php
+//Usuario municipio
+ Route::group(array('before'=>'Folios municipio'),  function (){ 
+                        //peritos
+	 		Route::get('catalogos/peritos/tablaperitos', 'folios_PeritosController@tablaperitos');
+	 		Route::get('catalogos/peritos/estado/{id}', 'folios_PeritosController@DesPerito');
+	 		Route::get('catalogos/peritos/nuevoPerito', 'folios_PeritosController@get_nuevoPerito');
+	 		Route::post('catalogos/peritos/nuevoPerito', 'folios_PeritosController@post_nuevoPerito');
+
+	 		Route::get('catalogos/peritos/actPerito/{id}', 'folios_PeritosController@get_actPerito');
+			Route::post('catalogos/peritos/actPerito', 'folios_PeritosController@post_nuevoPerito');
+});
+
+ Route::filter('Folios municipio', function () {
+
+    if (! ( Entrust::hasRole('Folios municipio') ||  Entrust::hasRole('Super usuario') ) )
+    {
+        return Redirect::to('/');
+    }
+});
+
+
+
+
 //Folio Admin
 Route::group(array('before'=>'Folios'),  function (){
   //Route::Metodo de envio('/direccion que aparecera en la barra de direccion', controlador@objeto del controlador);
@@ -38,6 +61,7 @@ Route::group(array('before'=>'Folios'),  function (){
 	 		Route::get('catalogos/peritos/estado/{id}', 'folios_PeritosController@DesPerito');
 	 		Route::get('catalogos/peritos/nuevoPerito', 'folios_PeritosController@get_nuevoPerito');
 	 		Route::post('catalogos/peritos/nuevoPerito', 'folios_PeritosController@post_nuevoPerito');
+
 	 		Route::get('catalogos/peritos/actPerito/{id}', 'folios_PeritosController@get_actPerito');
 			Route::post('catalogos/peritos/actPerito', 'folios_PeritosController@post_nuevoPerito');
 		
@@ -84,22 +108,3 @@ Route::group(array('before'=>'Folios usuario'),  function (){
     }
 });
 
-//Usuario municipio
- Route::group(array('before'=>'Folios municipio'),  function (){ 
-                        //peritos
-	 		Route::get('catalogos/peritos/tablaperitos', 'folios_PeritosController@tablaperitos');
-	 		Route::get('catalogos/peritos/estado/{id}', 'folios_PeritosController@DesPerito');
-	 		Route::get('catalogos/peritos/nuevoPerito', 'folios_PeritosController@get_nuevoPerito');
-	 		Route::post('catalogos/peritos/nuevoPerito', 'folios_PeritosController@post_nuevoPerito');
-
-	 		Route::get('catalogos/peritos/actPerito/{id}', 'folios_PeritosController@get_actPerito');
-			Route::post('catalogos/peritos/actPerito', 'folios_PeritosController@post_nuevoPerito');
-});
-
- Route::filter('Folios municipio', function () {
-
-    if (! ( Entrust::hasRole('Folios municipio') ||  Entrust::hasRole('Super usuario') ) )
-    {
-        return Redirect::to('/');
-    }
-});

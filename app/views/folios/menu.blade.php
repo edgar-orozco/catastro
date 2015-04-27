@@ -74,14 +74,7 @@
                     Folios Emitidos
                 </a>
             </li>
-            
 			<li class="divider"></li>
-
-           
-            
-            
-			
-
             <li class="@if(Request::is('entregafoliosestatal')) active @endif">
                 <a href="{{URL::to('/entregafoliosestatal')}}">
                 <i class="glyphicon glyphicon-open"></i>&nbsp;
