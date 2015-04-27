@@ -61,7 +61,7 @@ setlocale(LC_MONETARY, 'es_MX');
                     $('#paginado').val($('#pagi').val());
                     document.busqueda.submit();
                 });
-<<<<<<< HEAD
+
 </script>
 <script>
   
