@@ -36,7 +36,7 @@ input{
     background: #F27007;
 }
 
-.panel-default > .panel-heading{
+.panel-heading{
     border: none;
     background: none;
     border-bottom: 3px solid #F27007;
