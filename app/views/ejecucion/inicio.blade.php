@@ -263,8 +263,8 @@ setlocale(LC_MONETARY, 'es_MX');
                         </td>
                     </tr>
                     <tr>
-                        <td colspan="6">{{ Form::submit('Buscar', array('class' => 'btn btn-primary')) }}</td>
-                        <td  colspan="6">{{ Form::button('limpiar', array('class' => 'btn btn-primary', 'id' => 'limpiar')) }} </td>
+                        <td colspan="3">{{ Form::submit('Buscar', array('class' => 'btn btn-primary')) }}</td>
+                        <td  colspan="3">{{ Form::button('limpiar', array('class' => 'btn btn-warning', 'id' => 'limpiar')) }} </td>
                     </tr>
                 </table>
             </div>
