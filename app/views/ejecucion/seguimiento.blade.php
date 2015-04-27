@@ -124,8 +124,8 @@ setlocale(LC_MONETARY, 'es_MX');
                         </td>
                     </tr>
                     <tr>
-                        <td colspan="4">{{ Form::submit('Buscar', array('class' => 'btn btn-primary')) }}</td>
-                        <td colspan="4">{{ Form::reset('Limpiar', array('class' => 'btn btn-primary limpiar')) }} </td>
+                        <td colspan="2">{{ Form::submit('Buscar', array('class' => 'btn btn-primary')) }}</td>
+                        <td colspan="2">{{ Form::reset('Limpiar', array('class' => 'btn btn-primary limpiar')) }} </td>
                     </tr>
                 </table>
             </div>
