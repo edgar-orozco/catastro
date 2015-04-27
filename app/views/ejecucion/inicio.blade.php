@@ -24,7 +24,9 @@ setlocale(LC_MONETARY, 'es_MX');
 
         {{ HTML::style('css/style.css') }}
         {{ HTML::style('css/theme.default.css') }}
+        {{ HTML::style('css/forms.css') }}
         {{ HTML::style('js/jquery/jquery-ui.css') }}
+
 
         @section('javascript')
             {{ HTML::script('js/jquery/jquery-ui.js') }}
