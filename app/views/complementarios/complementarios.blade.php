@@ -5,7 +5,7 @@ Bienvenido :: @parent
 @stop
 
 @section('content')
-
+{{ HTML::style('css/forms.css') }}
 <h1>Captura de Datos Complementarios </h1>
 @if(Session::has('mensaje'))
 
