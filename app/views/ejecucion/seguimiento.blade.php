@@ -258,11 +258,11 @@ setlocale(LC_MONETARY, 'es_MX');
                 </table>
                 {{ $pagination->appends(Request::except('page'))->links() }}
             </div>
-    </div>
-    {{ Form::close() }}
-    @endif
+
+            {{ Form::close() }}
+        @endif
             <!-- Modal -->
-    <div class="modal fade" id="Nuevo" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal fade" id="Nuevo" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
 
@@ -292,4 +292,5 @@ setlocale(LC_MONETARY, 'es_MX');
     </div>
     <!-- fin Modal -->
     <br>
+    </div>
 @stop
