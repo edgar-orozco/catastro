@@ -124,8 +124,8 @@ setlocale(LC_MONETARY, 'es_MX');
                         </td>
                     </tr>
                     <tr>
-                        <td>{{ Form::submit('Buscar', array('class' => 'btn btn-primary')) }}</td>
-                        <td>{{ Form::reset('Limpiar', array('class' => 'btn btn-primary limpiar')) }} </td>
+                        <td colspan="4">{{ Form::submit('Buscar', array('class' => 'btn btn-primary')) }}</td>
+                        <td colspan="4">{{ Form::reset('Limpiar', array('class' => 'btn btn-primary limpiar')) }} </td>
                     </tr>
                 </table>
             </div>
@@ -167,17 +167,17 @@ setlocale(LC_MONETARY, 'es_MX');
                     </tr>
                     </thead>
                     <tbody>
-                    <tr>
-                        <?php $i = 0; ?>
-                        @foreach ($pagination as $key )
-                            <?php $i++ ?>
-                            <?php $idrequerimiento = $key[5]; ?>
-                            <?php $clave = str_replace('(', '', $key[0]);?>
-                            <?php $nombre = str_replace('"', '', $key[1]); ?>
-                            <?php $impuesto = $key[5]; ?>
-                            <?php $valorcc = $key[6]; ?>
-                            <?php $total = $impuesto + $valorcc ?>
-                            <?php $requerimiento = str_replace(')', '', $key[9]);?>
+                    <?php $i = 0; ?>
+                    @foreach ($pagination as $key )
+                        <?php $i++ ?>
+                        <?php $idrequerimiento = $key[5]; ?>
+                        <?php $clave = str_replace('(', '', $key[0]);?>
+                        <?php $nombre = str_replace('"', '', $key[1]); ?>
+                        <?php $impuesto = $key[5]; ?>
+                        <?php $valorcc = $key[6]; ?>
+                        <?php $total = $impuesto + $valorcc ?>
+                        <?php $requerimiento = str_replace(')', '', $key[9]);?>
+                        <tr>
 
                             <td align="center">
                                 {{ Form::checkbox('clave'.$i, $clave.','.$nombre.','.$total, false, ['onclick'=>'validar(this)'], array('id' => 'checkAll'))}}
