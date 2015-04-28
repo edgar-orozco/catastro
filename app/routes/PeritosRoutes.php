@@ -19,9 +19,6 @@
     }
 });
 
-
-
-
 //Folio Admin
 Route::group(array('before'=>'Folios'),  function (){
   //Route::Metodo de envio('/direccion que aparecera en la barra de direccion', controlador@objeto del controlador);
