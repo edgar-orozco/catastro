@@ -3,68 +3,55 @@
  <meta http-equiv="Content-Script-Type" content="text/javascript">
 
  <title>DGCEF-Tabasco</title>
- <script type="text/javascript" src="/mapper/javascript/jquery_merged.js"></script>
- <script type="text/javascript" src="/mapper/javascript/custom.js"></script>
- <script type="text/javascript" src="/js/jquery/jquery-ui.js"></script>
- <script type="text/javascript" src="/mapper/javascript/zoombox.js"></script>
- <script type="text/javascript" src="/mapper/javascript/pm.map.js"></script>
- <script type="text/javascript" src="/mapper/javascript/pm.pmapper.js"></script>
 
-<script type="text/javascript">
+    <link rel="shortcut icon" href="/mapper/images/favicon.png" type="image/png">
 
-PM.msVersion = '<?php echo ms_GetVersion() ?>';
+    {{ HTML::script('/mapper/javascript/jquery_merged.js') }}
+    {{ HTML::script('/mapper/javascript/custom.js') }}
+    {{ HTML::script('/js/jquery/jquery-ui.js') }}
+    {{ HTML::script('/mapper/javascript/zoombox.js') }}
+    {{ HTML::script('/mapper/javascript/pm.map.js') }}
+    {{ HTML::script('/mapper/javascript/pm.pmapper.js') }}
 
- var SID = '';
- var PM_XAJAX_LOCATION  = '/cartografia/xajax/';
+    {{ HTML::style('/js/jquery/jquery-ui.css') }}
+    {{ HTML::style('/mapper/templates/default.css') }}
+    {{ HTML::style('/mapper/templates/layout.css') }}
+    {{ HTML::style('/mapper/templates/jquery.treeview.css') }}
+    {{ HTML::style('/mapper/templates/toc.css') }}
 
- PM.mapW = 600;
- PM.mapH = 500;
- PM.refW = 197;
- PM.refH = 91; 
- PM.extent = [313761.97060415,1891919.6349885,784318.26239461,2077443.6209991];
- PM.s1 = 1402386;
- PM.s2 = 1000;
-
- PM.dgeo_x = 366225.7561717;
- PM.dgeo_y = 185523.98601058;
- PM.dgeo_c = 1;
-
- PM.layerAutoRefresh = 1;
- PM.tbThm = 'default';
- PM.activeLayer = ['manzanas','predios','construcciones','entidades','municipios','localidades','carreteras','calles','rios','hipsografico']; 
+    {{ HTML::style('/mapper/templates/dialog.css') }}
+    {{ HTML::style('/mapper/templates/jquery.layout.css') }}
+    <!--[if lt IE 7]>
+    {{ HTML::style('/mapper/templates/ie6.css') }}
+    <![endif]-->
  
-// Query layers: modify query results in js
-PM.modifyQueryResultsFunctions = [];
 
-</script>
- 
- 
- <link rel="stylesheet" href="/js/jquery/jquery-ui.css" type="text/css">
- <link rel="shortcut icon" href="/mapper/images/favicon.png" type="image/png">
- <link rel="stylesheet" href="/mapper/templates/default.css" type="text/css">
- <link rel="stylesheet" href="/mapper/templates/layout.css" type="text/css">
- <link rel="stylesheet" href="/mapper/templates/jquery.treeview.css" type="text/css">
- <link rel="stylesheet" href="/mapper/templates/toc.css" type="text/css">
- 
- <link rel="stylesheet" href="/mapper/templates/dialog.css" type="text/css">
- <link rel="stylesheet" href="/mapper/templates/jquery.layout.css" type="text/css">
- <!--[if lt IE 7]> 
- <link rel="stylesheet" href="/mapper/templates/ie6.css" type="text/css" />
- <![endif]--> 
- 
- <style type="text/css">
- <!--
- -->
- </style>
+ {{ HTML::style('/mapper/templates/custom.css') }}
 
- <link rel="stylesheet" href="/mapper/templates/custom.css" type="text/css">
- 
-   <script>
-  $(function() {
-  });
-  </script>
-  
- 	<script type="text/javascript">
+    <script type="text/javascript">
+        PM.msVersion = '<?php echo ms_GetVersion() ?>';
+
+        var SID = '';
+        var PM_XAJAX_LOCATION  = '/cartografia/xajax/';
+
+        PM.mapW = 600;
+        PM.mapH = 500;
+        PM.refW = 197;
+        PM.refH = 91;
+        PM.extent = [313761.97060415,1891919.6349885,784318.26239461,2077443.6209991];
+        PM.s1 = 1402386;
+        PM.s2 = 1000;
+
+        PM.dgeo_x = 366225.7561717;
+        PM.dgeo_y = 185523.98601058;
+        PM.dgeo_c = 1;
+
+        PM.layerAutoRefresh = 1;
+        PM.tbThm = 'default';
+        PM.activeLayer = ['manzanas','predios','construcciones','entidades','municipios','localidades','carreteras','calles','rios','hipsografico'];
+
+        // Query layers: modify query results in js
+        PM.modifyQueryResultsFunctions = [];
 
 	$(document).ready(function() {
         var mrgH = 6;
@@ -149,11 +136,11 @@ PM.modifyQueryResultsFunctions = [];
                 <img src="/mapper/images/logos/logo-spf.png" alt="SPF"/>
             </div>
             <div class="img-cont catastro">
-                <img src="/mapper/images/logos/logo-sicare.png" alt="Catastro"/>
+                <img src="/css/images/main/logo-header.png" alt="Catastro">
             </div>
         </div>
-        
-        Sistema Catastral y Registral del Estado de Tabasco 
+
+        Sistema Catastral y Registral del Estado de Tabasco
 </div>
 
 <div class="ui-layout-root" id="uiLayoutRoot" style="position: absolute; top: 76px; bottom: 10px; left: 10px; right: 10px;">
@@ -174,6 +161,9 @@ PM.modifyQueryResultsFunctions = [];
 </div>
 
     <div class="ui-layout-north" id="uiLayoutNorth" style="position: absolute; top: 0px; height: 32px; margin-bottom: 6px; right: -1px; left: 228px;">
+        <div style="float:left; margin-left: 5px; margin-top: 5px">
+            <a href="{{URL::to('/')}}"> <img src="/mapper/images/buttons/default/home_off.gif" alt="Menú Principal" title="Menú Principal"/></a>
+        </div>
    </div>
     
     <div class="ui-layout-west" id="uiLayoutWest" style="position: absolute; left: 0px; width: 220px; height: 509px; margin-right: 6px; top: 40px;">
