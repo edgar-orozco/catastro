@@ -110,7 +110,7 @@ $('#file').on('fileloaded', function(event, file, previewId, index, reader)
 		maxFileCount: 5,
 		layoutTemplates: {footer: footerTemplate},
         initialPreview: imagen,
-        allowedFileExtensions: ["jpg", "gif", "png", "txt", "pdf", "doc", "csv"],
+        allowedFileExtensions: ["jpg", "gif", "png", "txt", "pdf", "doc", "csv", "xlsx", "ppt", "pptx"],
 		uploadExtraData: function()
 		{
 			
