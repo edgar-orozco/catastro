@@ -44,10 +44,44 @@
 
             <li class="@if(Request::is('catalogos/peritos/tablaperitos')) active @endif">
                 <a href="{{URL::to('catalogos/peritos/tablaperitos')}}">
-                <i class="glyphicon glyphicon-tags"></i>&nbsp;
+                <i class="glyphicon glyphicon-user"></i>&nbsp;
                     Peritos
                 </a>
             </li>
+
+            <li class="divider"></li>
+
+            <li class="@if(Request::is('/reporteperito')) active @endif">
+                <a href="{{URL::to('/reporteperito')}}">
+                <i class="glyphicon glyphicon-list-alt"></i>&nbsp;
+                    Reporte Perito
+                </a>
+            </li>
+
+            <li class="@if(Request::is('/reportemensual')) active @endif">
+                <a href="{{URL::to('/reportemensual')}}">
+                <i class="glyphicon glyphicon-list-alt"></i>&nbsp;
+                    Reporte Mensual
+                </a>
+            </li>
+
+            <li class="@if(Request::is('/reportetotal')) active @endif">
+                <a href="{{URL::to('/reportetotal')}}">
+                <i class="glyphicon glyphicon-list-alt"></i>&nbsp;
+                    Reporte Total
+                </a>
+            </li>
+
+            <li class="divider"></li>
+
+
+            <li class="@if(Request::is('/configuraciones')) active @endif">
+                <a href="{{URL::to('/configuraciones')}}">
+                <i class="glyphicon glyphicon-tags"></i>&nbsp;
+                    Configuracion de Oficios
+                </a>
+            </li>
+
         </ul>
     </li>
 

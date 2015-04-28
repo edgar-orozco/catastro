@@ -1,6 +1,6 @@
 @extends('layouts.default')
 
-@section('contenido')
+@section('content')
 <?php
 	$mes = array();
 
@@ -22,7 +22,7 @@
 	//echo $fecha['day']. " de " . $mes[$fecha['month']] . " del " . $fecha['year'];
 ?>
 
-<h1>Reporte de Folios Hasta {{date("d") . " de " .$mes[date('m')]." del ". date("Y");}}</h1>
+<h1>Reporte de Folios Anual	</h1>
 
 <div class="panel panel-primary">
 	<div class="panel-heading">
@@ -40,6 +40,7 @@
 			<thead>
 				<tr>
 					<th>Año</th>
+					<th>Ultimo Folio Comprado</th>
 					<th>Folios Urbanos</th>
 					<th>Folios Rusticos</th>
 					<th>Total Urbanos</th>
@@ -50,7 +51,8 @@
 			<tbody>
 				@foreach ($folios_historial as $folios)
 					<tr>
-						<td></td>
+						<td align="center">{{$folios->year}}</td>
+						<td align="center">{{$folios->fecha_oficio}}</td>
 						<td align="center">{{$folios->folios_urbanos}}</td>
 						<td align="center">{{$folios->folios_rustico}}</td>
 						<td align="center">$ {{number_format($folios->total_urbano, '2')}}</td>

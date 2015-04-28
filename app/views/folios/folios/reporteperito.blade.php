@@ -1,6 +1,6 @@
-@extends('layouts.master')
+@extends('layouts.default')
 
-@section('contenido')
+@section('content')
 <?php
 	$mes = array();
 
@@ -32,7 +32,7 @@
 	<div class="panel-body">
 
 
-	<table class="table datatable">
+	<table class="table">
 			<thead>
 				<tr>
 					<th>Corevat No.</th>
@@ -59,6 +59,15 @@
 						?>
 						<td align="center">$ {{number_format($totalingresos,'2')}}</td>
 					</tr>
+				@endforeach
+				@foreach ($folios_totales as $totales)
+				<tr>
+					<td></td>
+					<th>TOTAL</th>
+					<th align="center">{{$totales->folios_urbanos}}</th>
+					<th align="center">{{$totales->folios_rusticos}}</th>
+					<th align="center">${{number_format($totales->total,'2')}}</th>
+				</tr>
 				@endforeach
 			</tbody>
 		</table>
