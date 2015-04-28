@@ -114,7 +114,7 @@
   </tr>
 </table>
 				<p class="texto" align="justify">  IV. QUE  OBTENIENDO EL VALOR CATASTRAL, PROCEDEMOS A CUANTIFICAR EL IMPUESTO PREDIAL ANUAL, TOMADO EN CONSIDERACIÓN QUE AL VALOR CATASTRAL APLICADO PARA LOS AÑOS 2009-2013 ES DE $1,112,300.00, SE LE APLICA EL 70% SEÑALADO EN EL TRANSITORIO SEGUNDO DE LA TABLA DE VALORES UNITARIOS DE SUELO Y DE CONSTRUCCIONES, QUEDANDO DE LAS SIGUIENTE MANERA:   </p>
-<table rules="all" width="49%" height="137" border="1">
+<table rules="all" width="49%" height="137" border="1" align="center">
   <tr>
     <td width="63%">Valor Catastral 2009 (70%)</td>
     <td width="37%">$ 778,610.00</td>
@@ -655,7 +655,7 @@ LOS RECARGOS SE CAUSARÁN HASTA POR CINCO AÑOS Y SE CALCULARÁN SOBRE EL TOTAL 
             </p>
 
       <p class="texto" align="justify">   PRIMERO. EN TÉRMINOS DE LO SEÑALADO EN EL CONSIDERADO IV Y V DE LA PRESENTE RESOLUCIÓN ADMINISTRATIVA SE DETERMINA EL ADEUDO DEL IMPUESTO PREDIAL, Y POR CONS GUIENTE EL REZAGO RESPECTIVO, LA ACTUALIZACIÓN, LOS RECARGOS       Y HONORARIOS POR NOTIFICACIÓN DE CRÉDITOS FISCALES, RESPECTO DEL PREDIO UBICADO EN LA PUEBLO NUEVO, MUN. CENTRO, TAB, CON LA CUENTA PREDIAL 000000-U, REGISTRADA A NOMBRE DE NOMBRE DEL DEUDOR, CORRESPONDIENTE A (LOS) EL EJERCICIO (S) FISCAL (ES) 2009-2013, QUEDANDO DE LA SIGUIENTE MANERA:   </p>
-            <table rules="all" width="49%" border="1">
+            <table rules="all" width="49%" border="1" align="center">
   <tr>
     <td width="52%"><div align="center">Concepto</div></td>
     <td width="48%"><div align="center">Importe $</div></td>

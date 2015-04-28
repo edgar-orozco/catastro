@@ -222,7 +222,9 @@ class Ejecucion_SeguimientobusController extends \BaseController {
         //Subtitulo de seccion:
         $subtitle_section = "Crear nueva persona";
         //$format = 'html';
-        $fechas = requerimientos::where('id_requerimiento', $idrequerimiento)->pluck('f_requerimiento');
+        $fechas1 = requerimientos::where('id_requerimiento', $idrequerimiento)->pluck('f_requerimiento');
+        $fechas = date ( 'Y-m-d' , strtotime ( $fechas1 ));
+        //$fechas = date_format($fechas, 'd/m/Y');
          $catalogo       = ejecutores::join('personas', 'ejecutores.id_p', '=', 'personas.id_p')//->lists('cargo', 'id_ejecutor');
             ->select('ejecutores.id_ejecutor AS id', 'personas.nombrec AS nombre')
             ->get();

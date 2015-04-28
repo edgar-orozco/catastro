@@ -163,6 +163,9 @@ setlocale(LC_MONETARY, 'es_MX');
                 <th width="700"><P align="center">Fecha Inicio</P></th>
                 <th width="350"><P align="center">Fecha Vencimiento</P></th>
                 <th width="350"><P align="center"></P>--</th>
+                <th width="350"><P align="center"></P>--</th>
+                <th width="350"><P align="center"></P>--</th>
+                <th width="350"><P align="center"></P>--</th>
         </tr>
     </thead>
     <tbody>
@@ -177,9 +180,9 @@ setlocale(LC_MONETARY, 'es_MX');
                   <?php $valorcc         = $key[6]; ?>
                   <?php $total           = $impuesto+$valorcc ?>
                   <?php $fechacancelacion = str_replace(')', '',$key[8]); ?>
-                  <?php $requerimiento   =  str_replace(')','',$key[9]);?>
-                    <?php if ( $fechacancelacion == '') { ?>
-                   
+                  <?php $notificacion   =  str_replace(')','',$key[9]);?>
+                    
+
             <td align="center">
                 {{ Form::checkbox('clave'.$i, $clave.','.$nombre.','.$total, false, ['onclick'=>'validar(this)'], array('id' => 'checkAll'))}}
             </td>
@@ -210,17 +213,15 @@ setlocale(LC_MONETARY, 'es_MX');
                 <?php $fecharequerimiento = str_replace(')', '',$key[11]);?>
                <?php if($fechainicio != '')
                {
-                $fechaven = FechasHelper::diasprueba($vigencia,$fechainicio);
+
+                $fechaven = FechasHelper::diasprueba($vigencia,$fecharequerimiento);
                 echo $fechaven;
                }
                ?>
             </td>
             <td align="center">
-                  <?php $fechacancelacion = str_replace(')', '',$key[8]);?>
-
-                <?php if(empty($fechacancelacion))  { ?>
                 <!-- agrgar datos requerimiento-->
-                @if($requerimiento=='Si')
+                @if($notificacion=='Si')
                 @if($fechainicio=='' || $fechaven=='')
                 <a data-toggle ="modal" class="editar-ejecucion" data-requerimiento="{{$idrequerimiento}}" data-target="#Nuevo" href="/ejecucion/modal/{{$idrequerimiento}}" title="Agregar Requerimiento" ><span class="glyphicon glyphicon-pencil"></span></a>
                 @endif
@@ -232,7 +233,7 @@ setlocale(LC_MONETARY, 'es_MX');
                 <?php echo $arr[$key[3]]; ?>
             </td>
             <td>
-                <?php $fecha= date("d/m/Y");
+                <?php $fecha= date("Y-m-d");
                     if($fechaven>$fecha)
                     {
                        echo '<a   href ="/consulta" ><span class="glyphicon glyphicon-forward" title="Continuar Proceso"></span></a>';
@@ -244,15 +245,9 @@ setlocale(LC_MONETARY, 'es_MX');
             <td>
                 <a data-toggle ="modal"  data-cancelar="{{$idrequerimiento}}" class="cancelar-ejecucion" data-target="#cancelar" href="/ejecucion/cancelar/{{$idrequerimiento}}" title="Cancelar Requerimiento"><span class="glyphicon glyphicon-remove"></span></a>
 
-            </td> <?php } else {?>
-             <td>
-                <span class="badge">Cancelado</span>
-
             </td>
-                <?php } ?>
-        </tr> <?php } ?>
+        </tr>
         @endforeach
-       
     </tbody>
     </table>
    {{ $pagination->appends(Request::except('page'))->links() }}
@@ -278,6 +273,21 @@ setlocale(LC_MONETARY, 'es_MX');
     <!-- fin Modal -->
     <!-- Modal -->
     <div class="modal fade" id="cancelar" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+
+                <div class="modal-body" id="modalBody1">
+
+                </div>
+                <div class="modal-footer" id="modal-footer1">
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- fin Modal -->
+      <!-- Modal -->
+    <div class="modal fade" id="proceso" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
 

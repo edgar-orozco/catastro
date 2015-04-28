@@ -64,9 +64,9 @@ setlocale(LC_MONETARY, 'es_MX');
 
 </script>
 <script>
-  
        $('#boton').on('click', function()
                 {
+                    
                    document.busqueda.submit();
                 });
 
@@ -274,7 +274,7 @@ setlocale(LC_MONETARY, 'es_MX');
                         </td>
                     </tr>
                     <tr>
-                        <td colspan="3">{{ Form::submit('Buscar', array('class' => 'btn btn-primary')) }}</td>
+                        <td colspan="3">{{ Form::submit('Buscar', array('class' => 'btn btn-primary', 'id' => 'buscador')) }}</td>
                         <td  colspan="3">{{ Form::button('limpiar', array('class' => 'btn btn-warning', 'id' => 'limpiar')) }} </td>
                     </tr>
                 </table>

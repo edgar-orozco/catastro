@@ -11,6 +11,7 @@ if(count($tomas_agua)=='')
     $num_medidor=$ta['num_medidor'];
     $num_contrato=$ta['num_contrato'];
     $id_usuariotoma=$ta['id_usuariotoma'];
+    $id_tipotoma=$ta['id_tipotoma'];
 
     if($medidor_instalado==1)
     {
