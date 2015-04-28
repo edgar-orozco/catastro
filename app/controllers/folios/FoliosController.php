@@ -2,15 +2,6 @@
 
 class folios_FoliosController extends BaseController {
 
-
-
-
-
-
-	 protected $por_pagina = 10;
-
-
-
 	public function nfolios(){ //formulario para nuevos folios
 
 		$noperito = Perito::where('Estado', 1)
@@ -22,7 +13,6 @@ class folios_FoliosController extends BaseController {
 	public function nfolioscreate(){ //acciones para guardar los nuevos folios en las tablas
 
 		$conf =FoliosConf::first();
-
 
 		$inputs = Input::all();
 
@@ -201,8 +191,12 @@ class folios_FoliosController extends BaseController {
 	}
 	
 	public function foliosemitidos(){ //muestra todos los folios que se han vendido 
-		 
-		$femitidos = FoliosHistorial::all(); 
+
+		$YEAR = date('Y');
+
+		$femitidos = FoliosHistorial::whereRaw("EXTRACT(YEAR FROM fecha_solicitud) = ". $YEAR)
+		->get(); 
+		
 		return View::make('folios.folios.foliosemitidos', ['femitidos' => $femitidos]);
 	}
 
@@ -216,11 +210,9 @@ class folios_FoliosController extends BaseController {
 
 		$vista = View::make('folios.folios.formato', ['conf'=>$conf,'folios_historial'=>$folios_historial,'datos_perito'=>$datos_perito]);
 
-		$pdf = PDF::load($vista)->show();
-		//load(variable, tamaño de hoja, orientacion landscape)
-		$response = Response::make($pdf, 200);
-		$response->header('Content-Type', 'application/pdf');
-		return $response;
+		return PDF::loadHTML($vista)
+		->stream();
+
 	}
 
 	public function eliminarFolios ($id){ //elimina los folios generados
@@ -243,9 +235,16 @@ class folios_FoliosController extends BaseController {
 											->groupBy('perito_id')
 											->orderBy('perito_id')
 											->get();
+		$folios_totales=FoliosHistorial::select(
+											DB::raw('Sum(cantidad_urbanos) as folios_urbanos'),
+											DB::raw('Sum(cantidad_rusticos) as folios_rusticos'),
+											DB::raw('Sum(total_urbano) as total_urbano'),
+											DB::raw('Sum(total_rustico) as total_rustico'),
+											DB::raw('Sum(total) as total'))
+											->get();
 
 	
-		return View::make('folios.folios.reporteperito')->withFolios_historial($folios_historial)->withConf($conf);		
+		return View::make('folios.folios.reporteperito')->withFolios_historial($folios_historial)->withFolios_totales($folios_totales)->withConf($conf);		
 	}
 
 	public function formatoreporteperito(){
@@ -259,51 +258,86 @@ class folios_FoliosController extends BaseController {
 											->groupBy('perito_id')
 											->orderBy('perito_id')
 											->get();
-		$vista= View::make('folios.folios.formatoreporteperito')->withFolios_historial($folios_historial)->withConf($conf);	
 
-		$pdf = PDF::load($vista, 'letter', 'landscape')->show();
-		//load(variable, tamaño de hoja, orientacion landscape)
-		$response = Response::make($pdf, 200);
-		$response->header('Content-Type', 'application/pdf');
-		return $response;
+		$folios_totales=FoliosHistorial::select(
+											DB::raw('Sum(cantidad_urbanos) as folios_urbanos'),
+											DB::raw('Sum(cantidad_rusticos) as folios_rusticos'),
+											DB::raw('Sum(total_urbano) as total_urbano'),
+											DB::raw('Sum(total_rustico) as total_rustico'),
+											DB::raw('Sum(total) as total'))
+											->get();
+
+		$vista= View::make('folios.folios.formatoreporteperito')->withFolios_historial($folios_historial)->withFolios_totales($folios_totales)->withConf($conf);	
+
+		return PDF::loadHTML($vista)
+		->stream();
+		
 	}
 		
 	public function reportemensual(){
+		$folios_historial=FoliosHistorial::select(
+								DB::raw('EXTRACT(MONTH FROM fecha_oficio) as mes'),
+								DB::raw('Sum(cantidad_urbanos) as urbano'),
+								DB::raw('Sum(cantidad_rusticos) as rustico'),
+								DB::raw('Sum(total_urbano) as total_urbano'),
+								DB::raw('Sum(total_rustico) as total_rustico'),
+								DB::raw('Sum(total) as total'))
+								->groupBy('mes')
+								->get();	
 
+		return View::make('folios.folios.reportemensual')->withFolios_historial($folios_historial);;
+	}
 
-		return View::make('folios.folios.reportemensual');
-	
+	public function formatoreportemensual(){
+		$folios_historial=FoliosHistorial::select(
+								DB::raw('EXTRACT(MONTH FROM fecha_oficio) as mes'),
+								DB::raw('Sum(cantidad_urbanos) as urbano'),
+								DB::raw('Sum(cantidad_rusticos) as rustico'),
+								DB::raw('Sum(total_urbano) as total_urbano'),
+								DB::raw('Sum(total_rustico) as total_rustico'),
+								DB::raw('Sum(total) as total'))
+								->groupBy('mes')
+								->get();	
+
+		$vista = View::make('folios.formatoreportemensual')->withFolios_historial($folios_historial);
+
+		return PDF::loadHTML($vista)
+		->stream();
+
 	}
 
 	public function reportetotal(){
 		$folios_historial=FoliosHistorial::select(
+											DB::raw('MAX(fecha_oficio) as fecha_oficio'),
+											DB::raw('EXTRACT(YEAR FROM fecha_oficio) as year'),
 											DB::raw('Sum(cantidad_urbanos) as folios_urbanos'),
 											DB::raw('Sum(cantidad_rusticos) as folios_rustico'),
 											DB::raw('Sum(total_urbano) as total_urbano'),
 											DB::raw('Sum(total_rustico) as total_rustico'),
 											DB::raw('Sum(total) as total'))
+											->groupBy('year')
 											->get();
 
 		return View::make('folios.folios.reportetotal')->withFolios_historial($folios_historial);
-	
 	}
+	
 	public function formatoreportetotal(){
 		$folios_historial=FoliosHistorial::select(
+											DB::raw('MAX(fecha_oficio) as fecha_oficio'),
+											DB::raw('EXTRACT(YEAR FROM fecha_oficio) as year'),
 											DB::raw('Sum(cantidad_urbanos) as folios_urbanos'),
 											DB::raw('Sum(cantidad_rusticos) as folios_rustico'),
 											DB::raw('Sum(total_urbano) as total_urbano'),
 											DB::raw('Sum(total_rustico) as total_rustico'),
 											DB::raw('Sum(total) as total'))
+											->groupBy('year')
 											->get();
 
 		$vista = View::make('folios.folios.formatoreportetotal')->withFolios_historial($folios_historial);
 
-		$pdf = PDF::load($vista, 'letter', 'landscape')->show();
-		//load(variable, tamaño de hoja, orientacion landscape)
-		$response = Response::make($pdf, 200);
-		$response->header('Content-Type', 'application/pdf');
-		return $response;
-	
+		return PDF::loadHTML($vista)
+		->stream();
+
 	}
 
 }
