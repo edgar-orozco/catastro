@@ -37,6 +37,25 @@
                 </a>
             </div>
         </div>
+        <div class="col-lg-3 col-md-6">
+            <div class="panel panel-info">
+                <div class="panel-heading">
+                    <div class="row">
+                        <div class="col-xs-3">
+                            <i class="glyphicon glyphicon-globe gi-5x"></i>
+                        </div>
+                    </div>
+                </div>
+                <a href="{{URL::to('cartografia/consultas')}}">
+                    <div class="panel-footer">
+                        <span class="pull-left">Consulta Cartográfica</span>
+                        <span class="pull-right"><i class="glyphicon glyphicon-circle-arrow-right"></i></span>
+                        <div class="clearfix"></div>
+                    </div>
+                </a>
+            </div>
+        </div>
+
 
     </div>
 @stop
