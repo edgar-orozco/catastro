@@ -210,9 +210,11 @@ class folios_FoliosController extends BaseController {
 
 		$vista = View::make('folios.folios.formato', ['conf'=>$conf,'folios_historial'=>$folios_historial,'datos_perito'=>$datos_perito]);
 
-		return PDF::loadHTML($vista)
-		->stream();
-
+		$pdf = PDF::load($vista)->show();
+		//load(variable, tamaño de hoja, orientacion landscape)
+		$response = Response::make($pdf, 200);
+		$response->header('Content-Type', 'application/pdf');
+		return $response;
 	}
 
 	public function eliminarFolios ($id){ //elimina los folios generados
@@ -269,8 +271,11 @@ class folios_FoliosController extends BaseController {
 
 		$vista= View::make('folios.folios.formatoreporteperito')->withFolios_historial($folios_historial)->withFolios_totales($folios_totales)->withConf($conf);	
 
-		return PDF::loadHTML($vista)
-		->stream();
+		$pdf = PDF::load($vista)->show();
+		//load(variable, tamaño de hoja, orientacion landscape)
+		$response = Response::make($pdf, 200);
+		$response->header('Content-Type', 'application/pdf');
+		return $response;
 		
 	}
 		
@@ -301,8 +306,11 @@ class folios_FoliosController extends BaseController {
 
 		$vista = View::make('folios.formatoreportemensual')->withFolios_historial($folios_historial);
 
-		return PDF::loadHTML($vista)
-		->stream();
+		$pdf = PDF::load($vista)->show();
+		//load(variable, tamaño de hoja, orientacion landscape)
+		$response = Response::make($pdf, 200);
+		$response->header('Content-Type', 'application/pdf');
+		return $response;
 
 	}
 
@@ -335,8 +343,11 @@ class folios_FoliosController extends BaseController {
 
 		$vista = View::make('folios.folios.formatoreportetotal')->withFolios_historial($folios_historial);
 
-		return PDF::loadHTML($vista)
-		->stream();
+		$pdf = PDF::load($vista)->show();
+		//load(variable, tamaño de hoja, orientacion landscape)
+		$response = Response::make($pdf, 200);
+		$response->header('Content-Type', 'application/pdf');
+		return $response;
 
 	}
 
