@@ -55,6 +55,17 @@ input{
     text-align: center;
 }
 
+
+#lista-tipotramites .panel-info{
+    border: none;
+}
+#lista-tipotramites .panel-info > .panel-heading{
+    border-radius: 5px;
+    color: white;
+    background-color: #F27007;
+    border-color: orange;
+}
+
 .table > thead > tr > th, .table > tbody > tr > th, .table > tfoot > tr > th{
     background: darkgray;
     border-top: 0;

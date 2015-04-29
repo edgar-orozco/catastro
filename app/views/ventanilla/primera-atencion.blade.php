@@ -25,6 +25,7 @@
                            href="#collapse-{{$tipotramite->id}}" aria-expanded="false"
                            aria-controls="collapse-{{$tipotramite->id}}">
                             {{$tipotramite->nombre}}
+                            <b class="caret"></b>
                         </a>
                     </h4>
                 </div>
