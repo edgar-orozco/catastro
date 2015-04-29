@@ -62,19 +62,20 @@ input{
 #lista-tipotramites .panel-info > .panel-heading{
     border-radius: 5px;
     color: white;
-    background-color: #F27007;
-    border-color: orange;
+    background-color: #0072ab;
+    border: none;
     padding: 0;
     z-index: 5;
     position: relative;
 }
 #lista-tipotramites .panel-info > .panel-heading a{
     color: white;
-    font-size: 1.5em;
+    font-size: 1.3em;
     display: block;
     width: 100%;
     padding: 10px;
     border-radius: 5px;
+    font-weight: normal;
 }
 
 #lista-tipotramites .panel-info > .panel-heading a:hover{
@@ -90,7 +91,7 @@ input{
     border-bottom-left-radius: 5px;
     border-bottom-right-radius: 5px;
     padding: 30px 10px;
-    background: lightgray;
+    background: #eeeded;
 }
 
 
