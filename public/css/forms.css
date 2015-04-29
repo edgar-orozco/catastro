@@ -78,6 +78,11 @@ input{
     font-weight: normal;
 }
 
+.gi-5x{
+    font-size: 2em;
+    top: 16px;
+}
+
 #lista-tipotramites .panel-info > .panel-heading a:hover{
     background: orange;
 }
@@ -93,8 +98,18 @@ input{
     padding: 30px 10px;
     background: #eeeded;
 }
-
-
+.panel-group .panel-footer{
+    background: #0072ab;
+    border-top: 0;
+    color: white;
+    border-radius: 0;
+}
+.panel-info > .panel-heading + .panel-collapse > .panel-body .panel-heading{
+    border-radius: 0;
+    padding: 9px;
+    border-bottom-left-radius: 5px;
+    border-bottom-right-radius: 5px;
+}
 
 .table > thead > tr > th, .table > tbody > tr > th, .table > tfoot > tr > th{
     background: darkgray;
