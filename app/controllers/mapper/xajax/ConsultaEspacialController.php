@@ -22,46 +22,85 @@ class ConsultaEspacialController extends \BaseController {
         	list($x,$y) = $this->img2map($mapW,$mapH,$clkpoint,$old_extent);
         	$x_str = sprintf("%3.6f",$x);
         	$y_str = sprintf("%3.6f",$y);
-           
-    		$dbconn = pg_connect("host=127.0.0.1 dbname=catastro user=postgres") or die('No se ha podido conectar: ' . pg_last_error());
-   			$sql="select m.nombre_municipio, p.clave_catas, p.superficie_terreno, p.tipo_predio, st_xmin(p.geom)-5, st_ymin(p.geom)-5, st_xmax(p.geom)+5, st_ymax(p.geom)+5  from predios p left join municipios m on p.municipio = m.municipio where ST_Contains(p.geom, ST_SetSRID(ST_Point($x_str,$y_str),32615))";
-    		
-    		$result = pg_query($sql) or die('La consulta fallo: ' . pg_last_error());
 
-    		if ($result && pg_num_rows($result) != 0){
-    		    $row = pg_fetch_row($result); 
-                $strJS  = '"clave_catas":"' . $row[1]. '", ';
-                $strJS .= '"municipio":"' . $row[0]. '", ';
-                $strJS .= '"sup_terr":"' . $row[2]. '", ';
-                if($row[3] == "U"){
-                    $strJS .= '"tipo_predio":"Urbano"';
-                }else{
-                    $strJS .= '"tipo_predio":"Rural"';
-                }
-                
-                $_REQUEST["mapW"] = 200;
-                $_REQUEST["mapH"] = 200;
-                $_REQUEST["GEOEXT"][0] = $row[4] ;                                                
-                $_REQUEST["GEOEXT"][1] = $row[5] ;
-                $_REQUEST["GEOEXT"][2] = $row[6] ;
-                $_REQUEST["GEOEXT"][3] = $row[7] ;
-                $_REQUEST["groups"] = array("predios");                
-                
-                // CREATE NEW MAP
-                $pmap = new PMAP($map);
-                $pmap->pmap_create();
-                
-                $mapURL      = $pmap->pmap_returnMapImgURL();
-               
-                // Serialize url_points
-                $urlPntStr = '';
-        
-                // return JS object literals "{}" for XMLHTTP request 
-                echo "{\"sessionerror\":\"query\",  \"mapURL\":\"$mapURL\",".$strJS."}";
-            }else{
-                echo "{\"sessionerror\":\"true\"}";
+            //Buscamos predio por geolocalización
+            $registrosPredio = DB::select('select entidad, municipio, clave_catas, tipo_predio, superficie_terreno, superficie_construccion , st_xmin(geom) as xmin, st_ymin(geom) as ymin, st_xmax(geom) as xmax, st_ymax(geom) as ymax from predios where ST_Contains(geom, ST_SetSRID(ST_Point(?,?),32615))', array($x_str,$y_str));
+            if (count($registrosPredio) == 0) {
+                $strJS = '"msgError":"No existe ningún predio en el área seleccionada."';
+                echo "{\"sessionerror\":\"QueryError\"," . $strJS . "}";
+                return;
             }
-        }	
+
+            $predio = $registrosPredio[0];
+            $entidad = $predio->entidad;
+            $municipio = $predio->municipio;
+            $clave_catas = $predio->clave_catas;
+            $clave_completa = $predio->entidad."-".$predio->municipio."-".$predio->clave_catas;
+            $sup_terr = $predio->superficie_terreno;
+            $sup_const = $predio->superficie_construccion;
+            $tipo_predio = $predio->tipo_predio;
+/*            $xmin = $predio->xmin-($predio->xmin*0.1);
+            $ymin = $predio->ymin-($predio->ymin*0.1);
+            $xmax = $predio->xmax+($predio->xmax*0.1);
+            $ymax = $predio->ymax+($predio->ymax*0.1); */
+            $xmin = $predio->xmin-10;
+            $ymin = $predio->ymin-20;
+            $xmax = $predio->xmax+10;
+            $ymax = $predio->ymax+20;
+            $propietario = "";
+            $domicilio = "";
+            $id_ubicacion = "";
+            $asentamiento = "";
+            $cuenta = "";
+
+            //buscamos datos de predio (propietario y ubicación) por clave_catastral
+            $datosPredio = DB::select('select nombrec, ubicacion, id_ubicacion_fiscal from datospredio where clave = ?', array($clave_completa));
+            if (count($datosPredio) != 0) {
+                $propietario = $datosPredio[0]->nombrec;
+                $domicilio = $datosPredio[0]->ubicacion;
+                $id_ubicacion = $datosPredio[0]->id_ubicacion_fiscal;
+            }
+
+            //Datos Fiscal (No. de cuenta)
+            $datosFiscal = DB::select('select cuenta from fiscal where clave = ?', array($clave_completa));
+            if (count($datosFiscal) != 0) {
+                $cuenta = $datosFiscal[0]->cuenta;
+            }
+
+            // JS objects from map creation
+            $strJS  = '"clave_catas":"' . $clave_completa. '", ';
+            $strJS .= '"cuenta":"' . $cuenta. '", ';
+            $strJS .= '"municipio":"' . $municipio. '", ';
+            $strJS .= '"propietario":"' . $propietario. '", ';
+            $strJS .= '"domicilio":"' . $domicilio. '", ';
+            $strJS .= '"sup_terr":"' . $sup_terr. '", ';
+            $strJS .= '"sup_const":"' . $sup_const. '", ';
+            if($tipo_predio == "U"){
+                $strJS .= '"tipo_predio":"Urbano"';
+            }else{
+                $strJS .= '"tipo_predio":"Rural"';
+            }
+
+            $_REQUEST["mapW"] = 200;
+            $_REQUEST["mapH"] = 200;
+            $_REQUEST["GEOEXT"][0] = $xmin ;
+            $_REQUEST["GEOEXT"][1] = $ymin ;
+            $_REQUEST["GEOEXT"][2] = $xmax ;
+            $_REQUEST["GEOEXT"][3] = $ymax ;
+            $_REQUEST["groups"] = array("predios");
+
+            // CREATE NEW MAP
+            $pmap = new PMAP($map);
+            $pmap->pmap_create();
+
+            $mapURL      = $pmap->pmap_returnMapImgURL();
+
+            // Serialize url_points
+            $urlPntStr = '';
+
+            // return JS object literals "{}" for XMLHTTP request
+            echo "{\"sessionerror\":\"query\",  \"mapURL\":\"$mapURL\",".$strJS."}";
+        }
     }  
     
     protected function img2map($width,$height,$point,$ext) {

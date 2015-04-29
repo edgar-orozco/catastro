@@ -23,7 +23,6 @@ class ConsultaAlfaController extends \BaseController {
             $_REQUEST["variables"][1] = substr($claves[0]->clave,7);
         }
 
-
         // Busqueda por Clave
 
         $PM_MAP_FILE = "/var/www/html/Tabasco.map";
@@ -35,7 +34,6 @@ class ConsultaAlfaController extends \BaseController {
         $clave_catas = $_REQUEST["variables"][1];
 
         $result = DB::select('select st_xmin(p.geom)-5 as xmin, st_ymin(p.geom)-5 as ymin, st_xmax(p.geom)+5 as xmax, st_ymax(p.geom)+5 as ymax  from predios p where p.municipio = ? and p.clave_catas = ?', array($municipio,$clave_catas));
-
 
         if (count($result) == 0) {
             if($tipoQuery == 'Cuenta'){
