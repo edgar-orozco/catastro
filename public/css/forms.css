@@ -104,7 +104,7 @@ input{
     color: white;
     border-radius: 0;
 }
-.panel-info > .panel-heading + .panel-collapse > .panel-body .panel-heading{
+.panel-info .panel-body .panel-heading{
     border-radius: 0;
     padding: 9px;
     border-bottom-left-radius: 5px;
