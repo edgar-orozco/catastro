@@ -1,6 +1,11 @@
 @extends('layouts.default')
+<!--Agrego para el datatable-->
+    {{ HTML::style('/css/bootstrap.min.css') }}
+    {{ HTML::style('/css/dataTables.bootstrap.css') }}
 
 @section('content')
+
+
 
 <h1></h1>
 
@@ -24,7 +29,7 @@
 			</div>
 		</div>
 		{{Form::open()}}
-		<table class="table datatable">
+		<table class="table datatable" id="example">
 			<thead>
 				<tr>
 					<!--<th>{{Form::checkbox('', '', '', ['id'=>'todos'])}}</th>-->
@@ -53,7 +58,7 @@
 					<td align="center"> {{$perito->corevat."-".$input.$u->tipo_folio."-15"}}</td>
 					<td align="center"> 
 					@if($u->entrega_municipal == 1)
-						{{$u->municipio->municipio}}
+						{{$u->municipio->nombre_municipio}}
 					@endif
 					</td>
 					<td align="center">
@@ -78,10 +83,12 @@
 
 	@stop
 
-	@section('scripts')
+	@section('javascript')
+
+	{{ HTML::script('/js/jquery/jquery.dataTables.min.js') }}
+	{{ HTML::script('/js/jquery/dataTables.bootstrap.js') }}
 
 	<script type="text/javascript">
-
 	$(document).ready(function(){
 
 		$("#todos").change(function(){
@@ -98,6 +105,20 @@
 
 		});
 
+		$('#example').dataTable( {
+        "language": {
+            "lengthMenu": "Mostrar _MENU_ Registros por pagina",
+            "zeroRecords": "No se encontraron registros",
+            "info": "Mostrando pagina _PAGE_ de _PAGES_",
+            "infoEmpty": "No hay registros","search": "Filter records:",
+            "search": "Buscar:",
+            "infoFiltered": "(Filtrado en _MAX_ total de registros)",
+            "oPaginate": {
+		      "sPrevious": "Anterior",
+		      "sNext": "Siguiente"
+		    }
+        }
+	    });
 	});
 
 	</script>

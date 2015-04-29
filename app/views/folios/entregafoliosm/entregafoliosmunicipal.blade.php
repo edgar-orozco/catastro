@@ -1,13 +1,9 @@
 @extends('layouts.default')
 
-@section('styleRef')
 
    <!--Agrego para el datatable-->
     {{ HTML::style('/css/bootstrap.min.css') }}
     {{ HTML::style('/css/dataTables.bootstrap.css') }}
-
-@stop
-
 
 @section('content')
 
