@@ -67,8 +67,8 @@ setlocale(LC_MONETARY, 'es_MX');
        $('#boton').on('click', function()
                 {
                    window.location.reload();
-                   ventana_hija = window.open($.post( "/cartainv", $( "#cartaForm" ).serialize()),null);
-                   ventana_hija = window.close();
+                   ventana_hija = window.open($.post( "/cartainv", $( "#cartaForm" ).serialize()));
+
                    return false;
                 });
 
