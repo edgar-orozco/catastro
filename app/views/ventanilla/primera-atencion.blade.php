@@ -12,6 +12,9 @@
 @stop
 
 @section('content')
+
+    {{ HTML::style('css/forms.css') }}
+
 <form id="lista-tipotramites">
     <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="false">
         @foreach($tipotramites as $tipotramite)
