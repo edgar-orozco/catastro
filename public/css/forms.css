@@ -60,7 +60,7 @@ input{
     border: none;
 }
 #lista-tipotramites .panel-info > .panel-heading{
-    border-radius: 5px;
+    border-radius: 0;
     color: white;
     background-color: #69B1C9;
     border: none;
@@ -74,7 +74,7 @@ input{
     display: block;
     width: 100%;
     padding: 10px;
-    border-radius: 5px;
+    border-radius: 0;
     font-weight: normal;
 }
 
@@ -93,7 +93,8 @@ input{
 
 .panel-info > .panel-heading + .panel-collapse > .panel-body{
     border: none;
-    border-radius: 0;
+    border-bottom-left-radius: 5px;
+    border-bottom-right-radius: 5px;
     padding: 30px 10px;
     background: #eeeded;
 }
