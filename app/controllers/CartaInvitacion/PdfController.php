@@ -41,7 +41,7 @@ public function get_pdf()
           $fecha  =($claves2['captura']['fecha']=$fecha);
 
          for ($i=0; $i <count($vale) ; $i++) { 
-        
+
                $claves=$vale[$i];
                 $verificacion = ejecucion::where('clave',$claves)->pluck('clave');
                  //echo $resul=$verificacion;
@@ -74,16 +74,10 @@ public function get_pdf()
         }
 //print_r($vale);
 //$valeee=array_push($vale, "2" => "manzana","2" =>  "arándano");
-$fechaven = PdfHelper::imprimirpdf($vale);
+$fechaven = PdfHelper::imprimirpdf($vale,$fecha);
 echo $fechaven;
 
 
-   //ENVIO A LA VISTA DEL PDF CARTA INVITACION
- /*$vista = View::make('CartaInvitacion.carta', compact('data', 'fecha', 'nombre_eje', 'mun_actual','vale'));
-   $pdf = PDF::load($vista)->show("CartaInvitacion");
-   $response = Response::make($pdf, 200);
-   $response->header('Content-Type', 'application/pdf');
-   return $response;*/
     }
 
 

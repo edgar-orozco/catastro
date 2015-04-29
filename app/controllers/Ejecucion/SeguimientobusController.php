@@ -270,13 +270,61 @@ class Ejecucion_SeguimientobusController extends \BaseController {
             $cancelacion= new requerimientos;
             $cancelacion->id_ejecucion_fiscal=$ide;
             $cancelacion->cve_status='XC';
-            $cancelacion->f_requerimiento=$fecha_server;
+            $cancelacion->f_requerimiento=$fecha;
             $cancelacion->usuario=$usuario;
             $cancelacion->f_alta=$fecha_server;
             $cancelacion->save();
 
         Session::flash('mensaje', 'El se cancelo correctamente');
         return Redirect::back();
+    }
+
+      public function proceso( $idrequerimiento = null)
+    {
+        $title = 'Crar nueva perosana';
+
+        //Titulo de seccion:
+        $title_section = "";
+
+        //Subtitulo de seccion:
+        $subtitle_section = "Crear nueva persona";
+        //$format = 'html';
+        $fechas1 = requerimientos::where('id_requerimiento', $idrequerimiento)->pluck('f_requerimiento');
+        $fechas = date ( 'Y-m-d' , strtotime ( $fechas1 ));
+        //$fechas = date_format($fechas, 'd/m/Y');
+         $catalogo       = ejecutores::join('personas', 'ejecutores.id_p', '=', 'personas.id_p')//->lists('cargo', 'id_ejecutor');
+            ->select('ejecutores.id_ejecutor AS id', 'personas.nombrec AS nombre')
+            ->get();
+
+       return  View::make('ejecucion.proceso',compact('title','title_section','subtitle_section','idrequerimiento','catalogo', 'fechas'));
+
+    }
+     public function update_proceso()
+    {
+
+        $id=Input::get('id');
+        $ide = requerimientos::where('id_requerimiento', $id)->pluck('id_ejecucion_fiscal');
+
+            $datos=ejecucion::find($ide);
+            $datos->cve_status='RC';
+            $datos->f_cancelacion = Input::get('date');
+            $datos->motivo_cancelacion = 'Vencimiento de tiempo';
+            $datos->save();
+
+
+            $proceso= new requerimientos;
+            $proceso->id_ejecucion_fiscal=$ide;
+            $proceso->cve_status='RC';
+            $proceso->f_requerimiento=Input::get('date');
+            $proceso->usuario=Auth::user()->id;
+            $proceso->f_alta=date('Y-m-d');
+            $proceso->save();
+
+            /*$vista = View::make('CartaInvitacion.creditofiscal');
+   $pdf = PDF::load($vista)->show("credito");
+   $response = Response::make($pdf, 2000);
+   $response->header('Content-Type', 'application/pdf');
+   return $response;*/
     }
 
 

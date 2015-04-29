@@ -3,7 +3,7 @@
 class PdfHelper 
 {
 
-  public static function imprimirpdf($clave = null)
+  public static function imprimirpdf($clave = null, $fecha = null)
   {
 if(count($clave)==1)
 {
@@ -13,7 +13,7 @@ if(count($clave)==1)
       {
         $vales = explode(',', $key->sp_get_datos_predio);
       }
-        $fecha=date("Y-m-d");
+       // $fecha=date("Y-m-d");
          $nombre=str_replace('"', '',$vales[1]);
            $nombre=str_replace('{', '',$nombre);
            $nombre=str_replace('}', '',$nombre);
@@ -38,7 +38,7 @@ if(count($clave) > 1)
             {
                 $vales = explode(',', $key->sp_get_datos_predio);
             }
-           $fecha=date("Y-m-d");
+           //$fecha=date("Y-m-d");
            //array de fecha y nombre para el pdf
            $nombre=str_replace('"', '',$vales[1]);
            $nombre=str_replace('{', '',$nombre);

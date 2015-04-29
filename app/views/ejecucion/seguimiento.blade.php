@@ -160,6 +160,7 @@ setlocale(LC_MONETARY, 'es_MX');
                 <th width="700"><P align="center">Nombre Propietario</P></th>
                 <th width="200"><P align="center">Municpio</P></th>
                 <th width="500"><P align="center">Estatus</P></th>
+                <th width="500"><P align="center">Fecha de requerimiento</P></th>
                 <th width="700"><P align="center">Fecha Inicio</P></th>
                 <th width="350"><P align="center">Fecha Vencimiento</P></th>
                 <th width="350"><P align="center"></P>--</th>
@@ -181,8 +182,6 @@ setlocale(LC_MONETARY, 'es_MX');
                   <?php $total           = $impuesto+$valorcc ?>
                   <?php $fechacancelacion = str_replace(')', '',$key[8]); ?>
                   <?php $notificacion   =  str_replace(')','',$key[9]);?>
-                    
-
             <td align="center">
                 {{ Form::checkbox('clave'.$i, $clave.','.$nombre.','.$total, false, ['onclick'=>'validar(this)'], array('id' => 'checkAll'))}}
             </td>
@@ -202,6 +201,10 @@ setlocale(LC_MONETARY, 'es_MX');
                 <!-- domicilio -->
               {{$estatus=$key[4];}}
             </td>
+             <td align="center">
+                <!-- periodo -->
+                <?php echo $fecharequerimiento = str_replace(')', '',$key[11]);?>
+            </td>
             <td align="center">
                 <!-- periodo -->
                 {{$fechainicio=$key[6];}}
@@ -211,11 +214,13 @@ setlocale(LC_MONETARY, 'es_MX');
                <?php $fechavencimiento= str_replace(')', '',$key[7]);?>
                 <?php $vigencia = str_replace(')', '',$key[10]);?>
                 <?php $fecharequerimiento = str_replace(')', '',$key[11]);?>
-               <?php if($fechainicio != '')
+               <?php if(!empty($fechainicio))
                {
-
+                
                 $fechaven = FechasHelper::diasprueba($vigencia,$fecharequerimiento);
                 echo $fechaven;
+               }elseif (empty($fechainicio)) {
+                   $fechaven='';
                }
                ?>
             </td>
@@ -233,14 +238,16 @@ setlocale(LC_MONETARY, 'es_MX');
                 <?php echo $arr[$key[3]]; ?>
             </td>
             <td>
-                <?php $fecha= date("Y-m-d");
+                <?php $fecha= date("d-m-Y");
+                   if(!empty($fechaven))
+                   {
                     if($fechaven>$fecha)
                     {
-                       echo '<a   href ="/consulta" ><span class="glyphicon glyphicon-forward" title="Continuar Proceso"></span></a>';
-                   }elseif ($fechaven<=$fecha)
+                       echo '<a  data-toggle ="modal" data-target="#proceso"  href ="/ejecucion/proceso/'.$idrequerimiento.'" ><span class="glyphicon glyphicon-forward" title="Continuar Proceso"></span></a>';
+                   }else
                    {
                          echo '<span class="glyphicon glyphicon-ok" title="Proceso VIgente"></span>';
-                   }?>
+                   }}?>
             </td>
             <td>
                 <a data-toggle ="modal"  data-cancelar="{{$idrequerimiento}}" class="cancelar-ejecucion" data-target="#cancelar" href="/ejecucion/cancelar/{{$idrequerimiento}}" title="Cancelar Requerimiento"><span class="glyphicon glyphicon-remove"></span></a>

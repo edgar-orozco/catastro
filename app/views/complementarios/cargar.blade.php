@@ -63,7 +63,15 @@ $(document).ready(function () {
     });
 </script>
 
+<script type="text/javascript">
+    $(document).ready(function(){
+            $("body").delegate('.finalizar', 'click', function(){
 
+                alert('Datos guardados correctamente.');
+
+    });
+        });
+</script>
 @stop
 @section('content')
 <style type="text/css">
@@ -150,8 +158,11 @@ $(document).ready(function () {
                     $propietarios = DB::select("select sp_get_propietarios('$clave')");
                     foreach ($propietarios as $keys) {
                         $propie = explode(',', $keys->sp_get_propietarios);
-                        echo $propie[0];
+                        $nombre = $propie[0];
                     }
+                        $nombre=str_replace('"', '',$nombre);
+                        $nombre=str_replace('{', '',$nombre);
+                   echo $nombre=str_replace('}', '',$nombre);
                     ?></td>
                 @endforeach
             </tr>
@@ -285,7 +296,7 @@ $(document).ready(function () {
                 @include('complementarios.cargar.cargaArchivos')
             </div>
         </div>
-        <a href="/compleme" class="btn btn-success" role="button">Finalizar</a>
+        <a href="/compleme" class="btn btn-success finalizar" role="button">Finalizar</a>
     </div>
 </div>
 @stop
