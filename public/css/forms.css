@@ -141,6 +141,6 @@
     border-left: none;
 }
 
-.panel-heading h4{
+.panel-heading h4.panel-title{
     color: #ffffff;
 }
