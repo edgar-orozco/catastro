@@ -85,7 +85,7 @@ input{
     margin-top: -5px;
 }
 
-#lista-tipotramites .panel-info > .panel-body {
+#lista-tipotramites .panel-info > .panel-heading + .panel-collapse > .panel-body{
     border: none;
     border-bottom-left-radius: 5px;
     border-bottom-right-radius: 5px;
