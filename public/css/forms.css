@@ -33,6 +33,11 @@
     background: #F27007;
 }
 
+.panel-default > .panel-heading{
+    color: #333;
+    border-bottom: 2px solid orange;
+}
+
 .panel-heading{
     border: none;
     background: none;
