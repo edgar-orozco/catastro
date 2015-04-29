@@ -7,71 +7,66 @@
     <h2>Generador de Folios <small>Datos del Folio</small></h2>
 </div>
 <div class="panel panel-primary">
+    <div id="respuesta" hidden>
+        <div class="alert alert-danger">
+            <ul id="errores"></ul>
+        </div>
+    </div>
 
-	<div class="panel-body">
+    {{Form::open(['id'=>'form'])}}
 
-		<div id="respuesta" hidden>
-			<div class="alert alert-danger">
-				<ul id="errores"></ul>
-			</div>
-		</div>
-
-		{{Form::open(['id'=>'form'])}}
-
-		<div class="row">
-			<div class="col-md-6">
-				<div class="form-group">
-					{{Form::label('folio_catastro','Numero de Oficio')}}
-					{{Form::text('folio_catastro','', ['class'=>'form-control'])}}
-				</div>
-			</div>
-			<div class="col-md-6">
-				<div class="form-group">
-					{{Form::label('perito_id','Perito')}}
-					<select id="perito_id" name="perito_id" class="form-control">
-						@foreach($peritos as $perito)
-							<option value="{{$perito->id}}">{{$perito->corevat." -- ".$perito->nombre}}</option>
-						@endforeach
-					</select>
-				</div>
-			</div>
-			<div class="col-md-6">
-				<div class="form-group">
-					{{Form::label('cantidad_urbanos','Folios Urbanos')}}
-					{{Form::text('cantidad_urbanos','', ['class'=>'form-control'])}}
-				</div>
-			</div>
-			<div class="col-md-6">
-				<div class="form-group">
-					{{Form::label('cantidad_rusticos','Folios Rusticos')}}
-					{{Form::text('cantidad_rusticos','',['class'=>'form-control'])}}
-				</div>
-			</div>
-			<div class="col-md-6">
-				<div class="form-group">
-					{{Form::label('fecha_solicitud','Fecha de Solicitud')}}
-					{{Form::input('date', 'fecha_solicitud', null, array('required', 'class'=>'fecha form-control' ))}}
-				</div>
-			</div>
-			<div class="col-md-6">
-				<div class="form-group">
-					{{Form::label('fecha_oficio','Fecha de Oficio')}}
-					{{Form::input('date', 'fecha_oficio', null, array('required', 'class'=>'fecha form-control' ))}}
-				</div>
-			</div>
-			<div class="col-md-12">
-				<div class="form-group">
-					{{Form::label('no_recibo','Numero de Recibo')}}
-					{{Form::text('no_recibo',null,['class'=>'form-control'])}}
-				</div>
-			</div>
-			<div class="col-md-12">
-				{{Form::submit('Guardar', ['class'=>'btn btn-success', 'data-toggle'=>'modal', 'data-target'=>'#myModal'])}}
-				{{Form::close()}}
-			</div>
-		</div>
-	</div>
-
+    <div class="row">
+        <div class="col-md-6">
+            <div class="form-group">
+                {{Form::label('folio_catastro','Numero de Oficio')}}
+                {{Form::text('folio_catastro','', ['class'=>'form-control'])}}
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="form-group">
+                {{Form::label('perito_id','Perito')}}
+                <select id="perito_id" name="perito_id" class="form-control">
+                    @foreach($peritos as $perito)
+                        <option value="{{$perito->id}}">{{$perito->corevat." -- ".$perito->nombre}}</option>
+                    @endforeach
+                </select>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="form-group">
+                {{Form::label('cantidad_urbanos','Folios Urbanos')}}
+                {{Form::text('cantidad_urbanos','', ['class'=>'form-control'])}}
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="form-group">
+                {{Form::label('cantidad_rusticos','Folios Rusticos')}}
+                {{Form::text('cantidad_rusticos','',['class'=>'form-control'])}}
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="form-group">
+                {{Form::label('fecha_solicitud','Fecha de Solicitud')}}
+                {{Form::input('date', 'fecha_solicitud', null, array('required', 'class'=>'fecha form-control' ))}}
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="form-group">
+                {{Form::label('fecha_oficio','Fecha de Oficio')}}
+                {{Form::input('date', 'fecha_oficio', null, array('required', 'class'=>'fecha form-control' ))}}
+            </div>
+        </div>
+        <div class="col-md-12">
+            <div class="form-group">
+                {{Form::label('no_recibo','Numero de Recibo')}}
+                {{Form::text('no_recibo',null,['class'=>'form-control'])}}
+            </div>
+        </div>
+        <div class="col-md-12">
+            {{Form::submit('Guardar', ['class'=>'btn btn-success', 'data-toggle'=>'modal', 'data-target'=>'#myModal'])}}
+            {{Form::close()}}
+        </div>
+    </div>
 </div>
 
 
