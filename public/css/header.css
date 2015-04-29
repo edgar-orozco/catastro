@@ -80,3 +80,7 @@ header.catatro-df .navbar .navbar-nav a:hover{
     color: white;
     background: #69B1C9;
 }
+
+.dropdown-menu > .active{
+    color: #ffffff;
+}
