@@ -35,7 +35,7 @@
 
                         <!-- Inputs de clave o cuenta -->
                         <div class="row ">
-                            <div class="col-md-6">
+                            <div>
                                 <div class="form-group">
                                     <div class="input-group">
                                         <!-- Select clave o cuenta -->
@@ -106,7 +106,7 @@
                             </div>
 
                             <!-- /col-md-6 -->
-                            <div class="col-md-6">
+                            <div>
                                 <div class="alert alert-danger" style="display: none;">
                                     No se encontró el predio solicitado en el padrón.
                                 </div>
