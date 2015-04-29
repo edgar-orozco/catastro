@@ -6,7 +6,7 @@
 <div class="page-header">
     <h2>Generador de Folios <small>Datos del Folio</small></h2>
 </div>
-<div class="panel panel-primary">
+<div class="panel-primary">
     <div id="respuesta" hidden>
         <div class="alert alert-danger">
             <ul id="errores"></ul>
