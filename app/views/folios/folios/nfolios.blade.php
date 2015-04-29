@@ -4,15 +4,9 @@
 <!--(nombre campo, valor, arreglo[id,clase,])-->
 {{ HTML::style('css/forms.css') }}
 <div class="page-header">
-    <h2>Generador de Folios</h2>
+    <h2>Generador de Folios <small>Datos del Folio</small></h2>
 </div>
 <div class="panel panel-primary">
-
-	<div class="panel-heading">
-
-		<h4 class="panel-title">Datos del Folio</h4>
-
-	</div>
 
 	<div class="panel-body">
 
