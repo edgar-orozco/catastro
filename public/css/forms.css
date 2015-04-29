@@ -136,3 +136,8 @@ input{
     color: #F27007;
     padding-right: 5px;
 }
+
+.input.select-tipopredio, input.select-municipio, input.clave-catastral{
+    border-radius: 0;
+    border-left: none;
+}
