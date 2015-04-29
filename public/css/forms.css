@@ -72,6 +72,11 @@ input{
     display: block;
     width: 100%;
     padding: 10px;
+    border-radius: 5px;
+}
+
+#lista-tipotramites .panel-info > .panel-heading a:hover{
+    background: orange;
 }
 
 .table > thead > tr > th, .table > tbody > tr > th, .table > tfoot > tr > th{
