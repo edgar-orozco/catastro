@@ -20,7 +20,6 @@
     {{ HTML::style('/mapper/templates/toc.css') }}
 
     {{ HTML::style('/mapper/templates/dialog.css') }}
-    {{ HTML::style('/mapper/templates/jquery.layout.css') }}
     <!--[if lt IE 7]>
     {{ HTML::style('/mapper/templates/ie6.css') }}
     <![endif]-->
