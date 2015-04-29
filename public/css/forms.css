@@ -34,7 +34,7 @@
 }
 
 .panel-default > .panel-heading{
-    color: #333;
+    background: none;
     border-bottom: 2px solid orange;
 }
 
