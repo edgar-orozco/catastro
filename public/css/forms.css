@@ -93,8 +93,7 @@ input{
 
 .panel-info > .panel-heading + .panel-collapse > .panel-body{
     border: none;
-    border-bottom-left-radius: 5px;
-    border-bottom-right-radius: 5px;
+    border-radius: 0;
     padding: 30px 10px;
     background: #eeeded;
 }
@@ -103,12 +102,6 @@ input{
     border-top: 0;
     color: white;
     border-radius: 0;
-}
-#lista-tipotramites .panel-body .panel-info > .panel-heading{
-    border-radius: 0;
-    padding: 9px;
-    border-bottom-left-radius: 5px;
-    border-bottom-right-radius: 5px;
 }
 
 .table > thead > tr > th, .table > tbody > tr > th, .table > tfoot > tr > th{
