@@ -241,9 +241,9 @@ setlocale(LC_MONETARY, 'es_MX');
                 <?php $fecha= date("d-m-Y");
                    if(!empty($fechaven))
                    {
-                    if($fechaven>$fecha)
+                    if($fechaven<$fecha)
                     {
-                       echo '<a  data-toggle ="modal" data-target="#proceso"  href ="/ejecucion/proceso/'.$idrequerimiento.'" ><span class="glyphicon glyphicon-forward" title="Continuar Proceso"></span></a>';
+                       echo '<a  data-toggle ="modal" class="proceso-ejecucion" data-target="#proceso" target="_blank" href ="/ejecucion/proceso/'.$idrequerimiento.'" ><span class="glyphicon glyphicon-forward" title="Continuar Proceso"></span></a>';
                    }else
                    {
                          echo '<span class="glyphicon glyphicon-ok" title="Proceso VIgente"></span>';
@@ -298,10 +298,10 @@ setlocale(LC_MONETARY, 'es_MX');
         <div class="modal-dialog">
             <div class="modal-content">
 
-                <div class="modal-body" id="modalBody1">
+                <div class="modal-body" id="modalBody2">
 
                 </div>
-                <div class="modal-footer" id="modal-footer1">
+                <div class="modal-footer" id="modal-footer2">
 
                 </div>
             </div>

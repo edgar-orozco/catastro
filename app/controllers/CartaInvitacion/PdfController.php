@@ -12,7 +12,7 @@ public function get_pdf()
         //limpiamos y ordenamos el array
         $token      = $clave['_token'];
         $fecha      = $clave['date'];
-        $boton      = $clave['boton'];
+        //$boton      = $clave['boton'];
         $mun_actual = strtoupper($clave['mun']);
         $pagi       =$clave['pagi'];
         $id_mun     =$clave['id_municipio'];
@@ -26,7 +26,7 @@ public function get_pdf()
         unset($clave['id_municipio']);
         unset($clave['pagi']);
         unset($clave['mun']);
-        unset($clave['boton']);
+        //unset($clave['boton']);
         unset($clave['_token']);
         unset($clave['date']);
             //BUCLE PARA GUARDAR LOS DATOS A LA BASE DE DATOS

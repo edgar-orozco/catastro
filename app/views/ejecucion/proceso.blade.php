@@ -1,3 +1,4 @@
+@section('javascript')
 {{ HTML::style('js/jquery/jquery-ui.css') }}
 {{ HTML::script('js/jquery/jquery-ui.js') }}
 
@@ -54,12 +55,19 @@ $("#fecha").datepicker();
                 }
             });
 </script>
+<script >
+    $('#formproceso').bind('submit', function (e) {
+      e.preventDefault();
+|     reload(); 
+    })
+</script>
+@append
 <?php $fecha= date("d/m/Y"); ?>
 <div class="modal-header">
     <h4 class="modal-titulo" id="condominio-titulo">Cancelación de proceso</h4>
 </div>
 
-{{ Form::open(array('url'=>'ejecucion/guardarproceso')) }}
+{{ Form::open(array('url'=>'ejecucion/guardarproceso', 'id' => 'formproceso', 'target'=>'_blank')) }}
 
 <div style="margin-left: 20px">
     <div style="margin-right: 20px">
@@ -75,7 +83,7 @@ $("#fecha").datepicker();
             <p class="help-block"></p>
         </div>
         <div class="form-actions form-group">
-            {{ Form::submit('Guardar Datos', array('class' => 'btn btn-primary')) }} 
+            {{ Form::submit('Guardar Datos', array('class' => 'btn btn-primary', 'id' => 'guardar')) }} 
             {{ Form::reset('Limpiar ', ['class' => 'btn btn-warning']) }}
             <button class="btn btn-danger" type="button" class="btn btn-default" data-dismiss="modal">Cancelar Registro</button>
             {{Form::close()}}

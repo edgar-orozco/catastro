@@ -66,8 +66,10 @@ setlocale(LC_MONETARY, 'es_MX');
 <script>
        $('#boton').on('click', function()
                 {
-                    
-                   document.busqueda.submit();
+                   window.location.reload();
+                   ventana_hija = window.open($.post( "/cartainv", $( "#cartaForm" ).serialize()),null);
+                   ventana_hija = window.close();
+                   return false;
                 });
 
 </script>
@@ -232,7 +234,8 @@ setlocale(LC_MONETARY, 'es_MX');
                 'method' => 'BuscarController@index',
                 'method' => 'POST',
                 'url'    =>'/ejecucion',
-                'name'   =>'busqueda'
+                'name'   =>'busqueda',
+                'id'     =>'formBusqueda'
 
              )) }}
 
@@ -294,7 +297,7 @@ setlocale(LC_MONETARY, 'es_MX');
             </div>
         @endif
         @if(count($items) > 0)
-            {{ Form::open(array('url' => 'cartainv', 'method' => 'post', 'name' => 'formulario', 'target'=>'_blank'))}}
+            {{ Form::open(array('url' => 'cartainv', 'method' => 'post', 'name' => 'formulario', 'target'=>'_blank', 'id' => 'cartaForm'))}}
             {{$date = new DateTime();}}
 
             <div class="panel-default">

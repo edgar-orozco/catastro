@@ -299,7 +299,7 @@ class Ejecucion_SeguimientobusController extends \BaseController {
        return  View::make('ejecucion.proceso',compact('title','title_section','subtitle_section','idrequerimiento','catalogo', 'fechas'));
 
     }
-     public function update_proceso()
+     public function update_proceso($control=1)
     {
 
         $id=Input::get('id');
@@ -320,11 +320,16 @@ class Ejecucion_SeguimientobusController extends \BaseController {
             $proceso->f_alta=date('Y-m-d');
             $proceso->save();
 
-            /*$vista = View::make('CartaInvitacion.creditofiscal');
-   $pdf = PDF::load($vista)->show("credito");
-   $response = Response::make($pdf, 2000);
-   $response->header('Content-Type', 'application/pdf');
-   return $response;*/
+                 if($control==1)
+                    {
+                        $vista = View::make('CartaInvitacion.creditofiscal');
+                        $pdf = PDF::load($vista)->show("credito");
+                        $response = Response::make($pdf, 2000);
+                        $response->header('Content-Type', 'application/pdf');
+                        return $response;
+                    }
+            Session::flash('mensaje', 'El proceso ha sido hactualizado');
+            return Redirect::back();
     }
 
 
