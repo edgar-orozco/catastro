@@ -127,10 +127,12 @@ input{
     list-style: none;
 }
 .requisitos-lista ul li {
-    color: #0072ab;
-    font-size: 1.2em;
+    color: black;
+    font-size: 1em;
+    padding-bottom: 5px;
 }
 
 .requisitos-lista .glyphicon-ok{
     color: #F27007;
+    padding-right: 5px;
 }
