@@ -21,7 +21,8 @@
 }
 
 
-.panel-body .btn{
+.btn{
+    font-size: 1.3em;
     display: block;
     width: 100%;
 }

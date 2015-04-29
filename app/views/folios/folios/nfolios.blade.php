@@ -63,7 +63,7 @@
             </div>
         </div>
         <div class="col-md-12">
-            {{Form::submit('Guardar', ['class'=>'btn btn-success', 'data-toggle'=>'modal', 'data-target'=>'#myModal'])}}
+            {{Form::submit('Guardar', ['class'=>'btn btn-warning', 'data-toggle'=>'modal', 'data-target'=>'#myModal'])}}
             {{Form::close()}}
         </div>
     </div>
