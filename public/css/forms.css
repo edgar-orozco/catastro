@@ -65,6 +65,8 @@ input{
     background-color: #F27007;
     border-color: orange;
     padding: 0;
+    z-index: 5;
+    position: relative;
 }
 #lista-tipotramites .panel-info > .panel-heading a{
     color: white;
@@ -78,6 +80,20 @@ input{
 #lista-tipotramites .panel-info > .panel-heading a:hover{
     background: orange;
 }
+
+#lista-tipotramites .panel-info > .collapse.in{
+    margin-top: -5px;
+}
+
+#lista-tipotramites .panel-info > .panel-body {
+    border: none;
+    border-bottom-left-radius: 5px;
+    border-bottom-right-radius: 5px;
+    padding: 30px 10px;
+    background: lightgray;
+}
+
+
 
 .table > thead > tr > th, .table > tbody > tr > th, .table > tfoot > tr > th{
     background: darkgray;
