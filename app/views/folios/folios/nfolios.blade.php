@@ -2,6 +2,7 @@
 
 @section('content')
 <!--(nombre campo, valor, arreglo[id,clase,])-->
+{{ HTML::style('css/forms.css') }}
 <h1>Generador de Folios</h1>
 <div class="panel panel-primary">
 
