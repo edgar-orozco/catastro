@@ -126,6 +126,11 @@ input{
 .requisitos-lista ul{
     list-style: none;
 }
+.requisitos-lista ul li {
+    color: #0072ab;
+    font-size: 1.2em;
+}
+
 .requisitos-lista .glyphicon-ok{
     color: #F27007;
 }
