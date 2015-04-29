@@ -122,3 +122,10 @@ input{
     border: none;
     background: none;
 }
+
+.requisitos-lista{
+    list-style: none;
+}
+.requisitos-lista .glyphicon-ok{
+    color: #F27007;
+}
