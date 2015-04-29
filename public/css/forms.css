@@ -104,7 +104,7 @@ input{
     color: white;
     border-radius: 0;
 }
-.panel-info .panel-body .panel-heading{
+#lista-tipotramites .panel-body .panel-info > .panel-heading{
     border-radius: 0;
     padding: 9px;
     border-bottom-left-radius: 5px;
