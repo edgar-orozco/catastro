@@ -126,37 +126,37 @@
 
                         <br/>
                         <div class="row">
-                            <div class="col-sm-4 col-md-4 bg-success"><b>Clave catastral:</b></div>
+                            <div class="col-sm-4 col-md-4 text-right"><b>Clave catastral:</b></div>
                             <div class="col-sm-8 col-md-8">{{$clave}}</div>
                         </div>
                         <br/>
                         <div class="row">
-                            <div class="col-sm-4 col-md-4 bg-success"><b>Cuenta catastral:</b></div>
+                            <div class="col-sm-4 col-md-4 text-right"><b>Cuenta catastral:</b></div>
                             <div class="col-sm-8 col-md-8">{{$cuenta}}</div>
                         </div>
                         <br/>
                         <div class="row">
-                            <div class="col-sm-4 col-md-4 bg-success"><b>Tipo predio:</b></div>
+                            <div class="col-sm-4 col-md-4 text-right"><b>Tipo predio:</b></div>
                             <div class="col-sm-8 col-md-8">{{$predio->tipo_predio}}</div>
                         </div>
                         <br/>
                         <div class="row">
-                            <div class="col-sm-4 col-md-4 bg-success"><b>Ubicacion:</b></div>
+                            <div class="col-sm-4 col-md-4 text-right"><b>Ubicacion:</b></div>
                             <div class="col-sm-8 col-md-8">{{$predio->ubicacionFiscal->ubicacion}}</div>
                         </div>
                         <br/>
                         <div class="row">
-                            <div class="col-sm-4 col-md-4 bg-success"><b>Superficie terreno:</b></div>
+                            <div class="col-sm-4 col-md-4 text-right"><b>Superficie terreno:</b></div>
                             <div class="col-sm-8 col-md-8">{{number_format($predio->superficie_terreno,2, '.', ',')}} m<sup>2</sup></div>
                         </div>
                         <br/>
                         <div class="row">
-                            <div class="col-sm-4 col-md-4 bg-success"><b>Superficie construcción:</b></div>
+                            <div class="col-sm-4 col-md-4 text-right"><b>Superficie construcción:</b></div>
                             <div class="col-sm-8 col-md-8">{{number_format($predio->superficie_construccion,2, '.', ',')}} m<sup>2</sup></div>
                         </div>
                         <br/>
                         <div class="row">
-                            <div class="col-sm-4 col-md-4 bg-success"><b>Uso de suelo:</b></div>
+                            <div class="col-sm-4 col-md-4 text-right"><b>Uso de suelo:</b></div>
                             <div class="col-sm-8 col-md-8">
                                 @if($predio->usoSuelo)
                                     {{$predio->usoSuelo->descripcion}}
@@ -165,7 +165,7 @@
                         </div>
                         <br/>
                         <div class="row">
-                            <div class="col-sm-4 col-md-4 bg-success"><b>Uso de construcción:</b></div>
+                            <div class="col-sm-4 col-md-4 text-right"><b>Uso de construcción:</b></div>
                             <div class="col-sm-8 col-md-8">
                                 @if($predio->usoConstruccion)
                                     {{$predio->usoConstruccion->descripcion}}
@@ -174,7 +174,7 @@
                         </div>
                         <br/>
                         <div class="row">
-                            <div class="col-sm-4 col-md-4 bg-success"><b>Propietarios:</b></div>
+                            <div class="col-sm-4 col-md-4 text-right"><b>Propietarios:</b></div>
                             <div class="col-sm-8 col-md-8">
                                 <ul>
                                     @foreach($predio->propietarios as $propietario)
