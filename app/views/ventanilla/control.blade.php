@@ -39,11 +39,11 @@
                     <div class="">
                         {{Form::label('tipo_persona','Tipo de persona', ['class'=>''])}}
                         <div class="btn-group btn-toggle" data-toggle="buttons">
-                            <label class="btn btn-sm btn-default active" style="widows: 49%;">
+                            <label class="btn btn-sm btn-default active" style="width: 49%;">
                                 <input type="radio" name="tipo_persona" class="radio-persona"
                                        value="F" checked> Física
                             </label>
-                            <label class="btn btn-sm btn-default"  style="widows: 49%;">
+                            <label class="btn btn-sm btn-default"  style="width: 49%;">
                                 <input type="radio" name="tipo_persona" class="radio-persona"
                                        value="M"> Moral
                             </label>
