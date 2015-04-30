@@ -138,12 +138,15 @@
     color: #fff;
     padding-right: 5px;
 }
-.botones-requisitos label{
-    width: 10%;
+#requisitos-lista-2 .botones-requisitos{
+    width: 20%;
+}
+#requisitos-lista-2 .botones-requisitos label{
+    width: 47%;
     display: inline-block;
 }
 
-.botones-requisitos span{
+#requisitos-lista-2 ul li span{
     padding-top: 10px;
 }
 
