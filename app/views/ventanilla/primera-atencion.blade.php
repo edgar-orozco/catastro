@@ -173,7 +173,6 @@
                                 <ul>
                                     @foreach($tipotramite->requisitos as $requisito)
                                         <li>
-                                            <span class="glyphicon glyphicon-ok"></span>
                                             @include('ventanilla._form_requisitos',compact('tipotramite','requisito'))
                                         </li>
                                     @endforeach
