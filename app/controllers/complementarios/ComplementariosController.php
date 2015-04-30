@@ -142,7 +142,7 @@ class complementarios_ComplementariosController extends BaseController {
         $constru->save();
 
 
-
+        $clase_constru = TiposClaseConstruccion::Find($clase_constru)->descripcion;
 
 
         return Response::json(array
@@ -152,7 +152,7 @@ class complementarios_ComplementariosController extends BaseController {
                     'gid_construccion2' => $gid,
                     'nivel' => $nivel,
                     'sup_const' => $sup_const,
-                    'edad_const' => $edad_const
+                    'edad_const' => $clase_constru
         ));
     }
 

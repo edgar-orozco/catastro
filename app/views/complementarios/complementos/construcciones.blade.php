@@ -9,7 +9,7 @@
         {{Form::text('estado',$estado,['id'=>'estado', "hidden" ])}}
         {{Form::text('municipio',$municipio,['id'=>'municipio', "hidden" ])}}
         {{Form::text('clave_cata',$clave_catas,['id'=>'clave_cata', "hidden" ])}}
-        {{Form::text('gid_construccion','',['id'=>'gid_construccion', "hidden" ])}}
+        {{Form::text('gid_construccion','',['id'=>'gid_construccion' ])}}
 
         <div class="row">
         <div class="col-md-3">
@@ -159,15 +159,15 @@
 
 <script type="text/javascript">
 
-
+    //Se activa al momento de eliminar una construccion
     $(".construcciones-eliminar").click(function(){
-
+        //Tomamos su href del boton que se le dio click
         var href = $(this).attr('href');
-
+        //Tomamos el data-onclickon del boton que se le dio click
         var onclick = $(this).attr('data-onclickcon');
 
 
-            
+        //Editamos Texto del modal
         $('#construcciones-modalBody').html('¿Esta seguro de eliminar esta construcción?');
         $('#construcciones-modal-footer').html('<button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button><button data-dismiss="modal" type="button" onclick="'+onclick+'" class="btn btn-danger">Eliminar</button>'); 
         
@@ -221,41 +221,45 @@ $('#formConstruccion').bind('submit',function ()
             },
             success: function (data) 
             {   
-
+                //En caso de que haya algun error del lado del servidor, se manda un mensaje.
                 if(data.estado!='success')
                 {
                     alert(data[1]);
                     $('.mensaje').html('<div class="alert alert-danger">Error al guardar, verifique sus datos.</div>');  
                 }
-                else 
+                else //Si no hay error, se toma la tabla construcciones y se le asigna a la variable table
                 {    
                     var table = document.getElementById("table-construcciones");
 
+                    //Si es verdadero, quiere decir que se esta editando y se procede a eliminar de la tabla los registros editados
                     if (data.gid_construccion>0)
                     {
+                        //nos situamos en el td
                         var td = $('#construccion-edit'+data.gid_construccion).parent();
+                        //Despues solicitamos el index del tr
                         var tr = td.parent().index()+1;
-                        alert(tr);
+                        //Procedemos a eliminar el tr
                         table.deleteRow(tr);
                     }     
                     
-                    //En caso de que exista, la eliminara.
-
-                    //Se crea la tabla de predios dinamicamente
-
+                    //Se crea la tabla de construcciones dinamicamente
+                    //Nos situamos en el tbody de la tabla y la asignamos a la variable tbody
                     var tbody = table.getElementsByTagName('tbody')[0];
+                    //Agregamos en la variable row la accion de agregarle una fila al tbody
                     row = tbody.insertRow();
+                    //Agregamos en la variable cell la accion de agregarle una celda a la fila en la posicion 0
                     cell = row.insertCell(0);
+                    //Agregamos el valor que queremos pintar en la celda creada
                     cell.innerHTML=data.nivel;
                     cell = row.insertCell(1);
                     cell.innerHTML=data.sup_const;
                     cell = row.insertCell(2);
                     cell.innerHTML=data.edad_const;
                     cell = row.insertCell(3);
-                    var editar = '<a id="construccion-edit{{$row->gid}}" onclick="editar_construccion('+"'"+data.gid_construccion2+"'"+')" class="btn btn-warning editar" title="Editar Construcción">'+
+                    var editar = '<a id="construccion-edit'+data.gid_construccion2+'" onclick="editar_construccion('+"'"+data.gid_construccion2+"'"+')" class="btn btn-warning editar" title="Editar Construcción">'+
                                         '<span class="glyphicon glyphicon-edit"></span>'+
                                     '</a> ';
-                    var eliminar = '<a id="construccion-delete{{$row->gid}}" onclick="eliminar_construccion('+"'"+data.gid_construccion2+"'"+')" class="btn btn-danger eliminar" title="Eliminar Construcción">'+
+                    var eliminar = '<a id="construccion-delete'+data.gid_construccion2+'" onclick="eliminar_construccion('+"'"+data.gid_construccion2+"'"+')" class="btn btn-danger eliminar" title="Eliminar Construcción">'+
                                         '<span class="glyphicon glyphicon-remove"></span>'
                                     '</a>';
 
@@ -276,17 +280,15 @@ $('#formConstruccion').bind('submit',function ()
 function editar_construccion(gid)
 {
     
-
+    //Nos situamos en el td
     var td = $('#construccion-edit'+gid).parent();
+    //Nos movemos al padre del td, en este caso tr y le solicitamos su index
     var tr = td.parent().index();
-    
-    
-    
-    
+        
     $.ajax(
             {
                 type: 'GET',
-                data: {gid: gid, tr:tr}, //Toma todo lo que hay en el formulario.
+                data: {gid: gid, tr:tr}, 
                 url: '/cargar-construccion',
                 beforeSend: function()
                 {
@@ -294,7 +296,7 @@ function editar_construccion(gid)
                 },
                 success: function (data) 
                 {               
-                   
+                //Se agregan los valores a editar al formulario
                 document.getElementById('nivel').value = data.nivel;
                 document.getElementById('superficie_construccion').value = data.sup_const;
                 document.getElementById('edad_construccion').value = data.edad_const;
@@ -322,7 +324,7 @@ function eliminar_construccion(gid)
     $.ajax(
         {
             type: 'POST',
-            data: {gid_construccion: gid}, //Toma todo lo que hay en el formulario, en este caso el archivo .txt o .csv
+            data: {gid_construccion: gid},
             url: '/eliminar-construccion',
             beforeSend: function()
             {
@@ -330,10 +332,11 @@ function eliminar_construccion(gid)
             },
             success: function (data) 
             {
-                
+                //Se agrega el mensaje de que se elimino el registro
                 $('.mensaje').html('<div class="alert alert-warning">Se elimino un registro.</div>');
-                //Se obtiene el elemento table
+                //nos situamos en el td que se va a eliminar 
                 var td = $('#construccion-delete'+data.gid_construccion).parent();
+                //Decimos que elimine al parent del td en el que estamos, en este caso seria el tr
                 var tr = td.parent().remove();
 
 
