@@ -9,7 +9,7 @@
 $PM_MAP_FILE = "/var/www/html/geografica/Tabasconst.map";
 $map = ms_newMapObj($PM_MAP_FILE);
 
-//$map->setextent(458972.03221943,1971895.494418,459730.84599939,1972189.9087251);
+$map->setextent(458972.03221943,1971895.494418,459730.84599939,1972189.9087251);
 $map->setextent(458080,1971773,460030,1973118);
 
 /*        $conn = Config::get('database.connections.pgsql');
@@ -32,7 +32,7 @@ $map->setextent(458080,1971773,460030,1973118);
 */
 
 $image=$map->draw();
-$image_url=$image->saveWebImage();
+$image_url=$image->saveWebImage()
 
 ?>
 <HTML>
