@@ -36,7 +36,7 @@
                 </div>
                 <div class="panel-body">
 
-                    <div class="pull-right">
+                    <div class="">
                         {{Form::label('tipo_persona','Tipo de persona', ['class'=>''])}}
                         <div class="btn-group btn-toggle" data-toggle="buttons">
                             <label class="btn btn-sm btn-default active">
@@ -95,6 +95,7 @@
                     <i class="glyphicon glyphicon-arrow-right"></i>
                     Continuar trámite
                 </button>
+                <br/>
                 {{ Form::reset('Limpiar formato', ['class' => 'btn btn-warning']) }}
             </div>
 
