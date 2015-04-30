@@ -9,7 +9,7 @@
         {{Form::text('estado',$estado,['id'=>'estado', "hidden" ])}}
         {{Form::text('municipio',$municipio,['id'=>'municipio', "hidden" ])}}
         {{Form::text('clave_cata',$clave_catas,['id'=>'clave_cata', "hidden" ])}}
-        {{Form::text('gid_construccion','',['id'=>'gid_construccion' ])}}
+        {{Form::text('gid_construccion','',['id'=>'gid_construccion', "hidden" ])}}
 
         <div class="row">
         <div class="col-md-3">
@@ -160,11 +160,14 @@
 <script type="text/javascript">
 
     //Se activa al momento de eliminar una construccion
-    $(".construcciones-eliminar").click(function(){
+    $(".container").on("click", ".construcciones-eliminar", function(){
         //Tomamos su href del boton que se le dio click
         var href = $(this).attr('href');
         //Tomamos el data-onclickon del boton que se le dio click
         var onclick = $(this).attr('data-onclickcon');
+        $("#const-nuevo").show();
+        $("#panel-construccion").hide();
+        $('.mensaje').html('');
 
 
         //Editamos Texto del modal
@@ -196,10 +199,11 @@ $("#const-nuevo").click(function(){
     });
 
 $("#cancelar-construccion").click(function(){
-        $("#panel-construccion").toggle();
-        
-        $("#const-nuevo").toggle();
+        $("#panel-construccion").hide();
+        $("#panel-construccion").hide();
+        $("#const-nuevo").show();
         $('.mensaje').html('');
+
 
 
     });
@@ -224,7 +228,6 @@ $('#formConstruccion').bind('submit',function ()
                 //En caso de que haya algun error del lado del servidor, se manda un mensaje.
                 if(data.estado!='success')
                 {
-                    alert(data[1]);
                     $('.mensaje').html('<div class="alert alert-danger">Error al guardar, verifique sus datos.</div>');  
                 }
                 else //Si no hay error, se toma la tabla construcciones y se le asigna a la variable table
@@ -259,7 +262,7 @@ $('#formConstruccion').bind('submit',function ()
                     var editar = '<a id="construccion-edit'+data.gid_construccion2+'" onclick="editar_construccion('+"'"+data.gid_construccion2+"'"+')" class="btn btn-warning editar" title="Editar Construcción">'+
                                         '<span class="glyphicon glyphicon-edit"></span>'+
                                     '</a> ';
-                    var eliminar = '<a id="construccion-delete'+data.gid_construccion2+'" onclick="eliminar_construccion('+"'"+data.gid_construccion2+"'"+')" class="btn btn-danger eliminar" title="Eliminar Construcción">'+
+                    var eliminar = '<a id="construccion-delete'+data.gid_construccion2+'" data-onclickcon="eliminar_construccion('+"'"+data.gid_construccion2+"'"+')" data-toggle="modal"  data-target="#construcciones-alert-modal" href="#" class="btn btn-danger construcciones-eliminar" title="Eliminar Construcción">'+
                                         '<span class="glyphicon glyphicon-remove"></span>'
                                     '</a>';
 
@@ -321,6 +324,10 @@ function editar_construccion(gid)
 
 function eliminar_construccion(gid)
 {
+    $("#panel-construccion").hide();
+    $("#panel-construccion").hide();
+    $("#const-nuevo").show();
+    $('.mensaje').html('');
     $.ajax(
         {
             type: 'POST',
