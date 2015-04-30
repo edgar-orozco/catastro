@@ -23,7 +23,7 @@
     <br/>
 
     <div class="row clearfix">
-        <div class="col-md-4 bg-success column">
+        <div class="col-md-4 column">
 
             {{ Form::open(array('url' => 'ventanilla/iniciar-tramite', 'method' => 'POST', 'name' => 'forma-tramite', 'files'=>true)) }}
 
