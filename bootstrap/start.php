@@ -26,7 +26,7 @@ $app = new Illuminate\Foundation\Application;
 
 $env = $app->detectEnvironment(array(
 
-	'local' => array('catastro-dev'),
+	'local' => array('catastro-dev', 'catastro-staging'),
 
 ));
 
