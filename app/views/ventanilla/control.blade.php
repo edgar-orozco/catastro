@@ -91,7 +91,7 @@
             </div>
 
             <div class="form-actions form-group">
-                <button type="submit" class="btn btn-default">
+                <button type="submit" class="btn btn-primary">
                     <i class="glyphicon glyphicon-arrow-right"></i>
                     Continuar trámite
                 </button>
