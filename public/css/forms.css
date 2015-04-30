@@ -157,5 +157,5 @@ ul li span{
 }
 
 .panel-heading h4.panel-title, .dropdown-menu > .active a{
-    color: #ffffff;
+    color: #ffffff !important;
 }
