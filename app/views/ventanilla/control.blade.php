@@ -123,7 +123,7 @@
 
                 <div class="tab-content">
                     <div class="tab-pane active" id="panel-generales">
-                        <div class="table table-striped">
+                        <table class="table table-striped">
                             <tr>
                                 <th class="text-right"><b>Clave catastral:</b></th>
                                 <td>{{$clave}}</td>
@@ -176,7 +176,7 @@
                                     </ul>
                                 </td>
                             </tr>
-                        </div>
+                        </table>
                     </div>
 
                     <div class="tab-pane" id="panel-cartografia">
