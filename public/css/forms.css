@@ -1,0 +1,161 @@
+.container{
+    max-width: 950px;
+    padding: 40px 0;
+    margin: 0 auto;
+    color: gray;
+}
+.page-header{
+    border: none;
+    text-align: center;
+}
+.page-header h2{
+    padding-bottom: 14px;
+    border: none;
+}
+.row{
+    margin: 0;
+}
+.page-header h2 small {
+    display: block;
+    color: #F27007;
+}
+
+
+.btn{
+    display: block;
+    width: 100%;
+}
+
+.btn.btn-warning{
+    background: #F27007;
+}
+
+.panel-default > .panel-heading{
+    background: none;
+    border-bottom: 2px solid orange;
+}
+
+.panel-heading{
+    border: none;
+    background: none;
+    border-bottom: 3px solid #F27007;
+}
+.panel-heading .panel-title{
+    font-weight: lighter;
+    color: gray;
+}
+
+.table > thead > tr > th, .table > tbody > tr > th, .table > tfoot > tr > th, .table > thead > tr > td, .table > tbody > tr > td, .table > tfoot > tr > td {
+    padding: 8px;
+    vertical-align: middle;
+    border:none;
+    border-right: 1px solid #ddd;
+    border-bottom: 1px solid #ddd;
+    text-align: center;
+}
+
+#lista-tipotramites .input-group-btn{
+    width: initial;
+}
+
+#lista-tipotramites .panel-info{
+    border: none;
+}
+#lista-tipotramites .panel-info > .panel-heading{
+    border-radius: 0;
+    color: white;
+    background-color: #69B1C9;
+    border: none;
+    padding: 0;
+    z-index: 5;
+    position: relative;
+}
+#lista-tipotramites .panel-info > .panel-heading a{
+    color: white;
+    font-size: 1.3em;
+    display: block;
+    width: 100%;
+    padding: 10px;
+    border-radius: 0;
+    font-weight: normal;
+}
+
+.gi-5x{
+    font-size: 2em;
+    top: 16px;
+}
+
+#lista-tipotramites .panel-info > .panel-heading a:hover{
+    background: orange;
+}
+
+#lista-tipotramites .panel-info > .collapse.in{
+    margin-top: -5px;
+}
+
+.panel-info > .panel-heading + .panel-collapse > .panel-body{
+
+    border-bottom-left-radius: 5px;
+    border-bottom-right-radius: 5px;
+    padding: 30px 10px;
+    background: #eeeded;
+    border: 4px solid #69B1C9;
+}
+.panel-group .panel-footer{
+    background: #0072ab;
+    border-top: 0;
+    color: white;
+    border-radius: 0;
+}
+
+.table > thead > tr > th, .table > tbody > tr > th, .table > tfoot > tr > th{
+    background: darkgray;
+    border-top: 0;
+    border-right: 1px solid white;
+    color: white;
+    font-weight: normal;
+}
+.table > tbody > tr > th label{
+    font-weight: normal;
+}
+
+
+.input-group-addon:last-child {
+    border: none;
+    background: none;
+}
+
+.requisitos-lista ul{
+    list-style: none;
+}
+.requisitos-lista ul li {
+    color: black;
+    font-size: 1em;
+    padding-bottom: 5px;
+}
+
+.requisitos-lista .glyphicon-ok{
+    color: #fff;
+    padding-right: 5px;
+}
+.botones-requisitos{
+    width: 20%;
+}
+.botones-requisitos label{
+    width: 47%;
+    display: inline-block;
+}
+
+ul li span{
+    padding-top: 10px;
+}
+
+
+.select-tipopredio, .select-municipio, input.clave-catastral{
+    border-radius: 0;
+    border-left: none;
+}
+
+.panel-heading h4.panel-title, .dropdown-menu > .active a{
+    color: #ffffff !important;
+}

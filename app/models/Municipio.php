@@ -19,4 +19,9 @@ class Municipio extends Ardent
     {
         return $this->belongsToMany('User','user_municipio', 'municipio_id', 'usuario_id')->withTimestamps();
     }
+
+    public function folioscomprados ()
+    {
+    	return $this->hasMany('FoliosComprados');
+    }
 }

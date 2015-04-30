@@ -23,7 +23,7 @@
                         <!-- Municipios -->
                         <p class="text-right">
                             <span ng-repeat="municipio in userList.municipios" class="label label-success">{[{ municipio.nombre_municipio }]}</span>
-                            <span ng-if="userList.municipios.length == 0" class="label label-success">Todos</span>
+                            <span ng-if="userList.municipios.length == 0" class="glyphicon glyphicon-pencil"></span>
                         </p>
 
                         <button ng-show="userList.idx !== undefinied && userList.error === undefinied" type="button" class="btn btn-success pull-right" title="Guardando datos ..." disabled="disabled">

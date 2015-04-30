@@ -1,10 +1,11 @@
 @extends('layouts.default')
 
-@section('styleRef')
-
-   <!--Agrego para el datatable-->
+<!--Agrego para el datatable-->
     {{ HTML::style('/css/bootstrap.min.css') }}
     {{ HTML::style('/css/dataTables.bootstrap.css') }}
+
+@section('styleRef')
+
 
 @stop
 
@@ -37,7 +38,7 @@
 					<td>{{$aliasperitos->nombre}}</td>
 					<td>
 						
-						<a href="/entregafoliose/detalles/{{$aliasperitos->id}}" class="btn btn-xs btn-info" title="Detalles"><i class="fa fa-info-circle"></i></a>
+						<a href="/entregafoliose/detalles/{{$aliasperitos->id}}" class="btn btn-xs btn-info" title="Detalles"><i class="glyphicon glyphicon-info-sign" ></i></a>
 						<a href="/entregafoliose/urbanos/{{$aliasperitos->id}}" class="btn btn-xs btn-success" title="Folios Urbanos">U</a>
 						<a href="/entregafoliose/rusticos/{{$aliasperitos->id}}" class="btn btn-xs btn-success" title="Folios Rústicos">R</a>
 					</td>

@@ -5,7 +5,7 @@
 @stop
 
 @section('content')
-
+    {{ HTML::style('css/forms.css') }}
     {{ HTML::style('css/select2.min.css') }}
 
     <div class="row clearfix">
@@ -36,14 +36,14 @@
                 </div>
                 <div class="panel-body">
 
-                    <div class="pull-right">
+                    <div class="">
                         {{Form::label('tipo_persona','Tipo de persona', ['class'=>''])}}
                         <div class="btn-group btn-toggle" data-toggle="buttons">
-                            <label class="btn btn-sm btn-default active">
+                            <label class="btn btn-sm btn-default active" style="width: 49%;">
                                 <input type="radio" name="tipo_persona" class="radio-persona"
                                        value="F" checked> Física
                             </label>
-                            <label class="btn btn-sm btn-default">
+                            <label class="btn btn-sm btn-default"  style="width: 49%;">
                                 <input type="radio" name="tipo_persona" class="radio-persona"
                                        value="M"> Moral
                             </label>
@@ -91,10 +91,11 @@
             </div>
 
             <div class="form-actions form-group">
-                <button type="submit" class="btn btn-success">
+                <button type="submit" class="btn btn-primary">
                     <i class="glyphicon glyphicon-arrow-right"></i>
                     Continuar trámite
                 </button>
+                <br/>
                 {{ Form::reset('Limpiar formato', ['class' => 'btn btn-warning']) }}
             </div>
 
@@ -124,30 +125,66 @@
                     <div class="tab-pane active" id="panel-generales">
 
                         <br/>
-                        <h4><small>Clave catastral:</small> {{$clave}} </h4>
-                        <h4><small>Cuenta catastral:</small> {{$cuenta}} </h4>
-                        <h4><small>Tipo predio: </small>{{$predio->tipo_predio}} </h4>
-                        <h4><small>Ubicacion: </small>{{$predio->ubicacionFiscal->ubicacion}} </h4>
-                        <h4><small>Superficie terreno: </small>{{number_format($predio->superficie_terreno,2, '.', ',')}} m<sup>2</sup> </h4>
-                        <h4><small>Superficie construcción: </small>{{number_format($predio->superficie_construccion,2, '.', ',')}} m<sup>2</sup> </h4>
-                        <h4><small>Uso de suelo: </small>
-                            @if($predio->usoSuelo)
-                                {{$predio->usoSuelo->descripcion}}
-                            @endif
-                        </h4>
-                        <h4><small>Uso de construcción: </small>
-                            @if($predio->usoConstruccion)
-                                {{$predio->usoConstruccion->descripcion}}
-                            @endif
-                        </h4>
-                        <h4><smal>Propietarios:</smal></h4>
-                        <ul>
-                        @foreach($predio->propietarios as $propietario)
+                        <div class="row">
+                            <div class="col-sm-4 col-md-4 text-right"><b>Clave catastral:</b></div>
+                            <div class="col-sm-8 col-md-8">{{$clave}}</div>
+                        </div>
+                        <br/>
+                        <div class="row">
+                            <div class="col-sm-4 col-md-4 text-right"><b>Cuenta catastral:</b></div>
+                            <div class="col-sm-8 col-md-8">{{$cuenta}}</div>
+                        </div>
+                        <br/>
+                        <div class="row">
+                            <div class="col-sm-4 col-md-4 text-right"><b>Tipo predio:</b></div>
+                            <div class="col-sm-8 col-md-8">{{$predio->tipo_predio}}</div>
+                        </div>
+                        <br/>
+                        <div class="row">
+                            <div class="col-sm-4 col-md-4 text-right"><b>Ubicacion:</b></div>
+                            <div class="col-sm-8 col-md-8">{{$predio->ubicacionFiscal->ubicacion}}</div>
+                        </div>
+                        <br/>
+                        <div class="row">
+                            <div class="col-sm-4 col-md-4 text-right"><b>Superficie terreno:</b></div>
+                            <div class="col-sm-8 col-md-8">{{number_format($predio->superficie_terreno,2, '.', ',')}} m<sup>2</sup></div>
+                        </div>
+                        <br/>
+                        <div class="row">
+                            <div class="col-sm-4 col-md-4 text-right"><b>Superficie construcción:</b></div>
+                            <div class="col-sm-8 col-md-8">{{number_format($predio->superficie_construccion,2, '.', ',')}} m<sup>2</sup></div>
+                        </div>
+                        <br/>
+                        <div class="row">
+                            <div class="col-sm-4 col-md-4 text-right"><b>Uso de suelo:</b></div>
+                            <div class="col-sm-8 col-md-8">
+                                @if($predio->usoSuelo)
+                                    {{$predio->usoSuelo->descripcion}}
+                                @endif
+                            </div>
+                        </div>
+                        <br/>
+                        <div class="row">
+                            <div class="col-sm-4 col-md-4 text-right"><b>Uso de construcción:</b></div>
+                            <div class="col-sm-8 col-md-8">
+                                @if($predio->usoConstruccion)
+                                    {{$predio->usoConstruccion->descripcion}}
+                                @endif
+                            </div>
+                        </div>
+                        <br/>
+                        <div class="row">
+                            <div class="col-sm-4 col-md-4 text-right"><b>Propietarios:</b></div>
+                            <div class="col-sm-8 col-md-8">
+                                <ul>
+                                    @foreach($predio->propietarios as $propietario)
 
-                            <li>{{$propietario->propietario->nombrec}}</li>
+                                        <li>{{$propietario->propietario->nombrec}}</li>
 
-                        @endforeach
-                        </ul>
+                                    @endforeach
+                                </ul>
+                            </div>
+                        </div>
                     </div>
 
                     <div class="tab-pane" id="panel-cartografia">

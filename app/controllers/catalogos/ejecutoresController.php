@@ -31,8 +31,6 @@ class catalogos_ejecutoresController extends \BaseController {
         $subtitle_section = "";
 
         //Todos los ejecutores creados actulmente
-
-
         $ejecutoress = $this->ejecutores->join('personas', 'personas.id_p', '=', 'ejecutores.id_p')
                 ->join('personas as p', 'p.id_p', '=', 'ejecutores.id_p_otorga_nombramiento')
                 ->join('municipios', 'ejecutores.municipio','=','municipios.municipio' )
@@ -104,6 +102,7 @@ class catalogos_ejecutoresController extends \BaseController {
             $n->id_p_otorga_nombramiento = $inputs["id_p_otorga_nombramiento"];
             $n->f_alta = date('Y-m-d');
             $n->municipio = $inputs["municipio"];
+            $n->activo = 1;
             $n->save();
             Session::flash('mensaje', 'El registro ha sido ingresado exitosamente');
             //Se han guardado los valores
@@ -120,30 +119,21 @@ class catalogos_ejecutoresController extends \BaseController {
         //Buscamos el requisito en cuestión y lo asignamos a la instancia
         $ejecutores = ejecutores::find($id);
 
-//        print_r($id);
-//        $nombrec = ejecutores::join('personas','ejecutores.id_p' , '=', 'personas.id_p')
-//                ->select( 'personas.nombrec')
-//                ->where('ejecutores.id_ejecutor','=',$id)
-//                ->get();
+        //buscamos el Nombre, Apellido paterno y Apellido materno
         $idpe = ejecutores::where('id_ejecutor', $id)->pluck('id_p');
         $nombre1 = personas::where('id_p', $idpe)->pluck('nombres');
         $a_paterno1 = personas::where('id_p', $idpe)->pluck('apellido_paterno');
         $a_materno = personas::where('id_p', $idpe)->pluck('apellido_materno');            
-        
-        
+        //Se los asignamos a la bariable concatenado        
         $nombrec = $nombre1. " " .$a_paterno1. " " .$a_materno;
-
+        
+        //buscamos el Nombre, Apellido paterno y Apellido materno
         $idpo = ejecutores::where('id_ejecutor', $id)->pluck('id_p_otorga_nombramiento');
         $nombre2 = personas::where('id_p', $idpo)->pluck('nombres');
         $a_paterno2 = personas::where('id_p', $idpo)->pluck('apellido_paterno');
         $a_materno2 = personas::where('id_p', $idpo)->pluck('apellido_materno');
-        
+        //Se los asignamos a la bariable concatenado   
         $nombre = $nombre2. " " .$a_paterno2. " " .$a_materno2;
-        
-        //('id_p','=','43468')->select('nombres')->get();
-        //var_dump($nombre);
-        //var_dump($ejecutores);
-        //$this->ejecutores = $ejecutores;
 
         $title = 'Administración de catálogo de ejecutores';
 
@@ -152,24 +142,18 @@ class catalogos_ejecutoresController extends \BaseController {
 
         //Subtítulo de sección:
         $subtitle_section = $this->ejecutores->titulo;
-        
+        //Select de municipio
         $Municipio = ['' => '--seleccione una opción--'] + Municipio::all()->lists('nombre_municipio','municipio');
         
         // Todos los permisos creados actualmente
-//        $ejecutoress = $this->ejecutores->join('personas', 'personas.id_p', '=', 'ejecutores.id_p')
-//                ->join('personas as p', 'p.id_p', '=', 'ejecutores.id_p_otorga_nombramiento')
-//                ->select('id_ejecutor', 'personas.nombrec', 'cargo', 'titulo', 'f_nombramiento', 'p.nombrec as nombre')
-//                ->get();
          $ejecutoress = $this->ejecutores->join('personas', 'personas.id_p', '=', 'ejecutores.id_p')
                 ->join('personas as p', 'p.id_p', '=', 'ejecutores.id_p_otorga_nombramiento')
                 ->join('municipios', 'ejecutores.municipio','=','municipios.municipio' )
                 ->where('activo','=','1')
                 ->select('id_ejecutor', 'personas.nombres', 'personas.apellido_paterno', 'personas.apellido_materno', 'cargo', 'titulo', 'f_nombramiento', 'p.nombres as nombre', 'p.apellido_paterno as p_paterno', 'p.apellido_materno as p_materno','municipios.nombre_municipio')
                 ->get();
-        //ID del permiso
+        
         $id = $ejecutores;
-        //echo $id;
-
         return View::make('catalogos.ejecutores.edit', compact('title', 'title_section', 'subtitle_section', 'ejecutores', 'ejecutoress', 'id', 'nombrec', 'nombre','Municipio'));
     }
 
@@ -198,8 +182,6 @@ class catalogos_ejecutoresController extends \BaseController {
      */
 
     public function destroy($id = null) {
-//        $ejecutores = ejecutores::find($id);
-//        $ejecutores->delete();
         $inputs = Input::All();
         $n = ejecutores::find($id);
         $n->activo = 0;
@@ -219,12 +201,6 @@ class catalogos_ejecutoresController extends \BaseController {
 
         $id_p = array();
         //CONSULTA A LA TABLA PERSONAS
-//        $queries = DB::table('personas')
-//                ->where('nombres', 'LIKE', '%' . $term . '%')
-//                ->orWhere('apellido_paterno', 'LIKE', '%' . $term . '%')
-//                ->orWhere('apellido_materno', 'LIKE', '%' . $term . '%')
-//                ->take(5)
-//                ->get();
         $queries = DB::select(DB::raw("SELECT * FROM personas WHERE nombres || ' '||apellido_paterno || ' ' ||  apellido_materno LIKE '%" . $term . "%' limit 5"));
         //DONDE LLAMA LOS DATOS Y LOS PASA A LAS VARIABLES CORRESPONDIENTES
         foreach ($queries as $query) {
@@ -236,8 +212,7 @@ class catalogos_ejecutoresController extends \BaseController {
             //SI EXITE LA PERSONA            
             return Response::json($results);
         } else {
-//            //SI NO EXITE LA PAERSONA
-//            $mensaje[] = ['id' => 0];
+            //SI NO EXITE LA PAERSONA
             $mensaje[] = "NO EXISTE LA PERSONAS";
             return Response::json($mensaje);
         }
@@ -275,7 +250,6 @@ class catalogos_ejecutoresController extends \BaseController {
         $apellido_materno = Input::get('apellido_materno');
         $nombres = Input::get('nombres');
         $term = $nombres . ' ' . $apellido_paterno . ' ' . $apellido_materno;
-        //echo $nombrec=$apellido_materno." ".$apellido_paterno." ".$nombres ; 
         //Mensaje
         $mensajes = array(
             "required" => "*",
@@ -333,7 +307,6 @@ class catalogos_ejecutoresController extends \BaseController {
         $apellido_materno = Input::get('apellido_materno');
         $nombres = Input::get('nombres');
         $term = $nombres . ' ' . $apellido_paterno . ' ' . $apellido_materno;
-        //echo $nombrec=$apellido_materno." ".$apellido_paterno." ".$nombres ; 
         //Mensaje
         $mensajes = array(
             "required" => "*",

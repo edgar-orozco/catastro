@@ -2,18 +2,10 @@
 
 class folios_EntregaFoliosController extends BaseController {
 
-
-
-
-	protected $por_pagina = 10;
-
-
-
-	
-
 	public function entregafoliosestatal(){ //muestra todos los peritos
 
-		$variableperito = Perito::all();
+		$variableperito = Perito::where('Estado', 1)
+						->get();
 		return View::make('folios.entregafoliose.entregafoliosestatal', ['variableperito' => $variableperito]);
 	}
 		
@@ -31,16 +23,23 @@ class folios_EntregaFoliosController extends BaseController {
 		->orderBy('numero_folio', 'DESC')
 		->first();
 
-	 $fh = FoliosHistorial::where('perito_id', $perito->id)
+		$fh = FoliosHistorial::where('perito_id', $perito->id)
 		->get();
-	  $conf = FoliosConf::first();
+
+		$fe = FoliosComprados:: SELECT('tipo_folio',
+			DB::raw('Max(fecha_entrega_e) as fecha' ),
+			DB::raw('Sum(entrega_estatal) as entrega'))
+		->where('perito_id', $perito->id)
+		->groupBy('tipo_folio')
+		->orderBy('tipo_folio', 'DESC')
+		->get();
 
 		return View::make('folios.entregafoliose.detalles')
 		->withPerito($perito)
 		->withFu($fu)
 		->withFr($fr)
 		->withFh($fh)
-		->withFc($conf);
+		->withFe($fe);
 	}
 
 	public function get_urbanose($id){ //muestra todos los folios Urbanos del perito especificado
@@ -110,9 +109,42 @@ class folios_EntregaFoliosController extends BaseController {
 		return Redirect::to('/entregafoliosestatal');
 	}
 
+
+	public function desestador($id){
+
+		$folio = FoliosComprados::where('id', $id)
+		->first();
+
+		$f = FoliosComprados::find($folio->id);
+		$f->entrega_estatal = 0;
+		$f->usuario_id = Null;
+		$f->fecha_entrega_e = Null;
+		$f->save();
+
+		return Redirect::to('/entregafoliose/rusticos/'. $folio->perito_id);
+	}
+
+
+	public function desestadou($id){
+
+		$folio = FoliosComprados::where('id', $id)
+		->first();
+
+		$f = FoliosComprados::find($folio->id);
+		$f->entrega_estatal = 0;
+		$f->usuario_id = Null;
+		$f->fecha_entrega_e = Null;
+		$f->save();
+
+		return Redirect::to('/entregafoliose/urbanos/'.$folio->perito_id);
+	}
+
+
 	public function entregafoliosmunicipal(){ //muestra todos los peritos
 
-		$variableperito = Perito::all();
+		$variableperito = Perito::where('Estado', 1)
+						->get();
+
 		return View::make('folios.entregafoliosm.entregafoliosmunicipal', ['variableperito' => $variableperito]);
 	}
 
@@ -182,4 +214,36 @@ class folios_EntregaFoliosController extends BaseController {
 
 		return Redirect::to('/entregafoliosmunicipal');
 	}
+
+
+
+	public function desmunicipior($id){
+
+		$folio = FoliosComprados::where('id', $id)
+		->first();
+
+		$f = FoliosComprados::find($folio->id);
+		$f->entrega_municipal = 0;
+		$f->municipio_id = Null;
+		$f->fecha_entrega_m = Null;
+		$f->save();
+
+		return Redirect::to('/entregafoliose/rusticos/'.$folio->perito_id);
+	}
+
+
+	public function desmunicipiou($id){
+
+		$folio = FoliosComprados::where('id', $id)
+		->first();
+
+		$f = FoliosComprados::find($folio->id);
+		$f->entrega_municipal = 0;
+		$f->municipio_id = Null;
+		$f->fecha_entrega_m = Null;
+		$f->save();
+
+		return Redirect::to('/entregafoliose/urbanos/'.$folio->perito_id);
+	}
+
 }

@@ -56,6 +56,15 @@
 							<td align="center">$ {{number_format($totalingresos,'2')}}</td>
 						</tr>
 					@endforeach
+					@foreach ($folios_totales as $totales)
+						<tr>
+							<td></td>
+							<th>TOTAL</th>
+							<th align="center">{{$totales->folios_urbanos}}</th>
+							<th align="center">{{$totales->folios_rusticos}}</th>
+							<th align="center">${{number_format($totales->total,'2')}}</th>
+						</tr>
+					@endforeach 
 				</tbody>
 		</table>
 	</body>

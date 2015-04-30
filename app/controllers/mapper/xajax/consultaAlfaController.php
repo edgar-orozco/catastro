@@ -4,27 +4,50 @@ use \PMap;
 
 class ConsultaAlfaController extends \BaseController {
 	public function store(){
-	   
-        $PM_MAP_FILE = "/var/www/html/Tabasco.map";
-        $map = ms_newMapObj($PM_MAP_FILE);
-        $scaleLayers = 1;       
 
-        if($_REQUEST["query"] == "Clave"){
-            
+        $tipoQuery = $_REQUEST["query"];
+	   
+        if($tipoQuery == "Cuenta") {
             $mapW = $_REQUEST["mapW"];
             $mapH = $_REQUEST["mapH"];
             $municipio = $_REQUEST["variables"][0];
-            $clave_catas = $_REQUEST["variables"][1];
-           
-    		$dbconn = pg_connect("host=127.0.0.1 dbname=catastro user=postgres") or die('No se ha podido conectar: ' . pg_last_error());
-   			$sql="select st_xmin(p.geom)-5, st_ymin(p.geom)-5, st_xmax(p.geom)+5, st_ymax(p.geom)+5  from predios p where p.municipio = '$municipio' and p.clave_catas = '$clave_catas'";
-    		
-    		$result = pg_query($sql) or die('La consulta fallo: ' . pg_last_error());
+            $cuenta = $_REQUEST["variables"][1];
 
-    		if ($result && pg_num_rows($result) != 0){
-    		    $row = pg_fetch_row($result); 
-                $_REQUEST["extent"] = $row[0]."+".$row[1]."+".$row[2]."+".$row[3] ;                                                
-                
+            $claves = DB::select('select clave from fiscal where cuenta = ?', array($cuenta));
+
+            if (count($claves) == 0) {
+                $strJS = '"msgError":"No se ha encontrado el número de cuenta  Solicitado: [' . $cuenta . '] en el municipio indicado "';
+                echo "{\"sessionerror\":\"QueryError\"," . $strJS . "}";
+                return;
+            }
+            $_REQUEST["variables"][1] = substr($claves[0]->clave,7);
+        }
+
+        // Busqueda por Clave
+
+        $PM_MAP_FILE = "/var/www/html/Tabasco.map";
+        $map = ms_newMapObj($PM_MAP_FILE);
+        $scaleLayers = 1;
+        $mapW = $_REQUEST["mapW"];
+        $mapH = $_REQUEST["mapH"];
+        $municipio = $_REQUEST["variables"][0];
+        $clave_catas = $_REQUEST["variables"][1];
+
+        $result = DB::select('select st_xmin(p.geom)-5 as xmin, st_ymin(p.geom)-5 as ymin, st_xmax(p.geom)+5 as xmax, st_ymax(p.geom)+5 as ymax  from predios p where p.municipio = ? and p.clave_catas = ?', array($municipio,$clave_catas));
+
+        if (count($result) == 0) {
+            if($tipoQuery == 'Cuenta'){
+                $strJS  = '"msgError":"No se ha encontrado la Clave Catastral Solicitada: ['.$clave_catas.'] relacionada a la cuenta ['.$cuenta.'], en el municipio indicado '.$municipio.'"';
+                echo "{\"sessionerror\":\"QueryError\",".$strJS."}";
+                return;
+            }
+            $strJS  = '"msgError":"No se ha encontrado la Clave Catastral Solicitada: ['.$clave_catas.'] en el municipio indicado "';
+            echo "{\"sessionerror\":\"QueryError\",".$strJS."}";
+            return;
+        }
+
+        $row = $result[0];
+        $_REQUEST["extent"] = $row->xmin . "+" . $row->ymin . "+" . $row->xmax . "+" . $row->ymax;
 
         $pmap = new PMAP($map);
         $pmap->pmap_create();
@@ -35,9 +58,7 @@ class ConsultaAlfaController extends \BaseController {
         $mapwidth    = $pmap->pmap_returnMapW();
         $mapheight   = $pmap->pmap_returnMapH();
         $geo_scale   = $pmap->pmap_returnGeoScale();
-        
-        
-        
+
         // JS objects from map creation
         $strJS  = '"mapW":"' . $mapJS['mapW'] . '", ';
         $strJS .= '"mapH":"' . $mapJS['mapH'] . '", ';
@@ -51,57 +72,16 @@ class ConsultaAlfaController extends \BaseController {
         $strJS .= '"xdelta_geo":"' . $mapJS['xdelta_geo'] . '", ';
         $strJS .= '"ydelta_geo":"' . $mapJS['ydelta_geo'] . '", ';
         $strJS .= '"refBoxStr":"' . $mapJS['refBoxStr'] . '" ';
-        
-        
+
+
         // Serialize url_points
         $urlPntStr = '';
-        
-        // return JS object literals "{}" for XMLHTTP request 
+
+        // return JS object literals "{}" for XMLHTTP request
         echo "{\"sessionerror\":\"false\",  \"mapURL\":\"$mapURL\", \"scalebarURL\":\"$scalebarURL\", \"geo_scale\":\"$geo_scale\",".$strJS."}";
 
-            }else{
-                $strJS  = '"msgError":"No se ha encontrado la Clave Catastral Solicitada: ['.$clave_catas.'] en el municipio indicado "';
 
-                echo "{\"sessionerror\":\"QueryError\",".$strJS."}";
-            }
-            
-                                    
-    		
-            
-        }else{
-        // CREATE NEW MAP
-        $pmap = new PMAP($map);
-        $pmap->pmap_create();
-        
-        $mapURL      = $pmap->pmap_returnMapImgURL();
-        $scalebarURL = $pmap->pmap_returnScalebarImgURL();
-        $mapJS       = $pmap->pmap_returnMapJSParams();
-        $mapwidth    = $pmap->pmap_returnMapW();
-        $mapheight   = $pmap->pmap_returnMapH();
-        $geo_scale   = $pmap->pmap_returnGeoScale();
-        
-        
-        
-        // JS objects from map creation
-        $strJS  = '"mapW":"' . $mapJS['mapW'] . '", ';
-        $strJS .= '"mapH":"' . $mapJS['mapH'] . '", ';
-        $strJS .= '"refW":"' . $mapJS['refW'] . '", ';
-        $strJS .= '"refH":"' . $mapJS['refH'] . '", ';
-        $strJS .= '"minx_geo":"' . $mapJS['minx_geo'] . '", ';
-        $strJS .= '"miny_geo":"' . $mapJS['miny_geo'] . '", ';
-        $strJS .= '"maxx_geo":"' . $mapJS['maxx_geo'] . '", ';
-        $strJS .= '"maxy_geo":"' . $mapJS['maxy_geo'] . '", ';
-        $strJS .= '"xdelta_geo":"' . $mapJS['xdelta_geo'] . '", ';
-        $strJS .= '"ydelta_geo":"' . $mapJS['ydelta_geo'] . '", ';
-        $strJS .= '"refBoxStr":"' . $mapJS['refBoxStr'] . '" ';
-        
-        
-        // Serialize url_points
-        $urlPntStr = '';
-        
-        // return JS object literals "{}" for XMLHTTP request 
-        echo "{\"sessionerror\":\"false\",  \"mapURL\":\"$mapURL\", \"scalebarURL\":\"$scalebarURL\", \"geo_scale\":\"$geo_scale\",".$strJS."}";
-}	}  
+    }
     
     protected function img2map($width,$height,$point,$ext) {
     		

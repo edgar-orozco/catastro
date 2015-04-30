@@ -8,13 +8,18 @@ class FoliosComprados extends Eloquent  {
 	protected $table = 'folios_comprados';			 
 
 
-		public function usuario(){
+		
+		public function municipio()
+		{
+
+			return $this->belongsTo('Municipio');
+		}
+
+		public function usuario()
+		{
 
 			return $this->belongsTo('CatUsuarios');
 		}
-		public function municipio(){
 
-			return $this->belongsTo('CatMunicipios');
-		}
 }
 

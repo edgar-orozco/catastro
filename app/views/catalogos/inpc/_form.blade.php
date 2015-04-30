@@ -70,33 +70,6 @@ font: bold 85% monospace;
         });
     });
 </script>
-<!--<script>
-    $(document).ready(function () {
-        $('#form').validate({// initialize the plugin
-            
-            rules: {
-                mes: {
-                    selectcheck: true
-                },
-//                inpc: {
-//                    required: true,
-//                }
-            },
-            messages: {
-//                inpc: {
-//                    required: "Campo requerido:INPC",
-//                },
-            },
-            submitHandler: function (form) { // for demo
-//                alert('valido'); // for demo
-                return false; // for demo
-            }
-        });
-        jQuery.validator.addMethod('selectcheck', function (value) {
-            return (value != '0');
-        }, "Elija un Mes");
-    });
-</script>-->
 <script>
     // Al presionar cualquier tecla en cualquier campo de texto, ejectuamos la siguiente función
     $('input').on('keydown', function (e) {

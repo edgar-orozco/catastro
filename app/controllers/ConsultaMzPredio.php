@@ -22,8 +22,13 @@ class ConsultaMzPredio extends \BaseController {
 	 */
 	public function index()
 	{
-	   
-    $result = DB::select('SELECT municipio, nombre_municipio from municipios order by municipio');
+
+        if(Auth::guest()) {
+            return View::make('index');
+        }
+
+
+        $result = DB::select('SELECT municipio, nombre_municipio from municipios order by municipio');
     
     $municipios = array();
 

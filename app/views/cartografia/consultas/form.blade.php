@@ -3,68 +3,54 @@
  <meta http-equiv="Content-Script-Type" content="text/javascript">
 
  <title>DGCEF-Tabasco</title>
- <script type="text/javascript" src="/mapper/javascript/jquery_merged.js"></script>
- <script type="text/javascript" src="/mapper/javascript/custom.js"></script>
- <script type="text/javascript" src="/js/jquery/jquery-ui.js"></script>
- <script type="text/javascript" src="/mapper/javascript/zoombox.js"></script>
- <script type="text/javascript" src="/mapper/javascript/pm.map.js"></script>
- <script type="text/javascript" src="/mapper/javascript/pm.pmapper.js"></script>
 
-<script type="text/javascript">
+    <link rel="shortcut icon" href="/mapper/images/favicon.png" type="image/png">
 
-PM.msVersion = '<?php echo ms_GetVersion() ?>';
+    {{ HTML::script('/mapper/javascript/jquery_merged.js') }}
+    {{ HTML::script('/mapper/javascript/custom.js') }}
+    {{ HTML::script('/js/jquery/jquery-ui.js') }}
+    {{ HTML::script('/mapper/javascript/zoombox.js') }}
+    {{ HTML::script('/mapper/javascript/pm.map.js') }}
+    {{ HTML::script('/mapper/javascript/pm.pmapper.js') }}
 
- var SID = '';
- var PM_XAJAX_LOCATION  = '/cartografia/xajax/';
+    {{ HTML::style('/js/jquery/jquery-ui.css') }}
+    {{ HTML::style('/mapper/templates/default.css') }}
+    {{ HTML::style('/mapper/templates/layout.css') }}
+    {{ HTML::style('/mapper/templates/jquery.treeview.css') }}
+    {{ HTML::style('/mapper/templates/toc.css') }}
 
- PM.mapW = 600;
- PM.mapH = 500;
- PM.refW = 197;
- PM.refH = 91; 
- PM.extent = [313761.97060415,1891919.6349885,784318.26239461,2077443.6209991];
- PM.s1 = 1402386;
- PM.s2 = 1000;
-
- PM.dgeo_x = 366225.7561717;
- PM.dgeo_y = 185523.98601058;
- PM.dgeo_c = 1;
-
- PM.layerAutoRefresh = 1;
- PM.tbThm = 'default';
- PM.activeLayer = ['manzanas','predios','entidades','municipios','localidades','carreteras','calles','rios','hipsografico']; 
+    {{ HTML::style('/mapper/templates/dialog.css') }}
+    <!--[if lt IE 7]>
+    {{ HTML::style('/mapper/templates/ie6.css') }}
+    <![endif]-->
  
-// Query layers: modify query results in js
-PM.modifyQueryResultsFunctions = [];
 
-</script>
- 
- 
- <link rel="stylesheet" href="/js/jquery/jquery-ui.css" type="text/css">
- <link rel="shortcut icon" href="/mapper/images/favicon.png" type="image/png">
- <link rel="stylesheet" href="/mapper/templates/default.css" type="text/css">
- <link rel="stylesheet" href="/mapper/templates/layout.css" type="text/css">
- <link rel="stylesheet" href="/mapper/templates/jquery.treeview.css" type="text/css">
- <link rel="stylesheet" href="/mapper/templates/toc.css" type="text/css">
- 
- <link rel="stylesheet" href="/mapper/templates/dialog.css" type="text/css">
- <link rel="stylesheet" href="/mapper/templates/jquery.layout.css" type="text/css">
- <!--[if lt IE 7]> 
- <link rel="stylesheet" href="/mapper/templates/ie6.css" type="text/css" />
- <![endif]--> 
- 
- <style type="text/css">
- <!--
- -->
- </style>
+ {{ HTML::style('/mapper/templates/custom.css') }}
 
- <link rel="stylesheet" href="/mapper/templates/custom.css" type="text/css">
- 
-   <script>
-  $(function() {
-  });
-  </script>
-  
- 	<script type="text/javascript">
+    <script type="text/javascript">
+        PM.msVersion = '<?php echo ms_GetVersion() ?>';
+
+        var SID = '';
+        var PM_XAJAX_LOCATION  = '/cartografia/xajax/';
+
+        PM.mapW = 600;
+        PM.mapH = 500;
+        PM.refW = 197;
+        PM.refH = 91;
+        PM.extent = [313761.97060415,1891919.6349885,784318.26239461,2077443.6209991];
+        PM.s1 = 1402386;
+        PM.s2 = 1000;
+
+        PM.dgeo_x = 366225.7561717;
+        PM.dgeo_y = 185523.98601058;
+        PM.dgeo_c = 1;
+
+        PM.layerAutoRefresh = 1;
+        PM.tbThm = 'default';
+        PM.activeLayer = ['manzanas','predios','construcciones','entidades','municipios','localidades','carreteras','calles','rios','hipsografico'];
+
+        // Query layers: modify query results in js
+        PM.modifyQueryResultsFunctions = [];
 
 	$(document).ready(function() {
         var mrgH = 6;
@@ -149,11 +135,11 @@ PM.modifyQueryResultsFunctions = [];
                 <img src="/mapper/images/logos/logo-spf.png" alt="SPF"/>
             </div>
             <div class="img-cont catastro">
-                <img src="/mapper/images/logos/logo-sicare.png" alt="Catastro"/>
+                <img src="/css/images/main/logo-header.png" alt="Catastro">
             </div>
         </div>
-        
-        Sistema Catastral y Registral del Estado de Tabasco 
+
+        Sistema Catastral y Registral del Estado de Tabasco
 </div>
 
 <div class="ui-layout-root" id="uiLayoutRoot" style="position: absolute; top: 76px; bottom: 10px; left: 10px; right: 10px;">
@@ -174,6 +160,9 @@ PM.modifyQueryResultsFunctions = [];
 </div>
 
     <div class="ui-layout-north" id="uiLayoutNorth" style="position: absolute; top: 0px; height: 32px; margin-bottom: 6px; right: -1px; left: 228px;">
+        <div style="float:left; margin-left: 5px; margin-top: 5px">
+            <a href="{{URL::to('/')}}"> <img src="/mapper/images/buttons/default/home_off.gif" alt="Menú Principal" title="Menú Principal"/></a>
+        </div>
    </div>
     
     <div class="ui-layout-west" id="uiLayoutWest" style="position: absolute; left: 0px; width: 220px; height: 509px; margin-right: 6px; top: 40px;">
@@ -199,6 +188,12 @@ PM.modifyQueryResultsFunctions = [];
                                 <input type="checkbox" class = "gLayer"  name="groupscbx" value="Predios" id="gLayer_predios" checked/>
                                 <span class="vis" > <img src="/mapper/images/legend/Predios_i0.png"/> </span>
                                 <span class="vis" id="spxg_Predios"> <span class="grp-title vis">Predios </span> </span>
+                            </li>
+                            <li id="ligrp_Construcciones" class="tocgrp">
+                                <div class="tocgrp-hitarea open-hitarea collapsable-hitarea"></div>
+                                <input type="checkbox" class = "gLayer"  name="groupscbx" value="Construcciones" id="gLayer_construcciones" checked/>
+                                <span class="vis" > <img src="/mapper/images/legend/Construcciones_i0.png"/> </span>
+                                <span class="vis" id="spxg_Construcciones"> <span class="grp-title vis">Construcciones </span> </span>
                             </li>
                         </ul>
                     </li>
@@ -254,7 +249,7 @@ PM.modifyQueryResultsFunctions = [];
                             <li id="ligrp_Rios" class="tocgrp">
                                 <div class="tocgrp-hitarea open-hitarea collapsable-hitarea"></div>
                                 <input type="checkbox" class = "gLayer"  name="groupscbx" value="Rios" id="gLayer_rios" checked/>
-                                <span class="vis" > <img src="/mapper/images/legend/Rivers_i0.png"/> </span>
+                                <span class="vis" > <img src="/mapper/images/legend/rivers_i0.png"/> </span>
                                 <span class="vis" id="spxg_Rios"> <span class="grp-title vis">Rios </span> </span>
                             </li>
                             <li id="ligrp_Hipso" class="tocgrp">
@@ -289,14 +284,13 @@ PM.modifyQueryResultsFunctions = [];
                                                 <p>Municpio</p>
                                                 <select id="mpioClave" name="D3" size="1" style="width: 100%;">
                                                     <option value="000"> Seleccione... </option>
-                                                    
                                                     @foreach($municipios as $municipio => $nombre)
                                                         <option value="{{$municipio}}"> {{$nombre}} </option>
                                                     @endforeach
                                                 </select>                                  
         
                                             <p>Clave Catastral</p>
-                                            <input type="text" id="txtClave" name="numero_mzna" alt="Search Criteria" false="" autocomplete="off" class="ac_input">
+                                            <input type="text" id="txtClave" name="numero_mzna" placeholder="000-0000-000000"  false="" autocomplete="off" class="ac_input">
                                           </td>
                                         </tr>
                                         <tr>
@@ -324,7 +318,7 @@ PM.modifyQueryResultsFunctions = [];
                                         <tr id="searchitems_municipios1">
                                           <td class="pm-searchdesc">
                                                 <p>Municpio</p>
-                                                <select name="D3" size="1" style="width: 100%;">
+                                                <select id="mpioCuenta" name="D4" size="1" style="width: 100%;">
                                                     <option value="000"> Seleccione... </option>
                                                     
                                                     @foreach($municipios as $municipio => $nombre)
@@ -332,14 +326,14 @@ PM.modifyQueryResultsFunctions = [];
                                                     @endforeach
                                                 </select>                                  
         
-                                            <p>Clave Catastral</p>
-                                            <input type="text" id="pmsfld_numero_mzna" name="numero_mzna" alt="Search Criteria" false="" autocomplete="off" class="ac_input">
+                                            <p>Número de Cuenta</p>
+                                            <input type="text" id="txtCuenta" name="numero_cta"  placeholder="00-[R|U]-000000" false="" autocomplete="off" class="ac_input">
                                           </td>
                                         </tr>
                                         <tr>
                                           <td>
                                             <br />
-                                            <input type="button" value="Buscar" size="20" onclick="PM.Query.submitSearch()" onmouseover="PM.changeButtonClr(this,'over')" onmouseout="PM.changeButtonClr(this,'out')" class="button_off">
+                                            <input type="button" value="Buscar" size="20" onclick="PM.Map.submitSearch('Cuenta')" onmouseover="PM.changeButtonClr(this,'over')" onmouseout="PM.changeButtonClr(this,'out')" class="button_off">
                                           </td>
                                         </tr>
                                     </table>
@@ -360,8 +354,24 @@ PM.modifyQueryResultsFunctions = [];
                                       <tbody>
                                         <tr id="searchitems_municipios1">
                                           <td class="pm-searchdesc">
-                                                <p>Municpio</p>
-                                                <select name="D3" size="1" style="width: 100%;">
+                                                <p>Municipio</p>
+                                                <select name="mpioDomicilio" size="1" style="width: 100%;">
+                                                    <option value="000"> Seleccione... </option>
+                                                    
+                                                    @foreach($municipios as $municipio => $nombre)
+                                                        <option value="{{$municipio}}"> {{$nombre}} </option>
+                                                    @endforeach
+                                                </select>                                  
+                                                <p>Localidad</p>
+                                                <select name="mpioDomicilio" size="1" style="width: 100%;">
+                                                    <option value="000"> Seleccione... </option>
+                                                    
+                                                    @foreach($municipios as $municipio => $nombre)
+                                                        <option value="{{$municipio}}"> {{$nombre}} </option>
+                                                    @endforeach
+                                                </select>                                  
+                                                <p>Manzana</p>
+                                                <select name="mpioDomicilio" size="1" style="width: 100%;">
                                                     <option value="000"> Seleccione... </option>
                                                     
                                                     @foreach($municipios as $municipio => $nombre)
@@ -369,8 +379,6 @@ PM.modifyQueryResultsFunctions = [];
                                                     @endforeach
                                                 </select>                                  
         
-                                            <p>Clave Catastral</p>
-                                            <input type="text" id="pmsfld_numero_mzna" name="numero_mzna" alt="Search Criteria" false="" autocomplete="off" class="ac_input">
                                           </td>
                                         </tr>
                                         <tr>
@@ -461,8 +469,8 @@ PM.modifyQueryResultsFunctions = [];
         <!-- Map Zone -->
         <div id="map" class="baselayout" style="width: 1117px; height: 509px;">
                 <!-- MAIN MAP -->
-                <div id="mapimgLayer" style="width: 1117px; height: 509px; cursor: url(http://localhost/images/cursors/zoomin.cur), default; top: 0px; left: 0px; clip: rect(auto auto auto auto);">
-                        <img id="mapImg" src="/map_output/1428213583005665800.png" style="overflow: hidden; width: 1117px; height: 509px;" alt="">
+                <div id="mapimgLayer" style="width: 1117px; height: 509px; cursor: url(/mapper/images/cursors/zoomin.cur), default; top: 0px; left: 0px; clip: rect(auto auto auto auto);">
+                        <img id="mapImg" src="/mapper/images/mapa.png" style="overflow: hidden; width: 1117px; height: 509px;" alt="">
                 </div>
                 <div id="measureLayer" class="measureLayer"><div style="font-size: 0px;"></div></div>
                 <div id="measureLayerTmp" class="measureLayer"><div style="font-size: 0px;"></div></div>

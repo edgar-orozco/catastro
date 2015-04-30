@@ -1,10 +1,7 @@
 <?php
-
 use Symfony\Component\HttpFoundation\Response;
-
 class HomeController extends BaseController
 {
-
     /*
     |--------------------------------------------------------------------------
     | Default Home Controller
@@ -15,16 +12,12 @@ class HomeController extends BaseController
     | TODO: generar una mejor configuración de los homepage iniciales asignados a cada rol. ¿talvez se deba agreagar a tabla de roles peso y homepage inicial?
     |
     */
-
     public function showWelcome()
     {
-
         if(Auth::guest()) {
             return View::make('index');
         }
-
         $homepage = "hello";
-
         if (Confide::user()->hasRole('Super usuario')) {
             $homepage = 'superusuario';
         }
@@ -65,8 +58,13 @@ class HomeController extends BaseController
             //$homepage = 'folios';
             return Redirect::to('cartografia/consultas');
         }
-
+        elseif (Confide::user()->hasRole('Folios usuario')) {
+            $homepage = 'folios';
+        }
+        elseif (Confide::user()->hasRole('Folios municipio')) {
+            //$homepage = 'folios';
+            return Redirect::to('/entregafoliosestatal');
+        }
         return View::make($homepage);
     }
-
-}
+} 

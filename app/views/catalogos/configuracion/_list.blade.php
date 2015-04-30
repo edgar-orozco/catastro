@@ -1,6 +1,6 @@
 <div class="panel">
     <div class="panel-heading">
-        <!--h3 class="panel-title">Configuracion Municipal</h3-->
+        
     </div>
     @if(count($configuracionMunicipales) == 0)
     <div class="panel-body">

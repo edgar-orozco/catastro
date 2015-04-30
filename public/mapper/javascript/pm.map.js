@@ -78,7 +78,7 @@ $.extend(PM.Map,
                 //PM.Query.showQueryResult('query', imgxy);
                 //this.zoom2extent('Predios','7156','457902.65760919+1972485.8417572+457923.44066106+1972515.6707137','0');
             // query only on selected group with multiselect
-        var mapurl = PM_XAJAX_LOCATION + 'loadmap';
+        var mapurl = PM_XAJAX_LOCATION + 'spatialquery';
         //alert(mapurl);
         var data = {
             "mode":"query",
@@ -560,16 +560,14 @@ $.extend(PM.Map,
                 
                 if(ajax_data.mode == 'query'){
                     // Sample how to open a link in a p.mapper dialog box
-                    DlgOptions = {width:400, height:400, resizeable:true, newsize:false, container:'pmDlgContainerHyperlink'};
+                    DlgOptions = {width:700, height:500, resizeable:true, newsize:false, container:'pmDlgContainerHyperlink'};
                     var dlg = PM.Dlg.createDnRDlg(DlgOptions, 'Resultado', false);
 var h = "      <div>";
-h += "        <div class=\"pm-info-layerheader\">";
-h += "          Datos del Predio";
-h += "        </div>";
-h += "        <table cellspacing=\"0\" cellpadding=\"0\" border=\"0\">";
+h += "        <br/>";
+h += "        <table cellspacing=\"0\" cellpadding=\"0\" border=\"0\" style=\"margin: 0 auto;\">";
 h += "          <tbody>";
 h += "            <tr>";
-h += '                <td colspan="2" style="text-align: center";><img id="refMapImg" src="'+response.mapURL+'" width="200" height="200" alt=""></td>';
+h += '                <td colspan="2" style="text-align: center";><img id="refMapImg" style="border-style: solid; border-color: #000" src="'+response.mapURL+'" alt=""></td>';
 h += "            </tr>";
 h += "            <tr>";
 h += '                <td style="text-align: right; font-weight: bold;">Clave Catastral: </td>' ;
@@ -577,7 +575,7 @@ h += '                <td>'+response.clave_catas+'</td>' ;
 h += "            </tr>";
 h += "            <tr>";
 h += '                <td style="text-align: right; font-weight: bold;">Número de Cuenta: </td>' ;
-h += '                <td></td>' ;
+h += '                <td>'+response.cuenta+'</td>' ;
 h += "            </tr>";
 h += "            <tr>";
 h += '                <td style="text-align: right; font-weight: bold;">Municipio: </td>' ;
@@ -585,15 +583,15 @@ h += '                <td>'+response.municipio+'</td>' ;
 h += "            </tr>";
 h += "            <tr>";
 h += '                <td style="text-align: right; font-weight: bold;">Propietario: </td>' ;
-h += '                <td></td>' ;
+h += '                <td>'+response.propietario+'</td>' ;
 h += "            </tr>";
 h += "            <tr>";
 h += '                <td style="text-align: right; font-weight: bold;">Calle y Número: </td>' ;
-h += '                <td"></td>' ;
+h += '                <td>'+response.domicilio+'</td>' ;
 h += "            </tr>";
 h += "            <tr>";
 h += '                <td style="text-align: right; font-weight: bold;">Localidad: </td>' ;
-h += '                <td"></td>' ;
+h += '                <td></td>' ;
 h += "            </tr>";
 h += "            <tr>";
 h += '                <td style="text-align: right; font-weight: bold;">Superficie de Terreno: </td>' ;
@@ -601,7 +599,7 @@ h += '                <td>'+response.sup_terr+' m2 </td>' ;
 h += "            </tr>";
 h += "            <tr>";
 h += '                <td style="text-align: right; font-weight: bold;">Superficie de Construcción: </td>' ;
-h += '                <td>'+response.sup_terr+' m2</td>' ;
+h += '                <td>'+response.sup_const+' m2</td>' ;
 h += "            </tr>";
 h += "            <tr>";
 h += '                <td style="text-align: right; font-weight: bold;">Tipo de Predio: </td>' ;
@@ -805,7 +803,4 @@ h += "      </div>";
         };
         this.updateMap(mapurl, data);
     }
-    
-
 });
-

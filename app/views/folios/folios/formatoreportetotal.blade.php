@@ -2,9 +2,10 @@
 <html>
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-		<title>Rerporte Total Anual</title>
+		<title>Reporte Total Anual</title>
 	</head>
 	<body>
+	<center><img src="imagenes/EncabezadoDC.jpg" WIDTH=400 HEIGHT=80 ></center>
 		<?php
 			$mes = array();
 
@@ -23,12 +24,13 @@
 			
 		?>
 
-		<h1>Reporte de Folios Hasta {{date("d") . " de " .$mes[date('m')]." del ". date("Y");}}</h1>
+		<center><h1>Reporte de Folios Autorizados Anualmente</h1></center>
 
-		<table border="1">
+		<table border="1" WIDTH="100%">
 			<thead>
 				<tr>
 					<th>Año</th>
+					<th>Ultimo Folio Comprado</th>
 					<th>Folios Urbanos</th>
 					<th>Folios Rusticos</th>
 					<th>Total Urbanos</th>
@@ -39,7 +41,8 @@
 			<tbody>
 				@foreach ($folios_historial as $folios)
 					<tr>
-						<td>{{date('Y')}}</td>
+						<td align="center">{{$folios->year}}</td>
+						<td align="center">{{$folios->fecha_oficio}}</td>
 						<td align="center">{{$folios->folios_urbanos}}</td>
 						<td align="center">{{$folios->folios_rustico}}</td>
 						<td align="center">$ {{number_format($folios->total_urbano, '2')}}</td>

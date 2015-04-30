@@ -152,7 +152,7 @@ font: bold 85% monospace;
     });
     // Al presionar cualquier tecla en cualquier campo de texto, ejectuamos la siguiente función
     $('input').on('keydown', function (e) {
-        // Solo nos importa si la tecla presionada fue ENTER... (Para ver el código de otras teclas: http://www.webonweboff.com/tips/js/event_key_codes.aspx)
+        // Solo nos importa si la tecla presionada fue ENTER... 
         if (e.keyCode === 13)
         {
             // Obtenemos el número del tabindex del campo actual

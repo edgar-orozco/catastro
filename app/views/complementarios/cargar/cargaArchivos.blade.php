@@ -31,8 +31,7 @@
 
 var footerTemplate = '<select name="select-instalaciones" class="form-control" id="instalaciones"> '+
                         '<option selected="selected" value="">--Seleccione una opción--</option>'+
-                        '<option value="1">Frontal</option>'+
-                        '<option value="2">Lateral</option>'+
+                        "{{$select_opcFooter}}"+
                      '</select>'+
                      '<button type="button" class="kv-file-remove btn btn-xs btn-default" title="Remove file" data-url="/eliminar-anexo.com" data-key="1">'+
                         '<i class="glyphicon glyphicon-trash text-danger"></i>'+
@@ -111,6 +110,7 @@ $('#file').on('fileloaded', function(event, file, previewId, index, reader)
 		maxFileCount: 5,
 		layoutTemplates: {footer: footerTemplate},
         initialPreview: imagen,
+        allowedFileExtensions: ["jpg", "gif", "png", "txt", "pdf", "doc", "csv", "xlsx", "ppt", "pptx"],
 		uploadExtraData: function()
 		{
 			
@@ -120,10 +120,13 @@ $('#file').on('fileloaded', function(event, file, previewId, index, reader)
         	var municipio = document.getElementById('municipioC').value;
         	var clave_catas = document.getElementById('clave_catasC').value;
         	var toma = document.getElementsByName('select-instalaciones');
+            var files_uploaded = $('.file-preview-initial').length;
+            console.debug(files_uploaded);
+            
         	var tomas = [];
-        	for (var x = 0; x<toma.length; x++) 
+        	for (var x = files_uploaded; x<toma.length; x++) 
         	{
-        		tomas[x]= toma[x].value;
+        		tomas[x-files_uploaded]= toma[x].value;
         	};
 
         	return {gid_predio:gid_predio, entidad:entidad, municipio:municipio, clave_catas:clave_catas, tomas:tomas};

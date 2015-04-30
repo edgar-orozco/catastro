@@ -18,7 +18,7 @@ $(function() {
  dayNamesShort: ['Dom','Lun','Mar','Mié','Juv','Vie','Sáb'],
  dayNamesMin: ['Do','Lu','Ma','Mi','Ju','Vi','Sá'],
  weekHeader: 'Sm',
- dateFormat: 'dd/mm/yy',
+ dateFormat: 'yy-mm-dd',
  firstDay: 1,
  isRTL: false,
  showMonthAfterYear: false,
@@ -60,11 +60,19 @@ $("#fecha").datepicker();
 <script >
     $(document).ready(function(){
   $("#datepicker").on('change', function () {
+    //fecha actual en el calendario
     var fecha_e = $('#datepicker').val();
+    //fecha actual del sistema
     var fecha_traida =$('#fecha_r').val();
+    //fecha de validacion traida de la base de datos
     var validacion = $('#validacion').val();
-    if(fecha_e < fecha_traida)
-    {
+    var myArray = validacion.split('-');
+    //var concatenado = myArray[2]+'/'+myArray[1]+'/'+myArray[0];
+   
+
+
+    if(fecha_e < validacion)
+   {
         alert('La fecha debe de ser mayor a la fecha de emisón requerimiento'+ validacion);
         $('#datepicker').val(validacion);
     }
@@ -73,7 +81,7 @@ $("#fecha").datepicker();
   });
 </script>
 
-<?php $fecha= date("d/m/Y"); ?>
+<?php $fecha= date("Y-m-d"); ?>
 <div class="modal-header">
     <h4 class="modal-titulo" id="condominio-titulo">Datos Entrega</h4>
 </div>

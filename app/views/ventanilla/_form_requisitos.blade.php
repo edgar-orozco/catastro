@@ -9,7 +9,9 @@
                value="0" data-tipotramite="{{$tipotramite->id}}" data-requisito="{{$requisito->id}}"> NO
     </label>
 </div>
-{{$requisito->nombre}} {{$requisito->pivot->original ? 'original' : ''}}
-{{$requisito->pivot->original &&  $requisito->pivot->copias ? ' y ' : ''}}
-{{$requisito->pivot->copias ? $requisito->pivot->copias. " ".Lang::choice('messages.copias', $requisito->pivot->copias ) : ''}}
-{{$requisito->pivot->certificadas ? Lang::choice('messages.certificadas', $requisito->pivot->copias) : ''}}
+<span>
+    {{$requisito->nombre}} {{$requisito->pivot->original ? 'original' : ''}}
+    {{$requisito->pivot->original &&  $requisito->pivot->copias ? ' y ' : ''}}
+    {{$requisito->pivot->copias ? $requisito->pivot->copias. " ".Lang::choice('messages.copias', $requisito->pivot->copias ) : ''}}
+    {{$requisito->pivot->certificadas ? Lang::choice('messages.certificadas', $requisito->pivot->copias) : ''}}
+</span>

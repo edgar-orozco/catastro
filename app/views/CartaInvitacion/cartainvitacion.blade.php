@@ -34,7 +34,6 @@
 <?php
   $fechas=date_parse($fecha);
       $fecha = array();
-
         $fecha['1'] = "ENERO";
         $fecha['2'] = "FEBRERO";
         $fecha['3'] = "MARZO";

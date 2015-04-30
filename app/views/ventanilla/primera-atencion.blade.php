@@ -12,6 +12,9 @@
 @stop
 
 @section('content')
+
+    {{ HTML::style('css/forms.css') }}
+
 <form id="lista-tipotramites">
     <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="false">
         @foreach($tipotramites as $tipotramite)
@@ -22,6 +25,7 @@
                            href="#collapse-{{$tipotramite->id}}" aria-expanded="false"
                            aria-controls="collapse-{{$tipotramite->id}}">
                             {{$tipotramite->nombre}}
+                            <b class="caret"></b>
                         </a>
                     </h4>
                 </div>
@@ -31,7 +35,7 @@
 
                         <!-- Inputs de clave o cuenta -->
                         <div class="row ">
-                            <div class="col-md-6">
+                            <div>
                                 <div class="form-group">
                                     <div class="input-group">
                                         <!-- Select clave o cuenta -->
@@ -102,7 +106,7 @@
                             </div>
 
                             <!-- /col-md-6 -->
-                            <div class="col-md-6">
+                            <div>
                                 <div class="alert alert-danger" style="display: none;">
                                     No se encontró el predio solicitado en el padrón.
                                 </div>

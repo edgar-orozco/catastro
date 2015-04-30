@@ -1,10 +1,11 @@
 <!DOCTYPE html>
 <html>
 	<head>
+		<title>Folio Emitido</title>
 		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 	</head>
 	<body>
-		<img src="css/images/folios/EncabezadoDC.jpg" WIDTH=500 HEIGHT=80 >
+		<img src="imagenes/EncabezadoDC.jpg" WIDTH=500 HEIGHT=80 >
 
 		<p align="right">SPF/SI/DGCyEF/DC/{{$folios_historial->no_oficio}}/2015
 		<br>
