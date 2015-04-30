@@ -182,6 +182,7 @@ ul li span{
 
 }
 
-.nav-tabs > li.active > a:hover{
+.nav-tabs > li.active > a:hover, .nav-tabs > li > a:hover{
+    color: white;
     background-color: #F27007;
 }
