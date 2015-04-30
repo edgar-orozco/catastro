@@ -159,3 +159,25 @@ ul li span{
 .panel-heading h4.panel-title, .dropdown-menu > .active a{
     color: #ffffff !important;
 }
+
+.nav-tabs{
+    background-color: orange;
+}
+
+.nav-tabs > li > a {
+    margin-right: 2px;
+    line-height: 1.42857143;
+    border: 1px solid transparent;
+    border-radius: 4px 4px 0 0;
+    background: #0072ab;
+    color: white;
+}
+
+.nav-tabs > li.active > a{
+    color: white;
+    cursor: default;
+    background-color: orange;
+    border: 1px solid orange;
+    border-bottom-color: transparent;
+
+}
