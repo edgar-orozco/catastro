@@ -156,6 +156,6 @@ ul li span{
     border-left: none;
 }
 
-.panel-heading h4.panel-title{
+.panel-heading h4.panel-title, .dropdown-menu > .active a{
     color: #ffffff;
 }
