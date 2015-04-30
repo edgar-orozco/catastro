@@ -161,7 +161,7 @@ ul li span{
 }
 
 .nav-tabs{
-    border-bottom-color: orange;
+    border-bottom: 5px solid orange;
 }
 
 .nav-tabs > li > a {
