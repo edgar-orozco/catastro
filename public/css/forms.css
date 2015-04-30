@@ -181,3 +181,7 @@ ul li span{
     border-bottom-color: transparent;
 
 }
+
+.nav-tabs > li.active > a:hover{
+    background-color: #F27007;
+}
