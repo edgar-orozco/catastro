@@ -5,7 +5,7 @@
 @stop
 
 @section('content')
-
+    {{ HTML::style('css/forms.css') }}
     {{ HTML::style('css/select2.min.css') }}
 
     <div class="row clearfix">
