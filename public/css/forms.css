@@ -54,6 +54,9 @@
     text-align: center;
 }
 
+#lista-tipotramites .input-group-btn{
+    width: initial;
+}
 
 #lista-tipotramites .panel-info{
     border: none;
