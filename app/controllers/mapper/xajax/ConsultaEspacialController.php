@@ -1,11 +1,9 @@
 <?php
 
-use \PMap;
-
 class ConsultaEspacialController extends \BaseController {
 	public function store(){
 
-        $PM_MAP_FILE = "/var/www/html/Tabasco.map";
+        $PM_MAP_FILE = "/var/www/html/geografica/MzaPredio.map";
         $map = ms_newMapObj($PM_MAP_FILE);
         $scaleLayers = 1;       
 
@@ -15,6 +13,12 @@ class ConsultaEspacialController extends \BaseController {
         	$old_extent = ms_newRectObj();
             $imgxy_str = $_REQUEST["imgxy"];
             $imgxy_arr = explode("+", $imgxy_str);
+            if($imgxy_arr[0] == 0 || $imgxy_arr[1] == 0){
+                $strJS = '"msgError":"No existe ningún predio en el área seleccionada."';
+                echo "{\"sessionerror\":\"QueryError\"," . $strJS . "}";
+                return;
+            }
+
             $clkpoint->setXY($imgxy_arr[0],$imgxy_arr[1]);
             $old_extent->setextent($_REQUEST["GEOEXT"][0],$_REQUEST["GEOEXT"][1],$_REQUEST["GEOEXT"][2],$_REQUEST["GEOEXT"][3]);
             $mapW = $_REQUEST["mapW"];
@@ -22,6 +26,17 @@ class ConsultaEspacialController extends \BaseController {
         	list($x,$y) = $this->img2map($mapW,$mapH,$clkpoint,$old_extent);
         	$x_str = sprintf("%3.6f",$x);
         	$y_str = sprintf("%3.6f",$y);
+            $extentMza = 0;
+
+            //Buscamos mza por geolocalización
+            $regManzana = DB::select('select st_xmin(geom) as xmin, st_ymin(geom) as ymin, st_xmax(geom) as xmax, st_ymax(geom) as ymax from manzanas where ST_Contains(geom, ST_SetSRID(ST_Point(?,?),32615))', array($x_str,$y_str));
+            if (count($regManzana) != 0) {
+                $xmin = $regManzana[0]->xmin-10;
+                $ymin = $regManzana[0]->ymin-10;
+                $xmax = $regManzana[0]->xmax+10;
+                $ymax = $regManzana[0]->ymax+10;
+                $extentMza = 1;
+            }
 
             //Buscamos predio por geolocalización
             $registrosPredio = DB::select('select entidad, municipio, clave_catas, tipo_predio, superficie_terreno, superficie_construccion , st_xmin(geom) as xmin, st_ymin(geom) as ymin, st_xmax(geom) as xmax, st_ymax(geom) as ymax from predios where ST_Contains(geom, ST_SetSRID(ST_Point(?,?),32615))', array($x_str,$y_str));
@@ -39,14 +54,14 @@ class ConsultaEspacialController extends \BaseController {
             $sup_terr = $predio->superficie_terreno;
             $sup_const = $predio->superficie_construccion;
             $tipo_predio = $predio->tipo_predio;
-/*            $xmin = $predio->xmin-($predio->xmin*0.1);
-            $ymin = $predio->ymin-($predio->ymin*0.1);
-            $xmax = $predio->xmax+($predio->xmax*0.1);
-            $ymax = $predio->ymax+($predio->ymax*0.1); */
-            $xmin = $predio->xmin-10;
-            $ymin = $predio->ymin-20;
-            $xmax = $predio->xmax+10;
-            $ymax = $predio->ymax+20;
+            //si no encontró manzana tomamos el extent del predio
+            if($extentMza == 0) {
+                $xmin = $predio->xmin - 10;
+                $ymin = $predio->ymin - 10;
+                $xmax = $predio->xmax + 10;
+                $ymax = $predio->ymax + 10;
+            }
+
             $propietario = "";
             $domicilio = "";
             $id_ubicacion = "";
@@ -81,19 +96,26 @@ class ConsultaEspacialController extends \BaseController {
                 $strJS .= '"tipo_predio":"Rural"';
             }
 
-            $_REQUEST["mapW"] = 200;
-            $_REQUEST["mapH"] = 200;
-            $_REQUEST["GEOEXT"][0] = $xmin ;
-            $_REQUEST["GEOEXT"][1] = $ymin ;
-            $_REQUEST["GEOEXT"][2] = $xmax ;
-            $_REQUEST["GEOEXT"][3] = $ymax ;
-            $_REQUEST["groups"] = array("predios");
+            //configuramos la conexion de datos del mapa
+            $conn = Config::get('database.connections.pgsql');
+            $host = $conn['host'];
+            $database = $conn['database'];
+            $username = $conn['username'];
+            $password = $conn['password'];
+            $connectionString = "user='$username' password='$password' dbname='$database' host=$host port=5432";
+            $layer = $map->getLayerByName('Manzanas');
+            $layer->set("connection", $connectionString);
 
-            // CREATE NEW MAP
-            $pmap = new PMAP($map);
-            $pmap->pmap_create();
+            // filtramos el predio
+            $layer = $map->getLayerByName('Predios');
+            $layer->set("connection", $connectionString);
+            $layer->setFilter("clave_catas = '$clave_catas'");
 
-            $mapURL      = $pmap->pmap_returnMapImgURL();
+            // creamos el mapa
+            $map->setextent($xmin,$ymin,$xmax,$ymax);
+            $img = $map->prepareImage();
+            $image=$map->draw();
+            $mapURL=$image->saveWebImage();
 
             // Serialize url_points
             $urlPntStr = '';

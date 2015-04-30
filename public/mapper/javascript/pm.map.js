@@ -567,7 +567,7 @@ h += "        <br/>";
 h += "        <table cellspacing=\"0\" cellpadding=\"0\" border=\"0\" style=\"margin: 0 auto;\">";
 h += "          <tbody>";
 h += "            <tr>";
-h += '                <td colspan="2" style="text-align: center";><img id="refMapImg" src="'+response.mapURL+'" width="200" height="200" alt=""></td>';
+h += '                <td colspan="2" style="text-align: center";><img id="refMapImg" style="border-style: solid; border-color: #000" src="'+response.mapURL+'" alt=""></td>';
 h += "            </tr>";
 h += "            <tr>";
 h += '                <td style="text-align: right; font-weight: bold;">Clave Catastral: </td>' ;

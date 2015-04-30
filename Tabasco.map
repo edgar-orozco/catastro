@@ -247,7 +247,7 @@ END  # Layer
 LAYER
   NAME "localidades" 
   TYPE polygon
-  CONNECTION  "user='postgres' password='pass' dbname='catastro' host=localhost port=5432"
+  CONNECTION  "user='postgres' password='pass' dbname='catastro-dev' host=localhost port=5432"
   CONNECTIONTYPE postgis
   DATA "geom from localidades_a"
 
@@ -403,7 +403,7 @@ END  # Layer
 LAYER  NAME "manzanas"
   TYPE polygon
   STATUS ON
-  CONNECTION  "user='postgres' password='pass' dbname='catastro' host=localhost port=5432"
+  CONNECTION  "user='postgres' password='pass' dbname='catastro-dev' host=localhost port=5432"
   CONNECTIONTYPE postgis
   DATA "geom from manzanas using unique gid"
 
@@ -448,7 +448,7 @@ END  # Layer
 LAYER  NAME "predios"
   TYPE polygon
   STATUS ON
-  CONNECTION  "user='postgres' password='pass' dbname='catastro' host=localhost port=5432"
+  CONNECTION  "user='postgres' password='pass' dbname='catastro-dev' host=localhost port=5432"
   CONNECTIONTYPE postgis
   DATA "geom from predios"
 
@@ -491,7 +491,7 @@ END  # Layer
 LAYER  NAME "construcciones"
   TYPE polygon
   STATUS ON
-  CONNECTION  "user='postgres' password='pass' dbname='catastro' host=localhost port=5432"
+  CONNECTION  "user='postgres' password='pass' dbname='catastro-dev' host=localhost port=5432"
   CONNECTIONTYPE postgis
   DATA "geom from construcciones using unique gid"
 

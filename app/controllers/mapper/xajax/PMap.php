@@ -54,8 +54,7 @@ class PMap extends \BaseController
             }
         }
     }
-    
-    
+
     /**
      * Return the URL to map image
      */
@@ -134,12 +133,22 @@ class PMap extends \BaseController
 
 
     public function pmap_setLayersOnOff(){
-        
+
+        $conn = Config::get('database.connections.pgsql');
+        $host = $conn['host'];
+        $database = $conn['database'];
+        $username = $conn['username'];
+        $password = $conn['password'];
+        $connectionString = "user='$username' password='$password' dbname='$database' host=$host port=5432";
+
 		$numLayers = $this->map->numlayers;
 		
 		for ($iLayer = 0 ; $iLayer < $numLayers ; $iLayer++) {
 			$msLayer = $this->map->getLayer($iLayer);
 			$msLayer ->set('status', MS_OFF);
+            if($msLayer->connectiontype == MS_POSTGIS){
+                $msLayer->set("connection", $connectionString);
+            }
 		}
         
         foreach ($this->layers as $layerName){
