@@ -31,18 +31,6 @@ WEB
 END  # Web
 
 #
-# Start of Reference map definition
-#
-REFERENCE
-  EXTENT 365927.23841353016905487 1891919.63498854520730674 732152.99458523001521826 2077443.62099912133999169
-  IMAGE '/var/www/html/TabascoGR.png'
-  SIZE 197 91
-  COLOR -1 -1 -1
-  OUTLINECOLOR 255 0 0
-END  # Reference
-
-
-#
 # Start of legend object
 #
 LEGEND
@@ -135,6 +123,5 @@ LAYER  NAME "construcciones"
     OUTLINECOLOR 0 0 0
   END  # Class
 END  # Layer
-
 
 END  #Map
