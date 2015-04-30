@@ -138,6 +138,15 @@
     color: #fff;
     padding-right: 5px;
 }
+.botones-requisitos label{
+    width: 10%;
+    display: inline-block;
+}
+
+.botones-requisitos span{
+    padding-top: 10px;
+}
+
 
 .select-tipopredio, .select-municipio, input.clave-catastral{
     border-radius: 0;
