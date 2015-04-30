@@ -123,67 +123,59 @@
 
                 <div class="tab-content">
                     <div class="tab-pane active" id="panel-generales">
+                        <div class="table table-striped">
+                            <tr>
+                                <th class="text-right"><b>Clave catastral:</b></th>
+                                <td>{{$clave}}</td>
+                            </tr>
+                            <tr>
+                                <th class="text-right"><b>Cuenta catastral:</b></th>
+                                <td>{{$cuenta}}</td>
+                            </tr>
+                            <tr>
+                                <th class="text-right"><b>Tipo predio:</b></th>
+                                <td>{{$predio->tipo_predio}}</td>
+                            </tr>
+                            <tr>
+                                <th class="text-right"><b>Ubicacion:</b></th>
+                                <td>{{$predio->ubicacionFiscal->ubicacion}}</td>
+                            </tr>
+                            <tr>
+                                <th class="text-right"><b>Superficie terreno:</b></th>
+                                <td>{{number_format($predio->superficie_terreno,2, '.', ',')}} m<sup>2</sup></td>
+                            </tr>
+                            <tr>
+                                <th class="text-right"><b>Superficie construcción:</b></th>
+                                <td>{{number_format($predio->superficie_construccion,2, '.', ',')}} m<sup>2</sup></td>
+                            </tr>
+                            <tr>
+                                <th class="text-right"><b>Uso de suelo:</b></th>
+                                <td>
+                                    @if($predio->usoSuelo)
+                                        {{$predio->usoSuelo->descripcion}}
+                                    @endif
+                                </td>
+                            </tr>
+                            <tr>
+                                <th class="text-right"><b>Uso de construcción:</b></th>
+                                <td>
+                                    @if($predio->usoConstruccion)
+                                        {{$predio->usoConstruccion->descripcion}}
+                                    @endif
+                                </td>
+                            </tr>
+                            <tr>
+                                <th class="text-right"><b>Propietarios:</b></th>
+                                <td>
+                                    <ul>
+                                        @foreach($predio->propietarios as $propietario)
 
-                        <br/>
-                        <div class="row">
-                            <div class="col-sm-4 col-md-4 text-right"><b>Clave catastral:</b></div>
-                            <div class="col-sm-8 col-md-8">{{$clave}}</div>
-                        </div>
-                        <br/>
-                        <div class="row">
-                            <div class="col-sm-4 col-md-4 text-right"><b>Cuenta catastral:</b></div>
-                            <div class="col-sm-8 col-md-8">{{$cuenta}}</div>
-                        </div>
-                        <br/>
-                        <div class="row">
-                            <div class="col-sm-4 col-md-4 text-right"><b>Tipo predio:</b></div>
-                            <div class="col-sm-8 col-md-8">{{$predio->tipo_predio}}</div>
-                        </div>
-                        <br/>
-                        <div class="row">
-                            <div class="col-sm-4 col-md-4 text-right"><b>Ubicacion:</b></div>
-                            <div class="col-sm-8 col-md-8">{{$predio->ubicacionFiscal->ubicacion}}</div>
-                        </div>
-                        <br/>
-                        <div class="row">
-                            <div class="col-sm-4 col-md-4 text-right"><b>Superficie terreno:</b></div>
-                            <div class="col-sm-8 col-md-8">{{number_format($predio->superficie_terreno,2, '.', ',')}} m<sup>2</sup></div>
-                        </div>
-                        <br/>
-                        <div class="row">
-                            <div class="col-sm-4 col-md-4 text-right"><b>Superficie construcción:</b></div>
-                            <div class="col-sm-8 col-md-8">{{number_format($predio->superficie_construccion,2, '.', ',')}} m<sup>2</sup></div>
-                        </div>
-                        <br/>
-                        <div class="row">
-                            <div class="col-sm-4 col-md-4 text-right"><b>Uso de suelo:</b></div>
-                            <div class="col-sm-8 col-md-8">
-                                @if($predio->usoSuelo)
-                                    {{$predio->usoSuelo->descripcion}}
-                                @endif
-                            </div>
-                        </div>
-                        <br/>
-                        <div class="row">
-                            <div class="col-sm-4 col-md-4 text-right"><b>Uso de construcción:</b></div>
-                            <div class="col-sm-8 col-md-8">
-                                @if($predio->usoConstruccion)
-                                    {{$predio->usoConstruccion->descripcion}}
-                                @endif
-                            </div>
-                        </div>
-                        <br/>
-                        <div class="row">
-                            <div class="col-sm-4 col-md-4 text-right"><b>Propietarios:</b></div>
-                            <div class="col-sm-8 col-md-8">
-                                <ul>
-                                    @foreach($predio->propietarios as $propietario)
+                                            <li>{{$propietario->propietario->nombrec}}</li>
 
-                                        <li>{{$propietario->propietario->nombrec}}</li>
-
-                                    @endforeach
-                                </ul>
-                            </div>
+                                        @endforeach
+                                    </ul>
+                                </td>
+                            </tr>
                         </div>
                     </div>
 
