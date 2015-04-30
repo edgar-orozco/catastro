@@ -64,14 +64,19 @@ setlocale(LC_MONETARY, 'es_MX');
 
 </script>
 <script>
-       $('#boton').on('click', function()
-                {
-                   window.location.reload();
-                   ventana_hija = window.open($.post( "/cartainv", $( "#cartaForm" ).serialize()));
-
-                   return false;
-                });
-
+  $(document).ready(function () {
+       $('#cartaForm').bind('submit', function()
+               {
+                alert('hola');
+                  //$("#buscador").submit
+                  document.busqueda.submit();
+                 //  window.location.reload();
+                  // ventana_hija = window.open($.post( "http://192.168.50.10/cartainv/",,$( "#cartaForm" ).serialize()));
+                            //parent.location.reload(true);
+                            //parent.jQuery.fancybox.close();
+                  // return false;
+              });
+ });
 </script>
 
 <script>
@@ -297,7 +302,7 @@ setlocale(LC_MONETARY, 'es_MX');
             </div>
         @endif
         @if(count($items) > 0)
-            {{ Form::open(array('url' => 'cartainv', 'method' => 'post', 'name' => 'formulario', 'target'=>'_blank', 'id' => 'cartaForm'))}}
+            {{ Form::open(array('url' => 'cartainv', 'method' => 'post', 'name' => 'formulario', 'id' => 'cartaForm'))}}
             {{$date = new DateTime();}}
 
             <div class="panel-default">

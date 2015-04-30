@@ -1,4 +1,4 @@
-@section('javascript')
+
 {{ HTML::style('js/jquery/jquery-ui.css') }}
 {{ HTML::script('js/jquery/jquery-ui.js') }}
 
@@ -56,12 +56,13 @@ $("#fecha").datepicker();
             });
 </script>
 <script >
-    $('#formproceso').bind('submit', function (e) {
-      e.preventDefault();
-|     reload(); 
+    $('#guardar').on('click', function () {
+       
+         window.location.reload();
+        $('#proceso').toggle();
+        
     })
 </script>
-@append
 <?php $fecha= date("d/m/Y"); ?>
 <div class="modal-header">
     <h4 class="modal-titulo" id="condominio-titulo">Cancelación de proceso</h4>
@@ -72,7 +73,7 @@ $("#fecha").datepicker();
 <div style="margin-left: 20px">
     <div style="margin-right: 20px">
         <div class="form-group">
-            {{Form::text('id',$idrequerimiento,['id'=>'idc'] )}}
+            {{Form::text('id',$idrequerimiento,['id'=>'idc', 'hidden'] )}}
             {{$errors->first('id', '<span class=text-danger>:message</span>')}}
             <p class="help-block"></p>
         </div>

@@ -4,7 +4,8 @@
         Route::get("/ejecucion/inicio", "Ejecucion_BuscarController@inicio");
         //pantalla principal de carta invvitacion
         Route::post("/ejecucion/", "Ejecucion_BuscarController@getIndex");
-        //Route::get("/ejecucion/", "Ejecucion_BuscarController@getIndex");+
+
+        Route::get("/ejecucion/", "Ejecucion_BuscarController@getIndex");
         //pantalla principal de seguimiento ejecucion
         Route::get("/seguimiento", "Ejecucion_SeguimientoController@getIndex");
         Route::post("/busquedas", "Ejecucion_SeguimientobusController@getIndex");
