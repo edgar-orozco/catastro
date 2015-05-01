@@ -54,7 +54,8 @@ class PMap extends \BaseController
             }
         }
     }
-
+    
+    
     /**
      * Return the URL to map image
      */
@@ -146,9 +147,9 @@ class PMap extends \BaseController
 		for ($iLayer = 0 ; $iLayer < $numLayers ; $iLayer++) {
 			$msLayer = $this->map->getLayer($iLayer);
 			$msLayer ->set('status', MS_OFF);
-            //if($msLayer->connectiontype == MS_POSTGIS){
-             //   $msLayer->set("connection", $connectionString);
-            //}
+            if($msLayer->connectiontype == MS_POSTGIS){
+               $msLayer->set("connection", $connectionString);
+            }
 		}
         
         foreach ($this->layers as $layerName){
