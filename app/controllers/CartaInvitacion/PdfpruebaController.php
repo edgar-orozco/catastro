@@ -9,9 +9,13 @@ class CartaInvitacion_PdfpruebaController extends BaseController {
 	 */
 	public function imprimir($clave = null)
 	{	//recibe la clave catastral y la guarda en un array
+		
+		$id = ejecucion::where('clave',$clave)->pluck('id_ejecucion_fiscal');
+	  $fecha = requerimientos::where('id_ejecucion_fiscal',$id)->first()->pluck('f_requerimiento');
 		$claves[]=$clave;
+
 		//se envia el array a la funcion para poder ser procesado y generar el pdf
-		$fechaven = PdfHelper::imprimirpdf($claves);
+		$fechaven = PdfHelper::imprimirpdf($claves, $fecha);
 		//se imprime lo que retorna la funcion en este caso el pdf de la carta invitacion
 		echo $fechaven;
 

@@ -216,7 +216,6 @@ setlocale(LC_MONETARY, 'es_MX');
                 <?php $fecharequerimiento = str_replace(')', '',$key[11]);?>
                <?php if(!empty($fechainicio))
                {
-                
                 $fechaven = FechasHelper::diasprueba($vigencia,$fecharequerimiento);
                 echo $fechaven;
                }elseif (empty($fechainicio)) {
