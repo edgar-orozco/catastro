@@ -159,3 +159,30 @@ ul li span{
 .panel-heading h4.panel-title, .dropdown-menu > .active a{
     color: #ffffff !important;
 }
+
+.nav-tabs{
+    border-bottom: 5px solid orange;
+}
+
+.nav-tabs > li > a {
+    margin-right: 2px;
+    line-height: 1.42857143;
+    border: 1px solid transparent;
+    border-radius: 4px 4px 0 0;
+    background: #0072ab;
+    color: white;
+}
+
+.nav-tabs > li.active > a, .nav-tabs > li.active > a:hover, .nav-tabs > li.active > a:focus{
+    color: white;
+    cursor: default;
+    background-color: orange;
+    border: 1px solid orange;
+    border-bottom-color: transparent;
+
+}
+
+.nav-tabs > li.active > a:hover, .nav-tabs > li > a:hover{
+    color: white;
+    background-color: #F27007;
+}

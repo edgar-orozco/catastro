@@ -27,6 +27,7 @@
 
  {{ HTML::style('/mapper/templates/custom.css') }}
 
+
     <script type="text/javascript">
         PM.msVersion = '<?php echo ms_GetVersion() ?>';
 
@@ -167,7 +168,7 @@
     
     <div class="ui-layout-west" id="uiLayoutWest" style="position: absolute; left: 0px; width: 220px; height: 509px; margin-right: 6px; top: 40px;">
         <!-- Legend/TOC -->
-        Legend/ TOC
+        Capas de Información
         <div id="tocContainer">
               <form id="layerform" method="get" action="">
                 <!-- Capas -->    
