@@ -54,7 +54,7 @@ return array(
         ),
 	),
 
-	//Bandera para generar log de querys ejecutados por eloquent
+	//Bandera para generar log de querys ejecutados por eloquent. En staging por default esta apagado.
 	'log' => false,
 
 );

@@ -55,7 +55,7 @@ return array(
 
 	),
 
-	//Bandera para generar log de querys ejecutados por eloquent
+	//Bandera para generar log de querys ejecutados por eloquent. Los querys ahora se loguean en app/storage/logs/laravel.log
 	'log' => true,
 
 );
