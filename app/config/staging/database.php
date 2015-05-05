@@ -42,6 +42,16 @@ return array(
 			'schema'   => 'public',
 		),
 
+        'corevat' => array(
+            'driver'   => 'pgsql',
+            'host'     => 'localhost',
+            'database' => 'corevat',
+            'username' => 'postgres',
+            'password' => 'pass',
+            'charset'  => 'utf8',
+            'prefix'   => '',
+            'schema'   => 'public',
+        ),
 	),
 
 	//Bandera para generar log de querys ejecutados por eloquent
