@@ -3,6 +3,9 @@
 <li class="dropdown @if(Request::is('CorevatCatalogos/*') || Request::is('Corevat/*')) active @endif">
 	<a data-toggle="dropdown" class="dropdown-toggle" href="#">COREVAT<b class="caret"></b></a>
 	<ul role="menu" class="dropdown-menu">
+		<li class="@if(Request::is('corevat/Empresas')) active @endif">
+			<a href="{{URL::to('corevat/Empresas')}}"><i class="glyphicon glyphicon-th-list"></i>&nbsp;Empresas</a>
+		</li>
 		<li class="@if(Request::is('corevat/CatAplanados')) active @endif">
 			<a href="{{URL::to('corevat/CatAplanados')}}"><i class="glyphicon glyphicon-th-list"></i>&nbsp;Aplanados</a>
 		</li>
