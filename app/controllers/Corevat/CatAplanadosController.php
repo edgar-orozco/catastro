@@ -8,7 +8,7 @@ class corevat_CatAplanadosController extends \BaseController {
 	 * Instancia del catalogo de aplanados [COREVAT]
 	 * @var Catalogo de aplanados [COREVAT]
 	 */
-	public function __construct(catAplanados $catalogo) {
+	public function __construct(CatAplanados $catalogo) {
 		$this->catalogo = $catalogo;
 	}
 
