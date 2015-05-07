@@ -38,7 +38,7 @@ class corevat_CatAplanadosController extends \BaseController {
 		$row = $this->catalogo;
 		$row->status = 1;
 		$rows = CatAplanados::orderBy('aplanado', 'asc')->get();
-		return View::make('corevatcatalogos.CatAplanados.create', compact('title', 'title_section', 'row', 'rows', 'titleGrid'));
+		return View::make('CorevatCatalogos.CatAplanados.create', compact('title', 'title_section', 'row', 'rows', 'titleGrid'));
 	}
 
 	/**
@@ -95,7 +95,7 @@ class corevat_CatAplanadosController extends \BaseController {
 		$row = CatAplanados::find($id);
 		$rows = CatAplanados::orderBy('aplanado', 'asc')->get();
 		$id = $row->idaplanado;
-		return View::make('corevatcatalogos.CatAplanados.edit', compact('title', 'title_section', 'row', 'rows', 'id', 'titleGrid'));
+		return View::make('CorevatCatalogos.CatAplanados.edit', compact('title', 'title_section', 'row', 'rows', 'id', 'titleGrid'));
 	}
 
 	/**
