@@ -15,6 +15,9 @@
 		<li class="@if(Request::is('corevat/CatCalidadProyecto')) active @endif">
 			<a href="{{URL::to('corevat/CatCalidadProyecto')}}"><i class="glyphicon glyphicon-th-list"></i>&nbsp;Calidad del Proyecto</a>
 		</li>
+		<li class="@if(Request::is('corevat/CatCimentaciones')) active @endif">
+			<a href="{{URL::to('corevat/CatCimentaciones')}}"><i class="glyphicon glyphicon-th-list"></i>&nbsp;Cimentaciones</a>
+		</li>
 	</ul>
 </li>
 
