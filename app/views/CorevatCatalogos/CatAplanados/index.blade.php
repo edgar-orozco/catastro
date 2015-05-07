@@ -11,6 +11,6 @@
 </div>
 <br>
 <div class="row">
-	@include('corevatcatalogos.CatAplanados._list', compact('CatAplanados'))
+	@include('CorevatCatalogos.CatAplanados._list', compact('CatAplanados'))
 </div>
 @stop
