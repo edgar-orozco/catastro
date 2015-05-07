@@ -7,4 +7,4 @@
 	{{Form::label('status', 'Estatus')}}
 	{{ Form::checkbox('status', 1,  $row->status) }}
 </div>
-@append
+

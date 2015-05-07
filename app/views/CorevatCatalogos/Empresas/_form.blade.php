@@ -18,4 +18,3 @@
 	{{Form::text('rfc', null, ['tabindex'=>'4','class'=>'form-control', 'autofocus'=> 'autofocus', 'required' => 'required', 'ng-model' => 'empresa.rfc', 'tb-focus' => 'focusForm', 'ng-blur' => 'focusForm = false', 'onblur'=>'aMayusculas(this.value,this.id)','maxlength'=>'20'] )}}
 	{{$errors->first('rfc', '<span class=text-danger>:message</span>')}}
 </div>
-@append

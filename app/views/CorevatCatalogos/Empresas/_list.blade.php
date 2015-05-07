@@ -11,11 +11,11 @@
         <table class="table">
             <thead>
                 <tr>
-					<th>Razón Social</th>
-					<th>Nombre Comercial</th>
-					<th>DF</th>
-					<th>RFC</th>
-					<th>Acciones</th>
+                    <th>Razón Social</th>
+                    <th>Nombre Comercial</th>
+                    <th>DF</th>
+                    <th>RFC</th>
+                    <th>Acciones</th>
                 </tr>
             </thead>
             <tbody>
@@ -35,8 +35,8 @@
                     </td>
                     <td nowrap>
                         {{ Form::open(array('method' => 'DELETE', 'route' => array('corevat.Empresas.destroy', 'id'=>$row->idemp))) }}
-                        <a href="{{ action('corevat_EmpresasController@edit',['id'=>$row->idemp])}}" class="btn btn-warning" title="Editar registro"><span class="glyphicon glyphicon-pencil"></span></a>
-                        <a class="eliminar btn btn-danger" id="habilitar" href="/corevat/EmpresasE/{{$row->idemp}}" title="Eliminar registro"><i class="glyphicon glyphicon-trash"></i></a>
+                        <a href="{{ action('corevat_EmpresasController@edit',['id'=>$row->idemp])}}" class="btn btn-warning" title="Editar requisito"><span class="glyphicon glyphicon-pencil"></span></a>
+                        <a class="eliminar btn btn-danger" id="habilitar" href="/corevat/EmpresasE/{{$row->idemp}}" title="Deshabilitar"><i class="glyphicon glyphicon-trash"></i></a>
                         {{ Form::close() }}
                     </td>
                 </tr>
@@ -47,10 +47,10 @@
 </div>
 @section('javascript')
 <script type="text/javascript">
-    $("body").delegate('.eliminar', 'click', function () {
-        if (!confirm("¿Seguro que quiere eliminar el registro?")) {
-            return false;
-        }
-    });
+$("body").delegate('.eliminar', 'click', function(){
+	if(!confirm("¿Seguro que quiere eliminar el salario minimo?")){
+		return false;
+	}
+});
 </script>
 @stop
