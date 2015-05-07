@@ -80,7 +80,7 @@ Route::group(array('before' => 'admin'), function () {
 
 	Route::put('corevat/CatBardas/{id?}.{format}', array('as' => 'updateCatBardas', 'uses' => 'corevat_CatBardasController@update'));
 
-	Route::get('corevat/CatBardasE/{id}', array('as' => 'destroyCatBardas', 'uses' => 'corevat_CatBardasController@destroy'));
+	Route::get('corevat/CatBardas/{id}', array('as' => 'destroyCatBardas', 'uses' => 'corevat_CatBardasController@destroy'));
 
 	Route::put('corevat/CatBardas/{id?}.{format}', array('as' => 'showCatBardas', 'uses' => 'corevat_CatBardasController@show'));
 

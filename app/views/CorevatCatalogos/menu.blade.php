@@ -9,6 +9,9 @@
 		<li class="@if(Request::is('corevat/CatAplanados')) active @endif">
 			<a href="{{URL::to('corevat/CatAplanados')}}"><i class="glyphicon glyphicon-th-list"></i>&nbsp;Aplanados</a>
 		</li>
+		<li class="@if(Request::is('corevat/CatBardas')) active @endif">
+			<a href="{{URL::to('corevat/CatBardas')}}"><i class="glyphicon glyphicon-th-list"></i>&nbsp;Bardas</a>
+		</li>
 	</ul>
 </li>
 

@@ -20,15 +20,15 @@
                 @foreach($rows as $row)
                 <tr>
                     <td>
-                        {{$row->aplanado}}
+                        {{$row->barda}}
                     </td>
                     <td>
                         {{ ($row->status==1 ? 'Activo' : 'Inactivo') }}
                     </td>
                     <td nowrap>
-                        {{ Form::open(array('method' => 'DELETE', 'route' => array('corevat.CatAplanados.destroy', 'id'=>$row->idaplanado))) }}
-                        <a href="{{ action('corevat_CatAplanadosController@edit',['id'=>$row->idaplanado])}}" class="btn btn-warning" title="Editar registro"><span class="glyphicon glyphicon-pencil"></span></a>
-                        <a class="eliminar btn btn-danger" id="habilitar" href="/corevat/CatAplanadosE/{{$row->idaplanado}}" title="Eliminar registro"><i class="glyphicon glyphicon-trash"></i></a>
+                        {{ Form::open(array('method' => 'DELETE', 'route' => array('corevat.CatBardas.destroy', 'id'=>$row->idbarda))) }}
+                        <a href="{{ action('corevat_CatBardasController@edit',['id'=>$row->idbarda])}}" class="btn btn-warning" title="Editar registr"><span class="glyphicon glyphicon-pencil"></span></a>
+                        <a class="eliminar btn btn-danger" id="habilitar" href="/corevat/CatBardasE/{{$row->idbarda}}" title="Eliminar registr"><i class="glyphicon glyphicon-trash"></i></a>
                         {{ Form::close() }}
                     </td>
                 </tr>
@@ -39,10 +39,10 @@
 </div>
 @section('javascript')
 <script type="text/javascript">
-$("body").delegate('.eliminar', 'click', function(){
-	if(!confirm("¿Seguro que quiere eliminar el registro?")){
-		return false;
-	}
-});
+    $("body").delegate('.eliminar', 'click', function () {
+        if (!confirm("¿Seguro que quiere eliminar el registro?")) {
+            return false;
+        }
+    });
 </script>
 @stop
