@@ -1,6 +1,6 @@
 @extends('layouts.default')
 @section('title')
-{{{ $title}}} :: @parent
+{{{ $title }}} :: @parent
 @stop
 @section('content')
 <div class="row">
@@ -16,7 +16,7 @@
     </div>
 
 	<div class="col-sm-8 col-md-8 col-lg-8">
-		@include('CorevatCatalogos.Empresas._list', compact('Empresas'))
+		@include('CorevatCatalogos.Empresas._list', compact('empresas'))
 	</div>
 </div>
 @stop
