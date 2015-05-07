@@ -15,7 +15,7 @@ class CorevatCatClaseGeneralInmueble extends Migration {
 		Schema::connection('corevat')->create('cat_clase_general_inmueble', function(Blueprint $table) {
 			$table->increments('idclasegeneralinmueble');
 			$table->string('clase_general_inmueble', 50);
-			$table->integer('status_clase_general_inmueble')->default(0);
+			$table->integer('status_clase_general_inmueble')->default(1);
 			$table->integer('idemp')->default(1);
 			$table->string('ip', 50)->default('');
 			$table->string('host', 100)->default('');
