@@ -27,6 +27,9 @@
 		<li class="@if(Request::is('corevat/CatConstrucciones')) active @endif">
 			<a href="{{URL::to('corevat/CatConstrucciones')}}"><i class="glyphicon glyphicon-th-list"></i>&nbsp;Construcciones</a>
 		</li>
+		<li class="@if(Request::is('corevat/CatEntrepisos')) active @endif">
+			<a href="{{URL::to('corevat/CatEntrepisos')}}"><i class="glyphicon glyphicon-th-list"></i>&nbsp;Entrepisos</a>
+		</li>
 	</ul>
 </li>
 
