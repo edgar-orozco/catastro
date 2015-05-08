@@ -21,6 +21,9 @@
 		<li class="@if(Request::is('corevat/CatClaseGeneralInmueble')) active @endif">
 			<a href="{{URL::to('corevat/CatClaseGeneralInmueble')}}"><i class="glyphicon glyphicon-th-list"></i>&nbsp;Clase General Inmueble</a>
 		</li>
+		<li class="@if(Request::is('corevat/CatClasificacionZona')) active @endif">
+			<a href="{{URL::to('corevat/CatClasificacionZona')}}"><i class="glyphicon glyphicon-th-list"></i>&nbsp;Clasificación por Zona</a>
+		</li>
 	</ul>
 </li>
 
