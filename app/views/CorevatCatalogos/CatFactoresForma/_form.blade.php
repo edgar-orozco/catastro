@@ -1,6 +1,6 @@
 <div class="form-group">
 	{{Form::label('factor_forma','Descripción')}}
-	{{Form::text('factor_forma', null, ['Placeholder'=>'Descripción', 'tabindex'=>'1', 'class'=>'form-control', 'autofocus'=> 'autofocus', 'required' => 'required', 'ng-model' => 'CatFactoresForma.factor_forma', 'tb-focus' => 'focusForm', 'ng-blur' => 'focusForm = false', 'onblur'=>'aMayusculas(this.value,this.id)','maxlength'=>'20'] )}}
+	{{Form::text('factor_forma', null, ['tabindex'=>'1', 'class'=>'form-control', 'autofocus'=> 'autofocus', 'required' => 'required', 'ng-model' => 'CatFactoresForma.factor_forma', 'tb-focus' => 'focusForm', 'ng-blur' => 'focusForm = false', 'onblur'=>'aMayusculas(this.value,this.id)','maxlength'=>'20'] )}}
 	{{$errors->first('factor_forma', '<span class=text-danger>:message</span>')}}
 </div>
 <div class="form-group">
