@@ -30,6 +30,9 @@
 		<li class="@if(Request::is('corevat/CatEntrepisos')) active @endif">
 			<a href="{{URL::to('corevat/CatEntrepisos')}}"><i class="glyphicon glyphicon-th-list"></i>&nbsp;Entrepisos</a>
 		</li>
+		<li class="@if(Request::is('corevat/CatEstadoConservacion')) active @endif">
+			<a href="{{URL::to('corevat/CatEstadoConservacion')}}"><i class="glyphicon glyphicon-th-list"></i>&nbsp;Estados de Conservación</a>
+		</li>
 	</ul>
 </li>
 
