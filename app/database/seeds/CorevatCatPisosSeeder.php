@@ -68,6 +68,7 @@ class CorevatCatPisosSeeder extends Seeder {
 		DB::connection('corevat')->table('cat_pisos')->insert(array('idpiso' => 57, 'piso' => 'LOSETA CERAMICA DE PISO A TECHO'));
 		DB::connection('corevat')->table('cat_pisos')->insert(array('idpiso' => 58, 'piso' => 'LOSETA CERAMICA DE PSIO A TECHO CON CENEFAS EN COCINA ACABADOS'));
 		
+		DB::connection('corevat')->getPdo()->exec("ALTER SEQUENCE cat_pisos_idpiso_seq START 59;");
 	}
 
 }
