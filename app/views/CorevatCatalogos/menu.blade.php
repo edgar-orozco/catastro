@@ -33,6 +33,9 @@
 		<li class="@if(Request::is('corevat/CatEstadoConservacion')) active @endif">
 			<a href="{{URL::to('corevat/CatEstadoConservacion')}}"><i class="glyphicon glyphicon-th-list"></i>&nbsp;Estados de Conservación</a>
 		</li>
+		<li class="@if(Request::is('corevat/CatEstructuras')) active @endif">
+			<a href="{{URL::to('corevat/CatEstructuras')}}"><i class="glyphicon glyphicon-th-list"></i>&nbsp;Estructuras</a>
+		</li>
 	</ul>
 </li>
 
