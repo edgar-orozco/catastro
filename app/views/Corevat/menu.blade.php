@@ -1,11 +1,30 @@
 @if(!Auth::guest() && ( Auth::user()->hasRole("Administrador") || Auth::user()->hasRole("Super usuario")))
 
 <li class="dropdown @if(Request::is('CorevatCatalogos/*') || Request::is('Corevat/*')) active @endif">
-	<a data-toggle="dropdown" class="dropdown-toggle" href="#">COREVAT<b class="caret"></b></a>
+	<a href="{{URL::to('corevat/Avaluos')}}">Avaluos</a>
+</li>
+
+<li class="dropdown @if(Request::is('CorevatCatalogos/*') || Request::is('Corevat/*')) active @endif">
+	<a data-toggle="dropdown" class="dropdown-toggle" href="#">CATALOGOS<b class="caret"></b></a>
 	<ul role="menu" class="dropdown-menu">
 		<li class="@if(Request::is('corevat/Empresas')) active @endif">
 			<a href="{{URL::to('corevat/Empresas')}}"><i class="glyphicon glyphicon-th-list"></i>&nbsp;Empresas</a>
 		</li>
+		<li class="@if(Request::is('corevat/Estados')) active @endif">
+			<a href="{{URL::to('corevat/Estados')}}"><i class="glyphicon glyphicon-th-list"></i>&nbsp;Estados</a>
+		</li>
+		<li class="@if(Request::is('corevat/Municipios')) active @endif">
+			<a href="{{URL::to('corevat/Municipios')}}"><i class="glyphicon glyphicon-th-list"></i>&nbsp;Municpios</a>
+		</li>
+		<li class="@if(Request::is('corevat/Usuarios')) active @endif">
+			<a href="{{URL::to('corevat/Usuarios')}}"><i class="glyphicon glyphicon-th-list"></i>&nbsp;Usuarios</a>
+		</li>
+	</ul>
+</li>
+
+<li class="dropdown @if(Request::is('CorevatCatalogos/*')) active @endif">
+	<a data-toggle="dropdown" class="dropdown-toggle" href="#">PARAMETROS<b class="caret"></b></a>
+	<ul role="menu" class="dropdown-menu">
 		<li class="@if(Request::is('corevat/CatAplanados')) active @endif">
 			<a href="{{URL::to('corevat/CatAplanados')}}"><i class="glyphicon glyphicon-th-list"></i>&nbsp;Aplanados</a>
 		</li>
@@ -35,24 +54,6 @@
 		</li>
 		<li class="@if(Request::is('corevat/CatEstructuras')) active @endif">
 			<a href="{{URL::to('corevat/CatEstructuras')}}"><i class="glyphicon glyphicon-th-list"></i>&nbsp;Estructuras</a>
-		</li>
-		<li class="@if(Request::is('corevat/CatFactoresConservacion')) active @endif">
-			<a href="{{URL::to('corevat/CatFactoresConservacion')}}"><i class="glyphicon glyphicon-th-list"></i>&nbsp;Factores de Conservación</a>
-		</li>
-		<li class="@if(Request::is('corevat/CatFactoresForma')) active @endif">
-			<a href="{{URL::to('corevat/CatFactoresForma')}}"><i class="glyphicon glyphicon-th-list"></i>&nbsp;Factores de Forma</a>
-		</li>
-		<li class="@if(Request::is('corevat/CatFactoresFrente')) active @endif">
-			<a href="{{URL::to('corevat/CatFactoresFrente')}}"><i class="glyphicon glyphicon-th-list"></i>&nbsp;Factores Frente</a>
-		</li>
-		<li class="@if(Request::is('corevat/CatFactoresSuperficie')) active @endif">
-			<a href="{{URL::to('corevat/CatFactoresSuperficie')}}"><i class="glyphicon glyphicon-th-list"></i>&nbsp;Factores Superficie</a>
-		</li>
-		<li class="@if(Request::is('corevat/CatFactoresUbicacion')) active @endif">
-			<a href="{{URL::to('corevat/CatFactoresUbicacion')}}"><i class="glyphicon glyphicon-th-list"></i>&nbsp;Factores Ubicación</a>
-		</li>
-		<li class="@if(Request::is('corevat/CatFactoresZonas')) active @endif">
-			<a href="{{URL::to('corevat/CatFactoresZonas')}}"><i class="glyphicon glyphicon-th-list"></i>&nbsp;Factores Zonas</a>
 		</li>
 		<li class="@if(Request::is('corevat/CatMuros')) active @endif">
 			<a href="{{URL::to('corevat/CatMuros')}}"><i class="glyphicon glyphicon-th-list"></i>&nbsp;Muros</a>
@@ -89,6 +90,30 @@
 		</li>
 		<li class="@if(Request::is('corevat/CatUsosSuelos')) active @endif">
 			<a href="{{URL::to('corevat/CatUsosSuelos')}}"><i class="glyphicon glyphicon-th-list"></i>&nbsp;Uso de Suelo</a>
+		</li>
+	</ul>
+</li>
+
+<li class="dropdown @if(Request::is('CorevatCatalogos/*')) active @endif">
+	<a data-toggle="dropdown" class="dropdown-toggle" href="#">FACTORES<b class="caret"></b></a>
+	<ul role="menu" class="dropdown-menu">
+		<li class="@if(Request::is('corevat/CatFactoresConservacion')) active @endif">
+			<a href="{{URL::to('corevat/CatFactoresConservacion')}}"><i class="glyphicon glyphicon-th-list"></i>&nbsp;Conservación</a>
+		</li>
+		<li class="@if(Request::is('corevat/CatFactoresForma')) active @endif">
+			<a href="{{URL::to('corevat/CatFactoresForma')}}"><i class="glyphicon glyphicon-th-list"></i>&nbsp;Forma</a>
+		</li>
+		<li class="@if(Request::is('corevat/CatFactoresFrente')) active @endif">
+			<a href="{{URL::to('corevat/CatFactoresFrente')}}"><i class="glyphicon glyphicon-th-list"></i>&nbsp;Frente</a>
+		</li>
+		<li class="@if(Request::is('corevat/CatFactoresSuperficie')) active @endif">
+			<a href="{{URL::to('corevat/CatFactoresSuperficie')}}"><i class="glyphicon glyphicon-th-list"></i>&nbsp;Superficie</a>
+		</li>
+		<li class="@if(Request::is('corevat/CatFactoresUbicacion')) active @endif">
+			<a href="{{URL::to('corevat/CatFactoresUbicacion')}}"><i class="glyphicon glyphicon-th-list"></i>&nbsp;Ubicación</a>
+		</li>
+		<li class="@if(Request::is('corevat/CatFactoresZonas')) active @endif">
+			<a href="{{URL::to('corevat/CatFactoresZonas')}}"><i class="glyphicon glyphicon-th-list"></i>&nbsp;Zonas</a>
 		</li>
 	</ul>
 </li>
