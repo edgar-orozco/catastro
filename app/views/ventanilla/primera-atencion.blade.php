@@ -48,9 +48,9 @@
                                                 <span class="dropdown-label">Cuenta</span>
                                                 <span class="caret"></span></button>
                                             <ul class="dropdown-menu tipo-busqueda" role="menu">
-                                                <li><a href="#" class="opcion-buqueda" data-tipo="cuenta">Cuenta</a>
+                                                <li><a href="javascript:void(0);" class="opcion-buqueda" data-tipo="cuenta">Cuenta</a>
                                                 </li>
-                                                <li><a href="#" class="opcion-busqueda" data-tipo="clave">Clave</a></li>
+                                                <li><a href="javascript:void(0);" class="opcion-busqueda" data-tipo="clave">Clave</a></li>
                                             </ul>
                                         </div>
 
@@ -71,7 +71,7 @@
                                                 <span class="caret"></span></button>
                                             <ul class="dropdown-menu municipio" role="menu">
                                                 @foreach($municipios as $municipio)
-                                                    <li><a href="#" class="opcion-municipio"
+                                                    <li><a href="javascript:void(0);" class="opcion-municipio"
                                                            data-municipio="{{$municipio->municipio}}">{{$municipio->nombre_municipio}}
                                                             - {{$municipio->municipio}}</a></li>
                                                 @endforeach
@@ -88,8 +88,8 @@
                                                 <span class="dropdown-label">Urbano</span>
                                                 <span class="caret"></span></button>
                                             <ul class="dropdown-menu tipo-predio" role="menu">
-                                                <li><a href="#" class="opcion-tipopredio" data-tipopredio="R">Rústico</a></li>
-                                                <li><a href="#" class="opcion-tipopredio" data-tipopredio="U">Urbano</a></li>
+                                                <li><a href="javascript:void(0);" class="opcion-tipopredio" data-tipopredio="R">Rústico</a></li>
+                                                <li><a href="javascript:void(0);" class="opcion-tipopredio" data-tipopredio="U">Urbano</a></li>
                                             </ul>
                                         </div>
 
