@@ -280,4 +280,8 @@ class User extends Eloquent implements ConfideUserInterface
     }
 
 
+    public function tramites(){
+        return $this->hasMany('Tramite', 'usuario_id', 'id' );
+    }
+
 }
