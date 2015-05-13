@@ -3,7 +3,6 @@ $(document).ready(function()
 
 	window.onload = function () 
 	{ 
-        alert('si entra');
 	    document.getElementById("file").onchange = function () 
 	    {
 	        document.getElementById('form-boton').hidden="";
