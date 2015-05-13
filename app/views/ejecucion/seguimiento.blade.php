@@ -232,15 +232,16 @@ setlocale(LC_MONETARY, 'es_MX');
                 @endif
             </td>
             <td align="center">
-                <?php $arr = array(CI => '<a   href ="/reimprimir/'.$clave.'"  target=_blank><span class="glyphicon glyphicon-print" title="Reimprimir Documento"></span></a>'); ?>
+                <?php $arr = array(CI => '<a   href ="/reimprimir/'.$clave.'"  target=_blank><span class="glyphicon glyphicon-print" title="Reimprimir Documento"></span></a>',RC =>'Requerimeinto Creado'); ?>
                 <!-- link reimpresion ultimo estado-->
                 <?php echo $arr[$key[3]]; ?>
             </td>
             <td>
-                <?php $fecha= date("d-m-Y");
+                <?php $fecha = strtotime(date("d-m-Y"));
                    if(!empty($fechaven))
                    {
-                    if($fechaven<$fecha)
+                    $fv=strtotime($fechaven);
+                    if($fv<$fecha)
                     {
                        echo '<a  data-toggle ="modal" class="proceso-ejecucion" data-target="#proceso" target="_blank" href ="/ejecucion/proceso/'.$idrequerimiento.'" ><span class="glyphicon glyphicon-forward" title="Continuar Proceso"></span></a>';
                    }else
