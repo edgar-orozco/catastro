@@ -67,7 +67,6 @@ setlocale(LC_MONETARY, 'es_MX');
   $(document).ready(function () {
        $('#cartaForm').bind('submit', function()
                {
-                alert('hola');
                   //$("#buscador").submit
                   document.busqueda.submit();
                  //  window.location.reload();
@@ -302,7 +301,7 @@ setlocale(LC_MONETARY, 'es_MX');
             </div>
         @endif
         @if(count($items) > 0)
-            {{ Form::open(array('url' => 'cartainv', 'method' => 'post', 'name' => 'formulario', 'id' => 'cartaForm'))}}
+            {{ Form::open(array('url' => 'cartainv', 'method' => 'post', 'name' => 'formulario', 'id' => 'cartaForm',  'target' => '_blank'))}}
             {{$date = new DateTime();}}
 
             <div class="panel-default">
