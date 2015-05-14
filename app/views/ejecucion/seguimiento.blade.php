@@ -232,7 +232,7 @@ setlocale(LC_MONETARY, 'es_MX');
                 @endif
             </td>
             <td align="center">
-                <?php $arr = array(CI => '<a   href ="/reimprimir/'.$clave.'"  target=_blank><span class="glyphicon glyphicon-print" title="Reimprimir Documento"></span></a>',RC =>'Requerimeinto Creado'); ?>
+                <?php $arr = array(CI => '<a   href ="/reimprimir/'.$clave.'"  target=_blank><span class="glyphicon glyphicon-print" title="Reimprimir Documento"></span></a>',RC =>'<a   href ="/reimprimir/'.$clave.'"  target=_blank><span class="glyphicon glyphicon-forward" title="Reimprimir Documento"></span></a>'); ?>
                 <!-- link reimpresion ultimo estado-->
                 <?php echo $arr[$key[3]]; ?>
             </td>
