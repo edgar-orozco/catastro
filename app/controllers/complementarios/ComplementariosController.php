@@ -904,25 +904,26 @@ class complementarios_ComplementariosController extends BaseController {
                 DB::delete("DELETE FROM giros WHERE id_tipogiro=$id AND clave_catas='$clave_cata'");
             }
         }
-        if (!$contar) {
-            if (sizeof($actuales) == 0) {
-                $count = count($id_tipogiro);
-                for ($x = 0; $x < $count; $x++) {
-                    $n = new Giros();
-                    $n->entidad = $entidad;
-                    $n->municipio = $municipio;
-                    $n->clave_catas = $clave_cata;
-                    $n->gid_predio = $gid_predio;
-                    $n->gid_predio = $gid_predio;
-                    $n->id_tipogiro = $id_tipogiro[$x];
-                    $n->superficie_terreno = '000';
-                    $n->superficie_construccion = '000';
-                    $n->created_at = date('Y-m-d');
-                    $n->updated_at = date('Y-m-d');
-                    $n->save();
-                }
-            }
-        } else {
+//        if (!$contar) {
+//            if (sizeof($actuales) == 0) {
+//                $count = count($id_tipogiro);
+////                for ($x = 0; $x < $count; $x++) {
+//                    for ($x = 0; $x <1; $x++) {
+//                    $n = new Giros();
+//                    $n->entidad = $entidad;
+//                    $n->municipio = $municipio;
+//                    $n->clave_catas = $clave_cata;
+//                    $n->gid_predio = $gid_predio;
+//                    $n->gid_predio = $gid_predio;
+//                    $n->id_tipogiro = $id_tipogiro[$x];
+//                    $n->superficie_terreno = '000';
+//                    $n->superficie_construccion = '000';
+//                    $n->created_at = date('Y-m-d');
+//                    $n->updated_at = date('Y-m-d');
+//                    $n->save();
+//                }
+//            }
+//        } else {
             foreach ($id_tipogiro as $id) {
                 if (in_array($id, $actuales)) {
                     
@@ -930,8 +931,9 @@ class complementarios_ComplementariosController extends BaseController {
                     $total[] = $id;
                 }
             }
-            $count = count($total);
-            for ($x = 0; $x < $count; $x++) {
+//            $count = count($total);
+//            for ($x = 0; $x < $count; $x++) {
+              for ($x = 0; $x<1; $x++) {
                 $n = new Giros();
                 $n->entidad = $entidad;
                 $n->municipio = $municipio;
@@ -945,7 +947,7 @@ class complementarios_ComplementariosController extends BaseController {
                 $n->updated_at = date('Y-m-d');
                 $n->save();
             }
-        }
+//        }
     }
 
     public function getMostrarPuertas($id = null) {

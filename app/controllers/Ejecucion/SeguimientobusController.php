@@ -304,22 +304,25 @@ class Ejecucion_SeguimientobusController extends \BaseController {
 
         $id=Input::get('id');
         $ide = requerimientos::where('id_requerimiento', $id)->pluck('id_ejecucion_fiscal');
+        $total= requerimientos::where('id_ejecucion_fiscal', $ide)->get();
+        
+        if( count($total) < 2)
+            {
+                    $datos=ejecucion::find($ide);
+                    $datos->cve_status='RC';
+                    $datos->f_cancelacion = Input::get('date');
+                    $datos->motivo_cancelacion = 'Vencimiento de tiempo';
+                    $datos->save();
 
-            $datos=ejecucion::find($ide);
-            $datos->cve_status='RC';
-            $datos->f_cancelacion = Input::get('date');
-            $datos->motivo_cancelacion = 'Vencimiento de tiempo';
-            $datos->save();
 
-
-            $proceso= new requerimientos;
-            $proceso->id_ejecucion_fiscal=$ide;
-            $proceso->cve_status='RC';
-            $proceso->f_requerimiento=Input::get('date');
-            $proceso->usuario=Auth::user()->id;
-            $proceso->f_alta=date('Y-m-d');
-            $proceso->save();
-
+                    $proceso= new requerimientos;
+                    $proceso->id_ejecucion_fiscal=$ide;
+                    $proceso->cve_status='RC';
+                    $proceso->f_requerimiento=Input::get('date');
+                    $proceso->usuario=Auth::user()->id;
+                    $proceso->f_alta=date('Y-m-d');
+                    $proceso->save();
+            }
                  if($control==1)
                     {
                         $vista = View::make('CartaInvitacion.creditofiscal');

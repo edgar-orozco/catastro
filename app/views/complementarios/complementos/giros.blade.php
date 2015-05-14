@@ -102,7 +102,7 @@ foreach ($girosasociados as $asoc) {
     } elseif($row->id_tipogiro <> $asocia) {
         
         $input = '';
-        $bot = "<div class='btn-group btn-toggle botones-requisitos' data-toggle='buttons'><label class='btn btn-sm btn-default'>$row->descripcion<input type='checkbox'  name='giros[]' value='$row->id_tipogiro'></label></div>";
+        $bot = "<div class='btn-group btn-toggle botones-requisitos' data-toggle='buttons'><label class='btn btn-sm btn-default'>$row->descripcion<input type='checkbox'  name='giros[1]' value='$row->id_tipogiro'></label></div>";
     }
     ?>
     <li class="column"><?php echo $input; echo $bot; ?>
