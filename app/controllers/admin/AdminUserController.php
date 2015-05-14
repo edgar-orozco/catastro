@@ -163,7 +163,7 @@ class AdminUserController extends BaseController
             if(Input::get( 'roles' )){
                 $this->user->saveRoles(Input::get( 'roles' ));
             }
-            if(Input::get( 'municipios' )){
+            if( is_array(Input::get( 'municipios' ) ) ){
                 // Se guardan los municipios a los que pertenece un usuario
                 $this->user->municipios()->sync(Input::get( 'municipios' ));
             }
@@ -248,7 +248,9 @@ class AdminUserController extends BaseController
             if (Input::get( 'roles' )){
                 $user->saveRoles(Input::get( 'roles' ));
             }
-            if (Input::get( 'municipios' )){
+
+            if ( is_array(Input::get( 'municipios' ) ) ){
+                error_log('Municipios');
                 // Se guardan los municipios a los que pertenece un usuario
                 $user->municipios()->sync(Input::get( 'municipios' ));
             }
