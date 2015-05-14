@@ -183,7 +183,7 @@
                             <h4><small>Apellido Materno:</small> {{$tramite->solicitante->apellido_materno}} </h4>
                         @endif
                         @if($tramite->notaria)
-                            <h4><small>Notaría:</small> {{$tramite->notaria->nombre}} </h4>
+                            <h4><small>Notaría:</small> {{$tramite->notaria->nombre}} @if($tramite->notaria->mpio) de {{$tramite->notaria->mpio->nombre_municipio}} @endif</h4>
                         @endif
                     </div>
 
