@@ -16,5 +16,8 @@ class Notaria extends Ardent
         return $this->hasOne('personas', 'id_p', 'id_responsable');
     }
 
+    public function mpio(){
+        return $this->hasOne('Municipio','municipio','municipio');
+    }
 
 }

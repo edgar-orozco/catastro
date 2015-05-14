@@ -27,7 +27,7 @@ class HomeController extends BaseController
         elseif (Confide::user()->hasRole('Supervisor')) {
             $homepage = 'supervisor';
         }
-        elseif (Confide::user()->hasRole('Funcionario ventanilla')) {
+        elseif (Confide::user()->hasRole('Funcionario ventanilla') || Confide::user()->hasRole('Funcionario Administración de Trámite') ) {
             $homepage = 'ventanilla';
         }
         elseif (Confide::user()->hasRole('Funcionario Registro y Valuación')) {

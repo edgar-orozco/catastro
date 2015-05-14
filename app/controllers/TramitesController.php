@@ -59,7 +59,13 @@ class TramitesController extends BaseController {
         $lista_notarias = array();
         $lista_notarias[] = '--Seleccione';
         foreach($notarias as $notaria) {
-            $lista_notarias[$notaria->id_notaria] =$notaria->nombre;
+            $municipio = $notaria->mpio;
+            if(!$municipio) {
+                $lista_notarias[$notaria->id_notaria] = $notaria->nombre;
+            }
+            else{
+                $lista_notarias[$notaria->id_notaria] = $notaria->nombre . " de ".$municipio->nombre_municipio;
+            }
         }
 
         $requisitos = $tipotramite->requisitos;
