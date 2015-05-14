@@ -227,12 +227,14 @@ setlocale(LC_MONETARY, 'es_MX');
                 <!-- agrgar datos requerimiento-->
                 @if($notificacion=='Si')
                 @if($fechainicio=='' || $fechaven=='')
-                <a data-toggle ="modal" class="editar-ejecucion" data-requerimiento="{{$idrequerimiento}}" data-target="#Nuevo" href="/ejecucion/modal/{{$idrequerimiento}}" title="Agregar Requerimiento" ><span class="glyphicon glyphicon-pencil"></span></a>
+                <a data-toggle ="modal" class="editar-ejecucion" data-requerimiento="{{$idrequerimiento}}" data-target="#Nuevo" href="/ejecucion/modal/{{$idrequerimiento}}" title="Agregar Requerimiento" >
+                    <span class="glyphicon glyphicon-pencil"></span></a>
                 @endif
                 @endif
             </td>
             <td align="center">
-                <?php $arr = array(CI => '<a   href ="/reimprimir/'.$clave.'"  target=_blank><span class="glyphicon glyphicon-print" title="Reimprimir Documento"></span></a>',RC =>'<a   href ="/reimprimir/'.$clave.'"  target=_blank><span class="glyphicon glyphicon-forward" title="Reimprimir Documento"></span></a>'); ?>
+                <?php $arr = array(CI => '<a   href ="/reimprimir/'.$clave.'"  target=_blank><span class="glyphicon glyphicon-print" title="Reimprimir Documento"></span></a>',
+                                   RC => '<a   href ="ejecucion/procesorc"     target=_blank><span class="glyphicon glyphicon-print" title="Reimprimir Documento"></span></a>'); ?>
                 <!-- link reimpresion ultimo estado-->
                 <?php echo $arr[$key[3]]; ?>
             </td>
@@ -243,7 +245,9 @@ setlocale(LC_MONETARY, 'es_MX');
                     $fv=strtotime($fechaven);
                     if($fv<$fecha)
                     {
-                       echo '<a  data-toggle ="modal" class="proceso-ejecucion" data-target="#proceso" target="_blank" href ="/ejecucion/proceso/'.$idrequerimiento.'" ><span class="glyphicon glyphicon-forward" title="Continuar Proceso"></span></a>';
+                        $arreglo = array(CI =>'<a  data-toggle ="modal" class="proceso-ejecucion" data-target="#proceso" target="_blank" href ="/ejecucion/proceso/'.$idrequerimiento.'" ><span class="glyphicon glyphicon-forward" title="Continuar Proceso"></span></a>',
+                                         RC =>'<a  data-toggle ="modal" class="proceso-ejecucion" data-target="#proceso" target="_blank" href ="/ejecucion/proceso/'.$idrequerimiento.'" ><span class="glyphicon glyphicon-forward" title="Proceso"></span></a>');
+                        echo $arreglo[$key[3]]; 
                    }else
                    {
                          echo '<span class="glyphicon glyphicon-ok" title="Proceso VIgente"></span>';

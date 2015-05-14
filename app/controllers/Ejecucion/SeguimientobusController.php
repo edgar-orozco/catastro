@@ -334,6 +334,14 @@ class Ejecucion_SeguimientobusController extends \BaseController {
             Session::flash('mensaje', 'El proceso ha sido hactualizado');
             return Redirect::back();
     }
+    public function procesorc()
+    {
+         $vista = View::make('CartaInvitacion.creditofiscal');
+                        $pdf = PDF::load($vista)->show("credito");
+                        $response = Response::make($pdf, 2000);
+                        $response->header('Content-Type', 'application/pdf');
+                        return $response;
+    }
 
 
 

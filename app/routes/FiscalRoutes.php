@@ -28,6 +28,8 @@
         //rutas modal continuar proceso
         Route::get('/ejecucion/proceso/{idrequerimiento}', 'Ejecucion_SeguimientobusController@proceso');
         Route::post('/ejecucion/guardarproceso', 'Ejecucion_SeguimientobusController@update_proceso');
+        Route::get('/ejecucion/procesorc', 'Ejecucion_SeguimientobusController@procesorc');
+        
         // rutas modal cancelacion
         Route::get('/ejecucion/cancelar/{idreq}', 'Ejecucion_SeguimientobusController@cancelar');
         Route::post('/ejecucion/guardarcancelacion', 'Ejecucion_SeguimientobusController@guardarcancelacion');
