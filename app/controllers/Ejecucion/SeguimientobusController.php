@@ -299,13 +299,39 @@ class Ejecucion_SeguimientobusController extends \BaseController {
        return  View::make('ejecucion.proceso',compact('title','title_section','subtitle_section','idrequerimiento','catalogo', 'fechas'));
 
     }
+    /**
+     * crea modal para requerimeinto
+     * @param  string $idrequerimiento [description]
+     * @return [type]                  [description]
+     */
+     public function requerimiento($idrequerimiento=null)
+    {
+         $title = 'Crar nueva perosana';
+
+        //Titulo de seccion:
+        $title_section = "";
+
+        //Subtitulo de seccion:
+        $subtitle_section = "Crear nueva persona";
+        //$format = 'html';
+        $fechas1 = requerimientos::where('id_requerimiento', $idrequerimiento)->pluck('f_requerimiento');
+        $fechas = date ( 'Y-m-d' , strtotime ( $fechas1 ));
+        //$fechas = date_format($fechas, 'd/m/Y');
+         $catalogo       = ejecutores::join('personas', 'ejecutores.id_p', '=', 'personas.id_p')//->lists('cargo', 'id_ejecutor');
+            ->select('ejecutores.id_ejecutor AS id', 'personas.nombrec AS nombre')
+            ->get();
+
+       return  View::make('ejecucion.requerimiento',compact('title','title_section','subtitle_section','idrequerimiento','catalogo', 'fechas'));
+
+
+    }
      public function update_proceso($control=1)
     {
 
         $id=Input::get('id');
         $ide = requerimientos::where('id_requerimiento', $id)->pluck('id_ejecucion_fiscal');
         $total= requerimientos::where('id_ejecucion_fiscal', $ide)->get();
-        
+
         if( count($total) < 2)
             {
                     $datos=ejecucion::find($ide);
@@ -326,6 +352,42 @@ class Ejecucion_SeguimientobusController extends \BaseController {
                  if($control==1)
                     {
                         $vista = View::make('CartaInvitacion.creditofiscal');
+                        $pdf = PDF::load($vista)->show("credito");
+                        $response = Response::make($pdf, 2000);
+                        $response->header('Content-Type', 'application/pdf');
+                        return $response;
+                    }
+            Session::flash('mensaje', 'El proceso ha sido hactualizado');
+            return Redirect::back();
+    }
+     public function update_requerimiento($control=1)
+    {
+
+        $id=Input::get('id');
+        $ide = requerimientos::where('id_requerimiento', $id)->pluck('id_ejecucion_fiscal');
+        $total= requerimientos::where('id_ejecucion_fiscal', $ide)->get();
+
+        if( count($total) < 3)
+            {
+                    $datos=ejecucion::find($ide);
+                    $datos->cve_status='DC';
+                    $datos->f_cancelacion = Input::get('date');
+                    $datos->motivo_cancelacion = 'Vencimiento de tiempo';
+                    $datos->save();
+
+
+                    $proceso= new requerimientos;
+                    $proceso->id_ejecucion_fiscal=$ide;
+                    $proceso->cve_status='DC';
+                    $proceso->f_requerimiento=Input::get('date');
+                    $proceso->usuario=Auth::user()->id;
+                    $proceso->f_alta=date('Y-m-d');
+                    $proceso->save();
+            }
+                 if($control==1)
+                    { 
+                        $fecha=date('Y-m-j');
+                        $vista = View::make('CartaInvitacion.mandamientoejecucion',compact('fecha'));
                         $pdf = PDF::load($vista)->show("credito");
                         $response = Response::make($pdf, 2000);
                         $response->header('Content-Type', 'application/pdf');

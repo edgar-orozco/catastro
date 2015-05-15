@@ -214,7 +214,7 @@ setlocale(LC_MONETARY, 'es_MX');
                <?php $fechavencimiento= str_replace(')', '',$key[7]);?>
                 <?php $vigencia = str_replace(')', '',$key[10]);?>
                 <?php $fecharequerimiento = str_replace(')', '',$key[11]);?>
-               <?php if(!empty($fechainicio))
+               <?php if(!empty($fechainicio) || $key[3]== 'RC' )
                {
                 $fechaven = FechasHelper::diasprueba($vigencia,$fecharequerimiento);
                 echo $fechaven;
@@ -246,7 +246,7 @@ setlocale(LC_MONETARY, 'es_MX');
                     if($fv<$fecha)
                     {
                         $arreglo = array(CI =>'<a  data-toggle ="modal" class="proceso-ejecucion" data-target="#proceso" target="_blank" href ="/ejecucion/proceso/'.$idrequerimiento.'" ><span class="glyphicon glyphicon-forward" title="Continuar Proceso"></span></a>',
-                                         RC =>'<a  data-toggle ="modal" class="proceso-ejecucion" data-target="#proceso" target="_blank" href ="/ejecucion/proceso/'.$idrequerimiento.'" ><span class="glyphicon glyphicon-forward" title="Proceso"></span></a>');
+                                         RC =>'<a  data-toggle ="modal" class="proceso-ejecucion" data-target="#requerimiento" target="_blank" href ="/ejecucion/requerimiento/'.$idrequerimiento.'" ><span class="glyphicon glyphicon-forward" title="Proceso"></span></a>');
                         echo $arreglo[$key[3]]; 
                    }else
                    {
@@ -299,6 +299,21 @@ setlocale(LC_MONETARY, 'es_MX');
     <!-- fin Modal -->
       <!-- Modal -->
     <div class="modal fade" id="proceso" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+
+                <div class="modal-body" id="modalBody2">
+
+                </div>
+                <div class="modal-footer" id="modal-footer2">
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- fin Modal -->
+     <!-- Modal -->
+    <div class="modal fade" id="requerimiento" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
 
