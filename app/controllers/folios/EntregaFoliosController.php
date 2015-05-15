@@ -42,28 +42,51 @@ class folios_EntregaFoliosController extends BaseController {
 		->withFe($fe);
 	}
 
-	public function get_urbanose($id){ //muestra todos los folios Urbanos del perito especificado
+	public function get_urbanose($id = null){ //muestra todos los folios Urbanos del perito especificado
+		if(Input::get('year'))
+		{
+			$YEAR = Input::get('year');
+		}
+		else
+		{
+			$YEAR = date('Y');
+		}
 
+		$selectYear = ['' => '--seleccione un año--'] + FoliosComprados::distinct()->select(DB::raw("date_part('year', fecha_autorizacion) as year"))->orderBy('year', 'DESC')->lists('year', 'year');
+		
 		$perito = Perito::find($id);
 
 		$fu = FoliosComprados::where('perito_id', $perito->id)
 		->where('tipo_folio', 'U')
+		->whereRaw("EXTRACT(YEAR FROM fecha_autorizacion) = ". $YEAR)
 		->get();
 
-		return View::make('folios.entregafoliose.urbanos')
+		return View::make('folios.entregafoliose.urbanos', ['selectYear' => $selectYear])
 		->withFu($fu)
 		->withPerito($perito);
 	}
 
-	public function get_rusticose($id){ //muestra todos los folios Rusticos del perito especificado
+	public function get_rusticose($id = null){ //muestra todos los folios Rusticos del perito especificado
+		if(Input::get('year'))
+		{
+			$YEAR = Input::get('year');
+		}
+		else
+		{
+			$YEAR = date('Y');
+		}
+
+		$selectYear = ['' => '--seleccione un año--'] + FoliosComprados::distinct()->select(DB::raw("date_part('year', fecha_autorizacion) as year"))->orderBy('year', 'DESC')->lists('year', 'year');
+		
 
 		$perito = Perito::find($id);
 
 		$fr = FoliosComprados::where('perito_id', $perito->id)
 		->where('tipo_folio', 'R')
+		->whereRaw("EXTRACT(YEAR FROM fecha_autorizacion) = ". $YEAR)
 		->get();
 
-		return View::make('folios.entregafoliose.rusticos')
+		return View::make('folios.entregafoliose.rusticos', ['selectYear' => $selectYear])
 		->withFr($fr)
 		->withPerito($perito);
 	}
@@ -150,26 +173,52 @@ class folios_EntregaFoliosController extends BaseController {
 
 	public function get_urbanosm($id){ //muestra todos los folios Urbanos del perito especificado
 
+		if(Input::get('year'))
+		{
+			$YEAR = Input::get('year');
+		}
+		else
+		{
+			$YEAR = date('Y');
+		}
+
+		$selectYear = ['' => '--seleccione un año--'] + FoliosComprados::distinct()->select(DB::raw("date_part('year', fecha_autorizacion) as year"))->orderBy('year', 'DESC')->lists('year', 'year');
+		
+
 		$perito = Perito::find($id);
 
 		$fu = FoliosComprados::where('perito_id', $perito->id)
 		->where('tipo_folio', 'U')
+		->whereRaw("EXTRACT(YEAR FROM fecha_autorizacion) = ". $YEAR)
 		->get();
 
-		return View::make('folios.entregafoliosm.urbanos')
+		return View::make('folios.entregafoliosm.urbanos', ['selectYear' => $selectYear])
 		->withFu($fu)
 		->withPerito($perito);
 	}
 
 	public function get_rusticosm($id){ //muestra todos los folios Rusticos del perito especificado
 
+		if(Input::get('year'))
+		{
+			$YEAR = Input::get('year');
+		}
+		else
+		{
+			$YEAR = date('Y');
+		}
+
+		$selectYear = ['' => '--seleccione un año--'] + FoliosComprados::distinct()->select(DB::raw("date_part('year', fecha_autorizacion) as year"))->orderBy('year', 'DESC')->lists('year', 'year');
+		
+
 		$perito = Perito::find($id);
 
 		$fr = FoliosComprados::where('perito_id', $perito->id)
 		->where('tipo_folio', 'R')
+		->whereRaw("EXTRACT(YEAR FROM fecha_autorizacion) = ". $YEAR)
 		->get();
 
-		return View::make('folios.entregafoliosm.rusticos')
+		return View::make('folios.entregafoliosm.rusticos', ['selectYear' => $selectYear])
 		->withFr($fr)
 		->withPerito($perito);
 	}

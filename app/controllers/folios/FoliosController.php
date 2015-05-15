@@ -76,6 +76,7 @@ class folios_FoliosController extends BaseController {
 							'entrega_municipal' => '0',
 							'entrega_estatal' => '0',
 							'no_oficio_historial' => $foliocatastro,
+							'fecha_autorizacion' => Input::get('fecha_solicitud'),
 							]);						
 						$folioinicialu=$folioinicialu+1;
 					}
@@ -105,6 +106,7 @@ class folios_FoliosController extends BaseController {
 							'entrega_municipal' => '0',
 							'entrega_estatal' => '0',
 							'no_oficio_historial' => $foliocatastro,
+							'fecha_autorizacion' => Input::get('fecha_solicitud'),
 							]);						
 						$i=$i+1;
 					}
@@ -141,6 +143,7 @@ class folios_FoliosController extends BaseController {
 							'entrega_municipal' => '0',
 							'entrega_estatal' => '0',
 							'no_oficio_historial' => $foliocatastro,
+							'fecha_autorizacion' => Input::get('fecha_solicitud'),
 							]);						
 						$folioinicialr=$folioinicialr+1;
 					}
@@ -169,6 +172,7 @@ class folios_FoliosController extends BaseController {
 							'entrega_municipal' => '0',
 							'entrega_estatal' => '0',
 							'no_oficio_historial' => $foliocatastro,
+							'fecha_autorizacion' => Input::get('fecha_solicitud'),
 							]);						
 						$i=$i+1;
 					}
@@ -192,12 +196,22 @@ class folios_FoliosController extends BaseController {
 	
 	public function foliosemitidos(){ //muestra todos los folios que se han vendido 
 
-		$YEAR = date('Y');
+		if(Input::get('year'))
+		{
+			$YEAR = Input::get('year');
+		}
+		else
+		{
+			$YEAR = date('Y');
+		}
+
+		$selectYear = ['' => '--seleccione un año--'] + FoliosHistorial::distinct()->select(DB::raw("date_part('year', fecha_solicitud) as year"))->orderBy('year', 'DESC')->lists('year', 'year');
+		//dd($selectYear);
 
 		$femitidos = FoliosHistorial::whereRaw("EXTRACT(YEAR FROM fecha_solicitud) = ". $YEAR)
-		->get(); 
+		->get();
 		
-		return View::make('folios.folios.foliosemitidos', ['femitidos' => $femitidos]);
+		return View::make('folios.folios.foliosemitidos', ['femitidos' => $femitidos, 'selectYear' => $selectYear]);
 	}
 
 	public function formato($id){ //formato PDF de la venta de folios
