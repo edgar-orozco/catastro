@@ -1,4 +1,3 @@
-
 {{ HTML::style('js/jquery/jquery-ui.css') }}
 {{ HTML::script('js/jquery/jquery-ui.js') }}
 
@@ -57,18 +56,16 @@ $("#fecha").datepicker();
 </script>
 <script >
     $('#guardar').on('click', function () {
-       
          window.location.reload();
         $('#proceso').toggle();
-        
     })
 </script>
 <?php $fecha= date("d/m/Y"); ?>
 <div class="modal-header">
-    <h4 class="modal-titulo" id="condominio-titulo">Proceso Requerimiento Creado</h4>
+    <h4 class="modal-titulo" id="condominio-titulo">Proceso Requerimiento continuar</h4>
 </div>
 
-{{ Form::open(array('url'=>'ejecucion/guardarproceso', 'id' => 'formproceso', 'target'=>'_blank')) }}
+{{ Form::open(array('url'=>'ejecucion/guardarequerimiento', 'id' => 'formrequerimeinto', 'target'=>'_blank')) }}
 
 <div style="margin-left: 20px">
     <div style="margin-right: 20px">

@@ -1,8 +1,14 @@
 @extends('layouts.default')
 
+
+
+
+
 @section('content')
 <!--(nombre campo, valor, arreglo[id,clase,])-->
 {{ HTML::style('css/forms.css') }}
+{{ HTML::style('js/jquery/jquery-ui.css') }}
+
 <div class="page-header">
     <h2>Generador de Folios <small>Datos del Folio</small></h2>
 </div>
@@ -18,7 +24,7 @@
     <div class="row">
         <div class="col-md-6">
             <div class="form-group">
-                {{Form::label('folio_catastro','Numero de Oficio')}}
+                {{Form::label('folio_catastro','Número de Oficio')}}
                 {{Form::text('folio_catastro','', ['class'=>'form-control'])}}
             </div>
         </div>
@@ -40,20 +46,20 @@
         </div>
         <div class="col-md-6">
             <div class="form-group">
-                {{Form::label('cantidad_rusticos','Folios Rusticos')}}
+                {{Form::label('cantidad_rusticos','Folios Rústicos')}}
                 {{Form::text('cantidad_rusticos','',['class'=>'form-control'])}}
             </div>
         </div>
         <div class="col-md-6">
             <div class="form-group">
                 {{Form::label('fecha_solicitud','Fecha de Solicitud')}}
-                {{Form::input('date', 'fecha_solicitud', null, array('required', 'class'=>'fecha form-control' ))}}
+                {{Form::input('text', 'fecha_solicitud', null, array('required', 'class'=>'fecha form-control dateFolios', 'readonly', 'style' => 'background:white;' ))}}
             </div>
         </div>
         <div class="col-md-6">
             <div class="form-group">
                 {{Form::label('fecha_oficio','Fecha de Oficio')}}
-                {{Form::input('date', 'fecha_oficio', null, array('required', 'class'=>'fecha form-control' ))}}
+                {{Form::input('text', 'fecha_oficio', null, array('required', 'class'=>'fecha form-control dateFolios', 'readonly', 'style' => 'background:white;'))}}
             </div>
         </div>
         <div class="col-md-12">
@@ -88,14 +94,19 @@
 </div>
 
 
+
+
 @stop
 
 @section('javascript')
 <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+{{ HTML::script('js/jquery/jquery-ui.js') }}
+
 <script type="text/javascript">
 
 	$(document).ready(function()
 {
+    
 
 	var form = $('#form');
 	form.bind('submit',function ()
@@ -123,10 +134,37 @@
 
 
 
+$(function() {
+    $( ".dateFolios" ).datepicker(
+    {
+        dateFormat: "dd-mm-yy"
+    });
 
+    $.datepicker.regional['es'] = {
+    closeText: 'Cerrar',
+    prevText: '<Ant',
+    nextText: 'Sig>',
+    currentText: 'Hoy',
+    monthNames: ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'],
+    monthNamesShort: ['Ene','Feb','Mar','Abr', 'May','Jun','Jul','Ago','Sep', 'Oct','Nov','Dic'],
+    dayNames: ['Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado'],
+    dayNamesShort: ['Dom','Lun','Mar','Mié','Juv','Vie','Sáb'],
+    dayNamesMin: ['Do','Lu','Ma','Mi','Ju','Vi','Sá'],
+    weekHeader: 'Sm',
+    dateFormat: 'dd/mm/yy',
+    firstDay: 1,
+    isRTL: false,
+    showMonthAfterYear: false,
+    yearSuffix: ''
+    };
+    $.datepicker.setDefaults($.datepicker.regional['es']);
+  });
 
 });
 
+
+
 </script>
+
 
 @stop

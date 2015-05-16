@@ -18,7 +18,9 @@
 
 	<div class="panel-body">
 
-
+{{Form::open(['id' => 'foliosE'])}}
+{{Form::select('year', $selectYear, null,  ['id' => 'year', 'class' => 'form-control input-sm', 'aria-controls' => 'emitidos-table'])}}
+{{Form::close()}}
 	<table class="table datatable" id="emitidos-table" >
 			<thead>
 				<tr>
@@ -85,6 +87,12 @@
 
 	$(document).ready(function(){
 
+
+		$('#year').on('change', function()
+			{
+				$( "#foliosE" ).submit();
+			});
+
 		$('body').delegate('.eliminar', 'click', function(event) {
 
 			if(!confirm("¿Está seguro de eliminar esta emisión?")){
@@ -109,6 +117,16 @@
 		    }
         }
 	    });
+
+	    var table = $('#emitidos-table').DataTable();
+ 
+		// #column3_search is a <input type="text"> element
+		$('#prueba').on( 'keyup', function () {
+		    table
+		        .columns( 0 )
+		        .search( this.value )
+		        .draw();
+} );
 
 	});
 

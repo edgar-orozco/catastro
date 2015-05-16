@@ -214,7 +214,7 @@ setlocale(LC_MONETARY, 'es_MX');
                <?php $fechavencimiento= str_replace(')', '',$key[7]);?>
                 <?php $vigencia = str_replace(')', '',$key[10]);?>
                 <?php $fecharequerimiento = str_replace(')', '',$key[11]);?>
-               <?php if(!empty($fechainicio))
+               <?php if(!empty($fechainicio) || $key[3]== 'RC' )
                {
                 $fechaven = FechasHelper::diasprueba($vigencia,$fecharequerimiento);
                 echo $fechaven;
@@ -227,12 +227,14 @@ setlocale(LC_MONETARY, 'es_MX');
                 <!-- agrgar datos requerimiento-->
                 @if($notificacion=='Si')
                 @if($fechainicio=='' || $fechaven=='')
-                <a data-toggle ="modal" class="editar-ejecucion" data-requerimiento="{{$idrequerimiento}}" data-target="#Nuevo" href="/ejecucion/modal/{{$idrequerimiento}}" title="Agregar Requerimiento" ><span class="glyphicon glyphicon-pencil"></span></a>
+                <a data-toggle ="modal" class="editar-ejecucion" data-requerimiento="{{$idrequerimiento}}" data-target="#Nuevo" href="/ejecucion/modal/{{$idrequerimiento}}" title="Agregar Requerimiento" >
+                    <span class="glyphicon glyphicon-pencil"></span></a>
                 @endif
                 @endif
             </td>
             <td align="center">
-                <?php $arr = array(CI => '<a   href ="/reimprimir/'.$clave.'"  target=_blank><span class="glyphicon glyphicon-print" title="Reimprimir Documento"></span></a>',RC =>'<a   href ="/reimprimir/'.$clave.'"  target=_blank><span class="glyphicon glyphicon-forward" title="Reimprimir Documento"></span></a>'); ?>
+                <?php $arr = array(CI => '<a   href ="/reimprimir/'.$clave.'"  target=_blank><span class="glyphicon glyphicon-print" title="Reimprimir Documento"></span></a>',
+                                   RC => '<a   href ="ejecucion/procesorc"     target=_blank><span class="glyphicon glyphicon-print" title="Reimprimir Documento"></span></a>'); ?>
                 <!-- link reimpresion ultimo estado-->
                 <?php echo $arr[$key[3]]; ?>
             </td>
@@ -243,7 +245,9 @@ setlocale(LC_MONETARY, 'es_MX');
                     $fv=strtotime($fechaven);
                     if($fv<$fecha)
                     {
-                       echo '<a  data-toggle ="modal" class="proceso-ejecucion" data-target="#proceso" target="_blank" href ="/ejecucion/proceso/'.$idrequerimiento.'" ><span class="glyphicon glyphicon-forward" title="Continuar Proceso"></span></a>';
+                        $arreglo = array(CI =>'<a  data-toggle ="modal" class="proceso-ejecucion" data-target="#proceso" target="_blank" href ="/ejecucion/proceso/'.$idrequerimiento.'" ><span class="glyphicon glyphicon-forward" title="Continuar Proceso"></span></a>',
+                                         RC =>'<a  data-toggle ="modal" class="proceso-ejecucion" data-target="#requerimiento" target="_blank" href ="/ejecucion/requerimiento/'.$idrequerimiento.'" ><span class="glyphicon glyphicon-forward" title="Proceso"></span></a>');
+                        echo $arreglo[$key[3]]; 
                    }else
                    {
                          echo '<span class="glyphicon glyphicon-ok" title="Proceso VIgente"></span>';
@@ -295,6 +299,21 @@ setlocale(LC_MONETARY, 'es_MX');
     <!-- fin Modal -->
       <!-- Modal -->
     <div class="modal fade" id="proceso" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+
+                <div class="modal-body" id="modalBody2">
+
+                </div>
+                <div class="modal-footer" id="modal-footer2">
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- fin Modal -->
+     <!-- Modal -->
+    <div class="modal fade" id="requerimiento" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
 

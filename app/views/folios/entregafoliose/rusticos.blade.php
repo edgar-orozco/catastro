@@ -17,6 +17,9 @@
 	</div>
 
 	<div class="panel-body">
+	{{Form::open(['id' => 'foliosER', 'method' => 'GET'])}}
+	{{Form::select('year', $selectYear, null,  ['id' => 'year', 'class' => 'form-control input-sm', 'aria-controls' => 'emitidos-table'])}}
+	{{Form::close()}}
 		<div class="row">
 			<div class="col-md-3">
 				<label>COREVAT</label>
@@ -103,6 +106,11 @@
 
 	<script type="text/javascript">
 	$(document).ready(function(){
+
+		$('#year').on('change', function()
+			{
+				$( "#foliosER" ).submit();
+			});
 
 		$("#todos").change(function(){
 

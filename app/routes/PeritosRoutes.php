@@ -28,6 +28,7 @@ Route::group(array('before'=>'Folios'),  function (){
 		
 			Route::get('/nfolios', 'folios_FoliosController@nfolios');
 			Route::get('/foliosemitidos', 'folios_FoliosController@foliosemitidos');
+			Route::post('/foliosemitidos', 'folios_FoliosController@foliosemitidos');
 			Route::post('/nfolios', 'folios_FoliosController@nfolioscreate');
 			
 			Route::get('nfolios/formato/{id}', 'folios_FoliosController@formato');
