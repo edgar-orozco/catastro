@@ -124,7 +124,7 @@ return array(
 		'Illuminate\Workbench\WorkbenchServiceProvider',
         'Zizaco\Confide\ServiceProvider',
         'Zizaco\Entrust\EntrustServiceProvider',
-        'Way\Generators\GeneratorsServiceProvider',
+//        'Way\Generators\GeneratorsServiceProvider',
         'Lord\Laroute\LarouteServiceProvider',
 		'Catastro\Providers\MenuServiceProvider',
 		'Catastro\Providers\PadronRepositoryServiceProvider',
