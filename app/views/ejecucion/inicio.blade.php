@@ -68,7 +68,10 @@ setlocale(LC_MONETARY, 'es_MX');
        $('#cartaForm').bind('submit', function()
                {
                   //$("#buscador").submit
-                  document.busqueda.submit();
+                   var pathname = window.location.pathname;
+                  //alert(pathname);
+                   window.open(pathname, '_blank');
+                  //document.busqueda.submit();
                  //  window.location.reload();
                   // ventana_hija = window.open($.post( "http://192.168.50.10/cartainv/",,$( "#cartaForm" ).serialize()));
                             //parent.location.reload(true);
@@ -77,6 +80,7 @@ setlocale(LC_MONETARY, 'es_MX');
               });
  });
 </script>
+
 
 <script>
             //actualiza el paginado cuando se cambia el numero de registros a mostrar
@@ -301,7 +305,7 @@ setlocale(LC_MONETARY, 'es_MX');
             </div>
         @endif
         @if(count($items) > 0)
-            {{ Form::open(array('url' => 'cartainv', 'method' => 'post', 'name' => 'formulario', 'id' => 'cartaForm',  'target' => '_blank'))}}
+            {{ Form::open(array('url' => 'cartainv', 'method' => 'post', 'name' => 'formulario', 'id' => 'cartaForm'))}}
             {{$date = new DateTime();}}
 
             <div class="panel-default">
