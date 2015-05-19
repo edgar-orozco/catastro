@@ -324,8 +324,8 @@ class TramitesController extends BaseController {
         //Selector de tipo de trámites para que se pueda disparar un subtramite
         $oTipotramites = Tipotramite::where('id','!=',$tramite->tipotramite_id)->orderBy('nombre')->get();
         $lista_tipotramites = array();
-        foreach($oTipotramites as $tipotramite){
-            $lista_tipotramites[$tipotramite->id] = $tipotramite->nombre;
+        foreach($oTipotramites as $tipotramite_cat){
+            $lista_tipotramites[$tipotramite_cat->id] = $tipotramite_cat->nombre;
         }
 
         //Selector de Tipo de actividades
