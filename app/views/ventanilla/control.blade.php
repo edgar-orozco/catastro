@@ -52,7 +52,7 @@
                     <br/>
                     <div class="form-group clearfix">
                         {{Form::label('nombres','Nombre', ['class'=>''])}}
-                        {{Form::text('nombres', null, ['class' => 'form-control'] )}}
+                        {{Form::text('nombres', null, ['class' => 'form-control', 'required'=>true] )}}
                     </div>
                     <span class="campos-fisica">
                         <div class="form-group">
