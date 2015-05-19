@@ -25,10 +25,10 @@
         </div>
         <div class="col-lg-4 col-md-4 col-sm-6">
             <ul class="social">
-                <li><a href="{{URL::to('users/login')}}" class="facebook"></a></li>
-                <li><a href="{{URL::to('users/login')}}" class="twitter"></a></li>
-                <li><a href="{{URL::to('users/login')}}" class="plus"></a></li>
-                <li><a href="{{URL::to('users/login')}}" class="youtube"></a></li>
+                <li><a href="https://www.facebook.com/gobiernodetabasco" target="_blank" class="facebook"></a></li>
+                <li><a href="https://twitter.com/Gobierno_Tab" target="_blank" class="twitter"></a></li>
+                <li><a href="https://www.flickr.com/photos/93709152@N04" target="_blank" class="plus"></a></li>
+                <li><a href="https://www.youtube.com/user/ArturoNunezTV" target="_blank" class="youtube"></a></li>
             </ul>
         </div>
     </div>
