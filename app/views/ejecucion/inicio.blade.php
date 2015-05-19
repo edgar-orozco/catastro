@@ -67,12 +67,14 @@ setlocale(LC_MONETARY, 'es_MX');
   $(document).ready(function () {
        $('#cartaForm').bind('submit', function()
                {
+                $('#cartaForm').hide();
                   //$("#buscador").submit
-                   var pathname = window.location.pathname;
                   //alert(pathname);
-                   window.open(pathname, '_blank');
+                  /*var pathname = window.location.pathname;
+                   var carta = window.open($.post( "http://192.168.50.10/cartainv/",$( "#cartaForm" ).serialize()));
+                   window.open(carta, '_blank');
                   //document.busqueda.submit();
-                 //  window.location.reload();
+                  window.location.reload();*/
                   // ventana_hija = window.open($.post( "http://192.168.50.10/cartainv/",,$( "#cartaForm" ).serialize()));
                             //parent.location.reload(true);
                             //parent.jQuery.fancybox.close();
@@ -106,12 +108,12 @@ setlocale(LC_MONETARY, 'es_MX');
                                 this.checked = true;
                                 d.boton.disabled = false;
                                 d.datepicker.disabled = false;
-                                d.ejecutores.disabled = false;
+                               
                             } else {
                                 this.checked = false;
                                 d.boton.disabled = true;
                                 d.datepicker.disabled = true;
-                                d.ejecutores.disabled = true;
+                                
                             }
                         });
                     });
@@ -305,7 +307,7 @@ setlocale(LC_MONETARY, 'es_MX');
             </div>
         @endif
         @if(count($items) > 0)
-            {{ Form::open(array('url' => 'cartainv', 'method' => 'post', 'name' => 'formulario', 'id' => 'cartaForm'))}}
+            {{ Form::open(array('url' => 'cartainv', 'method' => 'post', 'name' => 'formulario', 'id' => 'cartaForm', 'target' => '_blank'))}}
             {{$date = new DateTime();}}
 
             <div class="panel-default">
@@ -344,7 +346,7 @@ setlocale(LC_MONETARY, 'es_MX');
                         <?php $impuesto = $key[4]?>
                         <?php $valorcc  =$key[6]; ?>
                         <?php $total    =$impuesto+$valorcc ?>
-                        <tr>
+                        <tr id="<?php echo $i ?>">
                             <td align="center">
                                 <div class="row">
                                     <div class="col-lg-6">
