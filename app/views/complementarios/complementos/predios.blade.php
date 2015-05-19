@@ -36,7 +36,8 @@ foreach ($datos_p as $k) {
                 {{Form::label('Lsuperficie_terreno','Superficie Predio')}}
                 <br>
                 <span style=" margin-left: 154px;"><strong>M<sup>2</sup></strong></span>
-                {{Form::number('superficie_terreno',$superficie_terreno,['class'=>'form-control bfh-number','required','min'=>"0" ,'step' => '0.01' , 'id'=>'superficie_terreno', 'tabindex'=>'4','style'=>'width: 150px;margin-top: -24px;'])}}
+                {{Form::text('superficie_terreno',$superficie_terreno,['class'=>'form-control bfh-number','min'=>'0', 'step'=>'any' ,'value' =>'0' ,'pattern'=>'/[-+]?([0-9]*\.[0-9]+|[0-9]+)/','id'=>'superficie_terreno', 'tabindex'=>'4','style'=>'width: 150px;margin-top: -24px;'])}}
+               
             </div>
         </div>
         <div class="col-md-4">
@@ -110,7 +111,7 @@ foreach ($datos_p as $k) {
                 event.preventDefault();
             }
 
-            if (event.keyCode == 46 || event.keyCode == 8 || event.keyCode == 189 || event.keyCode == 109 || event.keyCode == 110 || event.keyCode == 190) {
+            if (event.keyCode == 46 || event.keyCode == 8 || event.keyCode == 189 || event.keyCode == 109 || event.keyCode == 110 || event.keyCode == 190 || event.keyCode == 45 || event.keyCode == 96 || event.keyCode == 189) {
             }
             else {
                 if (event.keyCode < 95) {
