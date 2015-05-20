@@ -164,6 +164,12 @@
         <div style="float:left; margin-left: 5px; margin-top: 5px">
             <a href="{{URL::to('/')}}"> <img src="/mapper/images/buttons/default/home_off.gif" alt="Menú Principal" title="Menú Principal"/></a>
         </div>
+        <div style="float:left; margin-left: 5px; margin-top: 5px">
+            &nbsp
+        </div>
+        <div style="float:left; margin-left: 5px; margin-top: 5px">
+            <a href="{{URL::to('/users/logout')}}"> <img src="/mapper/images/buttons/default/exit_off.png" alt="Salir" title="Salir del Sistema"/></a>
+        </div>
    </div>
     
     <div class="ui-layout-west" id="uiLayoutWest" style="position: absolute; left: 0px; width: 220px; height: 509px; margin-right: 6px; top: 40px;">
