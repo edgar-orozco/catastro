@@ -36,7 +36,7 @@ foreach ($datos_p as $k) {
                 {{Form::label('Lsuperficie_terreno','Superficie Predio')}}
                 <br>
                 <span style=" margin-left: 154px;"><strong>M<sup>2</sup></strong></span>
-                {{Form::text('superficie_terreno',$superficie_terreno,['class'=>'form-control bfh-number','min'=>'0', 'step'=>'any' ,'value' =>'0' ,'pattern'=>'/[-+]?([0-9]*\.[0-9]+|[0-9]+)/','id'=>'superficie_terreno', 'tabindex'=>'4','style'=>'width: 150px;margin-top: -24px;'])}}
+                {{Form::text('superficie_terreno',$superficie_terreno,['class'=>'form-control bfh-number','min'=>'0', 'step'=>'any' ,'value' =>'0' ,'pattern'=>'[0-9]+','id'=>'superficie_terreno', 'tabindex'=>'4','style'=>'width: 150px;margin-top: -24px;'])}}
                
             </div>
         </div>
