@@ -57,10 +57,9 @@ $("#fecha").datepicker();
 </script>
 <script >
     $('#guardar').on('click', function () {
-       
          window.location.reload();
         $('#proceso').toggle();
-        
+        $('#formulario').hide();
     })
 </script>
 <?php $fecha= date("d/m/Y"); ?>

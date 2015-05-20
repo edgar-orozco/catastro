@@ -77,6 +77,7 @@ setlocale(LC_MONETARY, 'es_MX');
                     });
                 });
             </script>
+  
         @stop
 
         <div class="panel-body">
@@ -139,7 +140,7 @@ setlocale(LC_MONETARY, 'es_MX');
             </div>
         @endif
         @if(count($items) > 0)
-            {{ Form::open(array('url' => 'cartainv', 'method' => 'post', 'name' => 'formulario',  'target' => '_blank'))}}
+            {{ Form::open(array('url' => 'cartainv', 'method' => 'post', 'name' => 'formulario', 'id' => 'formulario',  'target' => '_blank'))}}
             {{$date = new DateTime();}}
 
             <div class="panel-default">
@@ -155,7 +156,6 @@ setlocale(LC_MONETARY, 'es_MX');
     <table  id ="myTable" class="table">
      <thead>
         <tr>
-                <th width="100" ><P align="center">{{ Form::checkbox('checkMain', 'checkMain', false, array('name' => 'checktodos'))}}</P></th>
                 <th width="500"><P align="center">Clave Catastral</P></th>
                 <th width="700"><P align="center">Nombre Propietario</P></th>
                 <th width="200"><P align="center">Municpio</P></th>
@@ -182,9 +182,7 @@ setlocale(LC_MONETARY, 'es_MX');
                   <?php $total           = $impuesto+$valorcc ?>
                   <?php $fechacancelacion = str_replace(')', '',$key[8]); ?>
                   <?php $notificacion   =  str_replace(')','',$key[9]);?>
-            <td align="center">
-                {{ Form::checkbox('clave'.$i, $clave.','.$nombre.','.$total, false, ['onclick'=>'validar(this)'], array('id' => 'checkAll'))}}
-            </td>
+            
             <td align="center">
                 <!-- CLAVE -->
                 {{$clave;}}
@@ -234,7 +232,7 @@ setlocale(LC_MONETARY, 'es_MX');
             </td>
             <td align="center">
                 <?php $arr = array(CI => '<a   href ="/reimprimir/'.$clave.'"  target=_blank><span class="glyphicon glyphicon-print" title="Reimprimir Documento"></span></a>',
-                                   RC => '<a   href ="ejecucion/procesorc"     target=_blank><span class="glyphicon glyphicon-print" title="Reimprimir Documento"></span></a>'); ?>
+                                   RC => '<a   href ="ejecucion/procesorc"     target=_blank><span class="glyphicon glyphicon-print" title="Reimprimir Documento" id="procesocc"></span></a>'); ?>
                 <!-- link reimpresion ultimo estado-->
                 <?php echo $arr[$key[3]]; ?>
             </td>
@@ -245,7 +243,7 @@ setlocale(LC_MONETARY, 'es_MX');
                     $fv=strtotime($fechaven);
                     if($fv<$fecha)
                     {
-                        $arreglo = array(CI =>'<a  data-toggle ="modal" class="proceso-ejecucion" data-target="#proceso" target="_blank" href ="/ejecucion/proceso/'.$idrequerimiento.'" ><span class="glyphicon glyphicon-forward" title="Continuar Proceso"></span></a>',
+                        $arreglo = array(CI =>'<a  id="prosc1" data-toggle ="modal" class="proceso-ejecucion" data-target="#proceso" target="_blank" href ="/ejecucion/proceso/'.$idrequerimiento.'" ><span class="glyphicon glyphicon-forward" title="Continuar Proceso"></span></a>',
                                          RC =>'<a  data-toggle ="modal" class="proceso-ejecucion" data-target="#requerimiento" target="_blank" href ="/ejecucion/requerimiento/'.$idrequerimiento.'" ><span class="glyphicon glyphicon-forward" title="Proceso"></span></a>');
                         echo $arreglo[$key[3]]; 
                    }else
