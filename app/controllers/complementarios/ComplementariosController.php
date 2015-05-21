@@ -1124,8 +1124,8 @@ class complementarios_ComplementariosController extends BaseController {
             if($file2) 
             {
                 // Se valida el directorio para subir shapes
-                $dir =  '/complementarios/anexos/'.$entidad.'/'.$municipio.'/'.$array_clave[0].'/'.$array_clave[1].'/'.$clave_catas.'/';
-                $nombre_archivo = $gid_predio.'-'.$id_tipoimagen2[$i].'-'.$file2->getClientOriginalName();
+                $dir =  '/complementarios/anexos/'.$municipio.'/'.$array_clave[0].'/'.$array_clave[1].'/'.$clave_catas.'/';
+                $nombre_archivo = $gid_predio.'-'.$id_tipoimagen2[$i].'-'.date("d-m-y").'-'.$file2->getClientOriginalName();
                 if (!file_exists(public_path().$dir) && !is_dir(public_path().$dir)) 
                 {
                     File::makeDirectory(public_path().$dir, $mode = 0777, true, true);
@@ -1133,7 +1133,7 @@ class complementarios_ComplementariosController extends BaseController {
                 // Se valida la extensión del archivo
                 if(!file_exists($dir.$nombre_archivo) && in_array(strtolower($file2->getClientMimeType()), array('image/png','image/jpeg','image/jpeg','image/jpeg','image/gif','image/bmp','image/vnd.microsoft.icon', 'text/plain', 'application/vnd.ms-excel', 'application/msword', 'application/pdf')))
                 {
-                    $file2->move(public_path().$dir, $gid_predio.'-'.$id_tipoimagen2[$i].'-'.$file2->getClientOriginalName());
+                    $file2->move(public_path().$dir, $gid_predio.'-'.$id_tipoimagen2[$i].'-'.date("d-m-y").'-'.$file2->getClientOriginalName());
                     $imagenes = new ImagenesLevantamiento();
                     $imagenes->entidad = $entidad;
                     $imagenes->municipio = $municipio;
