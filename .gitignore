@@ -20,3 +20,5 @@ public/documentos/*
 !public/documentos/.gitkeep
 public/js/laroute.js
 public/map_output
+public/corevat/*
+!public/corevat/.gitkeep
