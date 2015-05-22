@@ -28,7 +28,7 @@ foreach ($datos_p as $k) {
         <div class="col-md-4">
             <div class="form-group">
                 {{Form::label('Lfolio','Folio Real')}}
-                {{Form::text('folio',$folio,['class'=>'form-control','required', 'id'=>'folio', 'tabindex'=>'3', 'max' =>'50','style'=>'width: 250px'])}}
+                {{Form::text('folio',$folio,['class'=>'form-control','id'=>'folio', 'tabindex'=>'3', 'max' =>'50','style'=>'width: 250px'])}}
             </div>
         </div>
 <!--        <div class="col-md-4">
