@@ -1,9 +1,9 @@
 <?php
 
-Route::post("complementospdf/","complementarios_ComplementariosPDFController@index");
-Route::get("generarpdf/", "complementarios_ComplementariosPDFController@getdatos");
+Route::get("complementospdf/{id}","mapper_ComplementariosPDFController@index");
+Route::get("generarpdf/", "mapper_ComplementariosPDFController@getdatos");
 
-Route::get("generaranexos/", "complementarios_ComplementariosPDFController@getanexos");
-Route::post("anexospdf/", "complementarios_ComplementariosPDFController@anexos");
+Route::get("generaranexos/", "mapper_ComplementariosPDFController@getanexos");
+Route::post("anexospdf/", "mapper_ComplementariosPDFController@anexos");
 
 
