@@ -65,6 +65,10 @@ class HomeController extends BaseController
             //$homepage = 'folios';
             return Redirect::to('/entregafoliosestatal');
         }
+        elseif (Confide::user()->hasRole('Complementarios')) {
+            //$homepage = 'folios';
+            return Redirect::to('/compleme');
+        }
         return View::make($homepage);
     }
 } 

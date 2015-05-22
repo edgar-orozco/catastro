@@ -1,6 +1,6 @@
 <?php
 
-Route::group(['before' => 'auth'], function() {
+Route::group(['before' => 'Complementarios'], function() {
 
     //instalaciones especiales
     Route::get("complementarios/{id?}", "complementarios_ComplementariosController@index");
@@ -85,4 +85,12 @@ Route::group(['before' => 'auth'], function() {
     Route::post("guardar-personas", "complementarios_ComplementariosController@postPersonas");
     //tomasAguat
      Route::post("guardar-agua", "complementarios_ComplementariosController@postAgua");
+});
+
+ Route::filter('Complementarios', function () {
+
+    if (! ( Entrust::hasRole('Complementarios') ||  Entrust::hasRole('Super usuario') ) )
+    {
+        return Redirect::to('/');
+    }
 });
