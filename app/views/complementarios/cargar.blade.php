@@ -177,7 +177,7 @@ $(document).ready(function () {
         </div>
         <div class="stepwizard-step">
             <a href="#step-2" type="button" class="btn btn-default btn-circle" disabled="disabled">2</a>
-            <p>Construcciones</p>
+            <p>Características De Construcciones</p>
         </div>
         <div class="stepwizard-step">
             <a href="#step-3" type="button" class="btn btn-default btn-circle" disabled="disabled">3</a>
@@ -226,7 +226,7 @@ $(document).ready(function () {
     <div class="row setup-content" id="step-2">
         <div class="col-xs-12">
             <div class="col-md-12">
-                <h3>Construcciones</h3>
+                <h3>Características de Construcciones</h3>
                 @include('complementarios.complementos.construcciones')
                 <button type="button" class="btn btn-primary next">
                     Siguiente

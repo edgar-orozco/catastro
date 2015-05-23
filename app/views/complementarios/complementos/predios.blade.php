@@ -19,12 +19,12 @@ foreach ($datos_p as $k) {
                 {{Form::select('tipo_predio', ['U' => 'Urbano','R' => 'Rustico'], $tipo_predio, ['id'=>'tipo_predio', 'class' => 'form-control focus', 'tabindex'=>'1', 'autofocus'=> 'autofocus','style'=>'width: 250px'])}}
             </div>
         </div>
-        <div class="col-md-4">
+<!--        <div class="col-md-4">
             <div class="form-group">
-                {{Form::label('Lniveles','Niveles')}}
-                {{Form::number('niveles', $niveles ,['class'=>'form-control bfh-number','required', 'id'=>'niveles', 'min' => '1' , 'tabindex'=>'2','style'=>'width: 250px'])}}
+                Form::label('Lniveles','Niveles')
+                Form::number('niveles', $niveles ,['class'=>'form-control bfh-number','required', 'id'=>'niveles', 'min' => '1' , 'tabindex'=>'2','style'=>'width: 250px'])
             </div>
-        </div>
+        </div>-->
         <div class="col-md-4">
             <div class="form-group">
                 {{Form::label('Lfolio','Folio Real')}}
