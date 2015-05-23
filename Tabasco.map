@@ -200,15 +200,16 @@ LAYER
   NAME "municipios" 
   TYPE polygon
   STATUS ON
-  DATA "mpios_tabasco"
+  CONNECTIONTYPE postgis
+  DATA "geom from municipios"
   TOLERANCE 6
   TOLERANCEUNITS pixels
-  LABELITEM "NOM_MUN"
+  LABELITEM "nombre_municipio"
   LABELMAXSCALE 1600000
   TEMPLATE void
   PROJECTION
     #"init=epsg:4326"
-    "+proj=lcc +lat_1=17.5 +lat_2=29.5 +lat_0=12 +lon_0=-102 +x_0=2500000 +y_0=0 +ellps=GRS80 +towgs84=0,0,0,0,0,0,0 +units=m +no_defs"
+    "+proj=utm +zone=15 +datum=WGS84 +units=m +no_defs"
   END
   METADATA 
     "DESCRIPTION" "Municipios"
@@ -247,7 +248,6 @@ END  # Layer
 LAYER
   NAME "localidades" 
   TYPE polygon
-  CONNECTION  "user='postgres' password='pass' dbname='catastro-dev' host=localhost port=5432"
   CONNECTIONTYPE postgis
   DATA "geom from localidades_a"
 
@@ -354,17 +354,18 @@ LAYER
   NAME "calles"
   TYPE line
   STATUS ON
-  DATA "27_ejesviales"
+  CONNECTIONTYPE postgis
+  DATA "geom from calles"
   TOLERANCE 3
   TOLERANCEUNITS pixels
   TEMPLATE void
   PROJECTION
     #"init=epsg:4326"
-    "+proj=lcc +lat_1=17.5 +lat_2=29.5 +lat_0=12 +lon_0=-102 +x_0=2500000 +y_0=0 +ellps=GRS80 +units=m +no_defs"
+    "+proj=utm +zone=15 +datum=WGS84 +units=m +no_defs"
   END
   #MINSCALEDENOM 250000
   MAXSCALEDENOM 250001
-  LABELITEM "NOMVIAL"
+  LABELITEM "nombre"
   LABELMAXSCALE 10000
 POSTLABELCACHE FALSE
 PROCESSING "LABEL_NO_CLIP=ON"
@@ -386,7 +387,7 @@ LABELCACHE ON
       OUTLINECOLOR 255 255 255
       BUFFER 5
       TYPE truetype
-      #ENCODING "UTF-8"
+      #ENCODING "UTF8"
       FONT vera
       SIZE 8
       MAXSIZE 9
@@ -403,7 +404,6 @@ END  # Layer
 LAYER  NAME "manzanas"
   TYPE polygon
   STATUS ON
-  CONNECTION  "user='postgres' password='pass' dbname='catastro-dev' host=localhost port=5432"
   CONNECTIONTYPE postgis
   DATA "geom from manzanas using unique gid"
 
@@ -448,7 +448,6 @@ END  # Layer
 LAYER  NAME "predios"
   TYPE polygon
   STATUS ON
-  CONNECTION  "user='postgres' password='pass' dbname='catastro-dev' host=localhost port=5432"
   CONNECTIONTYPE postgis
   DATA "geom from predios"
 
@@ -491,7 +490,6 @@ END  # Layer
 LAYER  NAME "construcciones"
   TYPE polygon
   STATUS ON
-  CONNECTION  "user='postgres' password='pass' dbname='catastro-dev' host=localhost port=5432"
   CONNECTIONTYPE postgis
   DATA "geom from construcciones using unique gid"
 

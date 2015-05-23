@@ -49,7 +49,56 @@ $(document).ready(function() {
         }
         PM.resize_timer = setTimeout("PM.Map.zoompoint(1,'268+228')",300);
     });
+
+    $("#mpioCalle").change(function(){
+        var valor = $(this).val();
+        var dataString = 'mpio='+ valor;        
+        $.ajax
+        ({
+        type: "POST",
+        url: "/localidadByMpio",
+        data: dataString,
+        cache: false,
+        success: function(html)
+        {
+        $("#locCalle").html(html);
+        } 
+        });
+    });
+
+    $("#locCalle").change(function(){
+        var valor = $(this).val();
+        var dataString = 'gidloc='+ valor;        
+        $.ajax
+        ({
+        type: "POST",
+        url: "/callesBylocalidad",
+        data: dataString,
+        cache: false,
+        success: function(html)
+        {
+        $("#calleCalle1").html(html);
+        //$("#calleDomicilio2").html(html);
+        } 
+        });
+    });
   
+    $("#calleCalle1").change(function(){
+        var valor = $(this).val();
+        var dataString = 'calle='+ valor;        
+        $.ajax
+        ({
+        type: "POST",
+        url: "/callesBycalle",
+        data: dataString,
+        cache: false,
+        success: function(html)
+        {
+        $("#calleCalle2").html(html);
+        //$("#calleDomicilio2").html(html);
+        } 
+        });
+    });
 });
 
 

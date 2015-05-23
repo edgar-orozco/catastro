@@ -806,5 +806,47 @@ h += "      </div>";
             "variables":variables
         };
         this.updateMap(mapurl, data);
+    },
+
+    submitSearchCalle: function() {
+        var municipio = $("#mpioCalle").val();
+        if (municipio == "000"){
+            alert("Necesita seleccionar un Municipio");
+            $("#mpioCalle").focus();
+            return false;
+        }
+
+        var localidad = $("#locCalle").val();
+        if (localidad == "000" ){
+            alert("Necesita seleccionar una Localidad");
+            $("#locCalle").focus();
+            return false;
+        }
+
+        var calle1 = $("#calleCalle1").val();
+        if (calle1 == "000" ){
+            alert("Necesita seleccionar una calle");
+            $("#calleCalle1").focus();
+            return false;
+        }
+        var calle2 = $("#calleCalle2").val();
+        if (calle2 == "000" ){
+            alert("Necesita seleccionar una calle cercana");
+            $("#calleCalle2").focus();
+            return false;
+        }
+        
+        var mapurl = '/consultaCalle';
+        //alert(mapurl);}
+        var data = {
+            "mode":"map",
+            "zoom_type":"zoomextent",
+            "mapW":PM.mapW,
+            "mapH":PM.mapH,
+            "groups":PM.activeLayer,
+            "calle1":calle1,
+            "calle2":calle2
+        };
+        this.updateMap(mapurl, data);
     }
 });

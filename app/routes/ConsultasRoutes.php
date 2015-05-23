@@ -23,6 +23,16 @@ Route::group(array('before' => 'consulta_cartografica'), function () {
 
     Route::resource('cartografia/xajax/spatialquery', 'ConsultaEspacialController');
 
+    Route::post("localidadByMpio", "ConsultasEspacialesController@postLocalidadByMpio");
+
+    Route::post("mzaBylocalidad", "ConsultasEspacialesController@postMzaByLocalidad");
+
+    Route::post("callesBylocalidad", "ConsultasEspacialesController@postCallesByLocalidad");
+
+    Route::post("callesBycalle", "ConsultasEspacialesController@postCallesByCalle");
+
+    Route::post("consultaCalle", "ConsultasEspacialesController@postConsultaCalle");
+
 });
 
 

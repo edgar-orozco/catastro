@@ -350,9 +350,9 @@
                             </table>
                         </div>
                      </div>
-                      <h3>Domicilio</h3>
+                      <h3>Calle</h3>
                       <div style="padding:1em;">
-                        <div id="consDomicilio">
+                        <div id="consCalle">
                             <table width="100%" class="pm-searchcont pm-toolframe" border="0" cellspacing="0" cellpadding="0">
                               <tbody>
                                 <tr>
@@ -362,7 +362,7 @@
                                         <tr id="searchitems_municipios1">
                                           <td class="pm-searchdesc">
                                                 <p>Municipio</p>
-                                                <select name="mpioDomicilio" size="1" style="width: 100%;">
+                                                <select id="mpioCalle" name="mpioDomicilio" size="1" style="width: 100%;">
                                                     <option value="000"> Seleccione... </option>
                                                     
                                                     @foreach($municipios as $municipio => $nombre)
@@ -370,65 +370,23 @@
                                                     @endforeach
                                                 </select>                                  
                                                 <p>Localidad</p>
-                                                <select name="mpioDomicilio" size="1" style="width: 100%;">
+                                                <select id="locCalle" name="locDomicilio" size="1" style="width: 100%;">
                                                     <option value="000"> Seleccione... </option>
-                                                    
-                                                    @foreach($municipios as $municipio => $nombre)
-                                                        <option value="{{$municipio}}"> {{$nombre}} </option>
-                                                    @endforeach
                                                 </select>                                  
-                                                <p>Manzana</p>
-                                                <select name="mpioDomicilio" size="1" style="width: 100%;">
+                                                <p>Sobre la calle</p>
+                                                <select id="calleCalle1" name="calleDomicilio1" size="1" style="width: 100%;">
                                                     <option value="000"> Seleccione... </option>
-                                                    
-                                                    @foreach($municipios as $municipio => $nombre)
-                                                        <option value="{{$municipio}}"> {{$nombre}} </option>
-                                                    @endforeach
                                                 </select>                                  
-        
+                                                <p>Cerca de la calle</p>
+                                                <select id="calleCalle2" name="calleDomicilio2" size="1" style="width: 100%;">
+                                                    <option value="000"> Seleccione... </option>
+                                                </select>                                  
                                           </td>
                                         </tr>
                                         <tr>
                                           <td>
                                             <br />
-                                            <input type="button" value="Buscar" size="20" onclick="PM.Query.submitSearch()" onmouseover="PM.changeButtonClr(this,'over')" onmouseout="PM.changeButtonClr(this,'out')" class="button_off">
-                                          </td>
-                                        </tr>
-                                    </table>
-                                  </td>
-                                </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                     </div>
-                      <h3>Calle-Asentamiento</h3>
-                      <div style="padding:1em;">
-                        <div id="consCalle>
-                            <table width="100%" class="pm-searchcont pm-toolframe" border="0" cellspacing="0" cellpadding="0">
-                              <tbody>
-                                <tr>
-                                  <td id="searchitems" class="pm_search_inline">
-                                    <table id="searchitems_container1" class="pm-searchitem" border="0" cellspacing="0" cellpadding="0">
-                                      <tbody>
-                                        <tr id="searchitems_municipios1">
-                                          <td class="pm-searchdesc">
-                                                <p>Municpio</p>
-                                                <select name="D3" size="1" style="width: 100%;">
-                                                    <option value="000"> Seleccione... </option>
-                                                    
-                                                    @foreach($municipios as $municipio => $nombre)
-                                                        <option value="{{$municipio}}"> {{$nombre}} </option>
-                                                    @endforeach
-                                                </select>                                  
-        
-                                            <p>Clave Catastral</p>
-                                            <input type="text" id="pmsfld_numero_mzna" name="numero_mzna" alt="Search Criteria" false="" autocomplete="off" class="ac_input">
-                                          </td>
-                                        </tr>
-                                        <tr>
-                                          <td>
-                                            <br />
-                                            <input type="button" value="Buscar" size="20" onclick="PM.Query.submitSearch()" onmouseover="PM.changeButtonClr(this,'over')" onmouseout="PM.changeButtonClr(this,'out')" class="button_off">
+                                            <input type="button" value="Buscar" size="20" onclick="PM.Map.submitSearchCalle()" onmouseover="PM.changeButtonClr(this,'over')" onmouseout="PM.changeButtonClr(this,'out')" class="button_off">
                                           </td>
                                         </tr>
                                     </table>
