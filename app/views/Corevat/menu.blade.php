@@ -1,6 +1,6 @@
 @if(!Auth::guest() && ( Auth::user()->hasRole("Administrador") || Auth::user()->hasRole("Super usuario")))
 
-<li class="dropdown @if(Request::is('CorevatCatalogos/*') || Request::is('Corevat/*')) active @endif">
+<li class="dropdown @if(Request::is('Corevat/*')) active @endif">
 	<a href="{{URL::to('corevat/Avaluos')}}">Avaluos</a>
 </li>
 
