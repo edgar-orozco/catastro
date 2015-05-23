@@ -84,7 +84,7 @@ class ConsultasEspacialesController extends BaseController {
         $result = DB::select($query, array($calle1_cvegeo,$calle1_nombre,$calle2_cvegeo,$calle2_nombre));
 
         if (count($result) == 0) {
-            $strJS  = '"msgError":"No se ha encontrado ninguna cuenta en la '.$calle1_nombre.' cerca de la calle '.$calle2_nombre;
+            $strJS  = '"msgError":"No se ha encontrado ninguna manzana en la calle '.$calle1_nombre.' cerca de la calle '.$calle2_nombre.'"';
             echo "{\"sessionerror\":\"QueryError\",".$strJS."}";
             return;
         }
