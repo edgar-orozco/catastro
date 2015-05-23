@@ -526,173 +526,66 @@ Route::group(array('before' => 'admin'), function () {
 
 	Route::put('corevat/CatUsosSuelos/{id?}.{format}', array('as' => 'showCatUsosSuelos', 'uses' => 'corevat_CatUsosSuelosController@show'));
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 	/*
-	 * FOLIOS
-	 * folios
-	 */
-	Route::resource('corevat/Folios', 'corevat_FoliosController');
-
-	Route::get('corevat/Folios.{format}', array('as' => 'indexFolios', 'uses' => 'corevat_FoliosController@index'));
-
-	Route::put('corevat/Folios/{id?}.{format}', array('as' => 'showFolios', 'uses' => 'corevat_FoliosController@show'));
-
-	Route::post('corevat/Folios.{format}', array('as' => 'storeFolios', 'uses' => 'corevat_FoliosController@store'));
-
-	Route::put('corevat/Folios/{id?}.{format}', array('as' => 'updateFolios', 'uses' => 'corevat_FoliosController@update'));
-
-	Route::get('corevat/FoliosE/{id}', array('as' => 'destroyFolios', 'uses' => 'corevat_FoliosController@destroy'));
-
-
-	/*
-	 * FOLIOS DETALLE
-	 * folios_detalles
-	 */
-	Route::resource('corevat/FoliosDetalle', 'corevat_FoliosDetalleController');
-
-	Route::get('corevat/FoliosDetalle/{id?}.{format}', array('as' => 'indexFoliosDetalle', 'uses' => 'corevat_FoliosDetalleController@index'));
-
-	Route::put('corevat/FoliosDetalle/{id?}.{format}', array('as' => 'showFoliosDetalle', 'uses' => 'corevat_FoliosDetalleController@show'));
-
-	Route::post('corevat/FoliosDetalle.{format}', array('as' => 'storeFoliosDetalle', 'uses' => 'corevat_FoliosDetalleController@store'));
-
-	Route::put('corevat/FoliosDetalle/{id?}.{format}', array('as' => 'updateFoliosDetalle', 'uses' => 'corevat_FoliosDetalleController@update'));
-
-	Route::get('corevat/FoliosDetalleE/{id}', array('as' => 'destroyFoliosDetalle', 'uses' => 'corevat_FoliosDetalleController@destroy'));
-
-
-	/*
-	 * 
-	 * FOLIOS DETALLE
-	 * folios_detalles_singles
-	 * 
-	 */
-	Route::resource('corevat/FoliosDetallesSingles', 'corevat_FoliosDetallesSinglesController');
-
-	Route::get('corevat/FoliosDetallesSingles/{id?}.{format}', array('as' => 'indexFoliosDetallesSingles', 'uses' => 'corevat_FoliosDetallesSinglesController@index'));
-
-	Route::put('corevat/FoliosDetallesSingles/{id?}.{format}', array('as' => 'showFoliosDetallesSingles', 'uses' => 'corevat_FoliosDetallesSinglesController@show'));
-
-	Route::post('corevat/FoliosDetallesSingles.{format}', array('as' => 'storeFoliosDetalle', 'uses' => 'corevat_FoliosDetallesSinglesController@store'));
-
-	Route::put('corevat/FoliosDetallesSingles/{id?}.{format}', array('as' => 'updateFoliosDetallesSingles', 'uses' => 'corevat_FoliosDetallesSinglesController@update'));
-
-	Route::get('corevat/FoliosDetallesSinglesE/{id}', array('as' => 'destroyFoliosDetallesSingles', 'uses' => 'corevat_FoliosDetallesSinglesController@destroy'));
-
-
-	/*
-	 * 
 	 * AVALUOS
 	 * avaluos
-	 * 
 	 */
+	Route::get('/corevat/Avaluos.{format}', array('as' => 'indexAvaluos', 'uses' => 'corevat_AvaluosController@index'));
+	Route::post('/corevat/Avaluos.{format}', array('as' => 'storeAvaluos', 'uses' => 'corevat_AvaluosController@store'));
+	Route::get('/corevat/AvaluosDel/{id}', array('as' => 'destroyAvaluos', 'uses' => 'corevat_AvaluosController@destroy'));
+	Route::put('/corevat/Avaluos/{id?}.{format}', array('as' => 'showAvaluos', 'uses' => 'corevat_AvaluosController@show'));
+
+	// AVALUOS GENERAL
+	Route::get('/corevat/AvaluoGeneral/{id}', array('as' => 'editAvaluoGeneral', 'uses' => 'corevat_AvaluosController@editGeneral'));
+	Route::post('/corevat/AvaluoGeneralUpd/{id?}', array('as' => 'updateAvaluoGeneral', 'uses' => 'corevat_AvaluosController@updateGeneral'));
+	
+	// AVALUOS ZONA
+	Route::get('/corevat/AvaluoZona/{id}', array('as' => 'editAvaluoZona', 'uses' => 'corevat_AvaluosController@editZona'));
+	Route::post('/corevat/AvaluoZonaUpd/{id?}', array('as' => 'updateAvaluoZona', 'uses' => 'corevat_AvaluosController@updateZona'));
+	
+	// AVALUOS INMUEBLES
+	Route::get('/corevat/AvaluoInmueble/{id}', array('as' => 'editAvaluoInmueble', 'uses' => 'corevat_AvaluosController@editInmueble'));
+	Route::post('/corevat/AvaluoInmuebleUpd/{id?}', array('as' => 'updateAvaluoInmueble', 'uses' => 'corevat_AvaluosController@updateInmueble'));
+	Route::get('/corevat/AiMedidasColindanciasGet/{id}', array('uses' => 'corevat_AvaluosController@getAiMedidasColindancias'));
+	Route::post('/corevat/AiMedidasColindanciasUpd/{id?}', array('as' => 'setAiMedidasColindancias', 'uses' => 'corevat_AvaluosController@setAiMedidasColindancias'));
+	Route::get('/corevat/AiMedidasColindanciasDel/{id}', array('as' => 'destroyAiMedidasColindancias', 'uses' => 'corevat_AvaluosController@delAiMedidasColindancias'));
+	
+	// ENFOQUE MERCADO
+	Route::get('/corevat/AvaluoEnfoqueMercado/{id}', array('as' => 'editAvaluoEnfoqueMercado', 'uses' => 'corevat_AvaluosController@editMercado'));
+	Route::post('/corevat/AvaluoEnfoqueMercadoUpd/{id?}', array('as' => 'updateAvaluoEnfoqueMercado', 'uses' => 'corevat_AvaluosController@updateMercado'));
+	Route::post('/corevat/AvaluoEnfoqueMercadoDel/', array('as' => 'delAvaluoEnfoqueMercado', 'uses' => 'corevat_AvaluosController@delAvaluoEnfoqueMercado'));
+	// ENFOQUE MERCADO [COMPARATIVO DE TERRENOS]
+	Route::get('/corevat/AemCompTerrenosGet/{id?}', array('as' => 'getAemCompTerrenos', 'uses' => 'corevat_AvaluosController@getAemCompTerrenos'));
+	// ENFOQUE MERCADO [HOMOLOGACION]
+	Route::get('/corevat/AemHomologacionGet/{id?}', array('as' => 'getAemHomologacion', 'uses' => 'corevat_AvaluosController@getAemHomologacion'));
+	// ENFOQUE MERCADO [INFORMACION]
+	Route::get('/corevat/AemInformacionGet/{id?}', array('as' => 'getAemInformacion', 'uses' => 'corevat_AvaluosController@getAemInformacion'));
+	// ENFOQUE MERCADO [ANALISIS]
+	Route::get('/corevat/AemAnalisisGet/{id?}', array('as' => 'getAemAnalisis', 'uses' => 'corevat_AvaluosController@getAemAnalisis'));
+	
+	// ENFOQUE FISICO
+	Route::get('/corevat/AvaluoEnfoqueFisico/{id}', array('as' => 'editAvaluoEnfoqueFisico', 'uses' => 'corevat_AvaluosController@editFisico'));
+	Route::post('/corevat/AvaluoEnfoqueFisicoUpd/{id?}', array('as' => 'updateAvaluoEnfoqueFisico', 'uses' => 'corevat_AvaluosController@updateFisico'));
+	Route::post('/corevat/AvaluoEnfoqueFisicoDel/', array('as' => 'delAvaluoEnfoqueFisico', 'uses' => 'corevat_AvaluosController@delAvaluoEnfoqueFisico'));
+	// ENFOQUE FISICO [TERRENO]
+	Route::get('/corevat/AefTerrenosGet/{id?}', array('as' => 'getAefTerrenos', 'uses' => 'corevat_AvaluosController@getAefCompTerrenos'));
+	// ENFOQUE FISICO [CONSTRUCCIONES]
+	Route::get('/corevat/AefConstruccionesGet/{id?}', array('as' => 'getAefConstrucciones', 'uses' => 'corevat_AvaluosController@getAefConstrucciones'));
+	// ENFOQUE FISICO [CONDOMINIOS]
+	Route::get('/corevat/AefCondominiosGet/{id?}', array('as' => 'getAefCondominios', 'uses' => 'corevat_AvaluosController@getAefCondominios'));
+	// ENFOQUE FISICO [COMPARATIVO DE CONSTRUCCIONES]
+	Route::get('/corevat/AefCompConstruccionesGet/{id?}', array('as' => 'getAefCompConstrucciones', 'uses' => 'corevat_AvaluosController@getAefCompConstrucciones'));
+	// ENFOQUE FISICO [INSTALACIONES]
+	Route::get('/corevat/AefInstalacionesGet/{id?}', array('as' => 'getAefInstalaciones', 'uses' => 'corevat_AvaluosController@getAefInstalaciones'));
+	
+	// CONCLUSIONES
+	Route::get('/corevat/AvaluoConclusiones/{id}', array('as' => 'editAvaluoConclusiones', 'uses' => 'corevat_AvaluosController@editConclusiones'));
+	Route::post('/corevat/AvaluoConclusionesUpd/{id?}', array('as' => 'updateAvaluoConclusiones', 'uses' => 'corevat_AvaluosController@updateConclusiones'));
+	
+	// FOTOS Y PLANO
+	Route::get('/corevat/AvaluoFotos/{id}', array('as' => 'editAvaluoFotos', 'uses' => 'corevat_AvaluosController@editFotos'));
+	Route::post('/corevat/AvaluoFotosUpd/{id?}', array('as' => 'updateAvaluoFotos', 'uses' => 'corevat_AvaluosController@updateFotos'));
+	
 	Route::resource('corevat/Avaluos', 'corevat_AvaluosController');
-
-	Route::get('corevat/Avaluos/{id?}.{format}', array('as' => 'indexAvaluos', 'uses' => 'corevat_AvaluosController@index'));
-
-	Route::put('corevat/Avaluos/{id?}.{format}', array('as' => 'showAvaluos', 'uses' => 'corevat_AvaluosController@show'));
-
-	Route::post('corevat/Avaluos.{format}', array('as' => 'storeAvaluos', 'uses' => 'corevat_AvaluosController@store'));
-
-	Route::put('corevat/Avaluos/{id?}.{format}', array('as' => 'updateAvaluos', 'uses' => 'corevat_AvaluosController@update'));
-
-	Route::get('corevat/AvaluosE/{id}', array('as' => 'destroyAvaluos', 'uses' => 'corevat_AvaluosController@destroy'));
-
-
-	/*
-	 * 
-	 * AVALUO CONCLUSIONES
-	 * avaluo_conclusiones
-	 * 
-	 */
-	Route::resource('corevat/AvaluoConclusiones', 'corevat_AvaluoConclusionesController');
-
-	Route::get('corevat/AvaluoConclusiones/{id?}.{format}', array('as' => 'indexAvaluoConclusiones', 'uses' => 'corevat_AvaluoConclusionesController@index'));
-
-	Route::put('corevat/AvaluoConclusiones/{id?}.{format}', array('as' => 'showAvaluoConclusiones', 'uses' => 'corevat_AvaluoConclusionesController@show'));
-
-	Route::post('corevat/AvaluoConclusiones.{format}', array('as' => 'storeAvaluoConclusiones', 'uses' => 'corevat_AvaluoConclusionesController@store'));
-
-	Route::put('corevat/AvaluoConclusiones/{id?}.{format}', array('as' => 'updateAvaluoConclusiones', 'uses' => 'corevat_AvaluoConclusionesController@update'));
-
-	Route::get('corevat/AvaluoConclusionesE/{id}', array('as' => 'destroyAvaluoConclusiones', 'uses' => 'corevat_AvaluoConclusionesController@destroy'));
-
-
-
-	/*
-	 * 
-	 * AVALUO ENFOQUE FISICO
-	 * avaluo_enfoque_fisico
-	 * 
-	 */
-	Route::resource('corevat/AvaluoEnfoqueFisicoConclusiones', 'corevat_AvaluoEnfoqueFisicoConclusionesController');
-
-	Route::get('corevat/AvaluoEnfoqueFisico/{id?}.{format}', array('as' => 'indexAvaluoEnfoqueFisico', 'uses' => 'corevat_AvaluoEnfoqueFisicoController@index'));
-
-	Route::put('corevat/AvaluoEnfoqueFisico/{id?}.{format}', array('as' => 'showAvaluoEnfoqueFisico', 'uses' => 'corevat_AvaluoEnfoqueFisicoController@show'));
-
-	Route::post('corevat/AvaluoEnfoqueFisico.{format}', array('as' => 'storeAvaluoEnfoqueFisico', 'uses' => 'corevat_AvaluoEnfoqueFisicoController@store'));
-
-	Route::put('corevat/AvaluoEnfoqueFisico/{id?}.{format}', array('as' => 'updateAvaluoEnfoqueFisico', 'uses' => 'corevat_AvaluoEnfoqueFisicoController@update'));
-
-	Route::get('corevat/AvaluoEnfoqueFisicoE/{id}', array('as' => 'destroyAvaluoEnfoqueFisico', 'uses' => 'corevat_AvaluoEnfoqueFisicoController@destroy'));
-
-
-
-	/*
-	 * 
-	 * Enfoque Físico del Avaluo Comp Construcción
-	 * aef_comp_construcciones
-	 * 
-	 */
-	Route::resource('corevat/PatoConclusiones', 'corevat_AvaluoEnfoqueFisicoConclusionesController');
-
-	Route::get('corevat/AvaluoEnfoqueFisico/{id?}.{format}', array('as' => 'indexAvaluoEnfoqueFisico', 'uses' => 'corevat_AvaluoEnfoqueFisicoController@index'));
-
-	Route::put('corevat/AvaluoEnfoqueFisico/{id?}.{format}', array('as' => 'showAvaluoEnfoqueFisico', 'uses' => 'corevat_AvaluoEnfoqueFisicoController@show'));
-
-	Route::post('corevat/AvaluoEnfoqueFisico.{format}', array('as' => 'storeAvaluoEnfoqueFisico', 'uses' => 'corevat_AvaluoEnfoqueFisicoController@store'));
-
-	Route::put('corevat/AvaluoEnfoqueFisico/{id?}.{format}', array('as' => 'updateAvaluoEnfoqueFisico', 'uses' => 'corevat_AvaluoEnfoqueFisicoController@update'));
-
-	Route::get('corevat/AvaluoEnfoqueFisicoE/{id}', array('as' => 'destroyAvaluoEnfoqueFisico', 'uses' => 'corevat_AvaluoEnfoqueFisicoController@destroy'));
-
-
-
-	/*
-	 * 
-	 * PATO
-	 * pato
-	 * 
-	 */
-	Route::resource('corevat/PatoConclusiones', 'corevat_AvaluoEnfoqueFisicoConclusionesController');
-
-	Route::get('corevat/AvaluoEnfoqueFisico/{id?}.{format}', array('as' => 'indexAvaluoEnfoqueFisico', 'uses' => 'corevat_AvaluoEnfoqueFisicoController@index'));
-
-	Route::put('corevat/AvaluoEnfoqueFisico/{id?}.{format}', array('as' => 'showAvaluoEnfoqueFisico', 'uses' => 'corevat_AvaluoEnfoqueFisicoController@show'));
-
-	Route::post('corevat/AvaluoEnfoqueFisico.{format}', array('as' => 'storeAvaluoEnfoqueFisico', 'uses' => 'corevat_AvaluoEnfoqueFisicoController@store'));
-
-	Route::put('corevat/AvaluoEnfoqueFisico/{id?}.{format}', array('as' => 'updateAvaluoEnfoqueFisico', 'uses' => 'corevat_AvaluoEnfoqueFisicoController@update'));
-
-	Route::get('corevat/AvaluoEnfoqueFisicoE/{id}', array('as' => 'destroyAvaluoEnfoqueFisico', 'uses' => 'corevat_AvaluoEnfoqueFisicoController@destroy'));
 
 });
