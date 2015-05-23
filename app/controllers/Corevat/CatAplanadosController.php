@@ -22,7 +22,7 @@ class corevat_CatAplanadosController extends \BaseController {
 		$title_section = 'Catálogo de Aplanados';
 		$titleGrid = 'Catálogo de Aplanados';
 		$row = $this->catalogo;
-		$rows = CatAplanados::orderBy('aplanado', 'asc')->get();
+		$rows = CatAplanados::orderBy('aplanado')->get();
 		return ($format == 'json') ? $rows : View::make('CorevatCatalogos.CatAplanados.index', compact('title', 'title_section', 'row', 'rows', 'titleGrid'));
 	}
 
@@ -37,7 +37,7 @@ class corevat_CatAplanadosController extends \BaseController {
 		$titleGrid = 'Catálogo Aplanados';
 		$row = $this->catalogo;
 		$row->status = 1;
-		$rows = CatAplanados::orderBy('aplanado', 'asc')->get();
+		$rows = CatAplanados::orderBy('aplanado')->get();
 		return View::make('CorevatCatalogos.CatAplanados.create', compact('title', 'title_section', 'row', 'rows', 'titleGrid'));
 	}
 
