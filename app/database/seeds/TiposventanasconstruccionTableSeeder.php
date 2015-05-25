@@ -18,6 +18,10 @@ class TiposventanasconstruccionTableSeeder extends Seeder {
          DB::table('tiposventanasconstruccion')->insert(
             array('descripcion' => 'ALUMINIO', 'created_at' => date("Y-m-d H:i:s"),'updated_at' => date("Y-m-d H:i:s") )
         );
+         
+        DB::table('tiposventanasconstruccion')->insert(
+            array('descripcion' => 'SIN VENTANAS', 'created_at' => date("Y-m-d H:i:s"),'updated_at' => date("Y-m-d H:i:s") )
+        );
 	}
 
 }
