@@ -93,7 +93,8 @@ foreach ($girosasociados as $asoc) {
 @foreach($asocia as $asoc)
 {{Form::hidden('select[]',$asoc) }}
 @endforeach
-<ul class="list-unstyled column">  
+Seleccionar únicamente un giro
+<ul class="list-unstyled column"> 
     @foreach($giros as $row)
     <?php
     if (in_array($row->id_tipogiro, $asocia)) {
