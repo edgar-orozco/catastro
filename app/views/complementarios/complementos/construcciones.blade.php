@@ -100,7 +100,7 @@
     <thead>
         <tr>
             <th>Nivel</th>
-            <th>Superficie Construcción</th>
+            <th>Edad</th>
             <th>Clase Construcción</th>
             <th>Acciones</th>
         </tr>
@@ -111,7 +111,7 @@
         <tr>
 
             <td>{{$row->nivel}}</td>
-            <td>{{$row->sup_const}}</td>
+            <td>{{$row->edad_const}}</td>
             <td>{{$row->descripcion}}</td>
             <td>
                 
@@ -184,7 +184,7 @@ $("#const-nuevo").click(function(){
         $('.mensaje').html('');
         $("#const-nuevo").toggle();
         document.getElementById('nivel').value = '';
-        document.getElementById('superficie_construccion').value = '';
+        //document.getElementById('superficie_construccion').value = '';
         document.getElementById('edad_construccion').value = '';
         document.getElementById('uso_construccionc').value = '';
         document.getElementById('clase_construccion').value = '';
