@@ -892,7 +892,7 @@ class complementarios_ComplementariosController extends BaseController {
         $id_tipogiro = $inputs['giros'];
         $sup_terreno = $inputs['superficie_terreno'];
         $sup_constru = $inputs['superficie_construccion'];
-//mios 
+//mios        
         $eliminar = $inputs['eliminar'];
         $actuales = $inputs['select'];
         $contar = count($actuales);
@@ -933,7 +933,7 @@ class complementarios_ComplementariosController extends BaseController {
             }
             $count = count($total);
             for ($x = 0; $x < $count; $x++) {
-             // for ($x = 0; $x<1; $x++) {
+             //for ($x = 0; $x<1; $x++) {
                 $n = new Giros();
                 $n->entidad = $entidad;
                 $n->municipio = $municipio;
