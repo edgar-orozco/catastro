@@ -36,7 +36,7 @@
     <div class="login">
         <div class="panel">
             <div class="panel-heading">
-                <img src="http://104.236.22.240/css/images/main/logo-header.png">
+                <img src="/css/images/main/logo-header.png">
             </div>
             <div class="panel-body">
                 {{ Form::open(array('url' => 'users/login', 'method' => 'POST')) }}
