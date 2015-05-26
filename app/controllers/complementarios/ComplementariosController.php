@@ -321,6 +321,7 @@ class complementarios_ComplementariosController extends BaseController {
             $select_opc = '';
             $select_opcFooter = '';
             $extension = split('[.]', $imagen->nombre_archivo);
+            $nombre_archivo = split('[/]', $imagen->nombre_archivo);
             foreach ($tipo_imagen as $key => $descripcion) 
             {
                 if ($key==$imagen->id_tipoimagen) 
@@ -336,13 +337,14 @@ class complementarios_ComplementariosController extends BaseController {
             $select = "<select name='select-instalaciones' class='form-control' id='instalaciones'><option selected='selected' value=''>--Seleccione una opción--</option>".print_r($select_opc, true)."</select>";
             $eliminar = "<button type='button' class='kv-file-remove btn btn-xs btn-default' title='Remove file' data-url='/eliminar-anexo/".$imagen->id_il."' data-key='1'><i class='glyphicon glyphicon-trash text-danger'></i></button>";
             $download = "<a href='".$imagen->nombre_archivo."' download='".$extension[0]."' class='btn btn-xs btn-default' title='Descargar'><i class='glyphicon glyphicon-download'></i></a>";
+            $thumbnail_footer = "<div class='file-thumbnail-footer'><div class='file-caption-name' title='".$nombre_archivo[7]."' style='width: 266px;''>".$nombre_archivo[7]."</div></div>";
             if(in_array(strtolower($extension[1]), array('png','jpeg','gif','bmp','vnd.microsoft.icon', 'jpg')))
             {
-                $file[] = "<img src='" . $imagenes[0]->nombre_archivo . "' class='file-preview-image' >" . $select . $eliminar . $download;
+                $file[] = "<img src='" . $imagen->nombre_archivo . "' class='file-preview-image' >" . $thumbnail_footer . $select . $eliminar . $download;
             }
             else
             {
-                $file[] = "<span class='glyphicon glyphicon-file' ></span>" . $select . $eliminar . $download;
+                $file[] = "<span class='glyphicon glyphicon-file' ></span>" . $thumbnail_footer . $select . $eliminar . $download;
             }
         }
         $select_opcFooter = '';
@@ -1163,14 +1165,15 @@ class complementarios_ComplementariosController extends BaseController {
                     $select = "<select name='select-instalaciones' class='form-control' id='instalaciones'><option selected='selected' value=''>--Seleccione una opción--</option>".print_r($select_opc, true)."</select>";
                     $eliminar = "<button type='button' class='kv-file-remove btn btn-xs btn-default' title='Remove file' data-url='/eliminar-anexo/".$imagenes[0]->id_il."' data-key='1'><i class='glyphicon glyphicon-trash text-danger'></i></button>";
                     $download = "<a href='".$dir.$nombre_archivo."' download='".$extension[0]."' class='btn btn-xs btn-default' title='Descargar'><i class='glyphicon glyphicon-download'></i></a>";
+                    $thumbnail_footer = "<div class='file-thumbnail-footer'><div class='file-caption-name' title='".$nombre_archivo."' style='width: 300px;''>".$nombre_archivo."</div></div>";
                     //Condicion para saber si es imagen o archivo
                     if(in_array(strtolower($file2->getClientMimeType()), array('image/png','image/jpeg','image/gif','image/bmp','image/vnd.microsoft.icon')))
                     {
-                        $file_footer[] = "<img src='" . $imagenes[0]->nombre_archivo . "' class='file-preview-image' >" . $select . $eliminar . $download;
+                        $file_footer[] = "<img src='" . $imagenes[0]->nombre_archivo . "' class='file-preview-image' >" . $thumbnail_footer . $select . $eliminar . $download;
                     }
                     else
                     {
-                        $file_footer[] = "<span class='glyphicon glyphicon-file' ></span>" . $select . $eliminar . $download;
+                        $file_footer[] = "<span class='glyphicon glyphicon-file' ></span>" . $thumbnail_footer  . $select . $eliminar . $download;
                     }
                     $respuesta[]  =   '¡Se guardo correctamente el archivo: '. $file2->getClientMimeType();
                 }

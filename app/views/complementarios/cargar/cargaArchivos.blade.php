@@ -29,7 +29,7 @@
 
 
 
-var footerTemplate = '<select name="select-instalaciones" class="form-control" id="instalaciones"> '+
+var footerTemplate = '{caption}<select name="select-instalaciones" class="form-control" id="instalaciones"> '+
                         '<option selected="selected" value="">--Seleccione una opción--</option>'+
                         "{{$select_opcFooter}}"+
                      '</select>'+
@@ -109,6 +109,7 @@ $('#file').on('fileloaded', function(event, file, previewId, index, reader)
 		uploadAsync: false,
 		maxFileCount: 5,
 		layoutTemplates: {footer: footerTemplate},
+        overwriteInitial: false,
         initialPreview: imagen,
         allowedFileExtensions: ["jpg", "gif", "png", "txt", "pdf", "doc", "csv", "xlsx", "ppt", "pptx"],
 		uploadExtraData: function()
