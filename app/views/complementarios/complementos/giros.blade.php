@@ -93,26 +93,27 @@ foreach ($girosasociados as $asoc) {
 @foreach($asocia as $asoc)
 {{Form::hidden('select[]',$asoc) }}
 @endforeach
-Seleccionar únicamente un giro
-<ul class="list-unstyled column"> 
+<ul class="list-unstyled column">  
     @foreach($giros as $row)
     <?php
     if (in_array($row->id_tipogiro, $asocia)) {
-        $bot = '';
-        $input = "<div class='btn-group btn-toggle botones-requisitos' data-toggle='buttons'><label class='btn btn-sm btn-info'>$row->descripcion<input type='checkbox' name='eliminar[]' value=$row->id_tipogiro ></label></div>";
+       $bot = '';
+        $input = "<div class='btn-group btn-toggle botones-requisitos' data-toggle='buttons'><label class='btn btn-sm btn-info'>$row->descripcion<input type='checkbox' name='eliminar[]' value=$row->id_tipogiro></label></div>";
     } elseif($row->id_tipogiro <> $asocia) {
-        
-        $input = '';
-        $bot = "<div class='btn-group btn-toggle botones-requisitos' data-toggle='buttons'><label class='btn btn-sm btn-default'>$row->descripcion<input type='checkbox'  name='giros[1]' value='$row->id_tipogiro'></label></div>";
+       $input = '';
+       $bot="<div class='btn-group btn-toggle botones-requisitos' data-toggle='buttons'><label class='btn btn-sm btn-default'>$row->descripcion<input type='checkbox' name='giros[]' value=$row->id_tipogiro></label></div>";
     }
     ?>
-    <li class="column"><?php echo $input; echo $bot; ?>
+    
+
+
+    <li class="column"><?php echo $input; echo $bot ?>
         
     </li>
     @endforeach
 
 </ul>
-<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+<br><br><br><br><br><br><br><br><br><br><br>
 <div class="col-md-6">
 <div class="form-group">
  <button type="submit" class="btn btn-primary next">
