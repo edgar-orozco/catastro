@@ -19,11 +19,11 @@ class complementarios_ComplementariosPDFController extends BaseController {
         }
         $clave = $entidad . '-' . $municipio . '-' . $cla;
 
-//        $prop = DB::SELECT("SELECT datos_propietarios('$clave')");
-//      
-//        foreach ($prop as $row) {
-//            $item = explode(",", $row->datos_propietarios);
-//        }
+        $prop = DB::SELECT("SELECT datos_propietarios('$clave')");
+      
+        foreach ($prop as $row) {
+            $item = explode(",", $row->datos_propietarios);
+        }
         $clave_catas = $predios->clave_catas;
         $condominio = condominios::WHERE('clave_catas', '=', $clave_catas)->get();
         $imagenes = ImagenesLevantamiento::WHERE('clave_catas', '=', $clave_catas)->select('nombre_archivo')->get();

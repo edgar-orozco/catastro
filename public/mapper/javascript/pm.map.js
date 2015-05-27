@@ -562,6 +562,8 @@ $.extend(PM.Map,
                     // Sample how to open a link in a p.mapper dialog box
                     DlgOptions = {width:700, height:500, resizeable:true, newsize:false, container:'pmDlgContainerHyperlink'};
                     var dlg = PM.Dlg.createDnRDlg(DlgOptions, 'Resultado', false);
+                        var str = response.domicilio; 
+                        var res = str.slice(-23);
 var h = "      <div>";
 h += "        <br/>";
 h += "        <table cellspacing=\"0\" cellpadding=\"0\" border=\"0\" style=\"margin: 0 auto;\">";
@@ -611,7 +613,7 @@ h += '                <td"></td>' ;
 h += "            </tr>";
 h += "            <tr>";
 h += '                <td style="text-align: right; font-weight: bold;">Descargar Cédula: </td>' ;
-h += '                <td><a href="/complementospdf/'+response.clave_catas+'" target="_blank">Descargar</a></td>' ;
+h += '                <td><a href="/complementospdf/'+response.clave_catas+''+response.mapURL+'/'+res+'/" target="_blank">Descargar</a></td>' ;
 h += "            </tr>";
 h += "          </tbody>";
 h += "        </table>";

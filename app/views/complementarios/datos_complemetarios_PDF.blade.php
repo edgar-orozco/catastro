@@ -13,19 +13,33 @@
                 font-family: arial;
                 font-size:8px;
             }
+            table {
+                border: 1px solid #dddddd;
+                text-align: center;
+                border-collapse: collapse;
+
+            }
+              td, th {
+                /*padding: 0.3em;*/
+            }
+            th, td {
+                border: 1px solid #dddddd;
+                width: 15%;
+            }
+
             .invitacionPage
             {
                 page: invitacion;
                 page-break-after: always;
             }
-            table tr {
+/*            table tr {
                 border: 1px solid black;
                 font-size:14px;
             }
             table td th {
                 padding: 5px;
                 text-align: left;
-            }
+            }*/
             .letras{
                 margin-left: 400px;
                 margin-top: 0px;
@@ -37,12 +51,12 @@
     </head>
     <body>
         <div class="invitacionPage"> 
-            <table >
+           <table style="border:none;">
                 <tr>
-                    <td><img src="css/images/main/main-logo.png" width="140" height="88" alt="Catastro"/></td>
-                    <td><img src="css/images/home/secrt.png" width="140" height="88" alt="Secretaria de planeacion y finanzas"/></td>
-                    <td> <img src="css/images/main/logo-header.png" width="92" height="88" alt="Catastro"></td>
-                    <td align="right" width="250">Gobierno del Estado de Tabasco<br>
+                    <td style="border:none;"><img src="css/images/main/main-logo.png" width="140" height="88" alt="Catastro"/></td>
+                    <td style="border:none;"><img src="css/images/home/secrt.png" width="140" height="88" alt="Secretaria de planeacion y finanzas"/></td>
+                    <td style="border:none;"> <img src="css/images/main/logo-header.png" width="92" height="88" alt="Catastro"></td>
+                    <td  style="border:none;" align="right" width="250">Gobierno del Estado de Tabasco<br>
                         Secretaria de Planeción y Finanzas<br>
                         Dirección General de Catastro
                         <p>Av.Adolfo Ruiz Cortinez s/n<br>Col. Casa Blanca C.P.86060 <br>Villahermosa Tabasco</p>
@@ -52,7 +66,7 @@
             <br>
             <p class="encabezado"><strong>Cédula Unica Catastral</strong></p>
             <div class="header"> 
-                <table  rules="all">
+                <table >
                     <tr>
                         <?php
                         foreach ($predios as $predio) {
@@ -72,12 +86,12 @@
             </div>
             <br>
             <div class="info-propietario">
-                <table style="width:100%"    rules="all">
+                <table style="width:100%">
                     <tr>
                         <td width="5%" class='row'> Tipo Propietario </td>
-                        <td width="10%" class='row'> Apellido Paterno </td>
-                        <td width="10%" class='row'> Apellido Materno </td>
-                        <td width="10%" class='row'> Nombre(s) ó Razón Social </td>
+                        <td width="8%" class='row'> Apellido Paterno </td>
+                        <td width="8%" class='row'> Apellido Materno </td>
+                        <td width="8%" class='row'> Nombre(s) ó Razón Social </td>
                         <td width="10%" class='row'> Curp </td>
                     </tr>
                     <tr>
@@ -125,16 +139,22 @@
                         } else if ($predios->municipio = 017) {
                             $num = '017';
                         }
-                        $clave_cat = $predio->entidad . '-' . $num . '-' . $clave;
-                        $prop = DB::SELECT("SELECT datos_propietarios('$clave_cat')");
-                        foreach ($prop as $row) {
-                            $item = explode(' ', $row->datos_propietarios);
+//                        $clave_cat = $predio->entidad . '-' . $num . '-' . $clave;
+//                        $prop = DB::SELECT("SELECT datos_propietarios('$clave_cat')");
+//                        foreach ($prop as $row) {
+//                            $item = explode(' ', $row->datos_propietarios);
+//                        }
+
+                        foreach ($nombre as $row) {
+                            $row;
                         }
+//                        $item=explode(' ',$nombre);
+//                         echo $item;
                         ?>
-                        <td class='row'><?php echo$item[0] ?></td>
-                        <td class='row'><?php echo$item[1] ?></td>
-                        <td class='row'><?php echo$item[2] ?></td>
-                        <td class='row'><?php echo$item[3] ?></td>
+                        <td colspan="3" ><?php echo $row; ?></td>
+
+                        <td ></td>
+
                     </tr>
                 </table>
             </div>
@@ -181,7 +201,7 @@
                 }
                 ?>
                 <br>
-                <table style="width:100%"  rules="all">
+                <table style="width:100%"  >
                     <tr>
                         <td width="10%">Tipo de Dato :</td>
                         <td width="10%">Catastro:</td>
@@ -216,7 +236,7 @@
                     </tr>
                     <tr>
                         <td>Localidad</td>
-                        <td></td>
+                        <td>{{$localidad[2]}}</td>
                         <td></td>
                     </tr>
                     </tr>
@@ -228,13 +248,13 @@
                     </tr>
                     <tr>
                         <td>Num de Exterior:</td>
-                        <td></td>
+                        <td>{{$localidad[0]}}</td>
                         <td></td>
                     </tr>
                     </tr>
                     <tr>
                         <td>Num de Predio:</td>
-                        <td></td>
+                        <td>{{$numpredio}}</td>
                         <td></td>
                     </tr>
                     </tr>
@@ -246,7 +266,7 @@
                     </tr>
                     <tr>
                         <td>Num de Interior:</td>
-                        <td></td>
+                        <td>{{$localidad[0]}}</td>
                         <td></td>
                     </tr>
                     </tr>
@@ -258,19 +278,24 @@
                     </tr>
                     <tr>
                         <td>Código Postal:</td>
-                        <td></td>
+                        <td>{{$localidad[4]}}</td>
                         <td></td>
                     </tr>
                     </tr>
                     <tr>
+                        <?php
+                        foreach ($lat as $long) {
+                            $latitud = $long->xmax;
+                            $longitud = $long->ymax;
+                        }
+                        ?>
                         <td>Centroide del Predio Latitud:</td>
-                        <td><?php echo $predios->geo; ?></td>
+                        <td><?php //echo $predios->geo;     ?><?php echo $latitud ?></td>
                         <td></td>
-                    </tr>
                     </tr>
                     <tr>
                         <td>Centroide del Predio Longitud:</td>
-                        <td></td>
+                        <td><?php echo $longitud; ?></td>
                         <td></td>
                     </tr>
                     </tr>
@@ -323,7 +348,7 @@
                 </table>
                 <br>
                 <br>
-                <table  style="width:100%">
+                <table width="100%" style="border:none;">
                     <?php
 //                    echo $imagenes;
                     ?>
@@ -331,9 +356,11 @@
                         <?php
                         foreach ($imagenes as $url) {
                             ?>
-                            <td width="16%"><img  src=".<?php echo $url->nombre_archivo ?>"width="200" height="150"/></td>
+                            <td style="border:none;" width="16%"><img  src=".<?php echo $url->nombre_archivo ?>"width="200" height="150"/></td>
                         <?php } ?>
-                        <!--<td width="20%" style="text-align: center;"><img width="300" height="250" src="/complementarios/anexos/008/002/0007/002-0007-000008/1-2-22-05-15-0020007000008.jpg"/></td>-->
+                        <td  style="border:none;" width="16%"><img  src="<?php echo $img . '/' . $dir; ?>" width="200" height="150"/></td>
+
+<!--<td width="20%" style="text-align: center;"><img width="300" height="250" src="/complementarios/anexos/008/002/0007/002-0007-000008/1-2-22-05-15-0020007000008.jpg"/></td>-->
                     </tr>
                 </table> 
 
