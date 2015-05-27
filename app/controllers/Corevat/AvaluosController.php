@@ -411,7 +411,7 @@ class corevat_AvaluosController extends \BaseController {
 			$row->carpinteria = $inputs["carpinteria"];
 			$row->herreria = $inputs["herreria"];
 
-			$row->superficie_total_terreno = number_format( (float) $inputs["superficie_total_terreno"], 4);
+			$row->superficie_total_terreno = number_format((float) $inputs["superficie_total_terreno"], 4);
 			$row->indiviso_terreno = $inputs["indiviso_terreno"];
 			$row->superficie_terreno = $inputs["superficie_terreno"];
 			$row->indiviso_areas_comunes = $inputs["indiviso_areas_comunes"];
@@ -426,13 +426,13 @@ class corevat_AvaluosController extends \BaseController {
 			$row->modi_el = date('Y-m-d H:i:s');
 			$message = '¡El registro fue modificado satisfactoriamente!';
 
-			if ( Input::hasFile('croquis')  ) {
-				$row->croquis = 'croquis-'.$row->idavaluo.'.jpg';
+			if (Input::hasFile('croquis')) {
+				$row->croquis = 'croquis-' . $row->idavaluo . '.jpg';
 				Input::file('croquis')->move(public_path() . '/corevat/', $row->croquis);
 				$message .= '<br />¡El croquis se subido atisfactoriamente!';
 			}
-			if ( Input::hasFile('fachada')  ) {
-				$row->fachada = 'fachada-'.$row->idavaluo.'.jpg';
+			if (Input::hasFile('fachada')) {
+				$row->fachada = 'fachada-' . $row->idavaluo . '.jpg';
 				Input::file('fachada')->move(public_path() . '/corevat/', $row->fachada);
 				$message .= '<br />¡La imagen de la fachada se subida atisfactoriamente!';
 			}
@@ -554,8 +554,8 @@ class corevat_AvaluosController extends \BaseController {
 		$row = Avaluos::find($id);
 		$title = 'Conclusiones: ' . $row['foliocoretemp'];
 		$row = Avaluos::find($id)->AvaluosConclusiones;
-
 		return View::make('Corevat.Avaluos.avaluos', compact('opt', 'idavaluo', 'title', 'row'));
+		//return $row;
 	}
 
 	/**
@@ -581,7 +581,26 @@ class corevat_AvaluosController extends \BaseController {
 	 * @return Response
 	 */
 	public function updateConclusiones($id) {
-		
+		$inputs = Input::All();
+		$row = Avaluos::find($id)->AvaluosConclusiones;
+		//$row->valor_fisico = $row->valor_fisico;
+		//$row->valor_mercado = $row->valor_mercado;
+		$row->factor_seleccion_valor = $inputs["factor_seleccion_valor"];
+		if ( $inputs["factor_seleccion_valor"] == '1' ) {
+			$row->valor_concluido = $row->valor_fisico;
+		} else {
+			$row->valor_concluido = $row->valor_mercado;
+		}
+			$row->leyenda = $inputs["leyenda"];
+		//$row->sello = '';
+		//$row->firma = '';
+		$row->idemp = 1;
+		$row->ip = $_SERVER['REMOTE_ADDR'];
+		$row->host = isset($_SERVER['HTTP_CLIENT_IP']) ? $_SERVER['HTTP_CLIENT_IP'] : '';
+		$row->modi_por = 1;
+		$row->modi_el = date('Y-m-d H:i:s');
+		$row->save();
+		return Redirect::to('/corevat/AvaluoConclusiones/' . $id)->with('success', '¡La modificación se efectuo correctamente!');
 	}
 
 	/**
@@ -591,7 +610,53 @@ class corevat_AvaluosController extends \BaseController {
 	 * @return Response
 	 */
 	public function updateFotos($id) {
+		$inputs = Input::All();
+		$row = Avaluos::find($id)->AvaluosFotos;
 		
+		$row->ftitulo0 = $inputs["ftitulo0"];
+		$row->ftitulo1 = $inputs["ftitulo1"];
+		$row->ftitulo2 = $inputs["ftitulo2"];
+		$row->ftitulo3 = $inputs["ftitulo3"];
+		$row->ftitulo4 = $inputs["ftitulo4"];
+		$row->ftitulo5 = $inputs["ftitulo5"];
+		$row->ptitulo0 = $inputs["ptitulo0"];
+
+		$row->ip = $_SERVER['REMOTE_ADDR'];
+		$row->host = isset($_SERVER['HTTP_CLIENT_IP']) ? $_SERVER['HTTP_CLIENT_IP'] : '';
+		$row->modi_por = 1;
+		$row->modi_el = date('Y-m-d H:i:s');
+
+		if (Input::hasFile('foto0')) {
+			$row->foto0 = 'foto0-' . $row->idavaluo . '.jpg';
+			Input::file('foto0')->move(public_path() . '/corevat/', $row->foto0);
+		}
+		if (Input::hasFile('foto1')) {
+			$row->foto1 = 'foto1-' . $row->idavaluo . '.jpg';
+			Input::file('foto1')->move(public_path() . '/corevat/', $row->foto1);
+		}
+		if (Input::hasFile('foto2')) {
+			$row->foto2 = 'foto2-' . $row->idavaluo . '.jpg';
+			Input::file('foto2')->move(public_path() . '/corevat/', $row->foto2);
+		}
+		if (Input::hasFile('foto3')) {
+			$row->foto3 = 'foto3-' . $row->idavaluo . '.jpg';
+			Input::file('foto3')->move(public_path() . '/corevat/', $row->foto3);
+		}
+		if (Input::hasFile('foto4')) {
+			$row->foto4 = 'foto4-' . $row->idavaluo . '.jpg';
+			Input::file('foto4')->move(public_path() . '/corevat/', $row->foto4);
+		}
+		if (Input::hasFile('foto5')) {
+			$row->foto5 = 'foto5-' . $row->idavaluo . '.jpg';
+			Input::file('foto5')->move(public_path() . '/corevat/', $row->foto5);
+		}
+		if (Input::hasFile('plano0')) {
+			$row->plano0 = 'plano0-' . $row->idavaluo . '.jpg';
+			Input::file('plano0')->move(public_path() . '/corevat/', $row->plano0);
+		}
+		$row->save();
+
+		return Redirect::to('/corevat/AvaluoFotos/' . $id)->with('success', '¡La modificación se efectuo correctamente!');
 	}
 
 	/**
@@ -1148,49 +1213,49 @@ class corevat_AvaluosController extends \BaseController {
 		Avaluos::where('idavaluo', '=', $id)->delete();
 
 		$dir = public_path() . '/corevat/';
-		if ( file_exists($dir . 'croquis-' . $id . '.jpg') ) {
-			if ( !unlink($dir . 'croquis-' . $id . '.jpg') ) {
-				$message .= '<br />El archivo "croquis-'.$id.'.jpg" no se pudo eliminar';
+		if (file_exists($dir . 'croquis-' . $id . '.jpg')) {
+			if (!unlink($dir . 'croquis-' . $id . '.jpg')) {
+				$message .= '<br />El archivo "croquis-' . $id . '.jpg" no se pudo eliminar';
 			}
 		}
-		if ( file_exists($dir . 'fachada-' . $id . '.jpg') ) {
-			if ( !unlink($dir . 'fachada-' . $id . '.jpg') ) {
-				$message .= '<br />El archivo "fachada-'.$id.'.jpg" no se pudo eliminar';
+		if (file_exists($dir . 'fachada-' . $id . '.jpg')) {
+			if (!unlink($dir . 'fachada-' . $id . '.jpg')) {
+				$message .= '<br />El archivo "fachada-' . $id . '.jpg" no se pudo eliminar';
 			}
 		}
-		if ( file_exists($dir . 'foto0-' . $id . '.jpg') ) {
-			if ( !unlink($dir . 'foto0-' . $id . '.jpg') ) {
-				$message .= '<br />El archivo "foto0-'.$id.'.jpg" no se pudo eliminar';
+		if (file_exists($dir . 'foto0-' . $id . '.jpg')) {
+			if (!unlink($dir . 'foto0-' . $id . '.jpg')) {
+				$message .= '<br />El archivo "foto0-' . $id . '.jpg" no se pudo eliminar';
 			}
 		}
-		if ( file_exists($dir . 'foto1-' . $id . '.jpg') ) {
-			if ( !unlink($dir . 'foto1-' . $id . '.jpg') ) {
-				$message .= '<br />El archivo "foto1-'.$id.'.jpg" no se pudo eliminar';
+		if (file_exists($dir . 'foto1-' . $id . '.jpg')) {
+			if (!unlink($dir . 'foto1-' . $id . '.jpg')) {
+				$message .= '<br />El archivo "foto1-' . $id . '.jpg" no se pudo eliminar';
 			}
 		}
-		if ( file_exists($dir . 'foto2-' . $id . '.jpg') ) {
-			if ( !unlink($dir . 'foto2-' . $id . '.jpg') ) {
-				$message .= '<br />El archivo "foto2-'.$id.'.jpg" no se pudo eliminar';
+		if (file_exists($dir . 'foto2-' . $id . '.jpg')) {
+			if (!unlink($dir . 'foto2-' . $id . '.jpg')) {
+				$message .= '<br />El archivo "foto2-' . $id . '.jpg" no se pudo eliminar';
 			}
 		}
-		if ( file_exists($dir . 'foto3-' . $id . '.jpg') ) {
-			if ( !unlink($dir . 'foto3-' . $id . '.jpg') ) {
-				$message .= '<br />El archivo "foto3-'.$id.'.jpg" no se pudo eliminar';
+		if (file_exists($dir . 'foto3-' . $id . '.jpg')) {
+			if (!unlink($dir . 'foto3-' . $id . '.jpg')) {
+				$message .= '<br />El archivo "foto3-' . $id . '.jpg" no se pudo eliminar';
 			}
 		}
-		if ( file_exists($dir . 'foto4-' . $id . '.jpg') ) {
-			if ( !unlink($dir . 'foto4-' . $id . '.jpg') ) {
-				$message .= '<br />El archivo "foto4-'.$id.'.jpg" no se pudo eliminar';
+		if (file_exists($dir . 'foto4-' . $id . '.jpg')) {
+			if (!unlink($dir . 'foto4-' . $id . '.jpg')) {
+				$message .= '<br />El archivo "foto4-' . $id . '.jpg" no se pudo eliminar';
 			}
 		}
-		if ( file_exists($dir . 'foto5-' . $id . '.jpg') ) {
-			if ( !unlink($dir . 'foto5-' . $id . '.jpg') ) {
-				$message .= '<br />El archivo "foto5-'.$id.'.jpg" no se pudo eliminar';
+		if (file_exists($dir . 'foto5-' . $id . '.jpg')) {
+			if (!unlink($dir . 'foto5-' . $id . '.jpg')) {
+				$message .= '<br />El archivo "foto5-' . $id . '.jpg" no se pudo eliminar';
 			}
 		}
-		if ( file_exists($dir . 'plano0-' . $id . '.jpg') ) {
-			if ( !unlink($dir . 'plano0-' . $id . '.jpg') ) {
-				$message .= '<br />El archivo "plano0-'.$id.'.jpg" no se pudo eliminar';
+		if (file_exists($dir . 'plano0-' . $id . '.jpg')) {
+			if (!unlink($dir . 'plano0-' . $id . '.jpg')) {
+				$message .= '<br />El archivo "plano0-' . $id . '.jpg" no se pudo eliminar';
 			}
 		}
 

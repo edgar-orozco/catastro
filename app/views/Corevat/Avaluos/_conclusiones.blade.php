@@ -1,6 +1,6 @@
 <h3 class="header">{{$title}}</h3>
 <hr>
-{{ Form::model($row, ['route' => array('updateAvaluoConclusiones', $row->idavaluo), 'method'=>'put', 'id'=>'formAvaluoConclusiones' ]) }}
+{{ Form::model($row, ['route' => array('updateAvaluoConclusiones', $row->idavaluo), 'method'=>'post', 'id'=>'formAvaluoConclusiones' ]) }}
 <div class="row">
 	<div class="col-md-3">
 		{{Form::label('valor_fisico', 'Valor Físico:')}}
@@ -26,7 +26,10 @@
 		{{Form::textarea('leyenda', $row->leyenda, ['class'=>'form-control'] )}}
 	</div>
 	<div class="col-md-12">&nbsp;</div>
-	
+	<div class="col-md-12 form-actions form-group">
+		{{Form::submit('Guardar', ['class'=>'btn btn-primary'])}}
+		<a href="{{URL::route('indexAvaluos')}}" class="btn btn-primary" role="button"><i class="glyphicon glyphicon-arrow-left"></i> Regresar</a>
+	</div>
 </div>
 {{Form::close()}}
 @section('javascript')

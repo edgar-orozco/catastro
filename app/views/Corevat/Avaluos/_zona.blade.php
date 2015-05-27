@@ -155,7 +155,6 @@
 		{{$errors->first('nivel_equipamiento', '<span class=text-danger>:message</span>')}}
 		<hr>
 	</div>
-
 	<div class="col-md-4">
 		{{Form::label('idclasificacionzona', 'Clasificación de la Zona')}}
 		{{Form::select('idclasificacionzona', $cat_clasificacion_zona, $row->idclasificacionzona, ['id' => 'idclasificacionzona', 'class'=>'form-control'])}}
