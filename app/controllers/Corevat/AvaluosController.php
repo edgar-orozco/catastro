@@ -30,8 +30,9 @@ class corevat_AvaluosController extends \BaseController {
 		$title = 'COREVAT';
 		$title_section = 'Avaluos';
 		$row = $this->avaluo;
-		$row['fecha_reporte'] = date("d/m/Y");
-		$row['fecha_avaluo'] = date("d/m/Y");
+		$row['fecha_reporte'] = date("d-m-Y");
+		$row['fecha_avaluo'] = date("d-m-Y");
+		$row['lon0'] = $row['lon1'] = $row['lat0'] = $row['lat1'] = 0;
 		$estados = Estados::comboList();
 		$municipios = Municipios::comboList();
 		$cat_tipo_inmueble = CatTipoInmueble::comboList();
@@ -48,11 +49,15 @@ class corevat_AvaluosController extends \BaseController {
 	public function store() {
 		$inputs = Input::All();
 		$rules = array(
-			'fecha_reporte' => 'required|date_format:"d/m/Y"',
-			'fecha_avaluo' => 'required|date_format:"d/m/Y"',
+			'fecha_reporte' => 'required|date_format:"d-m-Y"',
+			'fecha_avaluo' => 'required|date_format:"d-m-Y"',
 			'foliocoretemp' => 'required',
 			'proposito' => 'required',
 			'finalidad' => 'required',
+			'lon0' => 'integer|min:0',
+			'lon1' => 'integer|min:0',
+			'lat0' => 'integer|min:0',
+			'lat2' => 'integer|min:0',
 		);
 		$validate = Validator::make($inputs, $rules);
 		if ($validate->fails()) {
@@ -101,7 +106,7 @@ class corevat_AvaluosController extends \BaseController {
 			$this->insAvaluoFisico($row->idavaluo);
 			$this->insAvaluoConclusiones($row->idavaluo);
 			$this->insAvaluoFotos($row->idavaluo);
-			return Redirect::to('corevat/Avaluos/create')->with('success', '¡El Avaluo fue creado satisfactoriamente!');
+			return Redirect::to('corevat/Avaluos/create')->with('success', '¡El Avalúo fue creado satisfactoriamente!');
 		}
 	}
 
@@ -135,8 +140,10 @@ class corevat_AvaluosController extends \BaseController {
 		$idavaluo = $id;
 		$opt = 'general';
 		$row = Avaluos::find($id);
-		$row->fecha_reporte = date("d/m/Y", strtotime($row->fecha_reporte));
-		$row->fecha_avaluo = date("d/m/Y", strtotime($row->fecha_avaluo));
+		$row->fecha_reporte = date("d-m-Y", strtotime($row->fecha_reporte));
+		$row->fecha_avaluo = date("d-m-Y", strtotime($row->fecha_avaluo));
+		$row->is_otro_servicio = 0;
+		$row->is_otro_equipamiento = 0;
 		$title = 'Editando el registro: ' . $row['foliocoretemp'];
 		$estados = Estados::comboList();
 		$municipios = Municipios::comboList();
@@ -155,11 +162,15 @@ class corevat_AvaluosController extends \BaseController {
 		$inputs = Input::All();
 		$row = Avaluos::find($id);
 		$rules = array(
-			'fecha_reporte' => 'required|date_format:"d/m/Y"',
-			'fecha_avaluo' => 'required|date_format:"d/m/Y"',
+			'fecha_reporte' => 'required|date_format:"d-m-Y"',
+			'fecha_avaluo' => 'required|date_format:"d-m-Y"',
 			'foliocoretemp' => 'required',
 			'proposito' => 'required',
 			'finalidad' => 'required',
+			'lon0' => 'integer|min:0',
+			'lon1' => 'integer|min:0',
+			'lat0' => 'integer|min:0',
+			'lat2' => 'integer|min:0',
 		);
 		$validate = Validator::make($inputs, $rules);
 		if ($validate->fails()) {
@@ -233,41 +244,49 @@ class corevat_AvaluosController extends \BaseController {
 	public function updateZona($id) {
 		$inputs = Input::All();
 		$row = Avaluos::find($id)->AvaluosZona;
-		$row->idavaluo = $id;
-		$row->is_agua_potable = isset($inputs["is_agua_potable"]) ? 1 : 0;
-		$row->is_guarniciones = isset($inputs["is_guarniciones"]) ? 1 : 0;
-		$row->is_drenaje = isset($inputs["is_drenaje"]) ? 1 : 0;
-		$row->is_banqueta = isset($inputs["is_banqueta"]) ? 1 : 0;
-		$row->is_electricidad = isset($inputs["is_electricidad"]) ? 1 : 0;
-		$row->is_telefono = isset($inputs["is_telefono"]) ? 1 : 0;
-		$row->is_pavimentacion = isset($inputs["is_pavimentacion"]) ? 1 : 0;
-		$row->is_transporte_publico = isset($inputs["is_transporte_publico"]) ? 1 : 0;
-		$row->is_alumbrado_publico = isset($inputs["is_alumbrado_publico"]) ? 1 : 0;
-		$row->is_otro_servicio = isset($inputs["is_otro_servicio"]) ? 1 : 0;
-		$row->otro_servicio_municipal = isset($inputs["otro_servicio_municipal"]) ? $inputs["otro_servicio_municipal"] : '';
-		$row->is_escuela = isset($inputs["is_escuela"]) ? 1 : 0;
-		$row->is_iglesia = isset($inputs["is_iglesia"]) ? 1 : 0;
-		$row->is_banco = isset($inputs["is_banco"]) ? 1 : 0;
-		$row->is_comercio = isset($inputs["is_comercio"]) ? 1 : 0;
-		$row->is_hospital = isset($inputs["is_hospital"]) ? 1 : 0;
-		$row->is_parque = isset($inputs["is_parque"]) ? 1 : 0;
-		$row->is_transporte = isset($inputs["is_transporte"]) ? 1 : 0;
-		$row->is_gasolinera = isset($inputs["is_gasolinera"]) ? 1 : 0;
-		$row->is_mercado = isset($inputs["is_mercado"]) ? 1 : 0;
-		$row->is_otro_equipamiento = isset($inputs["is_otro_equipamiento"]) ? 1 : 0;
-		$row->cobertura = $inputs["cobertura"];
-		$row->otro_equipamiento = isset($inputs["otro_equipamiento"]) ? $inputs["otro_equipamiento"] : '';
-		$row->nivel_equipamiento = $inputs["nivel_equipamiento"];
-		$row->idclasificacionzona = $inputs["idclasificacionzona"];
-		$row->idproximidadurbana = $inputs["idproximidadurbana"];
-		$row->construc_predominante = $inputs["construc_predominante"];
-		$row->vias_acceso_importante = $inputs["vias_acceso_importante"];
-		$row->ip = $_SERVER['REMOTE_ADDR'];
-		$row->host = isset($_SERVER['HTTP_CLIENT_IP']) ? $_SERVER['HTTP_CLIENT_IP'] : '';
-		$row->modi_por = 1;
-		$row->modi_el = date('Y-m-d H:i:s');
-		$row->save();
-		return Redirect::to('/corevat/AvaluoZona/' . $id)->with('success', '¡La modificación se efectuo correctamente!');
+		$rules = array(
+			'nivel_equipamiento' => 'integer|min:0',
+		);
+		$validate = Validator::make($inputs, $rules);
+		if ($validate->fails()) {
+			return Redirect::back()->withInput()->withErrors($validate);
+		} else {
+			$row->idavaluo = $id;
+			$row->is_agua_potable = isset($inputs["is_agua_potable"]) ? 1 : 0;
+			$row->is_guarniciones = isset($inputs["is_guarniciones"]) ? 1 : 0;
+			$row->is_drenaje = isset($inputs["is_drenaje"]) ? 1 : 0;
+			$row->is_banqueta = isset($inputs["is_banqueta"]) ? 1 : 0;
+			$row->is_electricidad = isset($inputs["is_electricidad"]) ? 1 : 0;
+			$row->is_telefono = isset($inputs["is_telefono"]) ? 1 : 0;
+			$row->is_pavimentacion = isset($inputs["is_pavimentacion"]) ? 1 : 0;
+			$row->is_transporte_publico = isset($inputs["is_transporte_publico"]) ? 1 : 0;
+			$row->is_alumbrado_publico = isset($inputs["is_alumbrado_publico"]) ? 1 : 0;
+			$row->is_otro_servicio = isset($inputs["is_otro_servicio"]) ? 1 : 0;
+			$row->otro_servicio_municipal = isset($inputs["otro_servicio_municipal"]) ? $inputs["otro_servicio_municipal"] : '';
+			$row->is_escuela = isset($inputs["is_escuela"]) ? 1 : 0;
+			$row->is_iglesia = isset($inputs["is_iglesia"]) ? 1 : 0;
+			$row->is_banco = isset($inputs["is_banco"]) ? 1 : 0;
+			$row->is_comercio = isset($inputs["is_comercio"]) ? 1 : 0;
+			$row->is_hospital = isset($inputs["is_hospital"]) ? 1 : 0;
+			$row->is_parque = isset($inputs["is_parque"]) ? 1 : 0;
+			$row->is_transporte = isset($inputs["is_transporte"]) ? 1 : 0;
+			$row->is_gasolinera = isset($inputs["is_gasolinera"]) ? 1 : 0;
+			$row->is_mercado = isset($inputs["is_mercado"]) ? 1 : 0;
+			$row->is_otro_equipamiento = isset($inputs["is_otro_equipamiento"]) ? 1 : 0;
+			$row->cobertura = $inputs["cobertura"];
+			$row->otro_equipamiento = isset($inputs["otro_equipamiento"]) ? $inputs["otro_equipamiento"] : '';
+			$row->nivel_equipamiento = (int) $inputs["nivel_equipamiento"];
+			$row->idclasificacionzona = $inputs["idclasificacionzona"];
+			$row->idproximidadurbana = $inputs["idproximidadurbana"];
+			$row->construc_predominante = $inputs["construc_predominante"];
+			$row->vias_acceso_importante = $inputs["vias_acceso_importante"];
+			$row->ip = $_SERVER['REMOTE_ADDR'];
+			$row->host = isset($_SERVER['HTTP_CLIENT_IP']) ? $_SERVER['HTTP_CLIENT_IP'] : '';
+			$row->modi_por = 1;
+			$row->modi_el = date('Y-m-d H:i:s');
+			$row->save();
+			return Redirect::to('/corevat/AvaluoZona/' . $id)->with('success', '¡La modificación se efectuo correctamente!');
+		}
 	}
 
 	/**
@@ -282,7 +301,7 @@ class corevat_AvaluosController extends \BaseController {
 		$row = Avaluos::find($id);
 		$title = '3 Características del Inmueble: ' . $row['foliocoretemp'];
 		$row = Avaluos::find($id)->AvaluosInmueble;
-		if ( count($row) <= 0 ) {
+		if (count($row) <= 0) {
 			$this->insAvaluoInmueble($id);
 			$row = Avaluos::find($id)->AvaluosInmueble;
 		}
@@ -328,7 +347,7 @@ class corevat_AvaluosController extends \BaseController {
 			return Redirect::back()->withInput()->withErrors($validate);
 		} else {
 			$row = Avaluos::find($id)->AvaluosInmueble;
-			$row->idavaluo = $id;
+			//$row->idavaluo = $id;
 			$row->croquis = '';
 			$row->fachada = '';
 			$row->medidas_colindancias = '';
@@ -392,7 +411,7 @@ class corevat_AvaluosController extends \BaseController {
 			$row->carpinteria = $inputs["carpinteria"];
 			$row->herreria = $inputs["herreria"];
 
-			$row->superficie_total_terreno = $inputs["superficie_total_terreno"];
+			$row->superficie_total_terreno = number_format( (float) $inputs["superficie_total_terreno"], 4);
 			$row->indiviso_terreno = $inputs["indiviso_terreno"];
 			$row->superficie_terreno = $inputs["superficie_terreno"];
 			$row->indiviso_areas_comunes = $inputs["indiviso_areas_comunes"];
@@ -405,12 +424,20 @@ class corevat_AvaluosController extends \BaseController {
 			$row->host = isset($_SERVER['HTTP_CLIENT_IP']) ? $_SERVER['HTTP_CLIENT_IP'] : '';
 			$row->modi_por = 1;
 			$row->modi_el = date('Y-m-d H:i:s');
-			$row->save();
-			if ( $inputs["ctrl"] == 'ins' ) {
-				$message = '¡El registro fue ingresado satisfactoriamente!';
-			} else {
-				$message = '¡El registro fue modificado satisfactoriamente!';
+			$message = '¡El registro fue modificado satisfactoriamente!';
+
+			if ( Input::hasFile('croquis')  ) {
+				$row->croquis = 'croquis-'.$row->idavaluo.'.jpg';
+				Input::file('croquis')->move(public_path() . '/corevat/', $row->croquis);
+				$message .= '<br />¡El croquis se subido atisfactoriamente!';
 			}
+			if ( Input::hasFile('fachada')  ) {
+				$row->fachada = 'fachada-'.$row->idavaluo.'.jpg';
+				Input::file('fachada')->move(public_path() . '/corevat/', $row->fachada);
+				$message .= '<br />¡La imagen de la fachada se subida atisfactoriamente!';
+			}
+			$row->save();
+
 			return Redirect::to('/corevat/AvaluoInmueble/' . $id)->with('success', $message);
 		}
 	}
@@ -427,7 +454,7 @@ class corevat_AvaluosController extends \BaseController {
 		$row = Avaluos::find($id);
 		$title = 'Enfoque de Mercado: ' . $row['foliocoretemp'];
 		$row = Avaluos::find($id)->AvaluosMercado;
-		if ( count($row) <= 0 ) {
+		if (count($row) <= 0) {
 			$this->insAvaluoMercado($id);
 			$row = Avaluos::find($id)->AvaluosMercado;
 		}
@@ -439,9 +466,7 @@ class corevat_AvaluosController extends \BaseController {
 		$cat_factores_ubicacion = CatFactoresUbicacion::getCatFactoresUbicacionComboList();
 		$cat_factores_frente = CatFactoresFrente::getCatFactoresFrenteComboList();
 		$cat_factores_forma = CatFactoresForma::getCatFactoresFormaComboList();
-		return View::make('Corevat.Avaluos.avaluos', compact('opt', 'idavaluo', 'title', 'row', 'aem_comp_terrenos', 
-				'aem_homologacion', 'aem_informacion', 'aem_analisis', 'cat_factores_zonas', 'cat_factores_ubicacion', 
-				'cat_factores_frente', 'cat_factores_forma'));
+		return View::make('Corevat.Avaluos.avaluos', compact('opt', 'idavaluo', 'title', 'row', 'aem_comp_terrenos', 'aem_homologacion', 'aem_informacion', 'aem_analisis', 'cat_factores_zonas', 'cat_factores_ubicacion', 'cat_factores_frente', 'cat_factores_forma'));
 	}
 
 	/**
@@ -452,50 +477,18 @@ class corevat_AvaluosController extends \BaseController {
 	 */
 	public function updateMercado() {
 		$inputs = Input::All();
-		if ( $inputs['ctrl'] == 'btnNewAemComp' || $inputs['ctrl'] == 'btnEditAemComp' ) {
+		if ($inputs['ctrl'] == 'btnNewAemComp' || $inputs['ctrl'] == 'btnEditAemComp') {
 			$response = $this->setAemCompTerrenos($inputs);
-			
-		} else if ( $inputs['ctrl'] == 'btnEditAemHom' ) {
+		} else if ($inputs['ctrl'] == 'btnEditAemHom') {
 			$response = $this->setAemHomologacion($inputs);
-
-		} else if ( $inputs['ctrl'] == 'btnNewAemInf' || $inputs['ctrl'] == 'btnEditAemInf' ) {
+		} else if ($inputs['ctrl'] == 'btnNewAemInf' || $inputs['ctrl'] == 'btnEditAemInf') {
 			$response = $this->setAemInformacion($inputs);
-
-		} else if ( $inputs['ctrl'] == 'btnEditAemAna' ) {
+		} else if ($inputs['ctrl'] == 'btnEditAemAna') {
 			$response = $this->setAemAnalisis($inputs);
-
 		}
-		
+
 		return $response;
 	}
-
-/*
-ALTER TABLE avaluo_zona DROP CONSTRAINT IF EXISTS avaluo_zona_id_avaluo_foreign;
-ALTER TABLE avaluo_zona ADD CONSTRAINT avaluo_zona_id_avaluo_foreign FOREIGN KEY(idavaluo) REFERENCES avaluos(idavaluo) ON DELETE CASCADE ON UPDATE CASCADE;
-
-ALTER TABLE avaluo_inmueble DROP CONSTRAINT IF EXISTS avaluo_inmueble_id_barda_foreign;
-ALTER TABLE avaluo_inmueble ADD CONSTRAINT avaluo_inmueble_id_barda_foreign FOREIGN KEY(idavaluo) REFERENCES avaluos(idavaluo) ON DELETE CASCADE ON UPDATE CASCADE;
-
-ALTER TABLE ai_medidas_colindancias DROP CONSTRAINT IF EXISTS ai_medidas_colindancias_idavaluoinmueble_foreign;
-ALTER TABLE ai_medidas_colindancias ADD CONSTRAINT ai_medidas_colindancias_idavaluoinmueble_foreign FOREIGN KEY(idavaluo) REFERENCES avaluos(idavaluo) ON DELETE CASCADE ON UPDATE CASCADE;
-
-
-
-ALTER TABLE avaluo_enfoque_mercado DROP CONSTRAINT IF EXISTS avaluo_enfoque_mercado_idavaluo_foreign;
-ALTER TABLE avaluo_enfoque_mercado ADD CONSTRAINT avaluo_enfoque_mercado_idavaluo_foreign FOREIGN KEY(idavaluo) REFERENCES avaluos(idavaluo) ON DELETE CASCADE ON UPDATE CASCADE;
-
-ALTER TABLE avaluo_enfoque_fisico DROP CONSTRAINT IF EXISTS avaluo_enfoque_fisico_idavaluo_foreign;
-ALTER TABLE avaluo_enfoque_fisico ADD CONSTRAINT avaluo_enfoque_fisico_idavaluo_foreign FOREIGN KEY(idavaluo) REFERENCES avaluos(idavaluo) ON DELETE CASCADE ON UPDATE CASCADE;
-
-ALTER TABLE avaluo_conclusiones DROP CONSTRAINT IF EXISTS avaluo_conclusiones_idavaluo_foreign;
-ALTER TABLE avaluo_conclusiones ADD CONSTRAINT avaluo_conclusiones_idavaluo_foreign FOREIGN KEY(idavaluo) REFERENCES avaluos(idavaluo) ON DELETE CASCADE ON UPDATE CASCADE;
-
-ALTER TABLE avaluo_fotos_planos DROP CONSTRAINT IF EXISTS avaluo_fotos_planos_idavaluo_foreign;
-ALTER TABLE avaluo_fotos_planos ADD CONSTRAINT avaluo_fotos_planos_idavaluo_foreign FOREIGN KEY(idavaluo) REFERENCES avaluos(idavaluo) ON DELETE CASCADE ON UPDATE CASCADE;
-
-*/
-
-
 
 	/**
 	 * Show the form for editing the specified resource.
@@ -523,10 +516,7 @@ ALTER TABLE avaluo_fotos_planos ADD CONSTRAINT avaluo_fotos_planos_idavaluo_fore
 		$cat_factores_forma = CatFactoresForma::getCatFactoresFormaComboList();
 		$cat_factores_conservacion = CatFactoresConservacion::getCatFactoresConservacionComboList();
 		$cat_obras_complementarias = CatObrasComplementarias::comboList();
-		return View::make('Corevat.Avaluos.avaluos', compact('opt', 'idavaluo', 'title', 'row', 'aef_terrenos', 
-				'aef_construcciones', 'aef_condominios', 'aef_comp_construcciones', 'aef_instalaciones', 
-				'cat_clase_general_inmueble', 'cat_tipo_inmueble', 'cat_estado_conservacion', 'cat_calidad_proyecto', 
-				'cat_tipo', 'cat_factores_frente', 'cat_factores_forma', 'cat_factores_conservacion', 'cat_obras_complementarias'));
+		return View::make('Corevat.Avaluos.avaluos', compact('opt', 'idavaluo', 'title', 'row', 'aef_terrenos', 'aef_construcciones', 'aef_condominios', 'aef_comp_construcciones', 'aef_instalaciones', 'cat_clase_general_inmueble', 'cat_tipo_inmueble', 'cat_estado_conservacion', 'cat_calidad_proyecto', 'cat_tipo', 'cat_factores_frente', 'cat_factores_forma', 'cat_factores_conservacion', 'cat_obras_complementarias'));
 	}
 
 	/**
@@ -537,23 +527,18 @@ ALTER TABLE avaluo_fotos_planos ADD CONSTRAINT avaluo_fotos_planos_idavaluo_fore
 	 */
 	public function updateFisico() {
 		$inputs = Input::All();
-		if ( $inputs['ctrl'] == 'btnNewAefTerreno' || $inputs['ctrl'] == 'btnEditAefTerreno' ) {
+		if ($inputs['ctrl'] == 'btnNewAefTerrenos' || $inputs['ctrl'] == 'btnEditAefTerrenos') {
 			$response = $this->setAefTerrenos($inputs);
-
-		} else if ( $inputs['ctrl'] == 'btnNewAefInstalaciones' || $inputs['ctrl'] == 'btnEditAefInstalaciones' ) {
+		} else if ($inputs['ctrl'] == 'btnNewAefInstalaciones' || $inputs['ctrl'] == 'btnEditAefInstalaciones') {
 			$response = $this->setAefInstalaciones($inputs);
-
-		} else if ( $inputs['ctrl'] == 'btnNewAefConstrucciones' || $inputs['ctrl'] == 'btnEditAefConstrucciones' ) {
+		} else if ($inputs['ctrl'] == 'btnNewAefConstrucciones' || $inputs['ctrl'] == 'btnEditAefConstrucciones') {
 			$response = $this->setAefConstrucciones($inputs);
-
-		} else if ( $inputs['ctrl'] == 'btnNewAefCondominios' || $inputs['ctrl'] == 'btnEditAefCondominios' ) {
+		} else if ($inputs['ctrl'] == 'btnNewAefCondominios' || $inputs['ctrl'] == 'btnEditAefCondominios') {
 			$response = $this->setAefCondominios($inputs);
-
-		} else if ( $inputs['ctrl'] == 'btnNewAefCompConstrucciones' || $inputs['ctrl'] == 'btnEditAefCompConstrucciones' ) {
+		} else if ($inputs['ctrl'] == 'btnNewAefCompConstrucciones' || $inputs['ctrl'] == 'btnEditAefCompConstrucciones') {
 			$response = $this->setAefCompConstrucciones($inputs);
-
 		}
-		
+
 		return $response;
 	}
 
@@ -697,7 +682,7 @@ ALTER TABLE avaluo_fotos_planos ADD CONSTRAINT avaluo_fotos_planos_idavaluo_fore
 		$row->carpinteria = '';
 		$row->herreria = '';
 
-		$row->superficie_total_terreno = $row->indiviso_terreno = $row->superficie_terreno = $row->indiviso_areas_comunes = $row->superficie_construccion = $row->indiviso_accesoria = $row->superficie_escritura = $row->superficie_vendible = 0.0000;
+		$row->superficie_total_terreno = $row->indiviso_terreno = $row->superficie_terreno = $row->indiviso_areas_comunes = $row->superficie_construccion = $row->indiviso_accesoria = $row->superficie_escritura = $row->superficie_vendible = '0.0000';
 
 		$row->ip = $_SERVER['REMOTE_ADDR'];
 		$row->host = isset($_SERVER['HTTP_CLIENT_IP']) ? $_SERVER['HTTP_CLIENT_IP'] : '';
@@ -769,7 +754,7 @@ ALTER TABLE avaluo_fotos_planos ADD CONSTRAINT avaluo_fotos_planos_idavaluo_fore
 		$row->creado_el = date('Y-m-d H:i:s');
 		$row->save();
 	}
-	
+
 	/**
 	 * Show the form for editing the specified resource.
 	 *
@@ -797,9 +782,9 @@ ALTER TABLE avaluo_fotos_planos ADD CONSTRAINT avaluo_fotos_planos_idavaluo_fore
 		$row->idaemcompterreno = $idaemcompterreno;
 		$row->comparable = $ubicacion;
 		$row->superficie_terreno = $superficie_terreno;
-		$row->superficie_construccion = $row->zona = $row->valor_unitario_resultante_m2 = 
-				$row->ubicacion = $row->frente = $row->forma = $row->superficie = $row->valor_unitario_negociable = 0.00;
-		$row->valor_unitario = $precio_unitario_m2_terreno;;
+		$row->superficie_construccion = $row->zona = $row->valor_unitario_resultante_m2 = $row->ubicacion = $row->frente = $row->forma = $row->superficie = $row->valor_unitario_negociable = 0.00;
+		$row->valor_unitario = $precio_unitario_m2_terreno;
+		;
 		$row->in_promedio = 0;
 		$row->idemp = 1;
 		$row->ip = $_SERVER['REMOTE_ADDR'];
@@ -813,11 +798,9 @@ ALTER TABLE avaluo_fotos_planos ADD CONSTRAINT avaluo_fotos_planos_idavaluo_fore
 		$row = new AemHomologacion();
 		$row->idavaluoenfoquemercado = $idavaluoenfoquemercado;
 		$row->idaeminformacion = $idaeminformacion;
-		$row->precio_venta = $row->superficie_terreno = $row->superficie_construccion = $row->valor_unitario_m2 = 
-				$row->factor_zona = $row->factor_ubicacion = $row->factor_superficie = $row->factor_edad = $row->factor_conservacion = 
-				$row->factor_negociacion = $row->factor_resultante = $row->valor_unitario_resultante_m2 =0.00;
+		$row->precio_venta = $row->superficie_terreno = $row->superficie_construccion = $row->valor_unitario_m2 = $row->factor_zona = $row->factor_ubicacion = $row->factor_superficie = $row->factor_edad = $row->factor_conservacion = $row->factor_negociacion = $row->factor_resultante = $row->valor_unitario_resultante_m2 = 0.00;
 		$row->in_promedio = 1;
-		
+
 		$row->idemp = 1;
 		$row->ip = $_SERVER['REMOTE_ADDR'];
 		$row->host = isset($_SERVER['HTTP_CLIENT_IP']) ? $_SERVER['HTTP_CLIENT_IP'] : '';
@@ -849,11 +832,11 @@ ALTER TABLE avaluo_fotos_planos ADD CONSTRAINT avaluo_fotos_planos_idavaluo_fore
 		$validate = Validator::make($inputs, $rules, $messages);
 		if ($validate->fails()) {
 			return Response::json(array(
-			    'success' => false,
-			    'errors' => $validate->getMessageBag()->toArray()
-			)); 
+						'success' => false,
+						'errors' => $validate->getMessageBag()->toArray()
+			));
 		} else {
-			if ( $inputs['ctrl'] == 'ins') {
+			if ($inputs['ctrl'] == 'ins') {
 				$row = new AiMedidasColindancias();
 				$row->idavaluoinmueble = $inputs['idavaluoinmueble2'];
 				$row->idorientacion = $inputs['idorientacion'];
@@ -865,7 +848,7 @@ ALTER TABLE avaluo_fotos_planos ADD CONSTRAINT avaluo_fotos_planos_idavaluo_fore
 				$row->creado_por = 1;
 				$row->creado_el = date('Y-m-d H:i:s');
 				$row->save();
-				return Response::json(array('success' => true));
+				return Response::json(array('success' => true, 'message' => '¡El registro fue ingresado satisfactoriamente!', 'idTable' => $row->idaimedidacolindancia));
 			} else {
 				$row = AiMedidasColindancias::find($inputs['idaimedidacolindancia']);
 				$row->idorientacion = $inputs['idorientacion'];
@@ -876,7 +859,7 @@ ALTER TABLE avaluo_fotos_planos ADD CONSTRAINT avaluo_fotos_planos_idavaluo_fore
 				$row->modi_por = 1;
 				$row->modi_el = date('Y-m-d H:i:s');
 				$row->save();
-				return Response::json(array('success' => true));
+				return Response::json(array('success' => true, 'message' => '¡El registro fue modificado satisfactoriamente!', 'idTable' => $row->idaimedidacolindancia));
 			}
 		}
 	}
@@ -884,6 +867,7 @@ ALTER TABLE avaluo_fotos_planos ADD CONSTRAINT avaluo_fotos_planos_idavaluo_fore
 	/*
 	 * 
 	 */
+
 	private function setAemCompTerrenos($inputs) {
 		$rules = array(
 			'ubicacion' => 'required',
@@ -903,7 +887,7 @@ ALTER TABLE avaluo_fotos_planos ADD CONSTRAINT avaluo_fotos_planos_idavaluo_fore
 		if ($validate->fails()) {
 			$response = array('success' => false, 'errors' => $validate->getMessageBag()->toArray());
 		} else {
-			if ( $inputs['ctrl'] == 'btnNewAemComp') {
+			if ($inputs['ctrl'] == 'btnNewAemComp') {
 				$row = new AemCompTerrenos();
 				$row->idavaluoenfoquemercado = $inputs['idAem'];
 				$row->ubicacion = $inputs['ubicacion'];
@@ -912,7 +896,7 @@ ALTER TABLE avaluo_fotos_planos ADD CONSTRAINT avaluo_fotos_planos_idavaluo_fore
 				$row->superficie_construida = 0.00;
 				$precio = (float) $inputs['precio'];
 				$superficie_terreno = (float) $inputs['superficie_terreno'];
-				$row->precio_unitario_m2_terreno = ( (float) $inputs['superficie_terreno'] <= 0 ? 0.00 : ($precio/$superficie_terreno) );
+				$row->precio_unitario_m2_terreno = ( (float) $inputs['superficie_terreno'] <= 0 ? 0.00 : ($precio / $superficie_terreno) );
 				$row->precio_unitario_m2_construccion = 0.00;
 				$row->observaciones = $inputs['observaciones'];
 				$row->idemp = 1;
@@ -930,7 +914,7 @@ ALTER TABLE avaluo_fotos_planos ADD CONSTRAINT avaluo_fotos_planos_idavaluo_fore
 				$row->superficie_terreno = $inputs['superficie_terreno'];
 				$precio = (float) $inputs['precio'];
 				$superficie_terreno = (float) $inputs['superficie_terreno'];
-				$row->precio_unitario_m2_terreno = ( (float) $inputs['superficie_terreno'] <= 0 ? 0.00 : ($precio/$superficie_terreno) );
+				$row->precio_unitario_m2_terreno = ( (float) $inputs['superficie_terreno'] <= 0 ? 0.00 : ($precio / $superficie_terreno) );
 				$row->observaciones = $inputs['observaciones'];
 				$row->ip = $_SERVER['REMOTE_ADDR'];
 				$row->host = isset($_SERVER['HTTP_CLIENT_IP']) ? $_SERVER['HTTP_CLIENT_IP'] : '';
@@ -940,21 +924,23 @@ ALTER TABLE avaluo_fotos_planos ADD CONSTRAINT avaluo_fotos_planos_idavaluo_fore
 				$row2 = AemCompTerrenos::find($inputs['idTable'])->AemHomologacion;
 				$row2->comparable = $inputs['ubicacion'];
 				$row2->superficie_terreno = $inputs['superficie_terreno'];
-				$row2->valor_unitario = $row->precio_unitario_m2_terreno;;
+				$row2->valor_unitario = $row->precio_unitario_m2_terreno;
+				;
 				$row2->ip = $_SERVER['REMOTE_ADDR'];
 				$row2->host = isset($_SERVER['HTTP_CLIENT_IP']) ? $_SERVER['HTTP_CLIENT_IP'] : '';
 				$row2->modi_por = 1;
 				$row2->modi_el = date('Y-m-d H:i:s');
 				$row2->save();
-				$response = array('success' => true, 'message' => '¡El registro fue modificado satisfactoriamente!' . $row2->comparable);
+				$response = array('success' => true, 'message' => '¡El registro fue modificado satisfactoriamente!', 'idTable' => $row->idaemcompterreno);
 			}
 		}
 		return $response;
 	}
-	
+
 	/*
 	 * 
 	 */
+
 	private function setAemHomologacion($inputs) {
 		$response = array('success' => false, 'errors' => array('PENDIENTE'));
 		return $response;
@@ -963,6 +949,7 @@ ALTER TABLE avaluo_fotos_planos ADD CONSTRAINT avaluo_fotos_planos_idavaluo_fore
 	/*
 	 * 
 	 */
+
 	private function setAemInformacion($inputs) {
 		$response = array('success' => false, 'errors' => array('PENDIENTE'));
 		return $response;
@@ -971,6 +958,7 @@ ALTER TABLE avaluo_fotos_planos ADD CONSTRAINT avaluo_fotos_planos_idavaluo_fore
 	/*
 	 * 
 	 */
+
 	private function setAemAnalisis($inputs) {
 		$response = array('success' => false, 'errors' => array('PENDIENTE'));
 		return $response;
@@ -979,6 +967,7 @@ ALTER TABLE avaluo_fotos_planos ADD CONSTRAINT avaluo_fotos_planos_idavaluo_fore
 	/*
 	 * 
 	 */
+
 	private function setAefCompConstrucciones($inputs) {
 		$response = array('success' => false, 'errors' => array('PENDIENTE'));
 		return $response;
@@ -987,6 +976,7 @@ ALTER TABLE avaluo_fotos_planos ADD CONSTRAINT avaluo_fotos_planos_idavaluo_fore
 	/*
 	 * 
 	 */
+
 	private function setAefTerrenos($inputs) {
 		$response = array('success' => false, 'errors' => array('PENDIENTE'));
 		return $response;
@@ -995,6 +985,7 @@ ALTER TABLE avaluo_fotos_planos ADD CONSTRAINT avaluo_fotos_planos_idavaluo_fore
 	/*
 	 * 
 	 */
+
 	private function setAefInstalaciones($inputs) {
 		$response = array('success' => false, 'errors' => array('PENDIENTE'));
 		return $response;
@@ -1003,6 +994,7 @@ ALTER TABLE avaluo_fotos_planos ADD CONSTRAINT avaluo_fotos_planos_idavaluo_fore
 	/*
 	 * 
 	 */
+
 	private function setAefConstrucciones($inputs) {
 		$response = array('success' => false, 'errors' => array('PENDIENTE'));
 		return $response;
@@ -1011,11 +1003,11 @@ ALTER TABLE avaluo_fotos_planos ADD CONSTRAINT avaluo_fotos_planos_idavaluo_fore
 	/*
 	 * 
 	 */
+
 	private function setAefCondominios($inputs) {
 		$response = array('success' => false, 'errors' => array('PENDIENTE'));
 		return $response;
 	}
-
 
 	/**
 	 * Show the form for editing the specified resource.
@@ -1124,11 +1116,85 @@ ALTER TABLE avaluo_fotos_planos ADD CONSTRAINT avaluo_fotos_planos_idavaluo_fore
 	 * @return Response
 	 */
 	public function delAvaluo($id) {
-		//$row = AemHomologacion::delByFk($id);
-		//$row->delete($id);
-		//$row = AemCompTerrenos::findOrFail($id);
-		//$row->delete($id);
-		return Response::json(array('success' => true, 'message' => '!El registro fue eliminado satisfactoriamente!'));
+		$message = '¡El Avalúo fue eliminado satisfactoriamente!';
+		$rowMercado = Avaluos::findOrFail($id)->AvaluosMercado;
+		if (count($rowMercado) > 0) {
+			AemHomologacion::where('idavaluoenfoquemercado', '=', $rowMercado->idavaluoenfoquemercado)->delete();
+			AemCompTerrenos::where('idavaluoenfoquemercado', '=', $rowMercado->idavaluoenfoquemercado)->delete();
+			AemAnalisis::where('idavaluoenfoquemercado', '=', $rowMercado->idavaluoenfoquemercado)->delete();
+			AemInformacion::where('idavaluoenfoquemercado', '=', $rowMercado->idavaluoenfoquemercado)->delete();
+		}
+		$rowFisico = Avaluos::findOrFail($id)->AvaluosMercado;
+		if (count($rowFisico) > 0) {
+			AefCompConstrucciones::where('idavaluoenfoquefisico', '=', $rowFisico->idavaluoenfoquefisico)->delete();
+			AefCondominios::where('idavaluoenfoquefisico', '=', $rowFisico->idavaluoenfoquefisico)->delete();
+			AefConstrucciones::where('idavaluoenfoquefisico', '=', $rowFisico->idavaluoenfoquefisico)->delete();
+			AefInstalaciones::where('idavaluoenfoquefisico', '=', $rowFisico->idavaluoenfoquefisico)->delete();
+			AefTerrenos::where('idavaluoenfoquefisico', '=', $rowFisico->idavaluoenfoquefisico)->delete();
+		}
+
+		$rowInmueble = Avaluos::findOrFail($id)->AvaluosInmueble;
+		if (count($rowInmueble) > 0) {
+			AiMedidasColindancias::where('idavaluoinmueble', '=', $rowInmueble->idavaluoinmueble)->delete();
+		}
+
+		AvaluosConclusiones::where('idavaluo', '=', $id)->delete();
+		AvaluosFisico::where('idavaluo', '=', $id)->delete();
+		AvaluosFotos::where('idavaluo', '=', $id)->delete();
+		AvaluosInmueble::where('idavaluo', '=', $id)->delete();
+		AvaluosMercado::where('idavaluo', '=', $id)->delete();
+		AvaluosZona::where('idavaluo', '=', $id)->delete();
+
+		Avaluos::where('idavaluo', '=', $id)->delete();
+
+		$dir = public_path() . '/corevat/';
+		if ( file_exists($dir . 'croquis-' . $id . '.jpg') ) {
+			if ( !unlink($dir . 'croquis-' . $id . '.jpg') ) {
+				$message .= '<br />El archivo "croquis-'.$id.'.jpg" no se pudo eliminar';
+			}
+		}
+		if ( file_exists($dir . 'fachada-' . $id . '.jpg') ) {
+			if ( !unlink($dir . 'fachada-' . $id . '.jpg') ) {
+				$message .= '<br />El archivo "fachada-'.$id.'.jpg" no se pudo eliminar';
+			}
+		}
+		if ( file_exists($dir . 'foto0-' . $id . '.jpg') ) {
+			if ( !unlink($dir . 'foto0-' . $id . '.jpg') ) {
+				$message .= '<br />El archivo "foto0-'.$id.'.jpg" no se pudo eliminar';
+			}
+		}
+		if ( file_exists($dir . 'foto1-' . $id . '.jpg') ) {
+			if ( !unlink($dir . 'foto1-' . $id . '.jpg') ) {
+				$message .= '<br />El archivo "foto1-'.$id.'.jpg" no se pudo eliminar';
+			}
+		}
+		if ( file_exists($dir . 'foto2-' . $id . '.jpg') ) {
+			if ( !unlink($dir . 'foto2-' . $id . '.jpg') ) {
+				$message .= '<br />El archivo "foto2-'.$id.'.jpg" no se pudo eliminar';
+			}
+		}
+		if ( file_exists($dir . 'foto3-' . $id . '.jpg') ) {
+			if ( !unlink($dir . 'foto3-' . $id . '.jpg') ) {
+				$message .= '<br />El archivo "foto3-'.$id.'.jpg" no se pudo eliminar';
+			}
+		}
+		if ( file_exists($dir . 'foto4-' . $id . '.jpg') ) {
+			if ( !unlink($dir . 'foto4-' . $id . '.jpg') ) {
+				$message .= '<br />El archivo "foto4-'.$id.'.jpg" no se pudo eliminar';
+			}
+		}
+		if ( file_exists($dir . 'foto5-' . $id . '.jpg') ) {
+			if ( !unlink($dir . 'foto5-' . $id . '.jpg') ) {
+				$message .= '<br />El archivo "foto5-'.$id.'.jpg" no se pudo eliminar';
+			}
+		}
+		if ( file_exists($dir . 'plano0-' . $id . '.jpg') ) {
+			if ( !unlink($dir . 'plano0-' . $id . '.jpg') ) {
+				$message .= '<br />El archivo "plano0-'.$id.'.jpg" no se pudo eliminar';
+			}
+		}
+
+		return Redirect::to('corevat/Avaluos')->with('success', $message);
 	}
 
 	/**
@@ -1138,8 +1204,8 @@ ALTER TABLE avaluo_fotos_planos ADD CONSTRAINT avaluo_fotos_planos_idavaluo_fore
 	 * @return Response
 	 */
 	public function delAiMedidasColindancias($id) {
-        $row = AiMedidasColindancias::findOrFail($id);
-        $row->delete($id);
+		$row = AiMedidasColindancias::findOrFail($id);
+		$row->delete($id);
 		return Response::json(array('success' => true, 'message' => '!El registro fue eliminado satisfactoriamente!'));
 	}
 
@@ -1151,17 +1217,15 @@ ALTER TABLE avaluo_fotos_planos ADD CONSTRAINT avaluo_fotos_planos_idavaluo_fore
 	 */
 	public function delAvaluoEnfoqueMercado() {
 		$inputs = Input::All();
-		if ( $inputs['ctrlDel'] == 'btnDelAemComp' ) {
+		if ($inputs['ctrlDel'] == 'btnDelAemComp') {
 			$response = $this->delAemCompTerrenos($inputs['idTableDel']);
-			
-		} else if ( $inputs['ctrlDel'] == 'btnDelAemInf' ) {
+		} else if ($inputs['ctrlDel'] == 'btnDelAemInf') {
 			$response = $this->delAemInformcion($inputs['idTableDel']);
-
 		}
-		
+
 		return $response;
 	}
-	
+
 	/**
 	 * Show the form for editing the specified resource.
 	 *
@@ -1170,12 +1234,12 @@ ALTER TABLE avaluo_fotos_planos ADD CONSTRAINT avaluo_fotos_planos_idavaluo_fore
 	 */
 	private function delAemCompTerrenos($id) {
 		$response = array('success' => true, 'message' => '!El registro fue eliminado satisfactoriamente!');
-        $row = AemCompTerrenos::findOrFail($id)->AemHomologacion;
-		if ( count($row) > 0 ) {
+		$row = AemCompTerrenos::findOrFail($id)->AemHomologacion;
+		if (count($row) > 0) {
 			$row->delete();
 		}
-        $row = AemCompTerrenos::findOrFail($id);
-		if ( count($row) > 0 ) {
+		$row = AemCompTerrenos::findOrFail($id);
+		if (count($row) > 0) {
 			$row->delete();
 		} else {
 			$response->success = false;
@@ -1191,10 +1255,10 @@ ALTER TABLE avaluo_fotos_planos ADD CONSTRAINT avaluo_fotos_planos_idavaluo_fore
 	 * @return Response
 	 */
 	private function delAemInformacion($id) {
-        $row = AemAnalisis::delByFk($id);
-        $row->delete($id);
-        $row = AemInformacion::findOrFail($id);
-        $row->delete($id);
+		$row = AemAnalisis::delByFk($id);
+		$row->delete($id);
+		$row = AemInformacion::findOrFail($id);
+		$row->delete($id);
 		return array('success' => true, 'message' => '!El registro fue eliminado satisfactoriamente!');
 	}
 
@@ -1206,26 +1270,21 @@ ALTER TABLE avaluo_fotos_planos ADD CONSTRAINT avaluo_fotos_planos_idavaluo_fore
 	 */
 	public function delAvaluoEnfoqueFisico() {
 		$inputs = Input::All();
-		if ( $inputs['ctrlDel'] == 'btnDelAefTerreno' ) {
+		if ($inputs['ctrlDel'] == 'btnDelAefTerreno') {
 			$response = $this->delAefTerrenos($inputs['idTableDel']);
-
-		} else if ( $inputs['ctrlDel'] == 'btnDelAefInstalaciones' ) {
+		} else if ($inputs['ctrlDel'] == 'btnDelAefInstalaciones') {
 			$response = $this->delAefInstalaciones($inputs['idTableDel']);
-
-		} else if ( $inputs['ctrlDel'] == 'btnDelAefConstrucciones' ) {
+		} else if ($inputs['ctrlDel'] == 'btnDelAefConstrucciones') {
 			$response = $this->delAefConstrucciones($inputs['idTableDel']);
-
-		} else if ( $inputs['ctrlDel'] == 'btnDelAefCondominios' ) {
+		} else if ($inputs['ctrlDel'] == 'btnDelAefCondominios') {
 			$response = $this->delAefCondominios($inputs['idTableDel']);
-
-		} else if ( $inputs['ctrlDel'] == 'btnDelAefCompConstrucciones' ) {
+		} else if ($inputs['ctrlDel'] == 'btnDelAefCompConstrucciones') {
 			$response = $this->delAefCompConstrucciones($inputs['idTableDel']);
-
 		}
-		
+
 		return $response;
 	}
-	
+
 	/**
 	 * Show the form for editing the specified resource.
 	 *
@@ -1233,10 +1292,11 @@ ALTER TABLE avaluo_fotos_planos ADD CONSTRAINT avaluo_fotos_planos_idavaluo_fore
 	 * @return Response
 	 */
 	public function delAefCompConstrucciones($id) {
-        $row = AefCompConstrucciones::findOrFail($id);
-        $row->delete($id);
+		$row = AefCompConstrucciones::findOrFail($id);
+		$row->delete($id);
 		return Response::json(array('success' => true, 'message' => '!El registro fue eliminado satisfactoriamente!'));
 	}
+
 	/**
 	 * Show the form for editing the specified resource.
 	 *
@@ -1244,11 +1304,10 @@ ALTER TABLE avaluo_fotos_planos ADD CONSTRAINT avaluo_fotos_planos_idavaluo_fore
 	 * @return Response
 	 */
 	public function delAefCondominios($id) {
-        $row = AefCondominios::findOrFail($id);
-        $row->delete($id);
+		$row = AefCondominios::findOrFail($id);
+		$row->delete($id);
 		return Response::json(array('success' => true, 'message' => '!El registro fue eliminado satisfactoriamente!'));
 	}
-
 
 	/**
 	 * Show the form for editing the specified resource.
@@ -1257,8 +1316,8 @@ ALTER TABLE avaluo_fotos_planos ADD CONSTRAINT avaluo_fotos_planos_idavaluo_fore
 	 * @return Response
 	 */
 	public function delAefConstrucciones($id) {
-        $row = AefConstrucciones::findOrFail($id);
-        $row->delete($id);
+		$row = AefConstrucciones::findOrFail($id);
+		$row->delete($id);
 		return Response::json(array('success' => true, 'message' => '!El registro fue eliminado satisfactoriamente!'));
 	}
 
@@ -1269,8 +1328,8 @@ ALTER TABLE avaluo_fotos_planos ADD CONSTRAINT avaluo_fotos_planos_idavaluo_fore
 	 * @return Response
 	 */
 	public function delAefInstalaciones($id) {
-        $row = AefInstalaciones::findOrFail($id);
-        $row->delete($id);
+		$row = AefInstalaciones::findOrFail($id);
+		$row->delete($id);
 		return Response::json(array('success' => true, 'message' => '!El registro fue eliminado satisfactoriamente!'));
 	}
 
@@ -1281,8 +1340,8 @@ ALTER TABLE avaluo_fotos_planos ADD CONSTRAINT avaluo_fotos_planos_idavaluo_fore
 	 * @return Response
 	 */
 	public function delAefTerrenos($id) {
-        $row = AefTerrenos::findOrFail($id);
-        $row->delete($id);
+		$row = AefTerrenos::findOrFail($id);
+		$row->delete($id);
 		return Response::json(array('success' => true, 'message' => '!El registro fue eliminado satisfactoriamente!'));
 	}
 
