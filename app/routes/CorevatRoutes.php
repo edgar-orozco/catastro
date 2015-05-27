@@ -532,7 +532,7 @@ Route::group(array('before' => 'admin'), function () {
 	 */
 	Route::get('/corevat/Avaluos.{format}', array('as' => 'indexAvaluos', 'uses' => 'corevat_AvaluosController@index'));
 	Route::post('/corevat/Avaluos.{format}', array('as' => 'storeAvaluos', 'uses' => 'corevat_AvaluosController@store'));
-	Route::get('/corevat/AvaluosDel/{id}', array('as' => 'destroyAvaluos', 'uses' => 'corevat_AvaluosController@destroy'));
+	Route::get('/corevat/AvaluoDel/{id}', array('as' => 'delAvaluo', 'uses' => 'corevat_AvaluosController@delAvaluo'));
 	Route::put('/corevat/Avaluos/{id?}.{format}', array('as' => 'showAvaluos', 'uses' => 'corevat_AvaluosController@show'));
 
 	// AVALUOS GENERAL
