@@ -1,6 +1,6 @@
 <h3 class="header">{{$title}}</h3>
 <hr>
-{{Form::model($row, ['route' => array('updateAvaluoInmueble', $idavaluo), 'method'=>'post', 'id'=>'formAvaluoInmueble' ]) }}
+{{Form::model($row, ['route' => array('updateAvaluoInmueble', $idavaluo), 'method'=>'post', 'id'=>'formAvaluoInmueble', 'enctype'=>'multipart/form-data' ]) }}
 {{Form::hidden('idavaluoinmueble', $row->idavaluoinmueble)}}
 <div class="row">
 	<div class="col-md-12 bg-primary"><h4>Subir imagenes</h4></div>
@@ -110,7 +110,7 @@
 	<div class="col-md-2"></div>
 	<div class="col-md-5">
 		{{Form::label('unidades_rentables_escritura', 'Unidades Rentables en la misma Estructura')}}
-		{{Form::number('unidades_rentables_escritura', $row->unidades_rentables_escritura, ['class'=>'form-control'] )}}
+		{{Form::number('unidades_rentables_escritura', $row->unidades_rentables_escritura, ['class'=>'form-control', 'pattern'=>'[0-9]{10}'] )}}
 		{{$errors->first('unidades_rentables_escritura', '<span class=text-danger>:message</span>')}}
 	</div>
 	<div class="col-md-12">&nbsp;</div>
@@ -278,51 +278,51 @@
 				<tr>
 					<th class="bg-primary">{{Form::label('superficie_total_terreno', 'Superficie Total del Terreno')}}</th>
 					<td>
-						{{Form::number('superficie_total_terreno', $row->superficie_total_terreno, ['class'=>'form-control', 'maxlength'=>'19'] )}}
+						{{Form::number('superficie_total_terreno', $row->superficie_total_terreno, ['class'=>'form-control', 'maxlength'=>'14', 'step'=>'0.0001', 'min'=>'0.0000', 'max'=>'999999999.9999', 'pattern'=>'^(?:\(\d{9}\))[.]?\d{4}$'] )}}
 						{{$errors->first('superficie_total_terreno', '<span class=text-danger>:message</span>')}}
 					</td>
 					<th class="bg-primary">{{Form::label('indiviso_terreno', 'Indiviso del Terreno (%)')}}</th>
 					<td>
-						{{Form::number('indiviso_terreno', $row->indiviso_terreno, ['class'=>'form-control', 'maxlength'=>'19'] )}}
+						{{Form::number('indiviso_terreno', $row->indiviso_terreno, ['class'=>'form-control', 'maxlength'=>'14', 'step'=>'0.0001', 'min'=>'0.0000', 'max'=>'999999999.9999', 'pattern'=>'^(?:\(\d{9}\))[.]?\d{4}$'] )}}
 						{{$errors->first('indiviso_terreno', '<span class=text-danger>:message</span>')}}
 					</td>
 				</tr>
 				<tr>
 					<th class="bg-primary">{{Form::label('indiviso_terreno', 'Superficie del Terreno')}}</th>
 					<td>
-						{{Form::number('superficie_terreno', $row->superficie_terreno, ['class'=>'form-control', 'maxlength'=>'19'] )}}
+						{{Form::number('superficie_terreno', $row->superficie_terreno, ['class'=>'form-control', 'maxlength'=>'14', 'step'=>'0.0001', 'min'=>'0.0000', 'max'=>'999999999.9999', 'pattern'=>'^(?:\(\d{9}\))[.]?\d{4}$'] )}}
 						{{$errors->first('superficie_terreno', '<span class=text-danger>:message</span>')}}
 					</td>
 
 					<th class="bg-primary">{{Form::label('indiviso_areas_comunes', 'Indiviso de Áreas Comunes (%)')}}</th>
 					<td>
-						{{Form::number('indiviso_areas_comunes', $row->indiviso_areas_comunes, ['class'=>'form-control', 'maxlength'=>'19'] )}}
+						{{Form::number('indiviso_areas_comunes', $row->indiviso_areas_comunes, ['class'=>'form-control', 'maxlength'=>'14', 'step'=>'0.0001', 'min'=>'0.0000', 'max'=>'999999999.9999', 'pattern'=>'^(?:\(\d{9}\))[.]?\d{4}$'] )}}
 						{{$errors->first('indiviso_areas_comunes', '<span class=text-danger>:message</span>')}}
 					</td>
 				</tr>
 				<tr>
 					<th class="bg-primary">{{Form::label('superficie_construccion', 'Superficie de Construcción')}}</th>
 					<td>
-						{{Form::number('superficie_construccion', $row->superficie_construccion, ['class'=>'form-control', 'maxlength'=>'19'] )}}
+						{{Form::number('superficie_construccion', $row->superficie_construccion, ['class'=>'form-control', 'maxlength'=>'14', 'step'=>'0.0001', 'min'=>'0.0000', 'max'=>'999999999.9999', 'pattern'=>'^(?:\(\d{9}\))[.]?\d{4}$'] )}}
 						{{$errors->first('superficie_construccion', '<span class=text-danger>:message</span>')}}
 					</td>
 
 					<th class="bg-primary">{{Form::label('indiviso_accesoria', 'Indiviso Accesoría (%)')}}</th>
 					<td>
-						{{Form::number('indiviso_accesoria', $row->indiviso_accesoria, ['class'=>'form-control', 'maxlength'=>'19'] )}}
+						{{Form::number('indiviso_accesoria', $row->indiviso_accesoria, ['class'=>'form-control', 'maxlength'=>'14', 'step'=>'0.0001', 'min'=>'0.0000', 'max'=>'999999999.9999', 'pattern'=>'^(?:\(\d{9}\))[.]?\d{4}$'] )}}
 						{{$errors->first('indiviso_accesoria', '<span class=text-danger>:message</span>')}}
 					</td>
 				</tr>
 				<tr>
 					<th class="bg-primary">{{Form::label('superficie_escritura', 'Superficie Asentada en Escritura')}}</th>
 					<td>
-						{{Form::number('superficie_escritura', $row->superficie_escritura, ['class'=>'form-control', 'maxlength'=>'19'] )}}
+						{{Form::number('superficie_escritura', $row->superficie_escritura, ['class'=>'form-control', 'maxlength'=>'14', 'step'=>'0.0001', 'min'=>'0.0000', 'max'=>'999999999.9999', 'pattern'=>'^(?:\(\d{9}\))[.]?\d{4}$'] )}}
 						{{$errors->first('superficie_escritura', '<span class=text-danger>:message</span>')}}
 					</td>
 
 					<th class="bg-primary">{{Form::label('superficie_vendible', 'Superficie Vendible')}}</th>
 					<td>
-						{{Form::number('superficie_vendible', $row->superficie_vendible, ['class'=>'form-control', 'maxlength'=>'19'] )}}
+						{{Form::number('superficie_vendible', $row->superficie_vendible, ['class'=>'form-control', 'maxlength'=>'14', 'step'=>'0.0001', 'min'=>'0.0000', 'max'=>'999999999.9999', 'pattern'=>'^(?:\(\d{9}\))[.]?\d{4}$'] )}}
 						{{$errors->first('superficie_vendible', '<span class=text-danger>:message</span>')}}
 					</td>
 				</tr>
@@ -359,147 +359,167 @@
 			<hr>
 		</div>
 	</div>
+		<div style="text-align: center; margin-top: 10px;" id="messagesDialogForm"></div>
 	{{Form::close()}}
 </div>
 <div id="divDialogConfirm" style="display: none;">
-	<h2>¿Realmente desea eliminar el registro?</h2>
+	<div class="alert alert-danger text-center"><h3>¿Realmente desea eliminar el registro?</h3></div>
 </div>
+{{ HTML::style('/css/fileinput.min.css') }}
 @section('javascript')
 {{ HTML::script('/js/jquery/jquery-ui.js') }}
 {{ HTML::script('/js/jquery/jquery.dataTables.min.js') }}
 {{ HTML::script('/js/jquery/dataTables.bootstrap.js') }}
 {{ HTML::script('/js/jquery.corevat.js') }}
+{{ HTML::script('/js/fileinput.min.js') }}
+{{ HTML::script('/js/fileinput_locale_es.js') }}
 <script>
-    $(document).ready(function () {
-        /*++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-         * 
-         ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
-        $('#btn3Inmueble').removeClass("btn-info").addClass("btn-primary");
+	$(document).ready(function () {
+		/*++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+		 * 
+		 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
+		$('#btn3Inmueble').removeClass("btn-info").addClass("btn-primary");
 
-        /*++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-         * 
-         ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
-        $('#btnNew').click(function () {
+		/*++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+		 * 
+		 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
+		$('#btnNew').click(function () {
 			$('#ctrl').val('ins');
 			$('#idaimedidacolindancia').val('0');
-            $('#medida, #colindancia').val('');
-            $("#idorientacion option[value=1]").attr("selected", true);
-            $('#divDialogForm').dialog({title: 'Capturar un nuevo registro'}).dialog('open');
-        });
+			$('#medida, #colindancia').val('');
+			$("#idorientacion option[value=1]").attr("selected", true);
+			$('#divDialogForm').dialog({title: 'Capturar un nuevo registro'}).dialog('open');
+		});
 
-        /*++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-         * 
-         ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
-        $('.btnEdit').click(function () {
+		/*++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+		 * 
+		 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
+		$('.btnEdit').click(function () {
 			$('#ctrl').val('upd');
-			$('#idaimedidacolindancia').val( $(this).attr('idAi') );
+			$('#idaimedidacolindancia').val($(this).attr('idAi'));
 			$.ajax({
 				global: false,
 				cache: false,
 				dataType: 'json',
-                url: '/corevat/AiMedidasColindanciasGet/'+$('#idaimedidacolindancia').val(),
-                type: 'get',
-                success: function (data) {
-                    datos = eval(data);
-				    $("#idorientacion option[value="+datos.idorientacion+"]").attr("selected", true);
-		            $('#medida').val(datos.medida);
-		            $('#colindancia').val(datos.colindancia);
+				url: '/corevat/AiMedidasColindanciasGet/' + $('#idaimedidacolindancia').val(),
+				type: 'get',
+				success: function (data) {
+					datos = eval(data);
+					$("#idorientacion option[value=" + datos.idorientacion + "]").attr("selected", true);
+					$('#medida').val(datos.medida);
+					$('#colindancia').val(datos.colindancia);
 					$('#divDialogForm').dialog({title: 'Modificar registro'}).dialog('open');
 				}
 			});
-        });
+		});
 
-        /*++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-         * 
-         ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
-        $('.btnDel').click(function () {
-			$('#idaimedidacolindancia').val( $(this).attr('idAi') );
+		/*++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+		 * 
+		 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
+		$('.btnDel').click(function () {
+			$('#idaimedidacolindancia').val($(this).attr('idAi'));
 			$('#divDialogConfirm').dialog({title: 'Eliminar registro'}).dialog('open');
-			
-        });
 
-        /*++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-         * 
-         ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
-        $("#formAiMedidasColindancias").submit(function () {
-            $.ajax({
+		});
+
+		/*++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+		 * 
+		 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
+		$("#formAiMedidasColindancias").submit(function () {
+			$('#messagesDialogForm').empty().removeClass();
+			$.ajax({
 				global: false,
 				cache: false,
 				dataType: 'json',
-                url: $(this).attr("action"),
-                type: $(this).attr("method"),
-                data: $(this).serialize(),
-                success: function (data) {
-                    datos = eval(data);
-                    if (datos.success) {
-						alert('¡El registro fue ingresado satisfactoriamente!');
-                        $('#divDialogForm').dialog('close');
-						window.location.href = '/corevat/AvaluoInmueble/<?php echo $row->idavaluo ?>';
-                    } else {
-						if (datos.errors.medida) {
-							alert('¡El campo "Medida" es requerido!');
-						} else if (datos.errors.colindancia) {
-							alert('¡El campo "Colindancia" es requerido!');
+				url: $(this).attr("action"),
+				type: $(this).attr("method"),
+				data: $(this).serialize(),
+				success: function (data) {
+					datos = eval(data);
+					if (datos.success) {
+						$('#messagesDialogForm').removeClass().addClass('alert').addClass('alert-success').append(datos.message);
+						$('#idTable').val( datos.idTable );
+					} else {
+						var errores = '';
+						for(datos in data.errors) {
+							errores += '<p>' + data.errors[datos] + '</p>';
 						}
-                    }
-                }
-            });
-            return false;
-        });
+						$('#messagesDialogForm').removeClass().addClass('alert').addClass('alert-danger').append(errores);
+					}
+				}
+			});
+			return false;
+		});
 
-        /*++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-         * 
-         ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
-        $('#divDialogForm').dialog({
-            modal: true,
-            resizable: false,
-            draggable: false,
-            autoOpen: false,
-            closeOnEscape: true,
-            width: 600,
-            height: 400,
-            buttons: {
-                Guardar: function () {
-                    $("#formAiMedidasColindancias").submit();
-                },
-                Cerrar: function () {
-                    $(this).dialog('close');
-                }
-            }
-        });
-
-        /*++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-         * 
-         ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
-		$('#divDialogConfirm').dialog({
-            modal: true,
-            resizable: false,
-            draggable: false,
-            autoOpen: false,
-            closeOnEscape: true,
-            width: 600,
-            height: 400,
+		/*++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+		 * 
+		 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
+		$('#divDialogForm').dialog({
+			modal: true,
+			resizable: false,
+			draggable: false,
+			autoOpen: false,
+			closeOnEscape: true,
+			width: 600,
+			height: 600,
 			buttons: {
-				Aceptar: function() {
+				Guardar: function () {
+					$("#formAiMedidasColindancias").submit();
+				},
+				Cerrar: function () {
+					$(this).dialog('close');
+				}
+			},
+			close: function() {
+				if ( $('#messagesDialogForm').attr('class') == 'alert alert-success' ) {
+					window.location.href = '/corevat/AvaluoInmueble/<?php echo $row->idavaluo ?>';
+				}
+			}
+		});
+
+		/*++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+		 * 
+		 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
+		$('#divDialogConfirm').dialog({
+			modal: true,
+			resizable: false,
+			draggable: false,
+			autoOpen: false,
+			closeOnEscape: true,
+			width: 400,
+			height: 300,
+			buttons: {
+				Aceptar: function () {
 					$.ajax({
 						global: false,
 						cache: false,
 						dataType: 'json',
-		                url: '/corevat/AiMedidasColindanciasDel/'+$('#idaimedidacolindancia').val(),
-				        type: 'get',
-						success: function(data) {
+						url: '/corevat/AiMedidasColindanciasDel/' + $('#idaimedidacolindancia').val(),
+						type: 'get',
+						success: function (data) {
 							datos = eval(data);
-							alert( datos.message );
+							alert(datos.message);
 							if (datos.success === true) {
 								window.location.href = '/corevat/AvaluoInmueble/<?php echo $row->idavaluo ?>';
 							}
 						}
 					});
-					$( '#divDialogConfirm' ).dialog( "close" );
+					$('#divDialogConfirm').dialog("close");
 				},
-				Cancelar: function() {$( this ).empty().dialog( "close" );}
+				Cancelar: function () {
+					$(this).empty().dialog("close");
+				}
 			}
 		});
-    });
+
+		/*++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+		 * 
+		 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
+		$('#fachada, #croquis').fileinput({
+			maxFileSize: 2000,
+			maxFileCount: 1,
+			allowedFileExtensions: ["jpg"]
+		});
+	});
 </script>
 @stop
