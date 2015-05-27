@@ -17,6 +17,7 @@
           });
         //ruta para pdf
         Route::post("/cartainv/{clave?}/{date1?}", "CartaInvitacion_PdfController@get_pdf");
+        Route::get("ejecucion/cartainv/{clave?}/{date1?}", "CartaInvitacion_masivoController@get_pdf");
         Route::get("/reimprimircarta/{clave?}/{date1?}", "CartaInvitacion_PdfController@reimpresion");
         //ruta validar fecha
         Route::post("/validar", "Ejecucion_SeguimientobusController@validar");
