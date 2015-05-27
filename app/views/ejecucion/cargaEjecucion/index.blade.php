@@ -30,6 +30,9 @@
             <div class='load_ajax'>
                 <!--aquí se mostrará total de errores, total aprobados y boton de descarga con las lineas de error-->
             </div>
+            <div class='carta'>
+                <!--aquí se mostrará total de errores, total aprobados y boton de descarga con las lineas de error-->
+            </div>
         </div>
     </div>
 

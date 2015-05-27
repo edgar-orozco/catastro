@@ -40,7 +40,10 @@ $(document).ready(function()
                 	"<br> Claves sin registro: "+data.totalNE+
                 	' <br> <a class="btn btn-info" title="Editar Predio" href="data:application/octet-stream;charset=utf-8;base64, '+encodedString+'" download="error.txt" >  <span class="glyphicon glyphicon-save"> Descargar Errores </span> </a>')
                 $('.preload_users').html('');
-                document.getElementById('form-group').hidden="";
+                if (data.vale.length > 0) {
+                $('.carta').html('<a class="btn btn-info" href="cartainv/'+data.vale+'"target=_blank> <span class="glyphicon glyphicon-save">Descargar Carta Invitación</span></a>');
+                };
+                $('#form-group').hidden="";
             }
         });
       		return false;
