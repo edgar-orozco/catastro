@@ -157,7 +157,7 @@
 	</div>
 	<div class="col-md-4">
 		{{Form::label('idclasificacionzona', 'Clasificación de la Zona')}}
-		{{Form::select('idclasificacionzona', $cat_clasificacion_zona, $row->idclasificacionzona, ['id' => 'idregimenpropiedad', 'class'=>'form-control'])}}
+		{{Form::select('idclasificacionzona', $cat_clasificacion_zona, $row->idclasificacionzona, ['id' => 'idclasificacionzona', 'class'=>'form-control'])}}
 		<hr>
 	</div>
 	<div class="col-md-4">
