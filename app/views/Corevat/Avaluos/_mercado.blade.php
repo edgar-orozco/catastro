@@ -249,9 +249,9 @@
 		{{Form::hidden('idAem', $row->idavaluoenfoquemercado, ['id'=>'idAem'])}}
 		{{Form::hidden('idTable', '', ['id'=>'idTable'])}}
 
-		<div class="row" id="containerDialogForm"></div>
+		<div class="row" id="containerDialogForm" style="margin-top: 10px;"></div>
 		
-		<div class="row"><div class="col-md-12">&nbsp;</div><div class="col-md-12" id="messagesDialogForm"></div></div>
+		<div style="text-align: center; margin-top: 10px;" id="messagesDialogForm"></div>
 		
 	{{Form::close()}}
 </div>
@@ -261,7 +261,7 @@
 		{{Form::hidden('idAemDel', $row->idavaluoenfoquemercado, ['id'=>'idAemDel'])}}
 		{{Form::hidden('idTableDel', '', ['id'=>'idTableDel'])}}
 
-		<h3 class="text-danger text-center">¿Realmente desea eliminar el registro?</h3>
+		<div class="alert alert-danger text-center"><h3>¿Realmente desea eliminar el registro?</h3></div>
 		
 	{{Form::close()}}
 </div>
@@ -406,14 +406,14 @@
 				success: function (data) {
 					datos = eval(data);
 					if (datos.success) {
-						$('#messagesDialogForm').removeClass().addClass('col-md-12').addClass('bg-success').append(datos.message);
+						$('#messagesDialogForm').removeClass().addClass('alert').addClass('alert-success').append(datos.message);
 						$('#idTable').val( datos.idTable );
 					} else {
 						var errores = '';
 						for(datos in data.errors) {
 							errores += '<p>' + data.errors[datos] + '</p>';
 						}
-						$('#messagesDialogForm').removeClass().addClass('col-md-12').addClass('bg-danger').append(errores);
+						$('#messagesDialogForm').removeClass().addClass('alert').addClass('alert-danger').append(errores);
 					}
 				}
 			});

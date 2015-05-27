@@ -280,6 +280,7 @@
 	{{Form::select('idfactorforma', $cat_factores_forma, null, ['id' => 'idfactorforma', 'class'=>'form-control'])}}
 	{{Form::select('idfactorconservacion', $cat_factores_conservacion, null, ['id' => 'idfactorconservacion', 'class'=>'form-control'])}}
 	{{Form::select('idobracomplementaria', $cat_obras_complementarias, null, ['id' => 'idobracomplementaria', 'class'=>'form-control'])}}
+	{{Form::select('idtipo', $cat_tipo, null, ['id' => 'idtipo', 'class'=>'form-control'])}}
 	
 </div>
 <div id="divDialogFormFisico" style="display: none;">
@@ -312,7 +313,7 @@
 <script>
     $(document).ready(function () {
         /*++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-         * btnNewAefTerr btnNewAefCon btnNewAefCon btnNewAefCom
+         *  btnNewAefCon btnNewAefCon btnNewAefCom
 		 * btnEditAefTerr btnDelAefTerr
 		 * 
 		 * btnNewAefCons
@@ -320,6 +321,126 @@
          ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
         $('#btn3EnfoqueFisico').removeClass("btn-info").addClass("btn-primary");
 
+		/*++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+		 * 
+		 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
+        $('#btnNewAefTerr').click(function () {
+			$('#messagesDialogForm').empty().removeClass();
+			$('#ctrl').val('btnNewAefTerrenos');
+			$('#idTable').val( '0' );
+			$('#containerDialogForm').empty();
+			$.createFormAefTerrenos();
+			$('#divDialogFormFisico').dialog({title: 'Nuevo Registro Factores de Eficiencia'}).dialog('open');
+		});
+		/*++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+		 * 
+		 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
+		$('.btnEditAefTerr').click(function () {
+			$('#messagesDialogForm').empty().removeClass();
+			$('#ctrl').val('btnEditAefTerrenos');
+			$('#idTable').val( $(this).attr('idTable') );
+			$('#containerDialogForm').empty();
+			$.createFormAefTerrenos();
+			$.loadFormAefTerrenos();
+			$('#divDialogFormFisico').dialog({title: 'Factor Eficiencia: ' + $(this).attr('idTable') }).dialog('open');
+		});
+
+		/*++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+		 * 
+		 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
+		$('#divDialogFormFisico').dialog({
+			modal: true,
+			resizable: false,
+			draggable: false,
+			autoOpen: false,
+			closeOnEscape: true,
+			width: 900,
+			height: 600,
+			buttons: {
+				Guardar: function () {
+					$("#formDialogFisico").submit();
+				},
+				Cerrar: function () {
+					$(this).dialog('close');
+				}
+			},
+			close: function() {
+				if ( $('#messagesDialogForm').attr('class') == 'col-md-12 bg-success' ) {
+					window.location.href = '/corevat/AvaluoEnfoqueFisico/<?php echo $row->idavaluo ?>';
+				}
+			}
+		});
+
+		/*++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+		 * 
+		 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
+		$("#formDialogFisico").submit(function () {
+			$('#messagesDialogForm').empty().removeClass();
+			$.ajax({
+				global: false,
+				cache: false,
+				dataType: 'json',
+				url: $(this).attr("action"),
+				type: $(this).attr("method"),
+				data: $(this).serialize(),
+				success: function (data) {
+					datos = eval(data);
+					if (datos.success) {
+						$('#messagesDialogForm').removeClass().addClass('col-md-12').addClass('bg-success').append(datos.message);
+						$('#idTable').val( datos.idTable );
+					} else {
+						var errores = '';
+						for(datos in data.errors) {
+							errores += '<p>' + data.errors[datos] + '</p>';
+						}
+						$('#messagesDialogForm').removeClass().addClass('col-md-12').addClass('bg-danger').append(errores);
+					}
+				}
+			});
+			return false;
+        });
+
+        /*++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+         * 
+         ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
+		$('#divDialogConfirm').dialog({
+            modal: true,
+            resizable: false,
+            draggable: false,
+            autoOpen: false,
+            closeOnEscape: true,
+            width: 600,
+            height: 400,
+			buttons: {
+				Aceptar: function() {
+					$("#formDialogConfirm").submit();
+				},
+				Cancelar: function() {$(this).dialog('close');}
+			}
+		});
+		//
+		/*++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+		 * 
+		 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
+		$("#formDialogConfirm").submit(function () {
+			//$('#messagesDialogForm').empty().removeClass();
+			$.ajax({
+				global: false,
+				cache: false,
+				dataType: 'json',
+				url: $(this).attr("action"),
+				type: $(this).attr("method"),
+				data: $(this).serialize(),
+				success: function (data) {
+					datos = eval(data);
+					alert( datos.message );
+					if (datos.success === true) {
+						window.location.href = '/corevat/AvaluoEnfoqueFisico/<?php echo $row->idavaluo ?>';
+					}
+				}
+			});
+			return false;
+        });
 
     });
 </script>
