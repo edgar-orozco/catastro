@@ -285,17 +285,17 @@
                     <tr>
                         <?php
                         foreach ($lat as $long) {
-                            $latitud = $long->xmax;
-                            $longitud = $long->ymax;
+                          $latitud = $long->lat_long;
+
                         }
                         ?>
                         <td>Centroide del Predio Latitud:</td>
-                        <td><?php //echo $predios->geo;     ?><?php echo $latitud ?></td>
+                        <td><?php echo $lat= substr($latitud,0, 15);?></td>
                         <td></td>
                     </tr>
                     <tr>
                         <td>Centroide del Predio Longitud:</td>
-                        <td><?php echo $longitud; ?></td>
+                        <td><?php echo $long= substr($latitud,15, 16); ?></td>
                         <td></td>
                     </tr>
                     </tr>
