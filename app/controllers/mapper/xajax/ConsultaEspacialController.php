@@ -39,7 +39,7 @@ class ConsultaEspacialController extends \BaseController {
             }
 
             //Buscamos predio por geolocalización
-            $registrosPredio = DB::select('select entidad, municipio, clave_catas, tipo_predio, superficie_terreno, superficie_construccion , st_xmin(geom) as xmin, st_ymin(geom) as ymin, st_xmax(geom) as xmax, st_ymax(geom) as ymax from predios where ST_Contains(geom, ST_SetSRID(ST_Point(?,?),32615))', array($x_str,$y_str));
+            $registrosPredio = DB::select('select entidad, municipio, clave_catas, tipo_predio, superficie_terreno, superficie_construccion , ST_AsLatLonText(st_centroid(geom), \'D°M\'\'S.SSS\"C\') as lat_lon, st_xmin(geom) as xmin, st_ymin(geom) as ymin, st_xmax(geom) as xmax, st_ymax(geom) as ymax from predios where ST_Contains(geom, ST_SetSRID(ST_Point(?,?),32615))', array($x_str,$y_str));
             if (count($registrosPredio) == 0) {
                 $strJS = '"msgError":"No existe ningún predio en el área seleccionada."';
                 echo "{\"sessionerror\":\"QueryError\"," . $strJS . "}";
@@ -54,6 +54,10 @@ class ConsultaEspacialController extends \BaseController {
             $sup_terr = $predio->superficie_terreno;
             $sup_const = $predio->superficie_construccion;
             $tipo_predio = $predio->tipo_predio;
+            $lat_lon = explode(" ", $predio->lat_lon);
+            $latitud = $lat_lon[0];
+            $longitud = $lat_lon[1];
+
             //si no encontró manzana tomamos el extent del predio
             if($extentMza == 0) {
                 $xmin = $predio->xmin - 10;
@@ -90,6 +94,8 @@ class ConsultaEspacialController extends \BaseController {
             $strJS .= '"domicilio":"' . $domicilio. '", ';
             $strJS .= '"sup_terr":"' . $sup_terr. '", ';
             $strJS .= '"sup_const":"' . $sup_const. '", ';
+            $strJS .= '"latitud":"' . $latitud. '", ';
+            $strJS .= '"longitud":"' . $longitud. '", ';
             if($tipo_predio == "U"){
                 $strJS .= '"tipo_predio":"Urbano"';
             }else{
