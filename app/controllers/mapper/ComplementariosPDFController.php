@@ -42,7 +42,7 @@ class mapper_ComplementariosPDFController extends BaseController {
 //        $clave_catas = $predios->clave_catas;
 //        $centroide= DB::SELECT('SELECT ST_Centroid(geom)  FROM manzanas');
         //$lat=DB::SELECT("SELECT st_xmin(geom)-5 as xmin, st_ymin(geom)-5 as ymin, st_xmax(geom)+5 as xmax, st_ymax(geom)+5 as ymax    FROM predios WHERE clave_catas='$clave_catas'");
-        $lat = DB::SELECT("select ST_AsLatLonText(st_centroid(geom), 'D°M\''S.SSS\"C') as lat_long from predios where clave_catas = '002-0007-000008' and municipio = '008'");
+        $lat = DB::SELECT("select ST_AsLatLonText(st_centroid(geom), 'D°M\''S.SSS\"C') as lat_long from predios where clave_catas = '$clave_catas' and municipio = '008'");
         $condominio = condominios::WHERE('clave_catas', '=', $clave_catas)->get();
         $imagenes = ImagenesLevantamiento::WHERE('clave_catas', '=', $clave_catas)->select('nombre_archivo')->get();
         $vista = View::make('complementarios.datos_complemetarios_PDF', compact('predios', 'nombre', 'condominio', 'imagenes', 'img', 'dir', 'numpredio', 'localidad', 'prop', 'lat'));
