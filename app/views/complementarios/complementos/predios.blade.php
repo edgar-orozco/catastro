@@ -1,14 +1,13 @@
 <?php
+
 foreach ($datos_p as $k) {
     $tipo_predio = str_replace('(', '', $k[0]);
     $niveles = $k[1];
-    $folio = $k[2];
+    $folio = str_replace('""', '', $k[2]);
     $superficie_terreno = $k[3];
     $uso_construccion = str_replace(')', '', $k[4]);
 }
 ?>
-
-
 {{Form::open(array('url' => 'guardar-predios', 'method' => 'POST', 'name' => 'formPredios', 'id' => 'formPredios'))}}
 <div class="panel-body">
     {{Form::text('gid',$gid,['id'=>'gid', "hidden" ])}}
@@ -28,7 +27,7 @@ foreach ($datos_p as $k) {
         <div class="col-md-4">
             <div class="form-group">
                 {{Form::label('Lfolio','Folio Real')}}
-                {{Form::text('folio',$folio,['class'=>'form-control','id'=>'folio', 'tabindex'=>'3', 'max' =>'50','style'=>'width: 250px'])}}
+                {{Form::text('folio',$folio,array('class'=>'form-control','id'=>'folio','tabindex'=>'2','min' => '1' , 'style'=>'width: 250px'))}}
             </div>
         </div>
 <!--        <div class="col-md-4">
@@ -43,7 +42,7 @@ foreach ($datos_p as $k) {
         <div class="col-md-4">
             <div class="form-group">
                 {{Form::label('Luso_construccion','Uso de suelo')}}
-                {{Form::select('uso_construccion',  $tus, $uso_construccion, ['id'=>'uso_construccion', 'class' => 'form-control', 'tabindex'=>'5','style'=>'width: 200px'])}}
+                {{Form::select('uso_construccion',  $tus, $uso_construccion, ['id'=>'uso_construccion', 'class' => 'form-control', 'tabindex'=>'3','style'=>'width: 200px'])}}
 
             </div>
         </div>
