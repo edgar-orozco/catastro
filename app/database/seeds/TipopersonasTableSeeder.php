@@ -9,11 +9,11 @@ class TipopersonasTableSeeder extends Seeder {
 	{
 
 		 DB::table('tipopersonas')->insert(
-            array('nombre' => 'FISICA', 'created_at' => date("Y-m-d H:i:s"),'updated_at' => date("Y-m-d H:i:s") )
+            array('nombre' => 'Física', 'created_at' => date("Y-m-d H:i:s"),'updated_at' => date("Y-m-d H:i:s") )
         );
 
 		  DB::table('tipopersonas')->insert(
-            array('nombre' => 'MORAL', 'created_at' => date("Y-m-d H:i:s"),'updated_at' => date("Y-m-d H:i:s") )
+            array('nombre' => 'Moral', 'created_at' => date("Y-m-d H:i:s"),'updated_at' => date("Y-m-d H:i:s") )
         );
 
 	}
