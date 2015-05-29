@@ -18,21 +18,21 @@
 </div>
 
 
-
+@foreach($requisitos as $requisito)
 
     <div class="form-group">
         <div class="requisito">
-            <select  class="select2-select" multiple="multiple" name="requisitos[]" data-requisitos="[ {{ implode(',',$tipotramite->requisitos->lists('id'))  }} ]" >
-                @foreach($requisitos as $requisito)
-                    <option value="{{ $requisito->id }}"> {{ $requisito->nombre }} </option>
-                @endforeach
-            </select>
+            {{Form::checkbox(
+                'requisitos['.$requisito->id.'][requisito_id]',
+                $requisito->id,
+                ($tipotramite->id) ? in_array($requisito->id, $tipotramite->requisitos->lists('id') ) : false,
+                ['id' => 'requisitos['.$requisito->id.']' ])}}
+            {{Form::label('requisitos['.$requisito->id.']', $requisito->nombre)}}
+
             {{$errors->first('requisitos['.$requisito->id.']', '<span class=text-danger>:message</span>')}}
         </div>
-        <br>
-        @foreach($requisitos as $requisito)
-        <div id="requisito-{{ $requisito->id }}" class="row requisito-detalles" style="display: none;">
-            <label> {{ $requisito->nombre }}  </label>
+
+        <div class="row requisito-detalles" style="display: none;">
             <div class="col-md-12">
                 <div class="input-group">
                     <span class="input-group-addon">
@@ -66,29 +66,25 @@
                 </div>
             </div>
         </div>
-        @endforeach
     </div>
+@endforeach
 
 
 @section('javascript')
-{{ HTML::script('js/select2/select2.min.js') }}
-<script>
-    $(function() {
-        $(".select2-select").select2({
-            placeholder: "Requisitos"
-        });
-        $(".select2-select").on("select2:select", function (e) {
-            $('#requisito-'+ e.params.data.id).show();
-        });
-        $(".select2-select").on("select2:unselect", function (e) {
-            $('#requisito-'+ e.params.data.id).hide();
-        });
-        //Cuando termina de cargarse la pag, mostramos los detalles de los requisistos seleccionados
-        $(".select2-select").val($(".select2-select").data('requisitos')).trigger("change");
-        $(".select2-select").data('requisitos').forEach(function(val){
-            $('#requisito-'+ val).show();
-        });
+    <script>
+        $(function() {
+            //Cuando termina de cargarse la pag, mostramos los detalles de los requisistos seleccionados
+            $('.requisito input:checked').parent().siblings().show();
 
-    });
-</script>
+            //En click del checkbox del requisito muestra-oculta el detalle del requisito
+            $('.requisito input').click( function(){
+                if( $(this).is(':checked') ) {
+                    $(this).parent().siblings().show();
+                }
+                else {
+                    $(this).parent().siblings().hide();
+                }
+            });
+        });
+    </script>
 @append
