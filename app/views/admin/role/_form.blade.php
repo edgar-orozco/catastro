@@ -5,9 +5,9 @@
 </div>
 
 <div class="form-group">
-@foreach($permissions as $permission)
-    {{Form::checkbox('permissions['.$permission->id.']', $permission->id, in_array($permission->id, $role->perms->lists('id')), ['id' => 'permissions['.$permission->id.']' ])}}
-    {{Form::label('permissions['.$permission->id.']', $permission->display_name)}}
-    <br>
-@endforeach
+    <select  class="select2-select" multiple="multiple" name="permissions[]" data-permission="[ {{ implode(',', $role->perms->lists('id'))  }} ]" >
+        @foreach($permissions as $permission)
+            <option value="{{ $permission->id }}"> {{ $permission->display_name }} </option>
+        @endforeach
+    </select>
 </div>

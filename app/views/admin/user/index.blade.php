@@ -9,7 +9,18 @@
 @stop
 
 @section('content')
+
 {{ HTML::style('css/forms.css') }}
+{{ HTML::style('css/select2.min.css') }}
+<style type="text/css">
+.select2-selection__choice span{
+    padding-top: 0;
+}
+.select2-container{
+    width: 100% !important;
+}
+</style>
+
 <div style="display: none" id="users">
     <div class="alert alert-success alert-dismissible" role="alert" ng-show="successSave">
         <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
@@ -29,7 +40,7 @@
                 {{Form::text('q', null, ['class'=>'form-control', 'placeholder'=>'Buscar por...', 'tb-focus' => 'focusFilter', 'ng-model' => 'q'] )}}
 
                 <div class="input-group-btn">
-                    <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">{[{ filterName() }]} <span class="caret"></span></button>
+                    <button type="button" class="btn btn-default dropdown-toggle" style="width:auto;" data-toggle="dropdown">{[{ filterName() }]} <span class="caret"></span></button>
                     <ul class="dropdown-menu dropdown-menu-right" role="menu">
                         <li><a href ng-click="changeTypeFilter( 'name' )">Nombre</a></li>
                         <li><a href ng-click="changeTypeFilter( 'apepat' )">Apellido paterno</a></li>
@@ -59,6 +70,7 @@
                 <button disabled="disabled" class="btn btn-primary" ng-disabled="formUser.$invalid || checkPassword()" type="button" ng-click="store()">
                     {[{ user.id !== undefinied ? 'Modificar usuario' : 'Crear nuevo usuario' }]}
                 </button>
+                <br>
                 {{ Form::reset('Limpiar formato', ['class' => 'btn btn-warning']) }}
             </div>
             {{Form::close()}}
@@ -73,6 +85,7 @@
 
 @section('javascript')
     {{ HTML::script('js/plugins/dirPagination.js') }}
+    {{ HTML::script('js/select2/select2.min.js') }}
     {{ HTML::script('js/user/users.js') }}
     {{ HTML::script('js/laroute.js') }}
 @stop

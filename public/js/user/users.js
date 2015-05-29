@@ -187,6 +187,32 @@ angular.module('app', ['ngAnimate', 'ngResource', 'ngSanitize','ui.bootstrap', '
         };
     }).
     /**
+     *
+     */
+    directive('selectTwo', function($timeout) {
+        var linker = function(scope, element, attrs){
+            element.select2({
+                placeholder: attrs.placeholder
+            });
+            /**
+             * Se escucha la coleccion de roles
+             */
+            scope.$watchCollection('selection', function(val){
+                $timeout(function(){
+                    element.val( val ).trigger("change");
+                }, 0);
+            });
+        };
+
+        return {
+            restrict : 'A',
+            scope : {
+                selection  : '='
+            },
+            link : linker
+        };
+    }).
+    /**
      *Control para mostrar, crear, editar, actualizar y eliminar usuarios de la aplicacion
      */
     controller('UserCtrl', function($scope, $modal, $timeout, $location, $anchorScroll, Users) {
@@ -201,8 +227,8 @@ angular.module('app', ['ngAnimate', 'ngResource', 'ngSanitize','ui.bootstrap', '
         $scope.currentPage = 1;
         $scope.itemsPage = 10;
         $scope.successSave = false;
-        $scope.roles = {};
-        $scope.municipios = {};
+        $scope.roles = [];
+        $scope.municipios = [];
         // Variables para el control
         /**
          * Funcion para obtener la lista de todos los usuarios
@@ -319,19 +345,13 @@ angular.module('app', ['ngAnimate', 'ngResource', 'ngSanitize','ui.bootstrap', '
             }
             // Se modifican los datos de los roles como los espera recibir laravel
             userSave.roles = {};
-            Object.getOwnPropertyNames($scope.roles).forEach(function(val, idx, array) {
-                if($scope.roles[val] == true){
-                    var role = val.replace('role', '');
-                    userSave.roles[role] = role;
-                }
+            $scope.roles.forEach(function(val) {
+                    userSave.roles[val] = val;
             });
             // Se modifican los datos de los municipios como los espera recibir laravel
             userSave.municipios = {};
-            Object.getOwnPropertyNames($scope.municipios).forEach(function(val, idx, array) {
-                if($scope.municipios[val] == true){
-                    var municipio = val.replace('municipio', '');
-                    userSave.municipios[municipio] = municipio;
-                }
+            $scope.municipios.forEach(function(val) {
+                userSave.municipios[val] = val;
             });
             // Se agrega el usuario a la lista de usuarios
             if (userSave.id == undefined){
@@ -350,11 +370,11 @@ angular.module('app', ['ngAnimate', 'ngResource', 'ngSanitize','ui.bootstrap', '
          */
         $scope.edit = function(idx, id){
             // Se borrran los roles previamente seleccionados
-            $scope.roles = {};
+            $scope.roles = [];
             // Se borrran los municipios previamente seleccionados
-            $scope.municipios = {};
+            $scope.municipios = [];
             // Se borra la busqueda
-            var idx = $scope.users.length -1;
+            idx = $scope.users.length -1;
             $scope.showForm = true;
             $scope.focusForm = true;
             if(id !== undefined){
@@ -372,13 +392,14 @@ angular.module('app', ['ngAnimate', 'ngResource', 'ngSanitize','ui.bootstrap', '
             $scope.q = '';
             $scope.currentPage = Math.ceil( ( (idx+1) / $scope.itemsPage) );
             // Se marcan los roles que tiene el usuario
-            for(var i in $scope.user.roles){
-                $scope.roles['role'+$scope.user.roles[i].id] = true;
-            }
+            $scope.user.roles.forEach(function(val){
+                $scope.roles.push(val.id);
+            });
             // Se marcan los municipios a los que esta asignado el usuario
-            for(var i in $scope.user.municipios){
-                $scope.municipios['municipio'+$scope.user.municipios[i].gid] = true;
-            }
+            $scope.user.municipios.forEach(function(val){
+                $scope.municipios.push(val.gid);
+            });
+
             $scope.user.idx = idx;
         };
         /**

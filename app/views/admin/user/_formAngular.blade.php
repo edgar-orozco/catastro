@@ -52,25 +52,23 @@
     {{Form::label(null,'Roles')}}
     <div>
 
-        @foreach(Role::all() as $role)
-            {{Form::checkbox('roles['.$role->id.']', $role->id, in_array($role->id, $user->roles->lists('id')), ['id' => 'roles['.$role->id.']', 'ng-model' => 'roles.role'.$role->id ])}}
-            {{Form::label('roles['.$role->id.']', $role->name)}}
-            <br>
-        @endforeach
-        {{$errors->first('roles[]', '<span class=text-danger>:message</span>')}}
     </div>
+    <select select-two="select2" placeholder="Roles" class="select2-select" multiple="multiple" selection="roles"  ng-model="roles">
+        @foreach(Role::all() as $role)
+            <option value="{{ $role->id }}"> {{ $role->name  }} </option>
+        @endforeach
+    </select>
+    {{$errors->first('roles[]', '<span class=text-danger>:message</span>')}}
 </div>
 
 <div class="form-group">
     {{Form::label(null,'Municipios')}}
-    <div>
+    <select select-two="select2" placeholder="Municipios" class="select2-select" multiple="multiple" selection="municipios"  ng-model="municipios">
         @foreach(Municipio::all() as $municipio)
-            {{Form::checkbox('municipios['.$municipio->gid.']', $municipio->gid, in_array($municipio->gid, $user->municipios->lists('gid')), ['id' => 'municipios['.$municipio->gid.']', 'ng-model' => 'municipios.municipio'.$municipio->gid ])}}
-            {{Form::label('municipios['.$municipio->gid.']', $municipio->nombre_municipio)}}
-            <br>
+            <option value="{{ $municipio->gid }}"> {{ $municipio->nombre_municipio  }} </option>
         @endforeach
-        {{$errors->first('municipios[]', '<span class=text-danger>:message</span>')}}
-    </div>
+    </select>
+    {{$errors->first('municipios[]', '<span class=text-danger>:message</span>')}}
 </div>
 
 

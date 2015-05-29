@@ -6,6 +6,16 @@
 
 @section('content')
 
+    {{ HTML::style('css/select2.min.css') }}
+    <style type="text/css">
+        .select2-selection__choice span{
+            padding-top: 0;
+        }
+        .select2-container{
+            width: 100% !important;
+        }
+    </style>
+
     <div class="row">
     <a href="{{URL::route('admin.tipotramites.index')}}" class="btn btn-primary pull-right" role="button"><i class="glyphicon glyphicon-arrow-left"></i> Regresar</a>
 
@@ -31,4 +41,3 @@
     </div>
 
 @stop
-
