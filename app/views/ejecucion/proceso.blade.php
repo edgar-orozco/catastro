@@ -23,7 +23,8 @@ $(function() {
  firstDay: 1,
  isRTL: false,
  showMonthAfterYear: false,
- yearSuffix: ''
+ yearSuffix: '',
+ beforeShowDay: $.datepicker.noWeekends 
  };
  $.datepicker.setDefaults($.datepicker.regional['es']);
 $(function () {

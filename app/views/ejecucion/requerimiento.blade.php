@@ -29,6 +29,13 @@ $(function () {
 $("#fecha").datepicker();
 });
 </script>
+<script >
+    $('#guardar').on('click', function () {
+         window.location.reload();
+        $('#requerimiento').toggle();
+        $('#formulario').hide();
+    })
+</script>
 <script>
 
             // Al presionar cualquier tecla en cualquier campo de texto, ejectuamos la siguiente función
@@ -53,12 +60,6 @@ $("#fecha").datepicker();
                     // Si no se encontro ningún elemento, no hacemos nada (se envia el formulario)
                 }
             });
-</script>
-<script >
-    $('#guardar').on('click', function () {
-         window.location.reload();
-        $('#proceso').toggle();
-    })
 </script>
 <?php $fecha= date("d/m/Y"); ?>
 <div class="modal-header">

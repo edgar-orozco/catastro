@@ -108,12 +108,10 @@ setlocale(LC_MONETARY, 'es_MX');
                                 this.checked = true;
                                 d.boton.disabled = false;
                                 d.datepicker.disabled = false;
-                               
                             } else {
                                 this.checked = false;
                                 d.boton.disabled = true;
                                 d.datepicker.disabled = true;
-                                
                             }
                         });
                     });
@@ -191,6 +189,7 @@ setlocale(LC_MONETARY, 'es_MX');
                 //Calendario
                 $(function () {
                     $("#datepicker").datepicker();
+
                 });
                 //Cambiar a español el calendario
                 $.datepicker.regional['es'] = {
@@ -208,7 +207,8 @@ setlocale(LC_MONETARY, 'es_MX');
                     firstDay: 1,
                     isRTL: false,
                     showMonthAfterYear: false,
-                    yearSuffix: ''
+                    yearSuffix: '',
+                    beforeShowDay: $.datepicker.noWeekends 
                 };
                 $.datepicker.setDefaults($.datepicker.regional['es']);
                 $(function () {
@@ -346,7 +346,7 @@ setlocale(LC_MONETARY, 'es_MX');
                         <?php $impuesto = $key[4]?>
                         <?php $valorcc  =$key[6]; ?>
                         <?php $total    =$impuesto+$valorcc ?>
-                        <tr id="<?php echo $i ?>">
+                        <tr id="<?php echo $i ?>" >
                             <td align="center">
                                 <div class="row">
                                     <div class="col-lg-6">

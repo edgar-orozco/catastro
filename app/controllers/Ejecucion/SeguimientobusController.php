@@ -336,8 +336,6 @@ class Ejecucion_SeguimientobusController extends \BaseController {
             {
                     $datos=ejecucion::find($ide);
                     $datos->cve_status='RC';
-                    $datos->f_cancelacion = Input::get('date');
-                    $datos->motivo_cancelacion = 'Vencimiento de tiempo';
                     $datos->save();
 
 
@@ -371,8 +369,6 @@ class Ejecucion_SeguimientobusController extends \BaseController {
             {
                     $datos=ejecucion::find($ide);
                     $datos->cve_status='DC';
-                    $datos->f_cancelacion = Input::get('date');
-                    $datos->motivo_cancelacion = 'Vencimiento de tiempo';
                     $datos->save();
 
 

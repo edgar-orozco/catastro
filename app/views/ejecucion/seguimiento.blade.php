@@ -182,32 +182,32 @@ setlocale(LC_MONETARY, 'es_MX');
                   <?php $total           = $impuesto+$valorcc ?>
                   <?php $fechacancelacion = str_replace(')', '',$key[8]); ?>
                   <?php $notificacion   =  str_replace(')','',$key[9]);?>
-            
-            <td align="center">
+                  <?php $style='style="font-size: 80%;"' ?>
+            <td align="center" <?php echo $style ?>>
                 <!-- CLAVE -->
                 {{$clave;}}
             </td>
-            <td align="center">
+            <td align="center" <?php echo $style ?>>
                 <!-- NOMBRE -->
                 {{$nombre;}}
             </td>
-            <td align="center">
+            <td align="center" <?php echo $style ?>>
                 <!-- MUNICIPIO -->
                {{$municipio=$key[2];}}
             </td>
-            <td align="center">
+            <td align="center" <?php echo $style ?>>
                 <!-- domicilio -->
               {{$estatus=$key[4];}}
             </td>
-             <td align="center">
+             <td align="center" <?php echo $style ?>>
                 <!-- periodo -->
                 <?php echo $fecharequerimiento = str_replace(')', '',$key[11]);?>
             </td>
-            <td align="center">
+            <td align="center" <?php echo $style ?>>
                 <!-- periodo -->
                 {{$fechainicio=$key[6];}}
             </td>
-            <td align="center">
+            <td align="center" <?php echo $style ?>>
                <!-- impuesto-->
                <?php $fechavencimiento= str_replace(')', '',$key[7]);?>
                 <?php $vigencia = str_replace(')', '',$key[10]);?>
@@ -221,7 +221,7 @@ setlocale(LC_MONETARY, 'es_MX');
                }
                ?>
             </td>
-            <td align="center">
+            <td align="center" <?php echo $style ?>>
                 <!-- agrgar datos requerimiento-->
                 @if($notificacion=='Si')
                 @if($fechainicio=='' || $fechaven=='')
@@ -230,7 +230,7 @@ setlocale(LC_MONETARY, 'es_MX');
                 @endif
                 @endif
             </td>
-            <td align="center">
+            <td align="center" <?php echo $style ?>>
                 <?php $arr = array(CI => '<a   href ="/reimprimir/'.$clave.'"  target=_blank><span class="glyphicon glyphicon-print" title="Reimprimir Documento"></span></a>',
                                    RC => '<a   href ="ejecucion/procesorc"     target=_blank><span class="glyphicon glyphicon-print" title="Reimprimir Documento" id="procesocc"></span></a>'); ?>
                 <!-- link reimpresion ultimo estado-->
@@ -326,5 +326,11 @@ setlocale(LC_MONETARY, 'es_MX');
     </div>
     <!-- fin Modal -->
     <br>
+    <div class="row-fluid">
+        <div class="col-lg-3" style="color:white; background-color: #004F80;">Proceso Activo</div>
+        <div class="col-lg-3" style="color:white; background-color: #FF8400;">Proceso Vencido</div>
+        <div class="col-lg-3" style="color:white; background-color: #CF0000;">Proceso Cancelado</div>
+        
+    </div>
     </div>
 @stop
