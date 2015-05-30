@@ -58,7 +58,7 @@ $nombre_pe = $nombresss.' '.$apellidope.' '.$apellidome;
     //autocomplete
     $(function () {
         $("#nombrec").autocomplete({
-            source: "/search/autocomplete1",
+            source: "/autocomplete",
             minLength: 1,
             select: function (event, ui) {
                 $('#response').val(ui.item.id);

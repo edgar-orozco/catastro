@@ -157,7 +157,7 @@
                         if ($nombre[0] == "") {
                             $name = "No Hay Propietario Registrado";
                         }
-                        $name= $nombre[0];
+                        $name = $nombre[0];
                         ?>
                         <td colspan="3" ><?php echo $nombre[0] ?></td>
 
@@ -217,13 +217,13 @@
                     </tr>
                     </tr>
                     <tr>
-<?php
-if ($localidad[0] == "") {
-    $numi = "Sin Numero Interior";
-} else {
-    $numi = $localidad[0];
-}
-?>
+                        <?php
+                        if ($localidad[0] == "") {
+                            $numi = "Sin Numero Interior";
+                        } else {
+                            $numi = $localidad[0];
+                        }
+                        ?>
 
                         <td>Num de Exterior:</td>
                         <td><?php echo $numi ?></td>
@@ -244,13 +244,13 @@ if ($localidad[0] == "") {
                     </tr>
                     <tr>
                         <td>Num de Interior:</td>
-<?php
-if ($localidad[0] == "") {
-    $numi = "Sin Numero Interior";
-} else {
-    $numi = $localidad[0];
-}
-?>
+                        <?php
+                        if ($localidad[0] == "") {
+                            $numi = "Sin Numero Interior";
+                        } else {
+                            $numi = $localidad[0];
+                        }
+                        ?>
                         <td><?php echo $numi ?></td>
                         <td></td>
                     </tr>
@@ -263,13 +263,13 @@ if ($localidad[0] == "") {
                     </tr>
                     <tr>
                         <td>Código Postal:</td>
-<?php
-if ($localidad[4] == "") {
-    $cp = "Sin Codigo Postal";
-} else {
-    $cp = $localidad[4];
-}
-?>
+                        <?php
+                        if ($localidad[4] == "") {
+                            $cp = "Sin Codigo Postal";
+                        } else {
+                            $cp = $localidad[4];
+                        }
+                        ?>
                         <td><?php echo $cp ?></td>
                         <td></td>
                     </tr>
@@ -303,7 +303,7 @@ if ($localidad[4] == "") {
                     </tr>
                     </tr>
 
-<?php foreach ($condominio as $cond) { ?>
+                    <?php foreach ($condominio as $cond) { ?>
                         <tr>
                             <td>Tipo Privativa:</td>
                             <td>{{$cond->tipo_priva}}</td>
@@ -335,20 +335,20 @@ if ($localidad[4] == "") {
                         </tr>
                         </tr> 
 
-<?php } ?>
+                    <?php } ?>
                 </table>
                 <br>
                 <br>
                 <table width="100%" style="border:none;">
-<?php
+                    <?php
 //                    echo $imagenes;
-?>
+                    ?>
                     <tr>  
-<?php
-foreach ($imagenes as $url) {
-    ?>
+                        <?php
+                        foreach ($imagenes as $url) {
+                            ?>
                             <td style="border:none;" width="16%"><img  src=".<?php echo $url->nombre_archivo ?>"width="200" height="150"/></td>
-<?php } ?>
+                        <?php } ?>
                         <td  style="border:none;" width="16%"><img  src="<?php echo $img . '/' . $dir; ?>" width="200" height="150"/></td>
 
 <!--<td width="20%" style="text-align: center;"><img width="300" height="250" src="/complementarios/anexos/008/002/0007/002-0007-000008/1-2-22-05-15-0020007000008.jpg"/></td>-->

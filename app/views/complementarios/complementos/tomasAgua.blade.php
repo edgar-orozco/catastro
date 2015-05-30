@@ -109,7 +109,7 @@ $('#formAgua').bind('submit',function ()
     //autocomplete
     $(function () {
         $("#personasp").autocomplete({
-            source: "/search/autocomplete1",
+            source: "/autocomplete",
             minLength: 1,
             select: function (event, ui) {
                 $('#response2').val(ui.item.id);
