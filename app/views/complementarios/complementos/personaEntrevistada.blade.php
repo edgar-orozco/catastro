@@ -1,8 +1,8 @@
 <?php
 foreach ($entrevistados as $ev ) {
-    $id_pe=$ev['id_p'];
-    
+     $id_pe=$ev['id_p'];
 }
+
 $nombresss=personas::where('id_p', '=', $id_pe)->pluck('nombres');
 $apellidope=personas::where('id_p', '=', $id_pe)->pluck('apellido_paterno');
 $apellidome=personas::where('id_p', '=', $id_pe)->pluck('apellido_materno');
@@ -17,6 +17,7 @@ $nombre_pe = $nombresss.' '.$apellidope.' '.$apellidome;
     {{ Form::hidden('gid_predio',$gid) }}
     {{ Form::hidden('entidad',$estado) }}
     {{ Form::hidden('municipio',$municipio) }}
+    {{ Form::hidden('id_p',$id_pe) }}
 </div>
 
 <div>
