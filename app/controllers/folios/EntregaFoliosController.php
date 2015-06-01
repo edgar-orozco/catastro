@@ -52,9 +52,10 @@ class folios_EntregaFoliosController extends BaseController {
 			$YEAR = date('Y');
 		}
 
-		$selectYear = ['' => '--seleccione un año--'] + FoliosComprados::distinct()->select(DB::raw("date_part('year', fecha_autorizacion) as year"))->orderBy('year', 'DESC')->lists('year', 'year');
-		
 		$perito = Perito::find($id);
+		
+		$selectYear = ['' => '--seleccione un año--'] + FoliosComprados::distinct()->select(DB::raw("date_part('year', fecha_autorizacion) as year"))->where('perito_id', $perito->id)->orderBy('year', 'DESC')->lists('year', 'year');
+		
 
 		$fu = FoliosComprados::where('perito_id', $perito->id)
 		->where('tipo_folio', 'U')
@@ -76,11 +77,10 @@ class folios_EntregaFoliosController extends BaseController {
 			$YEAR = date('Y');
 		}
 
-		$selectYear = ['' => '--seleccione un año--'] + FoliosComprados::distinct()->select(DB::raw("date_part('year', fecha_autorizacion) as year"))->orderBy('year', 'DESC')->lists('year', 'year');
-		
-
 		$perito = Perito::find($id);
 
+		$selectYear = ['' => '--seleccione un año--'] + FoliosComprados::distinct()->select(DB::raw("date_part('year', fecha_autorizacion) as year"))->where('perito_id', $perito->id)->orderBy('year', 'DESC')->lists('year', 'year');
+		
 		$fr = FoliosComprados::where('perito_id', $perito->id)
 		->where('tipo_folio', 'R')
 		->whereRaw("EXTRACT(YEAR FROM fecha_autorizacion) = ". $YEAR)

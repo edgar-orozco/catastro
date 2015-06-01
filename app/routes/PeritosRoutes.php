@@ -44,6 +44,7 @@ Route::group(array('before'=>'Folios'),  function (){
 			
 			Route::get('/reporteperito', 'folios_FoliosController@reporteperito');			
 			Route::get('/formatoreporteperito', 'folios_FoliosController@formatoreporteperito');
+			Route::get('/formatoreporteperito2', 'folios_FoliosController@formatoreporteperito2');
 			Route::get('/reportemensual', 'folios_FoliosController@reportemensual');
 			Route::get('/reportetotal', 'folios_FoliosController@reportetotal');
 			Route::get('/formatoreportetotal', 'folios_FoliosController@formatoreportetotal');

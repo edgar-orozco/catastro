@@ -25,7 +25,8 @@
 	<div class="panel-heading">
 
 		<h4 class="panel-title">Reporte de Folios<p align="right"></h4>
-		<a href="formatoreporteperito" target="_blank" class="btn btn-xs btn-warning" title="Reimprimir"><i class="glyphicon glyphicon-print"></i></a></p>
+		Reporte Peritos Saldo<a href="formatoreporteperito" target="_blank" class="btn btn-xs btn-warning" title="Reimprimir"><i class="glyphicon glyphicon-print"></i></a>
+		Reporte Folios - Perito<a href="formatoreporteperito2" target="_blank" class="btn btn-xs btn-warning" title="Reimprimir"><i class="glyphicon glyphicon-print"></i></a></p>
 
 	</div>
 
