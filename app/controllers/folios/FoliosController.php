@@ -16,6 +16,13 @@ class folios_FoliosController extends BaseController {
 
 		$inputs = Input::all();
 
+		//Extraigo solo el año del campo fecha solicitud.
+
+		$year = explode('-',$inputs['fecha_solicitud']);
+
+		$year = $year[2];
+
+
 		$reglas = [
 		'folio_catastro'	=>	'required',
 		'cantidad_rusticos'	=>	'required|min:0',
@@ -51,7 +58,8 @@ class folios_FoliosController extends BaseController {
  			$nuevosfolios -> total_rustico = $totalrustico;
 			$nuevosfolios -> total = $vt;
 	
-			$compraperitourbano = FoliosHistorial::where('perito_id', Input::get('perito_id'))->orderBy('folio_urbano_final','DESC')->first(); 
+			//Trae la ultima compra de rustico del perito solicitado, tomando en cuenta el año de la compra.
+			$compraperitourbano = FoliosHistorial::where('perito_id', Input::get('perito_id'))->whereRaw("EXTRACT(YEAR FROM fecha_solicitud) = ". $year)->orderBy('folio_urbano_final','DESC')->first(); 
 
 			
 			//$consulta = FoliosHistorial::all()->last();
@@ -118,7 +126,8 @@ class folios_FoliosController extends BaseController {
 				}
 			}
 			
-			$compraperitorustico = FoliosHistorial::where('perito_id', Input::get('perito_id'))->orderBy('folio_rustico_final','DESC')->first(); 
+			//Trae la ultima compra de rustico del perito solicitado, tomando en cuenta el año de la compra.
+			$compraperitorustico = FoliosHistorial::where('perito_id', Input::get('perito_id'))->whereRaw("EXTRACT(YEAR FROM fecha_solicitud) = ". $year)->orderBy('folio_rustico_final','DESC')->first(); 
 			
 			//$consulta = FoliosHistorial::all()->last();
 			//$id = $consulta->id+1; 
@@ -220,9 +229,15 @@ class folios_FoliosController extends BaseController {
 
 		$folios_historial = FoliosHistorial::where('id',$id)->first(); 
 
+		$year = strtotime($folios_historial->fecha_oficio);
+
+		$year = date('y', $year);
+
+		$year2 = date('Y', $year);
+
 		$datos_perito = Perito::where('id', $folios_historial->perito_id)->first();
 
-		$vista = View::make('folios.folios.formato', ['conf'=>$conf,'folios_historial'=>$folios_historial,'datos_perito'=>$datos_perito]);
+		$vista = View::make('folios.folios.formato', ['conf'=>$conf,'folios_historial'=>$folios_historial,'datos_perito'=>$datos_perito, 'year' => $year, 'year2' => $year2]);
 
 		$pdf = PDF::load($vista)->show();
 		//load(variable, tamaño de hoja, orientacion landscape)
@@ -284,6 +299,37 @@ class folios_FoliosController extends BaseController {
 											->get();
 
 		$vista= View::make('folios.folios.formatoreporteperito')->withFolios_historial($folios_historial)->withFolios_totales($folios_totales)->withConf($conf);	
+
+		$pdf = PDF::load($vista)->show();
+		//load(variable, tamaño de hoja, orientacion landscape)
+		$response = Response::make($pdf, 200);
+		$response->header('Content-Type', 'application/pdf');
+		return $response;
+		
+	}
+
+	public function formatoreporteperito2()
+	{
+
+		$conf=FoliosConf::all()->first();
+
+		$folios_historial=FoliosHistorial::select('perito_id',
+											DB::raw('Max(folio_urbano_final) as folio_urbano_final'),
+											DB::raw('Max(folio_rustico_final) as folio_rustico_final'))
+											->distinct()
+											->groupBy('perito_id')
+											->orderBy('perito_id')
+											->get();
+
+		$folios_totales=FoliosHistorial::select(
+											DB::raw('Sum(cantidad_urbanos) as folios_urbanos'),
+											DB::raw('Sum(cantidad_rusticos) as folios_rusticos'),
+											DB::raw('Sum(total_urbano) as total_urbano'),
+											DB::raw('Sum(total_rustico) as total_rustico'),
+											DB::raw('Sum(total) as total'))
+											->get();
+
+		$vista= View::make('folios.folios.formatoreporteperito2')->withFolios_historial($folios_historial)->withFolios_totales($folios_totales)->withConf($conf);	
 
 		$pdf = PDF::load($vista)->show();
 		//load(variable, tamaño de hoja, orientacion landscape)

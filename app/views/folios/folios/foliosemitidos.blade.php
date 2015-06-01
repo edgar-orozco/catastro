@@ -18,7 +18,7 @@
 
 	<div class="panel-body">
 
-{{Form::open(['id' => 'foliosE'])}}
+{{Form::open(['id' => 'foliosE', 'method' => 'GET'])}}
 {{Form::select('year', $selectYear, null,  ['id' => 'year', 'class' => 'form-control input-sm', 'aria-controls' => 'emitidos-table'])}}
 {{Form::close()}}
 	<table class="table datatable" id="emitidos-table" >

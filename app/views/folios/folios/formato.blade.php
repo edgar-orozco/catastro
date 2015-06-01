@@ -7,7 +7,7 @@
 	<body>
 		<img src="css/images/folios/Encabezado SPF 2014.png" WIDTH=400 HEIGHT=85 >
 
-		<p align="right">SPF/SI/DGCyEF/DC/{{$folios_historial->no_oficio}}/2015
+		<p align="right">SPF/SI/DGCyEF/DC/{{$folios_historial->no_oficio}}/{{'20'.$year}}
 		<br>
 
 		Villahermosa, Tab., 
@@ -80,8 +80,8 @@
 					$cantidadinicio = str_pad($cantidadinicio, 4, "0", STR_PAD_LEFT);
 					$cantidadfinal = $folios_historial->folio_urbano_final;
 					$cantidadfinal = str_pad($cantidadfinal, 4, "0", STR_PAD_LEFT);
-					$urbanoinicio = $datos_perito->corevat.'-'.$cantidadinicio.'U-'.$conf->ano_folio;
-					$urbanofinal = $datos_perito->corevat.'-'.$cantidadfinal.'U-'.$conf->ano_folio;
+					$urbanoinicio = $datos_perito->corevat.'-'.$cantidadinicio.'U-'.$year;
+					$urbanofinal = $datos_perito->corevat.'-'.$cantidadfinal.'U-'.$year;
 					}
 
 					//Condicion 0 folios Rusticos
@@ -97,8 +97,8 @@
 					$cantidadinicio = str_pad($cantidadinicio, 4, "0", STR_PAD_LEFT);
 					$cantidadfinal = $folios_historial->folio_rustico_final;
 					$cantidadfinal = str_pad($cantidadfinal, 4, "0", STR_PAD_LEFT);
-					$rusticoinicio = $datos_perito->corevat.'-'.$cantidadinicio.'R-'.$conf->ano_folio;
-					$rusticofinal = $datos_perito->corevat.'-'.$cantidadfinal.'R-'.$conf->ano_folio;
+					$rusticoinicio = $datos_perito->corevat.'-'.$cantidadinicio.'R-'.$year;
+					$rusticofinal = $datos_perito->corevat.'-'.$cantidadfinal.'R-'.$year;
 					}
 
 					
@@ -135,7 +135,7 @@
 		<br><br><br>
 		<p align="center">
 			<B>A T E N T A M E N T E<br>
-			SUFRAGIO EFECTIVO. NO REELECCION<br>
+			
 			EL DIRECTOR DE CATASTRO<br><br><br><br>
 		
 			{{$conf->director_catastro}}
@@ -145,7 +145,7 @@
 		<p style="font-size: 10px;">Fueron Pagados los Derechos según Folio {{$folios_historial->no_recibo}}</p>
 		<p style="font-size: 10px;">C.c.p. {{$conf->director_general}}.- DIRECTOR GENERAL DE CATASTRO Y EJECUCION FISCAL
 		<br>C.c.p. Archivo.</p>
-
+		<br>
 		<table style="font-size: 10px;">
 			<tr>
 				<td width="200" >

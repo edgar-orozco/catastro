@@ -65,8 +65,7 @@
 					</td>
 					<td align="center">
 					@if($u->entrega_estatal == 1)
-						{{--$u->usuario->usuario--}}
-						aqui debe de ir el usuario
+						{{$u->usuario->username}}
 					@endif
 					</td>
 					<td align="center">

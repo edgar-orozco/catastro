@@ -69,7 +69,7 @@
             </div>
         </div>
         <div class="col-md-12">
-            {{Form::submit('Guardar', ['class'=>'btn btn-warning', 'data-toggle'=>'modal', 'data-target'=>'#myModal'])}}
+            {{Form::submit('Guardar', ['class'=>'btn btn-warning form-control', 'data-toggle'=>'modal', 'data-target'=>'#myModal'])}}
             {{Form::close()}}
         </div>
     </div>
@@ -127,6 +127,10 @@
 
 
             	$('#modalBody').html(' <object data="/nfolios/formato/'+data.id+'" type="application/pdf" width="100%" height="700"></object>')
+            },
+            error: function()
+            {
+                $('.modal-body').html('<div class="alert alert-danger"><ul id="errores">Error al guardar, verifique los datos</ul></div>');
             }
         });
             return false;
