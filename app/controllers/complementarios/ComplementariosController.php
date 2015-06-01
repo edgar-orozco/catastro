@@ -291,11 +291,11 @@ class complementarios_ComplementariosController extends BaseController {
                 ->orderBy('tiposervicios.id_tiposervicio', 'ASC')
                 ->get();
 
-        $tta =['' => '--seleccione una opción--'] + TiposTomasAgua::orderBy('descripcion', 'ASC')->lists('descripcion', 'id_tipotoma');
+        $tta = ['' => '--seleccione una opción--'] + TiposTomasAgua::orderBy('descripcion', 'ASC')->lists('descripcion', 'id_tipotoma');
 
         $datos_construcciones = construcciones::where('gid_predio', '=', $id)
-        ->join('tiposclasesconstruccion', 'construcciones.id_tcc', '=', 'tiposclasesconstruccion.id_tcc')
-        ->get();
+                ->join('tiposclasesconstruccion', 'construcciones.id_tcc', '=', 'tiposclasesconstruccion.id_tcc')
+                ->get();
 
 
         foreach ($predios as $predio) {
@@ -316,43 +316,34 @@ class complementarios_ComplementariosController extends BaseController {
         $file = [];
         $tipo_imagen = TipoImagenes::lists('descripcion', 'id_tipoimagen');
         //For para recorrer cada imagen
-        foreach ($imagenes as $imagen) 
-        {
+        foreach ($imagenes as $imagen) {
             $select_opc = '';
             $select_opcFooter = '';
             $extension = split('[.]', $imagen->nombre_archivo);
             $nombre_archivo = split('[/]', $imagen->nombre_archivo);
-            foreach ($tipo_imagen as $key => $descripcion) 
-            {
-                if ($key==$imagen->id_tipoimagen) 
-                {
-                    $select_opc = $select_opc."<option selected = 'selected' value='".$key."'>".$descripcion."</option>";
+            foreach ($tipo_imagen as $key => $descripcion) {
+                if ($key == $imagen->id_tipoimagen) {
+                    $select_opc = $select_opc . "<option selected = 'selected' value='" . $key . "'>" . $descripcion . "</option>";
+                } else {
+                    $select_opc = $select_opc . "<option value='" . $key . "'>" . $descripcion . "</option>";
                 }
-                else
-                {
-                    $select_opc = $select_opc."<option value='".$key."'>".$descripcion."</option>";
-                }
-                $select_opcFooter = $select_opcFooter."<option value='".$key."'>".$descripcion."</option>";
+                $select_opcFooter = $select_opcFooter . "<option value='" . $key . "'>" . $descripcion . "</option>";
             }
-            $select = "<select name='select-instalaciones' class='form-control' id='instalaciones'><option selected='selected' value=''>--Seleccione una opción--</option>".print_r($select_opc, true)."</select>";
-            $eliminar = "<button type='button' class='kv-file-remove btn btn-xs btn-default' title='Remove file' data-url='/eliminar-anexo/".$imagen->id_il."' data-key='1'><i class='glyphicon glyphicon-trash text-danger'></i></button>";
-            $download = "<a href='".$imagen->nombre_archivo."' download='".$extension[0]."' class='btn btn-xs btn-default' title='Descargar'><i class='glyphicon glyphicon-download'></i></a>";
-            $thumbnail_footer = "<div class='file-thumbnail-footer'><div class='file-caption-name' title='".$nombre_archivo[7]."' style='width: 266px;''>".$nombre_archivo[7]."</div></div>";
-            if(in_array(strtolower($extension[1]), array('png','jpeg','gif','bmp','vnd.microsoft.icon', 'jpg')))
-            {
+            $select = "<select name='select-instalaciones' class='form-control' id='instalaciones'><option selected='selected' value=''>--Seleccione una opción--</option>" . print_r($select_opc, true) . "</select>";
+            $eliminar = "<button type='button' class='kv-file-remove btn btn-xs btn-default' title='Remove file' data-url='/eliminar-anexo/" . $imagen->id_il . "' data-key='1'><i class='glyphicon glyphicon-trash text-danger'></i></button>";
+            $download = "<a href='" . $imagen->nombre_archivo . "' download='" . $extension[0] . "' class='btn btn-xs btn-default' title='Descargar'><i class='glyphicon glyphicon-download'></i></a>";
+            $thumbnail_footer = "<div class='file-thumbnail-footer'><div class='file-caption-name' title='" . $nombre_archivo[7] . "' style='width: 266px;''>" . $nombre_archivo[7] . "</div></div>";
+            if (in_array(strtolower($extension[1]), array('png', 'jpeg', 'gif', 'bmp', 'vnd.microsoft.icon', 'jpg'))) {
                 $file[] = "<img src='" . $imagen->nombre_archivo . "' class='file-preview-image' >" . $thumbnail_footer . $select . $eliminar . $download;
-            }
-            else
-            {
+            } else {
                 $file[] = "<span class='glyphicon glyphicon-file' ></span>" . $thumbnail_footer . $select . $eliminar . $download;
             }
         }
         $select_opcFooter = '';
-        foreach ($tipo_imagen as $key => $descripcion) 
-            {
-                $select_opcFooter = $select_opcFooter."<option value='".$key."'>".$descripcion."</option>";
-            }
-        return View::make('complementarios.cargar', compact("tus", "entrevistados", "tomas_agua", "datos_p", "predios", "const", "tuc", "tcc", "ttc", "tec", "tmc", "tpic", "tpuc", "tvc", "catalogo", "gid", "clave_catas", "estado", "municipio", "cat", "asociados", "giros", "girosasociados", "datos", "condominio", "tta", "datos_construcciones", "file", "ieasociados","select_opcFooter"));
+        foreach ($tipo_imagen as $key => $descripcion) {
+            $select_opcFooter = $select_opcFooter . "<option value='" . $key . "'>" . $descripcion . "</option>";
+        }
+        return View::make('complementarios.cargar', compact("tus", "entrevistados", "tomas_agua", "datos_p", "predios", "const", "tuc", "tcc", "ttc", "tec", "tmc", "tpic", "tpuc", "tvc", "catalogo", "gid", "clave_catas", "estado", "municipio", "cat", "asociados", "giros", "girosasociados", "datos", "condominio", "tta", "datos_construcciones", "file", "ieasociados", "select_opcFooter"));
     }
 
     /**
@@ -607,7 +598,7 @@ class complementarios_ComplementariosController extends BaseController {
             $n->no_unidades = 0;
             $n->save();
             Session::flash('mensaje', 'El registro ha sido ingresado exitosamente');
-           // $no_condominal1 = condominios::where('id_condominio', $id_condominio)->pluck('no_condominal');
+            // $no_condominal1 = condominios::where('id_condominio', $id_condominio)->pluck('no_condominal');
             return Response::json(array
                         (
                         'valor' => 1,
@@ -935,7 +926,7 @@ class complementarios_ComplementariosController extends BaseController {
             }
             $count = count($total);
             for ($x = 0; $x < $count; $x++) {
-             //for ($x = 0; $x<1; $x++) {
+                //for ($x = 0; $x<1; $x++) {
                 $n = new Giros();
                 $n->entidad = $entidad;
                 $n->municipio = $municipio;
@@ -1046,7 +1037,6 @@ class complementarios_ComplementariosController extends BaseController {
         $clave_catas = Input::get('clave_cata');
         $gid_predio = Input::get('gid_predio');
         $id_p = Input::get('id_p');
-
         $n = new Entrevistado();
         $n->entidad = $entidad;
         $n->municipio = $municipio;
@@ -1065,11 +1055,11 @@ class complementarios_ComplementariosController extends BaseController {
 
         $inputs = Input::All();
 //Reglas 
-        $reglas = array(
-            'apellido_paterno' => 'required',
-            'apellido_materno' => 'required',
-            'nombres' => 'required',
-        );
+//        $reglas = array(
+//            'apellido_paterno' => 'required',
+//            'apellido_materno' => 'required',
+//            'nombres' => 'required',
+//        );
 
         $apellido_paterno = Input::get('apellido_paterno');
         $apellido_materno = Input::get('apellido_materno');
@@ -1077,36 +1067,39 @@ class complementarios_ComplementariosController extends BaseController {
         $term = $nombres . ' ' . $apellido_paterno . ' ' . $apellido_materno;
 //echo $nombrec=$apellido_materno." ".$apellido_paterno." ".$nombres ; 
 //Mensaje
-        $mensajes = array(
-            "required" => "*",
-        );
-//valida
-        $validar = Validator::make($inputs, $reglas, $mensajes);
-//en caso no pase la validacion
-        if ($validar->fails()) {
-            return Redirect::back()->withErrors($validar);
-        } else {
-            $n = new personas();
-            $n->apellido_paterno = $inputs["apellido_paterno"];
-            $n->apellido_materno = $inputs["apellido_materno"];
-            $n->nombres = $inputs["nombres"];
-            $n->nombrec = $apellido_paterno . " " . $apellido_materno . " " . $nombres;
-            $n->rfc = $inputs["rfc"];
-            $n->curp = $inputs["curp"];
-            $n->save();
-            $queries = DB::select(DB::raw("SELECT id_p FROM personas WHERE nombres || ' ' || apellido_paterno || ' ' ||  apellido_materno LIKE '%" . $term . "%' limit 1"));
+//        $mensajes = array(
+//            "required" => "*",
+//        );
+////valida
+//        $validar = Validator::make($inputs, $reglas, $mensajes);
+////en caso no pase la validacion
+//        if ($validar->fails()) {
+//            return Redirect::back()->withErrors($validar);
+//        } else {
+        if($nombres="" || $apellido_paterno =="")
+        {
+          Session::flash('mensaje', 'Campos vacios');   
+        }else{
+        $n = new personas();
+        $n->apellido_paterno = $inputs["apellido_paterno"];
+        $n->apellido_materno = $inputs["apellido_materno"];
+        $n->nombres = $inputs["nombres"];
+        $n->nombrec = $apellido_paterno . " " . $apellido_materno . " " . $nombres;
+        $n->rfc = null;
+        $n->curp = null;
+        $n->save();
+        $queries = DB::select(DB::raw("SELECT id_p FROM personas WHERE nombres || ' ' || apellido_paterno || ' ' ||  apellido_materno LIKE '%" . $term . "%' limit 1"));
 //Se han guardado los valores
-            foreach ($queries as $key) {
-                $id = $key->id_p;
-            }
-            Session::flash('mensaje', 'El registro ha sido ingresado exitosamente');
-            return Response::json(array('id_p' => $id));
-// return Redirect::back();
+        foreach ($queries as $key) {
+            $id = $key->id_p;
+        }
+        Session::flash('mensaje', 'El registro ha sido ingresado exitosamente');
+        return Response::json(array('id_p' => $id));
+        return Redirect::back();
         }
     }
 
-   public function guardar_anexo()
-    {
+    public function guardar_anexo() {
         $entidad = Input::get('entidad');
         $municipio = Input::get('municipio');
         $clave_catas = Input::get('clave_catas');
@@ -1118,95 +1111,78 @@ class complementarios_ComplementariosController extends BaseController {
         $fileFooter = [];
         $opciones = [''];
         //for para contar los archivos a cargar
-        for ($i = 0; $i < count($files); $i++)
-        {
+        for ($i = 0; $i < count($files); $i++) {
             //se toma la imagen
             $file2 = $files[$i];
             // Se valida que exista un archivo
-            if($file2) 
-            {
+            if ($file2) {
                 // Se valida el directorio para subir shapes
-                $dir =  '/complementarios/anexos/'.$municipio.'/'.$array_clave[0].'/'.$array_clave[1].'/'.$clave_catas.'/';
-                $nombre_archivo = $gid_predio.'-'.$id_tipoimagen2[$i].'-'.date("d-m-y").'-'.$file2->getClientOriginalName();
-                if (!file_exists(public_path().$dir) && !is_dir(public_path().$dir)) 
-                {
-                    File::makeDirectory(public_path().$dir, $mode = 0777, true, true);
+                $dir = '/complementarios/anexos/' . $municipio . '/' . $array_clave[0] . '/' . $array_clave[1] . '/' . $clave_catas . '/';
+                $nombre_archivo = $gid_predio . '-' . $id_tipoimagen2[$i] . '-' . date("d-m-y") . '-' . $file2->getClientOriginalName();
+                if (!file_exists(public_path() . $dir) && !is_dir(public_path() . $dir)) {
+                    File::makeDirectory(public_path() . $dir, $mode = 0777, true, true);
                 }
                 // Se valida la extensión del archivo
-                if(!file_exists($dir.$nombre_archivo) && in_array(strtolower($file2->getClientMimeType()), array('image/png','image/jpeg','image/jpeg','image/jpeg','image/gif','image/bmp','image/vnd.microsoft.icon', 'text/plain', 'application/vnd.ms-excel', 'application/msword', 'application/pdf')))
-                {
-                    $file2->move(public_path().$dir, $gid_predio.'-'.$id_tipoimagen2[$i].'-'.date("d-m-y").'-'.$file2->getClientOriginalName());
+                if (!file_exists($dir . $nombre_archivo) && in_array(strtolower($file2->getClientMimeType()), array('image/png', 'image/jpeg', 'image/jpeg', 'image/jpeg', 'image/gif', 'image/bmp', 'image/vnd.microsoft.icon', 'text/plain', 'application/vnd.ms-excel', 'application/msword', 'application/pdf'))) {
+                    $file2->move(public_path() . $dir, $gid_predio . '-' . $id_tipoimagen2[$i] . '-' . date("d-m-y") . '-' . $file2->getClientOriginalName());
                     $imagenes = new ImagenesLevantamiento();
                     $imagenes->entidad = $entidad;
                     $imagenes->municipio = $municipio;
-                    $imagenes->clave_catas=$clave_catas;
-                    $imagenes->gid_predio=$gid_predio;
-                    $imagenes->id_tipoimagen=$id_tipoimagen2[$i];
-                    $imagenes->nombre_archivo= $dir.$nombre_archivo;
+                    $imagenes->clave_catas = $clave_catas;
+                    $imagenes->gid_predio = $gid_predio;
+                    $imagenes->id_tipoimagen = $id_tipoimagen2[$i];
+                    $imagenes->nombre_archivo = $dir . $nombre_archivo;
                     $imagenes->save();
-                    $imagenes = ImagenesLevantamiento::where('nombre_archivo', '=', $dir.$nombre_archivo)->select('nombre_archivo', 'id_il', 'id_tipoimagen')->get();
+                    $imagenes = ImagenesLevantamiento::where('nombre_archivo', '=', $dir . $nombre_archivo)->select('nombre_archivo', 'id_il', 'id_tipoimagen')->get();
                     $tipo_imagen = TipoImagenes::lists('descripcion', 'id_tipoimagen');
                     $select_opc = '';
                     $extension = split('[.]', $imagenes[0]->nombre_archivo);
                     //for para saber opcion elegida
-                    foreach ($tipo_imagen as $key => $descripcion) 
-                    {
-                    
-                        if ($key==$imagenes[0]->id_tipoimagen) 
-                        {
-                            $select_opc = $select_opc."<option selected = 'selected' value='".$key."'>".$descripcion."</option>";
-                        }
-                        else
-                        {
-                            $select_opc = $select_opc."<option value='".$key."'>".$descripcion."</option>";
+                    foreach ($tipo_imagen as $key => $descripcion) {
+
+                        if ($key == $imagenes[0]->id_tipoimagen) {
+                            $select_opc = $select_opc . "<option selected = 'selected' value='" . $key . "'>" . $descripcion . "</option>";
+                        } else {
+                            $select_opc = $select_opc . "<option value='" . $key . "'>" . $descripcion . "</option>";
                         }
                     }
-                    
-                    $select = "<select name='select-instalaciones' class='form-control' id='instalaciones'><option selected='selected' value=''>--Seleccione una opción--</option>".print_r($select_opc, true)."</select>";
-                    $eliminar = "<button type='button' class='kv-file-remove btn btn-xs btn-default' title='Remove file' data-url='/eliminar-anexo/".$imagenes[0]->id_il."' data-key='1'><i class='glyphicon glyphicon-trash text-danger'></i></button>";
-                    $download = "<a href='".$dir.$nombre_archivo."' download='".$extension[0]."' class='btn btn-xs btn-default' title='Descargar'><i class='glyphicon glyphicon-download'></i></a>";
-                    $thumbnail_footer = "<div class='file-thumbnail-footer'><div class='file-caption-name' title='".$nombre_archivo."' style='width: 300px;''>".$nombre_archivo."</div></div>";
+
+                    $select = "<select name='select-instalaciones' class='form-control' id='instalaciones'><option selected='selected' value=''>--Seleccione una opción--</option>" . print_r($select_opc, true) . "</select>";
+                    $eliminar = "<button type='button' class='kv-file-remove btn btn-xs btn-default' title='Remove file' data-url='/eliminar-anexo/" . $imagenes[0]->id_il . "' data-key='1'><i class='glyphicon glyphicon-trash text-danger'></i></button>";
+                    $download = "<a href='" . $dir . $nombre_archivo . "' download='" . $extension[0] . "' class='btn btn-xs btn-default' title='Descargar'><i class='glyphicon glyphicon-download'></i></a>";
+                    $thumbnail_footer = "<div class='file-thumbnail-footer'><div class='file-caption-name' title='" . $nombre_archivo . "' style='width: 300px;''>" . $nombre_archivo . "</div></div>";
                     //Condicion para saber si es imagen o archivo
-                    if(in_array(strtolower($file2->getClientMimeType()), array('image/png','image/jpeg','image/gif','image/bmp','image/vnd.microsoft.icon')))
-                    {
+                    if (in_array(strtolower($file2->getClientMimeType()), array('image/png', 'image/jpeg', 'image/gif', 'image/bmp', 'image/vnd.microsoft.icon'))) {
                         $file_footer[] = "<img src='" . $imagenes[0]->nombre_archivo . "' class='file-preview-image' >" . $thumbnail_footer . $select . $eliminar . $download;
+                    } else {
+                        $file_footer[] = "<span class='glyphicon glyphicon-file' ></span>" . $thumbnail_footer . $select . $eliminar . $download;
                     }
-                    else
-                    {
-                        $file_footer[] = "<span class='glyphicon glyphicon-file' ></span>" . $thumbnail_footer  . $select . $eliminar . $download;
-                    }
-                    $respuesta[]  =   '¡Se guardo correctamente el archivo: '. $file2->getClientMimeType();
+                    $respuesta[] = '¡Se guardo correctamente el archivo: ' . $file2->getClientMimeType();
+                } else {
+                    $error[] = '¡Extension de archivo invalida: ' . $file2->getClientMimeType();
                 }
-                else
-                {
-                    $error[]  =   '¡Extension de archivo invalida: '. $file2->getClientMimeType();
-                }      
-            }
-            else
-            {
-                $error[]  =   '¡Es necesario seleccionar un archivo!'; 
+            } else {
+                $error[] = '¡Es necesario seleccionar un archivo!';
             }
         }
         return Response::json(array
-                        (
-                            'respuesta'         =>  $respuesta,
-                            'initialPreview'    =>  $file_footer,
-                            'error'             =>  $error      
-                        ));
+                    (
+                    'respuesta' => $respuesta,
+                    'initialPreview' => $file_footer,
+                    'error' => $error
+        ));
     }
 
-    public function eliminar_anexo($id = null)
-    {
+    public function eliminar_anexo($id = null) {
         $archivo = ImagenesLevantamiento::find($id);
-        if (File::exists(public_path().$archivo->nombre_archivo))
-        {
-            File::delete(public_path().$archivo->nombre_archivo);
+        if (File::exists(public_path() . $archivo->nombre_archivo)) {
+            File::delete(public_path() . $archivo->nombre_archivo);
         }
         $archivo->delete();
         return Response::json(
-            [
-                'filebatchuploadsuccess' => 'se guardo'
-            ]);
+                        [
+                            'filebatchuploadsuccess' => 'se guardo'
+        ]);
     }
 
     public function getPersonas($format = 'html', $id = null) {
@@ -1218,7 +1194,7 @@ class complementarios_ComplementariosController extends BaseController {
         return View::make('complementarios.complementos.personas', compact('title', 'title_section', 'subtitle_section'));
     }
 
-     public function getPersonas2($format = 'html', $id = null) {
+    public function getPersonas2($format = 'html', $id = null) {
         $title = 'Crar nueva perosana';
         //Titulo de seccion:
         $title_section = "";
@@ -1226,5 +1202,5 @@ class complementarios_ComplementariosController extends BaseController {
         $subtitle_section = "Crear nueva persona";
         return View::make('complementarios.complementos.personas2', compact('title', 'title_section', 'subtitle_section'));
     }
-    
+
 }
