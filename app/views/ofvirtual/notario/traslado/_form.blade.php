@@ -1,9 +1,42 @@
 {{--ToDo: Corregir estilos--}}
-    {{Form::label('clave','Clave')}}
+
+   <div class="row">
+
+
+     <table class="table table-striped">
+       <tr>
+           <th class="text-right"><b>Clave catastral:</b></th>
+           <td>{{$predio->clave}}</td>
+       </tr>
+       <tr>
+           <th class="text-right"><b>Cuenta catastral:</b></th>
+           <td>{{$predio->cuenta}}</td>
+       </tr>
+       <tr>
+           <th class="text-right"><b>Tipo predio:</b></th>
+           <td>{{$predio->tipo_predio}}</td>
+       </tr>
+       <tr>
+           <th class="text-right"><b>Ubicacion:</b></th>
+           <td>{{$predio->ubicacionFiscal->ubicacion}}</td>
+       </tr>
+       <tr>
+           <th class="text-right"><b>Superficie terreno:</b></th>
+           <td>{{number_format($predio->superficie_terreno,2, '.', ',')}} m<sup>2</sup></td>
+       </tr>
+       <tr>
+           <th class="text-right"><b>Superficie construcción:</b></th>
+           <td>{{number_format($predio->superficie_construccion,2, '.', ',')}} m<sup>2</sup></td>
+       </tr>
+       </table>
+
+ </div>
+
+   {{-- {{Form::label('clave','Clave')}}--}}
     {{Form::hidden('clave', $predio->clave, ['class'=>'form-control'])}}
     {{$errors->first('clave', '<span class=text-danger>:message</span>')}}
 
-    {{Form::label('cuenta','Cuenta')}}
+   {{-- {{Form::label('cuenta','Cuenta')}}--}}
     {{Form::hidden('cuenta', $predio->cuenta, ['class'=>'form-control'])}}
     {{$errors->first('cuenta', '<span class=text-danger>:message</span>')}}
 
@@ -21,11 +54,11 @@
         {{Form::label('tipo_persona','Tipo de persona', ['class'=>''])}}
         <div class="btn-group btn-toggle" data-toggle="buttons">
             <label class="btn btn-sm btn-default active" style="width: 49%;">
-                <input type="radio" name="vendedor_tipo_persona" class="radio-persona"
+                <input type="radio" name="vendedor_tipo_persona" class="vendedor-radio-persona"
                        value="F" checked> Física
             </label>
             <label class="btn btn-sm btn-default"  style="width: 49%;">
-                <input type="radio" name="vendedor_tipo_persona" class="radio-persona"
+                <input type="radio" name="vendedor_tipo_persona" class="vendedor-radio-persona"
                        value="M"> Moral
             </label>
         </div>
@@ -39,6 +72,7 @@
      {{Form::label('vendedor_nombres','Nombre', ['class'=>''])}}
      {{Form::text('vendedor_nombres', null, ['class' => 'form-control', 'required'=>true] )}}
 
+ <span class="vendedor-campos-fisica">
     {{Form::label('vendedor_apellido_paterno','Apellido Paterno', ['class'=>''])}}
     {{Form::text('vendedor_apellido_paterno', null, ['class' => 'form-control'] )}}
 
@@ -47,7 +81,7 @@
 
     {{Form::label('vendedor_curp','CURP', ['class'=>''])}}
     {{Form::text('vendedor_curp', null, ['class' => 'form-control', 'minlength'=>'18', 'maxlength'=>'18'] )}}
-
+</span>
     {{Form::label('vendedor_rfc','RFC', ['class'=>''])}}
     {{Form::text('vendedor_rfc', null, ['class' => 'form-control', 'minlength'=>'12', 'maxlength'=>'13'] )}}
     {{--/Vendedor --}}
@@ -57,36 +91,24 @@
  {{--Vendedor --}}
     <div class="form-group col-md-6">
     <h1> Comprador </h1>
-    {{--{{Form::label('comprador_id','Comprador')}}
-    {{Form::text('comprador_id', null, ['class'=>'form-control', 'autofocus'=> 'autofocus'] )}}
-    {{$errors->first('comprador_id', '<span class=text-danger>:message</span>')}}
-
-    {{Form::label('comprador_tipo','Vendedor')}}
-    {{Form::text('comprador_tipo', null, ['class'=>'form-control', 'autofocus'=> 'autofocus'] )}}
-    {{$errors->first('comprador_tipo', '<span class=text-danger>:message</span>')}}--}}
 
     <div class="">
         {{Form::label('tipo_persona','Tipo de persona', ['class'=>''])}}
         <div class="btn-group btn-toggle" data-toggle="buttons">
             <label class="btn btn-sm btn-default active" style="width: 49%;">
-                <input type="radio" name="comprador_tipo_persona" class="radio-persona"
+                <input type="radio" name="comprador_tipo_persona" class="comprador-radio-persona"
                        value="F" checked> Física
             </label>
             <label class="btn btn-sm btn-default"  style="width: 49%;">
-                <input type="radio" name="vendedor_tipo_persona" class="radio-persona"
+                <input type="radio" name="comprador_tipo_persona" class="comprador-radio-persona"
                        value="M"> Moral
             </label>
         </div>
     </div>
 
-   {{-- {{Form::label('comprador_tipo','Comprador Tipo')}}
-    {{Form::text('comprador_tipo', null, ['class'=>'form-control', 'autofocus'=> 'autofocus'] )}}
-    {{$errors->first('comprador_tipo', '<span class=text-danger>:message</span>')}}--}}
-
-
      {{Form::label('comprador_nombres','Nombre', ['class'=>''])}}
      {{Form::text('comprador_nombres', null, ['class' => 'form-control', 'required'=>true] )}}
-
+ <span class="comprador-campos-fisica">
     {{Form::label('comprador_apellido_paterno','Apellido Paterno', ['class'=>''])}}
     {{Form::text('comprador_apellido_paterno', null, ['class' => 'form-control'] )}}
 
@@ -95,7 +117,7 @@
 
     {{Form::label('comprador_curp','CURP', ['class'=>''])}}
     {{Form::text('comprador_curp', null, ['class' => 'form-control', 'minlength'=>'18', 'maxlength'=>'18'] )}}
-
+</span>
     {{Form::label('comprador_rfc','RFC', ['class'=>''])}}
     {{Form::text('comprador_rfc', null, ['class' => 'form-control', 'minlength'=>'12', 'maxlength'=>'13'] )}}
     {{--/Vendedor --}}
@@ -154,3 +176,42 @@
 </div>
 <br>
 
+
+@section('javascript')
+    <script>
+
+        $(function () {
+            //Cuando hay cambios en los radio buttons de los requisitos
+            //comprador
+            $('.comprador-radio-persona').change(function (ev) {
+                var radio = $(this);
+                if(radio.val() == 'F'){
+                    $('.comprador-campos-fisica').show();
+                    $('.comprador-tipo_persona').val('F');
+                }
+                else if(radio.val() == 'M')
+                {
+                    $('.comprador-campos-fisica').hide();
+                    $('.comprador-tipo_persona').val('M');
+                }
+            });
+
+             //Cuando hay cambios en los radio buttons de los requisitos
+             //vendedor
+                        $('.vendedor-radio-persona').change(function (ev) {
+                            var radio = $(this);
+                            if(radio.val() == 'F'){
+                                $('.vendedor-campos-fisica').show();
+                                $('.vendedor-tipo_persona').val('F');
+                            }
+                            else if(radio.val() == 'M')
+                            {
+                                $('.vendedor-campos-fisica').hide();
+                                $('.vendedor-tipo_persona').val('M');
+                            }
+                        });
+
+        });
+    </script>
+
+@stop
