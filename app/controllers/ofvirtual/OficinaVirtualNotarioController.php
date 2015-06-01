@@ -64,9 +64,7 @@ class OficinaVirtualNotarioController extends \BaseController {
         $identificador = strtoupper($identificador);
         $predio = $this->padron->getByClaveOCuenta($identificador);
 
-        //ToDo: checar con edgar como se mete esto
-
-        //Si la clave no se encuentra
+          //Si la clave no se encuentra
         if(!$predio) {
             return Redirect::to('ofvirtual/notario/traslado')->with('error', 'La clave o cuenta es incorrecta.');
         }
@@ -146,6 +144,17 @@ class OficinaVirtualNotarioController extends \BaseController {
         $traslado->escritura_impuesto_desde = $variables['escritura_impuesto_desde'];
         $traslado->escritura_impuesto_hasta = $variables['escritura_impuesto_hasta'];
 
+        //Como usuario notario, requiero que se validen los montos de terreno a vender no sean mayores que el declarado en el registro de predio.
+
+        $predio = $this->padron->getByClaveOCuenta($traslado->clave);
+
+        if($traslado->superficie_vendida > $predio->superficie_terreno){
+            return Redirect::back()->with('error', 'La superficie vendida no puede ser mayor que la superficie del terreno.');
+        }
+
+        if($traslado->superficie_construccion_vendida > $predio->superficie_construccion){
+            return Redirect::back()->with('error', 'La superficie de construcción vendida no puede ser mayor que la superficie de construcción del terreno');
+        }
 
         if (!$traslado->save()) {
             return Redirect::back()->withErrors($traslado->errors());
@@ -180,14 +189,21 @@ class OficinaVirtualNotarioController extends \BaseController {
 		//
         $traslado = Traslado::find($id);
 
-        $identificador = $traslado->clave;
-        $predio = $this->padron->getByClaveOCuenta($identificador);
+        $predio = $this->padron->getByClaveOCuenta($traslado->clave);
 
+
+        $comprador = personas::find($traslado->comprador_id);
+        $vendedor = personas::find($traslado->vendedor_id);
+
+
+        $traslado2 = (object) array_merge((array)$traslado, (array)$comprador, (array)$vendedor);
+
+print_r($traslado2);
         // Title
         $title = 'Editar traslado de dominio';
 
          // Show the page
-        return View:: make( 'ofvirtual.notario.traslado.edit', compact( 'title', 'traslado', 'predio'));
+        return View:: make( 'ofvirtual.notario.traslado.edit', compact( 'title','traslado', 'predio'));
 	}
 
 
@@ -210,9 +226,6 @@ class OficinaVirtualNotarioController extends \BaseController {
             return Redirect::back()->withErrors($this->traslado->errors());
         }
 
-        //Si pasa la validación entonces guardamos los permisos relacionados con el rol
-      //  $this->role->savePermissions(Input::get( 'permissions' ));
-
         //Dado que fue exitosa la actualización mostramos la salida al usaurio.
         return Redirect::to('ofvirtual.notario.traslado.edit'.$this->traslado->id.'/edit')->with('success','¡Se ha actualizado correctamente el rol: '. " !");
 	}
@@ -229,5 +242,59 @@ class OficinaVirtualNotarioController extends \BaseController {
 		//
 	}
 
+
+    public function buscar(){
+
+        $q = Input::get('q');
+        $tipo = Input::get('tipo');
+
+        $traslados = new Traslado();
+        $municipios = new Municipio();
+
+        $uid = Auth::id();
+        $user = Auth::user();
+
+        if($user) {
+            $municipios = $user->municipioIdArray();
+            $roles = $user->roleIdArray();
+        }
+        if(trim($q) == '')
+        {
+            $traslados = [];
+        }
+        if($tipo == 'Folio')
+        {
+            $q = intval($q);
+            $traslados = Traslado::where('folio', $q)->involucrado($uid, $roles, $municipios)->paginate($this->numPags);
+        }
+        if($tipo == 'Vendedor')
+        {
+            $traslados = Traslado::involucrado($uid, $roles, $municipios)->solicitanteNombreCompleto($q)->paginate($this->numPags);
+        }
+        if($tipo == 'Comprador')
+        {
+            $traslados = Traslado::involucrado($uid, $roles, $municipios)->notariaNombre($q)->paginate($this->numPags);
+        }
+        if($tipo == 'Ubicación de la propiedad')
+        {
+            $traslados = Traslado::involucrado($uid, $roles, $municipios)->tipoTramiteNombre($q)->paginate($this->numPags);
+        }
+        if($tipo == 'Clave')
+        {
+            $traslados = Traslado::involucrado($uid, $roles, $municipios)->fecha($q)->paginate($this->numPags);
+        }
+        if($tipo == 'Cuenta')
+        {
+            $traslados = Traslado::involucrado($uid, $roles, $municipios)->departamento($q)->paginate($this->numPags);
+        }
+        if (Request::ajax())
+        {
+            return View:: make( 'ofvirtual.notario.traslado.index',compact(['traslados']));
+        }
+
+        $title = 'Buscar traslados de dominio';
+
+        return View:: make( 'ofvirtual.notario.traslado.index', compact( 'title' , 'traslados', 'municipios'));
+    }
 
 }

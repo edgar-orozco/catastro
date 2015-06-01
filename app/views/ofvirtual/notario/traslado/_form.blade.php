@@ -70,7 +70,7 @@
 
 
      {{Form::label('vendedor_nombres','Nombre', ['class'=>''])}}
-     {{Form::text('vendedor_nombres', null, ['class' => 'form-control', 'required'=>true] )}}
+     {{Form::text('vendedor_nombres', null, ['class' => 'form-control', 'required'=>true, 'autofocus'=> 'autofocus'] )}}
 
  <span class="vendedor-campos-fisica">
     {{Form::label('vendedor_apellido_paterno','Apellido Paterno', ['class'=>''])}}
@@ -128,15 +128,15 @@
 <h1>Datos del predio</h1>
 
     {{Form::label('superficie_vendida','Superficie vendida M2')}}
-    {{Form::number('superficie_vendida', null, ['class'=>'form-control', 'autofocus'=> 'autofocus','min' => 0] )}}
+    {{Form::number('superficie_vendida', null, ['class'=>'form-control', 'min' => 0, 'step'=>'any'] )}}
     {{$errors->first('superficie_vendida', '<span class=text-danger>:message</span>')}}
 
     {{Form::label('superficie_construccion_vendida','Superficie construcción vendida M2')}}
-    {{Form::number('superficie_construccion_vendida', null, ['class'=>'form-control', 'autofocus'=> 'autofocus', 'min' => 0] )}}
+    {{Form::number('superficie_construccion_vendida', null, ['class'=>'form-control',  'min' => 0, 'step'=>'any'] )}}
     {{$errors->first('superficie_construccion_vendida', '<span class=text-danger>:message</span>')}}
 
     {{Form::label('medidas_colindancias','Medidas colindancias')}}
-    {{Form::text('medidas_colindancias', null, ['class'=>'form-control', 'autofocus'=> 'autofocus'] )}}
+    {{Form::text('medidas_colindancias', null, ['class'=>'form-control', 'step'=>'any'] )}}
     {{$errors->first('medidas_colindancias', '<span class=text-danger>:message</span>')}}
 
 </div>
@@ -144,31 +144,31 @@
   <h1>Datos de la escritura precedente</h1>
 
 {{Form::label('escritura_fecha','Escritura de fecha')}}
-{{Form::text('escritura_fecha', null, ['class'=>'form-control', 'autofocus'=> 'autofocus'] )}}
+{{Form::input('date', 'escritura_fecha', null, ['class'=>'form-control'] )}}
 {{$errors->first('escritura_fecha', '<span class=text-danger>:message</span>')}}
 
 {{Form::label('escritura_registro','N° registro')}}
-{{Form::text('escritura_registro', null, ['class'=>'form-control', 'autofocus'=> 'autofocus'] )}}
+{{Form::text('escritura_registro', null, ['class'=>'form-control'] )}}
 {{$errors->first('escritura_registro', '<span class=text-danger>:message</span>')}}
 
 {{Form::label('escritura_predio','Predio')}}
-{{Form::text('escritura_predio', null, ['class'=>'form-control', 'autofocus'=> 'autofocus'] )}}
+{{Form::text('escritura_predio', null, ['class'=>'form-control'] )}}
 {{$errors->first('escritura_predio', '<span class=text-danger>:message</span>')}}
 
 {{Form::label('escritura_folio','Folio')}}
-{{Form::text('escritura_folio', null, ['class'=>'form-control', 'autofocus'=> 'autofocus'] )}}
+{{Form::text('escritura_folio', null, ['class'=>'form-control'] )}}
 {{$errors->first('escritura_folio', '<span class=text-danger>:message</span>')}}
 
 {{Form::label('escritura_volumen','Volumen')}}
-{{Form::text('escritura_volumen', null, ['class'=>'form-control', 'autofocus'=> 'autofocus'] )}}
+{{Form::text('escritura_volumen', null, ['class'=>'form-control'] )}}
 {{$errors->first('escritura_volumen', '<span class=text-danger>:message</span>')}}
 
 {{Form::label('escritura_impuesto_desde','Impuesto pagado del')}}
-{{Form::text('escritura_impuesto_desde', null, ['class'=>'form-control', 'autofocus'=> 'autofocus'] )}}
+{{Form::input('date', 'escritura_impuesto_desde', null, ['class'=>'form-control'] )}}
 {{$errors->first('escritura_impuesto_desde', '<span class=text-danger>:message</span>')}}
 
 {{Form::label('escritura_impuesto_hasta','Al')}}
-{{Form::text('escritura_impuesto_hasta', null, ['class'=>'form-control', 'autofocus'=> 'autofocus'] )}}
+{{Form::input('date', 'escritura_impuesto_hasta', null, ['class'=>'form-control'] )}}
 {{$errors->first('escritura_impuesto_hasta', '<span class=text-danger>:message</span>')}}
 
 

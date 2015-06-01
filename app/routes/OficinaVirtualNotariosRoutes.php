@@ -14,3 +14,6 @@ Route::post('ofvirtual/notario/traslado/create', 'OficinaVirtualNotarioControlle
 //update
 Route::get('ofvirtual/notario/traslado/update/{id}', 'OficinaVirtualNotarioController@update');
 
+//buscador
+//Búsqueda de trámites
+Route::get('ofvirtual/notario/traslado/buscar','OficinaVirtualNotarioController@buscar');
