@@ -54,7 +54,7 @@
                         {{Form::label('nombres','Nombre', ['class'=>''])}}
                         {{Form::text('nombres', null, ['class' => 'form-control', 'required'=>true] )}}
                     </div>
-                    <span class="campos-fisica">
+                    <div class="campos-fisica">
                         <div class="form-group">
                             {{Form::label('apellido_paterno','Apellido Paterno', ['class'=>''])}}
                             {{Form::text('apellido_paterno', null, ['class' => 'form-control'] )}}
@@ -64,15 +64,15 @@
                             {{Form::text('apellido_materno', null, ['class' => 'form-control'] )}}
                         </div>
                         <div class="form-group">
-                            {{Form::label('curp','CURP', ['class'=>''])}}
-                            {{Form::text('curp', null, ['class' => 'form-control', 'minlength'=>'18', 'maxlength'=>'18'] )}}
+                            {{Form::label('curp','CURP', ['class'=>'' ])}}
+                            {{Form::text('curp', null, ['class' => 'form-control', 'minlength'=>'18', 'maxlength'=>'18', 'pattern' => '([A-Za-z]{4})([0-9]{6})([A-Za-z]{6})([0-9]{2})', 'title' => 'El CURP ingresado no tiene el formato esperado, verifique nuevamente el CURP ingresado' ] )}}
                         </div>
 
-                    </span>
+                    </div>
 
                     <div class="form-group">
-                        {{Form::label('rfc','RFC', ['class'=>''])}}
-                        {{Form::text('rfc', null, ['class' => 'form-control', 'minlength'=>'12', 'maxlength'=>'13'] )}}
+                        {{Form::label('rfc','RFC', ['class'=>'', 'p' ])}}
+                        {{Form::text('rfc', null, ['class' => 'form-control', 'id' => 'rfc', 'minlength'=>'12', 'maxlength'=>'13', 'pattern' => '([A-Za-z]{4})([0-9]{6})([A-Za-z0-9]{3})', 'title' => 'El RFC ingresado no tiene el formato esperado, verifique nuevamente el RFC ingresado'] )}}
                     </div>
 
                     {{Form::hidden('tipotramite_id', $tipotramite_id)}}
@@ -218,11 +218,13 @@
                 var radio = $(this);
                 if(radio.val() == 'F'){
                     $('.campos-fisica').show();
+                    $('#rfc').attr('pattern', '([A-Za-z]{4})([0-9]{6})([A-Za-z0-9]{3})');
                     $('.tipo_persona').val('F');
                 }
                 else if(radio.val() == 'M')
                 {
                     $('.campos-fisica').hide();
+                    $('#rfc').attr('pattern', '([A-Za-z]{3})([0-9]{6})([A-Za-z0-9]{3})');
                     $('.tipo_persona').val('M');
                 }
             });
