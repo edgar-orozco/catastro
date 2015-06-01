@@ -124,17 +124,16 @@ class OficinaVirtualNotarioController extends \BaseController {
             return Redirect::back()->with('error', 'Error en comprador.');
         }
 
-
         $traslado = new Traslado();
 
         $traslado->usuario_id = $usuarioId;
         $traslado->notaria_id = $notariaId;
         $traslado->clave = $variables['clave'];
         $traslado->cuenta = $variables['cuenta'];
-        $traslado->vendedor_id = $vendedor->id;
-        $traslado->vendedor_tipo = $variables['vendedor_tipo'];
-        $traslado->comprador_id = $comprador->id;
-        $traslado->comprador_tipo = $variables['comprador_tipo'];
+        $traslado->vendedor_id = $vendedor->id_p;
+        $traslado->vendedor_tipo = $variables['vendedor_tipo_persona'];
+        $traslado->comprador_id = $comprador->id_p;
+        $traslado->comprador_tipo = $variables['comprador_tipo_persona'];
         $traslado->superficie_vendida = $variables['superficie_vendida'];
         $traslado->superficie_construccion_vendida = $variables['superficie_construccion_vendida'];
         $traslado->medidas_colindancias = $variables['medidas_colindancias'];
