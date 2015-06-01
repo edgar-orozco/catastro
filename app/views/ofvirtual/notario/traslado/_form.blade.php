@@ -144,7 +144,7 @@
   <h1>Datos de la escritura precedente</h1>
 
 {{Form::label('escritura_fecha','Escritura de fecha')}}
-{{Form::text('escritura_fecha', null, ['class'=>'form-control'] )}}
+{{Form::input('date', 'escritura_fecha', null, ['class'=>'form-control'] )}}
 {{$errors->first('escritura_fecha', '<span class=text-danger>:message</span>')}}
 
 {{Form::label('escritura_registro','N° registro')}}
