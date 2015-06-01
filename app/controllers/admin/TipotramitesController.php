@@ -101,17 +101,14 @@ class TipotramitesController extends \BaseController
         }
 
         $requisitos = [];
-        foreach(Input::get('requisitos') as $requisito_id => $requisito) {
-            //dd($requisito);
-            if(isset($requisito['requisito_id'])){
-                unset($requisito['requisito_id']);
-                if($requisito['copias'] === null or $requisito['copias'] === ''){
-                    unset($requisito['copias']);
-                }
-                $requisitos[$requisito_id] = $requisito;
+        $selccionados = Input::get('requisitos');
+        foreach($selccionados['seleccionados'] as $requisito) {
+            if($selccionados[$requisito]['copias'] === null or $selccionados[$requisito]['copias'] === ''){
+                unset($selccionados[$requisito]['copias']);
             }
-        }
 
+            $requisitos[$requisito] = $selccionados[$requisito];
+        }
         $tipoTramite->guardaRequisitos($requisitos);
 
         return Redirect::to('admin/tipotramites')->with('success',
@@ -181,15 +178,12 @@ class TipotramitesController extends \BaseController
         }
 
         $requisitos = [];
-        foreach(Input::get('requisitos') as $requisito_id => $requisito) {
-            //dd($requisito);
-            if(isset($requisito['requisito_id'])){
-                unset($requisito['requisito_id']);
-                if(!$requisito['copias']){
-                    unset($requisito['copias']);
-                }
-                $requisitos[$requisito_id] = $requisito;
+        $selccionados = Input::get('requisitos');
+        foreach($selccionados['seleccionados'] as $requisito) {
+            if($selccionados[$requisito]['copias'] === null or $selccionados[$requisito]['copias'] === ''){
+                unset($selccionados[$requisito]['copias']);
             }
+            $requisitos[$requisito] = $selccionados[$requisito];
         }
 
         $tipoTramite->guardaRequisitos($requisitos);
