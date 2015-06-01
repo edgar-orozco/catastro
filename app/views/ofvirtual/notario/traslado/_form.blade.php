@@ -164,11 +164,11 @@
 {{$errors->first('escritura_volumen', '<span class=text-danger>:message</span>')}}
 
 {{Form::label('escritura_impuesto_desde','Impuesto pagado del')}}
-{{Form::text('escritura_impuesto_desde', null, ['class'=>'form-control'] )}}
+{{Form::input('date', 'escritura_impuesto_desde', null, ['class'=>'form-control'] )}}
 {{$errors->first('escritura_impuesto_desde', '<span class=text-danger>:message</span>')}}
 
 {{Form::label('escritura_impuesto_hasta','Al')}}
-{{Form::text('escritura_impuesto_hasta', null, ['class'=>'form-control'] )}}
+{{Form::input('date', 'escritura_impuesto_hasta', null, ['class'=>'form-control'] )}}
 {{$errors->first('escritura_impuesto_hasta', '<span class=text-danger>:message</span>')}}
 
 
