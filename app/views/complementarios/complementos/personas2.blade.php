@@ -110,7 +110,7 @@
                 <p class="help-block"></p>
             </div>
             
-<!--            <div class="form-group">
+            <div class="form-group">
                 {{Form::label('rfc','RFC')}}
                 {{Form::text('rfc', null, ['tabindex'=>'4','class'=>'form-control','autofocus'=> 'autofocus','ng-model' => 'personas.rfc','onblur'=>'ValidaRfc(this.value),aMayusculas(this.value,this.id)'] )}}
                 {{$errors->first('rfc', '<span class=text-danger>:message</span>')}}
@@ -122,7 +122,7 @@
                 {{Form::text('curp', null, ['tabindex'=>'5','class'=>'form-control','autofocus'=> 'autofocus','ng-model' => 'personas.curp','onblur'=>'aMayusculas(this.value,this.id)'] )}}
                 {{$errors->first('curp', '<span class=text-danger>:message</span>')}}
                 <p class="help-block"></p>
-            </div>-->
+            </div>
             
             <div class="form-actions form-group">
                 {{ Form::submit('Guardar nombre', array('class' => 'btn btn-primary','id'=>'guardar','tabindex'=>'6')) }} 

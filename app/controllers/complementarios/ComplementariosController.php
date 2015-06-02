@@ -1013,7 +1013,7 @@ class complementarios_ComplementariosController extends BaseController {
 
         $id_p = array();
 //CONSULTA A LA TABLA PERSONAS
-        $queries = DB::select(DB::raw("SELECT * FROM personas WHERE nombres || ' '||apellido_paterno || ' ' ||  apellido_materno LIKE '%" . $term . "%' limit 5"));
+        $queries = DB::select(DB::raw("SELECT * FROM personas WHERE nombres || ' '||apellido_paterno || ' ' ||  apellido_materno LIKE '%".$term."%' ORDER BY id_p DESC LIMIT 10"));
 //DONDE LLAMA LOS DATOS Y LOS PASA A LAS VARIABLES CORRESPONDIENTES
         foreach ($queries as $query) {
 //ARRAY DONDE CARGA LOS DATOS
