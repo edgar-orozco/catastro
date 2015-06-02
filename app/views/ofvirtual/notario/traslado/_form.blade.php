@@ -70,7 +70,7 @@
 
 
      {{Form::label('vendedor_nombres','Nombre', ['class'=>''])}}
-     {{Form::text('vendedor_nombres', null, ['class' => 'form-control', 'required'=>true, 'autofocus'=> 'autofocus'] )}}
+     {{Form::text('vendedor_nombres', null, ['class' => 'form-control', 'required'=>true] )}}
 
  <span class="vendedor-campos-fisica">
     {{Form::label('vendedor_apellido_paterno','Apellido Paterno', ['class'=>''])}}
@@ -128,11 +128,11 @@
 <h1>Datos del predio</h1>
 
     {{Form::label('superficie_vendida','Superficie vendida M2')}}
-    {{Form::number('superficie_vendida', null, ['class'=>'form-control', 'min' => 0, 'step'=>'any'] )}}
+    {{Form::number('superficie_vendida', null, ['class'=>'form-control', 'min' => 0, 'step'=>'any', 'min'=>0, 'max'=>$predio->superficie_terreno] )}}
     {{$errors->first('superficie_vendida', '<span class=text-danger>:message</span>')}}
 
     {{Form::label('superficie_construccion_vendida','Superficie construcción vendida M2')}}
-    {{Form::number('superficie_construccion_vendida', null, ['class'=>'form-control',  'min' => 0, 'step'=>'any'] )}}
+    {{Form::number('superficie_construccion_vendida', null, ['class'=>'form-control',  'min' => 0, 'step'=>'any', 'min'=>0, 'max'=>$predio->superficie_construccion] )}}
     {{$errors->first('superficie_construccion_vendida', '<span class=text-danger>:message</span>')}}
 
     {{Form::label('medidas_colindancias','Medidas colindancias')}}
