@@ -33,13 +33,27 @@ $(document).ready(function () {
     });
 
     allSiguienteBtn.click(function () {
-        var curStep = $(this).closest(".setup-content"),
-                curStepBtn = curStep.attr("id"),
-                nextStepWizard = $('div.setup-panel div a[href="#' + curStepBtn + '"]').parent().next().children("a"),
-                nextStepWizard = $('div.setup-panel div a[href="#' + curStepBtn + '"]').parent().next().children("a"),
-                curInputs = curStep.find("input[type='text'],input[type='url']"),
-                isValid = true;
-
+        if ($('#uso_construccion').val() == '4' && $(this).closest(".setup-content").attr("id") == 'step-1')
+        {
+            // alert('Selecciono sin uso');
+            var curStep = $(this).closest(".setup-content"),
+                    curStepBtn = curStep.attr("id"),
+                    nextStepWizard = $('div.setup-panel div a[href="#step-4"]').parent().next().children("a"),
+                    curInputs = curStep.find("input[type='text'],input[type='url']"),
+                    isValid = true;
+            $('#desactivado1').attr('disabled', 'disabled');
+            $('#desactivado2').attr('disabled', 'disabled');
+            $('#desactivado3').attr('disabled', 'disabled');
+        }
+        else
+        {
+            //alert('Selecciono otro. ' + $('#uso_construccion').val());
+            var curStep = $(this).closest(".setup-content"),
+                    curStepBtn = curStep.attr("id"),
+                    nextStepWizard = $('div.setup-panel div a[href="#' + curStepBtn + '"]').parent().next().children("a"),
+                    curInputs = curStep.find("input[type='text'],input[type='url']"),
+                    isValid = true;
+        }
         $(".form-group").removeClass("has-error");
         for (var i = 0; i < curInputs.length; i++) {
             if (!curInputs[i].validity.valid) {
@@ -47,13 +61,10 @@ $(document).ready(function () {
                 $(curInputs[i]).closest(".form-group").addClass("has-error");
             }
         }
-
         if (isValid)
             nextStepWizard.removeAttr('disabled').trigger('click');
     });
-
     $('div.setup-panel div a.btn-primary').trigger('click');
-
 });
 </script>
 <script>
@@ -64,13 +75,13 @@ $(document).ready(function () {
 </script>
 
 <script type="text/javascript">
-    $(document).ready(function(){
-            $("body").delegate('.finalizar', 'click', function(){
+    $(document).ready(function () {
+        $("body").delegate('.finalizar', 'click', function () {
 
-                alert('Datos guardados correctamente.');
+            alert('Datos guardados correctamente.');
 
-    });
         });
+    });
 </script>
 @stop
 @section('content')
@@ -160,9 +171,9 @@ $(document).ready(function () {
                         $propie = explode(',', $keys->sp_get_propietarios);
                         $nombre = $propie[0];
                     }
-                        $nombre=str_replace('"', '',$nombre);
-                        $nombre=str_replace('{', '',$nombre);
-                   echo $nombre=str_replace('}', '',$nombre);
+                    $nombre = str_replace('"', '', $nombre);
+                    $nombre = str_replace('{', '', $nombre);
+                    echo $nombre = str_replace('}', '', $nombre);
                     ?></td>
                 @endforeach
             </tr>
@@ -176,15 +187,15 @@ $(document).ready(function () {
             <p>Predios</p>
         </div>
         <div class="stepwizard-step">
-            <a href="#step-2" type="button" class="btn btn-default btn-circle" disabled="disabled">2</a>
+            <a href="#step-2" type="button" id="desactivado1" class="btn btn-default btn-circle" disabled="disabled">2</a>
             <p>Características De Construcciones</p>
         </div>
         <div class="stepwizard-step">
-            <a href="#step-3" type="button" class="btn btn-default btn-circle" disabled="disabled">3</a>
+            <a href="#step-3" type="button" id="desactivado2" class="btn btn-default btn-circle" disabled="disabled">3</a>
             <p>Instalaciones Especiales</p>
         </div>
         <div class="stepwizard-step">
-            <a href="#step-4" type="button" class="btn btn-default btn-circle" disabled="disabled">4</a>
+            <a href="#step-4" type="button" id="desactivado3" class="btn btn-default btn-circle" disabled="disabled">4</a>
             <p>Condominios</p>
         </div>
         <div class="stepwizard-step">
@@ -273,22 +284,22 @@ $(document).ready(function () {
             </div>
         </div>
     </div>
-   <div class="row setup-content" id="step-8">
-            <div class="col-xs-12">
-                <div class="col-md-12">
-                    <h3> Persona entrevistada</h3>
-                    @include('complementarios.complementos.personaEntrevistada')
-                </div>
+    <div class="row setup-content" id="step-8">
+        <div class="col-xs-12">
+            <div class="col-md-12">
+                <h3> Persona entrevistada</h3>
+                @include('complementarios.complementos.personaEntrevistada')
             </div>
         </div>
-        <div class="row setup-content" id="step-7">
-            <div class="col-xs-12">
-                <div class="col-md-12">
-                    <h3>Tomas de agua</h3>
-                    @include('complementarios.complementos.tomasAgua')
-                </div>
+    </div>
+    <div class="row setup-content" id="step-7">
+        <div class="col-xs-12">
+            <div class="col-md-12">
+                <h3>Tomas de agua</h3>
+                @include('complementarios.complementos.tomasAgua')
             </div>
         </div>
+    </div>
     <div class="row setup-content" id="step-9">
         <div class="col-xs-12">
             <div class="col-md-12">
