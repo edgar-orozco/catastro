@@ -68,7 +68,7 @@ class complementarios_ComplementariosController extends BaseController {
         $municipio = input::get('municipio');
         $clave_cata = input::get('clave_cata');
         $nivel = input::get('nivel');
-        $sup_const = input::get('superficie_construccion');
+//        $sup_const = input::get('superficie_construccion');
         $edad_const = input::get('edad_construccion');
         $edad = input::get('edad');
         $uso_constru = input::get('uso_construccion');
@@ -129,7 +129,7 @@ class complementarios_ComplementariosController extends BaseController {
         $constru->clave_catas = $clave_cata;
         $constru->gid_predio = $gid_predio;
         $constru->nivel = $nivel;
-        $constru->sup_const = $sup_const;
+        $constru->sup_const = 0;
         $constru->edad_const = $edad_const;
         $constru->id_tuc = $uso_constru;
         $constru->id_tcc = $clase_constru;

@@ -301,7 +301,7 @@ function editar_construccion(gid)
                 {               
                 //Se agregan los valores a editar al formulario
                 document.getElementById('nivel').value = data.nivel;
-                document.getElementById('superficie_construccion').value = data.sup_const;
+//                document.getElementById('superficie_construccion').value = data.sup_const;
                 document.getElementById('edad_construccion').value = data.edad_const;
                 document.getElementById('uso_construccionc').value = data.id_tuc;
                 document.getElementById('clase_construccion').value = data.id_tcc;
