@@ -40,7 +40,7 @@ class Traslado extends \LaravelBook\Ardent\Ardent
     public function comprador()
     {
 
-        return $this->belongsTo('Personas', 'comprador_id', 'id_p');
+        return $this->belongsTo('personas', 'comprador_id', 'id_p');
 
 
     }
@@ -49,7 +49,7 @@ class Traslado extends \LaravelBook\Ardent\Ardent
     public function vendedor()
     {
 
-        return $this->belongsTo('Personas', 'vendedor_id', 'id_p');
+        return $this->belongsTo('personas', 'vendedor_id', 'id_p');
 
 
     }

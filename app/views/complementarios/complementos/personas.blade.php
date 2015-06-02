@@ -111,14 +111,14 @@
             
             <div class="form-group">
                 {{Form::label('rfc','RFC')}}
-                {{Form::text('rfc', null, ['tabindex'=>'4','class'=>'form-control','autofocus'=> 'autofocus','ng-model' => 'personas.rfc','onblur'=>'ValidaRfc(this.value),aMayusculas(this.value,this.id)','pattern'=>'^([A-ZÑ\x26]{3,4}([0-9]{2})(0[1-9]|1[0-2])(0[1-9]|1[0-9]|2[0-9]|3[0-1])[A-Z|\d]{3})$'] )}}
+                {{Form::text('rfc', null, ['tabindex'=>'4','class'=>'form-control','autofocus'=> 'autofocus','ng-model' => 'personas.rfc'] )}}
                 {{$errors->first('rfc', '<span class=text-danger>:message</span>')}}
                 <p class="help-block"></p>
             </div>
 
             <div class="form-group">
                 {{Form::label('curp','CURP')}}
-                {{Form::text('curp', null, ['tabindex'=>'5','class'=>'form-control','autofocus'=> 'autofocus','ng-model' => 'personas.curp','onblur'=>'aMayusculas(this.value,this.id)','pattern'=>'^[a-zA-Z]{4}\d{6}[a-zA-Z]{6}\d{2}$'] )}}
+                {{Form::text('curp', null, ['tabindex'=>'5','class'=>'form-control','autofocus'=> 'autofocus','ng-model' => 'personas.curp'] )}}
                 {{$errors->first('curp', '<span class=text-danger>:message</span>')}}
                 <p class="help-block"></p>
             </div>
@@ -134,7 +134,7 @@
     </body>
 </html>
 
-<!--<script type="text/javascript">
+<script type="text/javascript">
 //Guardar
     $('#formEntrevista').bind('submit', function ()
     {
@@ -154,4 +154,4 @@
         return false;
     });
 
-</script>-->
+</script>
