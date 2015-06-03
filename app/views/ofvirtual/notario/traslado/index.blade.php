@@ -6,9 +6,6 @@
 
 @section('content')
 
-
-
-
 {{ HTML::style('css/forms.css') }}
 
 <!-- municipios -->
@@ -29,8 +26,3 @@
 
 
 @stop
-
-
-
-
-
