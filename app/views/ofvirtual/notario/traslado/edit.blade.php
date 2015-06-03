@@ -20,6 +20,13 @@
                 </div>
             {{Form::close()}}
 
+            {{ Form::model($traslado, ['url' => array('ofvirtual/notario/traslado'), 'method'=>'GET' ]) }}
+            <div class="form-actions form-group col-md-4" style="clear:both; float: right;">
+              {{ Form::submit('No guardar cambios', array('class' => 'btn btn-warning')) }}
+            </div>
+        {{Form::close()}}
+
+
 
         </div>
 
@@ -28,3 +35,44 @@
 @stop
 
 
+@section('javascript')
+    <script>
+    $( document ).ready(function() {
+          $('.vendedor-radio-persona').each(function(){
+                  var chb = $(this);
+                  if(chb.is(':checked')){
+                     //chb.click();
+                     //$('label[for="'+chb.attr("id")+'"]').click();
+                     if(chb.val() == 'F'){
+                         $('.vendedor-campos-fisica').show();
+                         $('.vendedor-tipo_persona').val('F');
+                     }
+                     else if(chb.val() == 'M')
+                     {
+                         $('.vendedor-campos-fisica').hide();
+                         $('.vendedor-tipo_persona').val('M');
+                     }
+                   }
+               });
+           $('.comprador-radio-persona').each(function(){
+               var chb = $(this);
+               if(chb.is(':checked')){
+                   //
+                    // $("label[for='"+chb.attr("id")+"']").click();
+                   //  $("label[for='"+chb.attr("id")+"']").click();
+                    if(chb.val() == 'F'){
+                        $('.comprador-campos-fisica').show();
+                        $('.comprador-tipo_persona').val('F');
+                    }
+                    else if(chb.val() == 'M')
+                    {
+                        $('.comprador-campos-fisica').hide();
+                        $('.comprador-tipo_persona').val('M');
+                    }
+
+               }
+           });
+      });
+    </script>
+
+@append
