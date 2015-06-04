@@ -15,15 +15,15 @@ class UpdateCondominiosTable extends Migration {
 		Schema::table('condominios', function(Blueprint $table)
 		{
 			//Se agregan columnas nuevas
-			$table->decimal('sup_terr_privativa', 10, 2);
-			$table->decimal('sup_const_privativa', 10, 2);
-			$table->decimal('sup_total_construccion', 10, 2);
-			$table->decimal('sup_total_terreno', 10, 2);
-			$table->integer('no_cond_magno');
-			$table->decimal('sup_cond_magno_terreno', 10, 2);
-			$table->decimal('sup_cond_magno_construccion', 10, 2);
-			$table->decimal('sup_comun_magno_terreno', 10, 2);
-			$table->decimal('sup_comun_magno_construccion', 10, 2);
+			$table->decimal('sup_terr_privativa', 10, 2)->default(0.0)->nullable();
+			$table->decimal('sup_const_privativa', 10, 2)->default(0.0)->nullable();
+			$table->decimal('sup_total_construccion', 10, 2)->default(0.0)->nullable();
+			$table->decimal('sup_total_terreno', 10, 2)->default(0.0)->nullable();
+			$table->integer('no_cond_magno')->default(0)->nullable();;
+			$table->decimal('sup_cond_magno_terreno', 10, 2)->default(0.0)->nullable();
+			$table->decimal('sup_cond_magno_construccion', 10, 2)->default(0.0)->nullable();
+			$table->decimal('sup_comun_magno_terreno', 10, 2)->default(0.0)->nullable();
+			$table->decimal('sup_comun_magno_construccion', 10, 2)->default(0.0)->nullable();
 
 			//Se eliminan columnas
 			  $table->dropColumn('sup_comun');
