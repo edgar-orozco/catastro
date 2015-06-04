@@ -606,10 +606,11 @@ class TramitesController extends BaseController {
                                     ->join('personas as p1','pro.id_propietario','=','p1.id_p')
                                     ->join('fiscal as f','tramites.clave','=','f.clave')
                                     ->join('tipotramites as ti','tipotramite_id','=','ti.id')
-                                    ->join('notarias as n','notaria_id','=','n.id_notaria')
                                     ->where('tramites.id', '=', $id)
-                                    ->select('tramites.created_at','folio','solicitante_id','p.nombres','p.apellido_paterno','p.apellido_materno','pro.clave','p1.nombres as nombre','p1.apellido_paterno as paterno','p1.apellido_materno as materno','f.cuenta','ti.nombre as tramite','ti.tiempo','n.nombre as notaria')
+                                    ->select('tramites.created_at','folio','solicitante_id','p.nombres','p.apellido_paterno','p.apellido_materno','pro.clave','p1.nombres as nombre','p1.apellido_paterno as paterno','p1.apellido_materno as materno','f.cuenta','ti.nombre as tramite','ti.tiempo')
                                     ->get();
+        //trae el nombre de la notaria
+        $notaria = $this-> tramite ->join('notarias as n','notaria_id','=','n.id_notaria')->where('tramites.id', '=', $id)->select('n.nombre as notaria')->get();
         //traigo la clave del tramite
         $clave = $this-> tramite -> where('id','=',$id)->select('clave')->get();
         //Hacemos el explode para obtener el municipio
@@ -620,11 +621,12 @@ class TramitesController extends BaseController {
         $gid = Municipio::where('municipio','=',$municipio)->pluck('gid');
         //trtaigo el nombre de la imgaen del municipio
         $logo = configuracionMunicipal::where('municipio','=', $gid)->pluck('file');
-        
-        $vista = View::make('ventanilla.recibo', compact('tramites','logo'));
+        //debuelvo los datos en PDF
+        $vista = View::make('ventanilla.recibo', compact('tramites','logo','notaria'));
         $pdf = PDF::load($vista)->show("ReciboVentanilla");
         $response = Response::make($pdf, 200);
         $response->header('Content-Type', 'application/pdf');
+//        return $vista;
     }
 
 }

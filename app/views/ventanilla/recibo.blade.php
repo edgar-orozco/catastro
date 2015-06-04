@@ -64,10 +64,14 @@
         Nombre del solicitante:<br/>
         {{$row->nombres}} {{$row->apellido_paterno}} {{$row->apellido_materno}}
       </p>
+      @if(!empty($notaria))
+        @foreach($notaria as $ro)
       <p>
         Nombre de la notaría:<br/>
-        {{$row->notaria}}
+        {{$ro->notaria}}
       </p>
+        @endforeach
+      @endif
       <p>
         Nombre del propietario:<br/>
         {{$row->nombre}} {{$row->paterno}} {{$row->materno}}
@@ -106,10 +110,14 @@
         Nombre del solicitante:<br/>
         {{$row->nombres}} {{$row->apellido_paterno}} {{$row->apellido_materno}}
       </p>
+      @if(!empty($notaria))
+        @foreach($notaria as $ro)
       <p>
         Nombre de la notaría:<br/>
-        {{$row->notaria}}
+        {{$ro->notaria}}
       </p>
+        @endforeach
+      @endif
       <p>
         Nombre del propietario:<br/>
         {{$row->nombre}} {{$row->paterno}} {{$row->materno}}
