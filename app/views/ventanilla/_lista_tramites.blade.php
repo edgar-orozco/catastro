@@ -68,7 +68,7 @@
                                 <span class="glyphicon glyphicon-eye-open"></span>
                             </a>
                         @endif
-                            <a href="{{ action('TramitesController@get_pdf', ['id' => $tramite->id]) }}" class="btn btn-warning" title="Recibo">
+                            <a href="{{ action('TramitesController@get_pdf', ['id' => $tramite->id]) }}" class="btn btn-warning" title="Recibo" target="_blank">
                                 <span class="glyphicon glyphicon-print"></span>
                             </a>
                     </td>

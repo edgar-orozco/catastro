@@ -53,13 +53,8 @@
               <td><img src="css/images/home/logos/{{$logo}}"  height="100"></td>
             </tr>
             <tr>
-              <td>&nbsp;</td>
+              <td>Fecha ingreso: <?php $fecha=strtotime($row->created_at); echo date("d/m/Y",$fecha) ?></td>
               <td align="center"><strong>{{strtoupper($row->tramite)}}</strong></td>
-              <td>&nbsp;</td>
-            </tr>
-            <tr>
-              <td>Fecha: <?php $fecha=strtotime($row->created_at); echo date("d/m/Y",$fecha) ?></td>
-              <td>&nbsp;</td>
               <td>FOLIO: <strong>{{sprintf("%06d",$row->folio)}}</strong><br/>Copia solicitante</td>
             </tr>  
         </table>
@@ -99,15 +94,10 @@
               <td><img src="css/images/home/logos/{{$logo}}"  height="100"></td>
             </tr>
             <tr>
-              <td>&nbsp;</td>
+              <td>Fecha ingreso: <?php $fecha=strtotime($row->created_at); echo date("d/m/Y",$fecha) ?></td>
               <td align="center"><strong>{{strtoupper($row->tramite)}}</strong></td>
-              <td>&nbsp;</td>
-            </tr>
-            <tr>
-              <td>Fecha: <?php $fecha=strtotime($row->created_at); echo date("d/m/Y",$fecha) ?></td>
-              <td>&nbsp;</td>
               <td>FOLIO: <strong>{{sprintf("%06d",$row->folio)}}</strong><br/>Copia municipio</td>
-            </tr>  
+            </tr>
         </table>
     </div>
     <div id="izquierda">
