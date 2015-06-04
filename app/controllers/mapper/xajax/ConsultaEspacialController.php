@@ -39,7 +39,7 @@ class ConsultaEspacialController extends \BaseController {
             }
 
             //Buscamos predio por geolocalización
-            $registrosPredio = DB::select('select entidad, municipio, clave_catas, tipo_predio, superficie_terreno, superficie_construccion , ST_AsLatLonText(st_centroid(geom), \'D°M\'\'S.SSS\"C\') as lat_lon, st_xmin(geom) as xmin, st_ymin(geom) as ymin, st_xmax(geom) as xmax, st_ymax(geom) as ymax from predios where ST_Contains(geom, ST_SetSRID(ST_Point(?,?),32615))', array($x_str,$y_str));
+            $registrosPredio = DB::select('select entidad, gid, municipio, clave_catas, tipo_predio, superficie_terreno, superficie_construccion , ST_AsLatLonText(st_centroid(geom), \'D°M\'\'S.SSS\"C\') as lat_lon, st_xmin(geom) as xmin, st_ymin(geom) as ymin, st_xmax(geom) as xmax, st_ymax(geom) as ymax from predios where ST_Contains(geom, ST_SetSRID(ST_Point(?,?),32615))', array($x_str,$y_str));
             if (count($registrosPredio) == 0) {
                 $strJS = '"msgError":"No existe ningún predio en el área seleccionada."';
                 echo "{\"sessionerror\":\"QueryError\"," . $strJS . "}";
@@ -47,6 +47,7 @@ class ConsultaEspacialController extends \BaseController {
             }
 
             $predio = $registrosPredio[0];
+            $gid_predio = $predio->gid;
             $entidad = $predio->entidad;
             $municipio = $predio->municipio;
             $clave_catas = $predio->clave_catas;
@@ -65,6 +66,11 @@ class ConsultaEspacialController extends \BaseController {
                 $xmax = $predio->xmax + 10;
                 $ymax = $predio->ymax + 10;
             }
+
+            //Si viene vacio sup_terr
+            if ($sup_terr == "") $sup_terr = "0.00";
+
+
 
             $propietario = "";
             $domicilio = "";
@@ -85,6 +91,41 @@ class ConsultaEspacialController extends \BaseController {
             if (count($datosFiscal) != 0) {
                 $cuenta = $datosFiscal[0]->cuenta;
             }
+            
+
+            //Imagen de la Fachada del predio. Consulta
+            $fachadas = ImagenesLevantamiento::where(function($consult)
+                {
+                    $consult->where('id_tipoimagen', 1)->orwhere('id_tipoimagen', 2);
+                })
+            ->where('municipio', $municipio)
+            ->where('gid_predio', $gid_predio)
+            ->get();
+            
+            //Contiene imagen de la fachada?
+            if($fachadas->count()!= 0)
+            {
+                //Recorre cada registro hasta encontrar una imagen valida.
+                foreach ($fachadas as $fachada) 
+                {
+                    $extension = explode('.', $fachada->nombre_archivo);
+                    if (in_array(strtolower($extension[1]), array('png', 'jpeg', 'gif', 'bmp', 'vnd.microsoft.icon', 'jpg')))
+                    {
+                        $fachada = $fachada->nombre_archivo;
+                        break;
+                    }
+                    else
+                    {
+                        $fachada = '/mapper/images/nofoto-770x345.jpg';
+                    }
+                }
+                
+            }
+            else
+            {
+                $fachada = '/mapper/images/nofoto-770x345.jpg';
+            }
+
 
             // JS objects from map creation
             $strJS  = '"clave_catas":"' . $clave_completa. '", ';
@@ -96,6 +137,7 @@ class ConsultaEspacialController extends \BaseController {
             $strJS .= '"sup_const":"' . $sup_const. '", ';
             $strJS .= '"latitud":"' . $latitud. '", ';
             $strJS .= '"longitud":"' . $longitud. '", ';
+            $strJS .= '"url_imagen":"' . $fachada. '", ';
             if($tipo_predio == "U"){
                 $strJS .= '"tipo_predio":"Urbano"';
             }else{
@@ -125,6 +167,8 @@ class ConsultaEspacialController extends \BaseController {
 
             // Serialize url_points
             $urlPntStr = '';
+
+
 
             // return JS object literals "{}" for XMLHTTP request
             echo "{\"sessionerror\":\"query\",  \"mapURL\":\"$mapURL\",".$strJS."}";

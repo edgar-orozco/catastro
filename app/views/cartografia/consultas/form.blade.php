@@ -18,6 +18,7 @@
     {{ HTML::style('/mapper/templates/layout.css') }}
     {{ HTML::style('/mapper/templates/jquery.treeview.css') }}
     {{ HTML::style('/mapper/templates/toc.css') }}
+    {{ HTML::style('css/bootstrap.css') }}
 
     {{ HTML::style('/mapper/templates/dialog.css') }}
     <!--[if lt IE 7]>
