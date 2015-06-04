@@ -376,11 +376,9 @@ class TramitesController extends BaseController {
             'ff',
             'esResponsable'
         ));
-
     }
-
-
-    /**
+  
+     /**
      * Guardamos la actividad
      * @param $tramite_id
      *
@@ -598,6 +596,35 @@ class TramitesController extends BaseController {
         ]);
 
 
+    }
+    
+    public function get_pdf($id, $format = 'html'){
+      
+        //trae todos los datos del tramite para el recibo
+        $tramites = $this-> tramite ->join('personas as p', 'solicitante_id','=','p.id_p')
+                                    ->join('propietarios as pro','tramites.clave','=','pro.clave')
+                                    ->join('personas as p1','pro.id_propietario','=','p1.id_p')
+                                    ->join('fiscal as f','tramites.clave','=','f.clave')
+                                    ->join('tipotramites as ti','tipotramite_id','=','ti.id')
+                                    ->join('notarias as n','notaria_id','=','n.id_notaria')
+                                    ->where('tramites.id', '=', $id)
+                                    ->select('tramites.created_at','folio','solicitante_id','p.nombres','p.apellido_paterno','p.apellido_materno','pro.clave','p1.nombres as nombre','p1.apellido_paterno as paterno','p1.apellido_materno as materno','f.cuenta','ti.nombre as tramite','ti.tiempo','n.nombre as notaria')
+                                    ->get();
+        //traigo la clave del tramite
+        $clave = $this-> tramite -> where('id','=',$id)->select('clave')->get();
+        //Hacemos el explode para obtener el municipio
+        $municipio = explode('-', $clave);
+        //traemos el municipio con el explode en un array
+        $municipio=$municipio[1];
+        //traigo el id del municipio
+        $gid = Municipio::where('municipio','=',$municipio)->pluck('gid');
+        //trtaigo el nombre de la imgaen del municipio
+        $logo = configuracionMunicipal::where('municipio','=', $gid)->pluck('file');
+        
+        $vista = View::make('ventanilla.recibo', compact('tramites','logo'));
+        $pdf = PDF::load($vista)->show("ReciboVentanilla");
+        $response = Response::make($pdf, 200);
+        $response->header('Content-Type', 'application/pdf');
     }
 
 }

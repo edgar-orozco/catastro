@@ -19,6 +19,7 @@ Route::group(array('before' => 'admin'), function () {
     Route::put('admin/tipotramites/{id}.{format}',
         array('as' => 'updateTipotramites', 'uses' => 'TipotramitesController@update'));
     Route::resource('admin/tipotramites', 'TipotramitesController');
+    
 
 });
 
@@ -110,3 +111,6 @@ Route::get(
         'before' => 'auth',
     )
 );
+
+//Ruta para el recibo en pdf
+    Route::get("ventanilla/recibo/{id}", "TramitesController@get_pdf");
