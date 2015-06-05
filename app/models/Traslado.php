@@ -54,4 +54,17 @@ class Traslado extends \LaravelBook\Ardent\Ardent
 
     }
 
+    /**
+     * Scope para consultar  traslados por el nombre del solicitante, puede consultar por el nombre exacto o por nombre parcial (una fraccion del nombre)
+     * @param $q
+     * @param $nombre
+     * @return mixed
+     */
+    public function scopeSolicitanteNombreCompleto($q, $nombre){
+        return $q->whereHas('vendedor', function($qry) use ($nombre)
+        {
+            $qry->whereRaw('nombrec ~* ?', [$nombre]);
+        });
+    }
+
 }

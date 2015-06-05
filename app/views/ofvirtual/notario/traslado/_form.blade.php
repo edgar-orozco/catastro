@@ -69,7 +69,7 @@
      {{Form::text('vendedor[nombres]', null, ['class' => 'form-control', 'required'=>true] )}}
 
      <span class="vendedor-campos-fisica">
-     
+
         {{Form::label('vendedor[apellido_paterno]','Apellido Paterno', ['class'=>''])}}
         {{Form::text('vendedor[apellido_paterno]', null, ['class' => 'form-control'] )}}
 
@@ -81,13 +81,13 @@
     </span>
 
     {{Form::label('vendedor[rfc]','RFC', ['class'=>''])}}
-    {{Form::text('vendedor[rfc]', null, ['class' => 'form-control', 'minlength'=>'12', 'maxlength'=>'13', 'pattern' => '([A-Za-z]{4})([0-9]{6})([A-Za-z0-9]{3})', 'title' => 'El RFC ingresado no tiene el formato esperado, verifique nuevamente el RFC ingresado'] )}}
+    {{Form::text('vendedor[rfc]', null, ['class' => 'form-control', 'id'=>'vendedor-rfc', 'minlength'=>'12', 'maxlength'=>'13', 'pattern' => '([A-Za-z]{4})([0-9]{6})([A-Za-z0-9]{3})', 'title' => 'El RFC ingresado no tiene el formato esperado, verifique nuevamente el RFC ingresado'] )}}
 
     {{--/Vendedor --}}
 </div>
 
 
- {{--Vendedor --}}
+ {{--Comprador --}}
     <div class="form-group col-md-6">
     <h1> Comprador </h1>
 
@@ -113,12 +113,12 @@
         {{Form::text('comprador[apellido_materno]', null, ['class' => 'form-control'] )}}
 
         {{Form::label('comprador[curp]','CURP', ['class'=>''])}}
-        {{Form::text('comprador[curp]', null, ['class' => 'form-control', 'minlength'=>'18', 'maxlength'=>'18', 'pattern' => '([A-Za-z]{4})([0-9]{6})([A-Za-z]{6})([0-9]{2})', 'title' => 'El CURP ingresado no tiene el formato esperado, verifique nuevamente el CURP ingresado' ] )}}] )}}
+        {{Form::text('comprador[curp]', null, ['class' => 'form-control', 'minlength'=>'18', 'maxlength'=>'18', 'pattern' => '([A-Za-z]{4})([0-9]{6})([A-Za-z]{6})([0-9]{2})', 'title' => 'El CURP ingresado no tiene el formato esperado, verifique nuevamente el CURP ingresado'])}}
 
     </span>
 
     {{Form::label('comprador[rfc]','RFC', ['class'=>''])}}
-    {{Form::text('comprador[rfc]', null, ['class' => 'form-control', 'minlength'=>'12', 'maxlength'=>'13', 'pattern' => '([A-Za-z]{4})([0-9]{6})([A-Za-z0-9]{3})', 'title' => 'El RFC ingresado no tiene el formato esperado, verifique nuevamente el RFC ingresado'] )}}
+    {{Form::text('comprador[rfc]', null, ['class' => 'form-control', 'id'=>'comprador-rfc', 'minlength'=>'12', 'maxlength'=>'13', 'pattern' => '([A-Za-z]{4})([0-9]{6})([A-Za-z0-9]{3})', 'title' => 'El RFC ingresado no tiene el formato esperado, verifique nuevamente el RFC ingresado'] )}}
     {{--/Vendedor --}}
 </div>
 
@@ -127,11 +127,11 @@
 <h1>Datos del predio</h1>
 
     {{Form::label('traslado[superficie_vendida]','Superficie vendida M2')}}
-    {{Form::number('traslado[superficie_vendida]', null, ['class'=>'form-control', 'min' => 0, 'step'=>'any', 'min'=>0, 'max'=>$predio->superficie_terreno] )}}
+    {{Form::number('traslado[superficie_vendida]', null, ['class'=>'form-control', 'min' => 0, 'step'=>'any', 'min'=>0, 'max'=>$predio->superficie_terreno, 'required'=>true] )}}
     {{$errors->first('traslado[superficie_vendida]', '<span class=text-danger>:message</span>')}}
 
     {{Form::label('traslado[superficie_construccion_vendida]','Superficie construcción vendida M2')}}
-    {{Form::number('traslado[superficie_construccion_vendida]', null, ['class'=>'form-control',  'min' => 0, 'step'=>'any', 'min'=>0, 'max'=>$predio->superficie_construccion] )}}
+    {{Form::number('traslado[superficie_construccion_vendida]', null, ['class'=>'form-control',  'min' => 0, 'step'=>'any', 'min'=>0, 'max'=>$predio->superficie_construccion, 'required'=>true] )}}
     {{$errors->first('traslado[superficie_construccion_vendida]', '<span class=text-danger>:message</span>')}}
 
     {{Form::label('traslado[medidas_colindancias]','Medidas colindancias')}}
@@ -187,11 +187,13 @@
                 if(radio.val() == 'F'){
                     $('.comprador-campos-fisica').show();
                     $('.comprador-tipo_persona').val('F');
+                    $('#comprador-rfc').attr('pattern', '([A-Za-z]{4})([0-9]{6})([A-Za-z0-9]{3})');
                 }
                 else if(radio.val() == 'M')
                 {
                     $('.comprador-campos-fisica').hide();
                     $('.comprador-tipo_persona').val('M');
+                    $('#comprador-rfc').attr('pattern', '([A-Za-z]{3})([0-9]{6})([A-Za-z0-9]{3})');
                 }
             });
 
@@ -202,31 +204,17 @@
                     if(radio.val() == 'F'){
                         $('.vendedor-campos-fisica').show();
                         $('.vendedor-tipo_persona').val('F');
+                        $('#vendedor-rfc').attr('pattern', '([A-Za-z]{4})([0-9]{6})([A-Za-z0-9]{3})');
                     }
                     else if(radio.val() == 'M')
                     {
                         $('.vendedor-campos-fisica').hide();
                         $('.vendedor-tipo_persona').val('M');
+                        $('#vendedor-rfc').attr('pattern', '([A-Za-z]{3})([0-9]{6})([A-Za-z0-9]{3})');
                     }
                 });
 
-                //Cuando hay cambios en los radio buttons de los requisitos
-                            $('.radio-persona').change(function (ev) {
-                                var radio = $(this);
-                                if(radio.val() == 'F'){
-                                    $('.campos-fisica').show();
-                                    $('#rfc').attr('pattern', '([A-Za-z]{4})([0-9]{6})([A-Za-z0-9]{3})');
-                                    $('.tipo_persona').val('F');
-                                }
-                                else if(radio.val() == 'M')
-                                {
-                                    $('.campos-fisica').hide();
-                                    $('#rfc').attr('pattern', '([A-Za-z]{3})([0-9]{6})([A-Za-z0-9]{3})');
-                                    $('.tipo_persona').val('M');
-                                }
-                            });
-
-        });
+              });
     </script>
 
 @stop
