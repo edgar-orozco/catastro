@@ -65,7 +65,7 @@ $(document).ready(function () {
  * @param session
  */
 function starIntervalLock(session){
-    idleInterval = setInterval(function() {
+    var idleInterval = setInterval(function() {
         idleTime = idleTime + 1;
         if (idleTime >= session) {
             // Se muestra la pantalla de lock screen
