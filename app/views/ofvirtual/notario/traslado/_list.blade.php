@@ -1,3 +1,4 @@
+<div id="lista-tramites">
 <div class="panel">
     <div class="panel-heading">
         <h3 class="panel-title">Traslados de dominios</h3>
@@ -13,10 +14,10 @@
                 <tr>
                     <th>Clave</th>
                     <th>Cuenta</th>
-                    <th>Usuario</th>
-                    <th>Notaria</th>
                     <th>Comprador</th>
                     <th>Vendedor</th>
+                    <th>Fecha</th>
+                    <th>Acciones</th>
                 </tr>
             </thead>
             <tbody>
@@ -26,15 +27,12 @@
                         {{$traslado->clave}}
                     </td>
                     <td>
-
                           {{$traslado->cuenta}}
                     </td>
-                    <td> {{$traslado->usuario->nombreCompleto()}}</td>
+                    <td> {{$traslado->comprador->nombres}} {{$traslado->comprador->apellido_paterno}} {{$traslado->comprador->apellido_materno}}</td>
 
-                       <td> {{$traslado->notaria->nombre}}</td>
-                         <td> {{$traslado->comprador->nombres}} {{$traslado->comprador->apellido_paterno}} {{$traslado->comprador->apellido_materno}}</td>
-                         <td> {{$traslado->vendedor->nombres}} {{$traslado->vendedor->apellido_paterno}} {{$traslado->vendedor->apellido_materno}}</td>
-
+                       <td>{{$traslado->vendedor->nombres}} {{$traslado->vendedor->apellido_paterno}} {{$traslado->vendedor->apellido_materno}}</td>
+                         <td> {{$traslado->created_at->format("d-m-Y")}}</td>
 
                     <td style="text-align: right;" nowrap>
                         <a href="{{ action('OficinaVirtualNotarioController@edit', ['id' => $traslado->id]) }}" class="btn btn-warning" title="Editar traslado">
@@ -51,4 +49,4 @@
         </table>
     </div>
 </div>
-
+</div>
