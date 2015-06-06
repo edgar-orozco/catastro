@@ -10,7 +10,7 @@ $(document).ready(function () {
     }).done(function(data) {
         session = data.session;
         //Se inicia el intervalo
-        starInterval(session);
+        starIntervalLock(session);
         // Se resetea el valor del tiempo sin actividad cuando se presiona una tecla
         // o se mueve el cursor.
         $(this).mousemove(function (e) {
@@ -44,7 +44,7 @@ $(document).ready(function () {
                 if( response.statusCode == 200 ){
                     $('#lock-screen').hide('puff');
                     window.onbeforeunload = null;
-                    starInterval(session);
+                    starIntervalLock(session);
                     $('#lock-password').val('')
                 } else {
                      // De lo contrario se muestra el mensaje de error
@@ -60,8 +60,11 @@ $(document).ready(function () {
     });
 
 });
-
-function starInterval(session){
+/**
+ * Función para iniciar el intervalo que bloquea la sesiñon
+ * @param session
+ */
+function starIntervalLock(session){
     idleInterval = setInterval(function() {
         idleTime = idleTime + 1;
         if (idleTime >= session) {
