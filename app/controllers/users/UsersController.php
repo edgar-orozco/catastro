@@ -51,6 +51,66 @@ class UsersController extends Controller
     }
 
     /**
+     * Login mediante la pantalla de lockscreen
+     *
+     * @return  Illuminate\Http\Response
+     */
+    public function postLoginLock()
+    {
+        // Se crea un validador del formulario
+        $validator = Validator::make(Input::all(), array(
+            'username' => 'required',
+            'password' => 'required'
+        ));
+        // Se valida que se reciban los datos necesarios
+        if ($validator->fails()) {
+            // Si no se enviaron los datos correctos se regresa el error en JSON
+            return Response::json(array(
+                'message' => 'Datos incorrectos',
+                'errors' => $validator->messages(),
+                'statusCode' => 400,
+            ));
+        } else {
+            // Se realizan las validaciones
+            $user = array(
+                'username'  => Input::get('username'),
+                'password'  => Input::get('password'),
+            );
+            $userdata = User::where('username', Input::get('username'))->first();
+            // Se valida que exista el usuario ingresado
+            if (empty($userdata)) {
+                return Response::json(array(
+                    'message' => 'El usuario no existe',
+                    'errors' => '',
+                    'statusCode' => 401,
+                ));
+            }
+            if (Auth::attempt($user, false)) {
+                // Se habilita la sesión nuevamente si los datos del usuario con correctos
+                Session::put('user_id', Auth::user()->id);
+                return Response::json(array(
+                    'message' => 'autenticado',
+                    'errors' => '',
+                    'statusCode' => 200,
+                ), 200);
+            } else {
+                // Si los datos no son correctos se envía un mensaje de error
+                return Response::json(array(
+                    'message' => 'El password es incorrecto intenta nuevamente',
+                    'errors' => '',
+                    'statusCode' => 401,
+                ));
+            }
+            // Si no se obtiene ninguna respuesta se envía un error desconocido
+            return Response::json(array(
+                'message' => 'No fue posible iniciar sesicón, intenta nuevamente',
+                'errors' => '',
+                'statusCode' => 402,
+            ));
+        }
+    }
+
+    /**
      * Attempt to confirm account with code
      *
      * @param  string $code
