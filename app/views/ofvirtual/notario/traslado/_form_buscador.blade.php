@@ -32,10 +32,14 @@
 
 $(function () {
 
+    $( document ).ready(function() {
+        $('.buscador').text('Cuenta');
+         $('#tipo').val('Cuenta');
+     });
+
     $(document).on("submit", "#forma-buscador", function(e){
         e.preventDefault();
         var tipo = $('#tipo').val();
-        //console.log(tipo);
         var q = $('#q').val();
         if(q=='') return false;
         $( "#lista-tramites" ).load( "{{URL::to('ofvirtual/notario/traslado/buscar')}}", { tipo: tipo, q: q }, function() {
@@ -48,8 +52,6 @@ $(function () {
 
         $('.dropdown-tipo li a').click(function () {
             var tipo = $(this).data('tipo');
-            //console.log(tipo);
-            //$('#q').val('');
             $('.buscador').text(tipo);
             $('#tipo').val(tipo);
         });

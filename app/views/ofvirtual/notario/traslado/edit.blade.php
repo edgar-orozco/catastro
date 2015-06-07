@@ -46,11 +46,13 @@
                      if(chb.val() == 'F'){
                          $('.vendedor-campos-fisica').show();
                          $('.vendedor-tipo_persona').val('F');
+                         $('#vendedor-rfc').attr('pattern', '([A-Za-z]{4})([0-9]{6})([A-Za-z0-9]{3})');
                      }
                      else if(chb.val() == 'M')
                      {
                          $('.vendedor-campos-fisica').hide();
                          $('.vendedor-tipo_persona').val('M');
+                         $('#vendedor-rfc').attr('pattern', '([A-Za-z]{3})([0-9]{6})([A-Za-z0-9]{3})');
                      }
                    }
                });
@@ -63,11 +65,13 @@
                     if(chb.val() == 'F'){
                         $('.comprador-campos-fisica').show();
                         $('.comprador-tipo_persona').val('F');
+                        $('#comprador-rfc').attr('pattern', '([A-Za-z]{4})([0-9]{6})([A-Za-z0-9]{3})');
                     }
                     else if(chb.val() == 'M')
                     {
                         $('.comprador-campos-fisica').hide();
                         $('.comprador-tipo_persona').val('M');
+                         $('#comprador-rfc').attr('pattern', '([A-Za-z]{3})([0-9]{6})([A-Za-z0-9]{3})');
                     }
 
                }

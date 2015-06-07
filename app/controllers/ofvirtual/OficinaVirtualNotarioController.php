@@ -274,7 +274,7 @@ class OficinaVirtualNotarioController extends \BaseController {
 
         if($tipo == 'Folio')
         {
-            $traslados = Traslado::whereFolio($q)->get()->paginate($this->numPags);
+            $traslados = Traslado::whereFolio($q)->paginate($this->numPags);
         }
         if($tipo == 'Vendedor')
         {

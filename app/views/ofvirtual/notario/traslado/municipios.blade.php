@@ -10,7 +10,6 @@
                                         <div class="input-group-btn">
                                             <button type="button"
                                                     class="btn btn-default dropdown-toggle select-busqueda"
-
                                                     data-tipobusqueda="cuenta"
                                                     data-toggle="dropdown" aria-expanded="false">
                                                 <span class="dropdown-label">Cuenta</span>
@@ -113,6 +112,29 @@
             placeholder: "000000"
         });
 
+
+
+        $('.clave-catastral').change(function (ev) {
+                 var claveTxt = $(this).val().trim();
+                 var tipoBusqueda = $('.select-busqueda').data('tipobusqueda');
+                 var municipio = $('.select-municipio').data('municipio');
+                 var tipoPredio = $('.select-tipopredio').data('tipopredio');
+
+                 if(tipoBusqueda == 'cuenta') {
+                     claveTxt = municipio.substr(1) + "-" + tipoPredio + "-" + claveTxt.lpad("0", 6);
+
+                 }
+                  if (clave == '') {
+                             return false;
+                         }
+
+
+                 $('#clave').val(claveTxt);
+                  //console.log(claveTxt);
+         });
+
+
+
     //Cuando se selecciona un valor del dropdown del buscador entonces:
             $('.dropdown-menu.tipo-busqueda li a').click(function () {
                 var tipo = $(this).data('tipo');
@@ -138,27 +160,35 @@
                 }
         });
 
+
+         //Cuando se selecciona un valor del dropdown de municipios del buscador entonces:
+            $('.dropdown-menu.municipio li a').click(function () {
+                var municipio = $(this).data('municipio');
+                $('.select-municipio').data('municipio', municipio);
+                $('.clave-catastral').val('');
+                $('.select-municipio .dropdown-label').text(municipio);
+            });
+
+            //Cuando se selecciona un valor del dropdown de tipo de predio entonces:
+            $('.dropdown-menu.tipo-predio li a').click(function () {
+               // console.log($(this).data('tipopredio'));
+                var tipopredio = $(this).data('tipopredio');
+                $('.select-tipopredio').data('tipopredio', tipopredio);
+                $('.clave-catastral').val('');
+                $('.select-tipopredio .dropdown-label').text(tipopredio);
+            });
+
+                $(function () {
+                    var municipio = "{{$municipios[0]->municipio}}";
+                    $('.select-municipio').data('municipio', municipio);
+                 });
+
+
 });
-        $(function () {
-            var municipio = "{{$municipios[0]->municipio}}";
-            $('.select-municipio').data('municipio', municipio);
-         });
-
-         $('.clave-catastral').change(function (ev) {
-                 var claveTxt = $(this).val().trim();
-                 var tipoBusqueda = $('.select-busqueda').data('tipobusqueda');
-                 var municipio = $('.select-municipio').data('municipio');
-                 var tipoPredio = $('.select-tipopredio').data('tipopredio');
-
-                 if(tipoBusqueda == 'cuenta') {
-                     claveTxt = municipio.substr(1) + "-" + tipoPredio + "-" + claveTxt.lpad("0", 6);
-
-                 }
 
 
-                 $('#clave').val(claveTxt);
-                  console.log(claveTxt);
-         });
+
+
     </script>
     @endif
 @append
