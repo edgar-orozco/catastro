@@ -6,6 +6,8 @@ class OficinaVirtualNotarioController extends \BaseController {
     protected $padron;
     protected $traslado;
 
+    protected $numPags = 10;
+
     /**
      * @param PadronRepositoryInterface $padron
      */
@@ -88,7 +90,9 @@ class OficinaVirtualNotarioController extends \BaseController {
         $notariaId =  1;
 
         $vendedor = new personas();
-        $vendedor->fill(array_map('mb_strtoupper',(Input::get('vendedor'))));
+        $datosVendedor = array_map('mb_strtoupper',(Input::get('vendedor')));
+        $datosVendedor['nombrec'] = $datosVendedor['nombres'] .' '.$datosVendedor['apellido_paterno'].' ' .$datosVendedor['apellido_materno'];
+        $vendedor->fill($datosVendedor);
 
         if (!$vendedor->save()) {
             return Redirect::back()->with('error', 'Error en datos del vendedor.');
@@ -96,7 +100,9 @@ class OficinaVirtualNotarioController extends \BaseController {
 
 
         $comprador = new personas();
-        $comprador->fill(array_map('mb_strtoupper',(Input::get('comprador'))));
+        $datosComprador = array_map('mb_strtoupper',(Input::get('comprador')));
+        $datosComprador['nombrec'] = $datosComprador['nombres'].' '. $datosComprador['apellido_paterno'].' ' .$datosComprador['apellido_materno'];
+        $comprador->fill($datosComprador);
 
         if (!$comprador->save()) {
             return Redirect::back()->with('error', 'Error en datos del comprador.');
@@ -191,14 +197,19 @@ class OficinaVirtualNotarioController extends \BaseController {
         //$notariaId =  1;
 
         $vendedor = personas::find($traslado->vendedor_id);
-        $vendedor->fill(array_map('mb_strtoupper',(Input::get('vendedor'))));
+        $datosVendedor = array_map('mb_strtoupper',(Input::get('vendedor')));
+        $datosVendedor['nombrec'] = $datosVendedor['nombres'] .' '.$datosVendedor['apellido_paterno'].' ' .$datosVendedor['apellido_materno'];
+        $vendedor->fill($datosVendedor);
 
         if (!$vendedor->save()) {
             return Redirect::back()->with('error', 'Error en datos del vendedor.');
         }
 
         $comprador = personas::find($traslado->comprador_id);
-        $comprador->fill(array_map('mb_strtoupper',(Input::get('comprador'))));
+        $datosComprador = array_map('mb_strtoupper',(Input::get('comprador')));
+        $datosComprador['nombrec'] = $datosComprador['nombres'].' '. $datosComprador['apellido_paterno'].' ' .$datosComprador['apellido_materno'];
+        $comprador->fill($datosComprador);
+
 
         if (!$comprador->save()) {
             return Redirect::back()->with('error', 'Error en datos del comprador.');
@@ -260,52 +271,50 @@ class OficinaVirtualNotarioController extends \BaseController {
         $tipo = Input::get('tipo');
 
         $traslados = new Traslado();
-        $municipios = new Municipio();
 
-        $uid = Auth::id();
-        $user = Auth::user();
-
-        if($user) {
-            $municipios = $user->municipioIdArray();
-            $roles = $user->roleIdArray();
-        }
-        if(trim($q) == '')
-        {
-            $traslados = [];
-        }
         if($tipo == 'Folio')
         {
-            $q = intval($q);
-            $traslados = Traslado::where('folio', $q)->involucrado($uid, $roles, $municipios)->paginate($this->numPags);
+            $traslados = Traslado::whereFolio($q)->get()->paginate($this->numPags);
         }
         if($tipo == 'Vendedor')
         {
-            $traslados = Traslado::involucrado($uid, $roles, $municipios)->solicitanteNombreCompleto($q)->paginate($this->numPags);
+            $traslados = Traslado::vendedorNombreCompleto(strtoupper($q))->paginate($this->numPags);
         }
         if($tipo == 'Comprador')
         {
-            $traslados = Traslado::involucrado($uid, $roles, $municipios)->notariaNombre($q)->paginate($this->numPags);
+            $traslados = Traslado::compradorNombreCompleto(strtoupper($q))->paginate($this->numPags);
         }
-        if($tipo == 'Ubicación de la propiedad')
-        {
-            $traslados = Traslado::involucrado($uid, $roles, $municipios)->tipoTramiteNombre($q)->paginate($this->numPags);
+        if($tipo == 'Ubicación de la propiedad') {
+
+                $ubicaciones = Traslado::ubicacion(strtoupper(trim($q)))->paginate($this->numPags);
+
+                $trasladosArr = array();
+                foreach ($ubicaciones as $ubicacion) {
+                    try {
+                         $trasladosArr[] = Traslado::find($ubicacion->id);
+                    }catch(Exception $e){ }
+
+                }
+                $traslados = $trasladosArr;
+
+           //
         }
         if($tipo == 'Clave')
         {
-            $traslados = Traslado::involucrado($uid, $roles, $municipios)->fecha($q)->paginate($this->numPags);
+            $traslados = Traslado::whereClave($q)->get()->paginate($this->numPags);
         }
         if($tipo == 'Cuenta')
         {
-            $traslados = Traslado::involucrado($uid, $roles, $municipios)->departamento($q)->paginate($this->numPags);
+            $traslados = Traslado::whereClave($q)->get()->paginate($this->numPags);
         }
         if (Request::ajax())
         {
-            return View:: make( 'ofvirtual.notario.traslado.index',compact(['traslados']));
+            return View:: make( 'ofvirtual.notario.traslado._list',compact(['traslados']));
         }
 
-        $title = 'Buscar traslados de dominio';
+        return $traslados;
 
-        return View:: make( 'ofvirtual.notario.traslado.index', compact( 'title' , 'traslados', 'municipios'));
     }
+
 
 }
