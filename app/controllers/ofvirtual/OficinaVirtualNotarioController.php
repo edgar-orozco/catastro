@@ -301,11 +301,11 @@ class OficinaVirtualNotarioController extends \BaseController {
         }
         if($tipo == 'Clave')
         {
-            $traslados = Traslado::whereClave($q)->get()->paginate($this->numPags);
+            $traslados = Traslado::whereClave($q)->paginate($this->numPags);
         }
         if($tipo == 'Cuenta')
         {
-            $traslados = Traslado::whereClave($q)->get()->paginate($this->numPags);
+            $traslados = Traslado::whereCuenta($q)->paginate($this->numPags);
         }
         if (Request::ajax())
         {
