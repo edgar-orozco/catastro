@@ -5,7 +5,7 @@
 	<title>Reporte Mensual de Folios</title>
 </head>
 <body>
-<center><img src="imagenes/EncabezadoDC.jpg" WIDTH=400 HEIGHT=80 ></
+<center><img src="css/images/folios/Encabezado SPF 2014.png" WIDTH=400 HEIGHT=80 ></
 	<?php
 		$fecha = array();
 		$fecha['1'] = "Enero";

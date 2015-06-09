@@ -5,7 +5,7 @@
 		<title>Reporte Total Anual</title>
 	</head>
 	<body>
-	<center><img src="imagenes/EncabezadoDC.jpg" WIDTH=400 HEIGHT=80 ></center>
+	<center><img src="css/images/folios/Encabezado SPF 2014.png" WIDTH=400 HEIGHT=80 ></center>
 		<?php
 			$mes = array();
 

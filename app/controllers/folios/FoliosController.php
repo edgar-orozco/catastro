@@ -364,7 +364,7 @@ class folios_FoliosController extends BaseController {
 								->groupBy('mes')
 								->get();	
 
-		$vista = View::make('folios.formatoreportemensual')->withFolios_historial($folios_historial);
+		$vista = View::make('folios.folios.formatoreportemensual')->withFolios_historial($folios_historial);
 
 		$pdf = PDF::load($vista)->show();
 		//load(variable, tamaño de hoja, orientacion landscape)
