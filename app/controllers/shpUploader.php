@@ -10,6 +10,7 @@ class shpUploader extends \BaseController
 	var $logUpOk;
 	var $logUpError;
 	var $logUpWarning;
+	var $logFile;
 	var $countOk;
 	var $countErr;
 	var $countWar;
@@ -18,11 +19,15 @@ class shpUploader extends \BaseController
 
 	public function uploadShape($municipio, $manzana, $dirzip, $dirtmp, $zipfile){
 
+		$this->logFile = fopen($dirzip."logUpload.log", "a+");
+
 		$this->municipio_name = $this->num2str($municipio);
 		$logHead = "Actualizando Cartografia de la manzana [".$municipio."-".$manzana."] Municipio ".$this->municipio_name." 
 				 (".date('l jS \of F Y h:i:s A').") 
 				";
 		//$dirzip = "/var/www/html/app/storage/shapes/";
+		fwrite($this->logFile,  PHP_EOL . PHP_EOL . $logHead. PHP_EOL);
+		fwrite($this->logFile,  "[".$zipfile."]". PHP_EOL);
 
 		$zip = new ZipArchive;
 		$res = $zip->open($dirzip.$zipfile);
@@ -75,11 +80,8 @@ class shpUploader extends \BaseController
 		//if(strlen($logUpWarning) > 0) $logUpload.= "\n".$logUpWarning;
 		//$logUpload.= "\n";
 
-		$logFile = fopen($dirzip."logUpload.log", "a+");
-		fwrite($logFile,  PHP_EOL . PHP_EOL . $logHead. PHP_EOL);
-		fwrite($logFile,  "[".$zipfile."]". PHP_EOL);
-		fwrite($logFile,  $this->logUpload. PHP_EOL ."------------------------------------------------------------------------------------");
-		fclose($logFile);
+		fwrite($this->logFile,  PHP_EOL ."------------------------------------------------------------------------------------");
+		fclose($this->logFile);
 
 		return array($logUpload, $logUpError, $logUpWarning);
 
@@ -199,9 +201,12 @@ class shpUploader extends \BaseController
 	protected function updateLog($tipo,$msg,$status){
 		$tipos = array('','ERROR: ','AVISO: ', '');
 		$cadena = $tipos[$tipo].$msg."\n";
+		fwrite($logFile,  $this->logUpload. PHP_EOL ."------------------------------------------------------------------------------------");
 
 		$this->status = $status;
 		$this->logUpload .= $cadena;
+		fwrite($this->logFile,  $cadena);
+
 
 		switch ($tipo){
 			case 1:
