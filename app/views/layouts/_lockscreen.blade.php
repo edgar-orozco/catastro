@@ -2,7 +2,7 @@
     <div class="middle-box text-center lock-screen-container animated fadeInDown">
         <div>
             <div class="m-b-md">
-                <img alt="image" class="img-circle circle-border" src="http://3.bp.blogspot.com/-u3DEwcaMpTA/VPvwJweXz0I/AAAAAAAAAMs/wdxC1nSsC8A/s1600/contacts-logo.png">
+                <img alt="image"  src="{{ asset('/css/images/main/logo-header.png') }}">
             </div>
             <h3>{{Auth::user()->nombreCompleto()}}</h3>
             <p>
