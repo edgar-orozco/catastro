@@ -323,7 +323,7 @@ class shpUploader extends \BaseController
 
 		if($gid == 0){
 			$geoDatos = $this->getDatabyCentroide('predios', 'clave_catas', $centroide);
-			$gid = $geoDatos[0];
+			$gid_predio = $geoDatos[0];
 			$clave_catas = $geoDatos[1];
 		}else $localizado = true;
 
@@ -343,12 +343,16 @@ class shpUploader extends \BaseController
 		$sql="insert into construcciones (entidad, municipio, clave_catas, gid_predio, nivel, sup_const, edad_const, id_tuc, id_tcc, id_ttc, id_tec, id_tmc, id_tpic, id_tpuc, id_tvc, created_at, updated_at, geom)";
 		$sql.=" VALUES ('27',?,?,?,?,?,0,1,1,1,1,1,1,1,1,current_timestamp,current_timestamp,ST_GeomFromText(?,32615))";
 
-		$result = DB::insert($sql, array($municipio,$clave_catas,$gid_predio,$nivel,$superficie,$geom));
-		if(!$result){
-			$this->updateLog(1,"No se logró agregar la constrúcción de nivel [".$nivel."] del predio [".$clave_catas."]",false);
+		if($gid_predio != 0){
+			$result = DB::insert($sql, array($municipio,$clave_catas,$gid_predio,$nivel,$superficie,$geom));
+			if(!$result){
+				$this->updateLog(1,"No se logró agregar la constrúcción de nivel [".$nivel."] del predio [".$clave_catas."]",false);
+			}else{
+				$msg = "Construcción [".$nivel."] del predio [".$clave_catas."] Agregada.";
+				$this->updateLog(3,$msg,true);
+			}
 		}else{
-			$msg = "Construcción [".$nivel."] del predio [".$clave_catas."] Agregada.";
-			$this->updateLog(3,$msg,true);
+			$this->updateLog(1,"No se localizó predio que contenga la Construcción con nivel [".$nivel."].",false);
 		}
 
 	}
@@ -389,7 +393,7 @@ class shpUploader extends \BaseController
 
 		$result = DB::select($sql, array($centroide));
         if (count($result) == 0) {
-			$this->updateLog(2,"No encontraron elementos que contengan este centroide",true);
+			$this->updateLog(0,"No encontraron elementos que contengan este centroide en la tabla [".$tabla."]",true);
 		}else{
         	$gid = $result[0]->gid;
         	$clave = $result[0]->clave;
