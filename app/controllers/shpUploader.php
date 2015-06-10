@@ -387,7 +387,7 @@ class shpUploader extends \BaseController
 				$this->updateLog(1,"No se localizó predio que contenga la Construcción con nivel [".$nivel."].",false);
 			}
 		}catch(\Exception $e){
-			$mensaje ="[".$valor_campo."] Se produjo el siguiente error al validar la topologia del elemento: ".$e->getMessage();
+			$mensaje ="[".$nivel."] Se produjo el siguiente error al actualizar el elemento: ".$e->getMessage();
 					$this->updateLog(1,$mensaje,true);
 		}
 
