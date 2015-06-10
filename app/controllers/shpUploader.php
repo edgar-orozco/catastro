@@ -211,6 +211,11 @@ class shpUploader extends \BaseController
 		$tipos = array('','ERROR: ','AVISO: ', '');
 		$cadena = $tipos[$tipo].$msg."\n";
 
+		$logFile = fopen("/var/www/html/app/storage/logs/logshape.log", "a+");
+		fwrite($logFile,  $cadena. PHP_EOL);
+		fclose($logFile);
+
+
 		$this->status = $status;
 		$this->logUpload .= $cadena;
 
