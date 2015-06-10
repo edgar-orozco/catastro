@@ -23,11 +23,12 @@
                 <div class="alert alert-notice">
                     <h4><span class="glyphicon glyphicon-info-sign"></span>  {{ Session::get('logHead') }}</h4>
                 </div>
+                @if(strlen(Session::get('logErr')) > 0)
                 <div class="alert alert-danger">
                     <h4><span class="glyphicon glyphicon-remove"></span>  {{ Session::get('logErr') }}</h4>
                 </div>
-                {{$logWar = Session::get('logWar')}}
-                @if(strlen($logWar) > 0)
+                @endif
+                @if(strlen(Session::get('logWar')) > 0)
                 <div class="alert alert-warning">
                     <h4><span class="glyphicon glyphicon-alert"></span>  {{ Session::get('logWar') }}</h4>
                 </div>

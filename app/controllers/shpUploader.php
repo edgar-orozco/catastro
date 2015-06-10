@@ -10,7 +10,6 @@ class shpUploader extends \BaseController
 	var $logUpOk;
 	var $logUpError;
 	var $logUpWarning;
-	var $logFile;
 	var $countOk;
 	var $countErr;
 	var $countWar;
@@ -19,15 +18,11 @@ class shpUploader extends \BaseController
 
 	public function uploadShape($municipio, $manzana, $dirzip, $dirtmp, $zipfile){
 
-		$this->logFile = fopen($dirzip."logUpload.log", "a+");
-
 		$this->municipio_name = $this->num2str($municipio);
 		$logHead = "Actualizando Cartografia de la manzana [".$municipio."-".$manzana."] Municipio ".$this->municipio_name." 
 				 (".date('l jS \of F Y h:i:s A').") 
 				";
 		//$dirzip = "/var/www/html/app/storage/shapes/";
-		fwrite($this->logFile,  PHP_EOL . PHP_EOL . $logHead. PHP_EOL);
-		fwrite($this->logFile,  "[".$zipfile."]". PHP_EOL);
 
 		$zip = new ZipArchive;
 		$res = $zip->open($dirzip.$zipfile);
@@ -47,6 +42,11 @@ class shpUploader extends \BaseController
 			$this->countWar=0;
 			$this->countOk=0;
 
+			$query = "select count(*) as cuantos from construcciones where clave_catas like '".$manzana."%' and geom is NULL";
+
+			$result = DB::select($query);
+	        	$logHead .= "Existen ".$result[0]->cuantos." registros de construcción sin geometria";
+
 			$this->status = true;
 			$this->shp2db($municipio,$manzana,$dirtmp,"M",array('/^[0-9]{3,3}-[0-9]{4,4}$/'), array('cve','clave'));
 				$countOk += $this->countOk; $countErr += $this->countErr; $countWar += $this->countWar;
@@ -56,23 +56,29 @@ class shpUploader extends \BaseController
 
 			$this->shp2db($municipio,$manzana,$dirtmp,"P",array('/^[0-9]{3,3}-[0-9]{4,4}-[0-9]{6,6}$/','/^[0-9]{1,6}$/'), array('cve','clave'));
 				$countOk += $this->countOk; $countErr += $this->countErr; $countWar += $this->countWar;
-				if($this->countErr > 0) $logUpError = "Errores PREDIOS [".$this->countErr."]\n".$this->logUpError; $this->logUpError = "";
-				if($this->countWar > 0) $logUpWarning = "Avisos PREDIOS [".$this->countWar."]\n".$this->logUpWarning; $this->logUpWarning = "";
+				if($this->countErr > 0) $logUpError .= "Errores PREDIOS [".$this->countErr."]\n".$this->logUpError; $this->logUpError = "";
+				if($this->countWar > 0) $logUpWarning .= "Avisos PREDIOS [".$this->countWar."]\n".$this->logUpWarning; $this->logUpWarning = "";
 				$this->countErr=0; $this->countWar=0; $this->countOk=0;
 
 			$this->shp2db($municipio,$manzana,$dirtmp,"C",array('/^[0-9]{1,3}$/'), array('nivel'));
 				$countOk += $this->countOk; $countErr += $this->countErr; $countWar += $this->countWar;
-				if($this->countErr > 0) $logUpError = "Errores CONSTRUCCIONES [".$this->countErr."]\n".$this->logUpError; $this->logUpError = "";
-				if($this->countWar > 0) $logUpWarning = "Avisos CONSTRUCCIONES [".$this->countWar."]\n".$this->logUpWarning; $this->logUpWarning = "";
+				if($this->countErr > 0) $logUpError .= "Errores CONSTRUCCIONES [".$this->countErr."]\n".$this->logUpError; $this->logUpError = "";
+				if($this->countWar > 0) $logUpWarning .= "Avisos CONSTRUCCIONES [".$this->countWar."]\n".$this->logUpWarning; $this->logUpWarning = "";
 				$this->countErr=0; $this->countWar=0; $this->countOk=0;
 
 		} else {
 		  $this->updateLog(1,"No se puede abrir el archivo ".$zipFile,true);
 		}
 
+
+
 		$logCount = "Movimientos Correctos [".$countOk."]\n";
 		$logCount .= "Errores [".$countErr."]\n";
 		$logCount .= "Avisos [".$countWar."]\n";
+
+		$result = DB::select($query);
+        	//if ($result[0]->cuantos != 0) 
+        		$logCount .= "Quedan ".$result[0]->cuantos." registros de construcción sin geometria \n";
 
 		$logUpload = $logHead."\n".$logCount."\n";
 
@@ -80,8 +86,11 @@ class shpUploader extends \BaseController
 		//if(strlen($logUpWarning) > 0) $logUpload.= "\n".$logUpWarning;
 		//$logUpload.= "\n";
 
-		fwrite($this->logFile,  PHP_EOL ."------------------------------------------------------------------------------------");
-		fclose($this->logFile);
+		$logFile = fopen($dirzip."logUpload.log", "a+");
+		fwrite($logFile,  PHP_EOL . PHP_EOL . $logHead. PHP_EOL);
+		fwrite($logFile,  "[".$zipfile."]". PHP_EOL);
+		fwrite($logFile,  $this->logUpload. PHP_EOL ."------------------------------------------------------------------------------------");
+		fclose($logFile);
 
 		return array($logUpload, $logUpError, $logUpWarning);
 
@@ -201,12 +210,9 @@ class shpUploader extends \BaseController
 	protected function updateLog($tipo,$msg,$status){
 		$tipos = array('','ERROR: ','AVISO: ', '');
 		$cadena = $tipos[$tipo].$msg."\n";
-		fwrite($logFile,  $this->logUpload. PHP_EOL ."------------------------------------------------------------------------------------");
 
 		$this->status = $status;
 		$this->logUpload .= $cadena;
-		fwrite($this->logFile,  $cadena);
-
 
 		switch ($tipo){
 			case 1:
@@ -319,6 +325,7 @@ class shpUploader extends \BaseController
 	protected function dbConstruccion($municipio, $nivel, $geom, $manzana, $centroide){
 		$continuar = true;
 	    $localizado = false;
+	    $geomnull = false;
 	    $clave_catas = "";
 
         //revisamos si existe la construcción
@@ -330,6 +337,13 @@ class shpUploader extends \BaseController
 			$geoDatos = $this->getDatabyCentroide('predios', 'clave_catas', $centroide);
 			$gid_predio = $geoDatos[0];
 			$clave_catas = $geoDatos[1];
+	
+			$result = DB::select('select gid from construcciones where gid_predio = ? and nivel = ? and geom is NULL', array($gid_predio,$nivel));
+	        if (count($result) != 0) {
+				$gid = $result[0]->gid;
+				$localizado = true;
+				$geomnull = true;
+			}
 		}else $localizado = true;
 
 	    //Calculamos superficie de construccion
@@ -338,9 +352,16 @@ class shpUploader extends \BaseController
 		if ($localizado){
 			$result = DB::update('update construcciones set nivel = ?, sup_const = ?, geom =  ST_GeomFromText(?,32615), updated_at = current_timestamp where gid = ?', array($nivel, $superficie, $geom,$gid));
 			if(!$result){
-				$this->updateLog(1,"No se logró actualizar la construción  [".$clave."] del predio [".$clave_catas."]",false);
+				$this->updateLog(1,"No se logró actualizar la construción  [".$nivel."] del predio [".$clave_catas."]->[".$result."]",true);
+				//$this->updateLog(0,"gid= [".$gid."] superficie [".$superficie."] geom [".$geom."]",true);
 			}else{
-				$this->updateLog(3,"Construcción con nivel [".$nivel."] del predio [".$clave_catas."] Actualizado.",true);
+				$alerta = 3;
+				$mensaje = "Construcción con nivel [".$nivel."] del predio [".$clave_catas."] Actualizado.";
+				if($geomnull){
+					$alerta = 2;
+					$mensaje .= " [GEOM = null -> actualizado]";
+				}
+				$this->updateLog($alerta,$mensaje,true);
 			}
 			return;
 		}
