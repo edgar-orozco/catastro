@@ -24,8 +24,9 @@
     <div class="row">
         <div class="col-md-6">
             <div class="form-group">
+
                 {{Form::label('folio_catastro','Número de Oficio')}}
-                {{Form::text('folio_catastro','', ['class'=>'form-control'])}}
+                {{Form::text('folio_catastro','', ['class'=>'form-control', 'maxlength'=>'8'])}}
             </div>
         </div>
         <div class="col-md-6">
@@ -41,13 +42,13 @@
         <div class="col-md-6">
             <div class="form-group">
                 {{Form::label('cantidad_urbanos','Folios Urbanos')}}
-                {{Form::text('cantidad_urbanos','', ['class'=>'form-control'])}}
+                {{Form::text('cantidad_urbanos','', ['class'=>'form-control', 'maxlength'=>'3'])}}
             </div>
         </div>
         <div class="col-md-6">
             <div class="form-group">
                 {{Form::label('cantidad_rusticos','Folios Rústicos')}}
-                {{Form::text('cantidad_rusticos','',['class'=>'form-control'])}}
+                {{Form::text('cantidad_rusticos','',['class'=>'form-control', 'maxlength'=>'3'])}}
             </div>
         </div>
         <div class="col-md-6">
@@ -65,7 +66,7 @@
         <div class="col-md-12">
             <div class="form-group">
                 {{Form::label('no_recibo','Numero de Recibo')}}
-                {{Form::text('no_recibo',null,['class'=>'form-control'])}}
+                {{Form::text('no_recibo',null,['class'=>'form-control', 'maxlength'=>'8'])}}
             </div>
         </div>
         <div class="col-md-12">
@@ -82,6 +83,9 @@
 <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
+    <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+      </div>
 
       <div class="modal-body" id="modalBody">
 
@@ -92,7 +96,6 @@
     </div>
   </div>
 </div>
-
 
 
 

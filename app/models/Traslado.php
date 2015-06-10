@@ -55,16 +55,46 @@ class Traslado extends \LaravelBook\Ardent\Ardent
     }
 
     /**
-     * Scope para consultar  traslados por el nombre del solicitante, puede consultar por el nombre exacto o por nombre parcial (una fraccion del nombre)
+     * Scope para consultar  traslados por el nombre del vendedor, puede consultar por el nombre exacto o por nombre parcial (una fraccion del nombre)
      * @param $q
      * @param $nombre
      * @return mixed
      */
-    public function scopeSolicitanteNombreCompleto($q, $nombre){
+    public function scopeVendedorNombreCompleto($q, $nombre){
         return $q->whereHas('vendedor', function($qry) use ($nombre)
         {
             $qry->whereRaw('nombrec ~* ?', [$nombre]);
         });
     }
 
+
+    /**
+     * Scope para consultar  traslados por el nombre del comprador, puede consultar por el nombre exacto o por nombre parcial (una fraccion del nombre)
+     * @param $q
+     * @param $nombre
+     * @return mixed
+     */
+    public function scopeCompradorNombreCompleto($q, $nombre){
+        return $q->whereHas('comprador', function($qry) use ($nombre)
+        {
+            $qry->whereRaw('nombrec ~* ?', [$nombre]);
+        });
+    }
+
+
+
+    /**
+     * Scope para consultar  traslados por el nombre del vendedor, puede consultar por el nombre exacto o por nombre parcial (una fraccion del nombre)
+     * @param $q
+     * @param $nombre
+     * @return mixed
+     */
+    public function scopeUbicacion($q, $ubicacion){
+            return DB::table('traslados')
+                ->join('fiscal', 'traslados.clave', '=', 'fiscal.clave')
+                ->join('ubicacion_fiscal', 'fiscal.id_ubicacion_fiscal', '=', 'ubicacion_fiscal.id_ubicacion')
+                ->select('traslados.id')
+                ->whereRaw("ubicacion_fiscal.ubicacion like '%" . $ubicacion . "%'");
+
+    }
 }

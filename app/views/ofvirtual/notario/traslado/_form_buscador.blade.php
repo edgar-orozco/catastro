@@ -7,7 +7,7 @@
         {{Form::text('q', null, ['class'=>'form-control', 'placeholder'=>'Buscar por...', 'id'=>'q'] )}}
 
         <div class="input-group-btn">
-            <button type="button" class="btn btn-default dropdown-toggle dropdown-label" data-toggle="dropdown">
+            <button type="button" class="btn btn-default dropdown-toggle dropdown-label buscador" data-toggle="dropdown">
 
                 <span class="caret"></span>
             </button>
@@ -32,13 +32,18 @@
 
 $(function () {
 
+    $( document ).ready(function() {
+        $('.buscador').text('Cuenta');
+         $('#tipo').val('Cuenta');
+     });
+
     $(document).on("submit", "#forma-buscador", function(e){
         e.preventDefault();
         var tipo = $('#tipo').val();
         var q = $('#q').val();
         if(q=='') return false;
         $( "#lista-tramites" ).load( "{{URL::to('ofvirtual/notario/traslado/buscar')}}", { tipo: tipo, q: q }, function() {
-            console.log('Se ha cargado la lista de trámites');
+            //console.log('Se ha cargado la lista de trámites');
         });
                 return false;
             });
@@ -47,11 +52,9 @@ $(function () {
 
         $('.dropdown-tipo li a').click(function () {
             var tipo = $(this).data('tipo');
-            console.log(tipo);
-            //$('#q').val('');
-            $('.dropdown-label').text(tipo);
-            $('#tipo').val(tipo.toLowerCase());
+            $('.buscador').text(tipo);
+            $('#tipo').val(tipo);
         });
 
     </script>
-@endsection
+@append

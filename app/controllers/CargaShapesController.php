@@ -3,6 +3,8 @@
  * Created by PhpStorm.
  */
 
+use \shpUploader;
+
 class CargaShapesController extends BaseController
 {
 
@@ -17,7 +19,18 @@ class CargaShapesController extends BaseController
         // Title
         $title_section = "Actualización Cartográfica";
 
-        return View::make('admin.cargashapes.upload-shape', compact('title', 'title_section'));
+        //municipios
+        $result = DB::select('SELECT municipio, nombre_municipio from municipios order by municipio');
+        
+        $municipios = array();
+
+        foreach($result as $registro){
+            $municipios[$registro->municipio] = $registro->nombre_municipio;
+        }       
+           
+        //$view = View::make('cartografia.consultas.form') ;
+
+        return View::make('admin.cargashapes.upload-shape', compact('title', 'title_section', 'municipios'));
     }
 
     /**
@@ -37,16 +50,37 @@ class CargaShapesController extends BaseController
 
             // Se valida la extensión del archivo
             error_log(Input::file('shape')->getClientMimeType());
-            if(in_array(strtolower(Input::file('shape')->getClientMimeType()), array('application/x-gzip', 'application/zip', 'application/x-tar', 'application/octet-stream')))
+            if(in_array(strtolower(Input::file('shape')->getClientMimeType()), array('application/zip', 'application/octet-stream')))
             {
-                Input::file('shape')->move($dir, Input::file('shape')->getClientOriginalName());
+                $manzana = Input::get('manzana');
+                $municipio= Input::get('municipio');
+                $sufijo = date("dmyHis");
+                if(strcmp($manzana, substr(Input::file('shape')->getClientOriginalName(),0,8)) != 0){
+                    return Redirect::to('admin/carga-shapes')->with('error',"El archivo ".Input::file('shape')->getClientOriginalName()." no coincide con la manzana ".$manzana);
+                }
 
-                return Redirect::to('admin/carga-shapes')->with('success',
-                    '¡Se guardo correctamente el archivo: '. Input::file('shape')->getClientOriginalName() .'!');
+                $zipfile = $municipio."-".$manzana."-".$sufijo.".zip";
+                Input::file('shape')->move($dir, $zipfile);
+                $dirzip = __DIR__ . '/../storage/shapes/';
+                $dirtmp = "/tmp/";
+
+
+                $upload = new shpUploader();
+
+                $Respuesta = $upload->uploadShape($municipio, $manzana, $dirzip, $dirtmp, $zipfile);
+                $logHead = $Respuesta[0];
+                $logErr = $Respuesta[1];
+                $logWar = $Respuesta[2];
+
+                //return Redirect::to('admin/carga-shapes')->with('success',
+                 //   '¡Se guardo correctamente el archivo: '. Input::file('shape')->getClientOriginalName() .'!');
+
+                return Redirect::to('admin/carga-shapes')->with('logHead', nl2br($logHead))->with('logErr', nl2br($logErr))->with('logWar', nl2br($logWar));
+
             }
 
             return Redirect::to('admin/carga-shapes')->with('error',
-                'Extensión de archivo invalida en "'.Input::file('shape')->getClientOriginalName().'", los formatos validos son .zip, .rar, .tar, .tgz y .gz.');
+                'Extensión de archivo invalida en "'.Input::file('shape')->getClientOriginalName().'", Solamente se permite subir archivos con formato ZIP');
 
         }
 

@@ -18,6 +18,8 @@
     {{ HTML::style('css/navmenu.css') }}
     {{ HTML::style('css/header.css') }}
     {{ HTML::style('css/footer.css') }}
+    <!-- CSS del  Lock Screen -->
+    {{ HTML::style('css/lockscreen.css') }}
 
     <style>
         @yield('styles')
@@ -216,6 +218,10 @@
         </div>
     </div>
 </div>
+
+<!-- Lock Screen -->
+@include('layouts._lockscreen')
+
 <!-- JQuery -->
 {{ HTML::script('js/jquery/jquery.min.js') }}
 
@@ -228,6 +234,8 @@
 {{ HTML::script('js/angular/angular-sanitize.js') }}
 {{ HTML::script('js/angular/angular-animate.js') }}
 {{ HTML::script('js/ui-bootstrap.js') }}
+<!-- JS del Lock Screen -->
+{{ HTML::script('js/lockscreen.js') }}
 
 @yield('javascript')
 

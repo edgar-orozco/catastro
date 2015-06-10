@@ -123,7 +123,6 @@ class complementarios_ComplementariosController extends BaseController {
             $gid = $constru[0]->gid;
             $constru = construcciones::find($gid);
         }
-        $constru->gid = $gid;
         $constru->entidad = $entidad;
         $constru->municipio = $municipio;
         $constru->clave_catas = $clave_cata;
@@ -151,8 +150,8 @@ class complementarios_ComplementariosController extends BaseController {
                     'gid_construccion' => $gid_construccion,
                     'gid_construccion2' => $gid,
                     'nivel' => $nivel,
-                    'sup_const' => $sup_const,
-                    'edad_const' => $clase_constru
+                    'edad_const' => $edad_const,
+                    'clase_const' => $clase_constru
         ));
     }
 
@@ -583,6 +582,45 @@ class complementarios_ComplementariosController extends BaseController {
         return View::make('complementarios.agregarcondominio', ['datos' => $id]);
     }
 
+//    public function post_addcondominio() {
+//        $id_condominio = Input::get('id_condominio');
+//        $inputs = Input::All();
+//        $id = Input::get('id');
+//        $clave_catas = predios::where('gid', $id)->pluck('clave_catas');
+//        $entidad = predios::where('gid', $id)->pluck('entidad');
+//        $municipio = predios::where('gid', $id)->pluck('municipio');
+//
+//        $n = new condominios();
+//        $n->entidad = $entidad;
+//        $n->municipio = $municipio;
+//        $n->no_condominal = $inputs["no_condominal"];
+//        $n->tipo_priva = $inputs["tipo_priva"];
+//        $n->indiviso = $inputs["indiviso"];
+//        $n->cve_magno = 0;
+//        $n->gid_predio = $id;
+//        $n->clave_catas = $clave_catas;
+//        $n->sup_terr_privativa = $inputs["sup_terr_privativa"];
+//        $n->sup_const_privativa = $inputs["sup_const_privativa"];
+//        $n->sup_total_construccion = $inputs["sup_total_construccion"];
+//        $n->sup_total_terreno = $inputs["sup_total_terreno"];
+//        //$n->no_cond_magno = $inputs["no_cond_magno"];
+////        $n->sup_cond_magno_construccion = $inputs['sup_cond_magno_construccion'];
+////        $n->sup_comun_magno_terreno = $inputs['sup_comun_magno_terreno'];
+//        $n->save();
+//        return Response::json(array
+//                    (
+//                    'valor' => 1,
+//                    'id_condominio' => $id_condominio,
+//                    'no_condominal' => $inputs["no_condominal"],
+//                    'tipo_priva' => $inputs["tipo_priva"],
+//                    'indiviso' => $inputs["indiviso"],
+//                    'sup_terr_privativa' => $inputs["sup_terr_privativa"],
+//                    'sup_const_privativa ' => $inputs["sup_const_privativa"],
+//                    'sup_total_construccion' => $inputs["sup_total_construccion"],
+//                    'sup_total_terreno' => $inputs["sup_total_terreno"],
+//                 
+//        ));
+//    }
     public function post_addcondominio() {
         $id_condominio = Input::get('id_condominio');
         if ($id_condominio != '') {
@@ -590,12 +628,19 @@ class complementarios_ComplementariosController extends BaseController {
 // print_r($inputs);
             $id = Input::get('id');
             $n = condominios::find($id_condominio);
-            $n->tipo_priva = $inputs["tipo_priva"];
-            $n->sup_comun = $inputs["sup_comun"];
-            $n->indiviso = $inputs["indiviso"];
-            $n->sup_total_comun = $inputs["sup_total_comun"];
             $n->no_condominal = $inputs["no_condominal"];
-            $n->no_unidades = 0;
+            $n->tipo_priva = $inputs["tipo_priva"];
+            $n->indiviso = $inputs["indiviso"];
+            $n->sup_terr_privativa = $inputs["sup_terr_privativa"];
+            $n->sup_const_privativa = $inputs["sup_const_privativa"];
+            $n->sup_total_construccion = $inputs["sup_total_construccion"];
+            $n->sup_total_terreno = $inputs["sup_total_terreno"];
+            //cond magno 
+            $n->no_cond_magno = 0;
+            $n->sup_cond_magno_terreno = $inputs['sup_cond_magno_terreno'];
+            $n->sup_cond_magno_construccion = $inputs['sup_cond_magno_construccion'];
+            $n->sup_comun_magno_terreno = $inputs['sup_comun_magno_terreno'];
+            $n->sup_comun_magno_construccion = $inputs['sup_comun_magno_construccion'];
             $n->save();
             Session::flash('mensaje', 'El registro ha sido ingresado exitosamente');
             // $no_condominal1 = condominios::where('id_condominio', $id_condominio)->pluck('no_condominal');
@@ -603,19 +648,30 @@ class complementarios_ComplementariosController extends BaseController {
                         (
                         'valor' => 1,
                         'id_condominio' => $id_condominio,
+//                        'tipo_priva' => $inputs["tipo_priva"],
+//                        'sup_comun' => $inputs["sup_comun"],
+//                        'indiviso' => $inputs["indiviso"],
+//                        'sup_total_comun' => $inputs["sup_total_comun"],
+//                        'no_unidades' => $inputs["no_unidades"],
+                        'no_condominal' => $inputs["no_condominal"],
                         'tipo_priva' => $inputs["tipo_priva"],
-                        'sup_comun' => $inputs["sup_comun"],
                         'indiviso' => $inputs["indiviso"],
-                        'sup_total_comun' => $inputs["sup_total_comun"],
-                        'no_unidades' => $inputs["no_unidades"],
-                        'no_condominal' => $inputs["no_condominal"]
+                        'sup_terr_privativa' => $inputs["sup_terr_privativa"],
+                        'sup_const_privativa' => $inputs["sup_const_privativa"],
+                        'sup_total_construccion' => $inputs["sup_total_construccion"],
+                        'sup_total_terreno' => $inputs["sup_total_terreno"],
+                        //cond magno
+                        'no_cond_magno' => $inputs['no_cond_magno'],
+                        'sup_cond_magno_terreno' => $inputs['sup_cond_magno_terreno'],
+                        'sup_cond_magno_construccion' => $inputs['sup_cond_magno_construccion'],
+                        'sup_comun_magno_terreno' => $inputs['sup_comun_magno_terreno'],
+                        'sup_comun_magno_construccion' => $inputs['sup_comun_magno_construccion'],
             ));
         } else {
             $id = Input::get('id');
             $clave_catas = predios::where('gid', $id)->pluck('clave_catas');
             $entidad = predios::where('gid', $id)->pluck('entidad');
             $municipio = predios::where('gid', $id)->pluck('municipio');
-
             $inputs = Input::All();
             $max_id = condominios::where('gid_predio', '=', $id)->max('no_condominal');
             //$no_condominal = $max_id + 1;
@@ -625,19 +681,23 @@ class complementarios_ComplementariosController extends BaseController {
             $n->clave_catas = $clave_catas;
             $n->no_condominal = $inputs["no_condominal"];
             $n->tipo_priva = $inputs["tipo_priva"];
-            $n->sup_comun = $inputs["sup_comun"];
+//            $n->sup_terr_privativa = $inputs["sup_comun"];
             $n->indiviso = $inputs["indiviso"];
-            $n->sup_comun_magno = 0;
-            $n->indiviso_magno = 0;
             $n->cve_magno = '0';
-            $n->sup_total_comun = $inputs["sup_total_comun"];
-            $n->no_unidades = $inputs["no_unidades"];
             $n->gid_predio = $id;
-            $n->sup_privativa = '0';
+            $n->clave_catas = $clave_catas;
             $n->clave_INEGI_cond = '0';
-            $n->no_unidades = 0;
+            $n->sup_terr_privativa = $inputs["sup_terr_privativa"];
+            $n->sup_const_privativa = $inputs["sup_const_privativa"];
+            $n->sup_total_construccion = $inputs["sup_total_construccion"];
+            $n->sup_total_terreno = $inputs["sup_total_terreno"];
+            //cond magno 
+            $n->no_cond_magno = 0;
+            $n->sup_cond_magno_terreno = $inputs['sup_cond_magno_terreno'];
+            $n->sup_cond_magno_construccion = $inputs['sup_cond_magno_construccion'];
+            $n->sup_comun_magno_terreno = $inputs['sup_comun_magno_terreno'];
+            $n->sup_comun_magno_construccion = $inputs['sup_comun_magno_construccion'];
             $n->save();
-
             $id_condominio = condominios::orderBy('id_condominio', 'DESC')->first()->id_condominio;
             $no_condominal1 = condominios::where('id_condominio', $id_condominio)->pluck('no_condominal');
             return Response::json(array
@@ -646,8 +706,17 @@ class complementarios_ComplementariosController extends BaseController {
                         'id_condominio' => $id_condominio,
                         'no_condominal' => $no_condominal1,
                         'tipo_priva' => $inputs["tipo_priva"],
-                        'sup_comun' => $inputs["sup_comun"],
-                        'indiviso' => $inputs["indiviso"]
+                        'indiviso' => $inputs["indiviso"],
+                        'sup_terr_privativa' => $inputs["sup_terr_privativa"],
+                        'sup_const_privativa' => $inputs["sup_const_privativa"],
+                        'sup_total_construccion' => $inputs["sup_total_construccion"],
+                        'sup_total_terreno' => $inputs["sup_const_privativa"],
+                        //cond magno
+                        'no_cond_magno' => $inputs['no_cond_magno'],
+                        'sup_cond_magno_terreno' => $inputs['sup_cond_magno_terreno'],
+                        'sup_cond_magno_construccion' => $inputs['sup_cond_magno_construccion'],
+                        'sup_comun_magno_terreno' => $inputs['sup_comun_magno_terreno'],
+                        'sup_comun_magno_construccion' => $inputs['sup_comun_magno_construccion'],
             ));
 //Session::flash('mensaje', 'El registro ha sido ingresado exitosamente');
 //return Redirect::back();
@@ -675,11 +744,18 @@ class complementarios_ComplementariosController extends BaseController {
                     'entidad' => $condominios->entidad,
                     'municipio' => $condominios->municipio,
                     'tipo_priva' => $condominios->tipo_priva,
-                    'sup_comun' => $condominios->sup_comun,
                     'indiviso' => $condominios->indiviso,
-                    'sup_total_comun' => $condominios->sup_total_comun,
-                    'no_unidades' => $condominios->no_unidades,
-                    'no_condominal' => $condominios->no_condominal
+                    'sup_terr_privativa' => $condominios->sup_terr_privativa,
+                    'sup_const_privativa' => $condominios->sup_const_privativa,
+                    'sup_total_construccion' => $condominios->sup_total_construccion,
+                    'sup_total_terreno' => $condominios->sup_total_terreno,
+                    'no_condominal' => $condominios->no_condominal,
+                    //cond magno
+                    'no_cond_magno' => $condominios->no_cond_magno,
+                    'sup_cond_magno_terreno' => $condominios->sup_cond_magno_terreno,
+                    'sup_cond_magno_construccion' => $condominios->sup_cond_magno_construccion,
+                    'sup_comun_magno_terreno' => $condominios->sup_comun_magno_terreno,
+                    'sup_comun_magno_construccion' => $condominios->sup_comun_magno_construccion,
         ));
 //return View::make('complementarios.complementos.condominio', compact("condominios"));
     }
@@ -687,6 +763,7 @@ class complementarios_ComplementariosController extends BaseController {
     public function getCondominio() {
         $inputs = Input::All();
 // print_r($inputs);
+
         $id = Input::get('id');
         $n = condominios::find($id);
         $n->entidad = $inputs["entidad"];
@@ -1013,7 +1090,7 @@ class complementarios_ComplementariosController extends BaseController {
 
         $id_p = array();
 //CONSULTA A LA TABLA PERSONAS
-        $queries = DB::select(DB::raw("SELECT * FROM personas WHERE nombres || ' '||apellido_paterno || ' ' ||  apellido_materno LIKE '%".$term."%' ORDER BY id_p DESC LIMIT 10"));
+        $queries = DB::select(DB::raw("SELECT * FROM personas WHERE nombres || ' '||apellido_paterno || ' ' ||  apellido_materno LIKE '%" . $term . "%' ORDER BY id_p DESC LIMIT 10"));
 //DONDE LLAMA LOS DATOS Y LOS PASA A LAS VARIABLES CORRESPONDIENTES
         foreach ($queries as $query) {
 //ARRAY DONDE CARGA LOS DATOS
@@ -1076,26 +1153,25 @@ class complementarios_ComplementariosController extends BaseController {
 //        if ($validar->fails()) {
 //            return Redirect::back()->withErrors($validar);
 //        } else {
-        if($nombres="" || $apellido_paterno =="")
-        {
-          Session::flash('mensaje', 'Campos vacios');   
-        }else{
-        $n = new personas();
-        $n->apellido_paterno = $inputs["apellido_paterno"];
-        $n->apellido_materno = $inputs["apellido_materno"];
-        $n->nombres = $inputs["nombres"];
-        $n->nombrec = $apellido_paterno . " " . $apellido_materno . " " . $nombres;
-        $n->rfc = null;
-        $n->curp = null;
-        $n->save();
-        $queries = DB::select(DB::raw("SELECT id_p FROM personas WHERE nombres || ' ' || apellido_paterno || ' ' ||  apellido_materno LIKE '%" . $term . "%' limit 1"));
+        if ($nombres = "" || $apellido_paterno == "") {
+            Session::flash('mensaje', 'Campos vacios');
+        } else {
+            $n = new personas();
+            $n->apellido_paterno = $inputs["apellido_paterno"];
+            $n->apellido_materno = $inputs["apellido_materno"];
+            $n->nombres = $inputs["nombres"];
+            $n->nombrec = $apellido_paterno . " " . $apellido_materno . " " . $nombres;
+            $n->rfc = null;
+            $n->curp = null;
+            $n->save();
+            $queries = DB::select(DB::raw("SELECT id_p FROM personas WHERE nombres || ' ' || apellido_paterno || ' ' ||  apellido_materno LIKE '%" . $term . "%' limit 1"));
 //Se han guardado los valores
-        foreach ($queries as $key) {
-            $id = $key->id_p;
-        }
-        Session::flash('mensaje', 'El registro ha sido ingresado exitosamente');
-        return Response::json(array('id_p' => $id));
-        return Redirect::back();
+            foreach ($queries as $key) {
+                $id = $key->id_p;
+            }
+            Session::flash('mensaje', 'El registro ha sido ingresado exitosamente');
+            return Response::json(array('id_p' => $id));
+            return Redirect::back();
         }
     }
 

@@ -20,4 +20,4 @@ Route::get('ofvirtual/notario/traslado/destroy/{id}', 'OficinaVirtualNotarioCont
 
 //buscador
 //Búsqueda de trámites
-Route::get('ofvirtual/notario/traslado/buscar','OficinaVirtualNotarioController@buscar');
+Route::post('ofvirtual/notario/traslado/buscar','OficinaVirtualNotarioController@buscar');
