@@ -15,7 +15,7 @@
         <div class="col-md-3">
                 <div class="form-group">
                     {{Form::label('Lnivel','Nivel:')}}
-                    {{Form::number('nivel',1,['class'=>'form-control', 'required', 'id'=>'nivel', 'min' => '1' ])}}
+                    {{Form::number('nivel',1,['class'=>'form-control', 'required', 'id'=>'nivel', 'min' => '1','readonly' ])}}
                 </div>
             </div>
             
@@ -94,7 +94,7 @@
     {{Form::close()}}
 </div>
 
-{{form::button('Nuevo', ['class'=>'btn btn-primary', 'id' => 'const-nuevo'])}}
+<!--{{form::button('Nuevo', ['class'=>'btn btn-primary', 'id' => 'const-nuevo'])}}-->
 <div id="div-table" class="row">
 <table class="table" id="table-construcciones">
     <thead>
@@ -117,7 +117,7 @@
                 
                 <!--Editar-->
                 <a id="construccion-edit{{$row->gid}}" onclick="editar_construccion('{{$row->gid}}')" class="btn btn-warning editar" title="Editar Construcción">
-                    <span class="glyphicon glyphicon-edit"></span>
+                  <span class="glyphicon glyphicon-pencil"></span>
                 </a>
                 <!--borrar-->
                 <a id="construccion-delete{{$row->gid}}" data-onclickcon="eliminar_construccion('{{$row->gid}}')" data-toggle="modal"  data-target="#construcciones-alert-modal" href="#" class="btn btn-danger construcciones-eliminar" title="Eliminar Construcción">
