@@ -255,9 +255,9 @@ $('#formConstruccion').bind('submit',function ()
                     //Agregamos el valor que queremos pintar en la celda creada
                     cell.innerHTML=data.nivel;
                     cell = row.insertCell(1);
-                    cell.innerHTML=data.sup_const;
-                    cell = row.insertCell(2);
                     cell.innerHTML=data.edad_const;
+                    cell = row.insertCell(2);
+                    cell.innerHTML=data.clase_const;
                     cell = row.insertCell(3);
                     var editar = '<a id="construccion-edit'+data.gid_construccion2+'" onclick="editar_construccion('+"'"+data.gid_construccion2+"'"+')" class="btn btn-warning editar" title="Editar Construcción">'+
                                         '<span class="glyphicon glyphicon-edit"></span>'+

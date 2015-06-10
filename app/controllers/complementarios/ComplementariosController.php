@@ -123,7 +123,6 @@ class complementarios_ComplementariosController extends BaseController {
             $gid = $constru[0]->gid;
             $constru = construcciones::find($gid);
         }
-        $constru->gid = $gid;
         $constru->entidad = $entidad;
         $constru->municipio = $municipio;
         $constru->clave_catas = $clave_cata;
@@ -151,8 +150,8 @@ class complementarios_ComplementariosController extends BaseController {
                     'gid_construccion' => $gid_construccion,
                     'gid_construccion2' => $gid,
                     'nivel' => $nivel,
-                    'sup_const' => $sup_const,
-                    'edad_const' => $clase_constru
+                    'edad_const' => $edad_const,
+                    'clase_const' => $clase_constru
         ));
     }
 
