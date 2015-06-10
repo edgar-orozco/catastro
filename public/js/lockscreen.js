@@ -16,9 +16,11 @@ $(document).ready(function () {
         // o se mueve el cursor.
         $(this).mousemove(function (e) {
             idleTime = 0;
+            keepAlive();
         });
         $(this).keypress(function (e) {
             idleTime = 0;
+            keepAlive();
         });
     });
 
@@ -64,6 +66,26 @@ $(document).ready(function () {
 
 });
 /**
+ * Función para enviar una petición get para mantener viva la sesión del usuario
+ */
+function keepAlive(){
+    // Se revisa el tiempo de sesión, si es mayor a tres cuartas partes del tiempo de la sesión
+    // Se extiende en automático el tiempo de vida, siempre que el contador de abandono sea 0
+    if(sessionTime >= ( (session * 3) / 4 ) && sessionTime < session){
+        var sessionActaul = sessionTime;
+        sessionTime = 0;
+        // Se hace un keep alive para extender la sesión sin que el usuario intervenga
+        $.ajax({
+            url: '/lock-screen',
+            context: document.body
+        }).done(function(data) {
+            session = data.session;
+        }).error(function () {
+            sessionTime = sessionActaul;
+        });
+    }
+}
+/**
  * Función para iniciar el intervalo que bloquea la sesiñon
  * @param session
  */
@@ -71,18 +93,6 @@ function starIntervalLock(){
     var idleInterval = setInterval(function() {
         // Se suma un minuto al tiempo de sesión
         sessionTime = sessionTime + 1;
-        // Se revisa el tiempo de sesión, si es mayor a tres cuartas partes del tiempo de la sesión
-        // Se extiende en automático el tiempo de vida, siempre que el contador de abandono sea 0
-        if(sessionTime >= ( (session * 3) / 4 ) && idleTime == 0 ){
-            // Se hace un keep alive para extender la sesión sin que el usuario intervenga
-            $.ajax({
-                url: '/lock-screen',
-                context: document.body
-            }).done(function(data) {
-                session = data.session;
-                sessionTime = 0;
-            });
-        }
         // Se suma un minuto al tiempo de abandono
         idleTime = idleTime + 1;
         // Se revisa el tiempo de abandono
