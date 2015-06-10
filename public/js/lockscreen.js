@@ -1,7 +1,8 @@
 // Variable para el tiempo sin actividad
-var idleTime = 0;
+var idleTime    = 0,
+    sessionTime = 0,
+    session     = 0;
 $(document).ready(function () {
-    var session = 0;
     // Se obtiene el valor del tiempo de sesión
     // y se coloca el intervalo que revisa si la sesión continua abierta
     $.ajax({
@@ -10,7 +11,7 @@ $(document).ready(function () {
     }).done(function(data) {
         session = data.session;
         //Se inicia el intervalo
-        starIntervalLock(session);
+        starIntervalLock();
         // Se resetea el valor del tiempo sin actividad cuando se presiona una tecla
         // o se mueve el cursor.
         $(this).mousemove(function (e) {
@@ -44,6 +45,8 @@ $(document).ready(function () {
                 if( response.statusCode == 200 ){
                     $('#lock-screen').hide('puff');
                     window.onbeforeunload = null;
+                    // Se reinicia el tiempo de sesion
+                    sessionTime = 0;
                     starIntervalLock(session);
                     $('#lock-password').val('')
                 } else {
@@ -64,9 +67,25 @@ $(document).ready(function () {
  * Función para iniciar el intervalo que bloquea la sesiñon
  * @param session
  */
-function starIntervalLock(session){
+function starIntervalLock(){
     var idleInterval = setInterval(function() {
+        // Se suma un minuto al tiempo de sesión
+        sessionTime = sessionTime + 1;
+        // Se revisa el tiempo de sesión, si es mayor a tres cuartas partes del tiempo de la sesión
+        // Se extiende en automático el tiempo de vida, siempre que el contador de abandono sea 0
+        if(sessionTime >= ( (session * 3) / 4 ) && idleTime == 0 ){
+            // Se hace un keep alive para extender la sesión sin que el usuario intervenga
+            $.ajax({
+                url: '/lock-screen',
+                context: document.body
+            }).done(function(data) {
+                session = data.session;
+                sessionTime = 0;
+            });
+        }
+        // Se suma un minuto al tiempo de abandono
         idleTime = idleTime + 1;
+        // Se revisa el tiempo de abandono
         if (idleTime >= session) {
             // Se muestra la pantalla de lock screen
             $('#lock-screen').show('puff');
