@@ -79,12 +79,12 @@
                     <h4 class="modal-title" id="confirm-logout-title">Confirme la acción:</h4>
                 </div>
                 <div class="modal-body">
-                    <h4 style="text-align: center">¿Desea eliminar el traslado de su lista? <br>Esta acción no puede deshacerse.</h4>
+                    <h4 style="text-align: center">¿Desea eliminar el traslado de dominio de su lista? <br>Esta acción no puede deshacerse.</h4>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
                     <button type="submit" class="btn btn-danger btn-submit-borrar" data-documento_id="" data-dismiss="modal">
-                        <span class="glyphicon glyphicon-trash " ></span> Eliminar dominio</button>
+                        <span class="glyphicon glyphicon-trash " ></span> Eliminar traslado de dominio</button>
                     <input type="hidden" name="documento_id" id="documento_id">
                 </div>
             </div>
