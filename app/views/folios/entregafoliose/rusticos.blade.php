@@ -72,7 +72,7 @@
 							@endif
 						</td>
 						<td align="center">
-							@if($r->entrega_municipal == 1)
+							@if($r->entrega_municipal == 5)
 								{{$r->municipio->nombre_municipio}}
 							@endif
 						</td>
