@@ -3,6 +3,12 @@
     <div class="panel-heading">
         <h3 class="panel-title">Traslados de dominios</h3>
     </div>
+
+
+  <div class="alert alert-success" id="dominio-eliminado" style="display: none;">
+            <h4><span class="glyphicon glyphicon-ok"></span>  Se eliminó correctamente el dominio.</h4>
+        </div>
+
     @if(count($traslados) == 0)
         <div class="panel-body">
             <p>No hay traslados de dominios dados de alta actualmente en el sistema.</p>
@@ -57,6 +63,8 @@
 </div>
 
 
+<!--60 líneas de código en algo que se pudo hacer con 2 :/ -->
+
 
 
  <!-- Modal para confirmar cuando se borra un documento -->
@@ -104,6 +112,7 @@
                 $.get("{{url('ofvirtual/notario/traslado/destroy/')}}"+'/'+ traslado_id, function (data){
                     console.log('Regresa de borrar el traslado:' + traslado_id);
                     $('#traslado-'+traslado_id).hide();
+                    $('#dominio-eliminado').show();
                     return false;
                 });
 
