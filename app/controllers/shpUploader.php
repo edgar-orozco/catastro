@@ -15,9 +15,11 @@ class shpUploader extends \BaseController
 	var $countWar;
 	var $status;
 	var $municipio_name;
+	var $curZip;
 
 	public function uploadShape($municipio, $manzana, $dirzip, $dirtmp, $zipfile){
 
+		$this->curZip = $zipfile;
 		$this->municipio_name = $this->num2str($municipio);
 		$logHead = "Actualizando Cartografia de la manzana [".$municipio."-".$manzana."] Municipio ".$this->municipio_name." 
 				 (".date('l jS \of F Y h:i:s A').") 
@@ -86,12 +88,12 @@ class shpUploader extends \BaseController
 		//if(strlen($logUpWarning) > 0) $logUpload.= "\n".$logUpWarning;
 		//$logUpload.= "\n";
 
-		$logFile = fopen($dirzip."logUpload.log", "a+");
+/*		$logFile = fopen($dirzip."logUpload.log", "a+");
 		fwrite($logFile,  PHP_EOL . PHP_EOL . $logHead. PHP_EOL);
 		fwrite($logFile,  "[".$zipfile."]". PHP_EOL);
 		fwrite($logFile,  $this->logUpload. PHP_EOL ."------------------------------------------------------------------------------------");
 		fclose($logFile);
-
+*/
 		return array($logUpload, $logUpError, $logUpWarning);
 
 	}
@@ -212,7 +214,7 @@ class shpUploader extends \BaseController
 		$cadena = $tipos[$tipo].$msg."\n";
 
 		$logFile = fopen("/var/www/html/app/storage/logs/logshape.log", "a+");
-		fwrite($logFile,  $cadena. PHP_EOL);
+		fwrite($logFile, date('j M Y h:i:s A')." - [".$this->curZip."] ".$cadena);
 		fclose($logFile);
 
 
@@ -343,7 +345,7 @@ class shpUploader extends \BaseController
 				$geoDatos = $this->getDatabyCentroide('predios', 'clave_catas', $centroide);
 				$gid_predio = $geoDatos[0];
 				$clave_catas = $geoDatos[1];
-		
+
 				$result = DB::select('select gid from construcciones where gid_predio = ? and nivel = ? and geom is NULL', array($gid_predio,$nivel));
 		        if (count($result) != 0) {
 					$gid = $result[0]->gid;
@@ -373,7 +375,7 @@ class shpUploader extends \BaseController
 			}
 
 			$sql="insert into construcciones (entidad, municipio, clave_catas, gid_predio, nivel, sup_const, edad_const, id_tuc, id_tcc, id_ttc, id_tec, id_tmc, id_tpic, id_tpuc, id_tvc, created_at, updated_at, geom)";
-			$sql.=" VALUES ('27',?,?,?,?,?,0,1,1,1,1,1,1,1,1,current_timestamp,current_timestamp,ST_GeomFromText(?,32615))";
+			$sql.=" VALUES ('27',?,?,?,?,?,0,100,100,100,100,100,100,100,100,current_timestamp,current_timestamp,ST_GeomFromText(?,32615))";
 
 			if($gid_predio != 0){
 				$result = DB::insert($sql, array($municipio,$clave_catas,$gid_predio,$nivel,$superficie,$geom));
