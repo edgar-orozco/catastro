@@ -41,17 +41,17 @@
                          <td> {{$traslado->created_at->format("d-m-Y")}}</td>
 
                     <td style="text-align: right;" nowrap>
+
+                    @if(!is_null($traslado->folio))
+                    @else
+
                         <a href="{{ action('OficinaVirtualNotarioController@edit', ['id' => $traslado->id]) }}" class="btn btn-warning" title="Editar traslado">
                             <span class="glyphicon glyphicon-pencil"></span>
                         </a>
-
-                       <!-- <a href="{{--action('OficinaVirtualNotarioController@destroy', ['id' => $traslado->id]) --}}"
-                        class="eliminar btn btn-danger" title="Borrar traslado">
-                            <span class="glyphicon glyphicon-trash"></span>
-                              </a>-->
                          <a href="#" data-toggle="modal" data-target="#confirm-delete" class="btn-borrar btn btn-danger" data-traslado_id="{{$traslado->id}}">
                            <span class="glyphicon glyphicon-trash danger"></span>
                          </a>
+                     @endif
 
                     </td>
                 </tr>

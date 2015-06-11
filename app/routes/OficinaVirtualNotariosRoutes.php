@@ -2,6 +2,8 @@
 
 //
 Route::get('ofvirtual/notario/traslado', 'OficinaVirtualNotarioController@index');
+
+//edit
 Route::get('ofvirtual/notario/traslado/edit/{id}', 'OficinaVirtualNotarioController@edit');
 
 //Delete traslado de dominio
@@ -16,6 +18,12 @@ Route::get('ofvirtual/notario/traslado/update/{id}', 'OficinaVirtualNotarioContr
 
 //destroy
 Route::get('ofvirtual/notario/traslado/destroy/{id}', 'OficinaVirtualNotarioController@destroy');
+
+//show
+Route::get('ofvirtual/notario/traslado/show/{id}', 'OficinaVirtualNotarioController@show');
+
+//show
+Route::get('ofvirtual/notario/traslado/asignarFolio/{id}', 'OficinaVirtualNotarioController@asignarFolio');
 
 
 //buscador
