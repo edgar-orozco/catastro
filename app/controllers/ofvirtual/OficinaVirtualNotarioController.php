@@ -131,7 +131,9 @@ class OficinaVirtualNotarioController extends \BaseController {
         }
 
         //Dado que fue exitosa la actualización mostramos la salida al usuario.
-        return Redirect::to('ofvirtual/notario/traslado')->with('success','¡Se ha creado correctamente el traslado de dominio para la cuenta ' . $traslado->cuenta .'!');
+        //return Redirect::to('ofvirtual/notario/traslado')->with('success','¡Se ha creado correctamente el traslado de dominio para la cuenta ' . $traslado->cuenta .'!');
+
+        return Redirect::to('ofvirtual/notario/traslado/show/'.$traslado->id)->with('success','¡Se ha creado correctamente el traslado de dominio para la cuenta ' . $traslado->cuenta .'!');
     }
 
 
@@ -143,10 +145,47 @@ class OficinaVirtualNotarioController extends \BaseController {
 	 */
 	public function show($id)
 	{
+
 		// confirmar datos y confirmar folio
+
+        $traslado = Traslado::find($id);
+
+        $predio = $this->padron->getByClaveOCuenta($traslado->clave);
+
+        //vendedor
+        $vendedor= personas::find($traslado->vendedor_id);
+        $traslado->vendedor->fill($vendedor->toArray());
+
+        //comprador
+        $comprador= personas::find($traslado->comprador_id);
+        $traslado->comprador->fill($comprador->toArray());
+
+        $traslado->traslado = $traslado;
+        // Title
+        $title = 'Editar traslado de dominio';
+
+        // Show the page
+        return View:: make( 'ofvirtual.notario.traslado.show', compact( 'title','traslado', 'predio'));
 
 	}
 
+    public function asignarFolio($id)
+    {
+
+        $traslado = Traslado::find($id);
+
+        //ToDo: generar folios correctos
+        $traslado->folio = rand(1,1000000);
+
+        if (!$traslado->save()) {
+            return Redirect::back()->withInput()->withErrors($traslado->errors());
+        }
+
+
+        // Show the page
+        return Redirect::to('ofvirtual/notario/traslado/')->with('success','¡Se ha finalizado correctamente el traslado!');
+
+    }
 
 	/**
 	 * Show the form for editing the specified resource.
@@ -233,7 +272,9 @@ class OficinaVirtualNotarioController extends \BaseController {
         }
 
         //Dado que fue exitosa la actualización mostramos la salida al usuario.
-        return Redirect::to('ofvirtual/notario/traslado/edit/'.$traslado->id)->with('success','¡Se ha actualizado correctamente el traslado!');
+        //return Redirect::to('ofvirtual/notario/traslado/edit/'.$traslado->id)->with('success','¡Se ha actualizado correctamente el traslado!');
+
+        return Redirect::to('ofvirtual/notario/traslado/show/'.$traslado->id)->with('success','¡Se ha creado correctamente el traslado de dominio para la cuenta ' . $traslado->cuenta .'!');
 	}
 
 
@@ -249,7 +290,6 @@ class OficinaVirtualNotarioController extends \BaseController {
         //ToDo: revisar primero que no tenga asignado un folio, si tiene asigando un folio no se puede borrar
 
         $traslado = Traslado::find($id);
-
         $traslado->delete();
 
         $vendedor = personas::find($traslado->vendedor_id);

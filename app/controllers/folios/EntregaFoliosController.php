@@ -34,6 +34,8 @@ class folios_EntregaFoliosController extends BaseController {
 		->orderBy('tipo_folio', 'DESC')
 		->get();
 
+		DB::getQueryLog();
+
 		return View::make('folios.entregafoliose.detalles')
 		->withPerito($perito)
 		->withFu($fu)
@@ -226,7 +228,8 @@ class folios_EntregaFoliosController extends BaseController {
 	public function post_foliosm($id){ //marca los folios utilizados por los peritos
 
 		$inputs = Input::all();
-
+		$user_id = Auth::user()->id;
+		$mun_id = DB::select("select municipio_id from user_municipio where usuario_id = $user_id");
 		if(isset($inputs['urbanos'])){
 
 			for($a=0; $a<sizeof($inputs['urbanos']); $a++){
@@ -238,7 +241,7 @@ class folios_EntregaFoliosController extends BaseController {
 
 				$f = FoliosComprados::find($folio->id);
 				$f->entrega_municipal = 1;
-				$f->municipio_id= Auth::user()->municipio_id;
+				$f->municipio_id= $mun_id[0]->municipio_id;
 				$f->fecha_entrega_m = date("Y-m-d");
 				$f->save();
 			}
@@ -255,7 +258,7 @@ class folios_EntregaFoliosController extends BaseController {
 
 				$f = FoliosComprados::find($folio->id);
 				$f->entrega_municipal = 1;
-				$f->municipio_id= Auth::user()->municipio_id;
+				$f->municipio_id= $mun_id[0]->municipio_id;
 				$f->fecha_entrega_m = date("Y-m-d");
 				$f->save();
 			}

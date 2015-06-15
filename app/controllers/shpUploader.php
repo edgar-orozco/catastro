@@ -15,9 +15,11 @@ class shpUploader extends \BaseController
 	var $countWar;
 	var $status;
 	var $municipio_name;
+	var $curZip;
 
 	public function uploadShape($municipio, $manzana, $dirzip, $dirtmp, $zipfile){
 
+		$this->curZip = $zipfile;
 		$this->municipio_name = $this->num2str($municipio);
 		$logHead = "Actualizando Cartografia de la manzana [".$municipio."-".$manzana."] Municipio ".$this->municipio_name." 
 				 (".date('l jS \of F Y h:i:s A').") 
@@ -86,12 +88,12 @@ class shpUploader extends \BaseController
 		//if(strlen($logUpWarning) > 0) $logUpload.= "\n".$logUpWarning;
 		//$logUpload.= "\n";
 
-		$logFile = fopen($dirzip."logUpload.log", "a+");
+/*		$logFile = fopen($dirzip."logUpload.log", "a+");
 		fwrite($logFile,  PHP_EOL . PHP_EOL . $logHead. PHP_EOL);
 		fwrite($logFile,  "[".$zipfile."]". PHP_EOL);
 		fwrite($logFile,  $this->logUpload. PHP_EOL ."------------------------------------------------------------------------------------");
 		fclose($logFile);
-
+*/
 		return array($logUpload, $logUpError, $logUpWarning);
 
 	}
@@ -211,6 +213,11 @@ class shpUploader extends \BaseController
 		$tipos = array('','ERROR: ','AVISO: ', '');
 		$cadena = $tipos[$tipo].$msg."\n";
 
+		$logFile = fopen("/var/www/html/app/storage/logs/logshape.log", "a+");
+		fwrite($logFile, date('j M Y h:i:s A')." - [".$this->curZip."] ".$cadena);
+		fclose($logFile);
+
+
 		$this->status = $status;
 		$this->logUpload .= $cadena;
 
@@ -328,58 +335,64 @@ class shpUploader extends \BaseController
 	    $geomnull = false;
 	    $clave_catas = "";
 
-        //revisamos si existe la construcción
-		$geoDatos = $this->getDatabyCentroide('construcciones', 'clave_catas', $centroide);
-		$gid = $geoDatos[0];
-		$clave_catas = $geoDatos[1];
-
-		if($gid == 0){
-			$geoDatos = $this->getDatabyCentroide('predios', 'clave_catas', $centroide);
-			$gid_predio = $geoDatos[0];
+	    try{
+	        //revisamos si existe la construcción
+			$geoDatos = $this->getDatabyCentroide('construcciones', 'clave_catas', $centroide);
+			$gid = $geoDatos[0];
 			$clave_catas = $geoDatos[1];
-	
-			$result = DB::select('select gid from construcciones where gid_predio = ? and nivel = ? and geom is NULL', array($gid_predio,$nivel));
-	        if (count($result) != 0) {
-				$gid = $result[0]->gid;
-				$localizado = true;
-				$geomnull = true;
-			}
-		}else $localizado = true;
 
-	    //Calculamos superficie de construccion
-	    $superficie = $this->getArea($geom);
+			if($gid == 0){
+				$geoDatos = $this->getDatabyCentroide('predios', 'clave_catas', $centroide);
+				$gid_predio = $geoDatos[0];
+				$clave_catas = $geoDatos[1];
 
-		if ($localizado){
-			$result = DB::update('update construcciones set nivel = ?, sup_const = ?, geom =  ST_GeomFromText(?,32615), updated_at = current_timestamp where gid = ?', array($nivel, $superficie, $geom,$gid));
-			if(!$result){
-				$this->updateLog(1,"No se logró actualizar la construción  [".$nivel."] del predio [".$clave_catas."]->[".$result."]",true);
-				//$this->updateLog(0,"gid= [".$gid."] superficie [".$superficie."] geom [".$geom."]",true);
-			}else{
-				$alerta = 3;
-				$mensaje = "Construcción con nivel [".$nivel."] del predio [".$clave_catas."] Actualizado.";
-				if($geomnull){
-					$alerta = 2;
-					$mensaje .= " [GEOM = null -> actualizado]";
+				$result = DB::select('select gid from construcciones where gid_predio = ? and nivel = ? and geom is NULL', array($gid_predio,$nivel));
+		        if (count($result) != 0) {
+					$gid = $result[0]->gid;
+					$localizado = true;
+					$geomnull = true;
 				}
-				$this->updateLog($alerta,$mensaje,true);
+			}else $localizado = true;
+
+		    //Calculamos superficie de construccion
+		    $superficie = $this->getArea($geom);
+
+			if ($localizado){
+				$result = DB::update('update construcciones set nivel = ?, sup_const = ?, geom =  ST_GeomFromText(?,32615), updated_at = current_timestamp where gid = ?', array($nivel, $superficie, $geom,$gid));
+				if(!$result){
+					$this->updateLog(1,"No se logró actualizar la construción  [".$nivel."] del predio [".$clave_catas."]->[".$result."]",true);
+					//$this->updateLog(0,"gid= [".$gid."] superficie [".$superficie."] geom [".$geom."]",true);
+				}else{
+					$alerta = 3;
+					$mensaje = "Construcción con nivel [".$nivel."] del predio [".$clave_catas."] Actualizado.";
+					if($geomnull){
+						$alerta = 2;
+						$mensaje .= " [GEOM = null -> actualizado]";
+					}
+					$this->updateLog($alerta,$mensaje,true);
+				}
+				return;
 			}
-			return;
-		}
 
-		$sql="insert into construcciones (entidad, municipio, clave_catas, gid_predio, nivel, sup_const, edad_const, id_tuc, id_tcc, id_ttc, id_tec, id_tmc, id_tpic, id_tpuc, id_tvc, created_at, updated_at, geom)";
-		$sql.=" VALUES ('27',?,?,?,?,?,0,1,1,1,1,1,1,1,1,current_timestamp,current_timestamp,ST_GeomFromText(?,32615))";
+			$sql="insert into construcciones (entidad, municipio, clave_catas, gid_predio, nivel, sup_const, edad_const, id_tuc, id_tcc, id_ttc, id_tec, id_tmc, id_tpic, id_tpuc, id_tvc, created_at, updated_at, geom)";
+			$sql.=" VALUES ('27',?,?,?,?,?,0,100,100,100,100,100,100,100,100,current_timestamp,current_timestamp,ST_GeomFromText(?,32615))";
 
-		if($gid_predio != 0){
-			$result = DB::insert($sql, array($municipio,$clave_catas,$gid_predio,$nivel,$superficie,$geom));
-			if(!$result){
-				$this->updateLog(1,"No se logró agregar la constrúcción de nivel [".$nivel."] del predio [".$clave_catas."]",false);
+			if($gid_predio != 0){
+				$result = DB::insert($sql, array($municipio,$clave_catas,$gid_predio,$nivel,$superficie,$geom));
+				if(!$result){
+					$this->updateLog(1,"No se logró agregar la constrúcción de nivel [".$nivel."] del predio [".$clave_catas."]",false);
+				}else{
+					$msg = "Construcción [".$nivel."] del predio [".$clave_catas."] Agregada.";
+					$this->updateLog(3,$msg,true);
+				}
 			}else{
-				$msg = "Construcción [".$nivel."] del predio [".$clave_catas."] Agregada.";
-				$this->updateLog(3,$msg,true);
+				$this->updateLog(1,"No se localizó predio que contenga la Construcción con nivel [".$nivel."].",false);
 			}
-		}else{
-			$this->updateLog(1,"No se localizó predio que contenga la Construcción con nivel [".$nivel."].",false);
+		}catch(\Exception $e){
+			$mensaje ="[".$nivel."] Se produjo el siguiente error al actualizar el elemento: ".$e->getMessage();
+					$this->updateLog(1,$mensaje,true);
 		}
+
 
 	}
 

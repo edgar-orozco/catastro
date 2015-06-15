@@ -4,7 +4,7 @@ class FoliosComprados extends Eloquent  {
 
 	
 
-	protected $fillable=['perito_id', 'numero_folio','tipo_folio','entrega_municipal','entrega_estatal','usado', 'no_oficio_historial','usuario_id', 'fecha_autorizacion'];
+	protected $fillable=['perito_id', 'numero_folio','tipo_folio','entrega_municipal','entrega_estatal','usado', 'no_oficio_historial','usuario_id', 'fecha_autorizacion', 'municipio_id'];
 	protected $table = 'folios_comprados';			 
 
 
@@ -12,13 +12,13 @@ class FoliosComprados extends Eloquent  {
 		public function municipio()
 		{
 
-			return $this->belongsTo('Municipio');
+			return $this->belongsto('Municipio');
 		}
 
 		public function usuario()
 		{
 
-			return $this->belongsTo('CatUsuarios');
+			return $this->belongsTo('User');
 		}
 
 }

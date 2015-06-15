@@ -64,7 +64,7 @@
 						{{$perito->corevat."-".$input.$u->tipo_folio."-15"}}
 					</td>
 					<td align="center">
-					@if($u->entrega_estatal == 1)
+					@if($u->entrega_estatal == 5)
 						{{$u->usuario->username}}
 					@endif
 					</td>
@@ -74,7 +74,7 @@
 						@endif
 					</td>
 					<td align="center">
-					@if($u->entrega_municipal == 1)
+					@if($u->entrega_municipal == 5)
 						 {{$u->municipio->nombre_municipio}}
 					@endif
 					</td>
