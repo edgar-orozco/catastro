@@ -151,7 +151,7 @@
 
 	<div class="col-md-4">
 		{{Form::label('nivel_equipamiento', 'Nivel de Equipamiento %')}}
-		{{Form::number('nivel_equipamiento', $row->nivel_equipamiento, ['class'=>'form-control', 'maxlength'=>'250'] )}}
+		{{Form::number('nivel_equipamiento', $row->nivel_equipamiento, ['class'=>'form-control', 'min'=>'0', 'max'=>'100', 'step'=>'1', 'pattern' => '[0-9]{3}'] )}}
 		{{$errors->first('nivel_equipamiento', '<span class=text-danger>:message</span>')}}
 		<hr>
 	</div>

@@ -1,6 +1,6 @@
 <h3 class="header">{{$title}}</h3>
 <hr>
-{{ Form::model($row, ['route' => array('updateAvaluoEnfoqueMercado', $row->idavaluo), 'method'=>'post', 'id'=>'formAvaluoMercado' ]) }}
+{{Form::model($row, ['route' => array('updateAvaluoEnfoqueMercado', $idavaluo), 'method'=>'post', 'id'=>'formAvaluoMercado' ]) }}
 <div class="row">
 	<div class="col-md-12"><h2>Venta de Terrenos</h2></div>
 	<div class="col-md-12">&nbsp;</div>
@@ -103,13 +103,13 @@
 				<tr>
 					<td class="bg-primary" colspan="6">&nbsp;</td>
 					<td class="bg-primary" colspan="4" style="text-align: right;">Valor Unitario Promedio ($/m&sup2;)</td>
-					<td class="bg-info" colspan="2">&nbsp;</td>
+					<td class="bg-info" colspan="2">{{$row->valor_unitario_promedio}}</td>
 					<td class="bg-primary">&nbsp;</td>
 				</tr>
 				<tr>
 					<td class="bg-primary" colspan="6">&nbsp;</td>
 					<td class="bg-primary" colspan="4" style="text-align: right;">Valor Aplicado por M&sup2;</td>
-					<td class="bg-info" colspan="2">&nbsp;</td>
+					<td class="bg-info" colspan="2">{{$row->valor_aplicado_m2}}</td>
 					<td class="bg-primary">&nbsp;</td>
 				</tr>
 			</tfoot>
@@ -215,34 +215,31 @@
 				<tr>
 					<td class="bg-primary" colspan="8">&nbsp;</td>
 					<td class="bg-primary" colspan="4" style="text-align: right;">Promedio:</td>
-					<td class="bg-info">&nbsp;</td>
+					<td class="bg-info">{{$row->promedio_analisis}}</td>
 					<td class="bg-primary">&nbsp;</td>
 				</tr>
 				<tr>
 					<td class="bg-primary" colspan="8">&nbsp;</td>
 					<td class="bg-primary" colspan="4" style="text-align: right;">Superficie Construida del Sujeto:</td>
-					<td class="bg-info">&nbsp;</td>
+					<td class="bg-info">{{$row->superficie_construida}}</td>
 					<td class="bg-primary">&nbsp;</td>
 				</tr>
 				<tr>
 					<td class="bg-primary" colspan="8">&nbsp;</td>
 					<td class="bg-primary" colspan="4" style="text-align: right;">Valor comparativo de mercado:</td>
-					<td class="bg-info">&nbsp;</td>
+					<td class="bg-info">{{$row->valor_comparativo_mercado}}</td>
 					<td class="bg-primary">&nbsp;</td>
 				</tr>
 			</tfoot>
 		</table>
 	</div>
 	<div class="col-md-12">&nbsp;</div>
+	<div class="col-md-12 form-actions">
+		<a href="{{URL::route('indexAvaluos')}}" class="btn btn-primary" role="button"><i class="glyphicon glyphicon-arrow-left"></i> Regresar</a>
+	</div>
 	
 </div>
 {{Form::close()}}
-<div style="display: none;">
-	{{Form::select('idfactorzona', $cat_factores_zonas, null, ['id' => 'idfactorzona', 'class'=>'form-control'])}}
-	{{Form::select('idfactorubicacion', $cat_factores_ubicacion, null, ['id' => 'idfactorubicacion', 'class'=>'form-control'])}}
-	{{Form::select('idfactorfrente', $cat_factores_frente, null, ['id' => 'idfactorfrente', 'class'=>'form-control'])}}
-	{{Form::select('idfactorforma', $cat_factores_forma, null, ['id' => 'idfactorforma', 'class'=>'form-control'])}}
-</div>
 <div id="divDialogFormMercado" style="display: none;">
 	{{Form::model($row, ['route' => array('updateAvaluoEnfoqueMercado', $idavaluo), 'method'=>'post', 'id'=>'formDialogMercado' ]) }}
 		{{Form::hidden('ctrl', '', ['id'=>'ctrl'])}}
@@ -318,6 +315,10 @@
 			$('#containerDialogForm').empty();
 			$.createFormAemHomologacion();
 			$.loadFormAemHomologacion();
+			
+			
+			
+			
 			$('#divDialogFormMercado').dialog({title: 'Homologable: ' + $(this).attr('idTable') }).dialog('open');
 		});
 
@@ -385,7 +386,7 @@
 				}
 			},
 			close: function() {
-				if ( $('#messagesDialogForm').attr('class') == 'col-md-12 bg-success' ) {
+				if ( $('#messagesDialogForm').attr('class') == 'alert alert-success' ) {
 					window.location.href = '/corevat/AvaluoEnfoqueMercado/<?php echo $row->idavaluo ?>';
 				}
 			}
@@ -408,6 +409,7 @@
 					if (datos.success) {
 						$('#messagesDialogForm').removeClass().addClass('alert').addClass('alert-success').append(datos.message);
 						$('#idTable').val( datos.idTable );
+						$('#ctrl').val( datos.ctrl );
 					} else {
 						var errores = '';
 						for(datos in data.errors) {
@@ -443,7 +445,6 @@
 		 * 
 		 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
 		$("#formDialogConfirm").submit(function () {
-			//$('#messagesDialogForm').empty().removeClass();
 			$.ajax({
 				global: false,
 				cache: false,

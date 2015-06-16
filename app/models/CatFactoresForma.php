@@ -12,14 +12,11 @@ class CatFactoresForma extends \Eloquent {
 		return CatFactoresForma::orderBy('factor_forma')->where('status_factor_forma', 1)->lists('factor_forma', 'idfactorforma');
 	}
 
-	public static function getCatFactoresFormaComboList() {
-		$rows = CatFactoresForma::select('idfactorforma', 'valor_factor_forma', 'factor_forma')
-						->where('status_factor_forma', '=', 1)
-						->orderBy('valor_factor_forma')
-						->get();
-				foreach ($rows as $key => $value) {
-					$res[$value->idfactorforma] = $value->factor_forma . ' (' . $value->valor_factor_forma .')';
-				}
-		return $res;
+	public static function getIdByValue($value) {
+		$row = CatFactoresForma::select('idfactorforma')
+				->where('valor_factor_forma', '=', $value)
+				->where('status_factor_forma', '=', 1)
+				->first();
+		return $row->idfactorforma;
 	}
 }

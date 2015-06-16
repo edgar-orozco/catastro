@@ -12,15 +12,11 @@ class CatFactoresConservacion extends \Eloquent {
 		return CatFactoresConservacion::orderBy('factor_conservacion')->where('status_factor_conservacion', 1)->lists('factor_conservacion', 'idfactorconservacion');
 	}
 
-	public static function getCatFactoresConservacionComboList() {
-		$rows = CatFactoresConservacion::select('idfactorconservacion', 'valor_factor_conservacion', 'factor_conservacion')
+	public static function getIdByValue($value) {
+		$row = CatFactoresConservacion::select('idfactorconservacion')
+				->where('valor_factor_conservacion', '=', $value)
 				->where('status_factor_conservacion', '=', 1)
-				->orderBy('valor_factor_conservacion')
-				->get();
-		foreach ($rows as $key => $value) {
-			$res[$value->idfactorconservacion] = $value->factor_conservacion . ' (' . $value->valor_factor_conservacion . ')';
-		}
-		return $res;
+				->first();
+		return $row->idfactorconservacion;
 	}
-
 }

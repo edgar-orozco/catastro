@@ -53,7 +53,7 @@
 				<tr>
 					<td class="bg-primary" colspan="7">&nbsp;</td>
 					<td class="bg-primary" colspan="3" style="text-align: right;">Valor del Terreno:</td>
-					<td class="bg-info" colspan="3" style="text-align: right;"></td>
+					<td class="bg-info" colspan="3" style="text-align: right;">{{number_format($row->valor_terreno, 2, ".", ",")}}</td>
 					<td class="bg-primary"></td>
 				</tr>
 			</tfoot>
@@ -64,29 +64,29 @@
 	<div class="col-md-11"><h3>DE LA CONSTRUCCIÓN</h3></div>
 	<div class="col-md-3">
 		{{Form::label('idclasegeneralinmueble', 'Clase General')}}
-		{{Form::select('idclasegeneralinmueble', $cat_clase_general_inmueble, $row->idclasegeneralinmueble, ['id' => 'idclasegeneralinmueble', 'class'=>'form-control'])}}
+		{{Form::select('idclasegeneralinmueble', $cat_clase_general_inmueble, $row->idclasegeneral, ['id' => 'idclasegeneralinmueble', 'class'=>'form-control'])}}
 	</div>
 	<div class="col-md-3">
-		{{Form::label('idtipoinmueble', 'Tipo Inmueble')}}
+		{{Form::label('idtipoinmueble', 'Tipo de Inmueble')}}
 		{{Form::select('idtipoinmueble', $cat_tipo_inmueble, $row->idtipoinmueble, ['id' => 'idtipoinmueble', 'class'=>'form-control'])}}
 	</div>
 	<div class="col-md-3">
-		{{Form::label('idestadoconservacion', 'Estado Conservacion')}}
-		{{Form::select('idestadoconservacion', $cat_calidad_proyecto, $row->idestadoconservacion, ['id' => 'idestadoconservacion', 'class'=>'form-control'])}}
+		{{Form::label('idestadoconservacion', 'Estado de Conservacion')}}
+		{{Form::select('idestadoconservacion', $cat_estado_conservacion, $row->idestado_conservacion, ['id' => 'idestadoconservacion', 'class'=>'form-control'])}}
 	</div>
 	<div class="col-md-3">
-		{{Form::label('idcalidadproyecto', 'Calidad Proyecto')}}
-		{{Form::select('idcalidadproyecto', $cat_estado_conservacion, $row->idcalidadproyecto, ['id' => 'idcalidadproyecto', 'class'=>'form-control'])}}
+		{{Form::label('idcalidadproyecto', 'Calidad del Proyecto')}}
+		{{Form::select('idcalidadproyecto', $cat_calidad_proyecto, $row->idcalidadproyecto, ['id' => 'idcalidadproyecto', 'class'=>'form-control'])}}
 	</div>
 	<div class="col-md-12">&nbsp;</div>
 	<div class="col-md-3">
 		{{Form::label('edad_construccion', 'Edad de la Construcción (Años)')}}
-		{{Form::number('edad_construccion', $row->edad_construccion, ['class'=>'form-control', 'maxlength'=>'10'] )}}
+		{{Form::number('edad_construccion', $row->edad_construccion, ['class'=>'form-control', 'min'=>'0', 'max' => '999', 'pattern' => '^[0-9]{3}$'] )}}
 		{{$errors->first('edad_construccion', '<span class=text-danger>:message</span>')}}
 	</div>
 	<div class="col-md-3">
 		{{Form::label('vida_util', 'Vida Útil Remanente')}}
-		{{Form::number('vida_util', $row->vida_util, ['class'=>'form-control', 'maxlength'=>'10'] )}}
+		{{Form::number('vida_util', $row->vida_util, ['class'=>'form-control', 'min'=>'0', 'max' => '999', 'pattern' => '^[0-9]{3}$'] )}}
 		{{$errors->first('vida_util', '<span class=text-danger>:message</span>')}}
 	</div>
 	<div class="col-md-3">
@@ -99,8 +99,8 @@
 					array('0'=>'N/A', '1'=>'1', '2'=>'2', '3'=>'3', '4'=>'4', '5'=>'5', '6'=>'6', '7'=>'7', '8'=>'8', '9'=>'9', '10'=>'10'), 
 					$row->nivel_edificio_condominio, ['id' => 'nivel_edificio_condominio', 'class'=>'form-control'])}}
 	</div>
-	<div class="col-md-12">&nbsp;</div>
-
+	<div class="col-md-12"><hr></div>
+	
 	<div class="col-md-11"><h3>Datos de la Construcción</h3></div>
 	<div class="col-md-1"><a href="#" class="btn btn-primary nuevo" id="btnNewAefCons" title="Nuevo Registro">Nuevo</a></div>
 	<div class="col-md-12">
@@ -147,15 +147,15 @@
 			<tfoot>
 				<tr>
 					<td class="bg-primary" colspan="4" style="text-align: right;">Total Metros Construcción</td>
-					<td class="bg-info"></td>
+					<td class="bg-info" style="text-align: right;">{{number_format($row->total_metros_construccion, 2, ".", ",")}}</td>
 					<td class="bg-primary" colspan="2"></td>
 					<td class="bg-primary" colspan="3" style="text-align: right;">Valor del Terreno</td>
-					<td class="bg-info"></td>
+					<td class="bg-info" style="text-align: right;">{{number_format($row->valor_construccion, 2, ".", ",")}}</td>
 					<td class="bg-primary"></td>
 			</tfoot>
 		</table>
 	</div>
-	<div class="col-md-12">&nbsp;</div>
+	<div class="col-md-12"><hr></div>
 
 	<div class="col-md-11"><h3>Áreas y Elementos adicionales comunes (solo en Condominios)</h3></div>
 	<div class="col-md-1"><a href="#" class="btn btn-primary nuevo" id="btnNewAefCon" title="Nuevo Registro">Nuevo</a></div>
@@ -203,7 +203,7 @@
 			<tfoot>
 				<tr>
 					<td class="bg-primary" colspan="8" style="text-align: right;">Valor del Área</td>
-					<td class="bg-info" colspan="2"></td>
+					<td class="bg-info" colspan="2" style="text-align: right;">{{number_format($row->subtotal_area_condominio, 2, ".", ",")}}</td>
 					<td class="bg-primary" colspan="2"></td>
 				</tr>
 			</tfoot>
@@ -213,9 +213,9 @@
 	<div class="col-md-12"><hr style="border-width: 6px;"></div>
 
 	<div class="col-md-11"><h3>Instalaciones Especiales, Elementos, Accesorios y Obras Complementarias</h3></div>
-	<div class="col-md-1"><a href="#" class="btn btn-primary nuevo" id="btnNewAefCom" title="Nuevo Registro">Nuevo</a></div>
+	<div class="col-md-1"><a href="#" class="btn btn-primary nuevo" id="btnNewAefIns" title="Nuevo Registro">Nuevo</a></div>
 	<div class="col-md-12">
-		<table cellpadding="0" cellspacing="0" border="0" class="table datatable table-striped corevatDataTable" id="aef_comp_construcciones-table">
+		<table cellpadding="0" cellspacing="0" border="0" class="table datatable table-striped corevatDataTable" id="aef_instalaciones-table">
 			<thead>
 				<tr>
 					<th>DESCRIPCIÓN</th>
@@ -233,10 +233,10 @@
 				</tr>
 			</thead>
 			<tbody>
-				@if ( count($aef_comp_construcciones) > 0 )
-				@foreach ($aef_comp_construcciones as $item)
+				@if ( count($aef_instalaciones) > 0 )
+				@foreach ($aef_instalaciones as $item)
 				<tr>
-					<td>{{$item->descripcion}}</td>
+					<td>{{$item->obra_complementaria}}</td>
 					<td>{{$item->unidad}}</td>
 					<td>{{$item->cantidad}}</td>
 					<td>{{$item->valor_nuevo}}</td>
@@ -248,8 +248,8 @@
 					<td>{{$item->valor_neto}}</td>
 					<td>{{$item->valor_parcial}}</td>
 					<td>
-						<a href="#" class="btn btn-xs btn-info btnEditAefCom"  idTable="{{$item->idaefcompconstruccion}}" title="Editar"><i class="glyphicon glyphicon-pencil"></i></a>
-						<a href="#" class="btn btn-xs btn-danger btnDelAefCom" idTable="{{$item->idaefcompconstruccion}}" title="Eliminar"><i class="glyphicon glyphicon-remove"></i></a>
+						<a href="#" class="btn btn-xs btn-info btnEditAefIns"  idTable="{{$item->idaefinstalacion}}" title="Editar"><i class="glyphicon glyphicon-pencil"></i></a>
+						<a href="#" class="btn btn-xs btn-danger btnDelAefIns" idTable="{{$item->idaefinstalacion}}" title="Eliminar"><i class="glyphicon glyphicon-remove"></i></a>
 					</td>
 				</tr>
 				@endforeach
@@ -258,31 +258,30 @@
 			<tfoot>
 				<tr>
 					<td class="bg-primary" colspan="8" style="text-align: right;">Valor del Área</td>
-					<td class="bg-info" colspan="2"></td>
+					<td class="bg-info" colspan="2" style="text-align: right;">{{number_format($row->subtotal_instalaciones_especiales, 2, ".", ",")}}</td>
 					<td class="bg-primary" colspan="2"></td>
 				</tr>
 			</tfoot>
 		</table>
 	</div>
-	<div class="col-md-12">&nbsp;</div>
+	<div class="col-md-12"><hr style="border-width: 6px;"></div>
 
 	<div class="col-md-12"><hr></div>
-	<div class="col-md-9"> Enfoque Físico </div>
-	<div class="col-md-3">$000.00</div>
+	
+	<div class="col-md-9"><h1>Enfoque Físico</h1></div>
+	<div class="col-md-3"><h1>{{number_format($row->total_valor_fisico, 2, ".", ",")}}</h1></div>
+	
 	<div class="col-md-12"><hr></div>
 	<div class="col-md-12">&nbsp;</div>
 
+	<div class="col-md-12">&nbsp;</div>
+	<div class="col-md-12 form-actions">
+		{{Form::submit('Guardar', ['class'=>'btn btn-primary'])}}
+		<a href="{{URL::route('indexAvaluos')}}" class="btn btn-primary" role="button"><i class="glyphicon glyphicon-arrow-left"></i> Regresar</a>
+	</div>
 
 </div>
 {{Form::close()}}
-<div style="display: none;">
-	{{Form::select('idfactorfrente', $cat_factores_frente, null, ['id' => 'idfactorfrente', 'class'=>'form-control'])}}
-	{{Form::select('idfactorforma', $cat_factores_forma, null, ['id' => 'idfactorforma', 'class'=>'form-control'])}}
-	{{Form::select('idfactorconservacion', $cat_factores_conservacion, null, ['id' => 'idfactorconservacion', 'class'=>'form-control'])}}
-	{{Form::select('idobracomplementaria', $cat_obras_complementarias, null, ['id' => 'idobracomplementaria', 'class'=>'form-control'])}}
-	{{Form::select('idtipo', $cat_tipo, null, ['id' => 'idtipo', 'class'=>'form-control'])}}
-	
-</div>
 <div id="divDialogFormFisico" style="display: none;">
 	{{Form::model($row, ['route' => array('updateAvaluoEnfoqueFisico', $idavaluo), 'method'=>'post', 'id'=>'formDialogFisico' ]) }}
 		{{Form::hidden('ctrl', '', ['id'=>'ctrl'])}}
@@ -291,14 +290,14 @@
 
 		<div class="row" id="containerDialogForm"></div>
 		
-		<div class="row"><div class="col-md-12">&nbsp;</div><div class="col-md-12" id="messagesDialogForm"></div></div>
+		<div style="text-align: center; margin-top: 10px;" id="messagesDialogForm"></div>
 		
 	{{Form::close()}}
 </div>
 <div id="divDialogConfirm" style="display: none;">
 	{{Form::model($row, ['route' => array('delAvaluoEnfoqueFisico', $idavaluo), 'method'=>'post', 'id'=>'formDialogConfirm' ]) }}
 		{{Form::hidden('ctrlDel', '', ['id'=>'ctrlDel'])}}
-		{{Form::hidden('idAemDel', $row->idavaluoenfoquefisico, ['id'=>'idAemDel'])}}
+		{{Form::hidden('idAefDel', $row->idavaluoenfoquefisico, ['id'=>'idAefDel'])}}
 		{{Form::hidden('idTableDel', '', ['id'=>'idTableDel'])}}
 
 		<h3 class="text-danger text-center">¿Realmente desea eliminar el registro?</h3>
@@ -313,10 +312,6 @@
 <script>
     $(document).ready(function () {
         /*++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-         *  btnNewAefCon btnNewAefCon btnNewAefCom
-		 * btnEditAefTerr btnDelAefTerr
-		 * 
-		 * btnNewAefCons
 		 * 
          ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
         $('#btn3EnfoqueFisico').removeClass("btn-info").addClass("btn-primary");
@@ -330,6 +325,7 @@
 			$('#idTable').val( '0' );
 			$('#containerDialogForm').empty();
 			$.createFormAefTerrenos();
+			$.loadFormAefTerrenos();
 			$('#divDialogFormFisico').dialog({title: 'Nuevo Registro Factores de Eficiencia'}).dialog('open');
 		});
 		/*++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
@@ -343,6 +339,113 @@
 			$.createFormAefTerrenos();
 			$.loadFormAefTerrenos();
 			$('#divDialogFormFisico').dialog({title: 'Factor Eficiencia: ' + $(this).attr('idTable') }).dialog('open');
+		});
+		/*++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+		 * 
+		 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
+		$('.btnDelAefTerr').click(function () {
+			$('#ctrlDel').val('btnDelAefTerreno');
+			$('#idTableDel').val( $(this).attr('idTable') );
+			$('#divDialogConfirm').dialog({title: 'Eliminar registro'}).dialog('open');
+		});
+
+		/*++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+		 * 
+		 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
+        $('#btnNewAefCons').click(function () {
+			$('#messagesDialogForm').empty().removeClass();
+			$('#ctrl').val('btnNewAefConstrucciones');
+			$('#idTable').val( '0' );
+			$('#containerDialogForm').empty();
+			$.createFormAefConstrucciones();
+			$.loadFormAefConstrucciones();
+			$('#divDialogFormFisico').dialog({title: 'Nuevo Construcción'}).dialog('open');
+		});
+		/*++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+		 * 
+		 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
+		$('.btnEditAefCons').click(function () {
+			$('#messagesDialogForm').empty().removeClass();
+			$('#ctrl').val('btnEditAefConstrucciones');
+			$('#idTable').val( $(this).attr('idTable') );
+			$('#containerDialogForm').empty();
+			$.createFormAefConstrucciones();
+			$.loadFormAefConstrucciones();
+			$('#divDialogFormFisico').dialog({title: 'Construcción: ' + $(this).attr('idTable') }).dialog('open');
+		});
+		/*++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+		 * 
+		 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
+		$('.btnDelAefCons').click(function () {
+			$('#ctrlDel').val('btnDelAefConstrucciones');
+			$('#idTableDel').val( $(this).attr('idTable') );
+			$('#divDialogConfirm').dialog({title: 'Eliminar registro'}).dialog('open');
+		});
+
+		/*++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+		 * 
+		 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
+        $('#btnNewAefCon').click(function () {
+			$('#messagesDialogForm').empty().removeClass();
+			$('#ctrl').val('btnNewAefCondominios');
+			$('#idTable').val( '0' );
+			$('#containerDialogForm').empty();
+			$.createFormAefCondominios();
+			$.loadFormAefCondominios();
+			$('#divDialogFormFisico').dialog({title: 'Nuevo Elemento'}).dialog('open');
+		});
+		/*++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+		 * 
+		 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
+		$('.btnEditAefCon').click(function () {
+			$('#messagesDialogForm').empty().removeClass();
+			$('#ctrl').val('btnEditAefCondominios');
+			$('#idTable').val( $(this).attr('idTable') );
+			$('#containerDialogForm').empty();
+			$.createFormAefCondominios();
+			$.loadFormAefCondominios();
+			$('#divDialogFormFisico').dialog({title: 'Elemento: ' + $(this).attr('idTable') }).dialog('open');
+		});
+		/*++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+		 * 
+		 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
+		$('.btnDelAefCon').click(function () {
+			$('#ctrlDel').val('btnDelAefCondominios');
+			$('#idTableDel').val( $(this).attr('idTable') );
+			$('#divDialogConfirm').dialog({title: 'Eliminar registro'}).dialog('open');
+		});
+
+		/*++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+		 * 
+		 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
+        $('#btnNewAefIns').click(function () {
+			$('#messagesDialogForm').empty().removeClass();
+			$('#ctrl').val('btnNewAefInstalaciones');
+			$('#idTable').val( '0' );
+			$('#containerDialogForm').empty();
+			$.createFormAefInstalaciones();
+			$.loadFormAefInstalaciones();
+			$('#divDialogFormFisico').dialog({title: 'Nueva Instalación'}).dialog('open');
+		});
+		/*++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+		 * 
+		 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
+		$('.btnEditAefIns').click(function () {
+			$('#messagesDialogForm').empty().removeClass();
+			$('#ctrl').val('btnEditAefInstalaciones');
+			$('#idTable').val( $(this).attr('idTable') );
+			$('#containerDialogForm').empty();
+			$.createFormAefInstalaciones();
+			$.loadFormAefInstalaciones();
+			$('#divDialogFormFisico').dialog({title: 'Instalación: ' + $(this).attr('idTable') }).dialog('open');
+		});
+		/*++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+		 * 
+		 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
+		$('.btnDelAefIns').click(function () {
+			$('#ctrlDel').val('btnDelAefInstalaciones');
+			$('#idTableDel').val( $(this).attr('idTable') );
+			$('#divDialogConfirm').dialog({title: 'Eliminar registro'}).dialog('open');
 		});
 
 		/*++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
@@ -365,7 +468,7 @@
 				}
 			},
 			close: function() {
-				if ( $('#messagesDialogForm').attr('class') == 'col-md-12 bg-success' ) {
+				if ( $('#messagesDialogForm').attr('class') === 'alert alert-success' ) {
 					window.location.href = '/corevat/AvaluoEnfoqueFisico/<?php echo $row->idavaluo ?>';
 				}
 			}
@@ -386,14 +489,15 @@
 				success: function (data) {
 					datos = eval(data);
 					if (datos.success) {
-						$('#messagesDialogForm').removeClass().addClass('col-md-12').addClass('bg-success').append(datos.message);
+						$('#messagesDialogForm').removeClass().addClass('alert').addClass('alert-success').append(datos.message);
 						$('#idTable').val( datos.idTable );
+						$('#ctrl').val( datos.ctrl );
 					} else {
 						var errores = '';
 						for(datos in data.errors) {
 							errores += '<p>' + data.errors[datos] + '</p>';
 						}
-						$('#messagesDialogForm').removeClass().addClass('col-md-12').addClass('bg-danger').append(errores);
+						$('#messagesDialogForm').removeClass().addClass('alert').addClass('alert-danger').append(errores);
 					}
 				}
 			});
@@ -423,7 +527,7 @@
 		 * 
 		 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
 		$("#formDialogConfirm").submit(function () {
-			//$('#messagesDialogForm').empty().removeClass();
+			$('#messagesDialogForm').empty().removeClass();
 			$.ajax({
 				global: false,
 				cache: false,

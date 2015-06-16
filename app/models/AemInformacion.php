@@ -8,12 +8,21 @@ class AemInformacion extends \Eloquent {
 	protected $primaryKey = 'idaeminformacion';
 	public $timestamps = false;
 
+	/**
+	 * Show the form for editing the specified resource.
+	 *
+	 * @param  int  $id
+	 * @return Response
+	 */
 	public function AemAnalisis() {
 		return $this->hasOne('AemAnalisis', 'idaeminformacion', 'idaeminformacion');
 	}
 
-	/*
-	 * LA LLAVE FORANEA ES idavaluoenfoquemercado
+	/**
+	 * Show the form for editing the specified resource.
+	 *
+	 * @param  int  $id
+	 * @return Response
 	 */
 	public static function AemInformacionByFk($idavaluoenfoquemercado) {
 		return AemInformacion::select('*')
@@ -22,8 +31,11 @@ class AemInformacion extends \Eloquent {
 						->get();
 	}
 
-	/*
-	 * LA LLAVE FORANEA ES idavaluoenfoquemercado
+	/**
+	 * Show the form for editing the specified resource.
+	 *
+	 * @param  int  $id
+	 * @return Response
 	 */
 	public static function AemAnalisisByFk($idavaluoenfoquemercado) {
 		return AemAnalisis::select('aem_analisis.*')
@@ -33,4 +45,50 @@ class AemInformacion extends \Eloquent {
 						->get();
 	}
 
+	/**
+	 * Show the form for editing the specified resource.
+	 *
+	 * @param  int  $id
+	 * @return Response
+	 */
+	public static function insAemInformacion($inputs, &$idaeminformacion) {
+		$rowAemInformacion = new AemInformacion();
+		$rowAemInformacion->idavaluoenfoquemercado = $inputs['idAem'];
+		$rowAemInformacion->ubicacion = $inputs['ubicacion'];
+		$rowAemInformacion->edad = $inputs['edad']=='' ? $inputs['edad'] : 0.00;
+		$rowAemInformacion->telefono = $inputs['telefono'];
+		$rowAemInformacion->observaciones = $inputs['observaciones'];
+		$rowAemInformacion->idemp = 1;
+		$rowAemInformacion->ip = $_SERVER['REMOTE_ADDR'];
+		$rowAemInformacion->host = isset($_SERVER['HTTP_CLIENT_IP']) ? $_SERVER['HTTP_CLIENT_IP'] : '';
+		$rowAemInformacion->creado_por = 1;
+		$rowAemInformacion->creado_el = date('Y-m-d H:i:s');
+		$rowAemInformacion->save();
+		
+		$rowAemAnalisis = new AemAnalisis();
+		$rowAemAnalisis->idavaluoenfoquemercado = $rowAemInformacion->idavaluoenfoquemercado;
+		$rowAemAnalisis->idaeminformacion = $rowAemInformacion->idaeminformacion;
+		$idaeminformacion = $rowAemInformacion->idaeminformacion;
+		$rowAemAnalisis->save();
+	}
+
+	/**
+	 * Show the form for editing the specified resource.
+	 *
+	 * @param  int  $id
+	 * @return Response
+	 */
+	public static function updInformacion($inputs) {
+		$rowAemInformacion = AemInformacion::find($inputs['idTable']);
+		$rowAemInformacion->ubicacion = $inputs['ubicacion'];
+		$rowAemInformacion->edad = $inputs['edad']=='' ? $inputs['edad'] : 0.00;
+		$rowAemInformacion->telefono = $inputs['telefono'];
+		$rowAemInformacion->observaciones = $inputs['observaciones'];
+		$rowAemInformacion->idemp = 1;
+		$rowAemInformacion->ip = $_SERVER['REMOTE_ADDR'];
+		$rowAemInformacion->host = isset($_SERVER['HTTP_CLIENT_IP']) ? $_SERVER['HTTP_CLIENT_IP'] : '';
+		$rowAemInformacion->modi_por = 1;
+		$rowAemInformacion->modi_el = date('Y-m-d H:i:s');
+		$rowAemInformacion->save();
+	}
 }

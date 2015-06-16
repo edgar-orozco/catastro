@@ -8,8 +8,11 @@ class AefCompConstrucciones extends \Eloquent {
 	protected $primaryKey = 'idaefcompconstruccion';
 	public $timestamps = false;
 
-	/*
-	 * 
+	/**
+	 * Show the form for editing the specified resource.
+	 *
+	 * @param  int  $id
+	 * @return Response
 	 */
 	public static function AefCompConstruccionesByFk($idavaluoenfoquefisico) {
 		return AefCompConstrucciones::select('*')
@@ -18,4 +21,97 @@ class AefCompConstrucciones extends \Eloquent {
 						->get();
 	}
 
+	/**
+	 * Show the form for editing the specified resource.
+	 *
+	 * @param  int  $id
+	 * @return Response
+	 */
+	public static function delBeforeAefCompConstrucciones() {
+		
+	}
+	
+	/**
+	 * Show the form for editing the specified resource.
+	 *
+	 * @param  int  $id
+	 * @return Response
+	 */
+	public static function delAefCompConstrucciones() {
+		
+	}
+	
+	/**
+	 * Show the form for editing the specified resource.
+	 *
+	 * @param  int  $id
+	 * @return Response
+	 */
+	public static function delAfterAefCompConstrucciones() {
+		
+	}
+	
+	/**
+	 * Show the form for editing the specified resource.
+	 *
+	 * @param  int  $id
+	 * @return Response
+	 */
+	public static function insBeforoAefCompConstrucciones() {
+		
+	}
+	
+	/**
+	 * Show the form for editing the specified resource.
+	 *
+	 * @param  int  $id
+	 * @return Response
+	 */
+	public static function insAefCompConstrucciones() {
+		
+	}
+	
+	/**
+	 * Show the form for editing the specified resource.
+	 *
+	 * @param  int  $id
+	 * @return Response
+	 */
+	public static function insAfterCompConstrucciones() {
+		
+	}
+	
+	/**
+	 * Show the form for editing the specified resource.
+	 *
+	 * @param  int  $id
+	 * @return Response
+	 */
+	public static function updBeforeAefCompConstrucciones() {
+		
+	}
+	
+	/**
+	 * Show the form for editing the specified resource.
+	 *
+	 * @param  int  $id
+	 * @return Response
+	 */
+	public static function updAefCompConstrucciones() {
+		
+	}
+	
+	/**
+	 * Show the form for editing the specified resource.
+	 *
+	 * @param  int  $id
+	 * @return Response
+	 */
+	public static function updAfterAefCompConstrucciones() {
+		
+	}	
+	
+	
+	
+	
 }

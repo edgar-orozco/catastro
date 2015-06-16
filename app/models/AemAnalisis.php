@@ -8,9 +8,85 @@ class AemAnalisis extends \Eloquent {
 	protected $primaryKey = 'idaemanalisis';
 	public $timestamps = false;
 
-	public static function delByFk($idaeminformacion) {
-		return AemAnalisis::delete($idaeminformacion);
-		;
+	/**
+	 * Show the form for editing the specified resource.
+	 *
+	 * @param  int  $id
+	 * @return Response
+	 */
+	public static function updAemAnalisis($inputs) {
+		$rowAemAnalisis = AemAnalisis::find($inputs["idTable"]);
+		$rowCatFactoresZonas = CatFactoresZonas::find($inputs["idfactorzona"]);
+		$rowAemAnalisis->factor_zona = $rowCatFactoresZonas->valor_factor_zona;
+		$rowCatFactoresUbicacion = CatFactoresUbicacion::find($inputs["idfactorubicacion"]);
+		$rowAemAnalisis->factor_ubicacion = $rowCatFactoresUbicacion->valor_factor_ubicacion;
+		$rowCatFactoresConservacion = CatFactoresConservacion::find($inputs["idfactorconservacion"]);
+		$rowAemAnalisis->factor_conservacion = $rowCatFactoresConservacion->valor_factor_conservacion;
+		
+		$rowAemAnalisis->in_promedio = isset($inputs["in_promedio"]) ? 1 : 0;
+		$rowAemAnalisis->precio_venta = $inputs['precio_venta']=='' ? 0.00 : $inputs['precio_venta'];
+		$rowAemAnalisis->superficie_terreno = $inputs['superficie_terreno']=='' ? 0.00 : $inputs['superficie_terreno'];
+		$rowAemAnalisis->superficie_construccion = $inputs['superficie_construccion']=='' ? 0.00 : $inputs['superficie_construccion'];
+		$rowAemAnalisis->factor_superficie = $inputs['factor_superficie']=='' ? 0.00 : $inputs['factor_superficie'];
+		$rowAemAnalisis->factor_edad = $inputs['factor_edad']=='' ? 0.00 : $inputs['factor_edad'];
+		$rowAemAnalisis->factor_negociacion = $inputs['factor_negociacion']=='' ? 0.00 : $inputs['factor_negociacion'];
+		
+		$rowAemAnalisis->valor_unitario_m2 = $rowAemAnalisis->superficie_construccion==0 ? 0 : round($rowAemAnalisis->precio_venta/$rowAemAnalisis->superficie_construccion, 2);
+		
+		$rowAemAnalisis->factor_resultante = $rowAemAnalisis->factor_zona * $rowAemAnalisis->factor_ubicacion *
+				$rowAemAnalisis->factor_superficie * $rowAemAnalisis->factor_edad * $rowAemAnalisis->factor_conservacion * 
+				$rowAemAnalisis->factor_negociacion;
+		
+		$rowAemAnalisis->valor_unitario_resultante_m2 = $rowAemAnalisis->valor_unitario_m2 * $rowAemAnalisis->factor_resultante;
+		
+		$rowAemAnalisis->save();
+		
+		AemAnalisis::aemAnalisisAfterUpdate($rowAemAnalisis->idavaluoenfoquemercado, $rowAemAnalisis->in_promedio, $rowAemAnalisis->superficie_construida);
 	}
+	/**
+	 * Show the form for editing the specified resource.
+	 *
+	 * @param  int  $id
+	 * @return Response
+	 */
+	public static function aemAnalisisAfterUpdate($idavaluoenfoquemercado, $in_promedio, $superficie_construida) {
+		$PRD = $PRDTerr = $PRDMin = $PRDMax = $PRR = $PRRMin = $PRRMax = 0; 
+		if ( $in_promedio == 1 ) {
+			// Obtenemos el Promedio Terreno
+			$PRDTerr = AemAnalisis::select(DB::raw('avg(superficie_terreno) AS avg'))->groupBy('idavaluoenfoquemercado')->where('idavaluoenfoquemercado', '=', $idavaluoenfoquemercado)->where('in_promedio', '=', 1)->first();
+			// Obtenemos el Promedio Construccion
+			$PRDConst = AemAnalisis::select(DB::raw('avg(superficie_construccion) AS avg'))->groupBy('idavaluoenfoquemercado')->where('idavaluoenfoquemercado', '=', $idavaluoenfoquemercado)->where('in_promedio', '=', 1)->first();
 
+			// Obtenemos el Promedio Directo
+			$PRD = AemAnalisis::select(DB::raw('avg(valor_unitario_m2) AS avg'))->groupBy('idavaluoenfoquemercado')->where('idavaluoenfoquemercado', '=', $idavaluoenfoquemercado)->where('in_promedio', '=', 1)->first();
+			// Obtenemos el Mínimo Directo
+			$PRDMin = AemAnalisis::select(DB::raw('min(valor_unitario_m2) AS min'))->where('idavaluoenfoquemercado', '=', $idavaluoenfoquemercado)->where('in_promedio', '=', 1)->first();
+			// Obtenemos el Maximo Directo
+			$PRDMax = AemAnalisis::select(DB::raw('max(valor_unitario_m2) AS max'))->where('idavaluoenfoquemercado', '=', $idavaluoenfoquemercado)->where('in_promedio', '=', 1)->first();
+
+			// Obtenemos el Promedio Resultante
+			$PRR = AemAnalisis::select(DB::raw('avg(valor_unitario_resultante_m2) AS avg'))->groupBy('idavaluoenfoquemercado')->where('idavaluoenfoquemercado', '=', $idavaluoenfoquemercado)->where('in_promedio', '=', 1)->first();
+			// Obtenemos el Mínimo Resultante
+			$PRRMin = AemAnalisis::select(DB::raw('min(valor_unitario_resultante_m2) AS min'))->where('idavaluoenfoquemercado', '=', $idavaluoenfoquemercado)->where('in_promedio', '=', 1)->first();
+			// Obtenemos el Mínimo Resultante
+			$PRRMax = AemAnalisis::select(DB::raw('max(valor_unitario_resultante_m2) AS max'))->where('idavaluoenfoquemercado', '=', $idavaluoenfoquemercado)->where('in_promedio', '=', 1)->first();
+
+			$vcm0 = $PRR->avg * $PRRMax->max;
+			$vcm1 = $PRDConst->avg * $PRD->avg;
+			
+			$rowAem = AvaluosMercado::find($idavaluoenfoquemercado);
+			$rowAem->promedio_directo = $PRD->avg;
+			$rowAem->minimo_directo = $PRDMin->min;
+			$rowAem->maximo_directo = $PRDMax->max;
+			
+			$rowAem->promedio_analisis = $PRR->avg;
+			$rowAem->minimo_analisis = $PRRMin->min;
+			$rowAem->maximo_analisis = $PRRMax->max;
+			
+			$rowAem->valor_comparativo_mercado = round(($superficie_construida * $PRR->avg),-1);
+			
+			$rowAem->save();
+		}
+		
+	}
 }
