@@ -11,11 +11,13 @@ class CorevatAefConstruccionesValorNuevo extends Migration {
 	 * @return void
 	 */
 	public function up() {
-		DB::statement('ALTER TABLE aef_construcciones ADD COLUMN valor_nuevo NUMERIC(10,2);');
-		DB::statement('ALTER TABLE aef_construcciones ALTER COLUMN valor_nuevo SET DEFAULT 0.00;');
-		DB::statement('UPDATE aef_construcciones SET valor_nuevo = vida_remanente;');
-		DB::statement('ALTER TABLE aef_construcciones ALTER COLUMN valor_nuevo SET NOT NULL;');
-		DB::statement('ALTER TABLE aef_construcciones DROP COLUMN vida_remanente;');
+        if(Schema::connection('corevat')->hasTable('aef_construcciones')) {
+            DB::connection('corevat')->statement('ALTER TABLE aef_construcciones ADD COLUMN valor_nuevo NUMERIC(10,2);');
+            DB::connection('corevat')->statement('ALTER TABLE aef_construcciones ALTER COLUMN valor_nuevo SET DEFAULT 0.00;');
+            DB::connection('corevat')->statement('UPDATE aef_construcciones SET valor_nuevo = vida_remanente;');
+            DB::connection('corevat')->statement('ALTER TABLE aef_construcciones ALTER COLUMN valor_nuevo SET NOT NULL;');
+            DB::connection('corevat')->statement('ALTER TABLE aef_construcciones DROP COLUMN vida_remanente;');
+        }
 	}
 
 	/**
