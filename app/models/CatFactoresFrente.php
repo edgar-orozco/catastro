@@ -12,14 +12,11 @@ class CatFactoresFrente extends \Eloquent {
 		return CatFactoresFrente::orderBy('factor_frente')->where('status_factor_frente', 1)->lists('factor_frente', 'idfactorfrente');
 	}
 
-	public static function getCatFactoresFrenteComboList() {
-		$rows = CatFactoresFrente::select('idfactorfrente', 'valor_factor_frente', 'factor_frente')
-						->where('status_factor_frente', '=', 1)
-						->orderBy('valor_factor_frente')
-						->get();
-				foreach ($rows as $key => $value) {
-					$res[$value->idfactorfrente] = $value->factor_frente . ' (' . $value->valor_factor_frente .')';
-				}
-		return $res;
+	public static function getIdByValue($value) {
+		$row = CatFactoresFrente::select('idfactorfrente')
+				->where('valor_factor_frente', '=', $value)
+				->where('status_factor_frente', '=', 1)
+				->first();
+		return $row->idfactorfrente;
 	}
 }

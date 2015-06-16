@@ -8,4 +8,142 @@ class AemHomologacion extends \Eloquent {
 	protected $primaryKey = 'idaemhomologacion';
 	public $timestamps = false;
 
+	/**
+	 * Show the form for editing the specified resource.
+	 *
+	 * @param  int  $id
+	 * @return Response
+	 */
+	public static function aemHomologacionBeforeInsert($idavaluoenfoquemercado, &$row) {
+		$rowAvaluoEnfoqueMercado = AvaluosMercado::find($idavaluoenfoquemercado);
+		$rowAvaluoInmueble = Avaluos::find($rowAvaluoEnfoqueMercado->idavaluo)->AvaluosInmueble;
+
+		if ($rowAvaluoInmueble->superficie_total_terreno > 0) {
+			$row->superficie = pow($row->superficie_terreno / $rowAvaluoInmueble->superficie_total_terreno, 1 / 6);
+			$row->valor_unitario_resultante_m2 = $row->valor_unitario * $row->zona * $row->ubicacion * $row->frente * $row->superficie * $row->valor_unitario_negociable;
+		} else {
+			$row->superficie = 0;
+			$row->valor_unitario_resultante_m2 = 0;
+		}
+	}
+
+	/**
+	 * Show the form for editing the specified resource.
+	 *
+	 * @param  int  $id
+	 * @return Response
+	 */
+	public static function insAemHomologacion($idavaluoenfoquemercado, $idaemcompterreno, $ubicacion, $superficie_terreno, $precio_unitario_m2_terreno) {
+		$row = new AemHomologacion();
+		$row->idavaluoenfoquemercado = $idavaluoenfoquemercado;
+		$row->idaemcompterreno = $idaemcompterreno;
+		$row->comparable = $ubicacion;
+		$row->superficie_terreno = $superficie_terreno;
+		$row->superficie_construccion = $row->zona = $row->ubicacion = $row->frente = $row->forma = $row->valor_unitario_negociable = 0.00;
+		$row->valor_unitario = $precio_unitario_m2_terreno;
+		$row->in_promedio = 0;
+		$row->idemp = 1;
+		$row->ip = $_SERVER['REMOTE_ADDR'];
+		$row->host = isset($_SERVER['HTTP_CLIENT_IP']) ? $_SERVER['HTTP_CLIENT_IP'] : '';
+		$row->creado_por = 1;
+		$row->creado_el = date('Y-m-d H:i:s');
+
+		AemHomologacion::aemHomologacionBeforeInsert($idavaluoenfoquemercado, $row);
+
+		$row->save();
+
+		AvaluosMercado::updateAemValorUnitario($idavaluoenfoquemercado);
+	}
+
+	/**
+	 * Show the form for editing the specified resource.
+	 *
+	 * @param  int  $id
+	 * @return Response
+	 */
+	public static function aemHomologacionBeforeUpdate(&$row, $inputs) {
+		$rowAvaluoEnfoqueMercado = AvaluosMercado::find($row->idavaluoenfoquemercado);
+		$rowAvaluoInmueble = Avaluos::find($rowAvaluoEnfoqueMercado->idavaluo)->AvaluosInmueble;
+		$rowCatFactoresZonas = CatFactoresZonas::find($inputs["idfactorzona"]);
+		$rowCatFactoresUbicacion = CatFactoresUbicacion::find($inputs["idfactorubicacion"]);
+		$rowCatFactoresFrente = CatFactoresFrente::find($inputs["idfactorfrente"]);
+		$rowFactoresForma = CatFactoresForma::find($inputs["idfactorforma"]);
+
+		if ($rowAvaluoInmueble->superficie_total_terreno > 0) {
+			$row->superficie =  round( pow($row->superficie_terreno / $rowAvaluoInmueble->superficie_total_terreno, 1 / 6), 2);
+			$row->valor_unitario_resultante_m2 = $row->valor_unitario * $rowCatFactoresZonas->valor_factor_zona *
+					$rowCatFactoresUbicacion->valor_factor_ubicacion *
+					$rowCatFactoresFrente->valor_factor_frente *
+					$row->superficie * $inputs["valor_unitario_negociable"];
+		} else {
+			$row->superficie = 0;
+			$row->valor_unitario_resultante_m2 = 0;
+		}
+	}
+
+	/**
+	 * Show the form for editing the specified resource.
+	 *
+	 * @param  int  $id
+	 * @return Response
+	 */
+	public static function updAemHomologacion($inputs) {
+		$row = AemHomologacion::find($inputs["idTable"]);
+		AemHomologacion::aemHomologacionBeforeUpdate($row, $inputs);
+		$rowCatFactoresZonas = CatFactoresZonas::find($inputs["idfactorzona"]);
+		$row->zona = $rowCatFactoresZonas->valor_factor_zona;
+		$rowCatFactoresUbicacion = CatFactoresUbicacion::find($inputs["idfactorubicacion"]);
+		$row->ubicacion = $rowCatFactoresUbicacion->valor_factor_ubicacion;
+		$rowCatFactoresFrente = CatFactoresFrente::find($inputs["idfactorfrente"]);
+		$row->frente = $rowCatFactoresFrente->valor_factor_frente;
+		$rowFactoresForma = CatFactoresForma::find($inputs["idfactorforma"]);
+		$row->forma = $rowFactoresForma->valor_factor_forma;
+		$row->valor_unitario_negociable = $inputs["valor_unitario_negociable"];
+		$row->in_promedio = isset($inputs["in_promedio"]) ? 1 : 0;
+		$row->modi_por = 1;
+		$row->modi_el = date('Y-m-d H:i:s');
+		$row->save();
+		AemHomologacion::aemHomologacionAfterUpdate($row->idavaluoenfoquemercado);
+	}
+
+	/**
+	 * Show the form for editing the specified resource.
+	 *
+	 * @param  int  $id
+	 * @return Response
+	 */
+	public static function aemHomologacionAfterUpdate($idavaluoenfoquemercado) {
+		AvaluosMercado::updateAemValorUnitario($idavaluoenfoquemercado);
+	}
+
+	/**
+	 * Show the form for editing the specified resource.
+	 *
+	 * @param  int  $id
+	 * @return Response
+	 */
+	public static function aemHomologacionBeforeDelete() {
+		
+	}
+
+	/**
+	 * Show the form for editing the specified resource.
+	 *
+	 * @param  int  $id
+	 * @return Response
+	 */
+	public static function delAemHomologacion() {
+		
+	}
+
+	/**
+	 * Show the form for editing the specified resource.
+	 *
+	 * @param  int  $id
+	 * @return Response
+	 */
+	public static function aemHomologacionAfterDelete() {
+		
+	}
+
 }

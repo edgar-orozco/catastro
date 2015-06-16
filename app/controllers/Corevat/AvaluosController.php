@@ -15,7 +15,6 @@ class corevat_AvaluosController extends \BaseController {
 	 */
 	public function index($format = 'html') {
 		$title = 'COREVAT';
-		$title_section = 'Avaluos';
 		$row = $this->avaluo;
 		$rows = Avaluos::orderBy('idavaluo')->get();
 		return View::make('Corevat.Avaluos.index', compact('title', 'rows', 'row'));
@@ -28,7 +27,6 @@ class corevat_AvaluosController extends \BaseController {
 	 */
 	public function create() {
 		$title = 'COREVAT';
-		$title_section = 'Avaluos';
 		$row = $this->avaluo;
 		$row['fecha_reporte'] = date("d-m-Y");
 		$row['fecha_avaluo'] = date("d-m-Y");
@@ -54,58 +52,44 @@ class corevat_AvaluosController extends \BaseController {
 			'foliocoretemp' => 'required',
 			'proposito' => 'required',
 			'finalidad' => 'required',
-			'lon0' => 'integer|min:0',
-			'lon1' => 'integer|min:0',
-			'lat0' => 'integer|min:0',
-			'lat2' => 'integer|min:0',
+			'lon0' => 'integer|min:0|max:360',
+			'lon1' => 'integer|min:0|max:60',
+			'lon2' => 'integer|min:0|max:60',
+			'lat0' => 'integer|min:0|max:360',
+			'lat1' => 'integer|min:0|max:60',
+			'lat2' => 'integer|min:0|max:60',
 		);
-		$validate = Validator::make($inputs, $rules);
+		$messages = array(
+			'fecha_reporte.required' => '¡El campo "Fecha del reporte" es requerido!',
+			'fecha_reporte.date_format' => '¡El formato del campo "Fecha del reporte" es: dd-mm-aaaa!',
+			'fecha_avaluo.required' => '¡El campo "Fecha del avalúo" es requerido!',
+			'fecha_avaluo.date_format' => '¡El formato del campo "Fecha del avalúo" es: dd-mm-aaaa!',
+			'proposito.required' => 'El campo "Propósito" es requerido!',
+			'finalidad.required' => 'El campo "Finalidad" es requerido!',
+			'lon0.integer' => 'El valor correspondiente a los grados de la longitud debe ser un número entero positivo!',
+			'lon0.min' => 'El valor mínimo correspondiente a los grados de la longitud debe ser cero!',
+			'lon0.max' => 'El valor máximo correspondiente a los grados de la longitud debe ser 360!',
+			'lon1.integer' => 'El valor correspondiente a los minutos de la longitud debe ser un número entero positivo!',
+			'lon1.min' => 'El valor mínimo correspondiente a los minutos de la longitud debe ser cero!',
+			'lon1.max' => 'El valor máximo correspondiente a los minutos de la longitud debe ser 60!',
+			'lon2.integer' => 'El valor correspondiente a los segundos de la longitud debe ser un número entero positivo!',
+			'lon2.min' => 'El valor mínimo correspondiente a los segundos de la longitud debe ser cero!',
+			'lon2.max' => 'El valor máximo correspondiente a los segundos de la longitud debe ser 60!',
+			'lat0.integer' => 'El valor correspondiente a los grados de la latitud debe ser un número entero positivo!',
+			'lat0.min' => 'El valor mínimo correspondiente a los grados de la latitud debe ser cero!',
+			'lat0.max' => 'El valor mínimo correspondiente a los grados de la latitud debe ser 360!',
+			'lat1.integer' => 'El valor correspondiente a los minutos de la latitud debe ser un número entero positivo!',
+			'lat1.min' => 'El valor mínimo correspondiente a los minutos de la latitud debe ser cero!',
+			'lat1.max' => 'El valor máximo correspondiente a los minutos de la latitud debe ser 60!',
+			'lat2.integer' => 'El valor correspondiente a los minutos de la latitud debe ser un número entero positivo!',
+			'lat2.min' => 'El valor mínimo correspondiente a los segundos de la latitud debe ser cero!',
+			'lat2.max' => 'El valor máximo correspondiente a los segundos de la latitud debe ser 60!',
+		);
+		$validate = Validator::make($inputs, $rules, $messages);
 		if ($validate->fails()) {
 			return Redirect::back()->withInput()->withErrors($validate);
 		} else {
-			$row = new Avaluos();
-			$row->iduser = 1; //Auth::id()
-			$row->proposito = $inputs["proposito"];
-			$row->finalidad = $inputs["finalidad"];
-			$row->idmunicipio = $inputs["idmunicipio"];
-			$row->idestado = $inputs["idestado"];
-			$row->idestado = $inputs["idestado"];
-			$row->fecha_reporte = $inputs["fecha_reporte"];
-			$row->fecha_avaluo = $inputs["fecha_avaluo"];
-			$row->serie = $inputs["serie"];
-			$row->folio = 0;
-			$row->foliocoretemp = $inputs["foliocoretemp"];
-			$row->idtipoinmueble = $inputs["idtipoinmueble"];
-			$row->ubicacion = $inputs["ubicacion"];
-			$row->conjunto = $inputs["conjunto"];
-			$row->colonia = $inputs["colonia"];
-			$row->cp = $inputs["cp"];
-			$row->latitud = '';
-			$row->lat0 = $inputs["lat0"];
-			$row->lat1 = $inputs["lat1"];
-			$row->lat2 = $inputs["lat2"];
-			$row->longitud = '';
-			$row->lon0 = $inputs["lon0"];
-			$row->lon1 = $inputs["lon1"];
-			$row->lon2 = $inputs["lon2"];
-			$row->altitud = $inputs["altitud"];
-			$row->idregimenpropiedad = $inputs["idregimenpropiedad"];
-			$row->cuenta_predial = $inputs["cuenta_predial"];
-			$row->cuenta_catastral = $inputs["cuenta_catastral"];
-			$row->nombre_solicitante = $inputs["nombre_solicitante"];
-			$row->nombre_propietario = $inputs["nombre_propietario"];
-			$row->idemp = 1;
-			$row->ip = $_SERVER['REMOTE_ADDR'];
-			$row->host = isset($_SERVER['HTTP_CLIENT_IP']) ? $_SERVER['HTTP_CLIENT_IP'] : '';
-			$row->creado_por = 1;
-			$row->creado_el = date('Y-m-d H:i:s');
-			$row->save();
-			$this->insAvaluoZona($row->idavaluo);
-			$this->insAvaluoInmueble($row->idavaluo);
-			$this->insAvaluoMercado($row->idavaluo);
-			$this->insAvaluoFisico($row->idavaluo);
-			$this->insAvaluoConclusiones($row->idavaluo);
-			$this->insAvaluoFotos($row->idavaluo);
+			Avaluos::insAvaluo($inputs);
 			return Redirect::to('corevat/Avaluos/create')->with('success', '¡El Avalúo fue creado satisfactoriamente!');
 		}
 	}
@@ -160,60 +144,51 @@ class corevat_AvaluosController extends \BaseController {
 	 */
 	public function updateGeneral($id) {
 		$inputs = Input::All();
-		$row = Avaluos::find($id);
 		$rules = array(
 			'fecha_reporte' => 'required|date_format:"d-m-Y"',
 			'fecha_avaluo' => 'required|date_format:"d-m-Y"',
 			'foliocoretemp' => 'required',
 			'proposito' => 'required',
 			'finalidad' => 'required',
-			'lon0' => 'integer|min:0',
-			'lon1' => 'integer|min:0',
-			'lat0' => 'integer|min:0',
-			'lat2' => 'integer|min:0',
+			'lon0' => 'integer|min:0|max:360',
+			'lon1' => 'integer|min:0|max:60',
+			'lon2' => 'integer|min:0|max:60',
+			'lat0' => 'integer|min:0|max:360',
+			'lat1' => 'integer|min:0|max:60',
+			'lat2' => 'integer|min:0|max:60',
 		);
-		$validate = Validator::make($inputs, $rules);
+		$messages = array(
+			'fecha_reporte.required' => '¡El campo "Fecha del reporte" es requerido!',
+			'fecha_reporte.date_format' => '¡El formato del campo "Fecha del reporte" es: dd-mm-aaaa!',
+			'fecha_avaluo.required' => '¡El campo "Fecha del avalúo" es requerido!',
+			'fecha_avaluo.date_format' => '¡El formato del campo "Fecha del avalúo" es: dd-mm-aaaa!',
+			'proposito.required' => 'El campo "Propósito" es requerido!',
+			'finalidad.required' => 'El campo "Finalidad" es requerido!',
+			'lon0.integer' => 'El valor correspondiente a los grados de la longitud debe ser un número entero positivo!',
+			'lon0.min' => 'El valor mínimo correspondiente a los grados de la longitud debe ser cero!',
+			'lon0.max' => 'El valor máximo correspondiente a los grados de la longitud debe ser 360!',
+			'lon1.integer' => 'El valor correspondiente a los minutos de la longitud debe ser un número entero positivo!',
+			'lon1.min' => 'El valor mínimo correspondiente a los minutos de la longitud debe ser cero!',
+			'lon1.max' => 'El valor máximo correspondiente a los minutos de la longitud debe ser 60!',
+			'lon2.integer' => 'El valor correspondiente a los segundos de la longitud debe ser un número entero positivo!',
+			'lon2.min' => 'El valor mínimo correspondiente a los segundos de la longitud debe ser cero!',
+			'lon2.max' => 'El valor máximo correspondiente a los segundos de la longitud debe ser 60!',
+			'lat0.integer' => 'El valor correspondiente a los grados de la latitud debe ser un número entero positivo!',
+			'lat0.min' => 'El valor mínimo correspondiente a los grados de la latitud debe ser cero!',
+			'lat0.max' => 'El valor mínimo correspondiente a los grados de la latitud debe ser 360!',
+			'lat1.integer' => 'El valor correspondiente a los minutos de la latitud debe ser un número entero positivo!',
+			'lat1.min' => 'El valor mínimo correspondiente a los minutos de la latitud debe ser cero!',
+			'lat1.max' => 'El valor máximo correspondiente a los minutos de la latitud debe ser 60!',
+			'lat2.integer' => 'El valor correspondiente a los minutos de la latitud debe ser un número entero positivo!',
+			'lat2.min' => 'El valor mínimo correspondiente a los segundos de la latitud debe ser cero!',
+			'lat2.max' => 'El valor máximo correspondiente a los segundos de la latitud debe ser 60!',
+		);
+		$validate = Validator::make($inputs, $rules, $messages);
 		if ($validate->fails()) {
 			return Redirect::back()->withInput()->withErrors($validate);
 		} else {
-			$row->iduser = 1; //Auth::id()
-			$row->proposito = $inputs["proposito"];
-			$row->finalidad = $inputs["finalidad"];
-			$row->idmunicipio = $inputs["idmunicipio"];
-			$row->idestado = $inputs["idestado"];
-			$row->idestado = $inputs["idestado"];
-			$row->fecha_reporte = $inputs["fecha_reporte"];
-			$row->fecha_avaluo = $inputs["fecha_avaluo"];
-			$row->serie = $inputs["serie"];
-			$row->folio = 0;
-			$row->foliocoretemp = $inputs["foliocoretemp"];
-			$row->idtipoinmueble = $inputs["idtipoinmueble"];
-			$row->ubicacion = $inputs["ubicacion"];
-			$row->conjunto = $inputs["conjunto"];
-			$row->colonia = $inputs["colonia"];
-			$row->cp = $inputs["cp"];
-			$row->latitud = '';
-			$row->lat0 = $inputs["lat0"];
-			$row->lat1 = $inputs["lat1"];
-			$row->lat2 = $inputs["lat2"];
-			$row->longitud = '';
-			$row->lon0 = $inputs["lon0"];
-			$row->lon1 = $inputs["lon1"];
-			$row->lon2 = $inputs["lon2"];
-			$row->altitud = $inputs["altitud"];
-			$row->idregimenpropiedad = $inputs["idregimenpropiedad"];
-			$row->cuenta_predial = $inputs["cuenta_predial"];
-			$row->cuenta_catastral = $inputs["cuenta_catastral"];
-			$row->nombre_solicitante = $inputs["nombre_solicitante"];
-			$row->nombre_propietario = $inputs["nombre_propietario"];
-			$row->idemp = 1;
-			$row->ip = $_SERVER['REMOTE_ADDR'];
-			$row->host = isset($_SERVER['HTTP_CLIENT_IP']) ? $_SERVER['HTTP_CLIENT_IP'] : '';
-			$row->modi_por = 1;
-			$row->modi_el = date('Y-m-d H:i:s');
-
-			$row->save();
-			return Redirect::to('/corevat/AvaluoGeneral/' . $id)->with('success', '¡La modificación se efectuo correctamente!');
+			Avaluos::updAvaluo($id, $inputs);
+			return Redirect::to('/corevat/AvaluoGeneral/' . $id)->with('success', '¡La modificación se efectuo satisfactoriamente!');
 		}
 	}
 
@@ -229,6 +204,10 @@ class corevat_AvaluosController extends \BaseController {
 		$rowA = Avaluos::find($id);
 		$title = 'Características de la Zona: ' . $rowA['foliocoretemp'];
 		$row = Avaluos::find($id)->AvaluosZona;
+		if (count($row) <= 0) {
+			AvaluosZona::insAvaluoZona($id);
+			$row = Avaluos::find($id)->AvaluosZona;
+		}
 		$cat_clasificacion_zona = CatClasificacionZona::comboList();
 		$cat_proximidad_urbana = CatProximidadUrbana::comboList();
 
@@ -243,49 +222,20 @@ class corevat_AvaluosController extends \BaseController {
 	 */
 	public function updateZona($id) {
 		$inputs = Input::All();
-		$row = Avaluos::find($id)->AvaluosZona;
 		$rules = array(
-			'nivel_equipamiento' => 'integer|min:0',
+			'nivel_equipamiento' => 'integer|min:0|max:100',
+		);
+		$messages = array(
+			'nivel_equipamiento.integer' => '¡El campo "Nivel de Equipamiento" debe ser un entero positivo!',
+			'nivel_equipamiento.min' => '¡El valor mínimo del campo "Nivel de Equipamiento" debe ser cero!',
+			'nivel_equipamiento.min' => '¡El valor máximo del campo "Nivel de Equipamiento" debe ser 100!',
 		);
 		$validate = Validator::make($inputs, $rules);
 		if ($validate->fails()) {
 			return Redirect::back()->withInput()->withErrors($validate);
 		} else {
-			$row->idavaluo = $id;
-			$row->is_agua_potable = isset($inputs["is_agua_potable"]) ? 1 : 0;
-			$row->is_guarniciones = isset($inputs["is_guarniciones"]) ? 1 : 0;
-			$row->is_drenaje = isset($inputs["is_drenaje"]) ? 1 : 0;
-			$row->is_banqueta = isset($inputs["is_banqueta"]) ? 1 : 0;
-			$row->is_electricidad = isset($inputs["is_electricidad"]) ? 1 : 0;
-			$row->is_telefono = isset($inputs["is_telefono"]) ? 1 : 0;
-			$row->is_pavimentacion = isset($inputs["is_pavimentacion"]) ? 1 : 0;
-			$row->is_transporte_publico = isset($inputs["is_transporte_publico"]) ? 1 : 0;
-			$row->is_alumbrado_publico = isset($inputs["is_alumbrado_publico"]) ? 1 : 0;
-			$row->is_otro_servicio = isset($inputs["is_otro_servicio"]) ? 1 : 0;
-			$row->otro_servicio_municipal = isset($inputs["otro_servicio_municipal"]) ? $inputs["otro_servicio_municipal"] : '';
-			$row->is_escuela = isset($inputs["is_escuela"]) ? 1 : 0;
-			$row->is_iglesia = isset($inputs["is_iglesia"]) ? 1 : 0;
-			$row->is_banco = isset($inputs["is_banco"]) ? 1 : 0;
-			$row->is_comercio = isset($inputs["is_comercio"]) ? 1 : 0;
-			$row->is_hospital = isset($inputs["is_hospital"]) ? 1 : 0;
-			$row->is_parque = isset($inputs["is_parque"]) ? 1 : 0;
-			$row->is_transporte = isset($inputs["is_transporte"]) ? 1 : 0;
-			$row->is_gasolinera = isset($inputs["is_gasolinera"]) ? 1 : 0;
-			$row->is_mercado = isset($inputs["is_mercado"]) ? 1 : 0;
-			$row->is_otro_equipamiento = isset($inputs["is_otro_equipamiento"]) ? 1 : 0;
-			$row->cobertura = $inputs["cobertura"];
-			$row->otro_equipamiento = isset($inputs["otro_equipamiento"]) ? $inputs["otro_equipamiento"] : '';
-			$row->nivel_equipamiento = (int) $inputs["nivel_equipamiento"];
-			$row->idclasificacionzona = $inputs["idclasificacionzona"];
-			$row->idproximidadurbana = $inputs["idproximidadurbana"];
-			$row->construc_predominante = $inputs["construc_predominante"];
-			$row->vias_acceso_importante = $inputs["vias_acceso_importante"];
-			$row->ip = $_SERVER['REMOTE_ADDR'];
-			$row->host = isset($_SERVER['HTTP_CLIENT_IP']) ? $_SERVER['HTTP_CLIENT_IP'] : '';
-			$row->modi_por = 1;
-			$row->modi_el = date('Y-m-d H:i:s');
-			$row->save();
-			return Redirect::to('/corevat/AvaluoZona/' . $id)->with('success', '¡La modificación se efectuo correctamente!');
+			AvaluosZona::updAvaluosZona($id, $inputs);
+			return Redirect::to('/corevat/AvaluoZona/' . $id)->with('success', '¡El registro fue modificado satisfactoriamente!');
 		}
 	}
 
@@ -299,10 +249,10 @@ class corevat_AvaluosController extends \BaseController {
 		$idavaluo = $id;
 		$opt = 'inmueble';
 		$row = Avaluos::find($id);
-		$title = '3 Características del Inmueble: ' . $row['foliocoretemp'];
+		$title = 'Características del Inmueble: ' . $row['foliocoretemp'];
 		$row = Avaluos::find($id)->AvaluosInmueble;
 		if (count($row) <= 0) {
-			$this->insAvaluoInmueble($id);
+			AvaluosInmueble::insAvaluoInmueble($id);
 			$row = Avaluos::find($id)->AvaluosInmueble;
 		}
 		$cat_cimentaciones = CatCimentaciones::comboList();
@@ -319,7 +269,6 @@ class corevat_AvaluosController extends \BaseController {
 		$cat_plafones = CatPlafones::comboList();
 		$cat_orientaciones = CatOrientaciones::comboList();
 		$ai_medidas_colindancias = AiMedidasColindancias::AiMedidasColindanciasByFk($row->idavaluoinmueble);
-		//return $row->idavaluoinmueble;
 		return View::make('Corevat.Avaluos.avaluos', compact('opt', 'idavaluo', 'title', 'row', 'cat_cimentaciones', 'cat_estructuras', 'cat_muros', 'cat_entrepisos', 'cat_techos', 'cat_bardas', 'cat_usos_suelos', 'cat_niveles', 'cat_pisos', 'cat_aplanados', 'cat_plafones', 'cat_orientaciones', 'ai_medidas_colindancias'));
 	}
 
@@ -332,112 +281,49 @@ class corevat_AvaluosController extends \BaseController {
 	public function updateInmueble($id) {
 		$inputs = Input::All();
 		$rules = array(
-			'unidades_rentables_escritura' => 'min:0',
-			'superficie_total_terreno' => 'numeric',
-			'indiviso_terreno' => 'numeric',
-			'superficie_terreno' => 'numeric',
-			'indiviso_areas_comunes' => 'numeric',
-			'superficie_construccion' => 'numeric',
-			'indiviso_accesoria' => 'numeric',
-			'superficie_escritura' => 'numeric',
-			'superficie_vendible' => 'numeric',
+			'unidades_rentables_escritura' => 'integer|min:0|max:9999',
+			'superficie_total_terreno' => 'numeric|min:0|max:999999999.9999|regex:/^[0-9]{1,9}(\.?)[0-9]{1,4}$/',
+			'indiviso_terreno' => 'numeric|min:0|max:999999999.9999|regex:/^[0-9]{1,9}(\.?)[0-9]{1,4}$/',
+			'superficie_terreno' => 'numeric|min:0|max:999999999.9999|regex:/^[0-9]{1,9}(\.?)[0-9]{1,4}$/',
+			'indiviso_areas_comunes' => 'numeric|min:0|max:999999999.9999|regex:/^[0-9]{1,9}(\.?)[0-9]{1,4}$/',
+			'superficie_construccion' => 'numeric|min:0|max:999999999.9999|regex:/^[0-9]{1,9}(\.?)[0-9]{1,4}$/',
+			'indiviso_accesoria' => 'numeric|min:0|max:999999999.9999|regex:/^[0-9]{1,9}(\.?)[0-9]{1,4}$/',
+			'superficie_escritura' => 'numeric|min:0|max:999999999.9999|regex:/^[0-9]{1,9}(\.?)[0-9]{1,4}$/',
+			'superficie_vendible' => 'numeric|min:0|max:999999999.9999|regex:/^[0-9]{1,9}(\.?)[0-9]{1,4}$/',
 		);
-		$validate = Validator::make($inputs, $rules);
+		$messages = array(
+			'unidades_rentables_escritura.integer' => '¡El campo "Unidades Rentables en la misma Estructura" debe ser un entero positivo!',
+			'unidades_rentables_escritura.min' => '¡El valor mínimo del campo "Unidades Rentables en la misma Estructura" debe ser cero!',
+			'unidades_rentables_escritura.max' => '¡El valor máximo del campo "Unidades Rentables en la misma Estructura" debe ser 9999!',
+			'superficie_total_terreno.numeric' => '¡El campo "Superficie Total del Terreno" debe ser un número!',
+			'superficie_total_terreno.min' => '¡El valor mínimo del campo "Superficie Total del Terreno" debe ser cero!',
+			'superficie_total_terreno.max' => '¡El valor máximo del campo "Superficie Total del Terreno" debe ser 999999999.999!',
+			'superficie_total_terreno.regex' => '¡El formato del campo "Superficie Total del Terreno" debe ser 999999999.999!',
+			'indiviso_terreno.numeric' => '¡El campo "Indiviso del Terreno (%)" debe ser un número!',
+			'indiviso_terreno.min' => '¡El valor mínimo del campo "Indiviso del Terreno (%)" debe ser cero!',
+			'indiviso_terreno.max' => '¡El valor máximo del campo "Indiviso del Terreno (%)" debe ser 999999999.999!',
+			'indiviso_terreno.regex' => '¡El formato del campo "Indiviso del Terreno (%)" debe ser 999999999.999!',
+		);
+		$validate = Validator::make($inputs, $rules, $messages);
 		if ($validate->fails()) {
 			return Redirect::back()->withInput()->withErrors($validate);
 		} else {
-			$row = Avaluos::find($id)->AvaluosInmueble;
-			//$row->idavaluo = $id;
-			$row->croquis = '';
-			$row->fachada = '';
-			$row->medidas_colindancias = '';
-			$row->idusossuelo = $inputs["idusossuelo"];
-			$row->servidumbre_restricciones = $inputs["servidumbre_restricciones"];
-			$row->descripcion_inmueble = $inputs["descripcion_inmueble"];
-			$row->numero_niveles_unidad = $inputs["numero_niveles_unidad"];
-
-			$row->unidades_rentables_escritura = (int) $inputs["unidades_rentables_escritura"];
-
-			$row->cimentacion = $row->estructura = $row->muros = $row->entrepisos = $row->techos = $row->bardas = '';
-			$row->id_cimentacion = $inputs["id_cimentacion"];
-			$row->id_estructura = $inputs["id_estructura"];
-			$row->id_muro = $inputs["id_muro"];
-			$row->id_entrepiso = $inputs["id_entrepiso"];
-			$row->id_techo = $inputs["id_techo"];
-			$row->id_barda = $inputs["id_barda"];
-
-			$row->recamaras0 = $row->recamaras1 = $row->recamaras2 = '';
-			$row->id_recamara0 = $inputs["id_recamara0"];
-			$row->id_recamara1 = $inputs["id_recamara1"];
-			$row->id_recamara2 = $inputs["id_recamara2"];
-
-			$row->estancia_comedor0 = $row->estancia_comedor1 = $row->estancia_comedor2 = '';
-			$row->id_estancia_comedor0 = $inputs["id_estancia_comedor0"];
-			$row->id_estancia_comedor1 = $inputs["id_estancia_comedor1"];
-			$row->id_estancia_comedor2 = $inputs["id_estancia_comedor2"];
-
-			$row->banos0 = $row->banos1 = $row->banos2 = '';
-			$row->id_bano0 = $inputs["id_bano0"];
-			$row->id_bano1 = $inputs["id_bano1"];
-			$row->id_bano2 = $inputs["id_bano2"];
-
-			$row->escaleras0 = $row->escaleras1 = $row->escaleras2 = '';
-			$row->id_escalera0 = $inputs["id_escalera0"];
-			$row->id_escalera1 = $inputs["id_escalera1"];
-			$row->id_escalera2 = $inputs["id_escalera2"];
-
-			$row->cocina0 = $row->cocina1 = $row->cocina2 = '';
-			$row->id_cocina0 = $inputs["id_cocina0"];
-			$row->id_cocina1 = $inputs["id_cocina1"];
-			$row->id_cocina2 = $inputs["id_cocina2"];
-
-			$row->patio_servicio0 = $row->patio_servicio1 = $row->patio_servicio2 = '';
-			$row->id_patio_servicio0 = $inputs["id_patio_servicio0"];
-			$row->id_patio_servicio1 = $inputs["id_patio_servicio1"];
-			$row->id_patio_servicio2 = $inputs["id_patio_servicio2"];
-
-			$row->estacionamiento0 = $row->estacionamiento1 = $row->estacionamiento2 = '';
-			$row->id_estacionamiento0 = $inputs["id_estacionamiento0"];
-			$row->id_estacionamiento1 = $inputs["id_estacionamiento1"];
-			$row->id_estacionamiento2 = $inputs["id_estacionamiento2"];
-
-			$row->fachada0 = $row->fachada1 = $row->fachada2 = '';
-			$row->id_fachada0 = $inputs["id_fachada0"];
-			$row->id_fachada1 = $inputs["id_fachada1"];
-			$row->id_fachada2 = $inputs["id_fachada2"];
-
-			$row->hidraulico_sanitarias = $inputs["hidraulico_sanitarias"];
-			$row->electricas = $inputs["electricas"];
-			$row->carpinteria = $inputs["carpinteria"];
-			$row->herreria = $inputs["herreria"];
-
-			$row->superficie_total_terreno = number_format((float) $inputs["superficie_total_terreno"], 4);
-			$row->indiviso_terreno = $inputs["indiviso_terreno"];
-			$row->superficie_terreno = $inputs["superficie_terreno"];
-			$row->indiviso_areas_comunes = $inputs["indiviso_areas_comunes"];
-			$row->superficie_construccion = $inputs["superficie_construccion"];
-			$row->indiviso_accesoria = $inputs["indiviso_accesoria"];
-			$row->superficie_escritura = $inputs["superficie_escritura"];
-			$row->superficie_vendible = $inputs["superficie_vendible"];
-
-			$row->ip = $_SERVER['REMOTE_ADDR'];
-			$row->host = isset($_SERVER['HTTP_CLIENT_IP']) ? $_SERVER['HTTP_CLIENT_IP'] : '';
-			$row->modi_por = 1;
-			$row->modi_el = date('Y-m-d H:i:s');
+			AvaluosInmueble::updAvaluosInmueble($id, $inputs);
 			$message = '¡El registro fue modificado satisfactoriamente!';
-
-			if (Input::hasFile('croquis')) {
-				$row->croquis = 'croquis-' . $row->idavaluo . '.jpg';
-				Input::file('croquis')->move(public_path() . '/corevat/', $row->croquis);
-				$message .= '<br />¡El croquis se subido atisfactoriamente!';
+			if (Input::hasFile('croquis') || Input::hasFile('fachada')) {
+				$row = Avaluos::find($id)->AvaluosInmueble;
+				if (Input::hasFile('croquis')) {
+					$row->croquis = 'croquis-' . $row->idavaluo . '.jpg';
+					Input::file('croquis')->move(public_path() . '/corevat/', $row->croquis);
+					$message .= '<br />¡El croquis fue actualizado atisfactoriamente!';
+				}
+				if (Input::hasFile('fachada')) {
+					$row->fachada = 'fachada-' . $row->idavaluo . '.jpg';
+					Input::file('fachada')->move(public_path() . '/corevat/', $row->fachada);
+					$message .= '<br />¡La imagen de la fachada fue actualizada atisfactoriamente!';
+				}
+				$row->save();
 			}
-			if (Input::hasFile('fachada')) {
-				$row->fachada = 'fachada-' . $row->idavaluo . '.jpg';
-				Input::file('fachada')->move(public_path() . '/corevat/', $row->fachada);
-				$message .= '<br />¡La imagen de la fachada se subida atisfactoriamente!';
-			}
-			$row->save();
-
 			return Redirect::to('/corevat/AvaluoInmueble/' . $id)->with('success', $message);
 		}
 	}
@@ -451,22 +337,18 @@ class corevat_AvaluosController extends \BaseController {
 	public function editMercado($id) {
 		$idavaluo = $id;
 		$opt = 'mercado';
-		$row = Avaluos::find($id);
-		$title = 'Enfoque de Mercado: ' . $row['foliocoretemp'];
+		$rowAvaluos = Avaluos::find($id);
+		$title = 'Enfoque de Mercado: ' . $rowAvaluos['foliocoretemp'];
 		$row = Avaluos::find($id)->AvaluosMercado;
 		if (count($row) <= 0) {
-			$this->insAvaluoMercado($id);
+			AvaluosMercado::insAvaluoMercado($id);
 			$row = Avaluos::find($id)->AvaluosMercado;
 		}
-		$aem_comp_terrenos = AemCompTerrenos::AemCompTerrenosByFk($row->idavaluoenfoquemercado);
-		$aem_homologacion = AemCompTerrenos::AemHomologacionByFk($row->idavaluoenfoquemercado);
-		$aem_informacion = AemInformacion::AemInformacionByFk($row->idavaluoenfoquemercado);
-		$aem_analisis = AemInformacion::AemAnalisisByFk($row->idavaluoenfoquemercado);
-		$cat_factores_zonas = CatFactoresZonas::getCatFactoresZonasComboList();
-		$cat_factores_ubicacion = CatFactoresUbicacion::getCatFactoresUbicacionComboList();
-		$cat_factores_frente = CatFactoresFrente::getCatFactoresFrenteComboList();
-		$cat_factores_forma = CatFactoresForma::getCatFactoresFormaComboList();
-		return View::make('Corevat.Avaluos.avaluos', compact('opt', 'idavaluo', 'title', 'row', 'aem_comp_terrenos', 'aem_homologacion', 'aem_informacion', 'aem_analisis', 'cat_factores_zonas', 'cat_factores_ubicacion', 'cat_factores_frente', 'cat_factores_forma'));
+		$aem_comp_terrenos = AvaluosMercado::find($row->idavaluoenfoquemercado)->AemCompTerrenos;
+		$aem_homologacion = AvaluosMercado::find($row->idavaluoenfoquemercado)->AemHomologacion;
+		$aem_informacion = AvaluosMercado::find($row->idavaluoenfoquemercado)->AemInformacion;
+		$aem_analisis = AvaluosMercado::find($row->idavaluoenfoquemercado)->AemAnalisis;
+		return View::make('Corevat.Avaluos.avaluos', compact('opt', 'idavaluo', 'title', 'row', 'aem_comp_terrenos', 'aem_homologacion', 'aem_informacion', 'aem_analisis'));
 	}
 
 	/**
@@ -499,24 +381,28 @@ class corevat_AvaluosController extends \BaseController {
 	public function editFisico($id) {
 		$idavaluo = $id;
 		$opt = 'fisico';
-		$row = Avaluos::find($id);
-		$title = 'Enfoque de Físico: ' . $row['foliocoretemp'];
+		$rowAvaluos = Avaluos::find($id);
+		$title = 'Enfoque de Físico: ' . $rowAvaluos['foliocoretemp'];
 		$row = Avaluos::find($id)->AvaluosFisico;
+		if (count($row) <= 0) {
+			AvaluosFisico::insAvaluoFisico($id);
+			$row = Avaluos::find($id)->AvaluosFisico;
+		}
+
 		$aef_terrenos = AefTerrenos::AefTerrenosByFk($row->idavaluoenfoquefisico);
 		$aef_construcciones = AefConstrucciones::AefConstruccionesByFk($row->idavaluoenfoquefisico);
 		$aef_condominios = AefCondominios::AefCondominiosByFk($row->idavaluoenfoquefisico);
 		$aef_comp_construcciones = AefCompConstrucciones::AefCompConstruccionesByFk($row->idavaluoenfoquefisico);
 		$aef_instalaciones = AefInstalaciones::AefInstalacionesByFk($row->idavaluoenfoquefisico);
+
 		$cat_clase_general_inmueble = CatClaseGeneralInmueble::comboList();
 		$cat_tipo_inmueble = CatTipoInmueble::comboList();
 		$cat_estado_conservacion = CatEstadoConservacion::comboList();
 		$cat_calidad_proyecto = CatCalidadProyecto::comboList();
 		$cat_tipo = CatTipo::comboList();
-		$cat_factores_frente = CatFactoresFrente::getCatFactoresFrenteComboList();
-		$cat_factores_forma = CatFactoresForma::getCatFactoresFormaComboList();
-		$cat_factores_conservacion = CatFactoresConservacion::getCatFactoresConservacionComboList();
 		$cat_obras_complementarias = CatObrasComplementarias::comboList();
-		return View::make('Corevat.Avaluos.avaluos', compact('opt', 'idavaluo', 'title', 'row', 'aef_terrenos', 'aef_construcciones', 'aef_condominios', 'aef_comp_construcciones', 'aef_instalaciones', 'cat_clase_general_inmueble', 'cat_tipo_inmueble', 'cat_estado_conservacion', 'cat_calidad_proyecto', 'cat_tipo', 'cat_factores_frente', 'cat_factores_forma', 'cat_factores_conservacion', 'cat_obras_complementarias'));
+
+		return View::make('Corevat.Avaluos.avaluos', compact('opt', 'idavaluo', 'title', 'row', 'aef_terrenos', 'aef_construcciones', 'aef_condominios', 'aef_comp_construcciones', 'aef_instalaciones', 'cat_clase_general_inmueble', 'cat_tipo_inmueble', 'cat_estado_conservacion', 'cat_calidad_proyecto', 'cat_tipo', 'cat_obras_complementarias'));
 	}
 
 	/**
@@ -525,21 +411,49 @@ class corevat_AvaluosController extends \BaseController {
 	 * @param  int  $id
 	 * @return Response
 	 */
-	public function updateFisico() {
+	public function updateFisico($id) {
 		$inputs = Input::All();
-		if ($inputs['ctrl'] == 'btnNewAefTerrenos' || $inputs['ctrl'] == 'btnEditAefTerrenos') {
-			$response = $this->setAefTerrenos($inputs);
-		} else if ($inputs['ctrl'] == 'btnNewAefInstalaciones' || $inputs['ctrl'] == 'btnEditAefInstalaciones') {
-			$response = $this->setAefInstalaciones($inputs);
-		} else if ($inputs['ctrl'] == 'btnNewAefConstrucciones' || $inputs['ctrl'] == 'btnEditAefConstrucciones') {
-			$response = $this->setAefConstrucciones($inputs);
-		} else if ($inputs['ctrl'] == 'btnNewAefCondominios' || $inputs['ctrl'] == 'btnEditAefCondominios') {
-			$response = $this->setAefCondominios($inputs);
-		} else if ($inputs['ctrl'] == 'btnNewAefCompConstrucciones' || $inputs['ctrl'] == 'btnEditAefCompConstrucciones') {
-			$response = $this->setAefCompConstrucciones($inputs);
+		if (isset($inputs['idclasegeneralinmueble'])) {
+			$rules = array(
+				'edad_construccion' => 'numeric|min:0|max:999999999.9999|regex:/^[0-9]{1,3}$/',
+				'vida_util' => 'numeric|min:0|max:999999999.9999|regex:/^[0-9]{1,3}$/',
+			);
+			$messages = array(
+				'edad_construccion.numeric' => '¡El campo "Edad de la Construcción (Años)" debe ser un número!',
+				'edad_construccion.min' => '¡El valor mínimo del campo "Edad de la Construcción (Años)" debe ser cero!',
+				'edad_construccion.max' => '¡El valor máximo del campo "Edad de la Construcción (Años)" debe ser 999.99!',
+				'edad_construccion.regex' => '¡El formato del campo "Edad de la Construcción (Años)" debe ser 999.99!',
+				'vida_util.numeric' => '¡El campo "Vida Útil Remanente" debe ser un número!',
+				'vida_util.min' => '¡El valor mínimo del campo "Vida Útil Remanente" debe ser cero!',
+				'vida_util.max' => '¡El valor máximo del campo "Vida Útil Remanente" debe ser 999.99!',
+				'vida_util.regex' => '¡El formato del campo "Vida Útil Remanente" debe ser 999.99!',
+			);
+			$validate = Validator::make($inputs, $rules, $messages);
+			if ($validate->fails()) {
+				return Redirect::back()->withInput()->withErrors($validate);
+			} else {
+				AvaluosFisico::updAvaluoFisico($id, $inputs);
+				return Redirect::to('/corevat/AvaluoEnfoqueFisico/' . $id)->with('success', '¡El registro fue modificado satisfactoriamente!');
+			}
+		} else {
+			if ($inputs['ctrl'] == 'btnNewAefTerrenos' || $inputs['ctrl'] == 'btnEditAefTerrenos') {
+				$response = $this->setAefTerrenos($inputs);
+				
+			} else if ($inputs['ctrl'] == 'btnNewAefInstalaciones' || $inputs['ctrl'] == 'btnEditAefInstalaciones') {
+				$response = $this->setAefInstalaciones($inputs);
+				
+			} else if ($inputs['ctrl'] == 'btnNewAefConstrucciones' || $inputs['ctrl'] == 'btnEditAefConstrucciones') {
+				$response = $this->setAefConstrucciones($inputs);
+				
+			} else if ($inputs['ctrl'] == 'btnNewAefCondominios' || $inputs['ctrl'] == 'btnEditAefCondominios') {
+				$response = $this->setAefCondominios($inputs);
+				
+			} else if ($inputs['ctrl'] == 'btnNewAefCompConstrucciones' || $inputs['ctrl'] == 'btnEditAefCompConstrucciones') {
+				$response = $this->setAefCompConstrucciones($inputs);
+				
+			}
+			return $response;
 		}
-
-		return $response;
 	}
 
 	/**
@@ -554,8 +468,11 @@ class corevat_AvaluosController extends \BaseController {
 		$row = Avaluos::find($id);
 		$title = 'Conclusiones: ' . $row['foliocoretemp'];
 		$row = Avaluos::find($id)->AvaluosConclusiones;
+		if (count($row) <= 0) {
+			AvaluosConclusiones::insAvaluoConclusiones($id);
+			$row = Avaluos::find($id)->AvaluosConclusiones;
+		}
 		return View::make('Corevat.Avaluos.avaluos', compact('opt', 'idavaluo', 'title', 'row'));
-		//return $row;
 	}
 
 	/**
@@ -570,6 +487,10 @@ class corevat_AvaluosController extends \BaseController {
 		$row = Avaluos::find($id);
 		$title = 'Fotos y Plano: ' . $row['foliocoretemp'];
 		$row = Avaluos::find($id)->AvaluosFotos;
+		if (count($row) <= 0) {
+			AvaluosFotos::insAvaluoFotos($id);
+			$row = Avaluos::find($id)->AvaluosFotos;
+		}
 
 		return View::make('Corevat.Avaluos.avaluos', compact('opt', 'idavaluo', 'title', 'row'));
 	}
@@ -586,12 +507,12 @@ class corevat_AvaluosController extends \BaseController {
 		//$row->valor_fisico = $row->valor_fisico;
 		//$row->valor_mercado = $row->valor_mercado;
 		$row->factor_seleccion_valor = $inputs["factor_seleccion_valor"];
-		if ( $inputs["factor_seleccion_valor"] == '1' ) {
+		if ($inputs["factor_seleccion_valor"] == '1') {
 			$row->valor_concluido = $row->valor_fisico;
 		} else {
 			$row->valor_concluido = $row->valor_mercado;
 		}
-			$row->leyenda = $inputs["leyenda"];
+		$row->leyenda = $inputs["leyenda"];
 		//$row->sello = '';
 		//$row->firma = '';
 		$row->idemp = 1;
@@ -612,7 +533,7 @@ class corevat_AvaluosController extends \BaseController {
 	public function updateFotos($id) {
 		$inputs = Input::All();
 		$row = Avaluos::find($id)->AvaluosFotos;
-		
+
 		$row->ftitulo0 = $inputs["ftitulo0"];
 		$row->ftitulo1 = $inputs["ftitulo1"];
 		$row->ftitulo2 = $inputs["ftitulo2"];
@@ -660,273 +581,37 @@ class corevat_AvaluosController extends \BaseController {
 	}
 
 	/**
-	 * Remove the specified resource from storage.
-	 *
-	 * @param  int  $idavaluo
-	 * @return Response
-	 */
-	private function insAvaluoZona($idavaluo) {
-		$row = new AvaluosZona();
-		$row->idavaluo = $idavaluo;
-		$row->is_agua_potable = 0;
-		$row->is_guarniciones = 0;
-		$row->is_drenaje = 0;
-		$row->is_banqueta = 0;
-		$row->is_electricidad = 0;
-		$row->is_telefono = 0;
-		$row->is_pavimentacion = 0;
-		$row->is_transporte_publico = 0;
-		$row->is_alumbrado_publico = 0;
-		$row->is_otro_servicio = 0;
-		$row->otro_servicio_municipal = '';
-		$row->is_escuela = 0;
-		$row->is_iglesia = 0;
-		$row->is_banco = 0;
-		$row->is_comercio = 0;
-		$row->is_hospital = 0;
-		$row->is_parque = 0;
-		$row->is_transporte = 0;
-		$row->is_gasolinera = 0;
-		$row->is_mercado = 0;
-		$row->is_otro_equipamiento = 0;
-		$row->cobertura = '';
-		$row->otro_equipamiento = '';
-		$row->nivel_equipamiento = 0;
-		$row->idclasificacionzona = 1;
-		$row->idproximidadurbana = 1;
-		$row->construc_predominante = '';
-		$row->vias_acceso_importante = '';
-		$row->ip = $_SERVER['REMOTE_ADDR'];
-		$row->host = isset($_SERVER['HTTP_CLIENT_IP']) ? $_SERVER['HTTP_CLIENT_IP'] : '';
-		$row->creado_por = 1;
-		$row->creado_el = date('Y-m-d H:i:s');
-		$row->save();
-	}
-
-	/**
-	 * Show the form for editing the specified resource.
-	 *
-	 * @param  int  $id
-	 * @return Response
-	 */
-	public function insAvaluoInmueble($idavaluo) {
-		$row = new AvaluosInmueble();
-		$row->idavaluo = $idavaluo;
-		$row->croquis = '';
-		$row->fachada = '';
-		$row->medidas_colindancias = '';
-		$row->idusossuelo = 12;
-		$row->servidumbre_restricciones = '';
-		$row->descripcion_inmueble = '';
-		$row->numero_niveles_unidad = 1;
-
-		$row->unidades_rentables_escritura = 0;
-
-		$row->cimentacion = $row->estructura = $row->muros = $row->entrepisos = $row->techos = $row->bardas = '';
-		$row->id_cimentacion = 24;
-		$row->id_estructura = 28;
-		$row->id_muro = 30;
-		$row->id_entrepiso = 8;
-		$row->id_techo = 45;
-		$row->id_barda = 9;
-
-		$row->recamaras0 = $row->recamaras1 = $row->recamaras2 = '';
-		$row->estancia_comedor0 = $row->estancia_comedor1 = $row->estancia_comedor2 = '';
-		$row->banos0 = $row->banos1 = $row->banos2 = '';
-		$row->escaleras0 = $row->escaleras1 = $row->escaleras2 = '';
-		$row->cocina0 = $row->cocina1 = $row->cocina2 = '';
-		$row->patio_servicio0 = $row->patio_servicio1 = $row->patio_servicio2 = '';
-		$row->estacionamiento0 = $row->estacionamiento1 = $row->estacionamiento2 = '';
-		$row->fachada0 = $row->fachada1 = $row->fachada2 = '';
-		$row->id_recamara0 = $row->id_estancia_comedor0 = $row->id_bano0 = $row->id_escalera0 = $row->id_cocina0 = $row->id_patio_servicio0 = $row->id_estacionamiento0 = $row->id_fachada0 = 53;
-		$row->id_recamara1 = $row->id_estancia_comedor1 = $row->id_bano1 = $row->id_escalera1 = $row->id_cocina1 = $row->id_patio_servicio1 = $row->id_estacionamiento1 = $row->id_fachada1 = 15;
-		$row->id_recamara2 = $row->id_estancia_comedor2 = $row->id_bano2 = $row->id_escalera2 = $row->id_cocina2 = $row->id_patio_servicio2 = $row->id_estacionamiento2 = $row->id_fachada2 = 22;
-
-		$row->hidraulico_sanitarias = '';
-		$row->electricas = '';
-		$row->carpinteria = '';
-		$row->herreria = '';
-
-		$row->superficie_total_terreno = $row->indiviso_terreno = $row->superficie_terreno = $row->indiviso_areas_comunes = $row->superficie_construccion = $row->indiviso_accesoria = $row->superficie_escritura = $row->superficie_vendible = '0.0000';
-
-		$row->ip = $_SERVER['REMOTE_ADDR'];
-		$row->host = isset($_SERVER['HTTP_CLIENT_IP']) ? $_SERVER['HTTP_CLIENT_IP'] : '';
-		$row->creado_por = 1;
-		$row->creado_el = date('Y-m-d H:i:s');
-		$row->save();
-	}
-
-	/**
-	 * Show the form for editing the specified resource.
-	 *
-	 * @param  int  $id
-	 * @return Response
-	 */
-	public function insAvaluoMercado($idavaluo) {
-		$row = new AvaluosMercado();
-		$row->idavaluo = $idavaluo;
-		$row->promedio_directo = $row->valor_unitario_promedio = $row->valor_aplicado_m2 = $row->minimo_directo = 0.00;
-		$row->maximo_directo = $row->promedio_analisis = $row->minimo_analisis = $row->maximo_analisis = 0.00;
-		$row->monto_unitario_aplicable = $row->superficie_construida = $row->valor_comparativo_mercado = 0.00;
-		$row->superfice_terreno_avaluo = $row->superficie_construccion_avaluo = $row->promedio_unitario = 0.00;
-		$row->superficie_terreno = 0.0000;
-		$row->ip = $_SERVER['REMOTE_ADDR'];
-		$row->host = isset($_SERVER['HTTP_CLIENT_IP']) ? $_SERVER['HTTP_CLIENT_IP'] : '';
-		$row->creado_por = 1;
-		$row->creado_el = date('Y-m-d H:i:s');
-		$row->save();
-	}
-
-	/**
-	 * Show the form for editing the specified resource.
-	 *
-	 * @param  int  $id
-	 * @return Response
-	 */
-	public function insAvaluoFisico($idavaluo) {
-		$row = new AvaluosFisico();
-		$row->idavaluo = $idavaluo;
-		$row->tipo_moda = $row->valor_unitario_promedio = $row->valor_aplicado_m2 = $row->valor_terreno = $row->total_metros_construccion = $row->valor_construccion = $row->subtotal_area_condominio = $row->subtotal_instalaciones_especiales = $row->total_valor_fisico = 0.00;
-		$row->conclusion_investigacion_comparables = $row->conclusion_investigacion_terreno = $row->conclusion_investigacion_construccion = '';
-		$row->idclasegeneral = 1;
-		$row->idtipoinmueble = 1;
-		$row->idestado_conservacion = 1;
-		$row->idcalidadproyecto = 1;
-		$row->edad_construccion = $row->vida_util = $row->numero_niveles = $row->nivel_edificio_condominio = 0;
-		$row->ip = $_SERVER['REMOTE_ADDR'];
-		$row->host = isset($_SERVER['HTTP_CLIENT_IP']) ? $_SERVER['HTTP_CLIENT_IP'] : '';
-		$row->creado_por = 1;
-		$row->creado_el = date('Y-m-d H:i:s');
-		$row->save();
-	}
-
-	/**
-	 * Show the form for editing the specified resource.
-	 *
-	 * @param  int  $id
-	 * @return Response
-	 */
-	private function insAvaluoConclusiones($idavaluo) {
-		$row = new AvaluosConclusiones();
-		$row->idavaluo = $idavaluo;
-		$row->valor_fisico = $row->valor_mercado = $row->valor_concluido = 0.00;
-		$row->leyenda = $row->sello = $row->firma = '';
-		$row->factor_seleccion_valor = 0;
-		$row->idemp = 1;
-		$row->ip = $_SERVER['REMOTE_ADDR'];
-		$row->host = isset($_SERVER['HTTP_CLIENT_IP']) ? $_SERVER['HTTP_CLIENT_IP'] : '';
-		$row->creado_por = 1;
-		$row->creado_el = date('Y-m-d H:i:s');
-		$row->save();
-	}
-
-	/**
-	 * Show the form for editing the specified resource.
-	 *
-	 * @param  int  $id
-	 * @return Response
-	 */
-	public function insAvaluoFotos($idavaluo) {
-		$row = new AvaluosFotos();
-		$row->idavaluo = $idavaluo;
-		$row->foto0 = $row->foto1 = $row->foto2 = $row->foto3 = $row->foto4 = $row->foto5 = $row->foto6 = $row->foto7 = $row->foto8 = $row->foto9 = '';
-		$row->plano0 = $row->plano1 = $row->plano2 = $row->plano3 = $row->plano4 = '';
-		$row->ftitulo0 = $row->ftitulo1 = $row->ftitulo2 = $row->ftitulo3 = $row->ftitulo4 = $row->ftitulo5 = $row->ftitulo6 = $row->ftitulo7 = $row->ftitulo8 = $row->ftitulo9 = '';
-		$row->ptitulo0 = $row->ptitulo1 = $row->ptitulo2 = $row->ptitulo3 = $row->ptitulo4 = '';
-		$row->idemp = 1;
-		$row->ip = $_SERVER['REMOTE_ADDR'];
-		$row->host = isset($_SERVER['HTTP_CLIENT_IP']) ? $_SERVER['HTTP_CLIENT_IP'] : '';
-		$row->creado_por = 1;
-		$row->creado_el = date('Y-m-d H:i:s');
-		$row->save();
-	}
-
-	private function insAemHomologacion($idavaluoenfoquemercado, $idaemcompterreno, $ubicacion, $superficie_terreno, $precio_unitario_m2_terreno) {
-		$row = new AemHomologacion();
-		$row->idavaluoenfoquemercado = $idavaluoenfoquemercado;
-		$row->idaemcompterreno = $idaemcompterreno;
-		$row->comparable = $ubicacion;
-		$row->superficie_terreno = $superficie_terreno;
-		$row->superficie_construccion = $row->zona = $row->valor_unitario_resultante_m2 = $row->ubicacion = $row->frente = $row->forma = $row->superficie = $row->valor_unitario_negociable = 0.00;
-		$row->valor_unitario = $precio_unitario_m2_terreno;
-		;
-		$row->in_promedio = 0;
-		$row->idemp = 1;
-		$row->ip = $_SERVER['REMOTE_ADDR'];
-		$row->host = isset($_SERVER['HTTP_CLIENT_IP']) ? $_SERVER['HTTP_CLIENT_IP'] : '';
-		$row->creado_por = 1;
-		$row->creado_el = date('Y-m-d H:i:s');
-		$row->save();
-	}
-
-	private function insAemAnalisis($idavaluoenfoquemercado, $idaeminformacion) {
-		$row = new AemHomologacion();
-		$row->idavaluoenfoquemercado = $idavaluoenfoquemercado;
-		$row->idaeminformacion = $idaeminformacion;
-		$row->precio_venta = $row->superficie_terreno = $row->superficie_construccion = $row->valor_unitario_m2 = $row->factor_zona = $row->factor_ubicacion = $row->factor_superficie = $row->factor_edad = $row->factor_conservacion = $row->factor_negociacion = $row->factor_resultante = $row->valor_unitario_resultante_m2 = 0.00;
-		$row->in_promedio = 1;
-
-		$row->idemp = 1;
-		$row->ip = $_SERVER['REMOTE_ADDR'];
-		$row->host = isset($_SERVER['HTTP_CLIENT_IP']) ? $_SERVER['HTTP_CLIENT_IP'] : '';
-		$row->creado_por = 1;
-		$row->creado_el = date('Y-m-d H:i:s');
-		$row->save();
-	}
-
-	/**
 	 * Show the form for editing the specified resource.
 	 *
 	 * @param  int  $id
 	 * @return Response
 	 */
 	public function setAiMedidasColindancias() {
-		$response = array();
-		$response['success'] = FALSE;
-		$response['obj'] = '';
-		$response['idaimedidacolindancia'] = '';
-
 		$inputs = Input::All();
+		$response = array('success' => true, 'message' => '', 'errors' => '', 'idTable' => '');
 		$rules = array(
 			'medida' => 'required',
 			'colindancia' => 'required',
 		);
 		$messages = array(
-			'required' => 'El campo es requerido',
+			'medida.required' => '¡El campo "Medidas" es requerido!',
+			'colindancia.required' => '¡El campo "Colindancias" es requerido!',
 		);
 		$validate = Validator::make($inputs, $rules, $messages);
 		if ($validate->fails()) {
-			return Response::json(array(
-						'success' => false,
-						'errors' => $validate->getMessageBag()->toArray()
-			));
+			$response['success'] = false;
+			$response['errors'] = $validate->getMessageBag()->toArray();
 		} else {
 			if ($inputs['ctrl'] == 'ins') {
-				$row = new AiMedidasColindancias();
-				$row->idavaluoinmueble = $inputs['idavaluoinmueble2'];
-				$row->idorientacion = $inputs['idorientacion'];
-				$row->medida = $inputs['medida'];
-				$row->colindancia = $inputs['colindancia'];
-				$row->idemp = 1;
-				$row->ip = $_SERVER['REMOTE_ADDR'];
-				$row->host = isset($_SERVER['HTTP_CLIENT_IP']) ? $_SERVER['HTTP_CLIENT_IP'] : '';
-				$row->creado_por = 1;
-				$row->creado_el = date('Y-m-d H:i:s');
-				$row->save();
-				return Response::json(array('success' => true, 'message' => '¡El registro fue ingresado satisfactoriamente!', 'idTable' => $row->idaimedidacolindancia));
+				$response['idTable'] = AiMedidasColindancias::insAiMedidasColindancias($inputs);
+				$response['message'] = '¡El registro fue ingresado satisfactoriamente!';
 			} else {
-				$row = AiMedidasColindancias::find($inputs['idaimedidacolindancia']);
-				$row->idorientacion = $inputs['idorientacion'];
-				$row->medida = $inputs['medida'];
-				$row->colindancia = $inputs['colindancia'];
-				$row->ip = $_SERVER['REMOTE_ADDR'];
-				$row->host = isset($_SERVER['HTTP_CLIENT_IP']) ? $_SERVER['HTTP_CLIENT_IP'] : '';
-				$row->modi_por = 1;
-				$row->modi_el = date('Y-m-d H:i:s');
-				$row->save();
-				return Response::json(array('success' => true, 'message' => '¡El registro fue modificado satisfactoriamente!', 'idTable' => $row->idaimedidacolindancia));
+				$response['idTable'] = AiMedidasColindancias::updAiMedidasColindancias($inputs);
+				$response['message'] = '¡El registro fue modificado satisfactoriamente!';
 			}
+			$response['success'] = true;
 		}
+		return Response::json($response);
 	}
 
 	/*
@@ -934,18 +619,25 @@ class corevat_AvaluosController extends \BaseController {
 	 */
 
 	private function setAemCompTerrenos($inputs) {
+		$idaemcompterreno = 0;
 		$rules = array(
 			'ubicacion' => 'required',
-			'precio' => array('required', 'numeric'),
-			'superficie_terreno' => array('required', 'numeric'),
+			'precio' => array('required', 'numeric', 'min:0.00', 'max:99999999.99', 'regex:/^[0-9]{1,8}(\.?)[0-9]{1,2}$/'),
+			'superficie_terreno' => array('required', 'numeric', 'min:0.00', 'max:99999999.99', 'regex:/^[0-9]{1,8}(\.?)[0-9]{1,2}$/'),
 			'observaciones' => 'required',
 		);
 		$messages = array(
-			'ubicacion.required' => '¡El campo "Ubicación" es obligatorio!',
-			'precio.required' => '¡El campo "Precio" es obligatorio!',
-			'precio.numeric' => '¡El valor del campo "Precio" debe ser numerico!',
-			'superficie_terreno.required' => '¡El campo "Superficie del Terreno" es obligado!',
-			'superficie_terreno.numeric' => '¡El valor del campo "Superficie del Terreno" debe ser numerico!',
+			'ubicacion.required' => '¡El campo "Ubicación" es requerido!',
+			'precio.required' => '¡El campo "Precio" es requerido!',
+			'precio.numeric' => '¡El valor del campo "Precio" debe ser numérico!',
+			'precio.min' => '¡El valor mínimo del campo "Precio" debe ser cero!',
+			'precio.max' => '¡El valor máximo del campo "Precio" debe ser 99999999.99!',
+			'precio.regex' => '¡El formato del campo "Precio" debe ser 99999999.99!',
+			'superficie_terreno.required' => '¡El campo "Superficie del Terreno" es requerido!',
+			'superficie_terreno.numeric' => '¡El valor del campo "Superficie del Terreno" debe ser numérico!',
+			'superficie_terreno.min' => '¡El valor del campo "Superficie del Terreno" debe ser cero!',
+			'superficie_terreno.max' => '¡El valor del campo "Superficie del Terreno" debe ser 99999999.99!',
+			'superficie_terreno.regex' => '¡El formato del campo "Superficie del Terreno" debe ser 99999999.99!',
 			'observaciones.required' => '¡El campo "Observaciones" es requerido!',
 		);
 		$validate = Validator::make($inputs, $rules, $messages);
@@ -953,50 +645,11 @@ class corevat_AvaluosController extends \BaseController {
 			$response = array('success' => false, 'errors' => $validate->getMessageBag()->toArray());
 		} else {
 			if ($inputs['ctrl'] == 'btnNewAemComp') {
-				$row = new AemCompTerrenos();
-				$row->idavaluoenfoquemercado = $inputs['idAem'];
-				$row->ubicacion = $inputs['ubicacion'];
-				$row->precio = $inputs['precio'];
-				$row->superficie_terreno = $inputs['superficie_terreno'];
-				$row->superficie_construida = 0.00;
-				$precio = (float) $inputs['precio'];
-				$superficie_terreno = (float) $inputs['superficie_terreno'];
-				$row->precio_unitario_m2_terreno = ( (float) $inputs['superficie_terreno'] <= 0 ? 0.00 : ($precio / $superficie_terreno) );
-				$row->precio_unitario_m2_construccion = 0.00;
-				$row->observaciones = $inputs['observaciones'];
-				$row->idemp = 1;
-				$row->ip = $_SERVER['REMOTE_ADDR'];
-				$row->host = isset($_SERVER['HTTP_CLIENT_IP']) ? $_SERVER['HTTP_CLIENT_IP'] : '';
-				$row->creado_por = 1;
-				$row->creado_el = date('Y-m-d H:i:s');
-				$row->save();
-				$this->insAemHomologacion($inputs['idAem'], $row->idaemcompterreno, $row->ubicacion, $row->superficie_terreno, $row->precio_unitario_m2_terreno);
-				$response = array('success' => true, 'message' => '¡El registro fue ingresado satisfactoriamente!', 'idTable' => $row->idaemcompterreno);
+				AemCompTerrenos::insAemCompTerrenos($inputs, $idaemcompterreno);
+				$response = array('success' => true, 'message' => '¡El registro fue ingresado satisfactoriamente!', 'ctrl' => 'btnEditAemComp', 'idTable' => $idaemcompterreno);
 			} else {
-				$row = AemCompTerrenos::find($inputs['idTable']);
-				$row->ubicacion = $inputs['ubicacion'];
-				$row->precio = $inputs['precio'];
-				$row->superficie_terreno = $inputs['superficie_terreno'];
-				$precio = (float) $inputs['precio'];
-				$superficie_terreno = (float) $inputs['superficie_terreno'];
-				$row->precio_unitario_m2_terreno = ( (float) $inputs['superficie_terreno'] <= 0 ? 0.00 : ($precio / $superficie_terreno) );
-				$row->observaciones = $inputs['observaciones'];
-				$row->ip = $_SERVER['REMOTE_ADDR'];
-				$row->host = isset($_SERVER['HTTP_CLIENT_IP']) ? $_SERVER['HTTP_CLIENT_IP'] : '';
-				$row->modi_por = 1;
-				$row->modi_el = date('Y-m-d H:i:s');
-				$row->save();
-				$row2 = AemCompTerrenos::find($inputs['idTable'])->AemHomologacion;
-				$row2->comparable = $inputs['ubicacion'];
-				$row2->superficie_terreno = $inputs['superficie_terreno'];
-				$row2->valor_unitario = $row->precio_unitario_m2_terreno;
-				;
-				$row2->ip = $_SERVER['REMOTE_ADDR'];
-				$row2->host = isset($_SERVER['HTTP_CLIENT_IP']) ? $_SERVER['HTTP_CLIENT_IP'] : '';
-				$row2->modi_por = 1;
-				$row2->modi_el = date('Y-m-d H:i:s');
-				$row2->save();
-				$response = array('success' => true, 'message' => '¡El registro fue modificado satisfactoriamente!', 'idTable' => $row->idaemcompterreno);
+				AemCompTerrenos::updAemCompTerrenos($inputs);
+				$response = array('success' => true, 'message' => '¡El registro fue modificado satisfactoriamente!', 'ctrl' => 'btnEditAemComp', 'idTable' => $inputs["idTable"]);
 			}
 		}
 		return $response;
@@ -1007,7 +660,23 @@ class corevat_AvaluosController extends \BaseController {
 	 */
 
 	private function setAemHomologacion($inputs) {
-		$response = array('success' => false, 'errors' => array('PENDIENTE'));
+		$rules = array(
+			'valor_unitario_negociable' => array('required', 'numeric', 'min:0.00', 'max:0.99', 'regex:/^[0]{1}(\.?)[0-9]{1,2}$/'),
+		);
+		$messages = array(
+			'valor_unitario_negociable.required' => '¡El campo "Negociable" es requerido!',
+			'valor_unitario_negociable.numeric' => '¡El valor del campo "Negociable" debe ser numérico!',
+			'valor_unitario_negociable.min' => '¡El valor del campo "Negociable" debe ser cero!',
+			'valor_unitario_negociable.max' => '¡El valor del campo "Negociable" debe ser 0.99!',
+			'valor_unitario_negociable.regex' => '¡El formato del campo "Negociable" debe ser 0.99!',
+		);
+		$validate = Validator::make($inputs, $rules, $messages);
+		if ($validate->fails()) {
+			$response = array('success' => false, 'errors' => $validate->getMessageBag()->toArray());
+		} else {
+			AemHomologacion::updAemHomologacion($inputs);
+			$response = array('success' => true, 'message' => '¡El registro fue modificado satisfactoriamente!', 'ctrl' => 'btnEditAemHom', 'idTable' => $inputs["idTable"]);
+		}
 		return $response;
 	}
 
@@ -1016,7 +685,35 @@ class corevat_AvaluosController extends \BaseController {
 	 */
 
 	private function setAemInformacion($inputs) {
-		$response = array('success' => false, 'errors' => array('PENDIENTE'));
+		$idaeminformacion = 0;
+		$rules = array(
+			'ubicacion' => 'required',
+			'edad' => array('required', 'numeric', 'min:0.00', 'max:99999999.99', 'regex:/^[0-9]{1,8}(\.?)[0-9]{1,2}$/'),
+			'telefono' => array('required'),
+			'observaciones' => array('required'),
+		);
+		$messages = array(
+			'ubicacion.required' => '¡El campo "Ubicación" es requerido!',
+			'edad.required' => '¡El campo "Edad" es requerido!',
+			'edad.numeric' => '¡El valor del campo "Edad" debe ser numérico!',
+			'edad.min' => '¡El valor mínimo del campo "Edad" debe ser cero!',
+			'edad.max' => '¡El valor máximo del campo "Edad" debe ser 99999999.99!',
+			'edad.regex' => '¡El formato del campo "Precio" debe ser 99999999.99!',
+			'telefono.required' => '¡El campo "Telefóno" es requerido!',
+			'observaciones.required' => '¡El campo "Observaciones" es requerido!',
+		);
+		$validate = Validator::make($inputs, $rules, $messages);
+		if ($validate->fails()) {
+			$response = array('success' => false, 'errors' => $validate->getMessageBag()->toArray());
+		} else {
+			if ($inputs['ctrl'] == 'btnNewAemInf') {
+				AemInformacion::insAemInformacion($inputs, $idaeminformacion);
+				$response = array('success' => true, 'message' => '¡El registro fue ingresado satisfactoriamente!', 'ctrl' => 'btnEditAemInf', 'idTable' => $idaeminformacion);
+			} else {
+				AemInformacion::updInformacion($inputs);
+				$response = array('success' => true, 'message' => '¡El registro fue modificado satisfactoriamente!', 'ctrl' => 'btnEditAemInf', 'idTable' => $inputs["idTable"]);
+			}
+		}
 		return $response;
 	}
 
@@ -1025,7 +722,53 @@ class corevat_AvaluosController extends \BaseController {
 	 */
 
 	private function setAemAnalisis($inputs) {
-		$response = array('success' => false, 'errors' => array('PENDIENTE'));
+		$rules = array(
+			'precio_venta' => array('required', 'numeric', 'min:0.00', 'max:9999999999999.99', 'regex:/^[0-9]{1,13}(\.?)[0-9]{1,2}$/'),
+			'superficie_terreno' => array('required', 'numeric', 'min:0.00', 'max:9999999999999.99', 'regex:/^[0-9]{1,13}(\.?)[0-9]{1,2}$/'),
+			'superficie_construccion' => array('required', 'numeric', 'min:0.00', 'max:9999999999999.99', 'regex:/^[0-9]{1,13}(\.?)[0-9]{1,2}$/'),
+			'factor_superficie' => array('required', 'numeric', 'min:0.00', 'max:100.00', 'regex:/^[0-9]{1,3}(\.?)[0-9]{1,2}$/'),
+			'factor_edad' => array('required', 'numeric', 'min:0.00', 'max:99999999.99', 'regex:/^[0-9]{1,8}(\.?)[0-9]{1,2}$/'),
+			'factor_negociacion' => array('required', 'numeric', 'min:0.00', 'max:100.00', 'regex:/^[0-9]{1,3}(\.?)[0-9]{1,2}$/'),
+		);
+		$messages = array(
+			'precio_venta.required' => '¡El campo "Precio de Venta" es requerido!',
+			'precio_venta.numeric' => '¡El valor del campo "Precio de Venta" debe ser numérico!',
+			'precio_venta.min' => '¡El valor del campo "Precio de Venta" debe ser cero!',
+			'precio_venta.max' => '¡El valor del campo "Precio de Venta" debe ser 9999999999999.99!',
+			'precio_venta.regex' => '¡El formato del campo "Precio de Venta" debe ser 9999999999999.99!',
+			'superficie_terreno.required' => '¡El campo "Superficie del Terreno" es requerido!',
+			'superficie_terreno.numeric' => '¡El valor del campo "Superficie del Terreno" debe ser numérico!',
+			'superficie_terreno.min' => '¡El valor del campo "Superficie del Terreno" debe ser cero!',
+			'superficie_terreno.max' => '¡El valor del campo "Superficie del Terreno" debe ser 9999999999999.99!',
+			'superficie_terreno.regex' => '¡El formato del campo "Superficie del Terreno" debe ser 9999999999999.99!',
+			'superficie_construccion.required' => '¡El campo "Superficie de la Construcción" es requerido!',
+			'superficie_construccion.numeric' => '¡El valor del campo "Superficie de la Construcción" debe ser numérico!',
+			'superficie_construccion.min' => '¡El valor del campo "Superficie de la Construcción" debe ser cero!',
+			'superficie_construccion.max' => '¡El valor del campo "Superficie de la Construcción" debe ser 9999999999999.99!',
+			'superficie_construccion.regex' => '¡El formato del campo "Superficie de la Construcción" debe ser 9999999999999.99!',
+			'factor_superficie.required' => '¡El campo "Factor Superficie" es requerido!',
+			'factor_superficie.numeric' => '¡El valor del campo "Factor Superficie" debe ser numérico!',
+			'factor_superficie.min' => '¡El valor del campo "Factor Superficie" debe ser cero!',
+			'factor_superficie.max' => '¡El valor del campo "Factor Superficie" debe ser 100.00!',
+			'factor_superficie.regex' => '¡El formato del campo "Factor Superficie" debe ser 100.00!',
+			'factor_edad.required' => '¡El campo "Factor Edad" es requerido!',
+			'factor_edad.numeric' => '¡El valor del campo "Factor Edad" debe ser numérico!',
+			'factor_edad.min' => '¡El valor del campo "Factor Edad" debe ser cero!',
+			'factor_edad.max' => '¡El valor del campo "Factor Edad" debe ser 99999999.99!',
+			'factor_edad.regex' => '¡El formato del campo "Factor Edad" debe ser 99999999.99!',
+			'factor_negociacion.required' => '¡El campo "Negociación" es requerido!',
+			'factor_negociacion.numeric' => '¡El valor del campo "Negociación" debe ser numérico!',
+			'factor_negociacion.min' => '¡El valor del campo "Negociación" debe ser cero!',
+			'factor_negociacion.max' => '¡El valor del campo "Negociación" debe ser 100.00!',
+			'factor_negociacion.regex' => '¡El formato del campo "Negociación" debe ser 100.00!',
+		);
+		$validate = Validator::make($inputs, $rules, $messages);
+		if ($validate->fails()) {
+			$response = array('success' => false, 'errors' => $validate->getMessageBag()->toArray());
+		} else {
+			AemAnalisis::updAemAnalisis($inputs);
+			$response = array('success' => true, 'message' => '¡El registro fue modificado satisfactoriamente!', 'ctrl' => 'btnEditAemHom', 'idTable' => $inputs["idTable"]);
+		}
 		return $response;
 	}
 
@@ -1043,7 +786,40 @@ class corevat_AvaluosController extends \BaseController {
 	 */
 
 	private function setAefTerrenos($inputs) {
-		$response = array('success' => false, 'errors' => array('PENDIENTE'));
+		$idaefterreno = 0;
+		$rules = array(
+			'fraccion' => 'required',
+			'irregular' => array('required', 'numeric', 'min:0.00', 'max:99999999.99', 'regex:/^[0-9]{1,8}(\.?){1}[0-9]{1,2}$/'),
+			'indiviso' => array('required', 'numeric', 'min:0.00', 'max:100.00', 'regex:/^[0-9]{1,3}(\.?)[0-9]{1,2}$/'),
+		);
+		$messages = array(
+			'fraccion.required' => '¡El campo "Fracción" es requerido!',
+
+			'irregular.required' => '¡El campo "Irregular" es requerido!',
+			'irregular.numeric' => '¡El valor del campo "Irregular" debe ser numérico!',
+			'irregular.min' => '¡El valor mínimo del campo "Irregular" debe ser cero!',
+			'irregular.max' => '¡El valor máximo del campo "Irregular" debe ser 99999999.99!',
+			'irregular.regex' => '¡El formato del campo "Irregular" debe ser 99999999.99!',
+			
+			'indiviso.required' => '¡El campo "Indiviso (%)" es requerido!',
+			'indiviso.numeric' => '¡El valor del campo "Indiviso (%)" debe ser numérico!',
+			'indiviso.min' => '¡El valor mínimo del campo "Indiviso (%)" debe ser cero!',
+			'indiviso.max' => '¡El valor máximo del campo "Indiviso (%)" debe ser 100.00!',
+			'indiviso.regex' => '¡El formato del campo "Indiviso (%)" debe ser 999.99!',
+			
+		);
+		$validate = Validator::make($inputs, $rules, $messages);
+		if ($validate->fails()) {
+			$response = array('success' => false, 'errors' => $validate->getMessageBag()->toArray());
+		} else {
+			if ( $inputs["idTable"] == '0') {
+				AefTerrenos::insAefTerrenos($inputs, $idaefterreno);
+				$response = array('success' => true, 'message' => '¡El registro fue ingresado satisfactoriamente!', 'ctrl' => 'btnEditAefTerrenos', 'idTable' => $idaefterreno);
+			} else {
+				AefTerrenos::updAefTerrenos($inputs);
+				$response = array('success' => true, 'message' => '¡El registro fue modificado satisfactoriamente!', 'ctrl' => 'btnEditAefTerrenos', 'idTable' => $inputs["idTable"]);
+			}
+		}
 		return $response;
 	}
 
@@ -1052,7 +828,61 @@ class corevat_AvaluosController extends \BaseController {
 	 */
 
 	private function setAefInstalaciones($inputs) {
-		$response = array('success' => false, 'errors' => array('PENDIENTE'));
+		$idaefinstalacion = 0;
+		$rules = array(
+			'cantidad' => array('required', 'numeric', 'min:0.00', 'max:99999999.99', 'regex:/^[0-9]{1,8}(\.?)[0-9]{1,2}$/'),
+			'unidad' => array('required'),
+			'valor_nuevo' => array('required', 'numeric', 'min:0.00', 'max:99999999.99', 'regex:/^[0-9]{1,8}(\.?)[0-9]{1,2}$/'),
+			'vida_util' => array('required', 'numeric', 'min:0.00', 'max:99999999.99', 'regex:/^[0-9]{1,8}(\.?)[0-9]{1,2}$/'),
+			'edad' => array('required', 'numeric', 'min:0.00', 'max:99999999.99', 'regex:/^[0-9]{1,8}(\.?)[0-9]{1,2}$/'),
+			'edad' => array('required', 'numeric', 'min:0.00', 'max:99999999.99', 'regex:/^[0-9]{1,8}(\.?)[0-9]{1,2}$/'),
+		);
+		$messages = array(
+			'cantidad.required' => '¡El campo "Cantidad" es requerido!',
+			'cantidad.numeric' => '¡El valor del campo "Cantidad" debe ser numérico!',
+			'cantidad.min' => '¡El valor mínimo del campo "Cantidad" debe ser cero!',
+			'cantidad.max' => '¡El valor máximo del campo "Cantidad" debe ser 99999999.99!',
+			'cantidad.regex' => '¡El formato del campo "Cantidad" debe ser 99999999.99!',
+			
+			'unidad.required' => '¡El campo "Unidad" es requerido!',
+			
+			'valor_nuevo.required' => '¡El campo "V.R. Nuevo" es requerido!',
+			'valor_nuevo.numeric' => '¡El valor del campo "V.R. Nuevo" debe ser numérico!',
+			'valor_nuevo.min' => '¡El valor mínimo del campo "V.R. Nuevo" debe ser cero!',
+			'valor_nuevo.max' => '¡El valor máximo del campo "V.R. Nuevo" debe ser 99999999.99!',
+			'valor_nuevo.regex' => '¡El formato del campo "V.R. Nuevo" debe ser 99999999.99!',
+			
+			'vida_util.required' => '¡El campo "Vida Útil " es requerido!',
+			'vida_util.numeric' => '¡El valor del campo "Vida Útil " debe ser numérico!',
+			'vida_util.min' => '¡El valor mínimo del campo "Vida Útil " debe ser cero!',
+			'vida_util.max' => '¡El valor máximo del campo "Vida Útil " debe ser 99999999.99!',
+			'vida_util.regex' => '¡El formato del campo "Vida Útil " debe ser 99999999.99!',
+			
+			'edad.required' => '¡El campo "Edad" es requerido!',
+			'edad.numeric' => '¡El valor del campo "Edad" debe ser numérico!',
+			'edad.min' => '¡El valor mínimo del campo "Edad" debe ser cero!',
+			'edad.max' => '¡El valor máximo del campo "Edad" debe ser 99999999.99!',
+			'edad.regex' => '¡El formato del campo "Edad" debe ser 99999999.99!',
+			
+			'factor_conservacion.required' => '¡El campo "Factor Conservación" es requerido!',
+			'factor_conservacion.numeric' => '¡El valor del campo "Factor Conservación" debe ser numérico!',
+			'factor_conservacion.min' => '¡El valor mínimo del campo "Factor Conservación" debe ser cero!',
+			'factor_conservacion.max' => '¡El valor máximo del campo "Factor Conservación" debe ser 99999999.99!',
+			'factor_conservacion.regex' => '¡El formato del campo "Factor Conservación" debe ser 99999999.99!',
+			
+		);
+		$validate = Validator::make($inputs, $rules, $messages);
+		if ($validate->fails()) {
+			$response = array('success' => false, 'errors' => $validate->getMessageBag()->toArray());
+		} else {
+			if ( $inputs["idTable"] == '0') {
+				AefInstalaciones::insAefInstalaciones($inputs, $idaefinstalacion);
+				$response = array('success' => true, 'message' => '¡El registro fue ingresado satisfactoriamente!', 'ctrl' => 'btnEditAefInstalaciones', 'idTable' => $idaefinstalacion);
+			} else {
+				AefInstalaciones::updAefInstalaciones($inputs);
+				$response = array('success' => true, 'message' => '¡El registro fue modificado satisfactoriamente!', 'ctrl' => 'btnEditAefInstalaciones', 'idTable' => $inputs["idTable"]);
+			}
+		}
 		return $response;
 	}
 
@@ -1061,7 +891,30 @@ class corevat_AvaluosController extends \BaseController {
 	 */
 
 	private function setAefConstrucciones($inputs) {
-		$response = array('success' => false, 'errors' => array('PENDIENTE'));
+		$idaefconstruccion = 0;
+		$rules = array(
+			'valor_nuevo' => array('required', 'numeric', 'min:0.00', 'max:99999999.99', 'regex:/^[0-9]{1,8}(\.?)[0-9]{1,2}$/'),
+		);
+		$messages = array(
+			'valor_nuevo.required' => '¡El campo "V.R. Nuevo" es requerido!',
+			'valor_nuevo.numeric' => '¡El valor del campo "V.R. Nuevo" debe ser numérico!',
+			'valor_nuevo.min' => '¡El valor mínimo del campo "V.R. Nuevo" debe ser cero!',
+			'valor_nuevo.max' => '¡El valor máximo del campo "V.R. Nuevo" debe ser 99999999.99!',
+			'valor_nuevo.regex' => '¡El formato del campo "V.R. Nuevo" debe ser 99999999.99!',
+			
+		);
+		$validate = Validator::make($inputs, $rules, $messages);
+		if ($validate->fails()) {
+			$response = array('success' => false, 'errors' => $validate->getMessageBag()->toArray());
+		} else {
+			if ( $inputs["idTable"] == '0') {
+				AefConstrucciones::insAefConstrucciones($inputs, $idaefconstruccion);
+				$response = array('success' => true, 'message' => '¡El registro fue ingresado satisfactoriamente!', 'ctrl' => 'btnEditAefConstrucciones', 'idTable' => $idaefconstruccion);
+			} else {
+				AefConstrucciones::updAefConstrucciones($inputs);
+				$response = array('success' => true, 'message' => '¡El registro fue modificado satisfactoriamente!', 'ctrl' => 'btnEditAefConstrucciones', 'idTable' => $inputs["idTable"]);
+			}
+		}
 		return $response;
 	}
 
@@ -1070,7 +923,70 @@ class corevat_AvaluosController extends \BaseController {
 	 */
 
 	private function setAefCondominios($inputs) {
-		$response = array('success' => false, 'errors' => array('PENDIENTE'));
+		$idaefcondominio = 0;
+		$rules = array(
+			'descripcion' => 'required',
+			'unidad' => 'required',
+			'cantidad' => array('required', 'numeric', 'min:0.00', 'max:99999999.99', 'regex:/^[0-9]{1,8}(\.?)[0-9]{1,2}$/'),
+			'valor_nuevo' => array('required', 'numeric', 'min:0.00', 'max:99999999.99', 'regex:/^[0-9]{1,8}(\.?)[0-9]{1,2}$/'),
+			'vida_remanente' => array('required', 'numeric', 'min:0.00', 'max:99999999.99', 'regex:/^[0-9]{1,8}(\.?)[0-9]{1,2}$/'),
+			'edad' => array('required', 'numeric', 'min:0.00', 'max:99999999.99', 'regex:/^[0-9]{1,8}(\.?)[0-9]{1,2}$/'),
+			'factor_conservacion' => array('required', 'numeric', 'min:0.00', 'max:99999999.99', 'regex:/^[0-9]{1,8}(\.?)[0-9]{1,2}$/'),
+			'indiviso' => array('required', 'numeric', 'min:0.00', 'max:99999999.99', 'regex:/^[0-9]{1,8}(\.?)[0-9]{1,2}$/'),
+		);
+		$messages = array(
+			'descripcion.required' => '¡El campo "Descripción" es requerido!',
+			'unidad.required' => '¡El campo "Unidad" es requerido!',
+			
+			'cantidad.required' => '¡El campo "Cantidad" es requerido!',
+			'cantidad.numeric' => '¡El valor del campo "Cantidad" debe ser numérico!',
+			'cantidad.min' => '¡El valor mínimo del campo "Cantidad" debe ser cero!',
+			'cantidad.max' => '¡El valor máximo del campo "Cantidad" debe ser 99999999.99!',
+			'cantidad.regex' => '¡El formato del campo "Cantidad" debe ser 99999999.99!',
+			
+			'valor_nuevo.required' => '¡El campo "V.R. Nuevo" es requerido!',
+			'valor_nuevo.numeric' => '¡El valor del campo "V.R. Nuevo" debe ser numérico!',
+			'valor_nuevo.min' => '¡El valor mínimo del campo "V.R. Nuevo" debe ser cero!',
+			'valor_nuevo.max' => '¡El valor máximo del campo "V.R. Nuevo" debe ser 99999999.99!',
+			'valor_nuevo.regex' => '¡El formato del campo "V.R. Nuevo" debe ser 99999999.99!',
+			
+			'vida_remanente.required' => '¡El campo "Vida Remanente" es requerido!',
+			'vida_remanente.numeric' => '¡El valor del campo "Vida Remanente" debe ser numérico!',
+			'vida_remanente.min' => '¡El valor mínimo del campo "Vida Remanente" debe ser cero!',
+			'vida_remanente.max' => '¡El valor máximo del campo "Vida Remanente" debe ser 99999999.99!',
+			'vida_remanente.regex' => '¡El formato del campo "Vida Remanente" debe ser 99999999.99!',
+			
+			'edad.required' => '¡El campo "Edad" es requerido!',
+			'edad.numeric' => '¡El valor del campo "Edad" debe ser numérico!',
+			'edad.min' => '¡El valor mínimo del campo "Edad" debe ser cero!',
+			'edad.max' => '¡El valor máximo del campo "Edad" debe ser 99999999.99!',
+			'edad.regex' => '¡El formato del campo "Edad" debe ser 99999999.99!',
+			
+			'factor_conservacion.required' => '¡El campo "Factor Conservación" es requerido!',
+			'factor_conservacion.numeric' => '¡El valor del campo "Factor Conservación" debe ser numérico!',
+			'factor_conservacion.min' => '¡El valor mínimo del campo "Factor Conservación" debe ser cero!',
+			'factor_conservacion.max' => '¡El valor máximo del campo "Factor Conservación" debe ser 99999999.99!',
+			'factor_conservacion.regex' => '¡El formato del campo "Factor Conservación" debe ser 99999999.99!',
+			
+			'indiviso.required' => '¡El campo "Indiviso (%)" es requerido!',
+			'indiviso.numeric' => '¡El valor del campo "Indiviso (%)" debe ser numérico!',
+			'indiviso.min' => '¡El valor mínimo del campo "Indiviso (%)" debe ser cero!',
+			'indiviso.max' => '¡El valor máximo del campo "Indiviso (%)" debe ser 100.00!',
+			'indiviso.regex' => '¡El formato del campo "Indiviso (%)" debe ser 100.00!',
+			
+		);
+		$validate = Validator::make($inputs, $rules, $messages);
+		if ($validate->fails()) {
+			$response = array('success' => false, 'errors' => $validate->getMessageBag()->toArray());
+		} else {
+			if ( $inputs["idTable"] == '0') {
+				AefCondominios::insAefCondominios($inputs, $idaefcondominio);
+				$response = array('success' => true, 'message' => '¡El registro fue ingresado satisfactoriamente!', 'ctrl' => 'btnEditAefCondominios', 'idTable' => $idaefcondominio);
+			} else {
+				AefCondominios::updAefCondominios($inputs);
+				$response = array('success' => true, 'message' => '¡El registro fue modificado satisfactoriamente!', 'ctrl' => 'btnEditAefCondominios', 'idTable' => $inputs["idTable"]);
+			}
+		}
 		return $response;
 	}
 
@@ -1101,7 +1017,16 @@ class corevat_AvaluosController extends \BaseController {
 	 * @return Response
 	 */
 	public function getAemHomologacion($id) {
-		return AemHomologacion::find($id);
+		$row = AemHomologacion::find($id);
+		$row->idfactorzona = CatFactoresZonas::getIdByValue($row->zona);
+		$row->idfactorubicacion = CatFactoresUbicacion::getIdByValue($row->ubicacion);
+		$row->idfactorfrente = CatFactoresFrente::getIdByValue($row->frente);
+		$row->idfactorforma = CatFactoresForma::getIdByValue($row->forma);
+		$row->cat_factores_zonas = CatFactoresZonas::orderBy('valor_factor_zona')->get();
+		$row->cat_factores_ubicacion = CatFactoresUbicacion::orderBy('valor_factor_ubicacion')->get();
+		$row->cat_factores_frente = CatFactoresFrente::orderBy('valor_factor_frente')->get();
+		$row->cat_factores_forma = CatFactoresForma::orderBy('valor_factor_forma')->get();
+		return $row;
 	}
 
 	/**
@@ -1121,7 +1046,15 @@ class corevat_AvaluosController extends \BaseController {
 	 * @return Response
 	 */
 	public function getAemAnalisis($id) {
-		return AemAnalisis::find($id);
+		$row = AemAnalisis::find($id);
+		$row->idfactorzona = CatFactoresZonas::getIdByValue($row->factor_zona);
+		$row->idfactorubicacion = CatFactoresUbicacion::getIdByValue($row->factor_ubicacion);
+		$row->idfactorconservacion = CatFactoresConservacion::getIdByValue($row->factor_conservacion);
+
+		$row->cat_factores_zonas = CatFactoresZonas::orderBy('valor_factor_zona')->get();
+		$row->cat_factores_ubicacion = CatFactoresUbicacion::orderBy('valor_factor_ubicacion')->get();
+		$row->cat_factores_conservacion = CatFactoresConservacion::orderBy('valor_factor_conservacion')->get();
+		return $row;
 	}
 
 	/**
@@ -1130,8 +1063,24 @@ class corevat_AvaluosController extends \BaseController {
 	 * @param  int  $id
 	 * @return Response
 	 */
-	public function getAeiTerrenos($id) {
-		return AefTerrenos::find($id);
+	public function getAefTerrenos($id) {
+		if ( $id == '0' ) {
+			$row = new AefTerrenos();
+			$row->idfactorfrente = 1;
+			$row->idfactorforma = 1;
+			$row->idfactorconservacion = 1;
+			$row->irregular = 0;
+			$row->indiviso = 0;
+		} else {
+			$row = AefTerrenos::find($id);
+			$row->idfactorfrente = CatFactoresFrente::getIdByValue($row->frente);
+			$row->idfactorforma = CatFactoresForma::getIdByValue($row->forma);
+			$row->idfactorconservacion = CatFactoresConservacion::getIdByValue($row->otros);
+		}
+		$row->cat_factores_frente = CatFactoresFrente::orderBy('valor_factor_frente')->get();
+		$row->cat_factores_forma = CatFactoresForma::orderBy('valor_factor_forma')->get();
+		$row->cat_factores_conservacion = CatFactoresConservacion::orderBy('valor_factor_conservacion')->get();
+		return $row;
 	}
 
 	/**
@@ -1141,7 +1090,6 @@ class corevat_AvaluosController extends \BaseController {
 	 * @return Response
 	 */
 	public function getAefCompConstrucciones($id) {
-		return AefCompConstrucciones::find($id);
 	}
 
 	/**
@@ -1151,7 +1099,17 @@ class corevat_AvaluosController extends \BaseController {
 	 * @return Response
 	 */
 	public function getAefConstrucciones($id) {
-		return AefConstrucciones::find($id);
+		if ( $id == '0' ) {
+			$row = new AefConstrucciones();
+			$row->idtipo= 1;
+			$row->idfactorconservacion = 1;
+		} else {
+			$row = AefConstrucciones::find($id);
+			$row->idfactorconservacion = CatFactoresConservacion::getIdByValue($row->factor_conservacion);
+		}
+		$row->cat_tipo = CatTipo::orderBy('tipo')->get();
+		$row->cat_factores_conservacion = CatFactoresConservacion::orderBy('valor_factor_conservacion')->get();
+		return $row;
 	}
 
 	/**
@@ -1161,7 +1119,12 @@ class corevat_AvaluosController extends \BaseController {
 	 * @return Response
 	 */
 	public function getAefCondominios($id) {
-		return AefCondominios::find($id);
+		if ( $id == '0' ) {
+			$row = new AefCondominios();
+		} else {
+			$row = AefCondominios::find($id);
+		}
+		return $row;
 	}
 
 	/**
@@ -1171,7 +1134,14 @@ class corevat_AvaluosController extends \BaseController {
 	 * @return Response
 	 */
 	public function getAefInstalaciones($id) {
-		return AefInstalaciones::find($id);
+		if ( $id == '0' ) {
+			$row = new AefInstalaciones();
+			$row->idobracomplementaria = 1;
+		} else {
+			$row = AefInstalaciones::find($id);
+		}
+		$row->cat_obras_complementarias = CatObrasComplementarias::orderBy('obra_complementaria')->get();
+		return $row;
 	}
 
 	/**
@@ -1182,32 +1152,17 @@ class corevat_AvaluosController extends \BaseController {
 	 */
 	public function delAvaluo($id) {
 		$message = '¡El Avalúo fue eliminado satisfactoriamente!';
-		$rowMercado = Avaluos::findOrFail($id)->AvaluosMercado;
-		if (count($rowMercado) > 0) {
-			AemHomologacion::where('idavaluoenfoquemercado', '=', $rowMercado->idavaluoenfoquemercado)->delete();
-			AemCompTerrenos::where('idavaluoenfoquemercado', '=', $rowMercado->idavaluoenfoquemercado)->delete();
-			AemAnalisis::where('idavaluoenfoquemercado', '=', $rowMercado->idavaluoenfoquemercado)->delete();
-			AemInformacion::where('idavaluoenfoquemercado', '=', $rowMercado->idavaluoenfoquemercado)->delete();
-		}
-		$rowFisico = Avaluos::findOrFail($id)->AvaluosMercado;
-		if (count($rowFisico) > 0) {
-			AefCompConstrucciones::where('idavaluoenfoquefisico', '=', $rowFisico->idavaluoenfoquefisico)->delete();
-			AefCondominios::where('idavaluoenfoquefisico', '=', $rowFisico->idavaluoenfoquefisico)->delete();
-			AefConstrucciones::where('idavaluoenfoquefisico', '=', $rowFisico->idavaluoenfoquefisico)->delete();
-			AefInstalaciones::where('idavaluoenfoquefisico', '=', $rowFisico->idavaluoenfoquefisico)->delete();
-			AefTerrenos::where('idavaluoenfoquefisico', '=', $rowFisico->idavaluoenfoquefisico)->delete();
-		}
+		AvaluosMercado::delAvaluoEnfoqueMercado($id);
+		AvaluosFisico::delAvaluosFisico($id);
 
 		$rowInmueble = Avaluos::findOrFail($id)->AvaluosInmueble;
 		if (count($rowInmueble) > 0) {
 			AiMedidasColindancias::where('idavaluoinmueble', '=', $rowInmueble->idavaluoinmueble)->delete();
 		}
+		AvaluosInmueble::where('idavaluo', '=', $id)->delete();
 
 		AvaluosConclusiones::where('idavaluo', '=', $id)->delete();
-		AvaluosFisico::where('idavaluo', '=', $id)->delete();
 		AvaluosFotos::where('idavaluo', '=', $id)->delete();
-		AvaluosInmueble::where('idavaluo', '=', $id)->delete();
-		AvaluosMercado::where('idavaluo', '=', $id)->delete();
 		AvaluosZona::where('idavaluo', '=', $id)->delete();
 
 		Avaluos::where('idavaluo', '=', $id)->delete();
@@ -1285,7 +1240,7 @@ class corevat_AvaluosController extends \BaseController {
 		if ($inputs['ctrlDel'] == 'btnDelAemComp') {
 			$response = $this->delAemCompTerrenos($inputs['idTableDel']);
 		} else if ($inputs['ctrlDel'] == 'btnDelAemInf') {
-			$response = $this->delAemInformcion($inputs['idTableDel']);
+			$response = $this->delAemInformacion($inputs['idTableDel']);
 		}
 
 		return $response;
@@ -1299,17 +1254,8 @@ class corevat_AvaluosController extends \BaseController {
 	 */
 	private function delAemCompTerrenos($id) {
 		$response = array('success' => true, 'message' => '!El registro fue eliminado satisfactoriamente!');
-		$row = AemCompTerrenos::findOrFail($id)->AemHomologacion;
-		if (count($row) > 0) {
-			$row->delete();
-		}
-		$row = AemCompTerrenos::findOrFail($id);
-		if (count($row) > 0) {
-			$row->delete();
-		} else {
-			$response->success = false;
-			$response->error = 'Error';
-		}
+		AemHomologacion::where('idaemcompterreno', '=', $id)->delete();
+		AemCompTerrenos::where('idaemcompterreno', '=', $id)->delete();
 		return $response;
 	}
 
@@ -1320,10 +1266,17 @@ class corevat_AvaluosController extends \BaseController {
 	 * @return Response
 	 */
 	private function delAemInformacion($id) {
-		$row = AemAnalisis::delByFk($id);
-		$row->delete($id);
-		$row = AemInformacion::findOrFail($id);
-		$row->delete($id);
+		// LOCALIZAMOS EL REGISTRO DE AemAnalisis
+		$rowAemAnalisis = AemInformacion::find($id)->AemAnalisis;
+		// GUARDAMOS LOS VALORES A TILIZAR EN EL TRIGGER
+		if (isset($rowAemAnalisis->idavaluoenfoquemercado)) {
+			$idavaluoenfoquemercado = $rowAemAnalisis->idavaluoenfoquemercado;
+			$in_promedio = $rowAemAnalisis->in_promedio;
+			$superficie_construida = $rowAemAnalisis->superficie_construida;
+			AemAnalisis::aemAnalisisAfterUpdate($idavaluoenfoquemercado, $in_promedio, $superficie_construida);
+			AemAnalisis::where('idaeminformacion', '=', $id)->delete();
+		}
+		AemInformacion::where('idaeminformacion', '=', $id)->delete();
 		return array('success' => true, 'message' => '!El registro fue eliminado satisfactoriamente!');
 	}
 
@@ -1337,14 +1290,19 @@ class corevat_AvaluosController extends \BaseController {
 		$inputs = Input::All();
 		if ($inputs['ctrlDel'] == 'btnDelAefTerreno') {
 			$response = $this->delAefTerrenos($inputs['idTableDel']);
+			
 		} else if ($inputs['ctrlDel'] == 'btnDelAefInstalaciones') {
 			$response = $this->delAefInstalaciones($inputs['idTableDel']);
+			
 		} else if ($inputs['ctrlDel'] == 'btnDelAefConstrucciones') {
 			$response = $this->delAefConstrucciones($inputs['idTableDel']);
+			
 		} else if ($inputs['ctrlDel'] == 'btnDelAefCondominios') {
 			$response = $this->delAefCondominios($inputs['idTableDel']);
+			
 		} else if ($inputs['ctrlDel'] == 'btnDelAefCompConstrucciones') {
 			$response = $this->delAefCompConstrucciones($inputs['idTableDel']);
+			
 		}
 
 		return $response;
@@ -1370,8 +1328,21 @@ class corevat_AvaluosController extends \BaseController {
 	 */
 	public function delAefCondominios($id) {
 		$row = AefCondominios::findOrFail($id);
-		$row->delete($id);
-		return Response::json(array('success' => true, 'message' => '!El registro fue eliminado satisfactoriamente!'));
+		if ( $row ) {
+			$idavaluoenfoquefisico = $row->idavaluoenfoquefisico;
+			$row->delete($id);
+			
+			$Total = AefCondominios::select(DB::raw('sum(valor_parcial) AS nsuma'))->where('idavaluoenfoquefisico', '=', $idavaluoenfoquefisico)->first();
+			
+			$rowEnfoqueFisico = AvaluosFisico::find($idavaluoenfoquefisico);
+			$rowEnfoqueFisico->subtotal_area_condominio = $Total->nsuma;
+			$rowEnfoqueFisico->total_valor_fisico = AvaluosFisico::updBeforeAvaluoEnfoqueFisico($rowEnfoqueFisico);
+			$rowEnfoqueFisico->save();
+			AvaluosFisico::updAfterAvaluoEnfoqueFisico($rowEnfoqueFisico->idavaluo, $rowEnfoqueFisico->total_valor_fisico);
+			return Response::json(array('success' => true, 'message' => '!El registro fue eliminado satisfactoriamente!'));
+		} else {
+			return Response::json(array('success' => false, 'message' => '!El registro no existe!'));
+		}
 	}
 
 	/**
@@ -1381,9 +1352,28 @@ class corevat_AvaluosController extends \BaseController {
 	 * @return Response
 	 */
 	public function delAefConstrucciones($id) {
-		$row = AefConstrucciones::findOrFail($id);
-		$row->delete($id);
-		return Response::json(array('success' => true, 'message' => '!El registro fue eliminado satisfactoriamente!'));
+		$row = AefConstrucciones::find($id);
+		if ( $row ) {
+			$idavaluoenfoquefisico = $row->idavaluoenfoquefisico;
+			$row->delete($id);
+			
+			//Set @VPC = (Select sum(valor_parcial_construccion) as nsuma from aef_construcciones where idavaluoenfoquefisico = old.idavaluoenfoquefisico);
+			$VPC = AefConstrucciones::select(DB::raw('sum(valor_parcial_construccion) AS nsuma'))->where('idavaluoenfoquefisico', '=', $idavaluoenfoquefisico)->first();
+			
+			// Set @TMC = (Select sum(superficie_m2) as msuma from aef_construcciones where idavaluoenfoquefisico = old.idavaluoenfoquefisico);
+			$TMC = AefConstrucciones::select(DB::raw('sum(superficie_m2) AS msuma'))->where('idavaluoenfoquefisico', '=', $idavaluoenfoquefisico)->first();
+			
+			//update avaluo_enfoque_fisico set valor_construccion = @VPC, total_metros_construccion = @TMC where idavaluoenfoquefisico = old.idavaluoenfoquefisico;
+			$rowEnfoqueFisico = AvaluosFisico::find($idavaluoenfoquefisico);
+			$rowEnfoqueFisico->valor_construccion = $VPC->nsuma;
+			$rowEnfoqueFisico->total_metros_construccion = $TMC->msuma;
+			$rowEnfoqueFisico->total_valor_fisico = AvaluosFisico::updBeforeAvaluoEnfoqueFisico($rowEnfoqueFisico);
+			$rowEnfoqueFisico->save();
+			AvaluosFisico::updAfterAvaluoEnfoqueFisico($rowEnfoqueFisico->idavaluo, $rowEnfoqueFisico->total_valor_fisico);
+			return Response::json(array('success' => true, 'message' => '!El registro fue eliminado satisfactoriamente!'));
+		} else {
+			return Response::json(array('success' => false, 'message' => '!El registro no existe!'));
+		}
 	}
 
 	/**
@@ -1394,8 +1384,19 @@ class corevat_AvaluosController extends \BaseController {
 	 */
 	public function delAefInstalaciones($id) {
 		$row = AefInstalaciones::findOrFail($id);
-		$row->delete($id);
-		return Response::json(array('success' => true, 'message' => '!El registro fue eliminado satisfactoriamente!'));
+		if ( $row ) {
+			$idavaluoenfoquefisico = $row->idavaluoenfoquefisico;
+			$row->delete($id);
+			$Total = AefInstalaciones::select(DB::raw('sum(valor_parcial) AS nsuma'))->where('idavaluoenfoquefisico', '=', $idavaluoenfoquefisico)->first();
+			$rowEnfoqueFisico = AvaluosFisico::find($idavaluoenfoquefisico);
+			$rowEnfoqueFisico->valor_construccion = $Total->nsuma;
+			$rowEnfoqueFisico->total_valor_fisico = AvaluosFisico::updBeforeAvaluoEnfoqueFisico($rowEnfoqueFisico);
+			$rowEnfoqueFisico->save();
+			AvaluosFisico::updAfterAvaluoEnfoqueFisico($rowEnfoqueFisico->idavaluo, $rowEnfoqueFisico->total_valor_fisico);
+			return Response::json(array('success' => true, 'message' => '!El registro fue eliminado satisfactoriamente!'));
+		} else {
+			return Response::json(array('success' => false, 'message' => '!El registro no existe!'));
+		}
 	}
 
 	/**
@@ -1405,9 +1406,25 @@ class corevat_AvaluosController extends \BaseController {
 	 * @return Response
 	 */
 	public function delAefTerrenos($id) {
-		$row = AefTerrenos::findOrFail($id);
-		$row->delete($id);
-		return Response::json(array('success' => true, 'message' => '!El registro fue eliminado satisfactoriamente!'));
+		$row = AefTerrenos::find($id);
+		if ( $row ) {
+			$idavaluoenfoquefisico = $row->idavaluoenfoquefisico;
+			$row->delete($id);
+			$Val = AefTerrenos::select(DB::raw('sum(valor_parcial) AS valorpar'))->where('idavaluoenfoquefisico', '=', $idavaluoenfoquefisico)->first();
+			$rowEnfoqueFisico = AvaluosFisico::find($idavaluoenfoquefisico);
+			$rowEnfoqueFisico->valor_terreno = $Val->valorpar;
+			$rowEnfoqueFisico->total_valor_fisico = AvaluosFisico::updBeforeAvaluoEnfoqueFisico($rowEnfoqueFisico);
+			$rowEnfoqueFisico->save();
+			AvaluosFisico::updAfterAvaluoEnfoqueFisico($rowEnfoqueFisico->idavaluo, $rowEnfoqueFisico->total_valor_fisico);
+			return Response::json(array('success' => true, 'message' => '!El registro fue eliminado satisfactoriamente!'));
+		} else {
+			return Response::json(array('success' => false, 'message' => '!El registro no existe!'));
+		}
+	}
+	
+	
+	public function printAvaluo($id) {
+		
 	}
 
 }

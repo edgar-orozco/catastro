@@ -110,7 +110,7 @@
 	<div class="col-md-2"></div>
 	<div class="col-md-5">
 		{{Form::label('unidades_rentables_escritura', 'Unidades Rentables en la misma Estructura')}}
-		{{Form::number('unidades_rentables_escritura', $row->unidades_rentables_escritura, ['class'=>'form-control', 'pattern'=>'[0-9]{10}'] )}}
+		{{Form::number('unidades_rentables_escritura', $row->unidades_rentables_escritura, ['class'=>'form-control', 'step'=>'1', 'min' => '0', 'max' => '9999', 'pattern' => '[0-9]{4}'] )}}
 		{{$errors->first('unidades_rentables_escritura', '<span class=text-danger>:message</span>')}}
 	</div>
 	<div class="col-md-12">&nbsp;</div>
@@ -278,51 +278,51 @@
 				<tr>
 					<th class="bg-primary">{{Form::label('superficie_total_terreno', 'Superficie Total del Terreno')}}</th>
 					<td>
-						{{Form::number('superficie_total_terreno', $row->superficie_total_terreno, ['class'=>'form-control', 'maxlength'=>'14', 'step'=>'0.0001', 'min'=>'0.0000', 'max'=>'999999999.9999', 'pattern'=>'^(?:\(\d{9}\))[.]?\d{4}$'] )}}
+						{{Form::number('superficie_total_terreno', $row->superficie_total_terreno, ['class'=>'form-control', 'step'=>'0.0001', 'min'=>'0.0000', 'max'=>'999999999.9999', 'pattern'=>'[0-9]{9}[.]{1}[0-9]{4}'] )}}
 						{{$errors->first('superficie_total_terreno', '<span class=text-danger>:message</span>')}}
 					</td>
 					<th class="bg-primary">{{Form::label('indiviso_terreno', 'Indiviso del Terreno (%)')}}</th>
 					<td>
-						{{Form::number('indiviso_terreno', $row->indiviso_terreno, ['class'=>'form-control', 'maxlength'=>'14', 'step'=>'0.0001', 'min'=>'0.0000', 'max'=>'999999999.9999', 'pattern'=>'^(?:\(\d{9}\))[.]?\d{4}$'] )}}
+						{{Form::number('indiviso_terreno', $row->indiviso_terreno, ['class'=>'form-control', 'step'=>'0.0001', 'min'=>'0.0000', 'max'=>'999999999.9999', 'pattern'=>'[0-9]{9}[.]{1}[0-9]{4}'] )}}
 						{{$errors->first('indiviso_terreno', '<span class=text-danger>:message</span>')}}
 					</td>
 				</tr>
 				<tr>
 					<th class="bg-primary">{{Form::label('indiviso_terreno', 'Superficie del Terreno')}}</th>
 					<td>
-						{{Form::number('superficie_terreno', $row->superficie_terreno, ['class'=>'form-control', 'maxlength'=>'14', 'step'=>'0.0001', 'min'=>'0.0000', 'max'=>'999999999.9999', 'pattern'=>'^(?:\(\d{9}\))[.]?\d{4}$'] )}}
+						{{Form::number('superficie_terreno', $row->superficie_terreno, ['class'=>'form-control', 'step'=>'0.0001', 'min'=>'0.0000', 'max'=>'999999999.9999', 'pattern'=>'[0-9]{9}[.]{1}[0-9]{4}'] )}}
 						{{$errors->first('superficie_terreno', '<span class=text-danger>:message</span>')}}
 					</td>
 
 					<th class="bg-primary">{{Form::label('indiviso_areas_comunes', 'Indiviso de Áreas Comunes (%)')}}</th>
 					<td>
-						{{Form::number('indiviso_areas_comunes', $row->indiviso_areas_comunes, ['class'=>'form-control', 'maxlength'=>'14', 'step'=>'0.0001', 'min'=>'0.0000', 'max'=>'999999999.9999', 'pattern'=>'^(?:\(\d{9}\))[.]?\d{4}$'] )}}
+						{{Form::number('indiviso_areas_comunes', $row->indiviso_areas_comunes, ['class'=>'form-control', 'step'=>'0.0001', 'min'=>'0.0000', 'max'=>'999999999.9999', 'pattern'=>'[0-9]{9}[.]{1}[0-9]{4}'] )}}
 						{{$errors->first('indiviso_areas_comunes', '<span class=text-danger>:message</span>')}}
 					</td>
 				</tr>
 				<tr>
 					<th class="bg-primary">{{Form::label('superficie_construccion', 'Superficie de Construcción')}}</th>
 					<td>
-						{{Form::number('superficie_construccion', $row->superficie_construccion, ['class'=>'form-control', 'maxlength'=>'14', 'step'=>'0.0001', 'min'=>'0.0000', 'max'=>'999999999.9999', 'pattern'=>'^(?:\(\d{9}\))[.]?\d{4}$'] )}}
+						{{Form::number('superficie_construccion', $row->superficie_construccion, ['class'=>'form-control', 'step'=>'0.0001', 'min'=>'0.0000', 'max'=>'999999999.9999', 'pattern'=>'[0-9]{9}[.]{1}[0-9]{4}'] )}}
 						{{$errors->first('superficie_construccion', '<span class=text-danger>:message</span>')}}
 					</td>
 
 					<th class="bg-primary">{{Form::label('indiviso_accesoria', 'Indiviso Accesoría (%)')}}</th>
 					<td>
-						{{Form::number('indiviso_accesoria', $row->indiviso_accesoria, ['class'=>'form-control', 'maxlength'=>'14', 'step'=>'0.0001', 'min'=>'0.0000', 'max'=>'999999999.9999', 'pattern'=>'^(?:\(\d{9}\))[.]?\d{4}$'] )}}
+						{{Form::number('indiviso_accesoria', $row->indiviso_accesoria, ['class'=>'form-control', 'step'=>'0.0001', 'min'=>'0.0000', 'max'=>'999999999.9999', 'pattern'=>'[0-9]{9}[.]{1}[0-9]{4}'] )}}
 						{{$errors->first('indiviso_accesoria', '<span class=text-danger>:message</span>')}}
 					</td>
 				</tr>
 				<tr>
 					<th class="bg-primary">{{Form::label('superficie_escritura', 'Superficie Asentada en Escritura')}}</th>
 					<td>
-						{{Form::number('superficie_escritura', $row->superficie_escritura, ['class'=>'form-control', 'maxlength'=>'14', 'step'=>'0.0001', 'min'=>'0.0000', 'max'=>'999999999.9999', 'pattern'=>'^(?:\(\d{9}\))[.]?\d{4}$'] )}}
+						{{Form::number('superficie_escritura', $row->superficie_escritura, ['class'=>'form-control', 'step'=>'0.0001', 'min'=>'0.0000', 'max'=>'999999999.9999', 'pattern'=>'[0-9]{9}[.]{1}[0-9]{4}'] )}}
 						{{$errors->first('superficie_escritura', '<span class=text-danger>:message</span>')}}
 					</td>
 
 					<th class="bg-primary">{{Form::label('superficie_vendible', 'Superficie Vendible')}}</th>
 					<td>
-						{{Form::number('superficie_vendible', $row->superficie_vendible, ['class'=>'form-control', 'maxlength'=>'14', 'step'=>'0.0001', 'min'=>'0.0000', 'max'=>'999999999.9999', 'pattern'=>'^(?:\(\d{9}\))[.]?\d{4}$'] )}}
+						{{Form::number('superficie_vendible', $row->superficie_vendible, ['class'=>'form-control', 'step'=>'0.0001', 'min'=>'0.0000', 'max'=>'999999999.9999', 'pattern'=>'[0-9]{9}[.]{1}[0-9]{4}'] )}}
 						{{$errors->first('superficie_vendible', '<span class=text-danger>:message</span>')}}
 					</td>
 				</tr>
