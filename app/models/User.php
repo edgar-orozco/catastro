@@ -10,7 +10,7 @@ class User extends Eloquent implements ConfideUserInterface
     use ConfideUser;
     use HasRole;
 
-    protected $fillable = ['username', 'email', 'password', 'nombre', 'apepat', 'apemat', 'roles', 'municipios'];
+    protected $fillable = ['username', 'email', 'password', 'nombre', 'apepat', 'apemat', 'roles', 'municipios', 'vigente'];
 
     /**
      * The database table used by the model.
@@ -194,7 +194,8 @@ class User extends Eloquent implements ConfideUserInterface
                 'apemat'         => $user->apemat,
                 'nombreCompleto' => $user->nombreCompleto(),
                 'roles'          => $user->roles,
-                'municipios'     => $user->municipios
+                'municipios'     => $user->municipios,
+                'vigente'        => $user->vigente
             );
         }
         return $users;

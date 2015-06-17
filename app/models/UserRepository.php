@@ -50,8 +50,11 @@ class UserRepository
         if (!isset($input['password'])) {
             $input['password'] = null;
         }
+        if($this->isActive($input)){
+            return Confide::logAttempt($input, Config::get('confide::signup_confirm'));
+        }
 
-        return Confide::logAttempt($input, Config::get('confide::signup_confirm'));
+        return false;
     }
 
     /**
@@ -87,6 +90,20 @@ class UserRepository
 
             return (!$user->confirmed && $correctPassword);
         }
+    }
+
+    /**
+     * Revisan si el usuario esta vigente
+     *
+     * @param  array $input Array containing the credentials (email/username and password)
+     *
+     * @return  boolean El us
+     */
+    public function isActive($input)
+    {
+        $user = Confide::getUserByEmailOrUsername($input);
+
+        return $user && $user->vigente;
     }
 
     /**

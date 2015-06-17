@@ -3,7 +3,14 @@
  *
  * Modulo de angular para interaccion con el modulo de administracion de usuarios
  */
-angular.module('app', ['ngAnimate', 'ngResource', 'ngSanitize','ui.bootstrap', 'angularUtils.directives.dirPagination']).
+angular.module('app', [
+    'ngAnimate',
+    'ngResource',
+    'ngSanitize',
+    'ui.bootstrap',
+    'angularUtils.directives.dirPagination',
+    'frapontillo.bootstrap-switch'
+]).
 /**
  * Configuracion del modulo
  */
@@ -16,15 +23,18 @@ angular.module('app', ['ngAnimate', 'ngResource', 'ngSanitize','ui.bootstrap', '
      */
     factory('Users', function($resource)
     {
-        var urlsave = decodeURIComponent(laroute.action('AdminUserController@store', { format : 'json' }));
-        var urlUpdate = decodeURIComponent(laroute.action('AdminUserController@update', {user : ':id', format : 'json' }));
-        var urlGetAll = decodeURIComponent(laroute.action('AdminUserController@all'));
-        var urlDestroy = decodeURIComponent(laroute.action('AdminUserController@destroy', { user : ':id' }));
+        var urlsave = decodeURIComponent(laroute.action('AdminUserController@store', { format : 'json' })),
+            urlUpdate = decodeURIComponent(laroute.action('AdminUserController@update', {user : ':id', format : 'json' })),
+            urlActive = decodeURIComponent(laroute.action('AdminUserController@active', {user : ':id'})),
+            urlGetAll = decodeURIComponent(laroute.action('AdminUserController@all')),
+            urlDestroy = decodeURIComponent(laroute.action('AdminUserController@destroy', { user : ':id' }));
+
         return $resource(urlsave, {},
             {
                 getAll  : {method:'GET', isArray: true, url : urlGetAll},
                 store   : {method:'POST', data: {}, isArray: false},
                 update  : {method:'PUT', params: { id : '@id' }, data: {}, isArray: false, url: urlUpdate},
+                active  : {method:'PUT', params: { id : '@id' }, data: {}, isArray: false, url: urlActive},
                 destroy : {method:'DELETE', params: { id : '@id' }, isArray: false, url: urlDestroy}
             });
     }).
@@ -276,7 +286,7 @@ angular.module('app', ['ngAnimate', 'ngResource', 'ngSanitize','ui.bootstrap', '
                 $scope.successSave = true;
                 $timeout(function(){
                     $scope.successSave = false;
-                }, 10000)
+                }, 10000);
             }
             // Si no se guardo correctamente el form,
             // se muestran los mensajes de error correspondientes
@@ -407,7 +417,6 @@ angular.module('app', ['ngAnimate', 'ngResource', 'ngSanitize','ui.bootstrap', '
          * @param idx
          */
         $scope.destroy = function (idx) {
-            //if(confirm('Deseas elimnar el usuario '+ $scope.users[idx].name )) deleteUser(idx);
             var modalInstace = $modal.open({
                 templateUrl: 'modalContent.html',
                 controller : 'ModalCtrl',
@@ -490,10 +499,39 @@ angular.module('app', ['ngAnimate', 'ngResource', 'ngSanitize','ui.bootstrap', '
                 $scope.focusFilter = true;
             }, 100);
         };
+
+        /**
+         * Función para activar o desactivar un usuario
+         *
+         * @param usuario
+         */
+        $scope.vigencia = function(user){
+            $scope.activeUser = user.vigente;
+            $scope.desactiveUser = user;
+            var modalInstance = $modal.open({
+                templateUrl : 'modalActive.html',
+                controller  : 'ActiveCtrl',
+                resolve     : {
+                    user  : function(){
+                        return user;
+                        },
+                    scope  : function(){
+                        return $scope;
+                        }
+                    }
+            });
+            modalInstance.result.then(null, function (event) {
+                console.log(event);
+                if(event == 'backdrop click' || event == 'escape key press'){
+                    user.vigente = !user.vigente;
+                }
+            });
+        };
+
     }).
-/**
- * Control para mostrar el modal para confirmar el borrado de un registro
- */
+    /**
+     * Control para mostrar el modal para confirmar el borrado de un registro
+     */
     controller('ModalCtrl', function($scope, $modalInstance, user) {
         $scope.name = user.name;
         /**
@@ -507,6 +545,36 @@ angular.module('app', ['ngAnimate', 'ngResource', 'ngSanitize','ui.bootstrap', '
          * Funcion para cerrar el modal
          */
         $scope.cancel = function(){
+            $modalInstance.dismiss('cancel');
+        };
+    }).
+    /**
+     * Control para mostrar el modal para confirmar activar o seactivar a un usuario
+     */
+    controller('ActiveCtrl', function($scope, $timeout, $modalInstance, Users, user, scope) {
+        $scope.user = user;
+        /**
+         * Funcion para elimnar un registro
+         */
+        $scope.active = function () {
+            Users.active(
+                { id : $scope.user.id },
+                { vigente : $scope.user.vigente},
+                function(data) {
+                    if (data.status == 'success') {
+                        $modalInstance.close('cancel');
+                        scope.successSave = true;
+                        $timeout(function(){
+                            scope.successSave = false;
+                        }, 10000)
+                    }
+                });
+        };
+        /**
+         * Funcion para cerrar el modal
+         */
+        $scope.cancel = function(){
+            user.vigente = !user.vigente;
             $modalInstance.dismiss('cancel');
         };
     })

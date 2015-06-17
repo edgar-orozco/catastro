@@ -3,6 +3,20 @@
     <strong>El formulario contiene errores</strong>, corríjalos e intente nuevamente.
 </div>
 
+<div class="form-group text-right" ng-show="user.id !== undefinied">
+    <input
+            type="checkbox"
+            bs-switch
+            ng-model="user.vigente"
+            switch-size="'small'"
+            switch-on-text="Activo"
+            switch-off-text="Inactivo"
+            ng-true-value="true"
+            ng-false-value="false"
+            ng-change="vigencia(user)"
+            >
+</div>
+
 <div class="form-group">
     {{Form::label('username','Nombre de usuario')}}
     {{Form::text('username', null, ['class'=>'form-control', 'autofocus'=> 'autofocus', 'required' => 'required', 'ng-model' => 'user.username', 'tb-focus' => 'focusForm', 'ng-blur' => 'focusForm = false'] )}}
@@ -70,6 +84,3 @@
     </select>
     {{$errors->first('municipios[]', '<span class=text-danger>:message</span>')}}
 </div>
-
-
-

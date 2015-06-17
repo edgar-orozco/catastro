@@ -13,6 +13,8 @@ Route::group(array('before' => 'admin'), function () {
         array('as' => 'getUsers', 'uses' => 'AdminUserController@all'));
     Route::put('admin/user/{user}.{format}',
         array('as' => 'updateUser', 'uses' => 'AdminUserController@update'));
+    Route::put('admin/user/{user}/active',
+        array('as' => 'activeUseer', 'uses' => 'AdminUserController@active'));
     Route::resource('admin/user', 'AdminUserController');
 
     // Rutas para el administrador de permisos del sistema

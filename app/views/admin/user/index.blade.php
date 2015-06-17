@@ -12,12 +12,29 @@
 
 {{ HTML::style('css/forms.css') }}
 {{ HTML::style('css/select2.min.css') }}
+{{ HTML::style('css/bootstrap-switch.css') }}
 <style type="text/css">
 .select2-selection__choice span{
     padding-top: 0;
 }
 .select2-container{
     width: 100% !important;
+}
+.list-group-item{
+    position: relative;
+}
+.list-group-item .list-group-item-text{
+    margin-bottom: 40px;
+}
+.list-group-item .bootstrap-switch{
+    height: 33px !important;
+    position: absolute !important;
+    bottom: 10px !important;
+    z-index: 1000 !important;
+}
+.modal-backdrop{
+    width: 100%;
+    height: 100%;
 }
 </style>
 
@@ -84,7 +101,9 @@
 @stop
 
 @section('javascript')
+    {{ HTML::script('js/bootstrap-switch.min.js') }}
     {{ HTML::script('js/plugins/dirPagination.js') }}
+    {{ HTML::script('js/plugins/bsSwitch.js') }}
     {{ HTML::script('js/select2/select2.min.js') }}
     {{ HTML::script('js/user/users.js') }}
     {{ HTML::script('js/laroute.js') }}

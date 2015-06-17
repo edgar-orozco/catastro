@@ -223,6 +223,32 @@ class AdminUserController extends BaseController
     }
 
     /**
+     * Activa o desactiva un usuario
+     * @param $id
+     * @return array
+     */
+    public function active($id){
+
+        $user = User::find($id);
+        $user->vigente = Input::get( 'vigente' );
+        if($user->save()){
+            return array(
+                'status' => 'success',
+                'msg' => 'Datos guardados',
+                'data' => array('id' => Input::get('id'))
+            );
+        }
+        else{
+            $error = $user->errors;
+            return array(
+                'status' => 'error',
+                'msg' => 'Datos incorrectos',
+                'data' => array('id' => Input::get('id'), 'errors' => $error)
+            );
+        }
+
+    }
+    /**
      * Update the specified resource in storage.
      *
      * @param $user
