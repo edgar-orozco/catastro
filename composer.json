@@ -13,7 +13,8 @@
         "Barryvdh/Laravel-DOMPDF": "0.4.*",
         "webpatser/laravel-uuid": "1.*",
         "laravelrus/localized-carbon": "1.4.*",
-        "captcha-com/laravel-captcha": "3.0.0"
+        "captcha-com/laravel-captcha": "3.0.0",
+        "anouar/fpdf": "1.0.1"
 	},
     "require-dev": {
         "way/generators": "2.6.1",

@@ -9,8 +9,19 @@
         <p>No hay usuarios dados de alta actualmente en el sistema.</p>
     </div>
     <div class="list-group" ng-show="users.length > 0 && !loading">
-            <a class="list-group-item" style="cursor:pointer;" ng-click="edit($index, userList.id)" dir-paginate="userList in users| searchBy:q:filterWord | itemsPerPage:itemsPage " current-page="currentPage" ng-class="(userList.id === user.id && !userList.error) ? 'active' : userList.error ? 'list-group-item-warning':''">
-                <div class="row">
+            <a class="list-group-item" style="cursor:pointer;" dir-paginate="userList in users| searchBy:q:filterWord | itemsPerPage:itemsPage " current-page="currentPage" ng-class="(userList.id === user.id && !userList.error) ? 'active' : userList.error ? 'list-group-item-warning':''">
+                <input
+                        type="checkbox"
+                        bs-switch
+                        ng-model="userList.vigente"
+                        switch-size="'small'"
+                        switch-on-text="Activo"
+                        switch-off-text="Inactivo"
+                        ng-true-value="true"
+                        ng-false-value="false"
+                        ng-change="vigencia(userList)"
+                        >
+                <div class="row" ng-click="edit($index, userList.id)">
                     <div class="col-sm-9">
                         <h4 class="list-group-item-heading">{[{ userList.nombreCompleto }]}</h4>
                         <p class="list-group-item-text">{[{ userList.username }]}</p>
@@ -71,5 +82,28 @@
     <div class="modal-footer">
         <button class="btn btn-primary" ng-click="cancel()">Cancelar</button>
         <button class="btn btn-danger" ng-click="destroy()">Eliminar</button>
+    </div>
+</script>
+
+<script type="text/ng-template" id="modalActive.html">
+    <div class="modal-header">
+        <h3 class="modal-title"></h3>
+    </div>
+    <div class="modal-body">
+        <div class="well">
+            ¿Deseas {[{ user.vigente ? 'activar' : 'desactivar' }]} al usario <strong>{[{ user.nombreCompleto }]}</strong>?
+        </div>
+    </div>
+    <div class="modal-footer">
+        <div class="col-xs-6">
+            <button class="btn btn-primary btn-block" ng-click="cancel()">
+                Cancelar
+            </button>
+        </div>
+        <div class="col-xs-6">
+            <button class="btn btn-danger btn-block" ng-click="active()">
+                Aceptar
+            </button>
+        </div>
     </div>
 </script>
