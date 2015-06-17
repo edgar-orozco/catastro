@@ -12,14 +12,11 @@ class CatFactoresZonas extends \Eloquent {
 		return CatFactoresZonas::orderBy('factor_zona')->where('status_factor_zona', 1)->lists('valor_factor_zona', 'idfactorzona');
 	}
 
-	public static function getCatFactoresZonasComboList() {
-		$rows = CatFactoresZonas::select('idfactorzona', 'valor_factor_zona', 'factor_zona')
-						->where('status_factor_zona', '=', 1)
-						->orderBy('valor_factor_zona')
-						->get();
-				foreach ($rows as $key => $value) {
-					$res[$value->idfactorzona] = $value->factor_zona . ' (' . $value->valor_factor_zona .')';
-				}
-		return $res;
+	public static function getIdByValue($value) {
+		$row = CatFactoresZonas::select('idfactorzona')
+				->where('valor_factor_zona', '=', $value)
+				->where('status_factor_zona', '=', 1)
+				->first();
+		return $row->idfactorzona;
 	}
 }

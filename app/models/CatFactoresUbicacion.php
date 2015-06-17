@@ -12,14 +12,11 @@ class CatFactoresUbicacion extends \Eloquent {
 		return CatFactoresUbicacion::orderBy('factor_ubicacion')->where('status_factor_ubicacion', 1)->lists('factor_ubicacion', 'idfactorubicacion');
 	}
 
-	public static function getCatFactoresUbicacionComboList() {
-		$rows = CatFactoresUbicacion::select('idfactorubicacion', 'valor_factor_ubicacion', 'factor_ubicacion')
-						->where('status_factor_ubicacion', '=', 1)
-						->orderBy('valor_factor_ubicacion')
-						->get();
-				foreach ($rows as $key => $value) {
-					$res[$value->idfactorubicacion] = $value->factor_ubicacion . ' (' . $value->valor_factor_ubicacion .')';
-				}
-		return $res;
+	public static function getIdByValue($value) {
+		$row = CatFactoresUbicacion::select('idfactorubicacion')
+				->where('valor_factor_ubicacion', '=', $value)
+				->where('status_factor_ubicacion', '=', 1)
+				->first();
+		return $row->idfactorubicacion;
 	}
 }

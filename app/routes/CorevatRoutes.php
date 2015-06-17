@@ -534,6 +534,7 @@ Route::group(array('before' => 'admin'), function () {
 	Route::post('/corevat/Avaluos.{format}', array('as' => 'storeAvaluos', 'uses' => 'corevat_AvaluosController@store'));
 	Route::get('/corevat/AvaluoDel/{id}', array('as' => 'delAvaluo', 'uses' => 'corevat_AvaluosController@delAvaluo'));
 	Route::put('/corevat/Avaluos/{id?}.{format}', array('as' => 'showAvaluos', 'uses' => 'corevat_AvaluosController@show'));
+	Route::get('/corevat/AvaluoPrint/{id}', array('as' => 'printAvaluo', 'uses' => 'corevat_AvaluosController@printAvaluo'));
 
 	// AVALUOS GENERAL
 	Route::get('/corevat/AvaluoGeneral/{id}', array('as' => 'editAvaluoGeneral', 'uses' => 'corevat_AvaluosController@editGeneral'));
@@ -553,7 +554,7 @@ Route::group(array('before' => 'admin'), function () {
 	// ENFOQUE MERCADO
 	Route::get('/corevat/AvaluoEnfoqueMercado/{id}', array('as' => 'editAvaluoEnfoqueMercado', 'uses' => 'corevat_AvaluosController@editMercado'));
 	Route::post('/corevat/AvaluoEnfoqueMercadoUpd/{id?}', array('as' => 'updateAvaluoEnfoqueMercado', 'uses' => 'corevat_AvaluosController@updateMercado'));
-	Route::post('/corevat/AvaluoEnfoqueMercadoDel/', array('as' => 'delAvaluoEnfoqueMercado', 'uses' => 'corevat_AvaluosController@delAvaluoEnfoqueMercado'));
+	Route::post('/corevat/AvaluoEnfoqueMercadoDel/{id}', array('as' => 'delAvaluoEnfoqueMercado', 'uses' => 'corevat_AvaluosController@delAvaluoEnfoqueMercado'));
 	// ENFOQUE MERCADO [COMPARATIVO DE TERRENOS]
 	Route::get('/corevat/AemCompTerrenosGet/{id?}', array('as' => 'getAemCompTerrenos', 'uses' => 'corevat_AvaluosController@getAemCompTerrenos'));
 	// ENFOQUE MERCADO [HOMOLOGACION]
@@ -566,9 +567,9 @@ Route::group(array('before' => 'admin'), function () {
 	// ENFOQUE FISICO
 	Route::get('/corevat/AvaluoEnfoqueFisico/{id}', array('as' => 'editAvaluoEnfoqueFisico', 'uses' => 'corevat_AvaluosController@editFisico'));
 	Route::post('/corevat/AvaluoEnfoqueFisicoUpd/{id?}', array('as' => 'updateAvaluoEnfoqueFisico', 'uses' => 'corevat_AvaluosController@updateFisico'));
-	Route::post('/corevat/AvaluoEnfoqueFisicoDel/', array('as' => 'delAvaluoEnfoqueFisico', 'uses' => 'corevat_AvaluosController@delAvaluoEnfoqueFisico'));
+	Route::post('/corevat/AvaluoEnfoqueFisicoDel/{id}', array('as' => 'delAvaluoEnfoqueFisico', 'uses' => 'corevat_AvaluosController@delAvaluoEnfoqueFisico'));
 	// ENFOQUE FISICO [TERRENO]
-	Route::get('/corevat/AefTerrenosGet/{id?}', array('as' => 'getAefTerrenos', 'uses' => 'corevat_AvaluosController@getAefCompTerrenos'));
+	Route::get('/corevat/AefTerrenosGet/{id?}', array('as' => 'getAefTerrenos', 'uses' => 'corevat_AvaluosController@getAefTerrenos'));
 	// ENFOQUE FISICO [CONSTRUCCIONES]
 	Route::get('/corevat/AefConstruccionesGet/{id?}', array('as' => 'getAefConstrucciones', 'uses' => 'corevat_AvaluosController@getAefConstrucciones'));
 	// ENFOQUE FISICO [CONDOMINIOS]

@@ -11,7 +11,7 @@
 	</div>
 	<div class="col-md-4">
 		<div class="form-group">
-			{{Form::label('fecha_avaluo', 'Fecha del Avaluo')}}
+			{{Form::label('fecha_avaluo', 'Fecha del Avalúo')}}
 			{{Form::text('fecha_avaluo', $row->fecha_avaluo, ['class'=>'form-control', 'tabindex'=>'2', 'required' => 'required', 'maxlength' => '10', 'size' => '11', 'style' => 'width:110px'])}}
 			{{$errors->first('fecha_avaluo', '<span class=text-danger>:message</span>')}}
 		</div>
@@ -24,7 +24,7 @@
 	</div>
 	<div class="col-md-12">
 		<div class="form-group">
-			{{Form::label('proposito', 'Próposito')}}
+			{{Form::label('proposito', 'Propósito')}}
 			{{Form::text('proposito', $row->proposito, ['class'=>'form-control', 'tabindex'=>'4', 'required' => 'required', 'maxlength' => '250'])}}
 			{{$errors->first('proposito', '<span class=text-danger>:message</span>')}}
 		</div>
@@ -81,17 +81,17 @@
 	<div class="col-md-4">
 		<div class="form-inline">
 			{{Form::label('Longitud')}}
-			{{Form::number('lon0', $row->lan0, ['class'=>'form-control bfh-number', 'tabindex'=>'12', 'maxlength'=>'3', 'style'=>'width:75px'])}}&nbsp;&ring;&nbsp;
-			{{Form::number('lon1', $row->lan1, ['class'=>'form-control bfh-number', 'tabindex'=>'13', 'maxlength'=>'2', 'style'=>'width:75px'])}}&nbsp;'&nbsp;
-			{{Form::text('lon2', $row->lan2, ['class'=>'form-control', 'tabindex'=>'14', 'maxlength'=>'6', 'style'=>'width:75px'])}}&nbsp;"
+			{{Form::number('lon0', $row->lon0, ['class'=>'form-control', 'tabindex'=>'12', 'style'=>'width:75px', 'step'=>'1', 'min' => '0', 'max' => '360', 'pattern' => '[0-9]{3}'])}}&nbsp;&ring;&nbsp;
+			{{Form::number('lon1', $row->lon1, ['class'=>'form-control', 'tabindex'=>'13', 'style'=>'width:75px', 'step'=>'1', 'min' => '0', 'max' => '60', 'pattern' => '[0-9]{2}'])}}&nbsp;'&nbsp;
+			{{Form::number('lon2', $row->lon2, ['class'=>'form-control', 'tabindex'=>'14', 'style'=>'width:75px', 'step'=>'1', 'min' => '0', 'max' => '60', 'pattern' => '[0-9]{2}'])}}&nbsp;"
 		</div>
 	</div>
 	<div class="col-md-4">
 		<div class="form-inline">
 			{{Form::label('Latitud')}}
-			{{Form::number('lat0', $row->lat0, ['class'=>'form-control bfh-number', 'tabindex'=>'15', 'maxlength'=>'2', 'style'=>'width:75px'])}}&nbsp;&ring;&nbsp;
-			{{Form::number('lat1', $row->lat1, ['class'=>'form-control bfh-number', 'tabindex'=>'16', 'maxlength'=>'2', 'style'=>'width:75px'])}}&nbsp;'&nbsp;
-			{{Form::text('lat2', $row->lat2, ['class'=>'form-control', 'tabindex'=>'17', 'maxlength'=>'6', 'style'=>'width:75px'])}}&nbsp;"
+			{{Form::number('lat0', $row->lat0, ['class'=>'form-control', 'tabindex'=>'15', 'style'=>'width:75px', 'step'=>'1', 'min' => '0', 'max' => '360', 'pattern' => '[0-9]{3}'])}}&nbsp;&ring;&nbsp;
+			{{Form::number('lat1', $row->lat1, ['class'=>'form-control', 'tabindex'=>'16', 'style'=>'width:75px', 'step'=>'1', 'min' => '0', 'max' => '60', 'pattern' => '[0-9]{2}'])}}&nbsp;'&nbsp;
+			{{Form::number('lat2', $row->lat2, ['class'=>'form-control', 'tabindex'=>'17', 'style'=>'width:75px', 'step'=>'1', 'min' => '0', 'max' => '60', 'pattern' => '[0-9]{2}'])}}&nbsp;"
 		</div>
 	</div>
 	<div class="col-md-4">
@@ -151,7 +151,7 @@
 {{ HTML::script('/js/jquery.corevat.js') }}
 <script>
 	$(document).ready(function () {
-		$('#fecha_reporte, #fecha_avaluo').datepicker();
+		//$('#fecha_reporte, #fecha_avaluo').datepicker();
 		$('#btn1General').removeClass("btn-info").addClass("btn-primary");
 	});
 </script>

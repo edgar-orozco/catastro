@@ -131,6 +131,7 @@ return array(
 		'Catastro\Providers\DatabaseLogServiceProvider',
         'Laravelrus\LocalizedCarbon\LocalizedCarbonServiceProvider',
         'BotDetectCaptcha\LaravelCaptcha\LaravelCaptchaServiceProvider',
+        'Anouar\Fpdf\FpdfServiceProvider',
 	),
 
 	/*
@@ -203,6 +204,7 @@ return array(
         'Uuid'            => 'Webpatser\Uuid\Uuid',
         'LocalizedCarbon'   => 'Laravelrus\LocalizedCarbon\LocalizedCarbon',
         'DiffFormatter'     => 'Laravelrus\LocalizedCarbon\DiffFactoryFacade',
+        'Fpdf'    => 'Anouar\Fpdf\Fpdf',
 
 	),
 

@@ -29,7 +29,7 @@
 		<tbody>
 			@foreach ($rows as $row)
 			<tr>
-				<td>{{$row->idavaluo}}</td>
+				<td><a href="{{ action('corevat_AvaluosController@editGeneral', ['id'=>$row->idavaluo] )}}" class="btn btn-xs btn-info" title="Editar">{{$row->idavaluo}}</a></td>
 				<td>{{$row->foliocoretemp}}</td>
 				<td>{{$row->fecha_avaluo}}</td>
 				<td>{{$row->nombre_solicitante}}</td>
@@ -40,8 +40,8 @@
 				<td>{{$row->cuenta_catastral}}</td>
 				<td>{{$row->valor_concluido}}</td>
 				<td>
-					<a href="{{ action('corevat_AvaluosController@editGeneral', ['id'=>$row->idavaluo] )}}" class="btn btn-xs btn-info" title="Editar"><i class="glyphicon glyphicon-pencil"></i></a>
 					<a href="/corevat/AvaluoDel/{{$row->idavaluo}}" class="eliminar btn btn-xs btn-danger" title="Eliminar"><i class="glyphicon glyphicon-remove"></i></a>
+					<a href="/corevat/AvaluoPrint/{{$row->idavaluo}}" class="print btn btn-xs btn-info" title="Imprimir"><i class="glyphicon glyphicon-print"></i></a>
 				</td>
 			</tr>
 			@endforeach
