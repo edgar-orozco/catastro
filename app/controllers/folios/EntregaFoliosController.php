@@ -4,8 +4,7 @@ class folios_EntregaFoliosController extends BaseController {
 
 	public function entregafoliosestatal(){ //muestra todos los peritos
 
-		$variableperito = Perito::where('Estado', 1)
-						->get();
+		$variableperito = Perito::All();
 		return View::make('folios.entregafoliose.entregafoliosestatal', ['variableperito' => $variableperito]);
 	}
 		
@@ -167,8 +166,7 @@ class folios_EntregaFoliosController extends BaseController {
 
 	public function entregafoliosmunicipal(){ //muestra todos los peritos
 
-		$variableperito = Perito::where('Estado', 1)
-						->get();
+		$variableperito = Perito::All();
 
 		return View::make('folios.entregafoliosm.entregafoliosmunicipal', ['variableperito' => $variableperito]);
 	}

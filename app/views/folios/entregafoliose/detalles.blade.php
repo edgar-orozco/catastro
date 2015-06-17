@@ -31,8 +31,8 @@
 		<tr>
 			<th>Nombre del Perito</th>
 			<th>Urbano</th>
-			<td align="center">{{$fu->numero_folio}}</td>
-			<td align="right">{{($conf->salario_minimo*$conf->salario_folio_urbano)*$fu->numero_folio}}</td>
+			<td align="left">{{$fu->numero_folio}}</td>
+			<td align="left">${{number_format((($conf->salario_minimo*$conf->salario_folio_urbano)*$fu->numero_folio),2)}}</td>
 		</tr>
 		@endif
 
@@ -40,14 +40,14 @@
 		<tr>
 			<td>{{$perito->nombre}}</td>
 			<th>Rustico</th>
-			<td align="center">{{$fr->numero_folio}}</td>
-			<td align="right">{{($conf->salario_minimo*$conf->salario_folio_rustico)*$fr->numero_folio}}</td>
+			<td align="left">{{$fr->numero_folio}}</td>
+			<td align="left">${{number_format((($conf->salario_minimo*$conf->salario_folio_rustico)*$fr->numero_folio),2)}}</td>
 		</tr>
 		<tr>
 			<td></td>
 			<td></td>
 			<th>TOTAL</th>
-			<th>{{(($conf->salario_minimo*$conf->salario_folio_urbano)*$fu->numero_folio)+(($conf->salario_minimo*$conf->salario_folio_rustico)*$fr->numero_folio )}}</th>
+			<th>${{number_format(((($conf->salario_minimo*$conf->salario_folio_urbano)*$fu->numero_folio)+(($conf->salario_minimo*$conf->salario_folio_rustico)*$fr->numero_folio )),2)}}</th>
 		</tr>
 		@endif
 </table>

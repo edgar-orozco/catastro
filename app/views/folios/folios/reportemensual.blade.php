@@ -32,7 +32,7 @@
 
 
 	<table class="table">
-			<thead>
+			<thead align="right">
 				<tr>
 					<th>Mes</th>
 					<th>Urbanos</th>
@@ -45,12 +45,12 @@
 			<?php $acum = 0;?>
 				@foreach($folios_historial as $reporte)
 					<tr>
-						<td align="center" >{{$fecha[$reporte->mes]}}</td>
-						<td align="center" >{{$reporte->urbano}}</td>
-						<td align="center" >{{$reporte->rustico}}</td>
-						<td align="right" >$ {{number_format($reporte->total,2)}}</td>
+						<td align="left" >{{$fecha[$reporte->mes]}}</td>
+						<td align="left" >{{$reporte->urbano}}</td>
+						<td align="left" >{{$reporte->rustico}}</td>
+						<td align="left" >$ {{number_format($reporte->total,2)}}</td>
 						<?php $acum = $acum + $reporte->total;?>
-						<td align="right" >$ {{number_format($acum,2)}}</td>
+						<td align="left" >$ {{number_format($acum,2)}}</td>
 					</tr>
 				@endforeach
 			</tbody>
