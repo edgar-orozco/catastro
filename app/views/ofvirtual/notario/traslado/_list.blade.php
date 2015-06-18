@@ -1,7 +1,7 @@
 <div id="lista-tramites">
     <div class="panel">
         <div class="panel-heading">
-            <h3 class="panel-title">Traslados de dominios</h3>
+            <h1 class="panel-title">Traslados de dominios</h1>
         </div>
 
 
@@ -23,12 +23,14 @@
                     <th>Comprador</th>
                     <th>Vendedor</th>
                     <th>Fecha</th>
+                    <th>Folio</th>
                     <th>Acciones</th>
                 </tr>
                 </thead>
                 <tbody>
                 @foreach($traslados as $traslado)
                     <tr id="traslado-{{$traslado->id}}">
+
                         <td nowrap>
                             {{$traslado->clave}}
                         </td>
@@ -38,11 +40,20 @@
                         <td> {{$traslado->comprador->nombres}} {{$traslado->comprador->apellido_paterno}} {{$traslado->comprador->apellido_materno}}</td>
 
                         <td>{{$traslado->vendedor->nombres}} {{$traslado->vendedor->apellido_paterno}} {{$traslado->vendedor->apellido_materno}}</td>
-                        <td> {{$traslado->created_at->format("d-m-Y")}}</td>
+                        <td nowrap> {{$traslado->created_at->format("d-m-Y")}}</td>
+                        <td nowrap>
+                            {{$traslado->folio}}
+                        </td>
 
                         <td style="text-align: right;" nowrap>
 
                             @if(!is_null($traslado->folio))
+                                <a class="btn btn-warning disabled">
+                                    <span class="glyphicon glyphicon-pencil"></span>
+                                </a>
+                                <a class="btn-borrar btn btn-danger disabled">
+                                    <span class="glyphicon glyphicon-trash danger"></span>
+                                </a>
                             @else
 
                                 <a href="{{ action('OficinaVirtualNotarioController@edit', ['id' => $traslado->id]) }}"
