@@ -64,6 +64,27 @@ class AvaluosFisico extends \Eloquent {
 	 * @param  int  $id
 	 * @return Response
 	 */
+	public static function getAvaluoFisicoByFk($idavaluo) {
+		return AvaluosFisico::select('avaluo_enfoque_fisico.*', 
+				'cat_clase_general_inmueble.clase_general_inmueble', 
+				'cat_tipo_inmueble.tipo_inmueble',
+				'cat_estado_conservacion.estado_conservacion',
+				'cat_calidad_proyecto.calidad_proyecto')
+						->leftJoin('cat_clase_general_inmueble', 'avaluo_enfoque_fisico.idclasegeneral', '=', 'cat_clase_general_inmueble.idclasegeneralinmueble')
+						->leftJoin('cat_tipo_inmueble', 'avaluo_enfoque_fisico.idtipoinmueble', '=', 'cat_tipo_inmueble.idtipoinmueble')
+						->leftJoin('cat_estado_conservacion', 'avaluo_enfoque_fisico.idestado_conservacion', '=', 'cat_estado_conservacion.idestadoconservacion')
+						->leftJoin('cat_calidad_proyecto', 'avaluo_enfoque_fisico.idcalidadproyecto', '=', 'cat_calidad_proyecto.idcalidadproyecto')
+				
+						->where('avaluo_enfoque_fisico.idavaluo', '=', $idavaluo)
+						->first();
+	}
+
+	/**
+	 * Show the form for editing the specified resource.
+	 *
+	 * @param  int  $id
+	 * @return Response
+	 */
 	public static function delAvaluosFisico($idavaluo) {
 		$rowFisico = Avaluos::findOrFail($idavaluo)->AvaluosFisico;
 		if (count($rowFisico) > 0) {

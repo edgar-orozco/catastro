@@ -11,17 +11,15 @@ class AvaluosZona extends \Eloquent {
 	/**
 	 * Show the form for editing the specified resource.
 	 *
-	 * @param  int  $id
+	 * @param  int  $idavaluo
 	 * @return Response
 	 */
-	public function getAvaluosZonaByFk($fk) {
+	public static function getAvaluosZonaByFk($idavaluo) {
 		return AvaluosZona::select('avaluo_zona.*', 'cat_clasificacion_zona.clasificacion_zona', 'cat_proximidad_urbana.proximidad_urbana')
-						->leftJoin('avaluos', 'avaluo_zona.idavaluo', '=', 'avaluos.idavaluo')
 						->leftJoin('cat_clasificacion_zona', 'avaluo_zona.idclasificacionzona', '=', 'cat_clasificacion_zona.idclasificacionzona')
-						->leftJoin('cat_proximidad_urbana', 'avaluos.idproximidadurbana', '=', 'cat_proximidad_urbana.idproximidadurbana')
-						->where('avaluo_zona.idavaluo', '=', $fk)
-						->orderBy('avaluo_zona.idavaluozona')
-						->get();
+						->leftJoin('cat_proximidad_urbana', 'avaluo_zona.idproximidadurbana', '=', 'cat_proximidad_urbana.idproximidadurbana')
+						->where('avaluo_zona.idavaluo', '=', $idavaluo)
+						->first();
 	}
 
 	/**

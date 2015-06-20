@@ -12,14 +12,14 @@ class AemCompTerrenos extends \Eloquent {
 		return $this->hasOne('AemHomologacion', 'idaemcompterreno', 'idaemcompterreno');
 	}
 
-	public static function AemCompTerrenosByFk($idavaluoenfoquemercado) {
+	public static function getAemCompTerrenosByFk($idavaluoenfoquemercado) {
 		return AemCompTerrenos::select('*')
 						->where('idavaluoenfoquemercado', '=', $idavaluoenfoquemercado)
 						->orderBy('idaemcompterreno')
 						->get();
 	}
 
-	public static function AemHomologacionByFk($idavaluoenfoquemercado) {
+	public static function getAemHomologacionByFk($idavaluoenfoquemercado) {
 		return AemHomologacion::select('aem_homologacion.*')
 						->join('aem_comp_terrenos', 'aem_homologacion.idaemcompterreno', '=', 'aem_comp_terrenos.idaemcompterreno')
 						->where('aem_comp_terrenos.idavaluoenfoquemercado', '=', $idavaluoenfoquemercado)
