@@ -6,7 +6,9 @@
 
 @section('content')
 
-{{ HTML::style('css/forms.css') }}
+    <h1>Traslado de dominios</h1>
+
+    {{ HTML::style('css/forms.css') }}
 
         <div class="row">
 

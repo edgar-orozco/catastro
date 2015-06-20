@@ -1,7 +1,8 @@
 <?php
 use \Catastro\Repos\Padron\PadronRepositoryInterface;
 
-class OficinaVirtualNotarioController extends \BaseController {
+class OficinaVirtualNotarioController extends \BaseController
+{
 
     protected $padron;
     protected $traslado;
@@ -17,14 +18,14 @@ class OficinaVirtualNotarioController extends \BaseController {
         $this->traslado = $traslado;
     }
 
-	/**
-	 * Display a listing of the resource.
-	 *
-	 * @return Response
-	 */
-	public function index()
-	{
-		//
+    /**
+     * Display a listing of the resource.
+     *
+     * @return Response
+     */
+    public function index()
+    {
+        //
         $title = 'Listas de traslados de dominio';
 
         $traslados = Traslado::all();
@@ -32,32 +33,29 @@ class OficinaVirtualNotarioController extends \BaseController {
         $misMunicipios = Auth::user()->municipios()->get(['gid']);
 
         $aMisMunicipios = array();
-        foreach($misMunicipios as $mun)
-        {
+        foreach ($misMunicipios as $mun) {
             $aMisMunicipios[] = $mun->gid;
         }
 
-        if(empty($aMisMunicipios)){
+        if (empty($aMisMunicipios)) {
             $municipios = Municipio::orderBy('nombre_municipio')->get();
-        }
-        else{
+        } else {
             $municipios = Municipio::whereIn('gid', $aMisMunicipios)->orderBy('nombre_municipio')->get();
         }
 
-        return View:: make( 'ofvirtual.notario.traslado.index', compact( 'title' , 'traslados', 'municipios'));
+        return View:: make('ofvirtual.notario.traslado.index', compact('title', 'traslados', 'municipios'));
 
-	}
+    }
 
 
-
-	/**
-	 * Show the form for creating a new resource.
-	 *
-	 * @return Response
-	 */
-	public function create()
-	{
-		//ToDo: no muestra el titulo ?
+    /**
+     * Show the form for creating a new resource.
+     *
+     * @return Response
+     */
+    public function create()
+    {
+        //ToDo: no muestra el titulo ?
         $title = 'Crear traslado de dominio';
 
         $traslado = new Traslado();
@@ -66,32 +64,32 @@ class OficinaVirtualNotarioController extends \BaseController {
         $identificador = strtoupper($identificador);
         $predio = $this->padron->getByClaveOCuenta($identificador);
 
-          //Si la clave no se encuentra
-        if(!$predio) {
+        //Si la clave no se encuentra
+        if (!$predio) {
             return Redirect::to('ofvirtual/notario/traslado')->with('error', 'La clave o cuenta es incorrecta.');
         }
 
-        return View:: make( 'ofvirtual.notario.traslado.create', compact( 'title', 'traslado', 'predio'));
+        return View:: make('ofvirtual.notario.traslado.create', compact('title', 'traslado', 'predio'));
 
     }
 
 
-	/**
-	 * Store a newly created resource in storage.
-	 *
-	 * @return Response
-	 */
-	public function store()
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @return Response
+     */
+    public function store()
     {
         //
         $usuarioId = Auth::id();
 
         //ToDo: sacar notaria del usuario
-        $notariaId =  1;
+        $notariaId = 1;
 
         $vendedor = new personas();
-        $datosVendedor = array_map('mb_strtoupper',(Input::get('vendedor')));
-        $datosVendedor['nombrec'] = $datosVendedor['nombres'] .' '.$datosVendedor['apellido_paterno'].' ' .$datosVendedor['apellido_materno'];
+        $datosVendedor = array_map('mb_strtoupper', (Input::get('vendedor')));
+        $datosVendedor['nombrec'] = $datosVendedor['nombres'] . ' ' . $datosVendedor['apellido_paterno'] . ' ' . $datosVendedor['apellido_materno'];
         $vendedor->fill($datosVendedor);
 
         if (!$vendedor->save()) {
@@ -100,8 +98,8 @@ class OficinaVirtualNotarioController extends \BaseController {
 
 
         $comprador = new personas();
-        $datosComprador = array_map('mb_strtoupper',(Input::get('comprador')));
-        $datosComprador['nombrec'] = $datosComprador['nombres'].' '. $datosComprador['apellido_paterno'].' ' .$datosComprador['apellido_materno'];
+        $datosComprador = array_map('mb_strtoupper', (Input::get('comprador')));
+        $datosComprador['nombrec'] = $datosComprador['nombres'] . ' ' . $datosComprador['apellido_paterno'] . ' ' . $datosComprador['apellido_materno'];
         $comprador->fill($datosComprador);
 
         if (!$comprador->save()) {
@@ -118,11 +116,11 @@ class OficinaVirtualNotarioController extends \BaseController {
         //Como usuario notario, requiero que se validen los montos de terreno a vender no sean mayores que el declarado en el registro de predio.
         $predio = $this->padron->getByClaveOCuenta($traslado->clave);
 
-        if($traslado->superficie_vendida > $predio->superficie_terreno){
+        if ($traslado->superficie_vendida > $predio->superficie_terreno) {
             return Redirect::back()->withInput()->with('error', 'La superficie vendida no puede ser mayor que la superficie del terreno.');
         }
 
-        if($traslado->superficie_construccion_vendida > $predio->superficie_construccion){
+        if ($traslado->superficie_construccion_vendida > $predio->superficie_construccion) {
             return Redirect::back()->withInput()->with('error', 'La superficie de construcción vendida no puede ser mayor que la superficie de construcción del terreno');
         }
 
@@ -130,34 +128,31 @@ class OficinaVirtualNotarioController extends \BaseController {
             return Redirect::back()->withInput()->withErrors($traslado->errors());
         }
 
-        //Dado que fue exitosa la actualización mostramos la salida al usuario.
-        //return Redirect::to('ofvirtual/notario/traslado')->with('success','¡Se ha creado correctamente el traslado de dominio para la cuenta ' . $traslado->cuenta .'!');
-
-        return Redirect::to('ofvirtual/notario/traslado/show/'.$traslado->id)->with('success','¡Se ha creado correctamente el traslado de dominio para la cuenta ' . $traslado->cuenta .'!');
+        //Dado que fue exitosa la creacion del traslado,  mostramos la salida al usuario.
+        return Redirect::to('ofvirtual/notario/traslado/show/' . $traslado->id)->with('success', '¡Se ha creado correctamente el traslado de dominio para la cuenta ' . $traslado->cuenta . '!');
     }
 
 
-	/**
-	 * Display the specified resource.
-	 *
-	 * @param  int  $id
-	 * @return Response
-	 */
-	public function show($id)
-	{
+    /**
+     * Display the specified resource.
+     *
+     * @param  int $id
+     * @return Response
+     */
+    public function show($id)
+    {
 
-		// confirmar datos y confirmar folio
-
+        // confirmar datos y confirmar folio
         $traslado = Traslado::find($id);
 
         $predio = $this->padron->getByClaveOCuenta($traslado->clave);
 
         //vendedor
-        $vendedor= personas::find($traslado->vendedor_id);
+        $vendedor = personas::find($traslado->vendedor_id);
         $traslado->vendedor->fill($vendedor->toArray());
 
         //comprador
-        $comprador= personas::find($traslado->comprador_id);
+        $comprador = personas::find($traslado->comprador_id);
         $traslado->comprador->fill($comprador->toArray());
 
         $traslado->traslado = $traslado;
@@ -165,9 +160,9 @@ class OficinaVirtualNotarioController extends \BaseController {
         $title = 'Editar traslado de dominio';
 
         // Show the page
-        return View:: make( 'ofvirtual.notario.traslado.show', compact( 'title','traslado', 'predio'));
+        return View:: make('ofvirtual.notario.traslado.show', compact('title', 'traslado', 'predio'));
 
-	}
+    }
 
     public function asignarFolio($id)
     {
@@ -175,57 +170,56 @@ class OficinaVirtualNotarioController extends \BaseController {
         $traslado = Traslado::find($id);
 
         //ToDo: generar folios correctos
-        $traslado->folio = rand(1,1000000);
+        $traslado->folio = rand(1, 1000000);
 
         if (!$traslado->save()) {
             return Redirect::back()->withInput()->withErrors($traslado->errors());
         }
 
-
         // Show the page
-        return Redirect::to('ofvirtual/notario/traslado/')->with('success','¡Se ha finalizado correctamente el traslado!');
+        return Redirect::to('ofvirtual/notario/traslado/')->with('success', '¡Se ha finalizado correctamente el traslado!');
 
     }
 
-	/**
-	 * Show the form for editing the specified resource.
-	 *
-	 * @param  int  $id
-	 * @return Response
-	 */
-	public function edit($id)
-	{
-		//
+    /**
+     * Show the form for editing the specified resource.
+     *
+     * @param  int $id
+     * @return Response
+     */
+    public function edit($id)
+    {
+        //
         $traslado = Traslado::find($id);
 
         $predio = $this->padron->getByClaveOCuenta($traslado->clave);
 
         //vendedor
-        $vendedor= personas::find($traslado->vendedor_id);
+        $vendedor = personas::find($traslado->vendedor_id);
         $traslado->vendedor->fill($vendedor->toArray());
 
         //comprador
-        $comprador= personas::find($traslado->comprador_id);
+        $comprador = personas::find($traslado->comprador_id);
         $traslado->comprador->fill($comprador->toArray());
 
         $traslado->traslado = $traslado;
         // Title
         $title = 'Editar traslado de dominio';
 
-         // Show the page
-        return View:: make( 'ofvirtual.notario.traslado.edit', compact( 'title','traslado', 'predio'));
-	}
+        // Show the page
+        return View:: make('ofvirtual.notario.traslado.edit', compact('title', 'traslado', 'predio'));
+    }
 
 
-	/**
-	 * Update the specified resource in storage.
-	 *
-	 * @param  int  $id
-	 * @return Response
-	 */
-	public function update($id)
-	{
-		//ToDo: revisar primero que no tenga asignado un folio, si tiene asigando un folio no se puede editar
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  int $id
+     * @return Response
+     */
+    public function update($id)
+    {
+        //ToDo: revisar primero que no tenga asignado un folio, si tiene asigando un folio no se puede editar
 
         //Buscamos el traslado original relacionado con el id
         $traslado = Traslado::find($id);
@@ -236,8 +230,8 @@ class OficinaVirtualNotarioController extends \BaseController {
         //$notariaId =  1;
 
         $vendedor = personas::find($traslado->vendedor_id);
-        $datosVendedor = array_map('mb_strtoupper',(Input::get('vendedor')));
-        $datosVendedor['nombrec'] = $datosVendedor['nombres'] .' '.$datosVendedor['apellido_paterno'].' ' .$datosVendedor['apellido_materno'];
+        $datosVendedor = array_map('mb_strtoupper', (Input::get('vendedor')));
+        $datosVendedor['nombrec'] = $datosVendedor['nombres'] . ' ' . $datosVendedor['apellido_paterno'] . ' ' . $datosVendedor['apellido_materno'];
         $vendedor->fill($datosVendedor);
 
         if (!$vendedor->save()) {
@@ -245,8 +239,8 @@ class OficinaVirtualNotarioController extends \BaseController {
         }
 
         $comprador = personas::find($traslado->comprador_id);
-        $datosComprador = array_map('mb_strtoupper',(Input::get('comprador')));
-        $datosComprador['nombrec'] = $datosComprador['nombres'].' '. $datosComprador['apellido_paterno'].' ' .$datosComprador['apellido_materno'];
+        $datosComprador = array_map('mb_strtoupper', (Input::get('comprador')));
+        $datosComprador['nombrec'] = $datosComprador['nombres'] . ' ' . $datosComprador['apellido_paterno'] . ' ' . $datosComprador['apellido_materno'];
         $comprador->fill($datosComprador);
 
 
@@ -259,11 +253,11 @@ class OficinaVirtualNotarioController extends \BaseController {
         //Como usuario notario, requiero que se validen los montos de terreno a vender no sean mayores que el declarado en el registro de predio.
         $predio = $this->padron->getByClaveOCuenta($traslado->clave);
 
-        if($traslado->superficie_vendida > $predio->superficie_terreno){
+        if ($traslado->superficie_vendida > $predio->superficie_terreno) {
             return Redirect::back()->withInput()->with('error', 'La superficie vendida no puede ser mayor que la superficie del terreno.');
         }
 
-        if($traslado->superficie_construccion_vendida > $predio->superficie_construccion){
+        if ($traslado->superficie_construccion_vendida > $predio->superficie_construccion) {
             return Redirect::back()->withInput()->with('error', 'La superficie de construcción vendida no puede ser mayor que la superficie de construcción del terreno');
         }
 
@@ -272,21 +266,19 @@ class OficinaVirtualNotarioController extends \BaseController {
         }
 
         //Dado que fue exitosa la actualización mostramos la salida al usuario.
-        //return Redirect::to('ofvirtual/notario/traslado/edit/'.$traslado->id)->with('success','¡Se ha actualizado correctamente el traslado!');
-
-        return Redirect::to('ofvirtual/notario/traslado/show/'.$traslado->id)->with('success','¡Se ha creado correctamente el traslado de dominio para la cuenta ' . $traslado->cuenta .'!');
-	}
+          return Redirect::to('ofvirtual/notario/traslado/show/' . $traslado->id)->with('success', '¡Se ha creado correctamente el traslado de dominio para la cuenta ' . $traslado->cuenta . '!');
+    }
 
 
-	/**
-	 * Remove the specified resource from storage.
-	 *
-	 * @param  int  $id
-	 * @return Response
-	 */
-	public function destroy($id)
-	{
-		//
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  int $id
+     * @return Response
+     */
+    public function destroy($id)
+    {
+        //
         //ToDo: revisar primero que no tenga asignado un folio, si tiene asigando un folio no se puede borrar
 
         $traslado = Traslado::find($id);
@@ -298,58 +290,53 @@ class OficinaVirtualNotarioController extends \BaseController {
         $comprador = personas::find($traslado->comprador_id);
         $comprador->delete();
 
-        return Redirect::to('ofvirtual/notario/traslado')->with('success','¡Se ha eliminado correctamente el traslado!');
+        return Redirect::to('ofvirtual/notario/traslado')->with('success', '¡Se ha eliminado correctamente el traslado!');
 
 
+    }
 
-	}
 
-
-    public function buscar(){
+    public function buscar()
+    {
 
         $q = Input::get('q');
         $tipo = Input::get('tipo');
 
         $traslados = new Traslado();
 
-        if($tipo == 'Folio')
-        {
+        if ($tipo == 'Folio') {
             $traslados = Traslado::whereFolio($q)->paginate($this->numPags);
         }
-        if($tipo == 'Vendedor')
-        {
+        if ($tipo == 'Vendedor') {
             $traslados = Traslado::vendedorNombreCompleto(strtoupper($q))->paginate($this->numPags);
         }
-        if($tipo == 'Comprador')
-        {
+        if ($tipo == 'Comprador') {
             $traslados = Traslado::compradorNombreCompleto(strtoupper($q))->paginate($this->numPags);
         }
-        if($tipo == 'Ubicación de la propiedad') {
+        if ($tipo == 'Ubicación de la propiedad') {
 
-                $ubicaciones = Traslado::ubicacion(strtoupper(trim($q)))->paginate($this->numPags);
+            $ubicaciones = Traslado::ubicacion(strtoupper(trim($q)))->paginate($this->numPags);
 
-                $trasladosArr = array();
-                foreach ($ubicaciones as $ubicacion) {
-                    try {
-                         $trasladosArr[] = Traslado::find($ubicacion->id);
-                    }catch(Exception $e){ }
-
+            $trasladosArr = array();
+            foreach ($ubicaciones as $ubicacion) {
+                try {
+                    $trasladosArr[] = Traslado::find($ubicacion->id);
+                } catch (Exception $e) {
                 }
-                $traslados = $trasladosArr;
 
-           //
+            }
+            $traslados = $trasladosArr;
+
+            //
         }
-        if($tipo == 'Clave')
-        {
+        if ($tipo == 'Clave') {
             $traslados = Traslado::whereClave($q)->paginate($this->numPags);
         }
-        if($tipo == 'Cuenta')
-        {
+        if ($tipo == 'Cuenta') {
             $traslados = Traslado::whereCuenta($q)->paginate($this->numPags);
         }
-        if (Request::ajax())
-        {
-            return View:: make( 'ofvirtual.notario.traslado._list',compact(['traslados']));
+        if (Request::ajax()) {
+            return View:: make('ofvirtual.notario.traslado._list', compact(['traslados']));
         }
 
         return $traslados;

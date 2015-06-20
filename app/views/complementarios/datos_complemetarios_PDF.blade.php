@@ -7,20 +7,17 @@
                 width: 300px;
 
             }
-            @page invitacion {
-                size: A4 portrait;
-                margin: 2cm;
-                font-family: arial;
-                font-size:8px;
-            }
-            table {
+                    table {
                 border: 1px solid #dddddd;
                 text-align: center;
                 border-collapse: collapse;
+                font-family:sans-serif;
+                font-size: 11px;
+                word-wrap: break-word;  
 
             }
             td, th {
-                /*padding: 0.3em;*/
+           
             }
             th, td {
                 border: 1px solid #dddddd;
@@ -29,17 +26,11 @@
 
             .invitacionPage
             {
-                page: invitacion;
-                page-break-after: always;
-            }
-            /*            table tr {
-                            border: 1px solid black;
-                            font-size:14px;
-                        }
-                        table td th {
-                            padding: 5px;
-                            text-align: left;
-                        }*/
+               
+                background-repeat: no-repeat;
+                width: 100%;
+                height: 97%;
+            }         
             .letras{
                 margin-left: 400px;
                 margin-top: 0px;
