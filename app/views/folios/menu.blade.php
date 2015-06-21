@@ -29,9 +29,7 @@
                 </a>
             </li>
             
-            
-			
-
+          
             <li class="@if(Request::is('entregafoliosestatal')) active @endif">
                 <a href="{{URL::to('/entregafoliosestatal')}}">
                 <i class="glyphicon glyphicon-open"></i>&nbsp;
@@ -115,27 +113,6 @@
                     Entrega Folios Estatal
                 </a>
             </li>
-
-            <li class="divider"></li>
-        </ul>
-    </li>
-@endif
-
-@if(!Auth::guest() && ( Auth::user()->hasRole("Folios municipio") || Auth::user()->hasRole("Folio municipio")))
-    <li class="dropdown @if(Request::is('Ejecucion/*')) active @endif">
-
-        <a data-toggle="dropdown" class="dropdown-toggle" href="#">Folios <b class="caret"></b></a>
-        <ul role="menu" class="dropdown-menu">
-            
-			<li class="divider"></li>
-                        
-            <li class="@if(Request::is('foliosemitidos')) active @endif">
-                <a href="{{URL::to('/foliosemitidos')}}">
-                <i class="glyphicon glyphicon-open"></i>&nbsp;
-                    Folios Autorizados
-                </a>
-            </li>
-
 
             <li class="divider"></li>
         </ul>
