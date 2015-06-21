@@ -63,7 +63,7 @@ class HomeController extends BaseController
         }
         elseif (Confide::user()->hasRole('Folios municipio')) {
             //$homepage = 'folios';
-            return Redirect::to('/entregafoliosestatal');
+            return Redirect::to('/entregafoliosmunicipal');
         }
         elseif (Confide::user()->hasRole('Complementarios')) {
             //$homepage = 'folios';

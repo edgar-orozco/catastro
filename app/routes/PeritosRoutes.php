@@ -1,12 +1,10 @@
 <?php
-
-
 //Folio Admin
 Route::group(array('before'=>'Folios'),  function (){
   //Route::Metodo de envio('/direccion que aparecera en la barra de direccion', controlador@objeto del controlador);
 		/* -- FILTRO DE USUARIO MUNICIPIO, NO PODRÁ ACCEDER A ESTAS RUTAS -- */
 		
-			
+			Route::get('/index', 'folios_IndexController@index');
 		
 			Route::get('/nfolios', 'folios_FoliosController@nfolios');
 			Route::get('/foliosemitidos', 'folios_FoliosController@foliosemitidos');
@@ -65,13 +63,13 @@ Route::group(array('before'=>'Folios usuario'),  function (){
   //Route::Metodo de envio('/direccion que aparecera en la barra de direccion', controlador@objeto del controlador);
 
 		/* -- FILTRO DE USUARIO MUNICIPIO, NO PODRÁ ACCEDER A ESTAS RUTAS -- */
-			
+			Route::get('/index', 'folios_IndexController@index');
                         //Nuevo Folio		
 			Route::get('/nfolios', 'folios_FoliosController@nfolios');
 			Route::post('/nfolios', 'folios_FoliosController@nfolioscreate');
 			Route::get('nfolios/formato/{id}', 'folios_FoliosController@formato');
 			//Folios Emitidos
-            Route::get('/foliosemitidos', 'folios_FoliosController@foliosemitidos');
+                        Route::get('/foliosemitidos', 'folios_FoliosController@foliosemitidos');
 			Route::get('formato/{id}', 'folios_FoliosController@formato');
 			Route::get('eliminarFolio/{id}', 'folios_FoliosController@eliminarFolios');
                         //Entrega Folios Estatal
@@ -82,18 +80,17 @@ Route::group(array('before'=>'Folios usuario'),  function (){
 			Route::post('/entregafoliose/urbanos/{id}', 'folios_EntregaFoliosController@post_foliose');
 			Route::post('/entregafoliose/rusticos/{xid}', 'folios_EntregaFoliosController@post_foliose');
 });
- Route::filter('Folios usuario', function () {
+ Route::filter('Folio usuario', function () {
 
-    if (! ( Entrust::hasRole('Folios usuario') ||  Entrust::hasRole('Super usuario') ) )
+    if (! ( Entrust::hasRole('Folio usuario') ||  Entrust::hasRole('Super usuario') ) )
     {
-        return Redirect::to('/entregafoliosmunicipal');
+        return Redirect::to('/');
     }
 });
 
- //Usuario municipio
+//Usuario municipio
  Route::group(array('before'=>'Folios municipio'),  function (){ 
                         //peritos
- 		Route::get('/index', 'folios_IndexController@index');
 	 	Route::get('/entregafoliosmunicipal', 'folios_EntregaFoliosController@entregafoliosmunicipal');
 		Route::get('/entregafoliosm/urbanos/{id}', 'folios_EntregaFoliosController@get_urbanosm');
 		Route::get('/entregafoliosm/rusticos/{id}', 'folios_EntregaFoliosController@get_rusticosm');
@@ -105,6 +102,6 @@ Route::group(array('before'=>'Folios usuario'),  function (){
 
     if (! ( Entrust::hasRole('Folios municipio') ||  Entrust::hasRole('Super usuario') ) )
     {
-        return Redirect::to('/entregafoliosmunicipal');
+        return Redirect::to('/');
     }
 });
