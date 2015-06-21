@@ -8,6 +8,9 @@
 @section('content')
 
     {{ HTML::style('css/forms.css') }}
+
+    <h1>Traslado de dominios</h1>
+
     <div class="row">
 
 
@@ -117,7 +120,7 @@
             </tr>
             <tr>
                 <th class="text-right"><b>Escritura de fecha:</b></th>
-                <td>{{$traslado->escritura_fecha}}</td>
+                <td>{{date("d-m-Y", strtotime($traslado->escritura_fecha))}}</td>
             </tr>
             <tr>
                 <th class="text-right"><b>N° registro:</b></th>
@@ -139,11 +142,11 @@
             </tr>
             <tr>
                 <th class="text-right"><b>Impuesto pagado del:</b></th>
-                <td>{{$traslado->escritura_impuesto_desde}}</td>
+                <td>{{date("d-m-Y", strtotime($traslado->escritura_impuesto_desde))}}</td>
             </tr>
             <tr>
                 <th class="text-right"><b>Al:</b></th>
-                <td>{{$traslado->escritura_impuesto_hasta}}</td>
+                <td>{{date("d-m-Y", strtotime($traslado->escritura_impuesto_hasta))}}</td>
             </tr>
 
         </table>
