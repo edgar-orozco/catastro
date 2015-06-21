@@ -10,6 +10,14 @@ class personas extends Eloquent
 
 
     /**
+     * La relacion con el catalogo de personas es de 1 a 1
+     * @return \Illuminate\Database\Eloquent\Relations\HasOne
+     */
+    public function tipo() {
+        return $this->hasOne('TipoPersona', 'id_tipo', 'id_tipo');
+    }
+
+    /**
      * Se hace override del metodo save para invocar el seteo automatico del nombre completo, ya que estamos repitiendo mucho codigo a lo tonto
      * para cumplir con la especificación de los constraints manejados en la tabla personas
      * @param array $options
@@ -75,6 +83,5 @@ class personas extends Eloquent
     public function setCurpAttribute($curp){
         $this->attributes['curp'] = mb_strtoupper(trim($curp));
     }
-
 }
 
