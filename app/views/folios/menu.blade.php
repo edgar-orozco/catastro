@@ -87,7 +87,7 @@
 
 @endif
 
-@if(!Auth::guest() && ( Auth::user()->hasRole("Folios usuario") || Auth::user()->hasRole("Folios usuarios")))
+@if(!Auth::guest() && ( Auth::user()->hasRole("Folios usuario") || Auth::user()->hasRole("Folio usuario")))
 
     <li class="dropdown @if(Request::is('Ejecucion/*')) active @endif">
 
@@ -129,12 +129,13 @@
             
 			<li class="divider"></li>
                         
-            <li class="@if(Request::is('entregafoliosestatal')) active @endif">
-                <a href="{{URL::to('/entregafoliosestatal')}}">
+            <li class="@if(Request::is('foliosemitidos')) active @endif">
+                <a href="{{URL::to('/foliosemitidos')}}">
                 <i class="glyphicon glyphicon-open"></i>&nbsp;
-                    Entrega Folios Estatal
+                    Folios Autorizados
                 </a>
             </li>
+
 
             <li class="divider"></li>
         </ul>
