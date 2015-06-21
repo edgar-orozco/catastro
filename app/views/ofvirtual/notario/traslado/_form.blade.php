@@ -146,7 +146,7 @@
     </div>
     <div class="row col-xs-4">
         {{Form::label('traslado[escritura_fecha]','Escritura de fecha')}}
-        {{Form::input('date', 'traslado[escritura_fecha]', null, ['class'=>'form-control'] )}}
+        {{Form::input('text', 'traslado[escritura_fecha]', null, ['class'=>'form-control fecha'] )}}
         {{$errors->first('traslado[escritura_fecha]', '<span class=text-danger>:message</span>')}}
 
         {{Form::label('traslado[escritura_registro]','N° registro')}}
@@ -166,20 +166,48 @@
         {{$errors->first('traslado[escritura_volumen]', '<span class=text-danger>:message</span>')}}
 
         {{Form::label('traslado[escritura_impuesto_desde]','Impuesto pagado del')}}
-        {{Form::input('date', 'traslado[escritura_impuesto_desde]', null, ['class'=>'form-control'] )}}
+        {{Form::input('text', 'traslado[escritura_impuesto_desde]', null, ['class'=>'form-control fecha'] )}}
         {{$errors->first('traslado[escritura_impuesto_desde]', '<span class=text-danger>:message</span>')}}
 
         {{Form::label('traslado[escritura_impuesto_hasta]','Al')}}
-        {{Form::input('date', 'traslado[escritura_impuesto_hasta]', null, ['class'=>'form-control'] )}}
+        {{Form::input('text', 'traslado[escritura_impuesto_hasta]', null, ['class'=>'form-control fecha'] )}}
         {{$errors->first('traslado[escritura_impuesto_hasta]', '<span class=text-danger>:message</span>')}}
 
     </div>
 </div>
 <br>
 
-
 @section('javascript')
+
+    {{--ver el componente de selección de fechas aún cuando no esté usando chrome--}}
+    {{ HTML::script('js/bootstrap-datepicker.js') }}
+    {{ HTML::script('js/bootstrap-datepicker.es.js') }}
+    {{ HTML::style('css/datepicker3.css') }}
+
     <script>
+
+
+        $( ".fecha" ).each(function( index ) {
+
+            if( $(this).val() ) {
+                console.log( index + ": " + $( this ).val() );
+               // $(this).parents('p').addClass('warning');
+                var dateAr = $(this).val().split('-');
+                var newDate = dateAr[2] + '/' + dateAr[1] + '/' + dateAr[0];
+
+                $(this).val(newDate);
+            }
+        });
+
+        $('.fecha').datepicker({
+            format: "dd/mm/yyyy",
+            weekStart: 1,
+            clearBtn: true,
+            language: "es",
+            toggleActive: true,
+            autoclose: true
+        });
+        {{--/datepicker--}}
 
         $(function () {
             //Cuando hay cambios en los radio buttons de los requisitos
