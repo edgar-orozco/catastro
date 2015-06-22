@@ -506,8 +506,6 @@ angular.module('app', [
          * @param usuario
          */
         $scope.vigencia = function(user){
-            $scope.activeUser = user.vigente;
-            $scope.desactiveUser = user;
             var modalInstance = $modal.open({
                 templateUrl : 'modalActive.html',
                 controller  : 'ActiveCtrl',
@@ -521,7 +519,6 @@ angular.module('app', [
                     }
             });
             modalInstance.result.then(null, function (event) {
-                console.log(event);
                 if(event == 'backdrop click' || event == 'escape key press'){
                     user.vigente = !user.vigente;
                 }
@@ -562,11 +559,22 @@ angular.module('app', [
                 { vigente : $scope.user.vigente},
                 function(data) {
                     if (data.status == 'success') {
+                        if(scope.showForm){
+                            if(user.id == scope.user.id ){
+                                scope.user.vigente = $scope.user.vigente;
+                                if(user.idx !== undefined){
+                                    scope.users[user.idx].vigente = $scope.user.vigente;
+                                }
+                            }
+                        }
                         $modalInstance.close('cancel');
                         scope.successSave = true;
                         $timeout(function(){
                             scope.successSave = false;
                         }, 10000)
+                    }
+                    else{
+                        $modalInstance.close('cancel');
                     }
                 });
         };
