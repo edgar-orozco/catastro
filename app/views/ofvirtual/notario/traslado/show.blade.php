@@ -47,7 +47,7 @@
 
             <tr>
                 <th class="text-right"><b>Tipo Persona:</b></th>
-                <td>{{$traslado->vendedor_tipo}}</td>
+                <td>{{$traslado->vendedor->tipo['nombre']}}</td>
             </tr>
 
             <tr>
@@ -75,7 +75,7 @@
 
             <tr>
                 <th class="text-right"><b>Tipo Persona:</b></th>
-                <td>{{$traslado->comprador_tipo}}</td>
+                <td>{{$traslado->comprador->tipo['nombre']}}</td>
             </tr>
 
             <tr>

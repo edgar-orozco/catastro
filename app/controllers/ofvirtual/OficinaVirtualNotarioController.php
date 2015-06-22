@@ -88,8 +88,8 @@ class OficinaVirtualNotarioController extends \BaseController
         $notariaId = 1;
 
         $vendedor = new personas();
-        $datosVendedor = array_map('mb_strtoupper', (Input::get('vendedor')));
-        $datosVendedor['nombrec'] = $datosVendedor['nombres'] . ' ' . $datosVendedor['apellido_paterno'] . ' ' . $datosVendedor['apellido_materno'];
+        $datosVendedor = Input::get('vendedor');
+        //$datosVendedor['nombrec'] = $datosVendedor['nombres'] . ' ' . $datosVendedor['apellido_paterno'] . ' ' . $datosVendedor['apellido_materno'];
         $vendedor->fill($datosVendedor);
 
         if (!$vendedor->save()) {
@@ -98,8 +98,9 @@ class OficinaVirtualNotarioController extends \BaseController
 
 
         $comprador = new personas();
-        $datosComprador = array_map('mb_strtoupper', (Input::get('comprador')));
-        $datosComprador['nombrec'] = $datosComprador['nombres'] . ' ' . $datosComprador['apellido_paterno'] . ' ' . $datosComprador['apellido_materno'];
+        //$datosComprador = array_map('mb_strtoupper', (Input::get('comprador')));
+        $datosComprador = Input::get('comprador');
+       // $datosComprador['nombrec'] = $datosComprador['nombres'] . ' ' . $datosComprador['apellido_paterno'] . ' ' . $datosComprador['apellido_materno'];
         $comprador->fill($datosComprador);
 
         if (!$comprador->save()) {
@@ -230,8 +231,9 @@ class OficinaVirtualNotarioController extends \BaseController
         //$notariaId =  1;
 
         $vendedor = personas::find($traslado->vendedor_id);
-        $datosVendedor = array_map('mb_strtoupper', (Input::get('vendedor')));
-        $datosVendedor['nombrec'] = $datosVendedor['nombres'] . ' ' . $datosVendedor['apellido_paterno'] . ' ' . $datosVendedor['apellido_materno'];
+        //$datosVendedor = array_map('mb_strtoupper', (Input::get('vendedor')));
+        $datosVendedor = Input::get('vendedor');
+        //$datosVendedor['nombrec'] = $datosVendedor['nombres'] . ' ' . $datosVendedor['apellido_paterno'] . ' ' . $datosVendedor['apellido_materno'];
         $vendedor->fill($datosVendedor);
 
         if (!$vendedor->save()) {
@@ -239,8 +241,9 @@ class OficinaVirtualNotarioController extends \BaseController
         }
 
         $comprador = personas::find($traslado->comprador_id);
-        $datosComprador = array_map('mb_strtoupper', (Input::get('comprador')));
-        $datosComprador['nombrec'] = $datosComprador['nombres'] . ' ' . $datosComprador['apellido_paterno'] . ' ' . $datosComprador['apellido_materno'];
+       // $datosComprador = array_map('mb_strtoupper', (Input::get('comprador')));
+        $datosComprador = Input::get('comprador');
+       // $datosComprador['nombrec'] = $datosComprador['nombres'] . ' ' . $datosComprador['apellido_paterno'] . ' ' . $datosComprador['apellido_materno'];
         $comprador->fill($datosComprador);
 
 

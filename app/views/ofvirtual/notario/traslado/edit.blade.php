@@ -44,15 +44,17 @@
                   if(chb.is(':checked')){
                      //chb.click();
                      //$('label[for="'+chb.attr("id")+'"]').click();
-                     if(chb.val() == 'F'){
+                      //física
+                     if(chb.val() == '1'){
                          $('.vendedor-campos-fisica').show();
-                         $('.vendedor-tipo_persona').val('F');
+                         $('.vendedor-tipo_persona').val('1');
                          $('#vendedor-rfc').attr('pattern', '([A-Za-z]{4})([0-9]{6})([A-Za-z0-9]{3})');
                      }
-                     else if(chb.val() == 'M')
+                     //moral
+                     else if(chb.val() == '2')
                      {
                          $('.vendedor-campos-fisica').hide();
-                         $('.vendedor-tipo_persona').val('M');
+                         $('.vendedor-tipo_persona').val('2');
                          $('#vendedor-rfc').attr('pattern', '([A-Za-z]{3})([0-9]{6})([A-Za-z0-9]{3})');
                      }
                    }
@@ -63,15 +65,17 @@
                    //
                     // $("label[for='"+chb.attr("id")+"']").click();
                    //  $("label[for='"+chb.attr("id")+"']").click();
-                    if(chb.val() == 'F'){
+                   //física
+                    if(chb.val() == '1'){
                         $('.comprador-campos-fisica').show();
-                        $('.comprador-tipo_persona').val('F');
+                        $('.comprador-tipo_persona').val('1');
                         $('#comprador-rfc').attr('pattern', '([A-Za-z]{4})([0-9]{6})([A-Za-z0-9]{3})');
                     }
-                    else if(chb.val() == 'M')
+                    //mora
+                    else if(chb.val() == '2')
                     {
                         $('.comprador-campos-fisica').hide();
-                        $('.comprador-tipo_persona').val('M');
+                        $('.comprador-tipo_persona').val('1');
                          $('#comprador-rfc').attr('pattern', '([A-Za-z]{3})([0-9]{6})([A-Za-z0-9]{3})');
                     }
 
