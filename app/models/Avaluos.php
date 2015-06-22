@@ -74,15 +74,22 @@ class Avaluos extends \Eloquent {
 	 * @param  int  $id
 	 * @return Response
 	 */
-	public function getAvaluo($id) {
-		return Avaluos::select('avaluos.*', 'estados.estado', 'municipios.municipio', 'cat_tipo_inmueble.tipo_inmueble', 'cat_regimen_propiedad.regimen_propiedad')
+	public static function getAvaluo($idavaluo) {
+		return Avaluos::select('avaluos.*', 'usuarios.foto', 'usuarios.nombres', 'usuarios.apellidos', 'usuarios.cedulaprofesional',
+				'usuarios.registro', 'usuarios.registro_colegio', 'usuarios.status_usuario', 
+				'estados.estado', 'municipios.municipio', 'cat_tipo_inmueble.tipo_inmueble', 'cat_regimen_propiedad.regimen_propiedad',
+				'avaluo_inmueble.superficie_construccion', 'avaluo_inmueble.superficie_terreno',
+				'avaluo_conclusiones.valor_fisico', 'avaluo_conclusiones.valor_mercado', 'avaluo_conclusiones.valor_concluido')
+						->leftJoin('usuarios', 'avaluos.iduser', '=', 'usuarios.iduser')
 						->leftJoin('estados', 'avaluos.idestado', '=', 'estados.idestado')
 						->leftJoin('municipios', 'avaluos.idmunicipio', '=', 'municipios.idmunicipio')
 						->leftJoin('cat_tipo_inmueble', 'avaluos.idtipoinmueble', '=', 'cat_tipo_inmueble.idtipoinmueble')
 						->leftJoin('cat_regimen_propiedad', 'avaluos.idregimenpropiedad', '=', 'cat_regimen_propiedad.idregimenpropiedad')
-						->where('avaluos.idavaluo', '=', $id)
+						->leftJoin('avaluo_inmueble', 'avaluos.idavaluo', '=', 'avaluo_inmueble.idavaluo')
+						->leftJoin('avaluo_conclusiones', 'avaluos.idavaluo', '=', 'avaluo_conclusiones.idavaluo')
+						->where('avaluos.idavaluo', '=', $idavaluo)
 						->orderBy('avaluos.idavaluo')
-						->get();
+						->first();
 	}
 
 	/**
@@ -160,6 +167,21 @@ class Avaluos extends \Eloquent {
 		$row->modi_por = 1; //Auth::id()
 		$row->modi_el = date('Y-m-d H:i:s');
 		$row->save();
+	}
+
+
+	/**
+	 * Show the form for editing the specified resource.
+	 *
+	 * @param  int  $idavaluo
+	 * @return Response
+	 */
+	public static function getAiMedidasColindanciasByIdForPdf($idavaluoinmueble) {
+		return AvaluosZona::select('ai_medidas_colindancias.*', 'ori.orientacion AS orientacion')
+						->leftJoin('cat_orientaciones AS ori', 'ai_medidas_colindancias.idorientacion', '=', 'ori.idorientacion')
+						->where('ai_medidas_colindancias.idavaluoinmueble', '=', $idavaluoinmueble)
+						->orderBy('ai_medidas_colindancias.idaimedidacolindancia')
+						->get();
 	}
 
 }

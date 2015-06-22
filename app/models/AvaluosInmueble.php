@@ -43,6 +43,99 @@ class AvaluosInmueble extends \Eloquent {
 	/**
 	 * Show the form for editing the specified resource.
 	 *
+	 * @param  int  $idavaluo
+	 * @return Response
+	 */
+	public static function getAvaluoInmuebleByIdForPdf($idavaluo) {
+		return AvaluosInmueble::select('avaluo_inmueble.*', 
+				'ct_niv.nivel AS nivel', 
+				'cim.cimentacion', 
+				'estruc.estructura', 
+				'mur.muro AS muros', 
+				'entrepi.entrepiso AS entrepisos', 
+				'tech.techo AS techos', 
+				'brd.barda AS bardas', 
+				
+				'pis0.piso AS recamaras0',
+				'apla0.aplanado AS recamaras1',
+				'plaf0.plafon AS recamaras2',
+
+				'pis1.piso AS estancia_comedor0',
+				'apla1.aplanado AS estancia_comedor1',
+				'plaf1.plafon AS estancia_comedor2',
+
+				'pis2.piso AS banos0',
+				'apla2.aplanado AS banos1',
+				'plaf2.plafon AS banos2',
+
+				'pis3.piso AS escaleras0',
+				'apla3.aplanado AS escaleras1',
+				'plaf3.plafon AS escaleras2',
+
+				'pis4.piso AS cocina0',
+				'apla4.aplanado AS cocina1',
+				'plaf4.plafon AS cocina2',
+
+				'pis5.piso AS patio_servicio0',
+				'apla5.aplanado AS patio_servicio0',
+				'plaf5.plafon AS patio_servicio0',
+
+				'pis6.piso AS estacionamiento0',
+				'apla6.aplanado AS estacionamiento1',
+				'plaf6.plafon AS estacionamiento2',
+
+				'pis7.piso AS fachada0',
+				'apla7.aplanado AS fachada1'
+				)
+				
+						->leftJoin('cat_usos_suelos AS us', 'avaluo_inmueble.idusossuelo', '=', 'us.idusossuelos')
+						->leftJoin('cat_niveles AS ct_niv', 'avaluo_inmueble.numero_niveles_unidad', '=', 'ct_niv.idnivel')
+						->leftJoin('cat_cimentaciones AS cim', 'avaluo_inmueble.id_cimentacion', '=', 'cim.idcimentacion')
+						->leftJoin('cat_estructuras AS estruc', 'avaluo_inmueble.id_estructura', '=', 'estruc.idestructura')
+						->leftJoin('cat_muros AS mur', 'avaluo_inmueble.id_muro', '=', 'mur.idmuro')
+						->leftJoin('cat_entrepisos AS entrepi', 'avaluo_inmueble.id_entrepiso', '=', 'entrepi.identrepiso')
+						->leftJoin('cat_techos AS tech', 'avaluo_inmueble.id_techo', '=', 'tech.idtecho')
+						->leftJoin('cat_bardas AS brd', 'avaluo_inmueble.id_barda', '=', 'brd.idbarda')
+				
+						->leftJoin('cat_pisos AS pis0', 'avaluo_inmueble.id_recamara0', '=', 'pis0.idpiso')
+						->leftJoin('cat_aplanados AS apla0', 'avaluo_inmueble.id_recamara1', '=', 'apla0.idaplanado')
+						->leftJoin('cat_plafones AS plaf0', 'avaluo_inmueble.id_recamara2', '=', 'plaf0.idplafon')
+				
+						->leftJoin('cat_pisos AS pis1', 'avaluo_inmueble.id_estancia_comedor0', '=', 'pis1.idpiso')
+						->leftJoin('cat_aplanados AS apla1', 'avaluo_inmueble.id_estancia_comedor1', '=', 'apla1.idaplanado')
+						->leftJoin('cat_plafones AS plaf1', 'avaluo_inmueble.id_estancia_comedor2', '=', 'plaf1.idplafon')
+				
+						->leftJoin('cat_pisos AS pis2', 'avaluo_inmueble.id_bano0', '=', 'pis2.idpiso')
+						->leftJoin('cat_aplanados AS apla2', 'avaluo_inmueble.id_bano1', '=', 'apla2.idaplanado')
+						->leftJoin('cat_plafones AS plaf2', 'avaluo_inmueble.id_bano2', '=', 'plaf2.idplafon')
+				
+						->leftJoin('cat_pisos AS pis3', 'avaluo_inmueble.id_escalera0', '=', 'pis3.idpiso')
+						->leftJoin('cat_aplanados AS apla3', 'avaluo_inmueble.id_escalera1', '=', 'apla3.idaplanado')
+						->leftJoin('cat_plafones AS plaf3', 'avaluo_inmueble.id_escalera2', '=', 'plaf3.idplafon')
+				
+						->leftJoin('cat_pisos AS pis4', 'avaluo_inmueble.id_cocina0', '=', 'pis4.idpiso')
+						->leftJoin('cat_aplanados AS apla4', 'avaluo_inmueble.id_cocina1', '=', 'apla4.idaplanado')
+						->leftJoin('cat_plafones AS plaf4', 'avaluo_inmueble.id_cocina2', '=', 'plaf4.idplafon')
+				
+						->leftJoin('cat_pisos AS pis5', 'avaluo_inmueble.id_patio_servicio0', '=', 'pis5.idpiso')
+						->leftJoin('cat_aplanados AS apla5', 'avaluo_inmueble.id_patio_servicio1', '=', 'apla5.idaplanado')
+						->leftJoin('cat_plafones AS plaf5', 'avaluo_inmueble.id_patio_servicio2', '=', 'plaf5.idplafon')
+				
+						->leftJoin('cat_pisos AS pis6', 'avaluo_inmueble.id_estacionamiento0', '=', 'pis6.idpiso')
+						->leftJoin('cat_aplanados AS apla6', 'avaluo_inmueble.id_estacionamiento1', '=', 'apla6.idaplanado')
+						->leftJoin('cat_plafones AS plaf6', 'avaluo_inmueble.id_estacionamiento2', '=', 'plaf6.idplafon')
+				
+						->leftJoin('cat_pisos AS pis7', 'avaluo_inmueble.id_fachada0', '=', 'pis7.idpiso')
+						->leftJoin('cat_aplanados AS apla7', 'avaluo_inmueble.id_fachada1', '=', 'apla7.idaplanado')
+						->leftJoin('cat_plafones AS plaf7', 'avaluo_inmueble.id_fachada2', '=', 'plaf7.idplafon')
+				
+						->where('avaluo_inmueble.idavaluo', '=', $idavaluo)
+						->orderBy('avaluo_inmueble.idavaluoinmueble')
+						->first();
+	}
+	/**
+	 * Show the form for editing the specified resource.
+	 *
 	 * @param  int  $id
 	 * @return Response
 	 */

@@ -48,11 +48,9 @@
                         <td style="text-align: right;" nowrap>
 
                             @if(!is_null($traslado->folio))
-                                <a class="btn btn-warning disabled">
-                                    <span class="glyphicon glyphicon-pencil"></span>
-                                </a>
-                                <a class="btn-borrar btn btn-danger disabled">
-                                    <span class="glyphicon glyphicon-trash danger"></span>
+                                <a href="{{ action('OficinaVirtualNotarioController@show', ['id' => $traslado->id]) }}"
+                                   class="btn btn-info" title="Ver traslado">
+                                    <span class="glyphicon glyphicon-list-alt"></span>
                                 </a>
                             @else
 

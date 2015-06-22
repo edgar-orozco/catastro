@@ -8,6 +8,12 @@ class AiMedidasColindancias extends \Eloquent {
 	protected $primaryKey = 'idaimedidacolindancia';
 	public $timestamps = false;
 
+	/**
+	 * Show the form for editing the specified resource.
+	 *
+	 * @param  int  $idavaluo
+	 * @return Response
+	 */
 	public static function AiMedidasColindanciasByFk($fk) {
 		return AiMedidasColindancias::select('ai_medidas_colindancias.*', 'cat_orientaciones.orientacion')
 						->leftJoin('cat_orientaciones', 'ai_medidas_colindancias.idorientacion', '=', 'cat_orientaciones.idorientacion')
@@ -16,6 +22,12 @@ class AiMedidasColindancias extends \Eloquent {
 						->get();
 	}
 
+	/**
+	 * Show the form for editing the specified resource.
+	 *
+	 * @param  int  $idavaluo
+	 * @return Response
+	 */
 	public static function insAiMedidasColindancias($inputs) {
 		$row = new AiMedidasColindancias();
 		$row->idavaluoinmueble = $inputs['idavaluoinmueble2'];
@@ -30,6 +42,12 @@ class AiMedidasColindancias extends \Eloquent {
 		$row->save();
 	}
 
+	/**
+	 * Show the form for editing the specified resource.
+	 *
+	 * @param  int  $idavaluo
+	 * @return Response
+	 */
 	public static function updAiMedidasColindancias($inputs) {
 		$row = AiMedidasColindancias::find($inputs['idaimedidacolindancia']);
 		$row->idorientacion = $inputs['idorientacion'];

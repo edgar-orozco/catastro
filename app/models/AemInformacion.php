@@ -24,7 +24,7 @@ class AemInformacion extends \Eloquent {
 	 * @param  int  $id
 	 * @return Response
 	 */
-	public static function AemInformacionByFk($idavaluoenfoquemercado) {
+	public static function getAemInformacionByFk($idavaluoenfoquemercado) {
 		return AemInformacion::select('*')
 						->where('idavaluoenfoquemercado', '=', $idavaluoenfoquemercado)
 						->orderBy('idaeminformacion')
@@ -37,7 +37,7 @@ class AemInformacion extends \Eloquent {
 	 * @param  int  $id
 	 * @return Response
 	 */
-	public static function AemAnalisisByFk($idavaluoenfoquemercado) {
+	public static function getAemAnalisisByFk($idavaluoenfoquemercado) {
 		return AemAnalisis::select('aem_analisis.*')
 						->join('aem_informacion', 'aem_analisis.idaeminformacion', '=', 'aem_informacion.idaeminformacion')
 						->where('aem_informacion.idavaluoenfoquemercado', '=', $idavaluoenfoquemercado)
