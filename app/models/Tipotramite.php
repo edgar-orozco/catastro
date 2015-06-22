@@ -125,5 +125,14 @@ class Tipotramite extends Ardent
         return self::all()->count();
     }
 
+    /**
+     * Devuelve el costo en pesos del tipotramite
+     * @return float
+     */
+    public function costoPesos()
+    {
+        $costodsmv = ($this->costodsmv) ? $this->costodsmv : 0;
+        return salario::smv(Config::get('sicare.entidad.zona')) * $costodsmv;
+    }
 
 }

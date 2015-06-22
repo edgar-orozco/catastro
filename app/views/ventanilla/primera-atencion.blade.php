@@ -158,7 +158,7 @@
                                                 <i class="glyphicon glyphicon-usd gi-5x"></i>
                                             </div>
                                             <div class="col-xs-9 text-right">
-                                                <div class="huge">{{number_format($tipotramite->costodsmv * 66.45, 2)}}</div>
+                                                <div class="huge">{{number_format($tipotramite->costoPesos(), 2)}}</div>
                                                 <div>Pesos M.N.</div>
                                             </div>
                                         </div>
