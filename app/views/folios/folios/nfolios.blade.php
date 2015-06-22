@@ -66,7 +66,7 @@
         <div class="col-md-12">
             <div class="form-group">
                 {{Form::label('no_recibo','Numero de Recibo')}}
-                {{Form::text('no_recibo',null,['class'=>'form-control', 'maxlength'=>'8'])}}
+                {{Form::text('no_recibo',null,['class'=>'form-control'])}}
             </div>
         </div>
         <div class="col-md-12">
