@@ -1,0 +1,514 @@
+MAP
+IMAGECOLOR 165 191 221
+
+EXTENT  365927.23841353016905487 1891919.63498854520730674 732152.99458523001521826 2077443.62099912133999169
+ 
+UNITS meters
+SIZE 800 600
+SHAPEPATH "/var/www/html/cartografia/shapes"
+#SYMBOLSET "../common/symbols/symbols-pmapper.sym"   
+#FONTSET "../common/fonts/msfontset.txt" 
+FONTSET "/var/www/html/cartografia/fonts/fonts.txt"
+RESOLUTION 96
+IMAGETYPE png
+INTERLACE OFF
+#CONFIG "PROJ_LIB" "C:/proj/nad/"
+PROJECTION
+  # ETRS-LAEA
+  #"init=epsg:3035"
+  "+proj=utm +zone=15 +datum=WGS84 +units=m +no_defs"
+END  
+
+
+
+#
+# Start of web interface definition
+#
+WEB
+  TEMPLATE /var/www/html/cartografia/geotemplate1.html
+  IMAGEPATH '/tmp/'
+  IMAGEURL '/map_output/'
+END  # Web
+
+#
+# Start of Reference map definition
+#
+REFERENCE
+  EXTENT 365927.23841353016905487 1891919.63498854520730674 732152.99458523001521826 2077443.62099912133999169
+  IMAGE '/var/www/html/cartografia/TabascoGR.png'
+  SIZE 197 91
+  COLOR -1 -1 -1
+  OUTLINECOLOR 255 0 0
+END  # Reference
+
+
+#
+# Start of legend object
+#
+LEGEND
+  STATUS OFF
+  IMAGECOLOR 255 255 255
+# OUTLINECOLOR 0 0 0
+  POSITION ll
+  KEYSIZE 18 12
+  KEYSPACING 10 5 
+  TEMPLATE "void"
+  LABEL
+    TYPE TRUETYPE
+    FONT "vera"
+    SIZE small
+    POSITION AUTO
+    COLOR 0 0 89
+    OUTLINECOLOR 255 255 255
+    ANTIALIAS TRUE
+  END
+END
+
+#
+# Start of ScaleBar definition
+#
+SCALEBAR
+  TRANSPARENT FALSE
+  INTERVALS 4
+  SIZE 200 3
+  UNITS meters
+  COLOR 250 250 250
+  OUTLINECOLOR 0 0 0
+  BACKGROUNDCOLOR 100 100 100
+  STYLE 0
+  POSTLABELCACHE true
+  STATUS embed
+END  
+
+
+
+# SYMBOLS USED IN PMAPPER
+# - 'circle' always necessary (used e.g. for highlight)
+# - 'square' used in currecnt map file
+# Symbols can also be defined via tag SYMBOLSET (see above)
+Symbol
+  Name 'circle'
+  Type ELLIPSE
+  Filled TRUE
+  Points
+    1 1
+  END
+END 
+
+Symbol
+  Name 'square'
+  Type VECTOR
+  Filled TRUE
+  Points
+    0 1
+    0 0
+    1 0
+    1 1
+    0 1
+  END
+END
+
+#================== START OF LAYER SECTION =====================#
+
+
+ 
+#
+# Start of Layer Estado.shp
+#
+
+LAYER
+  NAME "hipsografico"
+  TYPE polygon
+  STATUS ON
+  DATA "hipso4mgw"
+  #TRANSPARENCY 30
+  TEMPLATE void
+  PROJECTION
+    #"init=epsg:1000"
+     "+proj=longlat +ellps=WGS84 +datum=WGS84 +no_defs  no_defs"
+  END
+  METADATA 
+    "DESCRIPTION" "Hipso"
+    ## ADAPTED TO MULTILINGUAL SHAPEFILE
+    "ows_title"      ""
+  END  # Metadata 
+  CLASS NAME "0 a 200"
+    EXPRESSION ("[RANGO]" =  "0 a 200")
+    COLOR 106 255 118
+    #OUTLINECOLOR 0 0 0 
+  END  # Class
+  CLASS
+    NAME "200 a 500"
+    EXPRESSION ("[RANGO]" =  "200 a 500")
+    COLOR 0 219 0
+    #OUTLINECOLOR 0 0 0 
+  END  # Class
+  CLASS
+    NAME "500 a 1000"
+    EXPRESSION ("[RANGO]" =  "500 a 1000")
+    COLOR 0 170 0
+    #OUTLINECOLOR 0 0 0 
+  END  # Class
+  CLASS
+    NAME "1000 a 1500"
+    EXPRESSION ("[RANGO]" =  "1000 a 1500")
+    COLOR 255 251 0
+    #OUTLINECOLOR 0 0 0 
+  END  # Class
+  CLASS
+    NAME "1500 a 2000"
+    EXPRESSION ("[RANGO]" =  "1500 a 2000")
+    COLOR 255 187 0
+    #OUTLINECOLOR 0 0 0 
+  END  # Class
+  CLASS
+    NAME "> 2000"
+    COLOR 230 76 0
+    #OUTLINECOLOR 0 0 0 
+  END  # Class
+END  # Layer
+
+
+
+
+LAYER
+  NAME "entidades"
+  TYPE polygon
+  STATUS ON
+  DATA "Entidades_2013"
+  #TRANSPARENCY 30
+  TEMPLATE void
+  PROJECTION
+    #"init=epsg:1000"
+     "+proj=lcc +lat_1=17.5 +lat_2=29.5 +lat_0=12 +lon_0=-102 +x_0=2500000 +y_0=0 +ellps=GRS80 +towgs84=0,0,0,0,0,0,0 +units=m +no_defs"
+  END
+  METADATA 
+    "DESCRIPTION" "Entidad"
+    ## ADAPTED TO MULTILINGUAL SHAPEFILE
+    "ows_title"      "Entidades"
+  END  # Metadata 
+  CLASS
+    Name 'Entidad'
+    COLOR -1 -1 -1
+    OUTLINECOLOR 0 0 0
+  END  # Class
+END  # Layer
+
+
+
+LAYER
+  NAME "municipios" 
+  TYPE polygon
+  STATUS ON
+  CONNECTIONTYPE postgis
+  DATA "geom from municipios"
+  TOLERANCE 6
+  TOLERANCEUNITS pixels
+  LABELITEM "nombre_municipio"
+  LABELMAXSCALE 1600000
+  TEMPLATE void
+  PROJECTION
+    #"init=epsg:4326"
+    "+proj=utm +zone=15 +datum=WGS84 +units=m +no_defs"
+  END
+  METADATA 
+    "DESCRIPTION" "Municipios"
+    "ows_title"      "Municipios"
+  END  # Metadata  
+
+  CLASS
+    Name 'Municipios'
+ STYLE
+      COLOR -1 -1 -1
+      OUTLINECOLOR 125 125 125
+      WIDTH 1
+      LINECAP butt
+      PATTERN 10 5 5 10 END
+    END 
+
+ LABEL
+      POSITION Auto
+      COLOR 0 0 0 
+      OUTLINECOLOR 255 255 255
+      BUFFER 5
+      TYPE truetype
+      #ENCODING "UTF-8"
+      FONT vera
+      SIZE 8
+      MAXSIZE 9
+      #SIZE small
+    END #Label  
+
+    
+  END  # Class
+  
+
+END  # Layer
+
+LAYER
+  NAME "localidades" 
+  TYPE polygon
+  CONNECTIONTYPE postgis
+  DATA "geom from localidades_a"
+
+  TOLERANCE 3
+  TOLERANCEUNITS pixels
+  TEMPLATE void
+  PROJECTION
+    #"init=epsg:4326"
+    "+proj=utm +zone=15 +datum=WGS84 +units=m +no_defs"
+  END
+  LABELITEM "nombre"
+  METADATA 
+    "DESCRIPTION" "Localidades"
+    "ows_title"      "Localidades"
+  END  # Metadata  
+
+  CLASS
+    Name 'Localidades'
+    COLOR 255 255 255
+    OUTLINECOLOR 255 255 255
+  END  # Class
+  
+
+END  # Layer
+
+
+#
+# Start of Layer Rivers.shp
+#
+LAYER
+  NAME "rios"
+  TYPE polygon
+  STATUS ON
+  DATA "MEX_water_areas_dcw"
+  TOLERANCE 3
+  TOLERANCEUNITS pixels
+  TEMPLATE void
+  PROJECTION
+    #"init=epsg:4326"
+    "+proj=longlat +ellps=WGS84 +datum=WGS84 +no_defs  no_defs"
+  END
+  CLASS
+    Name 'Rios'
+    COLOR 165 191 221
+    OUTLINECOLOR 165 191 221
+  END  # Class
+END  # Layer
+
+
+#
+# Start of Layer Careteras.shp
+#
+LAYER
+  NAME "carreteras"
+  TYPE line
+  DATA "27_CARRETERA_L_EPSG32615"
+  TOLERANCE 3
+  TOLERANCEUNITS pixels
+  TEMPLATE void
+  PROJECTION
+    #"init=epsg:4326"
+    #"+proj=longlat +ellps=WGS84 +datum=WGS84 +no_defs  no_defs"
+  END
+  #MINSCALEDENOM 250000
+  MAXSCALEDENOM 500001
+  LABELITEM "IDENTIFICA"
+  LABELMAXSCALE 251000
+  
+  CLASS
+    Name 'Roads'
+
+    STYLE
+      COLOR 255 255 255
+      WIDTH 4.0
+    END # STYLE
+    STYLE
+      COLOR 0 0 0
+      WIDTH 1
+      LINECAP BUTT
+      PATTERN 8 12 END
+    END # STYLE
+    
+    LABEL
+      POSITION Auto
+      ANGLE Follow
+      COLOR 0 0 0 
+      OUTLINECOLOR 255 255 255
+      BUFFER 5
+      TYPE truetype
+      #ENCODING "UTF-8"
+      FONT vera
+      SIZE 8
+      MAXSIZE 9
+      #SIZE small
+    END #Label  
+    
+  END  # Class
+END  # Layer
+
+#
+# Start of Layer Calles.shp
+#
+LAYER
+  NAME "calles"
+  TYPE line
+  STATUS ON
+  CONNECTIONTYPE postgis
+  DATA "geom from calles"
+  TOLERANCE 3
+  TOLERANCEUNITS pixels
+  TEMPLATE void
+  PROJECTION
+    #"init=epsg:4326"
+    "+proj=utm +zone=15 +datum=WGS84 +units=m +no_defs"
+  END
+  #MINSCALEDENOM 250000
+  MAXSCALEDENOM 250001
+  LABELITEM "nombre"
+  LABELMAXSCALE 10000
+POSTLABELCACHE FALSE
+PROCESSING "LABEL_NO_CLIP=ON"
+LABELCACHE ON
+  
+  CLASS
+    Name 'Street'
+    #COLOR -1 -1 -1
+    #OUTLINECOLOR 0 0 0
+    STYLE
+      COLOR 255 255 255
+      WIDTH 10.0
+    END # STYLE
+
+    LABEL
+      POSITION Auto
+      ANGLE Follow
+      COLOR 0 0 0 
+      OUTLINECOLOR 255 255 255
+      BUFFER 5
+      TYPE truetype
+      #ENCODING "UTF8"
+      FONT vera
+      SIZE 8
+      MAXSIZE 9
+      #SIZE small
+    END #Label  
+    
+  END  # Class
+END  # Layer
+
+
+#
+# Start of Layer Manzanas.shp
+#
+LAYER  NAME "manzanas"
+  TYPE polygon
+  STATUS ON
+  CONNECTIONTYPE postgis
+  DATA "geom from manzanas using unique gid"
+
+  TOLERANCE 3
+  TOLERANCEUNITS pixels
+  TEMPLATE void
+  PROJECTION
+    #"init=epsg:4326"
+    "+proj=utm +zone=15 +datum=WGS84 +units=m +no_defs"
+  END
+  LABELITEM "cve_manzana"
+  
+  #MINSCALEDENOM 1000
+  #MAXSCALEDENOM 100000
+  LABELMAXSCALE 50000
+  LABELMINSCALE 1000
+  
+  CLASS
+    Name 'Manzana'
+    COLOR 224 224 224
+    OUTLINECOLOR 224 224 224
+
+    LABEL
+      POSITION Auto
+      COLOR 0 0 0 
+      OUTLINECOLOR 255 255 255
+      BUFFER 5
+      TYPE truetype
+      #ENCODING "UTF-8"
+      FONT vera
+      SIZE 8
+      MAXSIZE 9
+      #SIZE small
+    END #Label  
+    
+  END  # Class
+END  # Layer
+
+#
+# Start of Layer Predio.shp
+#
+LAYER  NAME "predios"
+  TYPE polygon
+  STATUS ON
+  CONNECTIONTYPE postgis
+  DATA "geom from predios"
+
+  TOLERANCE 3
+  TOLERANCEUNITS pixels
+  TEMPLATE void
+  PROJECTION
+    #"init=epsg:4326"
+    "+proj=utm +zone=15 +datum=WGS84 +units=m +no_defs"
+  END
+  #MINSCALEDENOM 250000
+  MAXSCALEDENOM 7000
+  LABELITEM "clave_catas"
+  LABELMAXSCALE 1000
+  
+  CLASS
+    Name 'Predio'
+    COLOR 223 219 212
+    OUTLINECOLOR 0 0 0
+
+    LABEL
+      POSITION Auto
+      COLOR 0 0 0 
+      OUTLINECOLOR 255 255 255
+      BUFFER 5
+      TYPE truetype
+      #ENCODING "UTF-8"
+      FONT vera
+      SIZE 8
+      MAXSIZE 9
+      #SIZE small
+    END #Label  
+    
+  END  # Class
+END  # Layer
+
+#
+# Start of Layer Construcciones
+#
+LAYER  NAME "construcciones"
+  TYPE polygon
+  STATUS ON
+  CONNECTIONTYPE postgis
+  DATA "geom from construcciones using unique gid"
+
+  TOLERANCE 3
+  TOLERANCEUNITS pixels
+  TEMPLATE void
+  PROJECTION
+    #"init=epsg:4326"
+    "+proj=utm +zone=15 +datum=WGS84 +units=m +no_defs"
+  END
+  #MINSCALEDENOM 250000
+  MAXSCALEDENOM 7000
+  
+  CLASS
+    Name 'Construcciones'
+    COLOR 255 255 85
+    OUTLINECOLOR 0 0 0
+  END  # Class
+END  # Layer
+
+
+END  #Map
