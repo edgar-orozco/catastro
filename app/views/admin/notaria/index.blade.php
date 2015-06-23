@@ -6,7 +6,7 @@
 @stop
 
 @section('content')
-{{ Form::open(array('url'=>'ventanilla/notaria')) }}
+{{ Form::open(array('url'=>'admin/notaria')) }}
 <div class="row">
     <a class="btn btn-info" href="{{action('admin_notariaController@create')}}" role="button">
         <span class="glyphicon glyphicon-plus"></span> Crear notaria

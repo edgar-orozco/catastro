@@ -40,6 +40,13 @@
                 Requisitos de trámites
             </a>
         </li>
+        
+        <li class="@if(Request::is('admin/notaria')) active @endif">
+            <a href="{{URL::to('admin/notaria')}}">
+                <i class="glyphicon glyphicon-th-list"></i>&nbsp;
+                Catálogo de notarias
+            </a>
+        </li>
         <li class="divider"></li>
 
         <li class="@if(Request::is('admin/carga-shapes')) active @endif">
