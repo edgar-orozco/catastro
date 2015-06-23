@@ -146,7 +146,7 @@
                         {{$row->nombres}} {{$row->apellido_paterno}} {{$row->appellido_materno}}
                     </td>
                     <td>
-                        {{$row->nombre}}{{$row->paterno}}{{$row->materno}}
+                        {{$row->nombre}} {{$row->paterno}} {{$row->materno}}
                     </td>
                     <td>
                         {{$row->domicilio}}
@@ -155,8 +155,10 @@
                         {{$row->telefono}}
                     </td>
                     <td nowrap>
+                        {{ Form::open(array('method' => 'DELETE', 'route' => array('admin.notaria.destroy', 'id'=>$row->id_notaria))) }}
                         <a href="{{ action('admin_notariaController@edit',['id'=>$row->id_notaria])}}" class="btn btn-warning" title="Editar"><span class="glyphicon glyphicon-pencil"></span></a>
-                        <a class="eliminar btn btn-danger" id="habilitar" href="/ventanilla/notariaE/{{$row->id_notaria}}" title="Eliminar"><i class="glyphicon glyphicon-trash"></i></a>
+                        <a class="eliminar btn btn-danger" id="habilitar" href="/admin/notariaE/{{$row->id_notaria}}" title="Eliminar"><i class="glyphicon glyphicon-trash"></i></a>
+                        {{ Form::close() }}
                     </td>
                 </tr>
                 @endforeach
