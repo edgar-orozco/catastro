@@ -41,15 +41,16 @@
 					</tr>
 			</thead>
 			<tbody>
-			<?php $acum = 0;?>
+			<?php $acum = $totalF;?>
 				@foreach($folios_historial as $reporte)
 					<tr>
 						<td align="center" >{{$fecha[$reporte->mes]}}</td>
 						<td align="center" >{{$reporte->urbano}}</td>
 						<td align="center" >{{$reporte->rustico}}</td>
 						<td align="right" >$ {{number_format($reporte->total,2)}}</td>
-						<?php $acum = $acum + $reporte->total;?>
+						
 						<td align="right" >$ {{number_format($acum,2)}}</td>
+						<?php $acum = $acum - $reporte->total;?>
 					</tr>
 				@endforeach
 			</tbody>

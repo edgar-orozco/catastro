@@ -4,6 +4,7 @@
 use Zizaco\Confide\ConfideUser;
 use Zizaco\Confide\ConfideUserInterface;
 use Zizaco\Entrust\HasRole;
+use Observers\UserObserver;
 
 class User extends Eloquent implements ConfideUserInterface
 {
@@ -27,13 +28,24 @@ class User extends Eloquent implements ConfideUserInterface
     protected $hidden = array('password', 'remember_token');
 
     /**
-     * Many-to-Many relacion con Municipios
+     * Many-to-Many relación con Municipios
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
      */
     public function municipios()
     {
         return $this->belongsToMany('Municipio', 'user_municipio', 'usuario_id', 'municipio_id')->withTimestamps();
+    }
+
+    /**
+     * Función para enchufar eventos
+     */
+    public static function boot()
+    {
+        parent::boot();
+
+        // Se enchufa el observer
+        User::observe(new UserObserver);
     }
 
     /**
