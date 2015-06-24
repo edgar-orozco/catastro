@@ -41,6 +41,7 @@ class UserObserver {
      */
     public function updating($model){
         // Se setea el modelo antes de ser actualizado
+        error_log('Updating');
         $this->vigenteBeforeUpdate = $model->vigente;
     }
     /**
@@ -50,6 +51,7 @@ class UserObserver {
      * @param $model
      */
     public function updated($model){
+        error_log('Update');
         // Se crea un registro de usuario actualizado en la tabla de Actividades del sistema
         $activiadad = new ActividadesSistema;
         $activiadad->user_id = Auth::getUser()->id;
@@ -67,5 +69,12 @@ class UserObserver {
             return false;
         }
         return true;
+    }
+
+    public function saved(){
+        error_log('Saved');
+    }
+    public function saving(){
+        error_log('Saving');
     }
 }
