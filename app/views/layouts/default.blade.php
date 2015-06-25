@@ -33,6 +33,13 @@
             margin-top: 40px;
         }
     </style>
+
+    <!-- JQuery -->
+    {{ HTML::script('js/jquery/jquery.min.js') }}
+
+    <!-- JS Bootstrap -->
+    {{ HTML::script('js/bootstrap.min.js') }}
+
 </head>
 <body>
 <header class="catatro-df">
@@ -222,11 +229,6 @@
 <!-- Lock Screen -->
 @include('layouts._lockscreen')
 
-<!-- JQuery -->
-{{ HTML::script('js/jquery/jquery.min.js') }}
-
-<!-- JS Bootstrap -->
-{{ HTML::script('js/bootstrap.min.js') }}
 
 <!-- AngularJS -->
 {{ HTML::script('js/angular/angular.js') }}

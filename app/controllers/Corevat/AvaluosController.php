@@ -1402,7 +1402,7 @@ class corevat_AvaluosController extends \BaseController {
 	 * @param  int  $id
 	 * @return Response
 	 */
-	public function printValuadores($id) {
+	public function printAvaluosByValuador($id) {
 		
 	}
 
@@ -1423,16 +1423,16 @@ class corevat_AvaluosController extends \BaseController {
 		$pdf->SetFillColor(64, 64, 64);
 
 		$pdf->AddPage();
-		$pdf->Image(public_path() . "/corevat/crv-01.jpg", 5, 5, 139.57, 26.20);
+		$pdf->Image(public_path() . "/css/images/corevat/crv-01.jpg", 5, 5, 139.57, 26.20);
 
 		if ( $rs->foto != "" ) {
 			$userfoto = explode(".", $rs->foto);
 			$foto = public_path() . '/corevat/' . $userfoto[0] . '-big.' . $userfoto[1];
 			if ( !file_exists($foto) ) {
-				$foto = public_path() . "/corevat/user-big.jpg";
+				$foto = public_path() . "/css/images/corevat/user-big.jpg";
 			}
 		} else {
-			$foto = public_path() . "/corevat/user-big.jpg";
+			$foto = public_path() . "/css/images/corevat/user-big.jpg";
 		}
 		$pdf->Image($foto, 180, 5, 30.50, 26.56);
 		$pdf->Ln(25);
@@ -1787,7 +1787,7 @@ class corevat_AvaluosController extends \BaseController {
 
 		if ($in->croquis != "") {
 			$fc = explode('.', $in->croquis);
-			$archivo = public_path() . '/corevat/' . $fc[0] . '.' . $fc[1];
+			$archivo = public_path() . '/css/images/corevat/' . $fc[0] . '.' . $fc[1];
 			if ( file_exists($archivo) ) {
 				$pdf->Image($archivo, 5, 32, 89.0, 65.40);
 			} else {
@@ -1795,11 +1795,11 @@ class corevat_AvaluosController extends \BaseController {
 				if ( file_exists($archivo) ) {
 					$pdf->Image($archivo, 5, 32, 89.0, 65.40);
 				} else {
-					$pdf->Image(public_path() . '/corevat/blank.gif', 5, 32, 89.0, 65.40);
+					$pdf->Image(public_path() . '/css/images/corevat/blank.gif', 5, 32, 89.0, 65.40);
 				}
 			}
 		} else {
-			$pdf->Image(public_path() . '/corevat/blank.gif', 5, 32, 89.0, 65.40);
+			$pdf->Image(public_path() . '/css/images/corevat/blank.gif', 5, 32, 89.0, 65.40);
 		}
 
 		if ($in->fachada != "") {
@@ -1812,11 +1812,11 @@ class corevat_AvaluosController extends \BaseController {
 				if ( file_exists($archivo) ) {
 					$pdf->Image($archivo, 122, 32, 89.0, 65.40);
 				} else {
-					$pdf->Image(public_path() . '/corevat/blank.gif', 122, 32, 89.0, 65.40);
+					$pdf->Image(public_path() . '/css/images/corevat/blank.gif', 122, 32, 89.0, 65.40);
 				}
 			}
 		} else {
-			$pdf->Image(public_path() . '/corevat/blank.gif', 122, 32, 89.0, 65.40);
+			$pdf->Image(public_path() . '/css/images/corevat/blank.gif', 122, 32, 89.0, 65.40);
 		}
 
 		// Línea 1
@@ -2613,11 +2613,11 @@ class corevat_AvaluosController extends \BaseController {
 				if ( file_exists($archivo) ) {
 					$pdf->Image($archivo, 5, 22, 50.0, 50);
 				} else {
-					$pdf->Image(public_path() . '/corevat/blank.gif', 122, 32, 89.0, 65.40);
+					$pdf->Image(public_path() . '/css/images/corevat/blank.gif', 122, 32, 89.0, 65.40);
 				}
 			}
 		} else {
-			$pdf->Image(public_path() . '/corevat/blank.gif', 122, 32, 89.0, 65.40);
+			$pdf->Image(public_path() . '/css/images/corevat/blank.gif', 122, 32, 89.0, 65.40);
 		}
 
 		if ($ft->foto1 != "") {
@@ -2630,11 +2630,11 @@ class corevat_AvaluosController extends \BaseController {
 				if ( file_exists($archivo) ) {
 					$pdf->Image($archivo, 83, 22, 50.0, 50);
 				} else {
-					$pdf->Image(public_path() . '/corevat/blank.gif', 83, 22, 50.0, 50);
+					$pdf->Image(public_path() . '/css/images/corevat/blank.gif', 83, 22, 50.0, 50);
 				}
 			}
 		} else {
-			$pdf->Image(public_path() . '/corevat/blank.gif', 83, 22, 50.0, 50);
+			$pdf->Image(public_path() . '/css/images/corevat/blank.gif', 83, 22, 50.0, 50);
 		}
 
 		if ($ft->foto2 != "") {
@@ -2647,11 +2647,11 @@ class corevat_AvaluosController extends \BaseController {
 				if ( file_exists($archivo) ) {
 					$pdf->Image($archivo, 161, 22, 50.0, 50);
 				} else {
-					$pdf->Image(public_path() . '/corevat/blank.gif', 161, 22, 50.0, 50);
+					$pdf->Image(public_path() . '/css/images/corevat/blank.gif', 161, 22, 50.0, 50);
 				}
 			}
 		} else {
-			$pdf->Image(public_path() . '/corevat/blank.gif', 161, 22, 50.0, 50);
+			$pdf->Image(public_path() . '/css/images/corevat/blank.gif', 161, 22, 50.0, 50);
 		}
 
 		$nFont = 6;
@@ -2677,11 +2677,11 @@ class corevat_AvaluosController extends \BaseController {
 				if ( file_exists($archivo) ) {
 					$pdf->Image($archivo, 5, 82, 50.0, 50);
 				} else {
-					$pdf->Image(public_path() . '/corevat/blank.gif', 5, 82, 50.0, 50);
+					$pdf->Image(public_path() . '/css/images/corevat/blank.gif', 5, 82, 50.0, 50);
 				}
 			}
 		} else {
-			$pdf->Image(public_path() . '/corevat/blank.gif', 5, 82, 50.0, 50);
+			$pdf->Image(public_path() . '/css/images/corevat/blank.gif', 5, 82, 50.0, 50);
 		}
 
 		if ($ft->foto4 != "") {
@@ -2694,11 +2694,11 @@ class corevat_AvaluosController extends \BaseController {
 				if ( file_exists($archivo) ) {
 					$pdf->Image($archivo, 83, 82, 50.0, 50);
 				} else {
-					$pdf->Image(public_path() . '/corevat/blank.gif', 83, 82, 50.0, 50);
+					$pdf->Image(public_path() . '/css/images/corevat/blank.gif', 83, 82, 50.0, 50);
 				}
 			}
 		} else {
-			$pdf->Image(public_path() . '/corevat/blank.gif', 83, 82, 50.0, 50);
+			$pdf->Image(public_path() . '/css/images/corevat/blank.gif', 83, 82, 50.0, 50);
 		}
 
 		if ($ft->foto5 != "") {
@@ -2711,11 +2711,11 @@ class corevat_AvaluosController extends \BaseController {
 				if ( file_exists($archivo) ) {
 					$pdf->Image($archivo, 161, 82, 50.0, 50);
 				} else {
-					$pdf->Image(public_path() . '/corevat/blank.gif', 161, 82, 50.0, 50);
+					$pdf->Image(public_path() . '/css/images/corevat/blank.gif', 161, 82, 50.0, 50);
 				}
 			}
 		} else {
-			$pdf->Image(public_path() . '/corevat/blank.gif', 161, 82, 50.0, 50);
+			$pdf->Image(public_path() . '/css/images/corevat/blank.gif', 161, 82, 50.0, 50);
 		}
 
 		$pdf->Ln(3);

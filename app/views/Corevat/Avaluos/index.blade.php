@@ -4,7 +4,8 @@
 {{ HTML::style('/css/dataTables.bootstrap.css') }}
 {{ HTML::style('/js/jquery/jquery-ui.css') }}
 <div class="row">
-	<div class="col-md-10"><h1>Avalúos</h1></div>
+	<div class="col-md-8"><h1>Avalúos</h1></div>
+	<div class="col-md-2"><h3><a href="{{action('printAvaluosByValuador')}}" class="btn btn-primary nuevo" title="Avalúos por Valuador">Avalúos por Valuador</a></h3></div>
 	<div class="col-md-2"><h3><a href="{{action('corevat_AvaluosController@create')}}" class="btn btn-primary nuevo" title="Nuevo Avalúo">Nuevo Avalúo</a></h3></div>
 	<hr>
 </div>

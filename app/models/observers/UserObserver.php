@@ -34,47 +34,21 @@ class UserObserver {
         return true;
     }
     /**
-     * Función para observar el evento updating del modelo del usuario, este evento
-     * ocurre cuando se esta realizando una actualización de datos
-     *
-     * @param $model
-     */
-    public function updating($model){
-        // Se setea el modelo antes de ser actualizado
-        error_log('Updating');
-        $this->vigenteBeforeUpdate = $model->vigente;
-    }
-    /**
      * Función para observar el evento update del modelo del usuario, este evento
      * ocurre cuando se ha actualizado un usuario
      *
      * @param $model
      */
     public function updated($model){
-        error_log('Update');
         // Se crea un registro de usuario actualizado en la tabla de Actividades del sistema
         $activiadad = new ActividadesSistema;
         $activiadad->user_id = Auth::getUser()->id;
         $activiadad->modulo = 'User';
         $activiadad->pk_afectada = $model->id;
-        // Se coloca la actividad realizada
-        // si el campo vigente es diferente del modelo antes de ser actualizado y despues se dio de baja al usuario o se activo
-        if($this->vigenteBeforeUpdate != $model->vigente){
-            $activiadad->actividad = $model->vigente ? 'Usuario activado' : 'Usuario desactivado';
-        } else {
-            $activiadad->actividad = 'Modificación de usuario';
-        }
-
+        $activiadad->actividad = 'Modificación de usuario';
         if( !$activiadad->save() ){
             return false;
         }
         return true;
-    }
-
-    public function saved(){
-        error_log('Saved');
-    }
-    public function saving(){
-        error_log('Saving');
     }
 }
