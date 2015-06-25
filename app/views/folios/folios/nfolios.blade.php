@@ -72,6 +72,8 @@
         <div class="col-md-12">
             {{Form::submit('Guardar', ['class'=>'btn btn-warning form-control', 'data-toggle'=>'modal', 'data-target'=>'#myModal'])}}
             {{Form::close()}}
+            <br>
+            {{Form::button('Limpiar Formulario', ['class'=>'btn btn-info form-control', 'id' => 'limpiar_form'])}}
         </div>
     </div>
 </div>
@@ -109,7 +111,10 @@
 
 	$(document).ready(function()
 {
-    
+    $('#limpiar_form').on('click', function()
+        {
+            document.getElementById("form").reset();
+        });
 
 	var form = $('#form');
 	form.bind('submit',function ()
@@ -130,6 +135,7 @@
 
 
             	$('#modalBody').html(' <object data="/nfolios/formato/'+data.id+'" type="application/pdf" width="100%" height="700"></object>')
+                document.getElementById("form").reset();
             },
             error: function()
             {
