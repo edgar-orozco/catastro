@@ -43,11 +43,21 @@ Route::group(array('before'=>'Folios'),  function (){
 	 		Route::get('catalogos/peritos/actPerito/{id}', 'folios_PeritosController@get_actPerito');
 			Route::post('catalogos/peritos/actPerito', 'folios_PeritosController@post_nuevoPerito');
                         
-                        Route::get('/entregafoliosmunicipal', 'folios_EntregaFoliosController@entregafoliosmunicipal');
-                        Route::get('/entregafoliosm/urbanos/{id}', 'folios_EntregaFoliosController@get_urbanosm');
-                        Route::get('/entregafoliosm/rusticos/{id}', 'folios_EntregaFoliosController@get_rusticosm');
-                        Route::post('/entregafoliosm/urbanos/{id}', 'folios_EntregaFoliosController@post_foliosm');
-                        Route::post('/entregafoliosm/rusticos/{id}', 'folios_EntregaFoliosController@post_foliosm');
+            Route::get('/entregafoliosmunicipal', 'folios_EntregaFoliosController@entregafoliosmunicipal');
+            Route::get('/entregafoliosm/urbanos/{id}', 'folios_EntregaFoliosController@get_urbanosm');
+            Route::get('/entregafoliosm/rusticos/{id}', 'folios_EntregaFoliosController@get_rusticosm');
+            Route::post('/entregafoliosm/urbanos/{id}', 'folios_EntregaFoliosController@post_foliosm');
+            Route::post('/entregafoliosm/rusticos/{id}', 'folios_EntregaFoliosController@post_foliosm');
+
+            //Deshabilitar entrega municipal
+            Route::get('/entregafoliose/rusticos/habilitarm/{id}', 'folios_EntregaFoliosController@desmunicipior');
+            Route::get('/entregafoliose/urbanos/habilitarm/{id}', 'folios_EntregaFoliosController@desmunicipiou');
+
+            //Deshabilitar entrega Estatal
+            Route::get('/entregafoliose/rusticos/habilitare/{id}', 'folios_EntregaFoliosController@desestador');
+            Route::get('/entregafoliose/urbanos/habilitare/{id}', 'folios_EntregaFoliosController@desestadou');
+
+
 });
  Route::filter('Folios', function () {
     if (! ( Entrust::hasRole('Folios') ||  Entrust::hasRole('Super usuario') ) )

@@ -44,6 +44,7 @@
 					<th>Entregado en el municipio de:</th>
 					<th>Fecha de Entrega Municipal</th>
 					<th>Estado del Folio</th>
+					<th>Opcion Temporal</th>
 				</tr>
 			</thead>
 			<tbody>
@@ -90,6 +91,15 @@
 							Usado
 						@endif
 					</td>
+					<td align="left" width="180"> 
+							@if($u->entrega_municipal == 1)
+								<a href="/entregafoliose/urbanos/habilitarm/{{$u->id}}">Activar Municipal</a>
+								<br>
+							@endif
+							@if($u->entrega_estatal == 1)
+								<a href="/entregafoliose/urbanos/habilitare/{{$u->id}}">Activar Estatal</a>
+							@endif
+						</td>
 				</tr>
 				@endforeach
 			</tbody>

@@ -50,6 +50,28 @@
 			<th>${{number_format(((($conf->salario_minimo*$conf->salario_folio_urbano)*$fu->numero_folio)+(($conf->salario_minimo*$conf->salario_folio_rustico)*$fr->numero_folio )),2)}}</th>
 		</tr>
 		@endif
+		<tr>
+			<th></th>
+			<th colspan="2"  align="center">Cantidad Total de Folios Reportados</th>		
+		</tr>
+		<tr>
+			<td></td>
+			<th>Tipo de Folio</th>
+			<th align="center" >Cantidad de Folios</th>
+			<th align="center" >Ultima Entrega</th>
+		</tr>
+		@foreach( $fe as $e)
+		<tr>
+			<th></th>
+			@if($e->tipo_folio == "U")
+			<th>Urbano</th>
+			@else
+			<th>Rustico</th>
+			@endif
+			<td align="center">{{$e->entrega}}</td>
+			<td align="center">{{$e->fecha}}</td>
+		</tr>
+		@endforeach
 </table>
 
 

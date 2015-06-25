@@ -44,6 +44,7 @@
 					<th>Entregado en el municipio de:</th>
 					<th>Fecha de Entrega Municipal</th>
 					<th>Estado del Folio</th>
+					<th>Opción temporal</th>
 				</tr>
 			</thead>
 			<tbody>
@@ -86,6 +87,14 @@
 								Vigente
 							@else
 								Usado
+							@endif
+						</td>
+						<td align="left" width="180"> 
+							@if($r->entrega_municipal == 1)
+								<a href="/entregafoliose/rusticos/habilitarm/{{$r->id}}">Activar Municipal</a>
+							@endif
+							@if($r->entrega_estatal == 1)
+								<a href="/entregafoliose/rusticos/habilitare/{{$r->id}}">Activar Estatal</a>
 							@endif
 						</td>
 					</tr>

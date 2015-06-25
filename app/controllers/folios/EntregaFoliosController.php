@@ -113,6 +113,7 @@ class folios_EntregaFoliosController extends BaseController {
 			}
 		}
 
+		
 		if(isset($inputs['rusticos'])){
 
 			for($a=0; $a<sizeof($inputs['rusticos']); $a++){
@@ -129,6 +130,7 @@ class folios_EntregaFoliosController extends BaseController {
 				$f->save();
 			}
 		}
+
 
 		return Redirect::to('/entregafoliosestatal');
 	}
