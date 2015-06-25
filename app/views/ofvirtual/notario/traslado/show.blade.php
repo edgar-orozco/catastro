@@ -47,7 +47,7 @@
 
             <tr>
                 <th class="text-right"><b>Tipo Persona:</b></th>
-                <td>{{$traslado->vendedor_tipo}}</td>
+                <td>{{$traslado->vendedor->tipo['nombre']}}</td>
             </tr>
 
             <tr>
@@ -75,7 +75,7 @@
 
             <tr>
                 <th class="text-right"><b>Tipo Persona:</b></th>
-                <td>{{$traslado->comprador_tipo}}</td>
+                <td>{{$traslado->comprador->tipo['nombre']}}</td>
             </tr>
 
             <tr>
@@ -120,7 +120,7 @@
             </tr>
             <tr>
                 <th class="text-right"><b>Escritura de fecha:</b></th>
-                <td>{{date("d-m-Y", strtotime($traslado->escritura_fecha))}}</td>
+                <td>{{$traslado->escritura_fecha ?date("d-m-Y", strtotime($traslado->escritura_fecha)) : ''}}</td>
             </tr>
             <tr>
                 <th class="text-right"><b>N° registro:</b></th>
@@ -142,11 +142,11 @@
             </tr>
             <tr>
                 <th class="text-right"><b>Impuesto pagado del:</b></th>
-                <td>{{date("d-m-Y", strtotime($traslado->escritura_impuesto_desde))}}</td>
+                <td>{{$traslado->escritura_impuesto_desde ?date("d-m-Y", strtotime($traslado->escritura_impuesto_desde)) : ''}}</td>
             </tr>
             <tr>
                 <th class="text-right"><b>Al:</b></th>
-                <td>{{date("d-m-Y", strtotime($traslado->escritura_impuesto_hasta))}}</td>
+                <td>{{$traslado->escritura_impuesto_hasta ?date("d-m-Y", strtotime($traslado->escritura_impuesto_hasta)) : ''}}</td>
             </tr>
 
         </table>

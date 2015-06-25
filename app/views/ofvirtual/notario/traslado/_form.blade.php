@@ -49,9 +49,9 @@
             {{Form::label('tipo_persona','Tipo de persona', ['class'=>''])}}
             <br>
             {{Form::label('tipo_persona','Física', ['class'=>''])}}
-            {{ Form::radio('traslado[comprador_tipo]', 'F', null, ['class'=>'comprador-radio-persona']) }}
+            {{ Form::radio('comprador[id_tipo]', '1', null, ['class'=>'comprador-radio-persona']) }}
             {{Form::label('tipo_persona','Moral', ['class'=>''])}}
-            {{ Form::radio('traslado[comprador_tipo]', 'M', null, ['class'=>'comprador-radio-persona']) }}
+            {{ Form::radio('comprador[id_tipo]', '2', null, ['class'=>'comprador-radio-persona']) }}
 
         </div>
 
@@ -60,7 +60,7 @@
 
         <span class="comprador-campos-fisica">
 
-        {{Form::label('comprador[apellido_paterno]','Apellido Paterno', ['class'=>''])}}
+            {{Form::label('comprador[apellido_paterno]','Apellido Paterno', ['class'=>''])}}
             {{Form::text('comprador[apellido_paterno]', null, ['class' => 'form-control'] )}}
 
             {{Form::label('comprador[apellido_materno]','Apellido Materno', ['class'=>''])}}
@@ -69,7 +69,7 @@
             {{Form::label('comprador[curp]','CURP', ['class'=>''])}}
             {{Form::text('comprador[curp]', null, ['class' => 'form-control', 'minlength'=>'18', 'maxlength'=>'18', 'pattern' => '([A-Za-z]{4})([0-9]{6})([A-Za-z]{6})([0-9]{2})', 'title' => 'El CURP ingresado no tiene el formato esperado, verifique nuevamente el CURP ingresado'])}}
 
-    </span>
+        </span>
 
         {{Form::label('comprador[rfc]','RFC', ['class'=>''])}}
         {{Form::text('comprador[rfc]', null, ['class' => 'form-control', 'id'=>'comprador-rfc', 'minlength'=>'12', 'maxlength'=>'13', 'pattern' => '([A-Za-z]{4})([0-9]{6})([A-Za-z0-9]{3})', 'title' => 'El RFC ingresado no tiene el formato esperado, verifique nuevamente el RFC ingresado'] )}}
@@ -87,9 +87,9 @@
             {{Form::label('tipo_persona','Tipo de persona', ['class'=>''])}}
             <br>
             {{Form::label('tipo_persona','Física', ['class'=>''])}}
-            {{ Form::radio('traslado[vendedor_tipo]', 'F', null, ['id'=>'vendedor-radio-persona-f','class'=>'vendedor-radio-persona']) }}
+            {{ Form::radio('vendedor[id_tipo]', '1', null, ['id'=>'vendedor-radio-persona-f','class'=>'vendedor-radio-persona']) }}
             {{Form::label('tipo_persona','Moral', ['class'=>''])}}
-            {{ Form::radio('traslado[vendedor_tipo]', 'M', null, ['id'=>'vendedor-radio-persona-m','class'=>'vendedor-radio-persona']) }}
+            {{ Form::radio('vendedor[id_tipo]', '2', null, ['id'=>'vendedor-radio-persona-m','class'=>'vendedor-radio-persona']) }}
 
         </div>
 
@@ -190,7 +190,7 @@
         $( ".fecha" ).each(function( index ) {
 
             if( $(this).val() ) {
-                console.log( index + ": " + $( this ).val() );
+               // console.log( index + ": " + $( this ).val() );
                // $(this).parents('p').addClass('warning');
                 var dateAr = $(this).val().split('-');
                 var newDate = dateAr[2] + '/' + dateAr[1] + '/' + dateAr[0];
@@ -214,14 +214,14 @@
             //comprador
             $('.comprador-radio-persona').change(function (ev) {
                 var radio = $(this);
-                if (radio.val() == 'F') {
+                if (radio.val() == '1') {
                     $('.comprador-campos-fisica').show();
-                    $('.comprador-tipo_persona').val('F');
+                    $('.comprador-tipo_persona').val('1');
                     $('#comprador-rfc').attr('pattern', '([A-Za-z]{4})([0-9]{6})([A-Za-z0-9]{3})');
                 }
-                else if (radio.val() == 'M') {
+                else if (radio.val() == '2') {
                     $('.comprador-campos-fisica').hide();
-                    $('.comprador-tipo_persona').val('M');
+                    $('.comprador-tipo_persona').val('2');
                     $('#comprador-rfc').attr('pattern', '([A-Za-z]{3})([0-9]{6})([A-Za-z0-9]{3})');
                 }
             });
@@ -230,14 +230,14 @@
             //vendedor
             $('.vendedor-radio-persona').change(function (ev) {
                 var radio = $(this);
-                if (radio.val() == 'F') {
+                if (radio.val() == '1') {
                     $('.vendedor-campos-fisica').show();
-                    $('.vendedor-tipo_persona').val('F');
+                    $('.vendedor-tipo_persona').val('1');
                     $('#vendedor-rfc').attr('pattern', '([A-Za-z]{4})([0-9]{6})([A-Za-z0-9]{3})');
                 }
-                else if (radio.val() == 'M') {
+                else if (radio.val() == '2') {
                     $('.vendedor-campos-fisica').hide();
-                    $('.vendedor-tipo_persona').val('M');
+                    $('.vendedor-tipo_persona').val('2');
                     $('#vendedor-rfc').attr('pattern', '([A-Za-z]{3})([0-9]{6})([A-Za-z0-9]{3})');
                 }
             });
