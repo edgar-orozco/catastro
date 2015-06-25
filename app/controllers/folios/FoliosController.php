@@ -348,6 +348,7 @@ class folios_FoliosController extends BaseController {
 								DB::raw('Sum(total_rustico) as total_rustico'),
 								DB::raw('Sum(total) as total'))
 								->groupBy('mes')
+								->orderBy('mes', 'ASC')
 								->get();	
 
 		return View::make('folios.folios.reportemensual')->withFolios_historial($folios_historial);;
@@ -362,7 +363,7 @@ class folios_FoliosController extends BaseController {
 								DB::raw('Sum(total_rustico) as total_rustico'),
 								DB::raw('Sum(total) as total'))
 								->groupBy('mes')
-								->orderBy('mes', 'DESC')
+								->orderBy('mes', 'ASC')
 								->get();
 		$totalF=FoliosHistorial::select(db::raw('Sum(total) as total'))->first()->toArray();
 		$totalF=$totalF['total'];
