@@ -5,13 +5,15 @@ use \Catastro\Repos\Padron\PadronRepositoryInterface;
 class VentanillaController extends BaseController
 {
     protected $padron;
-
+    protected $RequisitoTipotramite;
+    protected $tipotramite;    
     /**
      * @param PadronRepositoryInterface $padron
      */
-    public function __construct(PadronRepositoryInterface $padron)
+    public function __construct(PadronRepositoryInterface $padron, Tipotramite $tipotramite)
     {
         $this->padron = $padron;
+        $this->tipotramite = $tipotramite;
     }
 
     /**
@@ -105,6 +107,16 @@ class VentanillaController extends BaseController
         $intento->guardaRequisitos($requisitos);
 
         return $intento->id;
+    }
+    
+    public function get_pdf() 
+    {
+        $tipotramites = Tipotramite::all();
+        
+        $vista = View::make('ventanilla.catalogo-tramites',compact('tipotramites'));
+        $pdf = PDF::load($vista)->show('Tramite');
+        $response = Response::make($pdf, 200);
+        $response->header('Content-Type', 'application/pdf');
     }
 }
 

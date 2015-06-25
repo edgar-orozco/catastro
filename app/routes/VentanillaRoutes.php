@@ -23,3 +23,6 @@ Route::post('ventanilla/intento-tramite', array(
     'before' => 'auth',
 ));
 
+//para el adm,inistrador de catalago de ventanilla
+Route::get("ventanilla/imprimir-catalogo-tramites/", "VentanillaController@get_pdf");
+
