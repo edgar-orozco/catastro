@@ -107,3 +107,6 @@ require app_path().'/filters.php';
 */
 require app_path().'/validators.php';
 
+
+require app_path().'/macros/macrosPersonas.php';
+

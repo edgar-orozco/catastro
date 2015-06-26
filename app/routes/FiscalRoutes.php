@@ -36,14 +36,29 @@
         Route::post('/ejecucion/guardarequerimiento', 'Ejecucion_SeguimientobusController@update_requerimiento');
 
 
-        
         // rutas modal cancelacion
         Route::get('/ejecucion/cancelar/{idreq}', 'Ejecucion_SeguimientobusController@cancelar');
         Route::post('/ejecucion/guardarcancelacion', 'Ejecucion_SeguimientobusController@guardarcancelacion');
         //rutas de prueba para pdf :
         Route::get("/pruebapdf/{clave?}", "CartaInvitacion_pdfpruebaController@getIndex");
         Route::get("/reimprimir/{clave?}", "CartaInvitacion_PdfpruebaController@imprimir");
+
+         //rutas macros
+         Route::get('/macro', function()
+          {
+            $title = "Captura de personas";
+        //echo "hola mundo de macros, valor recibido: ".$tipo;
+        return View::make('macros.personasMac', compact('tipo', 'title'));
+          //  return View::make('macros.personasMac');
+          });
+         //ruta formato pre-registro escrituras
+        // Route::get("/macro-formato", "macros_macrosController@create");
+
+         //ruta guardar personas pre-registro
+         Route::post("/macro-guardar", "macros_macrosController@create");
         });
+
+
         Route::filter('Ejecucion fiscal', function () {
         if (! ( Entrust::hasRole('Ejecucion fiscal') ||  Entrust::hasRole('Super usuario') ) )
         {
