@@ -88,14 +88,19 @@
 </style>
 <body>
     <div id="contenedor">
-        
-        
+        <table width="100%">
+            <tr>
+                <td width="20%" align="right"><img src="css/images/main/main-logo.png"  height="70"></td>
+                <td width="60%" align="center" class="title"><strong>SERVICIOS CATASTRALES</strong></td>
+                <td width="20%" align="center"></td>
+            </tr>
+        </table>    
         <table class="table" rules="all">
         <thead>
             <tr>
                 <th>Nombre del trámite</th>
                 <th>Duración aprox.</th>
-                <th>Costo en DSMV</th>
+                <th>Costo</th>
                 <th>Requisitos</th>
             </tr>
         </thead>
@@ -103,18 +108,18 @@
             @foreach($tipotramites as $tipotramite)
             <tr>
                 <td align="center">
-                     {{$tipotramite->nombre}}
+                   <strong>{{$tipotramite->nombre}}</strong>
                 </td>
                 <td align="center">
                     {{$tipotramite->tiempo}}
                 </td>
                 <td align="center">
-                    {{$tipotramite->costodsmv}}
+                    ${{money_format("%i",$tipotramite->costoPesos())}}
                 </td>
                 <td>
                     <ul>
                         @foreach($tipotramite->requisitos as $requisito )
-                            <li>{{$requisito->nombre}} {{$requisito->pivot->original ? 'original' : ''}} {{$requisito->pivot->original &&  $requisito->pivot->copias ? ' y ' : ''}}  {{$requisito->pivot->copias ? $requisito->pivot->copias. " ".Lang::choice('messages.copias', $requisito->pivot->copias ) : ''}} {{$requisito->pivot->certificadas ? Lang::choice('messages.certificadas', $requisito->pivot->copias) : ''}}  </li>
+                           <strong> <li>{{$requisito->nombre}} {{$requisito->pivot->original ? 'original' : ''}} {{$requisito->pivot->original &&  $requisito->pivot->copias ? ' y ' : ''}}  {{$requisito->pivot->copias ? $requisito->pivot->copias. " ".Lang::choice('messages.copias', $requisito->pivot->copias ) : ''}} {{$requisito->pivot->certificadas ? Lang::choice('messages.certificadas', $requisito->pivot->copias) : ''}}  </li> </strong>
                         @endforeach
                     </ul>
                 </td>
@@ -122,8 +127,6 @@
             @endforeach
         </tbody>
     </table>
-        
-        
     </div>
 </body>
 </html>
