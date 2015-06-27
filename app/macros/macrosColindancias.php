@@ -10,24 +10,27 @@ Form::macro('colindancias', function ($llave) {
         Form::button('Agregar Colindancia', ['class' => 'btn btn-primary glyphicon glyphicon-plus agregarColindancia', 'type' => 'button']) .
         '</div><br>'.
 
-        '<div class="form-inline" id="colindanciasDiv1">'.
+        '<div id="divsColindancias">'.
+
+        '<div class="form-inline" id="colindanciaDiv1">'.
           '<div class="form-group">' .
             Form::button('', ['class' => 'btn btn-primary glyphicon glyphicon-minus quitarColindancia', 'type' => 'button']) .
           '</div>'.
 
             '<div class="form-group">' .
                    Form::label($llave . '[orientacion]', 'Orientación :') .
-                   Form::select($llave . '[orientacion]', $orientaciones, null, ['class' => 'form-control']) .
+                   Form::select($llave . '[orientacion]', $orientaciones, null, ['class' => 'form-control', 'required'=>true]) .
             '</div>' .
             '<div class="form-group">' .
                   Form::label($llave . '[superficie]', 'Superficie :') .
-                  Form::text($llave . '[superficie]', null, ['class' => 'form-control']) .
+                  Form::text($llave . '[superficie]', null, ['class' => 'form-control', 'required'=>true]) .
             '</div>' .
             '<div class="form-group">' .
                  Form::label($llave . '[colindancia]', 'Colindancia :') .
-                 Form::text($llave . '[colindancia]', null, ['class' => 'form-control']) .
+                 Form::text($llave . '[colindancia]', null, ['class' => 'form-control', 'required'=>true]) .
             '</div>' .
 
+        '</div>'.
         '</div>';
 
     $colindancia .= HTML::script('js/macros/colindancias.js');
