@@ -96,7 +96,6 @@ class OficinaVirtualNotarioController extends \BaseController
             return Redirect::back()->with('error', 'Error en datos del vendedor.');
         }
 
-
         $comprador = new personas();
         //$datosComprador = array_map('mb_strtoupper', (Input::get('comprador')));
         $datosComprador = Input::get('comprador');
@@ -128,6 +127,17 @@ class OficinaVirtualNotarioController extends \BaseController
         if (!$traslado->save()) {
             return Redirect::back()->withInput()->withErrors($traslado->errors());
         }
+
+
+        foreach(Input::get('colindancia') as $colindancia) {
+            $colindancia['traslado_id'] = $traslado->id;
+            $oColindancias[] = new trasladosColindancia($colindancia);
+        }
+
+        if (!$traslado->colindancia()->saveMany($oColindancias)) {
+            return Redirect::back()->with('error', 'Error en datos de la(s) colindancia(s).');
+        }
+
 
         //Dado que fue exitosa la creacion del traslado,  mostramos la salida al usuario.
         return Redirect::to('ofvirtual/notario/traslado/show/' . $traslado->id)->with('success', '¡Se ha creado correctamente el traslado de dominio para la cuenta ' . $traslado->cuenta . '!');
@@ -267,6 +277,29 @@ class OficinaVirtualNotarioController extends \BaseController
         if (!$traslado->save()) {
             return Redirect::back()->withInput()->withErrors($traslado->errors());
         }
+
+
+       // $colindancias = new trasladosColindancia();
+        //$colindancias->fill(Input::get('colindancia'));
+
+         foreach(Input::get('colindancia') as $colindancia) {
+            $colindancia['traslado_id'] = $id;
+            $oColindancias[] = new trasladosColindancia($colindancia);
+        }
+
+        if (!$traslado->colindancia()->saveMany($oColindancias)) {
+            return Redirect::back()->with('error', 'Error en datos de la(s) colindancia(s).');
+        }
+
+       /* foreach(Input::get('colindancia') as $colindancia) {
+            $colindancia['traslado_id'] = $traslado->id;
+            $oColindancia[] = new trasladosColindancia($colindancia);
+        }
+
+        if (!$oColindancia->saveMany()) {
+            return Redirect::back()->with('error', 'Error en datos de la(s) colindancia(s).');
+        }*/
+
 
         //Dado que fue exitosa la actualización mostramos la salida al usuario.
           return Redirect::to('ofvirtual/notario/traslado/show/' . $traslado->id)->with('success', '¡Se ha creado correctamente el traslado de dominio para la cuenta ' . $traslado->cuenta . '!');

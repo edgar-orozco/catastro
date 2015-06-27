@@ -1,7 +1,7 @@
 <?php
 
-
-class Traslado extends \LaravelBook\Ardent\Ardent
+//class Traslado extends \LaravelBook\Ardent\Ardent
+class Traslado extends Eloquent
 {
 
     protected $guarded =['id', 'token', 'updated_at', 'created_at'];
@@ -50,6 +50,14 @@ class Traslado extends \LaravelBook\Ardent\Ardent
     {
 
         return $this->belongsTo('personas', 'vendedor_id', 'id_p');
+
+
+    }
+
+    public function colindancia()
+    {
+
+        return $this->hasMany('TrasladosColindancia', 'id', 'traslado_id');
 
 
     }

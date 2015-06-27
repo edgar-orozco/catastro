@@ -2,7 +2,7 @@
 
 Form::macro('colindancias', function ($llave) {
 
-    $orientaciones = CatOrientaciones::orderBy('orientacion')->where('status_orientacion', 1)->lists('orientacion', 'idorientacion');
+    $orientaciones = CatOrientaciones::orderBy('orientacion')->where('status_orientacion', 1)->lists('orientacion', 'orientacion');
 
     $colindancia =
 
@@ -18,16 +18,16 @@ Form::macro('colindancias', function ($llave) {
           '</div>'.
 
             '<div class="form-group">' .
-                   Form::label($llave . '[orientacion]', 'Orientación :') .
-                   Form::select($llave . '[orientacion]', $orientaciones, null, ['class' => 'form-control', 'required'=>true]) .
+                   Form::label($llave . '[1][orientacion]', 'Orientación :') .
+                   Form::select($llave . '[1][orientacion]', $orientaciones, null, ['class' => 'form-control', 'required'=>true]) .
             '</div>' .
             '<div class="form-group">' .
-                  Form::label($llave . '[superficie]', 'Superficie :') .
-                  Form::text($llave . '[superficie]', null, ['class' => 'form-control', 'required'=>true]) .
+                  Form::label($llave . '[1][superficie]', 'Superficie :') .
+                  Form::text($llave . '[1][superficie]', null, ['class' => 'form-control', 'required'=>true]) .
             '</div>' .
             '<div class="form-group">' .
-                 Form::label($llave . '[colindancia]', 'Colindancia :') .
-                 Form::text($llave . '[colindancia]', null, ['class' => 'form-control', 'required'=>true]) .
+                 Form::label($llave . '[1][colindancia]', 'Colindancia :') .
+                 Form::text($llave . '[1][colindancia]', null, ['class' => 'form-control', 'required'=>true]) .
             '</div>' .
 
         '</div>'.
