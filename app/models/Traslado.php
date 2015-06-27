@@ -57,7 +57,7 @@ class Traslado extends Eloquent
     public function colindancia()
     {
 
-        return $this->hasMany('TrasladosColindancia', 'id', 'traslado_id');
+        return $this->hasMany('TrasladoColindancia', 'traslado_id', 'id');
 
 
     }

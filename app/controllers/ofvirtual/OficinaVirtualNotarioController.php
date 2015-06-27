@@ -131,7 +131,7 @@ class OficinaVirtualNotarioController extends \BaseController
 
         foreach(Input::get('colindancia') as $colindancia) {
             $colindancia['traslado_id'] = $traslado->id;
-            $oColindancias[] = new trasladosColindancia($colindancia);
+            $oColindancias[] = new trasladoColindancia($colindancia);
         }
 
         if (!$traslado->colindancia()->saveMany($oColindancias)) {
@@ -167,11 +167,14 @@ class OficinaVirtualNotarioController extends \BaseController
         $traslado->comprador->fill($comprador->toArray());
 
         $traslado->traslado = $traslado;
+
+        $colindancias = $traslado->colindancia;
+
         // Title
         $title = 'Editar traslado de dominio';
 
         // Show the page
-        return View:: make('ofvirtual.notario.traslado.show', compact('title', 'traslado', 'predio'));
+        return View:: make('ofvirtual.notario.traslado.show', compact('title', 'traslado', 'predio', 'colindancias'));
 
     }
 
@@ -214,11 +217,14 @@ class OficinaVirtualNotarioController extends \BaseController
         $traslado->comprador->fill($comprador->toArray());
 
         $traslado->traslado = $traslado;
+
+       // $arregloColindancias = TrasladoColindancia::where('traslado_id', $id)->get();
+        $JsonColindancias = $traslado->colindancia->toJson();
         // Title
         $title = 'Editar traslado de dominio';
 
         // Show the page
-        return View:: make('ofvirtual.notario.traslado.edit', compact('title', 'traslado', 'predio'));
+        return View:: make('ofvirtual.notario.traslado.edit', compact('title', 'traslado', 'predio', 'JsonColindancias'));
     }
 
 
@@ -278,27 +284,18 @@ class OficinaVirtualNotarioController extends \BaseController
             return Redirect::back()->withInput()->withErrors($traslado->errors());
         }
 
-
-       // $colindancias = new trasladosColindancia();
-        //$colindancias->fill(Input::get('colindancia'));
-
+        //borramos primero las colindancias existentes
+        $traslado->colindancia()->delete();
          foreach(Input::get('colindancia') as $colindancia) {
             $colindancia['traslado_id'] = $id;
-            $oColindancias[] = new trasladosColindancia($colindancia);
+            $oColindancias[] = new trasladoColindancia($colindancia);
         }
 
         if (!$traslado->colindancia()->saveMany($oColindancias)) {
             return Redirect::back()->with('error', 'Error en datos de la(s) colindancia(s).');
         }
 
-       /* foreach(Input::get('colindancia') as $colindancia) {
-            $colindancia['traslado_id'] = $traslado->id;
-            $oColindancia[] = new trasladosColindancia($colindancia);
-        }
 
-        if (!$oColindancia->saveMany()) {
-            return Redirect::back()->with('error', 'Error en datos de la(s) colindancia(s).');
-        }*/
 
 
         //Dado que fue exitosa la actualización mostramos la salida al usuario.
@@ -325,6 +322,8 @@ class OficinaVirtualNotarioController extends \BaseController
 
         $comprador = personas::find($traslado->comprador_id);
         $comprador->delete();
+
+        $traslado->colindancia()->delete();
 
         return Redirect::to('ofvirtual/notario/traslado')->with('success', '¡Se ha eliminado correctamente el traslado!');
 

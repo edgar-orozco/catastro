@@ -1,13 +1,17 @@
 <?php
 
-Form::macro('colindancias', function ($llave) {
+Form::macro('colindancias', function ($llave, $JsonColindancias) {
 
     $orientaciones = CatOrientaciones::orderBy('orientacion')->where('status_orientacion', 1)->lists('orientacion', 'orientacion');
 
+    $js = '<script> var JsonColindancias ='. $JsonColindancias .' </script>';
+
     $colindancia =
 
+        $js.
+
         '<br><div class="row">' .
-        Form::button('Agregar Colindancia', ['class' => 'btn btn-primary glyphicon glyphicon-plus agregarColindancia', 'type' => 'button']) .
+            Form::button('Agregar Colindancia', ['class' => 'btn btn-primary glyphicon glyphicon-plus agregarColindancia', 'type' => 'button']) .
         '</div><br>'.
 
         '<div id="divsColindancias">'.

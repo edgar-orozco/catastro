@@ -110,10 +110,17 @@
             </tr>
 
             <tr>
-                <th class="text-right"><b>Medidas colindancias:</b></th>
-                <td>{{$traslado->medidas_colindancias}}</td>
+                <th class="text-right" colspan="2"><b>Colindancias:</b></th>
             </tr>
-
+                @foreach($colindancias as $colindancia)
+                   <tr>
+                     <th class="text-right"><b>Colindancia: </b></th>
+                     <td>{{$colindancia->orientacion}}
+                         {{$colindancia->superficie}}
+                         {{$colindancia->colindancia}}
+                     </td>
+                    </tr>
+                @endforeach
 
             <tr>
                 <th class="text-right" colspan="2"><b>Datos de la escritura precedente:</b></th>
