@@ -133,9 +133,11 @@
         {{$errors->first('traslado[superficie_construccion_vendida]', '<span class=text-danger>:message</span>')}}
     </div>
     <div class="row col-lg-10">
-        {{Form::label('traslado[medidas_colindancias]','Medidas colindancias')}}
+       {{-- {{Form::label('traslado[medidas_colindancias]','Medidas colindancias')}}
         {{Form::textarea('traslado[medidas_colindancias]', null, ['class'=>'form-control', 'step'=>'any'] )}}
         {{$errors->first('traslado[medidas_colindancias]', '<span class=text-danger>:message</span>')}}
+--}}
+        {{ Form::colindancias('colindancia') }}
     </div>
 </div>
 {{--/Datos del predio --}}

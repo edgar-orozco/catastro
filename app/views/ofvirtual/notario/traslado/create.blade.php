@@ -8,7 +8,7 @@
 
     <h1>Traslado de dominios</h1>
 
-    {{ HTML::style('css/forms.css') }}
+    {{--{{ HTML::style('css/forms.css') }} --}}
 
         <div class="row">
 

@@ -110,3 +110,5 @@ require app_path().'/validators.php';
 
 require app_path().'/macros/macrosPersonas.php';
 
+require app_path().'/macros/macrosColindancias.php';
+
