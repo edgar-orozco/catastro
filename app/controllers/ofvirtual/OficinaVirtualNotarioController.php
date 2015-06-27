@@ -316,6 +316,9 @@ class OficinaVirtualNotarioController extends \BaseController
         //ToDo: revisar primero que no tenga asignado un folio, si tiene asigando un folio no se puede borrar
 
         $traslado = Traslado::find($id);
+
+        $traslado->colindancia()->delete();
+
         $traslado->delete();
 
         $vendedor = personas::find($traslado->vendedor_id);
@@ -324,7 +327,7 @@ class OficinaVirtualNotarioController extends \BaseController
         $comprador = personas::find($traslado->comprador_id);
         $comprador->delete();
 
-        $traslado->colindancia()->delete();
+
 
         return Redirect::to('ofvirtual/notario/traslado')->with('success', '¡Se ha eliminado correctamente el traslado!');
 
