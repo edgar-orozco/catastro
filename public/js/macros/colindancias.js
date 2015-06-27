@@ -2,7 +2,7 @@
  * Created by Marcela on 24/06/2015.
  */
 
-if(JsonColindancias.length > 0){
+if(typeof JsonColindancias != 'undefined' && JsonColindancias.length > 0){
 
     i = 0;
     $(JsonColindancias).each(function() {

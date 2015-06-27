@@ -69,7 +69,9 @@ class OficinaVirtualNotarioController extends \BaseController
             return Redirect::to('ofvirtual/notario/traslado')->with('error', 'La clave o cuenta es incorrecta.');
         }
 
-        return View:: make('ofvirtual.notario.traslado.create', compact('title', 'traslado', 'predio'));
+        $JsonColindancias = NULL;
+
+        return View:: make('ofvirtual.notario.traslado.create', compact('title', 'traslado', 'predio','JsonColindancias'));
 
     }
 
@@ -218,7 +220,6 @@ class OficinaVirtualNotarioController extends \BaseController
 
         $traslado->traslado = $traslado;
 
-       // $arregloColindancias = TrasladoColindancia::where('traslado_id', $id)->get();
         $JsonColindancias = $traslado->colindancia->toJson();
         // Title
         $title = 'Editar traslado de dominio';
