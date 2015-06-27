@@ -133,7 +133,7 @@ class OficinaVirtualNotarioController extends \BaseController
 
         foreach(Input::get('colindancia') as $colindancia) {
             $colindancia['traslado_id'] = $traslado->id;
-            $oColindancias[] = new trasladoColindancia($colindancia);
+            $oColindancias[] = new TrasladoColindancia($colindancia);
         }
 
         if (!$traslado->colindancia()->saveMany($oColindancias)) {
@@ -289,7 +289,7 @@ class OficinaVirtualNotarioController extends \BaseController
         $traslado->colindancia()->delete();
          foreach(Input::get('colindancia') as $colindancia) {
             $colindancia['traslado_id'] = $id;
-            $oColindancias[] = new trasladoColindancia($colindancia);
+            $oColindancias[] = new TrasladoColindancia($colindancia);
         }
 
         if (!$traslado->colindancia()->saveMany($oColindancias)) {
