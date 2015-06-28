@@ -78,3 +78,8 @@ h1, h2, h3, h4, .h1, .h2, .h3, .h4 {
     opacity: 1;
     display: block !important;
 }
+
+.form-inline {margin-bottom: 5px; }
+.form-inline select {margin-right: 5px; margin-left: 5px; }
+.form-inline input {margin-right: 5px; margin-left: 5px; }
+
