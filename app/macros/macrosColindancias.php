@@ -9,18 +9,12 @@ Form::macro('colindancias', function ($llave, $JsonColindancias) {
     $colindancia =
 
         $js.
-
         '<br><div class="row">' .
-            Form::button('Agregar Colindancia', ['class' => 'btn btn-primary glyphicon glyphicon-plus agregarColindancia', 'type' => 'button']) .
+            Form::button('<i class="glyphicon glyphicon-plus"></i> Agregar Colindancia', ['class' => 'btn btn-success agregarColindancia', 'type' => 'button']) .
         '</div><br>'.
 
         '<div id="divsColindancias">'.
-
         '<div class="form-inline" id="colindanciaDiv1">'.
-          '<div class="form-group">' .
-            Form::button('', ['class' => 'btn btn-primary glyphicon glyphicon-minus quitarColindancia', 'type' => 'button']) .
-          '</div>'.
-
             '<div class="form-group">' .
                    Form::label($llave . '[1][orientacion]', 'Orientación :') .
                    Form::select($llave . '[1][orientacion]', $orientaciones, null, ['class' => 'form-control', 'required'=>true]) .
@@ -34,6 +28,9 @@ Form::macro('colindancias', function ($llave, $JsonColindancias) {
                  Form::text($llave . '[1][colindancia]', null, ['class' => 'form-control', 'required'=>true]) .
             '</div>' .
 
+            '<div class="form-group">' .
+                Form::button('<i class="glyphicon glyphicon-trash"></i>', ['class' => 'btn btn-warning quitarColindancia', 'type' => 'button', 'title'=>'Eliminar colindancia']) .
+            '</div>'.
         '</div>'.
         '</div>';
 
