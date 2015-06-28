@@ -1,20 +1,19 @@
 <div id="lista-tramites">
     <div class="panel">
-        <div class="panel-heading">
-            <h1 class="panel-title">Traslados de dominios</h1>
-        </div>
 
 
         <div class="alert alert-success" id="dominio-eliminado" style="display: none;">
-            <h4><span class="glyphicon glyphicon-ok"></span> Se eliminó correctamente el dominio.</h4>
+            <h4><span class="glyphicon glyphicon-ok"></span> Se eliminó correctamente el traslado de dominio.</h4>
         </div>
 
         @if(count($traslados) == 0)
             <div class="panel-body">
-                <p>No hay traslados de dominios dados de alta actualmente en el sistema.</p>
+                <p>No hay traslados de dominio dados de alta actualmente en el sistema.</p>
             </div>
         @endif
+
         <div class="list-group">
+            <br/>
             <table class="table">
                 <thead>
                 <tr>

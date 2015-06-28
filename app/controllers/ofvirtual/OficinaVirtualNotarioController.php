@@ -28,6 +28,13 @@ class OficinaVirtualNotarioController extends \BaseController
         //
         $title = 'Listas de traslados de dominio';
 
+        //Título de sección:
+        $title_section = "Listado de Traslados de Dominio. ";
+
+        //Subtítulo de sección:
+        $subtitle_section = "Crear, modificar, buscar, imprimir.";
+
+
         $traslados = Traslado::all();
 
         $misMunicipios = Auth::user()->municipios()->get(['gid']);
@@ -43,7 +50,7 @@ class OficinaVirtualNotarioController extends \BaseController
             $municipios = Municipio::whereIn('gid', $aMisMunicipios)->orderBy('nombre_municipio')->get();
         }
 
-        return View:: make('ofvirtual.notario.traslado.index', compact('title', 'traslados', 'municipios'));
+        return View:: make('ofvirtual.notario.traslado.index', compact('title', 'title_section', 'subtitle_section', 'traslados', 'municipios'));
 
     }
 

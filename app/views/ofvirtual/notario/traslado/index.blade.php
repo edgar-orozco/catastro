@@ -6,18 +6,17 @@
 
 @section('content')
 
-{{ HTML::style('css/forms.css') }}
-
 <!-- municipios -->
   <div class="row">
         @include('ofvirtual.notario.traslado.municipios')
-    </div><!-- /.row -->
+  </div>
 
-<!--buscador -->
+  <!--buscador -->
   <div class="row">
-        @include('ofvirtual.notario.traslado._form_buscador', compact('traslados'))
-    </div><!-- /.row -->
-
+      <div class="col-md-4 pull-right">
+          @include('ofvirtual.notario.traslado._form_buscador', compact('traslados'))
+      </div>
+  </div><!-- /.row -->
 
 <!-- listado traslados -->
     <div class="row">

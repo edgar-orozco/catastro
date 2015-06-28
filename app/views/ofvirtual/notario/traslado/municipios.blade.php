@@ -65,8 +65,8 @@
                                         {{Form::hidden('clave', null, ['id'=>'clave'])}}
 
                                         <span class="input-group-btn">
-                                            <button class="btn btn-default" type="submit">Crear traslado de dominio
-                                                <span class="glyphicon glyphicon-search boton-buscador" aria-hidden="true"></span>
+                                            <button class="btn btn-success" type="submit">Crear traslado de dominio
+                                                <span class="glyphicon glyphicon-plus boton-buscador" aria-hidden="true"></span>
                                             </button>
                                         </span>
 
