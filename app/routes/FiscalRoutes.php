@@ -44,18 +44,7 @@
         Route::get("/reimprimir/{clave?}", "CartaInvitacion_PdfpruebaController@imprimir");
 
          //rutas macros
-         Route::get('/macro', function()
-          {
-            $title = "Captura de personas";
-        //echo "hola mundo de macros, valor recibido: ".$tipo;
-        return View::make('macros.personasMac', compact('tipo', 'title'));
-          //  return View::make('macros.personasMac');
-          });
-         //ruta formato pre-registro escrituras
-        // Route::get("/macro-formato", "macros_macrosController@create");
-
-         //ruta guardar personas pre-registro
-         Route::post("/macro-guardar", "macros_macrosController@create");
+        
         });
 
 

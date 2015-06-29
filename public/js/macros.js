@@ -1,10 +1,8 @@
 $(document).ready(function()
 {
-    alert("prueba");
     $("input[name=opcion]").click(function() {
         if ($(this).val() == "moral")
         {
-        
           $("#id_tipo").val(2);
           //oculta label de apellido_paterno
           $('#apellido_paterno').hide();
@@ -25,7 +23,6 @@ $(document).ready(function()
                   }
            if ($(this).val() == "fisica")
         {
-          
           $("#id_tipo").val(1);
           //muestra label de apellido_paterno
           $('#apellido_paterno').show();

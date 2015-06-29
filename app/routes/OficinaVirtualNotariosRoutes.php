@@ -29,3 +29,16 @@ Route::get('ofvirtual/notario/traslado/asignarFolio/{id}', 'OficinaVirtualNotari
 //buscador
 //Búsqueda de trámites
 Route::post('ofvirtual/notario/traslado/buscar','OficinaVirtualNotarioController@buscar');
+
+ Route::get('/macro', function()
+          {
+            $title = "Captura de personas";
+        //echo "hola mundo de macros, valor recibido: ".$tipo;
+        return View::make('macros.personasMacros', compact('tipo', 'title'));
+          //  return View::make('macros.personasMac');
+          });
+         //ruta formato pre-registro escrituras
+        // Route::get("/macro-formato", "macros_macrosController@create");
+
+         //ruta guardar personas pre-registro
+         Route::post("/macro-guardar", "ofvirtual_RegistroEscrituraController@create");
