@@ -107,8 +107,10 @@ require app_path().'/filters.php';
 */
 require app_path().'/validators.php';
 
-
+//macros para captura de personas
 require app_path().'/macros/macrosPersonas.php';
+//macros para captura de personas
+require app_path().'/macros/macrosNotaria.php';
 
 require app_path().'/macros/macrosColindancias.php';
 
