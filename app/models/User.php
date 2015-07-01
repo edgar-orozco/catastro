@@ -11,7 +11,7 @@ class User extends Eloquent implements ConfideUserInterface
     use ConfideUser;
     use HasRole;
 
-    protected $fillable = ['username', 'email', 'password', 'nombre', 'apepat', 'apemat', 'roles', 'municipios', 'vigente'];
+    protected $fillable = ['username', 'email', 'password', 'nombre', 'apepat', 'apemat', 'roles', 'municipios', 'notarias', 'vigente', 'rfc', 'curp'];
 
     /**
      * The database table used by the model.
@@ -35,6 +35,16 @@ class User extends Eloquent implements ConfideUserInterface
     public function municipios()
     {
         return $this->belongsToMany('Municipio', 'user_municipio', 'usuario_id', 'municipio_id')->withTimestamps();
+    }
+
+    /**
+     * Many-to-Many relación con Notarias
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
+    public function notarias()
+    {
+        return $this->belongsToMany('Notaria', 'notaria_usuario', 'user_id', 'notaria_id')->withTimestamps();
     }
 
     /**
@@ -207,6 +217,38 @@ class User extends Eloquent implements ConfideUserInterface
                 'nombreCompleto' => $user->nombreCompleto(),
                 'roles'          => $user->roles,
                 'municipios'     => $user->municipios,
+                'vigente'        => $user->vigente
+            );
+        }
+        return $users;
+
+    }
+
+    /**
+     * Funcion para crear el arreglo de datos que espera procesar angular
+     * @return array
+     */
+    public function listAngularNotarias(){
+        $users = array();
+        $lista = $this->whereHas( 'roles' , function($q){
+                $q->where('name', '=', 'Usuario de Notaría');
+            })
+            ->with('roles')
+            ->with('notarias')
+            ->get();
+        foreach( $lista as $user){
+            $users[] = array(
+                'id'             => $user->id,
+                'username'       => $user->username,
+                'email'          => $user->email,
+                'nombre'         => $user->nombre,
+                'apepat'         => $user->apepat,
+                'apemat'         => $user->apemat,
+                'nombreCompleto' => $user->nombreCompleto(),
+                'curp'           => $user->curp ?: '' ,
+                'rfc'            => $user->rfc ?: '',
+                'roles'          => $user->roles,
+                'notarias'       => $user->notarias,
                 'vigente'        => $user->vigente
             );
         }

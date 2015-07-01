@@ -20,4 +20,7 @@ class Notaria extends Ardent
         return $this->hasOne('Municipio','municipio','municipio');
     }
 
+    public function estado(){
+        return $this->hasOne('Entidad','entidad','entidad');
+    }
 }

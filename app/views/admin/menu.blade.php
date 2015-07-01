@@ -11,6 +11,12 @@
                 Usuarios
             </a>
         </li>
+        <li class="@if(Request::is('admin/usuarios/notaria')) active @endif">
+            <a href="{{URL::to('admin/usuarios/notaria')}}">
+                <i class="glyphicon glyphicon-user"></i>&nbsp;
+                Usuarios Notaria
+            </a>
+        </li>
         <li class="divider"></li>
         <li class="@if(Request::is('admin/permission')) active @endif">
             <a href="{{URL::to('admin/permission')}}">
