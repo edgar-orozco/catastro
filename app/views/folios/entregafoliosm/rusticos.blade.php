@@ -127,6 +127,16 @@
         }
     } );
 
+		$('body').delegate('.checkbox', 'click', function(event) {
+
+			if(!confirm("¿Está seguro de marcar el folio " + $(this).val() + "? Verifique el año del folio.")){
+
+				return false;
+
+			}
+
+		});
+
 	});
 
 	</script>
