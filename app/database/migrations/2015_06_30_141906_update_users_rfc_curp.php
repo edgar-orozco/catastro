@@ -15,7 +15,7 @@ class UpdateUsersRfcCurp extends Migration {
         Schema::table('users', function(Blueprint $table)
         {
             // Se agrega el campo vigente a la tabla users
-            DB::statement('ALTER table users ADD COLUMN rfc VARCHAR(13 NULL DEFAULT NULL');
+            DB::statement('ALTER table users ADD COLUMN rfc VARCHAR(13) NULL DEFAULT NULL');
             DB::statement('ALTER table users ADD COLUMN curp VARCHAR(18) NULL DEFAULT NULL');
         });
     }
