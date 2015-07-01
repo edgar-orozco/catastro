@@ -22,7 +22,7 @@ class corevat_EstadosController extends \BaseController {
 	public function index($format = 'html') {
 		$title = 'COREVAT';
 		$title_section = 'Catálogo de Estados';
-		$subtitle_section = 'hola mundo...';		
+		$subtitle_section = '';
 		$titleGrid = 'Estados';
 		$row = $this->table;
 		$rows = Estados::orderBy('idestado', 'desc')->get();
@@ -38,7 +38,7 @@ class corevat_EstadosController extends \BaseController {
 		$title = 'COREVAT';
 		$title_section = 'Catálogo de Estados';
 		$titleGrid = 'Catálogo de Estados';
-		$subtitle_section = 'hola mundo...';
+		$subtitle_section = ' ';
 		$row = $this->table;
 		$row->status = 1;		
 		$rows = Estados::orderBy('idestado', 'desc')->get();
@@ -95,7 +95,7 @@ class corevat_EstadosController extends \BaseController {
 		$this->table = $row;
 		$title = 'COREVAT';
 		$title_section = 'Catálogo de Estados';
-		$subtitle_section = 'hola mundo...';
+		$subtitle_section = ' ';
 		$titleGrid = 'Catálogo de Estados';
 		// $rows = $this->table->all();
 		$rows = Estados::orderBy('idestado', 'desc')->get();

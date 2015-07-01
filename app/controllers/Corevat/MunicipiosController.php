@@ -37,7 +37,7 @@ class corevat_MunicipiosController extends \BaseController {
 	public function index($format = 'html') {
 		$title = 'COREVAT';
 		$title_section = 'Catálogo de Municipios';
-		$subtitle_section = 'hola mundo...';		
+		$subtitle_section = '';
 		$titleGrid = 'Municipios';
 		$row = $this->table;
 		$this->getListMunicipios();
@@ -54,7 +54,7 @@ class corevat_MunicipiosController extends \BaseController {
 		$title = 'COREVAT';
 		$title_section = 'Catálogo de Municipios';
 		$titleGrid = 'Catálogo de Municipios';
-		$subtitle_section = 'hola mundo...';
+		$subtitle_section = '';
 		$row = $this->table;
 		$row->status = 1;		
 		$this->getListMunicipios();
@@ -114,7 +114,7 @@ class corevat_MunicipiosController extends \BaseController {
 		$this->table = $row;
 		$title = 'COREVAT';
 		$title_section = 'Catálogo de Municipios';
-		$subtitle_section = 'hola mundo...';
+		$subtitle_section = ' ';
 		$titleGrid = 'Catálogo de Municipios';
 		$id = $row->idmunicipio;
 		$this->getListMunicipios();
