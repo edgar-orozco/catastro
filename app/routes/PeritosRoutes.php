@@ -27,6 +27,7 @@ Route::group(array('before'=>'Folios'),  function (){
 			Route::get('/formatoreportemensual', 'folios_FoliosController@formatoreportemensual');
 			Route::get('/reportetotal', 'folios_FoliosController@reportetotal');
 			Route::get('/formatoreportetotal', 'folios_FoliosController@formatoreportetotal');
+			Route::get('/graficareportes', 'folios_FoliosController@grafica_reportes');
 		
                         /* -- FILTRO DE USUARIO SECRETARIA, NO PODRÁ ACCEDER A ESTAS RUTAS -- */
 		
@@ -87,6 +88,14 @@ Route::group(array('before'=>'Folios usuario'),  function (){
 			Route::get('/entregafoliose/rusticos/{id}', 'folios_EntregaFoliosController@get_rusticose');
 			Route::post('/entregafoliose/urbanos/{id}', 'folios_EntregaFoliosController@post_foliose');
 			Route::post('/entregafoliose/rusticos/{xid}', 'folios_EntregaFoliosController@post_foliose');
+
+			//Deshabilitar entrega municipal
+            Route::get('/entregafoliose/rusticos/habilitarm/{id}', 'folios_EntregaFoliosController@desmunicipior');
+            Route::get('/entregafoliose/urbanos/habilitarm/{id}', 'folios_EntregaFoliosController@desmunicipiou');
+
+            //Deshabilitar entrega Estatal
+            Route::get('/entregafoliose/rusticos/habilitare/{id}', 'folios_EntregaFoliosController@desestador');
+            Route::get('/entregafoliose/urbanos/habilitare/{id}', 'folios_EntregaFoliosController@desestadou');
 });
  Route::filter('Folio usuario', function () {
 
