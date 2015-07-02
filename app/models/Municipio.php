@@ -24,4 +24,8 @@ class Municipio extends Ardent
     {
     	return $this->hasMany('FoliosComprados');
     }
+
+    public function asentamientos(){
+        return $this->hasMany('Asentamiento', 'municipio', 'municipio');
+    }
 }
