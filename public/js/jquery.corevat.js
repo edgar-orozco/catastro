@@ -835,6 +835,5 @@ $(document).ready(function () {
             }
         });
     };
-    
-    
+
 });

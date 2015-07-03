@@ -236,6 +236,8 @@ angular.module('app', [
         $scope.successSave = false;
         $scope.roles = [];
         $scope.notarias = [];
+        $scope.role = {};
+
         // Variables para el control
         /**
          * Funcion para obtener la lista de todos los usuarios
@@ -358,9 +360,8 @@ angular.module('app', [
             userSave.roles[$scope.role.default] = $scope.role.default;
             // Se modifican los datos de los notarias como los espera recibir laravel
             userSave.notarias = {};
-            $scope.notarias.forEach(function(val) {
-                userSave.notarias[val] = val;
-            });
+            userSave.notarias[$scope.notarias] = $scope.notarias;
+
             // Se agrega el usuario a la lista de usuarios
             if (userSave.id == undefined){
                 (userSave.idx == undefined) ? $scope.users.push(userSave) : $scope.users[userSave.idx] = angular.copy(userSave);

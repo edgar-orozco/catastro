@@ -1,0 +1,178 @@
+MAP
+
+EXTENT  365927.23841353016905487 1891919.63498854520730674 732152.99458523001521826 2077443.62099912133999169
+ 
+UNITS meters
+SIZE 650 350
+
+SHAPEPATH "/var/www/html/cartografia/shapes"
+FONTSET "/var/www/html/cartografia/fonts/fonts.txt"
+RESOLUTION 96
+IMAGETYPE png
+INTERLACE OFF
+PROJECTION
+  "+proj=utm +zone=15 +datum=WGS84 +units=m +no_defs"
+END  
+
+
+
+#
+# Start of web interface definition
+#
+WEB
+  IMAGEPATH '/tmp/'
+  IMAGEURL '/map_output/'
+END  # Web
+
+# SYMBOLS USED IN PMAPPER
+# - 'circle' always necessary (used e.g. for highlight)
+# - 'square' used in currecnt map file
+# Symbols can also be defined via tag SYMBOLSET (see above)
+Symbol
+  Name 'Circle'
+  Type ELLIPSE
+  Filled TRUE
+  Points
+    1 1
+  END
+END
+
+SYMBOL
+  NAME 'hatch'
+  TYPE HATCH
+END
+
+Symbol
+  Name 'Etiqueta'
+  Type truetype
+  FONT "vera"
+  CHARACTER "Point"
+END
+
+
+#================== START OF LAYER SECTION =====================#
+
+#
+# Start of Layer Colindacias.shp
+#
+LAYER  
+  NAME "Colindacias"
+  TYPE polygon
+  STATUS ON
+  CONNECTION  "user='postgres' password='pass' dbname='catasto-dev' host=localhost port=5432"
+  CONNECTIONTYPE postgis
+  DATA "geom from predios using unique gid"
+  TOLERANCE 3
+  TOLERANCEUNITS pixels
+  TEMPLATE void
+  PROJECTION
+    "+proj=utm +zone=15 +datum=WGS84 +units=m +no_defs"
+  END
+  TRANSPARENCY 10
+  
+  CLASS
+    Name 'Colindacia'
+    COLOR 249 249 249
+    OUTLINECOLOR 0 0 0
+  END  # Class
+END  # Layer
+
+#
+# Start of Layer Construcciones.shp
+#
+LAYER  
+  NAME "Construcciones"
+  TYPE polygon
+  STATUS ON
+  CONNECTION  "user='postgres' password='pass' dbname='catasto-dev' host=localhost port=5432"
+  CONNECTIONTYPE postgis
+  DATA "geom from construcciones using unique gid"
+  TOLERANCE 3
+  TOLERANCEUNITS pixels
+  TEMPLATE void
+  PROJECTION
+    "+proj=utm +zone=15 +datum=WGS84 +units=m +no_defs"
+  END
+  #TRANSPARENCY 50
+  
+  CLASS
+    Name 'Construccion'
+    STYLE
+      OUTLINECOLOR 220 220 220
+    END # Style   
+    STYLE
+      SYMBOL 'hatch'
+      COLOR 220 220 220
+      ANGLE 45
+      SIZE 5
+      WIDTH 1
+    END # style
+  END  # Class
+END  # Layer
+
+
+#
+# Start of Layer Predio.shp
+#
+LAYER  NAME "Predios"
+  TYPE polygon
+  STATUS ON
+  CONNECTION  "user='postgres' password='pass' dbname='catasto-dev' host=localhost port=5432"
+  CONNECTIONTYPE postgis
+  DATA "geom from predios using unique gid"
+  TOLERANCE 3
+  TOLERANCEUNITS pixels
+  TEMPLATE void
+  PROJECTION
+    "+proj=utm +zone=15 +datum=WGS84 +units=m +no_defs"
+  END
+  
+  CLASS
+    Name 'Predio'
+    COLOR -1 -1 -1
+    OUTLINECOLOR 0 0 0
+  END  # Class
+END  # Layer
+
+
+#
+# Start of Layer Vertices.shp
+#
+LAYER  
+  NAME "Vertices"
+  TYPE point
+  STATUS ON
+#  CONNECTION  "user='postgres' password='pass' dbname='catasto-dev' host=localhost port=5432"
+#  CONNECTIONTYPE postgis
+#  DATA "geom from predios using unique gid"
+  TOLERANCE 3
+  TOLERANCEUNITS pixels
+  TEMPLATE void
+  PROJECTION
+    "+proj=utm +zone=15 +datum=WGS84 +units=m +no_defs"
+  END # Projection
+
+  CLASS
+    Name 'Vertice' 
+    STYLE
+      SYMBOL "Circle"
+      SIZE 5
+      COLOR -1 -1 -1
+      OUTLINECOLOR 0 0 0
+    END # Style   
+
+    LABEL
+      POSITION auto
+      ANGLE Follow
+      COLOR 0 0 0 
+      TYPE truetype
+      #ENCODING "UTF-8"
+      FONT vera
+      SIZE 7
+      #SIZE medium
+    END # Label
+
+  END  # Class
+END  # Layer
+
+END  #Map

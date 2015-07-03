@@ -51,12 +51,18 @@
     {{Form::label('rfc','RFC')}}
     {{Form::text('rfc', null, ['class'=>'form-control', 'minlength'=>'13', 'maxlength'=>'13', 'pattern' => '([A-Za-z]{4})([0-9]{6})([A-Za-z0-9]{3})', 'title' => 'El RFC ingresado no tiene el formato esperado, verifique nuevamente el RFC ingresado', 'max-size' => 12, 'ng-model' => 'user.rfc'] )}}
     <span ng-repeat="error in user.errors.rfc" class=text-danger>{[{ error }]}</span>
+    <span ng-if="formUser.rfc.$error.pattern" class=text-danger>
+        El RFC ingresado no tiene el formato esperado, verifique nuevamente el RFC ingresado
+    </span>
 </div>
 
 <div class="form-group">
     {{Form::label('curp','CURP')}}
-    {{Form::text('curp', null, ['class'=>'form-control', 'minlength'=>'18', 'maxlength'=>'18', 'pattern' => '([A-Za-z]{4})([0-9]{6})([A-Za-z]{6})([0-9]{2})', 'title' => 'El CURP ingresado no tiene el formato esperado, verifique nuevamente el CURP ingresado', 'ng-model' => 'user.curp'] )}}
+    {{Form::text('curp', null, ['class'=>'form-control', 'minlength'=>'18', 'maxlength'=>'18', 'pattern' => '([A-Za-z]{4})([0-9]{6})([A-Za-z]{6})([0-9]{2}) ', 'title' => 'El CURP ingresado no tiene el formato esperado, verifique nuevamente el CURP ingresado', 'ng-model' => 'user.curp'] )}}
     <span ng-repeat="error in user.errors.curp" class=text-danger>{[{ error }]}</span>
+    <span ng-if="formUser.curp.$error.pattern" class=text-danger>
+        El CURP ingresado no tiene el formato esperado, verifique nuevamente el CURP ingresado
+    </span>
 </div>
 
 <div class="form-group">
@@ -76,7 +82,7 @@
 
 <div class="form-group">
     {{Form::label(null,'Notarias')}}
-    <select select-two="select2" placeholder="Notarias" class="select2-select" multiple="multiple" selection="notarias"  ng-model="notarias">
+    <select select-two="select2" placeholder="Notarias" class="select2-select" selection="notarias"  ng-model="notarias">
         @foreach(Notaria::all() as $notaria)
             <option value="{{ $notaria->id_notaria }}"> {{ $notaria->nombre }} ( {{ $notaria->mpio['nombre_municipio'] }}, {{ $notaria->estado['nom_ent'] }} ) </option>
         @endforeach

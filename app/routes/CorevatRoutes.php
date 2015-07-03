@@ -590,4 +590,20 @@ Route::group(array('before' => 'admin'), function () {
 	
 	Route::resource('corevat/Avaluos', 'corevat_AvaluosController');
 
+// ------------------------ Inicia ROUTES for JQuery -------------------------------------------------
+
+	Route::get('getMunicipiosFromEstados', function(){
+		$input = Input::get('option');
+		return Municipios::orderBy('municipio','asc')->where('idestado', $input)->where('status', 1)->get(['idmunicipio','municipio']);
+	});
+
+	Route::get('getCPFromMunicipios', function(){
+		$input = Input::get('option');
+		return Asentamiento::where('municipio',$input)->distinct()->get(['codigo_postal']);
+	});
+
+
+// ------------------------ finaliza ROUTES for JQuery -------------------------------------------------
+
+
 });
