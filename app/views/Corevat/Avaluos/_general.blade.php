@@ -100,7 +100,7 @@
 	<div class="col-md-4">
 		<div class="form-inline">
 			{{Form::label('Altitud')}}
-			{{Form::text('altitud', $row->altitud, ['class'=>'form-control', 'tabindex'=>'17', 'maxlength'=>'50', 'size'=>'40', 'pattern' => '[0-9]' ])}}
+			{{Form::text('altitud', $row->altitud, ['class'=>'form-control', 'tabindex'=>'17', 'maxlength'=>'50', 'size'=>'40', 'pattern' => '[-+]?[0-9]*[.,]?[0-9]+' ] )}}
 		</div>
 	</div>
 	<br />
@@ -148,9 +148,12 @@
 </div>
 {{Form::close()}}
 @section('javascript')
+{{ HTML::script('/js/jquery/jquery.min.js') }}
+{{ HTML::script('/js/jquery/jquery.mask.min.js') }}
 {{ HTML::script('/js/jquery/jquery-ui.js') }}
 {{ HTML::script('/js/jquery/jquery.dataTables.min.js') }}
 {{ HTML::script('/js/jquery/dataTables.bootstrap.js') }}
+{{ HTML::script('/js/jquery/jquery.mask.min.js') }}
 {{ HTML::script('/js/jquery.corevat.js') }}
 
 <script>

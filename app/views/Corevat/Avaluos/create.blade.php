@@ -90,23 +90,23 @@
 	<div class="col-md-4">
 		<div class="form-inline">
 			{{Form::label('Longitud')}}
-			{{Form::number('lon0', $row->lon0, ['class'=>'form-control', 'tabindex'=>'12', 'style'=>'width:75px', 'step'=>'1', 'min' => '0', 'max' => '360', 'pattern' => '[0-9]{3}'])}}&nbsp;&ring;&nbsp;
-			{{Form::number('lon1', $row->lon1, ['class'=>'form-control', 'tabindex'=>'13', 'style'=>'width:75px', 'step'=>'1', 'min' => '0', 'max' => '60', 'pattern' => '[0-9]{2}'])}}&nbsp;'&nbsp;
-			{{Form::number('lon2', $row->lon2, ['class'=>'form-control', 'tabindex'=>'14', 'style'=>'width:75px', 'step'=>'1', 'min' => '0', 'max' => '60', 'pattern' => '[0-9]{2}'])}}&nbsp;"
+			{{Form::number('lon0', $row->lon0, ['class'=>'form-control', 'tabindex'=>'12', 'style'=>'width:75px', 'step'=>'1', 'min' => '0', 'max' => '360', 'pattern' => '[0-9]{3}', 'required' => 'required' ])}}&nbsp;&ring;&nbsp;
+			{{Form::number('lon1', $row->lon1, ['class'=>'form-control', 'tabindex'=>'13', 'style'=>'width:75px', 'step'=>'1', 'min' => '0', 'max' => '60', 'pattern' => '[0-9]{2}', 'required' => 'required' ])}}&nbsp;'&nbsp;
+			{{Form::number('lon2', $row->lon2, ['class'=>'form-control', 'tabindex'=>'14', 'style'=>'width:75px', 'step'=>'1', 'min' => '0', 'max' => '60', 'pattern' => '[0-9]{2}', 'required' => 'required' ])}}&nbsp;"
 		</div>
 	</div>
 	<div class="col-md-4">
 		<div class="form-inline">
 			{{Form::label('Latitud')}}
-			{{Form::number('lat0', $row->lat0, ['class'=>'form-control', 'tabindex'=>'15', 'style'=>'width:75px', 'step'=>'1', 'min' => '0', 'max' => '360', 'pattern' => '[0-9]{3}'])}}&nbsp;&ring;&nbsp;
-			{{Form::number('lat1', $row->lat1, ['class'=>'form-control', 'tabindex'=>'16', 'style'=>'width:75px', 'step'=>'1', 'min' => '0', 'max' => '60', 'pattern' => '[0-9]{2}'])}}&nbsp;'&nbsp;
-			{{Form::number('lat2', $row->lat2, ['class'=>'form-control', 'tabindex'=>'17', 'style'=>'width:75px', 'step'=>'1', 'min' => '0', 'max' => '60', 'pattern' => '[0-9]{2}'])}}&nbsp;"
+			{{Form::number('lat0', $row->lat0, ['class'=>'form-control', 'tabindex'=>'15', 'style'=>'width:75px', 'step'=>'1', 'min' => '0', 'max' => '360', 'pattern' => '[0-9]{3}', 'required' => 'required' ])}}&nbsp;&ring;&nbsp;
+			{{Form::number('lat1', $row->lat1, ['class'=>'form-control', 'tabindex'=>'16', 'style'=>'width:75px', 'step'=>'1', 'min' => '0', 'max' => '60', 'pattern' => '[0-9]{2}', 'required' => 'required' ])}}&nbsp;'&nbsp;
+			{{Form::number('lat2', $row->lat2, ['class'=>'form-control', 'tabindex'=>'17', 'style'=>'width:75px', 'step'=>'1', 'min' => '0', 'max' => '60', 'pattern' => '[0-9]{2}', 'required' => 'required' ])}}&nbsp;"
 		</div>
 	</div>
 	<div class="col-md-4">
 		<div class="form-inline">
 			{{Form::label('Altitud')}}
-			{{Form::text('altitud', $row->altitud, ['class'=>'form-control', 'tabindex'=>'17', 'maxlength'=>'50', 'size'=>'40'])}}
+			{{Form::text('altitud', $row->altitud, ['class'=>'form-control', 'tabindex'=>'17', 'maxlength'=>'50', 'size'=>'40', 'pattern' => '[-+]?[0-9]*[.,]?[0-9]+' ] )}}
 		</div>
 	</div>
 	<br />
@@ -156,9 +156,12 @@
 {{Form::close()}}
 @stop
 @section('javascript')
+{{ HTML::script('/js/jquery/jquery.min.js') }}
+{{ HTML::script('/js/jquery/jquery.mask.min.js') }}
 {{ HTML::script('/js/jquery/jquery-ui.js') }}
 {{ HTML::script('/js/jquery/jquery.dataTables.min.js') }}
 {{ HTML::script('/js/jquery/dataTables.bootstrap.js') }}
+{{ HTML::script('/js/jquery/jquery.mask.min.js') }}
 {{ HTML::script('/js/jquery.corevat.js') }}
 
 <script>
