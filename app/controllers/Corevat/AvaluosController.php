@@ -16,7 +16,7 @@ class corevat_AvaluosController extends \BaseController {
 	public function index($format = 'html') {
 		$title = 'COREVAT';
 		$row = $this->avaluo;
-		$rows = Avaluos::orderBy('idavaluo')->get();
+		$rows = Avaluos::orderBy('idavaluo','desc')->get();
 		return View::make('Corevat.Avaluos.index', compact('title', 'rows', 'row'));
 	}
 
@@ -31,12 +31,20 @@ class corevat_AvaluosController extends \BaseController {
 		$row['fecha_reporte'] = date("d-m-Y");
 		$row['fecha_avaluo'] = date("d-m-Y");
 		$row['lon0'] = $row['lon1'] = $row['lat0'] = $row['lat1'] = 0;
-		$estados = Estados::comboList();
-		$municipios = Municipios::comboList();
+		
+		// $estados = Estados::comboList();
+		// $municipios = Municipios::comboList();
+
+		$estados = Estados::orderBy('estado')->where('idestado', 1)->where('status', 1)->lists('estado', 'idestado');
+		$municipios = Municipios::orderBy('municipio')->where('idestado', 1)->where('status', 1)->lists('municipio', 'clave','idmunicipio');
+
 		$cat_tipo_inmueble = CatTipoInmueble::comboList();
 		$cat_regimen_propiedad = CatRegimenPropiedad::comboList();
 		$idavaluo = 0;
-		return View::make('Corevat.Avaluos.create', compact('title', 'row', 'estados', 'municipios', 'cat_tipo_inmueble', 'cat_regimen_propiedad', 'idavaluo'));
+
+		$lstCP = Asentamiento::where('municipio','000')->distinct()->lists('codigo_postal', 'codigo_postal');
+
+		return View::make('Corevat.Avaluos.create', compact('title', 'row', 'estados', 'municipios', 'cat_tipo_inmueble', 'cat_regimen_propiedad', 'idavaluo','lstCP'));
 	}
 
 	/**
@@ -129,11 +137,17 @@ class corevat_AvaluosController extends \BaseController {
 		$row->is_otro_servicio = 0;
 		$row->is_otro_equipamiento = 0;
 		$title = 'Editando el registro: ' . $row['foliocoretemp'];
+		// $municipios = Municipios::comboList();
 		$estados = Estados::comboList();
-		$municipios = Municipios::comboList();
+		$municipios = Municipios::orderBy('municipio')->where('idestado', $row->idestado)->where('status', 1)->lists('municipio', 'clave','idmunicipio');
 		$cat_tipo_inmueble = CatTipoInmueble::comboList();
 		$cat_regimen_propiedad = CatRegimenPropiedad::comboList();
-		return View::make('Corevat.Avaluos.avaluos', compact('opt', 'idavaluo', 'title', 'row', 'estados', 'municipios', 'cat_tipo_inmueble', 'cat_regimen_propiedad'));
+
+		$mun = Municipios::find($row->idmunicipio);
+		$lstCP = Asentamiento::where('municipio',$mun->clave)->distinct()->lists('codigo_postal', 'codigo_postal');
+
+		return View::make('Corevat.Avaluos.avaluos', compact('opt', 'idavaluo', 'title', 'row', 'estados', 'municipios', 'cat_tipo_inmueble', 'cat_regimen_propiedad','lstCP'));
+	
 	}
 
 	/**

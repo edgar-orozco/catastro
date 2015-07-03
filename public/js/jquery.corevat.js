@@ -835,6 +835,4 @@ $(document).ready(function () {
             }
         });
     };
-    
-    
 });

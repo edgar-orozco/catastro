@@ -63,7 +63,10 @@
 	<div class="col-md-2">
 		<div class="form-group">
 			{{Form::label('cp', 'C. P.')}}
-			{{Form::text('cp', $row->cp, ['class'=>'form-control', 'tabindex'=>'9', 'maxlength' => '6'])}}
+<!--
+ 			{{Form::text('cp', $row->cp, ['class'=>'form-control', 'tabindex'=>'9', 'maxlength' => '6'])}}
+ -->
+ 			{{Form::select('cp', $lstCP, $row->cp, ['id' => 'cp', 'class'=>'form-control', 'tabindex'=>'9'])}}
 		</div>
 	</div>
 	<div class="col-md-6">
@@ -149,10 +152,36 @@
 {{ HTML::script('/js/jquery/jquery.dataTables.min.js') }}
 {{ HTML::script('/js/jquery/dataTables.bootstrap.js') }}
 {{ HTML::script('/js/jquery.corevat.js') }}
+
 <script>
 	$(document).ready(function () {
 		//$('#fecha_reporte, #fecha_avaluo').datepicker();
 		$('#btn1General').removeClass("btn-info").addClass("btn-primary");
+
+	  	$('#idestado').on("change",function(){
+			$.get("{{ url('getMunicipiosFromEstados')}}", { option: $(this).val() }, 
+				function(json) {
+					var model = $('#idmunicipio').empty();
+					$.each(json, function(i, item) {
+			            model.append("<option value='"+ item.idmunicipio +"'>" + item.municipio + "</option>");
+			        });
+				}
+			);
+		});
+
+	  	$('#idmunicipio').on("change",function(){
+			$.get("{{ url('getCPFromMunicipios')}}", { option: $(this).val() }, 
+				function(json) {
+					var model = $('#cp').empty();
+					$.each(json, function(i, item) {
+			            model.append("<option value='"+ item.codigo_postal +"'>" + item.codigo_postal + "</option>");
+			        });
+				}
+			);
+		});
+
+
+
 	});
 </script>
 @stop
