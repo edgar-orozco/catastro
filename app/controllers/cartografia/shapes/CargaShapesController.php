@@ -43,7 +43,7 @@ class CargaShapesController extends BaseController
         if(Input::file('shape')) {
 
             // Se valida el directorio para subir shapes
-            $dir = __DIR__ . '/../storage/shapes';
+            $dir = storage_path('shapes');
             if (!file_exists($dir) && !is_dir($dir)) {
                 mkdir($dir);
             }
@@ -61,7 +61,7 @@ class CargaShapesController extends BaseController
 
                 $zipfile = $municipio."-".$manzana."-".$sufijo.".zip";
                 Input::file('shape')->move($dir, $zipfile);
-                $dirzip = __DIR__ . '/../storage/shapes/';
+                $dirzip = storage_path('shapes/');
                 $dirtmp = "/tmp/";
 
 
