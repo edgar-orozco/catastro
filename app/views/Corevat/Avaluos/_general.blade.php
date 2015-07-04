@@ -63,10 +63,7 @@
 	<div class="col-md-2">
 		<div class="form-group">
 			{{Form::label('cp', 'C. P.')}}
-<!--
- 			{{Form::text('cp', $row->cp, ['class'=>'form-control', 'tabindex'=>'9', 'maxlength' => '6'])}}
- -->
- 			{{Form::select('cp', $lstCP, $row->cp, ['id' => 'cp', 'class'=>'form-control', 'tabindex'=>'9'])}}
+ 			{{Form::select('cp', $lstCP, $row->cp, ['id' => 'cp', 'class'=>'form-control', 'tabindex'=>'9', 'required' => 'required'])}}
 		</div>
 	</div>
 	<div class="col-md-6">
@@ -119,7 +116,7 @@
 	<div class="col-md-6">
 		<div class="form-group">
 			{{Form::label('cuenta_catastral', 'Catastral')}}
-			{{Form::text('cuenta_catastral', $row->cuenta_catastral, ['class'=>'form-control', 'tabindex'=>'20', 'maxlength'=>'15', 'size'=>'16'])}}
+			{{Form::text('cuenta_catastral', $row->cuenta_catastral, ['class'=>'form-control', 'tabindex'=>'20', 'maxlength'=>'15', 'size'=>'16','required' => 'required', 'pattern' => '\d{2}-[RUru]{1}-\d{6}'  ])}}
 		</div>
 	</div>
 	<div class="col-md-6">
@@ -160,6 +157,12 @@
 	$(document).ready(function () {
 		//$('#fecha_reporte, #fecha_avaluo').datepicker();
 		$('#btn1General').removeClass("btn-info").addClass("btn-primary");
+
+		$('#cuenta_catastral').mask('YY-S-YYYYYY', {'translation': {
+                                        S: {pattern: /[RUru]/},  
+                                        Y: {pattern: /[0-9]/}
+                                      }
+                                });
 
 	  	$('#idestado').on("change",function(){
 			$.get("{{ url('getMunicipiosFromEstados')}}", { option: $(this).val() }, 
