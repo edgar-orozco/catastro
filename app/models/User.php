@@ -251,8 +251,8 @@ class User extends Eloquent implements ConfideUserInterface
                 'roles'          => $user->roles,
                 'notarias'       => $user->notarias,
                 'vigente'        => $user->vigente,
-                'municipio'      => $user->notarias()->first()->mpio->nombre_municipio,
-                'estado'         => $user->notarias()->first()->estado->nom_ent
+                'municipio'      => $user->notarias()->first() ? $user->notarias()->first()->mpio->nombre_municipio : '',
+                'estado'         => $user->notarias()->first() ? $user->notarias()->first()->estado->nom_ent : ''
             );
         }
         return $users;
