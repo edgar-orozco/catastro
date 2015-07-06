@@ -235,7 +235,7 @@
                         <label style="
                             display: inline-block;
                             width: 180px;">Liga de acceso al sistema:</label>
-                        <a href="http://sicaret.tabasco.gob.mx" target="_blank">http://sicaret.tabasco.gob.mx</a>
+                        <a href="http://sicare.tabasco.gob.mx" target="_blank">http://sicare.tabasco.gob.mx</a>
                     </div>
                 </div>
 
