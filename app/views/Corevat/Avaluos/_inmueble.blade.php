@@ -288,41 +288,41 @@
 					</td>
 				</tr>
 				<tr>
-					<th class="bg-primary">{{Form::label('indiviso_terreno', 'Superficie del Terreno')}}</th>
+					<th class="bg-primary">{{Form::label('superficie_terreno', 'Superficie del Terreno')}}</th>
 					<td>
-						{{Form::number('superficie_terreno', $row->superficie_terreno, ['class'=>'form-control', 'step'=>'0.0001', 'min'=>'0.0000', 'max'=>'999999999.9999', 'pattern'=>'[0-9]{9}[.]{1}[0-9]{4}'] )}}
+						{{Form::number('superficie_terreno', $row->superficie_terreno, ['id'=>'superficie_terreno','class'=>'form-control', 'step'=>'0.0001', 'min'=>'0.0000', 'max'=>'999999999.9999', 'pattern'=>'[0-9]{9}[.]{1}[0-9]{4}'] )}}
 						{{$errors->first('superficie_terreno', '<span class=text-danger>:message</span>')}}
 					</td>
 
 					<th class="bg-primary">{{Form::label('indiviso_areas_comunes', 'Indiviso de Áreas Comunes (%)')}}</th>
 					<td>
-						{{Form::number('indiviso_areas_comunes', $row->indiviso_areas_comunes, ['class'=>'form-control', 'step'=>'0.0001', 'min'=>'0.0000', 'max'=>'999999999.9999', 'pattern'=>'[0-9]{9}[.]{1}[0-9]{4}'] )}}
+						{{Form::number('indiviso_areas_comunes', $row->indiviso_areas_comunes, ['id'=>'indiviso_areas_comunes','class'=>'form-control', 'step'=>'0.0001', 'min'=>'0.0000', 'max'=>'999999999.9999', 'pattern'=>'[0-9]{9}[.]{1}[0-9]{4}'] )}}
 						{{$errors->first('indiviso_areas_comunes', '<span class=text-danger>:message</span>')}}
 					</td>
 				</tr>
 				<tr>
 					<th class="bg-primary">{{Form::label('superficie_construccion', 'Superficie de Construcción')}}</th>
 					<td>
-						{{Form::number('superficie_construccion', $row->superficie_construccion, ['class'=>'form-control', 'step'=>'0.0001', 'min'=>'0.0000', 'max'=>'999999999.9999', 'pattern'=>'[0-9]{9}[.]{1}[0-9]{4}'] )}}
+						{{Form::number('superficie_construccion', $row->superficie_construccion, ['id'=>'superficie_construccion','class'=>'form-control', 'step'=>'0.0001', 'min'=>'0.0000', 'max'=>'999999999.9999', 'pattern'=>'[0-9]{9}[.]{1}[0-9]{4}'] )}}
 						{{$errors->first('superficie_construccion', '<span class=text-danger>:message</span>')}}
 					</td>
 
 					<th class="bg-primary">{{Form::label('indiviso_accesoria', 'Indiviso Accesoría (%)')}}</th>
 					<td>
-						{{Form::number('indiviso_accesoria', $row->indiviso_accesoria, ['class'=>'form-control', 'step'=>'0.0001', 'min'=>'0.0000', 'max'=>'999999999.9999', 'pattern'=>'[0-9]{9}[.]{1}[0-9]{4}'] )}}
+						{{Form::number('indiviso_accesoria', $row->indiviso_accesoria, ['id'=>'indiviso_accesoria','class'=>'form-control', 'step'=>'0.0001', 'min'=>'0.0000', 'max'=>'999999999.9999', 'pattern'=>'[0-9]{9}[.]{1}[0-9]{4}'] )}}
 						{{$errors->first('indiviso_accesoria', '<span class=text-danger>:message</span>')}}
 					</td>
 				</tr>
 				<tr>
 					<th class="bg-primary">{{Form::label('superficie_escritura', 'Superficie Asentada en Escritura')}}</th>
 					<td>
-						{{Form::number('superficie_escritura', $row->superficie_escritura, ['class'=>'form-control', 'step'=>'0.0001', 'min'=>'0.0000', 'max'=>'999999999.9999', 'pattern'=>'[0-9]{9}[.]{1}[0-9]{4}'] )}}
+						{{Form::number('superficie_escritura', $row->superficie_escritura, ['id'=>'superficie_escritura','class'=>'form-control', 'step'=>'0.0001', 'min'=>'0.0000', 'max'=>'999999999.9999', 'pattern'=>'[0-9]{9}[.]{1}[0-9]{4}'] )}}
 						{{$errors->first('superficie_escritura', '<span class=text-danger>:message</span>')}}
 					</td>
 
 					<th class="bg-primary">{{Form::label('superficie_vendible', 'Superficie Vendible')}}</th>
 					<td>
-						{{Form::number('superficie_vendible', $row->superficie_vendible, ['class'=>'form-control', 'step'=>'0.0001', 'min'=>'0.0000', 'max'=>'999999999.9999', 'pattern'=>'[0-9]{9}[.]{1}[0-9]{4}'] )}}
+						{{Form::number('superficie_vendible', $row->superficie_vendible, ['id'=>'superficie_vendible','class'=>'form-control', 'step'=>'0.0001', 'min'=>'0.0000', 'max'=>'999999999.9999', 'pattern'=>'[0-9]{9}[.]{1}[0-9]{4}'] )}}
 						{{$errors->first('superficie_vendible', '<span class=text-danger>:message</span>')}}
 					</td>
 				</tr>
@@ -367,9 +367,12 @@
 </div>
 {{ HTML::style('/css/fileinput.min.css') }}
 @section('javascript')
+{{ HTML::script('/js/jquery/jquery.min.js') }}
+{{ HTML::script('/js/jquery/jquery.mask.min.js') }}
 {{ HTML::script('/js/jquery/jquery-ui.js') }}
 {{ HTML::script('/js/jquery/jquery.dataTables.min.js') }}
 {{ HTML::script('/js/jquery/dataTables.bootstrap.js') }}
+{{ HTML::script('/js/jquery/jquery.mask.min.js') }}
 {{ HTML::script('/js/jquery.corevat.js') }}
 {{ HTML::script('/js/fileinput.min.js') }}
 {{ HTML::script('/js/fileinput_locale_es.js') }}
@@ -379,6 +382,23 @@
 		 * 
 		 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
 		$('#btn3Inmueble').removeClass("btn-info").addClass("btn-primary");
+
+
+		// Va la validación a pie con JS Pure
+	    $("input[type=number]").keydown(function (e) {
+	        if ($.inArray(e.keyCode, [46, 8, 9, 27, 13, 110, 190]) !== -1 ||
+	            (e.keyCode == 65 && e.ctrlKey === true) ||
+	            (e.keyCode == 67 && e.ctrlKey === true) ||
+	            (e.keyCode == 88 && e.ctrlKey === true) ||
+	            (e.keyCode >= 35 && e.keyCode <= 39)) {
+	             return;
+	        }
+	        if ((e.shiftKey || (e.keyCode < 48 || e.keyCode > 57)) && (e.keyCode < 96 || e.keyCode > 105)) {
+	            e.preventDefault();
+	        }
+	    });
+
+
 
 		/*++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 		 * 
