@@ -125,7 +125,7 @@ class Avaluos extends \Eloquent {
 		$row->altitud = $inputs["altitud"];
 		$row->idregimenpropiedad = $inputs["idregimenpropiedad"];
 		$row->cuenta_predial = $inputs["cuenta_predial"];
-		$row->cuenta_catastral = $inputs["cuenta_catastral"];
+		$row->cuenta_catastral = strtoupper($inputs["cuenta_catastral"]);
 		$row->nombre_solicitante = $inputs["nombre_solicitante"];
 		$row->nombre_propietario = $inputs["nombre_propietario"];
 	}
@@ -143,8 +143,9 @@ class Avaluos extends \Eloquent {
 		$row->idemp = 1; //Auth::id()
 		$row->ip = $_SERVER['REMOTE_ADDR'];
 		$row->host = isset($_SERVER['HTTP_CLIENT_IP']) ? $_SERVER['HTTP_CLIENT_IP'] : '';
-		$row->creado_por = 1;
+		$row->creado_por = Auth::id(); // 1;
 		$row->creado_el = date('Y-m-d H:i:s');
+		$row->cuenta_catastral = strtoupper($inputs["cuenta_catastral"]);
 		$row->save();
 		AvaluosZona::insAvaluoZona($row->idavaluo);
 		AvaluosInmueble::insAvaluoInmueble($row->idavaluo);
@@ -164,7 +165,7 @@ class Avaluos extends \Eloquent {
 		$row = Avaluos::find($id);
 		$row->iduser = 1; //Auth::id()
 		Avaluos::setAvaluo($row, $inputs);
-		$row->modi_por = 1; //Auth::id()
+		$row->modi_por = Auth::id();
 		$row->modi_el = date('Y-m-d H:i:s');
 		$row->save();
 	}

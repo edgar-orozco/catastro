@@ -26,7 +26,8 @@ class ConsultaAlfaController extends \BaseController {
 
         // Busqueda por Clave
 
-        $PM_MAP_FILE = "/var/www/html/Tabasco.map";
+//        $PM_MAP_FILE = "/var/www/html/Tabasco.map";
+        $PM_MAP_FILE = "/var/www/html/cartografia/mapfiles/Tabasco.map";
         $map = ms_newMapObj($PM_MAP_FILE);
         $scaleLayers = 1;
         $mapW = $_REQUEST["mapW"];

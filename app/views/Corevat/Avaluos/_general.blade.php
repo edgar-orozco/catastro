@@ -63,10 +63,7 @@
 	<div class="col-md-2">
 		<div class="form-group">
 			{{Form::label('cp', 'C. P.')}}
-<!--
- 			{{Form::text('cp', $row->cp, ['class'=>'form-control', 'tabindex'=>'9', 'maxlength' => '6'])}}
- -->
- 			{{Form::select('cp', $lstCP, $row->cp, ['id' => 'cp', 'class'=>'form-control', 'tabindex'=>'9'])}}
+ 			{{Form::select('cp', $lstCP, $row->cp, ['id' => 'cp', 'class'=>'form-control', 'tabindex'=>'9', 'required' => 'required'])}}
 		</div>
 	</div>
 	<div class="col-md-6">
@@ -100,7 +97,7 @@
 	<div class="col-md-4">
 		<div class="form-inline">
 			{{Form::label('Altitud')}}
-			{{Form::text('altitud', $row->altitud, ['class'=>'form-control', 'tabindex'=>'17', 'maxlength'=>'50', 'size'=>'40', 'pattern' => '[0-9]' ])}}
+			{{Form::text('altitud', $row->altitud, ['class'=>'form-control', 'tabindex'=>'17', 'maxlength'=>'50', 'size'=>'40', 'pattern' => '[-+]?[0-9]*[.,]?[0-9]+' ] )}}
 		</div>
 	</div>
 	<br />
@@ -119,7 +116,7 @@
 	<div class="col-md-6">
 		<div class="form-group">
 			{{Form::label('cuenta_catastral', 'Catastral')}}
-			{{Form::text('cuenta_catastral', $row->cuenta_catastral, ['class'=>'form-control', 'tabindex'=>'20', 'maxlength'=>'15', 'size'=>'16'])}}
+			{{Form::text('cuenta_catastral', $row->cuenta_catastral, ['class'=>'form-control', 'tabindex'=>'20', 'maxlength'=>'15', 'size'=>'16','required' => 'required', 'pattern' => '\d{2}-[RUru]{1}-\d{6}'  ])}}
 		</div>
 	</div>
 	<div class="col-md-6">
@@ -148,15 +145,24 @@
 </div>
 {{Form::close()}}
 @section('javascript')
+{{ HTML::script('/js/jquery/jquery.min.js') }}
+{{ HTML::script('/js/jquery/jquery.mask.min.js') }}
 {{ HTML::script('/js/jquery/jquery-ui.js') }}
 {{ HTML::script('/js/jquery/jquery.dataTables.min.js') }}
 {{ HTML::script('/js/jquery/dataTables.bootstrap.js') }}
+{{ HTML::script('/js/jquery/jquery.mask.min.js') }}
 {{ HTML::script('/js/jquery.corevat.js') }}
 
 <script>
 	$(document).ready(function () {
 		//$('#fecha_reporte, #fecha_avaluo').datepicker();
 		$('#btn1General').removeClass("btn-info").addClass("btn-primary");
+
+		$('#cuenta_catastral').mask('YY-S-YYYYYY', {'translation': {
+                                        S: {pattern: /[RUru]/},  
+                                        Y: {pattern: /[0-9]/}
+                                      }
+                                });
 
 	  	$('#idestado').on("change",function(){
 			$.get("{{ url('getMunicipiosFromEstados')}}", { option: $(this).val() }, 

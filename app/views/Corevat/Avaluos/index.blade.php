@@ -69,7 +69,7 @@
 					"sNext": "Siguiente"
 				}
 			},
-			"ordering": true,
+			"ordering": false,
 			"searching": false
 		});
 		$("body").delegate('.eliminar', 'click', function () {

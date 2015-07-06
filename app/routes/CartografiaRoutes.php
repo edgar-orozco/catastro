@@ -79,6 +79,9 @@ Route::get("generarpdf/", "cedulaCatastralPDFController@getdatos");
 Route::get("generaranexos/", "cedulaCatastralPDFController@getanexos");
 Route::post("anexospdf/", "cedulaCatastralPDFController@anexos");
 
+Route::get("cedularegistral/", "cedulaCatastralPDFController@cedulareg");
+Route::post("registralpdf/", "cedulaCatastralPDFController@registralpdf");
+
 /*
  * Percepción de Servicio
 */

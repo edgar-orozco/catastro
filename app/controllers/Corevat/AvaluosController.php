@@ -42,8 +42,8 @@ class corevat_AvaluosController extends \BaseController {
 		$cat_regimen_propiedad = CatRegimenPropiedad::comboList();
 		$idavaluo = 0;
 
-		$lstCP = Asentamiento::where('municipio','000')->distinct()->lists('codigo_postal', 'codigo_postal');
-
+//		$lstCP = Asentamiento::where('municipio','000')->distinct()->lists('codigo_postal', 'codigo_postal');
+		$lstCP =  array('0' => '0',);
 		return View::make('Corevat.Avaluos.create', compact('title', 'row', 'estados', 'municipios', 'cat_tipo_inmueble', 'cat_regimen_propiedad', 'idavaluo','lstCP'));
 	}
 
