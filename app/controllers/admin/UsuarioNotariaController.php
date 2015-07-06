@@ -1,5 +1,6 @@
 <?php
 
+
 class admin_usuarioNotariaController extends \BaseController
 {
     /**
@@ -91,9 +92,11 @@ class admin_usuarioNotariaController extends \BaseController
 
         $this->user->rfc = Input::get( 'rfc' );
         $this->user->curp = Input::get( 'curp' );
-
-        $this->user->password = Input::get( 'password' );
-        $this->user->password_confirmation = Input::get( 'password_confirmation' );
+        // Se genera un password aleatorio de 8 caracteres
+        $chars = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+        $password = substr(str_shuffle($chars), 0, 8);
+        $this->user->password = $password;
+        $this->user->password_confirmation = $password;
         $this->user->confirmed = true;
 
         if ($this->user->save()) {
@@ -106,6 +109,20 @@ class admin_usuarioNotariaController extends \BaseController
                 // Se guardan los municipios a los que pertenece un usuario
                 $this->user->notarias()->sync(Input::get( 'notarias' ));
             }
+            $user = $this->user;
+            // Se envía el correo al usuario
+            Mail::send('admin.user.notarias.email',
+                array(
+                    'user'      => $this->user,
+                    'password'  => $password
+                ), function($message) use ($user){
+                    $message
+                        ->to(
+                            $user->email, $user->nombreCompleto()
+                        )
+                        ->subject('Datos de acceso al SICARET');
+                });
+
             if ($format == 'json') {
                 return array(
                     'status' => 'success',
