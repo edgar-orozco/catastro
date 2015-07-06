@@ -165,7 +165,7 @@ class AdminUserController extends BaseController
             }
             if( is_array(Input::get( 'municipios' ) ) ){
                 // Se guardan los municipios a los que pertenece un usuario
-                $this->user->municipios()->sync(Input::get( 'municipios' ));
+                $this->user->saveMunicipios(Input::get( 'municipios' ));
             }
             if ($format == 'json') {
                 return array(
@@ -271,14 +271,13 @@ class AdminUserController extends BaseController
         }
 
         if ($user->save()) {
-            if (Input::get( 'roles' )){
+            if ( is_array(Input::get( 'roles' ) ) ){
                 $user->saveRoles(Input::get( 'roles' ));
             }
 
             if ( is_array(Input::get( 'municipios' ) ) ){
-                error_log('Municipios');
                 // Se guardan los municipios a los que pertenece un usuario
-                $user->municipios()->sync(Input::get( 'municipios' ));
+                $user->saveMunicipios(Input::get( 'municipios' ));
             }
             if ($format == 'json') {
                 return array(

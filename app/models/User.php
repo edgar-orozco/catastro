@@ -91,16 +91,17 @@ class User extends Eloquent implements ConfideUserInterface
         }
     }
     /**
-     * Save municipios inputted from multiselect
+     * Save municipios
      * @param $inputMunicipios
      */
     public function saveMunicipios($inputMunicipios)
     {
         if (!empty($inputMunicipios)) {
             $this->municipios()->sync($inputMunicipios);
+        } else {
+            $this->municipios()->detach();
         }
     }
-
     /**
      * Returns user's current role ids only.
      * @return array|bool
