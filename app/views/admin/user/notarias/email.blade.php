@@ -217,8 +217,7 @@
                 <div style="padding: 10px 0;">
                     Se hace de su conocimiento los datos de acceso al SICARET, como usuario de la notaría
                     {{ $user->notarias()->first() ? $user->notarias()->first()->nombre : ''  }}
-                    {{ $user->notarias()->first() ? 'del municipio '.$user->notarias()->first()->mpio->nombre_municipio : ''  }},
-                    {{ $user->notarias()->first() ? ', '.$user->notarias()->first()->estado->nom_ent : ''  }}
+                    {{ $user->notarias()->first() ? 'del municipio '.$user->notarias()->first()->mpio->nombre_municipio : ''  }}{{ $user->notarias()->first() ? ', '.$user->notarias()->first()->estado->nom_ent : ''  }}
                     <div style="margin: 15px 0px;">
                         <label style="
                             display: inline-block;
