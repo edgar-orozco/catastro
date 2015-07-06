@@ -277,7 +277,9 @@ angular.module('app', [
                 // Se agregan los roles del usuario
                 $scope.users[idx].roles = response.data.roles;
                 // Se agregan los notarias al usuario
-                $scope.users[idx].notarias = response.data.notarias;
+                $scope.users[idx].notarias  = response.data.notarias;
+                $scope.users[idx].municipio = response.data.municipio;
+                $scope.users[idx].estado    = response.data.estado;
                 // Se agrega el id del usuario
                 $scope.users[idx].id = response.data.id;
                 delete $scope.users[idx].idx;
@@ -357,7 +359,7 @@ angular.module('app', [
             }
             // Se modifican los datos de los roles como los espera recibir laravel
             userSave.roles = {};
-            userSave.roles[$scope.role.default] = $scope.role.default;
+            userSave.roles[roleDefault] = roleDefault;
             // Se modifican los datos de los notarias como los espera recibir laravel
             userSave.notarias = {};
             userSave.notarias[$scope.notarias] = $scope.notarias;

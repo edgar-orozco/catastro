@@ -33,10 +33,8 @@
                         </p>
                         <!-- Municipios -->
                         <p class="text-right">
-                            <span ng-repeat="municipio in userList.municipios" class="label label-success">{[{ municipio.nombre_municipio }]}</span>
-                            <span ng-if="userList.municipios.length == 0" class="glyphicon glyphicon-pencil"></span>
+                            <span ng-repeat="notaria in userList.notarias" class="label label-success">{[{ notaria.nombre+' ('+userList.municipio+' '+userList.estado+')' }]}</span>
                         </p>
-
                         <button ng-show="userList.idx !== undefinied && userList.error === undefinied" type="button" class="btn btn-success pull-right" title="Guardando datos ..." disabled="disabled">
                             <span class="glyphicon glyphicon-refresh spin"></span>
                         </button>

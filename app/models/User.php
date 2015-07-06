@@ -249,7 +249,9 @@ class User extends Eloquent implements ConfideUserInterface
                 'rfc'            => $user->rfc ?: '',
                 'roles'          => $user->roles,
                 'notarias'       => $user->notarias,
-                'vigente'        => $user->vigente
+                'vigente'        => $user->vigente,
+                'municipio'      => $user->notarias()->first()->mpio->nombre_municipio,
+                'estado'         => $user->notarias()->first()->estado->nom_ent
             );
         }
         return $users;

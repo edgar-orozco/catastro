@@ -89,4 +89,3 @@
     </select>
     {{$errors->first('municipios[]', '<span class=text-danger>:message</span>')}}
 </div>
-<input type="hidden" name="role" ng-model="role.default" value="{{ Role::where('name', '=', 'Usuario de Notaría')->first()->id }}">

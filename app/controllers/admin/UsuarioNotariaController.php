@@ -110,7 +110,14 @@ class admin_usuarioNotariaController extends \BaseController
                 return array(
                     'status' => 'success',
                     'msg' => 'Usuario guardado',
-                    'data' => array('id' => $this->user->id, 'idx' => Input::get('idx'), 'roles' => $this->user->roles, 'notarias' => $this->user->notarias)
+                    'data' => array(
+                        'id'        => $this->user->id,
+                        'idx'        => Input::get('idx'),
+                        'roles'      => $this->user->roles,
+                        'notarias'   => $this->user->notarias,
+                        'municipio'  => $this->user->notarias()->first()->mpio->nombre_municipio,
+                        'estado'     => $this->user->notarias()->first()->estado->nom_ent
+                    )
                 );
             }
 
@@ -193,7 +200,13 @@ class admin_usuarioNotariaController extends \BaseController
                 return array(
                     'status' => 'success',
                     'msg' => 'Usuario actuaizado',
-                    'data' => array('id' => $user->id, 'idx' => Input::get('idx'), 'roles' => $user->roles, 'notarias' => $user->notarias)
+                    'data' => array(
+                        'id'        => $user->id,
+                        'idx'       => Input::get('idx'),
+                        'roles'     => $user->roles, 'notarias' => $user->notarias,
+                        'municipio' => $user->notarias()->first()->mpio->nombre_municipio,
+                        'estado'    => $user->notarias()->first()->estado->nom_ent
+                    ),
                 );
             }
             return Redirect::to('admin/user')->with('success', "Se han actualizado correctamente los datos del usuario ".$user->nombreCompleto());

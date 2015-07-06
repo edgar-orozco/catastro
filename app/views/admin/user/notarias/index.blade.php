@@ -107,4 +107,7 @@
     {{ HTML::script('js/select2/select2.min.js') }}
     {{ HTML::script('js/user/user_notaria.js') }}
     {{ HTML::script('js/laroute.js') }}
+    <script type="text/javascript">
+        var roleDefault = {{ Role::where('name', '=', 'Usuario de Notaría')->first()->id }};
+    </script>
 @stop
