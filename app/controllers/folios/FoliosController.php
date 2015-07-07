@@ -274,8 +274,15 @@ class folios_FoliosController extends BaseController {
 											DB::raw('Sum(total) as total'))
 											->get();
 
+		$entrega_estatal=FoliosComprados::where('entrega_estatal', 1)->count();
+
+
 	
-		return View::make('folios.folios.reporteperito')->withFolios_historial($folios_historial)->withFolios_totales($folios_totales)->withConf($conf);		
+		return View::make('folios.folios.reporteperito')
+							->withFolios_historial($folios_historial)
+							->withFolios_totales($folios_totales)
+							->withEntrega_estatal($entrega_estatal)
+							->withConf($conf);		
 	}
 
 	public function formatoreporteperito(){
@@ -411,6 +418,24 @@ class folios_FoliosController extends BaseController {
 		$response->header('Content-Type', 'application/pdf');
 		return $response;
 
+	}
+
+	public function grafica_reportes()
+	{
+		$folios_historial=FoliosHistorial::select(
+			
+								DB::raw('EXTRACT(MONTH FROM fecha_oficio) as mes'),
+								DB::raw('Sum(cantidad_urbanos) as urbano'),
+								DB::raw('Sum(cantidad_rusticos) as rustico'),
+								DB::raw('Sum(total_urbano) as total_urbano'),
+								DB::raw('Sum(total_rustico) as total_rustico'),
+								DB::raw('Sum(total) as total'))
+								->groupBy('mes')
+								->orderBy('mes', 'ASC')
+								->get();
+								
+
+		return View::make('folios.folios.graficas');
 	}
 
 }

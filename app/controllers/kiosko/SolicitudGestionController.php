@@ -31,7 +31,11 @@ class kiosko_SolicitudGestionController extends \BaseController
         
         $Municipio = ['' => '--seleccione una opción--'] + Municipio::all()->lists('nombre_municipio','gid');
         
-        return View::make('kiosko.solicitud.index',compact('solicitudGestion','title','title_section','Tipotramite','Municipio','municipios'));
+        $telefono = array(0=>'Movil','Fijo');
+        
+        $tipo_telefono = [''=>'--Seleccione una opcion--']+$telefono;
+        
+        return View::make('kiosko.solicitud.index',compact('solicitudGestion','title','title_section','Tipotramite','Municipio','municipios','tipo_telefono'));
     }
     
     public function store($format='html') 
@@ -44,7 +48,11 @@ class kiosko_SolicitudGestionController extends \BaseController
            'apellido_materno'=>'required',
            'curp'=>'required',
            'rfc'=>'required',
-           'id_tramite'=>'required',
+           'direccion'=>'required',
+           'telefono'=>'required',
+           'tipo_telefono'=>'required',
+           'correo'=>'required',
+           'tramite_id'=>'required',
            'municipio'=>'required',
            'clave'=>'required',
        );
@@ -62,10 +70,7 @@ class kiosko_SolicitudGestionController extends \BaseController
            
             if(!$res)
             {
-                //return Redirect::to('kiosko/solicitud')->with('error','la clave no exite');
-//                $results='no existe';
-//                return Response::json(array('mensaje'=>$results));
-                //return Redirect::to('kiosko/solicitud_pdf',compact('id'));
+                return Redirect::to('kiosko/solicitud')->with('error','La Clave o Cuenta Ctastral No Exite');
             }else {
                 //guardamos el nombre del solicitante
                 $solicitante = new Solicitante();
@@ -75,19 +80,23 @@ class kiosko_SolicitudGestionController extends \BaseController
                 $solicitante -> nombrec = strtoupper($inputs["nombres"]." ".$inputs["apellido_paterno"]." ".$inputs ["apellido_materno"]);
                 $solicitante -> rfc = strtoupper($inputs ["rfc"]);
                 $solicitante -> curp = strtoupper($inputs ["curp"]);
+                $solicitante -> direccion = $inputs["direccion"];
+                $solicitante -> telefono = $inputs["telefono"];
+                $solicitante -> tipo_telefono = $inputs["tipo_telefono"];
+                $solicitante -> correo = $inputs["correo"];
                 $solicitante -> fecha_ingr = date('Y-m-d');
                 $solicitante -> id_tipo = 1;
                 $solicitante -> save();
-                $nombre = $solicitante -> id_solicitante;
+                $nombre = $solicitante -> id;
                 //guardamos la solicitud
                 $solicitud = new SolicitudGestion();
-                $solicitud -> id_solicitante = $nombre;
-                $solicitud -> id_tramite = $inputs["id_tramite"];
+                $solicitud -> solicitante_id = $nombre;
+                $solicitud -> tramite_id = $inputs["tramite_id"];
                 $solicitud -> municipio = $inputs["municipio"];
                 $solicitud -> clave = $inputs["clave"];
                 $solicitud -> create_at = date('Y-m-d');
                 $solicitud -> save();
-                $id=$solicitud -> id_solicitud; 
+                $id=$solicitud -> id; 
                 return Redirect::to('kiosko/solicitud_pdf/'.$id);
             }
         }  
@@ -96,13 +105,8 @@ class kiosko_SolicitudGestionController extends \BaseController
     public function edit($id) 
     {
         $solicitudGestion = SolicitudGestion::find($id);
-        
-        $idp = SolicitudGestion::where('id_solicitud',$id)->pluck('id_solicitante');
-        $nombres = Solicitante::where('id_solicitante',$idp)->pluck('nombres');
-        $paterno = Solicitante::where('id_solicitante',$idp)->pluck('apellido_paterno');
-        $materno = Solicitante::where('id_solicitante',$idp)->pluck('apellido_materno');
-        $curp = Solicitante::where('id_solicitante',$idp)->pluck('curp');
-        $rfc = Solicitante::where('id_solicitante',$idp)->pluck('rfc');
+        $idp = SolicitudGestion::where('id',$id)->pluck('solicitante_id');
+        $solicitante = Solicitante::find($idp);
         
         $title = 'Administración de solicitud';
         
@@ -114,75 +118,96 @@ class kiosko_SolicitudGestionController extends \BaseController
         
         $Municipio = ['' => '--seleccione una opción--'] + Municipio::all()->lists('nombre_municipio','gid');
         
+        $telefono = array(0=>'Movil','Fijo');
+        
+        $tipo_telefono = [''=>'--Seleccione una opcion--']+$telefono;
+        
         
        
         return View::make('kiosko.solicitud.edit',
-                compact('solicitudGestion','title','title_section','subtitle_section','Tipotramite','Municipio','nombres','paterno','materno','curp','rfc'));
+                compact('solicitudGestion','solicitante','title','title_section','subtitle_section','Tipotramite','Municipio','tipo_telefono'));
     }
     
     public function update($id, $format = 'html')        
     {
-        $seguimiento = SolicitudGestion::where('id_solicitud',$id)->pluck('seguimiento');
-        if(!$seguimiento)
+         $inputs = Input::All();
+         
+        $seguimiento = SolicitudGestion::where('id',$id)->pluck('seguimiento');
+        
+        $clave = Input::get('clave');
+        
+        $res = $this->padron->getByClaveOCuenta($clave); 
+        
+        if($res)
         {
-            $inputs = Input::All();
-            $n = SolicitudGestion::find($id);
-            $n -> id_tramite  = $inputs["id_tramite"];
-            $n -> municipio = $inputs["municipio"];
-            $n -> clave = $inputs["clave"];
-            $n -> updated_at = date('Y-m-d'); 
-            $n -> save();
-            $nombre = $n -> id_solicitante;
-            
-            $solicitante = Solicitante::find($nombre);
-            $solicitante -> apellido_paterno = strtoupper($inputs ["apellido_paterno"]);
-            $solicitante -> apellido_materno = strtoupper($inputs ["apellido_materno"]);
-            $solicitante -> nombres = strtoupper($inputs ["nombres"]);
-            $solicitante -> nombrec = strtoupper($inputs["nombres"]." ".$inputs["apellido_paterno"]." ".$inputs ["apellido_materno"]);
-            $solicitante -> rfc = strtoupper($inputs ["rfc"]);
-            $solicitante -> curp = strtoupper($inputs ["curp"]);
-            $solicitante -> save();
-            
-            return Redirect::to('kiosko/solicitud_pdf/'.$id);
+            if(!$seguimiento)
+            {
+                $inputs = Input::All();
+                $n = SolicitudGestion::find($id);
+                $n -> tramite_id  = $inputs["tramite_id"];
+                $n -> municipio = $inputs["municipio"];
+                $n -> clave = $inputs["clave"];
+                $n -> updated_at = date('Y-m-d'); 
+                $n -> save();
+                $nombre = $n -> id;
+
+                $solicitante = Solicitante::find($nombre);
+                $solicitante -> apellido_paterno = strtoupper($inputs ["apellido_paterno"]);
+                $solicitante -> apellido_materno = strtoupper($inputs ["apellido_materno"]);
+                $solicitante -> nombres = strtoupper($inputs ["nombres"]);
+                $solicitante -> nombrec = strtoupper($inputs["nombres"]." ".$inputs["apellido_paterno"]." ".$inputs ["apellido_materno"]);
+                $solicitante -> rfc = strtoupper($inputs ["rfc"]);
+                $solicitante -> curp = strtoupper($inputs ["curp"]);
+                $solicitante -> direccion = $inputs["direccion"];
+                $solicitante -> telefono = $inputs["telefono"];
+                $solicitante -> tipo_telefono = $inputs["tipo_telefono"];
+                $solicitante -> correo = $inputs["correo"];
+                $solicitante -> save();
+
+                return Redirect::to('kiosko/solicitud_pdf/'.$id);
+             }
+             return Redirect::to('/kiosko/solicitud')->with('error',
+            'La solicitud ya fue tomada' . "!");   
         }
-            return Redirect::to('/kiosko/solicitud/edit/'.$id)->with('error',
-            'La solicitud ya fue tomada' . "!");
+        return Redirect::to('/kiosko/solicitud')->with('error',
+        'La Clave o Cuenta Ctastral No Exite' . "!");
+            
     }
 
 
     public function solicitudIndex($id) 
     {
-        $tipo = $this-> SolicitudGestion -> where('id_solicitud','=',$id)->pluck('clave');
+        $tipo = $this-> SolicitudGestion -> where('id','=',$id)->pluck('clave');
         $res = $this->padron->getByClaveOCuenta($tipo)->pluck('clave');
         //dd($res, $tipo);
         
        if($tipo == $res){
-            $tramite = $this->SolicitudGestion->join('solicitante as s', 'solicitud_gestion.id_solicitante', '=', 's.id_solicitante')
+            $tramite = $this->SolicitudGestion->join('solicitante as s', 'solicitud_gestion.id', '=', 's.id')
                     ->join('fiscal as f', 'solicitud_gestion.clave', '=', 'f.clave')
                     ->join('ubicacion_fiscal as u', 'f.id_ubicacion_fiscal', '=', 'u.id_ubicacion')
-                    ->join('tipotramites as t', 'id_tramite', '=', 't.id')
+                    ->join('tipotramites as t', 'tramite_id', '=', 't.id')
                     ->join('municipios as m', 'solicitud_gestion.municipio', '=', 'm.gid')
-                    ->where('id_solicitud', '=', $id)
-                    ->select('id_solicitud','create_at', 's.nombrec', 's.curp', 's.rfc', 'f.clave', 'f.tipo_predio', 'u.ubicacion', 't.nombre as tramite', 'm.nombre_municipio')
+                    ->where('solicitud_gestion.id', '=', $id)
+                    ->select('solicitud_gestion.id','create_at', 's.nombrec', 's.curp', 's.rfc','s.telefono','s.correo','s.direccion','f.clave', 'f.tipo_predio', 'u.ubicacion', 't.nombre as tramite', 'm.nombre_municipio')
                     ->get();
 
             $datos = $this->SolicitudGestion->join('fiscal as f', 'solicitud_gestion.clave', '=', 'f.clave')
-                    ->where('id_solicitud', '=', $id)
+                    ->where('id', '=', $id)
                     ->select('f.clave')
                     ->get();
         }  else {
             
-            $tramite = $this->SolicitudGestion->join('solicitante as s', 'solicitud_gestion.id_solicitante', '=', 's.id_solicitante')
+            $tramite = $this->SolicitudGestion->join('solicitante as s', 'solicitud_gestion.id', '=', 's.id')
                     ->join('fiscal as f', 'solicitud_gestion.clave', '=', 'f.cuenta')
                     ->join('ubicacion_fiscal as u', 'f.id_ubicacion_fiscal', '=', 'u.id_ubicacion')
-                    ->join('tipotramites as t', 'id_tramite', '=', 't.id')
+                    ->join('tipotramites as t', 'tramite_id', '=', 't.id')
                     ->join('municipios as m', 'solicitud_gestion.municipio', '=', 'm.gid')                    
-                    ->where('id_solicitud', '=', $id)
-                    ->select('id_solicitud','create_at', 's.nombrec', 's.curp', 's.rfc', 'f.cuenta', 'f.tipo_predio', 'u.ubicacion', 't.nombre as tramite', 'm.nombre_municipio')
+                    ->where('solicitud_gestion.id', '=', $id)
+                    ->select('solicitud_gestion.id','create_at', 's.nombrec', 's.curp', 's.rfc','s.telefono','s.correo','s.direccion', 'f.cuenta', 'f.tipo_predio', 'u.ubicacion', 't.nombre as tramite', 'm.nombre_municipio')
                     ->get();
 
             $datos = $this->SolicitudGestion->join('fiscal as f', 'solicitud_gestion.clave', '=', 'f.cuenta')
-                    ->where('id_solicitud', '=', $id)
+                    ->where('id', '=', $id)
                     ->select('f.clave')
                     ->get();
         }

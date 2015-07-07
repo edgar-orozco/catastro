@@ -18,8 +18,8 @@
     {{Form::open(array('id'=>'form','url'=>'kiosko/solicitud','method'=>'POST'))}}
         @include('kiosko.solicitud._form')
         <div class="form-actions form-group">
-            {{Form::submit('Crear nueva solicitud',array('class' => 'btn btn-primary','tabindex'=>'9'))}}
-            {{Form::reset('Limpiar formato', ['class' => 'btn btn-warning','tabindex'=>'10'])}}
+            {{Form::submit('Crear nueva solicitud',array('class' => 'btn btn-primary','tabindex'=>'13'))}}
+            {{Form::reset('Limpiar formato', ['class' => 'btn btn-warning','tabindex'=>'14'])}}
         </div>
     {{Form::close()}}
 </div>    

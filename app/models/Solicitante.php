@@ -2,7 +2,7 @@
 class Solicitante extends Eloquent {
 
     protected $table = 'solicitante';
-    protected $primaryKey = 'id_solicitante';
+    protected $primaryKey = 'id';
     public $timestamps = false;
     
 }

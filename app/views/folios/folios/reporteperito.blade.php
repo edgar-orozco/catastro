@@ -35,6 +35,10 @@
 
 	<table class="table">
 			<thead>
+			<tr>
+				<th>Total entrega folios estatal</th>
+				<th>{{$entrega_estatal}}</th>
+			</tr>
 				<tr>
 					<th>Corevat No.</th>
 					<th>Perito</th>
