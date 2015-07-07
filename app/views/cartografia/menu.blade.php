@@ -23,6 +23,18 @@
                     Captura de datos complementarios
                 </a>
             </li>
+            <li>
+                <a href="{{URL::to('generaranexos')}}">
+                    <i class="glyphicon glyphicon-list"></i>&nbsp;
+                    Generar Cédula Única Catastral
+                </a>
+            </li>
+            <li>
+                <a href="{{URL::to('cedularegistral')}}">
+                    <i class="glyphicon glyphicon-list"></i>&nbsp;
+                    Generar Cédula Registral
+                </a>
+            </li>
 
         </ul>
 
