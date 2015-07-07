@@ -12,8 +12,13 @@ class UpdateTraslados extends Migration {
 	 */
 	public function up()
 	{
-		//
-        DB::statement('ALTER table traslados DROP COLUMN medidas_colindancias');
+        if (Schema::hasColumn('traslados', 'medidas_colindancias'))
+        {
+            Schema::table('traslados', function($table)
+            {
+                $table->dropColumn('medidas_colindancias');
+            });
+        }
 	}
 
 	/**
