@@ -97,7 +97,7 @@
 	<div class="col-md-4">
 		<div class="form-inline">
 			{{Form::label('Altitud')}}
-			{{Form::text('altitud', $row->altitud, ['class'=>'form-control', 'tabindex'=>'17', 'maxlength'=>'50', 'size'=>'40', 'pattern' => '[-+]?[0-9]*[.,]?[0-9]+' ] )}}
+			{{Form::text('altitud', $row->altitud, ['id'=>'altitud','class'=>'form-control', 'tabindex'=>'17', 'maxlength'=>'50', 'size'=>'40', 'pattern' => '[-+]?[0-9]*[.,]?[0-9]+' ] )}}
 		</div>
 	</div>
 	<br />
