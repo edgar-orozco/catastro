@@ -84,7 +84,7 @@
                         <td colspan="3" align="center">DE CONFORMIDAD CON LOS LINEAMIENTOS PARA LA OPERATIVIDAD DE LOS CATASTROS EN EL ESTADO DE TABASCO, LINEAMIENTO No. 3</td>
                     </tr>
                     <tr>
-                        <td>Lugar: {{$row->nombre_municipio}}, Tabasco.<br>N° de Solicitud {{$row->id_solicitud}}</td>
+                        <td>Lugar: {{$row->nombre_municipio}}, Tabasco.<br>N° de Solicitud {{$row->id}}</td>
                         <td align="center"><strong>{{strtoupper($row->tramite)}}</strong></td>
                         <td align="right">Fecha: <?php $fecha=strtotime($row->create_at); echo date("d/m/Y",$fecha) ?></td>
                     </tr>
@@ -102,12 +102,15 @@
                     <p>
                         RFC: {{$row->rfc}}
                     </p>
-<!--                    <p>
-                        Telefono:
+                    <p>
+                        Telefono: {{$row->telefono}}
                     </p>
                     <p>
-                        E-mail:
-                    </p>-->
+                        E-mail: {{$row->correo}}
+                    </p>
+                    <p>
+                        Dirección: {{$row->direccion}}
+                    </p>
                 </div>
                 <div id="derecha">
                     <div id="dentro"><strong>DATOS DEL PREDIO</strong></div>
