@@ -277,13 +277,16 @@ class corevat_AvaluosController extends \BaseController {
 		$cat_bardas = CatBardas::comboList();
 		$cat_usos_suelos = CatUsosSuelos::comboList();
 		$cat_niveles = CatNiveles::comboList();
-		//
+		
 		$cat_pisos = CatPisos::comboList();
 		$cat_aplanados = CatAplanados::comboList();
 		$cat_plafones = CatPlafones::comboList();
 		$cat_orientaciones = CatOrientaciones::comboList();
 		$ai_medidas_colindancias = AiMedidasColindancias::AiMedidasColindanciasByFk($row->idavaluoinmueble);
-		return View::make('Corevat.Avaluos.avaluos', compact('opt', 'idavaluo', 'title', 'row', 'cat_cimentaciones', 'cat_estructuras', 'cat_muros', 'cat_entrepisos', 'cat_techos', 'cat_bardas', 'cat_usos_suelos', 'cat_niveles', 'cat_pisos', 'cat_aplanados', 'cat_plafones', 'cat_orientaciones', 'ai_medidas_colindancias'));
+
+    	$arrMedCol = array('Metros'=>'Metros','Metros Cuadrados'=>'Metros Cuadrados','Metros Cúbicos'=>'Metros Cúbicos','Metros Lineales'=>'Metros Lineales','Kilometros'=>'Kilometros','Kilometros Cuadrados'=>'Kilometros Cuadrados','Hectareas'=>'Hectareas','Hectareas Cuadradas'=>'Hectareas Cuadradas');
+
+		return View::make('Corevat.Avaluos.avaluos', compact('opt', 'idavaluo', 'title', 'row', 'cat_cimentaciones', 'cat_estructuras', 'cat_muros', 'cat_entrepisos', 'cat_techos', 'cat_bardas', 'cat_usos_suelos', 'cat_niveles', 'cat_pisos', 'cat_aplanados', 'cat_plafones', 'cat_orientaciones', 'ai_medidas_colindancias', 'arrMedCol'));
 	}
 
 	/**
@@ -329,12 +332,12 @@ class corevat_AvaluosController extends \BaseController {
 				if (Input::hasFile('croquis')) {
 					$row->croquis = 'croquis-' . $row->idavaluo . '.jpg';
 					Input::file('croquis')->move(public_path() . '/corevat/', $row->croquis);
-					$message .= '<br />¡El croquis fue actualizado atisfactoriamente!';
+					$message .= '<br />¡El croquis fue actualizado satisfactoriamente!';
 				}
 				if (Input::hasFile('fachada')) {
 					$row->fachada = 'fachada-' . $row->idavaluo . '.jpg';
 					Input::file('fachada')->move(public_path() . '/corevat/', $row->fachada);
-					$message .= '<br />¡La imagen de la fachada fue actualizada atisfactoriamente!';
+					$message .= '<br />¡La imagen de la fachada fue actualizada satisfactoriamente!';
 				}
 				$row->save();
 			}
@@ -599,11 +602,13 @@ class corevat_AvaluosController extends \BaseController {
 		$inputs = Input::All();
 		$response = array('success' => true, 'message' => '', 'errors' => '', 'idTable' => '');
 		$rules = array(
-			'medida' => 'required',
+			'medidas' => 'required',
+			'unidad_medida' => 'required',
 			'colindancia' => 'required',
 		);
 		$messages = array(
-			'medida.required' => '¡El campo "Medidas" es requerido!',
+			'medidas.required' => '¡El campo "Medidas" es requerido!',
+			'unidad_medida.required' => '¡El campo "Unidad de Medida" es requerido!',
 			'colindancia.required' => '¡El campo "Colindancias" es requerido!',
 		);
 		$validate = Validator::make($inputs, $rules, $messages);

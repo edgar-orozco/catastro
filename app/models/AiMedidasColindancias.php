@@ -32,12 +32,14 @@ class AiMedidasColindancias extends \Eloquent {
 		$row = new AiMedidasColindancias();
 		$row->idavaluoinmueble = $inputs['idavaluoinmueble2'];
 		$row->idorientacion = $inputs['idorientacion'];
-		$row->medida = $inputs['medida'];
+		// $row->medida = $inputs['medida'];
+		$row->medidas = $inputs['medidas'];
+		$row->unidad_medida = $inputs['unidad_medida'];
 		$row->colindancia = $inputs['colindancia'];
 		$row->idemp = 1;
 		$row->ip = $_SERVER['REMOTE_ADDR'];
 		$row->host = isset($_SERVER['HTTP_CLIENT_IP']) ? $_SERVER['HTTP_CLIENT_IP'] : '';
-		$row->creado_por = 1;
+		$row->creado_por = Auth::Id();
 		$row->creado_el = date('Y-m-d H:i:s');
 		$row->save();
 	}
@@ -51,11 +53,13 @@ class AiMedidasColindancias extends \Eloquent {
 	public static function updAiMedidasColindancias($inputs) {
 		$row = AiMedidasColindancias::find($inputs['idaimedidacolindancia']);
 		$row->idorientacion = $inputs['idorientacion'];
-		$row->medida = $inputs['medida'];
+		// $row->medida = $inputs['medida'];
+		$row->medidas = $inputs['medidas'];
+		$row->unidad_medida = $inputs['unidad_medida'];
 		$row->colindancia = $inputs['colindancia'];
 		$row->ip = $_SERVER['REMOTE_ADDR'];
 		$row->host = isset($_SERVER['HTTP_CLIENT_IP']) ? $_SERVER['HTTP_CLIENT_IP'] : '';
-		$row->modi_por = 1;
+		$row->modi_por = Auth::Id();
 		$row->modi_el = date('Y-m-d H:i:s');
 		$row->save();
 	}

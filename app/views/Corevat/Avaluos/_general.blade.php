@@ -158,11 +158,13 @@
 		//$('#fecha_reporte, #fecha_avaluo').datepicker();
 		$('#btn1General').removeClass("btn-info").addClass("btn-primary");
 
-		$('#cuenta_catastral').mask('YY-S-YYYYYY', {'translation': {
-                                        S: {pattern: /[RUru]/},  
-                                        Y: {pattern: /[0-9]/}
-                                      }
-                                });
+		$('#cuenta_catastral').mask('YY-S-YYYYYY', {
+										placeholder: "__-_-______", 
+										translation: {
+                                        	S: {pattern: /[RUru]/},  
+                                        	Y: {pattern: /[0-9]/}
+                                      	}
+                                	});
 
 	  	$('#idestado').on("change",function(){
 			$.get("{{ url('getMunicipiosFromEstados')}}", { option: $(this).val() }, 

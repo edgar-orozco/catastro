@@ -27,7 +27,7 @@
 					<th>#</th>
 					<th>ORIENTACIÓN</th>
 					<th>MEDIDAS</th>
-					<th>OBSERVACIONES</th>
+					<th>COLINDANCIAS</th>
 					<th>OPCIONES</th>
 				</tr>
 			</thead>
@@ -37,7 +37,7 @@
 				<tr>
 					<td>{{$item->idaimedidacolindancia}}</td>
 					<td>{{$item->orientacion}}</td>
-					<td>{{$item->medida}}</td>
+					<td>{{$item->medidas}} {{$item->unidad_medida}}</td>
 					<td>{{$item->colindancia}}</td>
 					<td>
 						<a href="#" class="btn btn-xs btn-info btnEdit"  idAi="{{$item->idaimedidacolindancia}}" title="Editar"><i class="glyphicon glyphicon-pencil"></i></a>
@@ -348,11 +348,26 @@
 			{{Form::select('idorientacion', $cat_orientaciones, 1, ['id' => 'idorientacion', 'class'=>'form-control'])}}
 			<hr>
 		</div>
-		<div class="col-md-12">
+
+<!-- 		<div class="col-md-12">
 			{{Form::label('medida', 'Medidas')}}
 			{{Form::text('medida', '', ['class'=>'form-control', 'required' => 'required', 'maxlength'=>'50'] )}}
 			<hr>
 		</div>
+ -->
+
+		<div class="col-md-12">
+			{{Form::label('medidas', 'Medidas')}}
+			{{Form::text('medidas', $row->medidas, ['class'=>'form-control', 'required' => 'required', 'maxlength'=>'50'] )}}
+			<hr>
+		</div>
+
+		<div class="col-md-12">
+			{{Form::label('unidad_medida', 'Unidad de Medida')}}
+			{{Form::select('unidad_medida', $arrMedCol, $row->unidad_medida, ['id' => 'unidad_medida', 'class'=>'form-control'])}}
+			<hr>
+		</div>
+
 		<div class="col-md-12">
 			{{Form::label('colindancia', 'Colindancias')}}
 			{{Form::text('colindancia', '', ['class'=>'form-control', 'required' => 'required', 'maxlength'=>'100'] )}}
@@ -398,14 +413,28 @@
 	    });
 
 
+	    $("#medidas").keydown(function (e) {
+	        if ($.inArray(e.keyCode, [46, 8, 9, 27, 13, 110, 190]) !== -1 ||
+	            (e.keyCode == 65 && e.ctrlKey === true) ||
+	            (e.keyCode == 67 && e.ctrlKey === true) ||
+	            (e.keyCode == 88 && e.ctrlKey === true) ||
+	            (e.keyCode >= 35 && e.keyCode <= 39)) {
+	             return;
+	        }
+	        if ((e.shiftKey || (e.keyCode < 48 || e.keyCode > 57)) && (e.keyCode < 96 || e.keyCode > 105)) {
+	            e.preventDefault();
+	        }
+	    });
+
+
 
 		/*++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 		 * 
 		 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
 		$('#btnNew').click(function () {
 			$('#ctrl').val('ins');
-			$('#idaimedidacolindancia').val('0');
-			$('#medida, #colindancia').val('');
+			$('#idaimedidacolindancia, #medidas').val('0');
+			$('#colindancia').val('');
 			$("#idorientacion option[value=1]").attr("selected", true);
 			$('#divDialogForm').dialog({title: 'Capturar un nuevo registro'}).dialog('open');
 		});
@@ -425,7 +454,8 @@
 				success: function (data) {
 					datos = eval(data);
 					$("#idorientacion option[value=" + datos.idorientacion + "]").attr("selected", true);
-					$('#medida').val(datos.medida);
+					$('#medidas').val(datos.medidas);
+					$('#unidad_medida').val(datos.unidad_medida);
 					$('#colindancia').val(datos.colindancia);
 					$('#divDialogForm').dialog({title: 'Modificar registro'}).dialog('open');
 				}
