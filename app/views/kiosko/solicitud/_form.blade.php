@@ -8,7 +8,7 @@
     </div>
     <div class="form-group">
        {{Form::label('apellido_paterno','Apellido Paterno')}} 
-       {{Form::text('apellido_paterno', null, ['placeholder'=>'Apellido Paterno del Solicitante','tabindex'=>'2','class'=>'form-control', 'autofocus'=> 'autofocus', 'required' => 'required', 'ng-model' => 'solicitante.apellido_paterno', 'tb-focus' => 'focusForm', 'ng-blur' => 'focusForm = false'] )}}
+       {{Form::text('apellido_paterno', null, ['placeholder'=>'Apellido Paterno del Solicitante','tabindex'=>'2','class'=>'form-control', 'autofocus'=> 'autofocus', 'ng-model' => 'solicitante.apellido_paterno', 'tb-focus' => 'focusForm', 'ng-blur' => 'focusForm = false'] )}}
        {{$errors->first('apellido_paterno', '<span class=text-danger>:message</span>')}}
     </div>
     <div class="form-group">
