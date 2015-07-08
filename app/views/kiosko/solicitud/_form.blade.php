@@ -111,21 +111,11 @@
         {{Form::select('municipio',$Municipio, null,['tabindex'=>'11','class'=>'form-control','autofocus'=> 'autofocus', 'required' => 'required', 'ng-model' => 'solicitudGestion.municipio', 'tb-focus' => 'focusForm', 'ng-blur' => 'focusForm = false'])}}
         {{$errors->first('municipio', '<span class=text-danger>:message</span>')}}
     </div>
-    @if(empty($solicitante))
     <div class="form-group">
         {{Form::label('clave','Cleve o Cuenta Catastral')}}
         {{Form::claveCuenta('clave', null, ['id'=>'clave','placeholder'=>'Clave o Cuenta Catastral','tabindex'=>'12','class'=>'form-control', 'autofocus'=> 'autofocus', 'required' => 'required', 'ng-model' => 'solicitudGestion.clave', 'tb-focus' => 'focusForm', 'ng-blur' => 'focusForm = false'] )}}
         {{$errors->first('clave', '<span class=text-danger>:message</span>')}}
         <div id="hola"></div>
     </div>
-    @endif
-    @if(!empty($solicitante))
-    <div class="form-group">
-        {{Form::label('clave','Cleve o Cuenta Catastral')}}
-        {{Form::text('clave', null, ['id'=>'clave','placeholder'=>'Clave o Cuenta Catastral','tabindex'=>'12','class'=>'form-control', 'autofocus'=> 'autofocus', 'required' => 'required', 'ng-model' => 'solicitudGestion.clave', 'tb-focus' => 'focusForm', 'ng-blur' => 'focusForm = false'] )}}
-        {{$errors->first('clave', '<span class=text-danger>:message</span>')}}
-        <div id="hola"></div>
-    </div>
-    @endif
 </div>
 
