@@ -84,7 +84,7 @@
                     </tr>
                     <tr>
                         <td>Lugar: {{$solicitud->mupio->nombre_municipio}}, Tabasco.<br>N° de Solicitud {{$solicitud->id}}</td>
-                        <td align="center"><strong>{{strtoupper($solicitud->tramite->nombre)}}</strong></td>
+                        <td align="center"><strong>{{mb_strtoupper($solicitud->tramite->nombre)}}</strong></td>
                         <td align="right">Fecha: <?php $fecha=strtotime($solicitud->create_at); echo date("d/m/Y",$fecha) ?></td>
                     </tr>
                 </table>                

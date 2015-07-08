@@ -74,12 +74,12 @@ class kiosko_SolicitudGestionController extends \BaseController
             }else {
                 //guardamos el nombre del solicitante
                 $solicitante = new Solicitante();
-                $solicitante -> apellido_paterno = strtoupper($inputs ["apellido_paterno"]);
-                $solicitante -> apellido_materno = strtoupper($inputs ["apellido_materno"]);
-                $solicitante -> nombres = strtoupper($inputs ["nombres"]);
-                $solicitante -> nombrec = strtoupper($inputs["nombres"]." ".$inputs["apellido_paterno"]." ".$inputs ["apellido_materno"]);
-                $solicitante -> rfc = strtoupper($inputs ["rfc"]);
-                $solicitante -> curp = strtoupper($inputs ["curp"]);
+                $solicitante -> apellido_paterno = mb_strtoupper($inputs ["apellido_paterno"]);
+                $solicitante -> apellido_materno = mb_strtoupper($inputs ["apellido_materno"]);
+                $solicitante -> nombres = mb_strtoupper($inputs ["nombres"]);
+                $solicitante -> nombrec = mb_strtoupper($inputs["nombres"]." ".$inputs["apellido_paterno"]." ".$inputs ["apellido_materno"]);
+                $solicitante -> rfc = mb_strtoupper($inputs ["rfc"]);
+                $solicitante -> curp = mb_strtoupper($inputs ["curp"]);
                 $solicitante -> direccion = $inputs["direccion"];
                 $solicitante -> telefono = $inputs["telefono"];
                 $solicitante -> tipo_telefono = $inputs["tipo_telefono"];
@@ -152,12 +152,12 @@ class kiosko_SolicitudGestionController extends \BaseController
                 $nombre = $n -> id;
 
                 $solicitante = Solicitante::find($nombre);
-                $solicitante -> apellido_paterno = strtoupper($inputs ["apellido_paterno"]);
-                $solicitante -> apellido_materno = strtoupper($inputs ["apellido_materno"]);
-                $solicitante -> nombres = strtoupper($inputs ["nombres"]);
-                $solicitante -> nombrec = strtoupper($inputs["nombres"]." ".$inputs["apellido_paterno"]." ".$inputs ["apellido_materno"]);
-                $solicitante -> rfc = strtoupper($inputs ["rfc"]);
-                $solicitante -> curp = strtoupper($inputs ["curp"]);
+                $solicitante -> apellido_paterno = mb_strtoupper($inputs ["apellido_paterno"]);
+                $solicitante -> apellido_materno = mb_strtoupper($inputs ["apellido_materno"]);
+                $solicitante -> nombres = mb_strtoupper($inputs ["nombres"]);
+                $solicitante -> nombrec = mb_strtoupper($inputs["nombres"]." ".$inputs["apellido_paterno"]." ".$inputs ["apellido_materno"]);
+                $solicitante -> rfc = mb_strtoupper($inputs ["rfc"]);
+                $solicitante -> curp = mb_strtoupper($inputs ["curp"]);
                 $solicitante -> direccion = $inputs["direccion"];
                 $solicitante -> telefono = $inputs["telefono"];
                 $solicitante -> tipo_telefono = $inputs["tipo_telefono"];
