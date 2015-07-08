@@ -97,7 +97,7 @@
 	<div class="col-md-4">
 		<div class="form-inline">
 			{{Form::label('Altitud')}}
-			{{Form::text('altitud', $row->altitud, ['id'=>'altitud','class'=>'form-control', 'tabindex'=>'17', 'maxlength'=>'50', 'size'=>'40', 'pattern' => '[-+]?[0-9]*[.,]?[0-9]+' ] )}}
+			{{Form::text('altitud', $row->altitud, ['id'=>'altitud','class'=>'form-control clsNumeric', 'tabindex'=>'17', 'maxlength'=>'50', 'size'=>'40', 'pattern' => '[-+]?[0-9]*[.,]?[0-9]+' ] )}}
 		</div>
 	</div>
 	<br />
@@ -155,40 +155,8 @@
 
 <script>
 	$(document).ready(function () {
-		//$('#fecha_reporte, #fecha_avaluo').datepicker();
+
 		$('#btn1General').removeClass("btn-info").addClass("btn-primary");
-
-		$('#cuenta_catastral').mask('YY-S-YYYYYY', {
-										placeholder: "__-_-______", 
-										translation: {
-                                        	S: {pattern: /[RUru]/},  
-                                        	Y: {pattern: /[0-9]/}
-                                      	}
-                                	});
-
-	  	$('#idestado').on("change",function(){
-			$.get("{{ url('getMunicipiosFromEstados')}}", { option: $(this).val() }, 
-				function(json) {
-					var model = $('#idmunicipio').empty();
-					$.each(json, function(i, item) {
-			            model.append("<option value='"+ item.idmunicipio +"'>" + item.municipio + "</option>");
-			        });
-				}
-			);
-		});
-
-	  	$('#idmunicipio').on("change",function(){
-			$.get("{{ url('getCPFromMunicipios')}}", { option: $(this).val() }, 
-				function(json) {
-					var model = $('#cp').empty();
-					$.each(json, function(i, item) {
-			            model.append("<option value='"+ item.codigo_postal +"'>" + item.codigo_postal + "</option>");
-			        });
-				}
-			);
-		});
-
-
 
 	});
 </script>

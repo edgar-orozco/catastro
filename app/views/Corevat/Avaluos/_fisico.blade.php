@@ -81,12 +81,12 @@
 	<div class="col-md-12">&nbsp;</div>
 	<div class="col-md-3">
 		{{Form::label('edad_construccion', 'Edad de la Construcción (Años)')}}
-		{{Form::number('edad_construccion', $row->edad_construccion, ['class'=>'form-control', 'min'=>'0', 'max' => '999', 'pattern' => '^[0-9]{3}$'] )}}
+		{{Form::number('edad_construccion', $row->edad_construccion, ['id'=>'edad_construccion','class'=>'form-control clsNumeric', 'min'=>'0', 'max' => '999', 'pattern' => '^[0-9]{3}$'] )}}
 		{{$errors->first('edad_construccion', '<span class=text-danger>:message</span>')}}
 	</div>
 	<div class="col-md-3">
 		{{Form::label('vida_util', 'Vida Útil Remanente')}}
-		{{Form::number('vida_util', $row->vida_util, ['class'=>'form-control', 'min'=>'0', 'max' => '999', 'pattern' => '^[0-9]{3}$'] )}}
+		{{Form::number('vida_util', $row->vida_util, ['id'=>'vida_util','class'=>'form-control clsNumeric', 'min'=>'0', 'max' => '999', 'pattern' => '^[0-9]{3}$'] )}}
 		{{$errors->first('vida_util', '<span class=text-danger>:message</span>')}}
 	</div>
 	<div class="col-md-3">

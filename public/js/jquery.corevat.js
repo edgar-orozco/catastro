@@ -865,7 +865,7 @@ $(document).ready(function () {
     };
 
     // Va la validación a pie con JS Pure
-    $("input[type=number], #medidas, #altitud").keydown(function (e) {
+    $("input[type=number], .clsNumeric").keydown(function (e) {
         if ($.inArray(e.keyCode, [46, 8, 9, 27, 13, 110, 190]) !== -1 ||
             (e.keyCode == 65 && e.ctrlKey === true) ||
             (e.keyCode == 67 && e.ctrlKey === true) ||
@@ -878,6 +878,35 @@ $(document).ready(function () {
         }
     });
 
+    $('#cuenta_catastral').mask('YY-S-YYYYYY', {
+                                    placeholder: "__-_-______", 
+                                    translation: {
+                                        S: {pattern: /[RUru]/},  
+                                        Y: {pattern: /[0-9]/}
+                                    }
+                                });
+
+    $('#idestado').on("change",function(){
+        $.get("{{ url('getMunicipiosFromEstados')}}", { option: $(this).val() }, 
+            function(json) {
+                var model = $('#idmunicipio').empty();
+                $.each(json, function(i, item) {
+                    model.append("<option value='"+ item.idmunicipio +"'>" + item.municipio + "</option>");
+                });
+            }
+        );
+    });
+
+    $('#idmunicipio').on("change",function(){
+        $.get("{{ url('getCPFromMunicipios')}}", { option: $(this).val() }, 
+            function(json) {
+                var model = $('#cp').empty();
+                $.each(json, function(i, item) {
+                    model.append("<option value='"+ item.codigo_postal +"'>" + item.codigo_postal + "</option>");
+                });
+            }
+        );
+    });
 
 
 });

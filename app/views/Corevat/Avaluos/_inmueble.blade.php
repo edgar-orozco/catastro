@@ -351,7 +351,7 @@
 
 		<div class="col-md-12">
 			{{Form::label('medidas', 'Medidas')}}
-			{{Form::text('medidas', $row->medidas, ['class'=>'form-control', 'required' => 'required', 'maxlength'=>'50'] )}}
+			{{Form::text('medidas', $row->medidas, ['class'=>'form-control clsNumeric', 'required' => 'required', 'maxlength'=>'50'] )}}
 			<hr>
 		</div>
 
