@@ -850,7 +850,7 @@ $(document).ready(function () {
         });
     };
 
-
+    // Va la validación a pie con JS Pure
     $("input[type=number], #medidas, #altitud").keydown(function (e) {
         if ($.inArray(e.keyCode, [46, 8, 9, 27, 13, 110, 190]) !== -1 ||
             (e.keyCode == 65 && e.ctrlKey === true) ||

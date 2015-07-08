@@ -349,13 +349,6 @@
 			<hr>
 		</div>
 
-<!-- 		<div class="col-md-12">
-			{{Form::label('medida', 'Medidas')}}
-			{{Form::text('medida', '', ['class'=>'form-control', 'required' => 'required', 'maxlength'=>'50'] )}}
-			<hr>
-		</div>
- -->
-
 		<div class="col-md-12">
 			{{Form::label('medidas', 'Medidas')}}
 			{{Form::text('medidas', $row->medidas, ['class'=>'form-control', 'required' => 'required', 'maxlength'=>'50'] )}}
@@ -397,36 +390,6 @@
 		 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
 		$('#btn3Inmueble').removeClass("btn-info").addClass("btn-primary");
 
-
-		// Va la validación a pie con JS Pure
-/*
-	    $("input[type=number], #medidas").keydown(function (e) {
-	        if ($.inArray(e.keyCode, [46, 8, 9, 27, 13, 110, 190]) !== -1 ||
-	            (e.keyCode == 65 && e.ctrlKey === true) ||
-	            (e.keyCode == 67 && e.ctrlKey === true) ||
-	            (e.keyCode == 88 && e.ctrlKey === true) ||
-	            (e.keyCode >= 35 && e.keyCode <= 39)) {
-	             return;
-	        }
-	        if ((e.shiftKey || (e.keyCode < 48 || e.keyCode > 57)) && (e.keyCode < 96 || e.keyCode > 105)) {
-	            e.preventDefault();
-	        }
-	    });
-
-
-	    $("#medidas").keydown(function (e) {
-	        if ($.inArray(e.keyCode, [46, 8, 9, 27, 13, 110, 190]) !== -1 ||
-	            (e.keyCode == 65 && e.ctrlKey === true) ||
-	            (e.keyCode == 67 && e.ctrlKey === true) ||
-	            (e.keyCode == 88 && e.ctrlKey === true) ||
-	            (e.keyCode >= 35 && e.keyCode <= 39)) {
-	             return;
-	        }
-	        if ((e.shiftKey || (e.keyCode < 48 || e.keyCode > 57)) && (e.keyCode < 96 || e.keyCode > 105)) {
-	            e.preventDefault();
-	        }
-	    });
-*/
 
 
 		/*++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
