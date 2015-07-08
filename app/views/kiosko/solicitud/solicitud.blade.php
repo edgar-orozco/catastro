@@ -71,7 +71,6 @@
         }
     </style>
     <body>
-        @foreach($tramite as $row)
         <div id="contenedor">
             <div id="cabecera">
                 <table width="100%">
@@ -84,9 +83,9 @@
                         <td colspan="3" align="center">DE CONFORMIDAD CON LOS LINEAMIENTOS PARA LA OPERATIVIDAD DE LOS CATASTROS EN EL ESTADO DE TABASCO, LINEAMIENTO No. 3</td>
                     </tr>
                     <tr>
-                        <td>Lugar: {{$row->nombre_municipio}}, Tabasco.<br>N° de Solicitud {{$row->id}}</td>
-                        <td align="center"><strong>{{strtoupper($row->tramite)}}</strong></td>
-                        <td align="right">Fecha: <?php $fecha=strtotime($row->create_at); echo date("d/m/Y",$fecha) ?></td>
+                        <td>Lugar: {{$solicitud->mupio->nombre_municipio}}, Tabasco.<br>N° de Solicitud {{$solicitud->id}}</td>
+                        <td align="center"><strong>{{strtoupper($solicitud->tramite->nombre)}}</strong></td>
+                        <td align="right">Fecha: <?php $fecha=strtotime($solicitud->create_at); echo date("d/m/Y",$fecha) ?></td>
                     </tr>
                 </table>                
             </div>
@@ -94,31 +93,31 @@
                 <div id="izquierda">
                     <div id="dentro"><strong>DATOS DEL SOLICITANTE</strong></div>
                     <p>
-                        Nombre: {{$row->nombrec}}
+                        Nombre: {{$solicitud->solicitante->nombrec}}
                     </p>
                     <p>
-                        CURP: {{$row->curp}}
+                        CURP: {{$solicitud->solicitante->curp}}
                     </p>
                     <p>
-                        RFC: {{$row->rfc}}
+                        RFC: {{$solicitud->solicitante->rfc}}
                     </p>
                     <p>
-                        Telefono: {{$row->telefono}}
+                        Telefono: {{$solicitud->solicitante->telefono}}
                     </p>
                     <p>
-                        E-mail: {{$row->correo}}
+                        E-mail: {{$solicitud->solicitante->correo}}
                     </p>
                     <p>
-                        Dirección: {{$row->direccion}}
+                        Dirección: {{$solicitud->solicitante->direccion}}
                     </p>
                 </div>
                 <div id="derecha">
                     <div id="dentro"><strong>DATOS DEL PREDIO</strong></div>
                     <p>
-                       Ubicación del predio: {{$row->ubicacion}}
+                       Ubicación del predio: {{$fiscal->ubicacionFiscal->ubicacion}}
                     </p>
                     <p>
-                        Tipo de predio: {{$row->tipo_predio}}
+                        Tipo de predio: {{$fiscal->tipo_predio}}
                     </p>
                     <p>
                         Zona: {{$zona}}
@@ -126,19 +125,9 @@
                     <p>
                         Manzana: {{$manzana}}
                     </p>
-                    
-                    @if(!empty($row->cuenta))
                     <p>
-                        Cuenta:{{$row->cuenta}}
+                        Clave o Cuenta: {{$solicitud->clave}}
                     </p>
-                    @endif
-                    @if(!empty($row->clave))
-                    <p>
-                        Clave: {{$row->clave}}
-                    </p>
-                    @endif
-                    
-                    
                 </div>
             </div>
             <div id="centro">
@@ -148,8 +137,7 @@
                 </div>
             </div>
             <br>
-            <p align="center"><strong>ATENTAMENTE<br><br><br>____________________________________________<br>{{$row->nombrec}}</strong></p>
+            <p align="center"><strong>ATENTAMENTE<br><br><br>____________________________________________<br>{{$solicitud->solicitante->nombrec}}</strong></p>
         </div>
-        @endforeach
     </body>
 </html>

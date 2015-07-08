@@ -177,46 +177,20 @@ class kiosko_SolicitudGestionController extends \BaseController
 
     public function solicitudIndex($id) 
     {
-        $tipo = $this-> SolicitudGestion -> where('id','=',$id)->pluck('clave');
-        $res = $this->padron->getByClaveOCuenta($tipo)->pluck('clave');
-        //dd($res, $tipo);
-        
-       if($tipo == $res){
-            $tramite = $this->SolicitudGestion->join('solicitante as s', 'solicitud_gestion.id', '=', 's.id')
-                    ->join('fiscal as f', 'solicitud_gestion.clave', '=', 'f.clave')
-                    ->join('ubicacion_fiscal as u', 'f.id_ubicacion_fiscal', '=', 'u.id_ubicacion')
-                    ->join('tipotramites as t', 'tramite_id', '=', 't.id')
-                    ->join('municipios as m', 'solicitud_gestion.municipio', '=', 'm.gid')
-                    ->where('solicitud_gestion.id', '=', $id)
-                    ->select('solicitud_gestion.id','create_at', 's.nombrec', 's.curp', 's.rfc','s.telefono','s.correo','s.direccion','f.clave', 'f.tipo_predio', 'u.ubicacion', 't.nombre as tramite', 'm.nombre_municipio')
-                    ->get();
-
-            $datos = $this->SolicitudGestion->join('fiscal as f', 'solicitud_gestion.clave', '=', 'f.clave')
-                    ->where('id', '=', $id)
-                    ->select('f.clave')
-                    ->get();
-        }  else {
-            
-            $tramite = $this->SolicitudGestion->join('solicitante as s', 'solicitud_gestion.id', '=', 's.id')
-                    ->join('fiscal as f', 'solicitud_gestion.clave', '=', 'f.cuenta')
-                    ->join('ubicacion_fiscal as u', 'f.id_ubicacion_fiscal', '=', 'u.id_ubicacion')
-                    ->join('tipotramites as t', 'tramite_id', '=', 't.id')
-                    ->join('municipios as m', 'solicitud_gestion.municipio', '=', 'm.gid')                    
-                    ->where('solicitud_gestion.id', '=', $id)
-                    ->select('solicitud_gestion.id','create_at', 's.nombrec', 's.curp', 's.rfc','s.telefono','s.correo','s.direccion', 'f.cuenta', 'f.tipo_predio', 'u.ubicacion', 't.nombre as tramite', 'm.nombre_municipio')
-                    ->get();
-
-            $datos = $this->SolicitudGestion->join('fiscal as f', 'solicitud_gestion.clave', '=', 'f.cuenta')
-                    ->where('id', '=', $id)
-                    ->select('f.clave')
-                    ->get();
-        }
- 
-        $clave = explode('-', $datos);
+        //Traigo la clave o cuenta de la tabla
+        $tipo = $this-> SolicitudGestion -> find($id)->clave;
+        //Comparo si es clavo o cuenta y traigo la clave 
+        $res = $this->padron->getByClaveOCuenta($tipo)->clave;
+        //traigo los datos de la solicitud
+        $solicitud = $this-> SolicitudGestion -> find($id);
+        //trigo los datps de fiscal
+        $fiscal = PadronFiscal::where ('clave', $res)->first();
+        //explode para traer la zona y la manzana de la clave catastral
+        $clave = explode('-', $res);
         $zona = $clave[2];
         $manzana = $clave[3];
                                           
-        $vista = View::make('kiosko.solicitud.solicitud',compact('tramite','zona','manzana'));
+        $vista = View::make('kiosko.solicitud.solicitud',compact('solicitud','fiscal','zona','manzana'));
         $pdf = PDF::load($vista)->show('Solicitud '.$tipo);
         $response = Response::make($pdf, 200);
         $response->header('Content-Type', 'application/pdf');
