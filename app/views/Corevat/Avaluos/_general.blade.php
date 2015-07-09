@@ -156,7 +156,7 @@
 <script>
 	$(document).ready(function () {
 
-		$('#btn1General').removeClass("btn-info").addClass("btn-primary");
+	$('#btn1General').removeClass("btn-info").addClass("btn-primary");
 
     $('#cuenta_catastral').mask('YY-S-YYYYYY', {
                                     placeholder: "__-_-______", 
