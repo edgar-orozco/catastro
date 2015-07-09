@@ -167,6 +167,36 @@
 <script>
 	$(document).ready(function () {
 
+    $('#cuenta_catastral').mask('YY-S-YYYYYY', {
+                                    placeholder: "__-_-______", 
+                                    translation: {
+                                        S: {pattern: /[RUru]/},  
+                                        Y: {pattern: /[0-9]/}
+                                    }
+                                });
+
+    $('#idestado').on("change",function(){
+        $.get("{{ url('getMunicipiosFromEstados')}}", { option: $(this).val() }, 
+            function(json) {
+                var model = $('#idmunicipio').empty();
+                $.each(json, function(i, item) {
+                    model.append("<option value='"+ item.idmunicipio +"'>" + item.municipio + "</option>");
+                });
+            }
+        );
+    });
+
+    $('#idmunicipio').on("change",function(){
+        $.get("{{ url('getCPFromMunicipios')}}", { option: $(this).val() }, 
+            function(json) {
+                var model = $('#cp').empty();
+                $.each(json, function(i, item) {
+                    model.append("<option value='"+ item.codigo_postal +"'>" + item.codigo_postal + "</option>");
+                });
+            }
+        );
+    });
+
 	});
 </script>
 
