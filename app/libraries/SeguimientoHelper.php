@@ -2,7 +2,7 @@
 
 class SeguimientoHelper{
     
-    function generarClave() {
+    public static function generarClave() {
         $longitud = 6;
         $key = '';
         $parametro = '237ABCDEFGHJKLMNPRSTUVWXYZ';

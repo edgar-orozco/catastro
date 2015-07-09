@@ -117,6 +117,4 @@ require app_path().'/macros/macrosColindancias.php';
 //Control input para clave o cuenta catastral con mascara de entrada
 require app_path().'/macros/macrosClaveCuenta.php';
 
-//macros para generar clave de 6 digitos
-require app_path().'/macros/macrosClave.php';
 
