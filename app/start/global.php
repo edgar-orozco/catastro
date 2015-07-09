@@ -118,3 +118,4 @@ require app_path().'/macros/macrosColindancias.php';
 require app_path().'/macros/macrosClaveCuenta.php';
 
 
+
