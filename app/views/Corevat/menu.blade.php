@@ -1,5 +1,5 @@
 @if(!Auth::guest() && ( Auth::user()->hasRole("Administrador") || Auth::user()->hasRole("Super usuario")))
-    <li class="dropdown @if(Request::is('admin/*')) active @endif">
+    <li class="dropdown @if(Request::is('corevat/*')) active @endif">
 
         <a data-toggle="dropdown" class="dropdown-toggle" href="#">COREVAT<b class="caret"></b></a>
         <ul role="menu" class="dropdown-menu">
