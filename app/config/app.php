@@ -132,6 +132,7 @@ return array(
         'Laravelrus\LocalizedCarbon\LocalizedCarbonServiceProvider',
         'BotDetectCaptcha\LaravelCaptcha\LaravelCaptchaServiceProvider',
         'Anouar\Fpdf\FpdfServiceProvider',
+        'Dinesh\Barcode\BarcodeServiceProvider',
 	),
 
 	/*
@@ -205,6 +206,8 @@ return array(
         'LocalizedCarbon'   => 'Laravelrus\LocalizedCarbon\LocalizedCarbon',
         'DiffFormatter'     => 'Laravelrus\LocalizedCarbon\DiffFactoryFacade',
         'Fpdf'    => 'Anouar\Fpdf\Fpdf',
+        'DNS1D' => 'Dinesh\Barcode\Facades\DNS1DFacade',
+        'DNS2D' => 'Dinesh\Barcode\Facades\DNS2DFacade',
 
 	),
 

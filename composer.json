@@ -14,7 +14,8 @@
         "webpatser/laravel-uuid": "1.*",
         "laravelrus/localized-carbon": "1.4.*",
         "captcha-com/laravel-captcha": "3.0.0",
-        "anouar/fpdf": "1.0.1"
+        "anouar/fpdf": "1.0.1",
+		"dinesh/barcode": "3.0"
 	},
     "require-dev": {
         "way/generators": "2.6.1",
@@ -33,7 +34,7 @@
                         "app/libraries"
 		],
 		"files": [
-		
+
 		]
 
 	},
