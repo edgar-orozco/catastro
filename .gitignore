@@ -22,5 +22,7 @@ public/js/laroute.js
 public/map_output
 public/corevat/*
 !public/corevat/.gitkeep
+public/barcodes/*
+!public/barcodes/.gitkeep
 catastro.sql
 corevat.sql
