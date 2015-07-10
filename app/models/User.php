@@ -38,13 +38,13 @@ class User extends Eloquent implements ConfideUserInterface
     }
 
     /**
-     * Many-to-Many relación con Notarias
+     * relación con Notarias
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
      */
-    public function notarias()
+    public function notaria()
     {
-        return $this->belongsToMany('Notaria', 'notaria_usuario', 'user_id', 'notaria_id')->withTimestamps();
+        return $this->belongsTo('Notaria', 'notaria_usuario', 'user_id', 'notaria_id');
     }
 
     /**
