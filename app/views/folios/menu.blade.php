@@ -1,4 +1,4 @@
-@if(!Auth::guest() && ( Auth::user()->hasRole("Folios") || Auth::user()->hasRole("Folios")))
+@if(!Auth::guest() && ( Auth::user()->hasRole("Folios") && !Auth::user()->hasRole("Administrador")))
 
     <li class="dropdown @if(Request::is('Ejecucion/*')) active @endif">
 
@@ -85,7 +85,7 @@
 
 @endif
 
-@if(!Auth::guest() && ( Auth::user()->hasRole("Folios usuario") || Auth::user()->hasRole("Folio usuario")))
+@if(!Auth::guest() && ( Auth::user()->hasRole("Folios usuario") && !Auth::user()->hasRole("Administrador")))
 
     <li class="dropdown @if(Request::is('Ejecucion/*')) active @endif">
 
