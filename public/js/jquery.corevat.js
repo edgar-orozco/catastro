@@ -322,8 +322,8 @@ $(document).ready(function () {
 		
         div = $('<div />');
         div.addClass('col-md-4');
-        $('<label for="top">Top:</label>').appendTo(div);
-        $('<select name="top" id="top" class="form-control" style="width:100%"><option value="0">NO ESTA DEFINIDO EN EL SISTEMA ANTERIOR</option></select>').appendTo(div);
+        $('<label for="idfactortop">Top:</label>').appendTo(div);
+        $('<select name="idfactortop" id="idfactortop" class="form-control" style="width:100%" />').appendTo(div);
         div.appendTo('#containerDialogForm');
 
         div = $('<div />');
@@ -373,6 +373,20 @@ $(document).ready(function () {
         div.appendTo('#containerDialogForm');
 
 		$('<div">&nbsp;</div>').addClass('col-md-4').appendTo('#containerDialogForm');
+
+        $("#idfactortop, #irregular, #fraccion, #indiviso").keydown(function (e) {
+            if ($.inArray(e.keyCode, [46, 8, 9, 27, 13, 110, 190]) !== -1 ||
+                (e.keyCode == 65 && e.ctrlKey === true) ||
+                (e.keyCode == 67 && e.ctrlKey === true) ||
+                (e.keyCode == 88 && e.ctrlKey === true) ||
+                (e.keyCode >= 35 && e.keyCode <= 39)) {
+                 return;
+            }
+            if ((e.shiftKey || (e.keyCode < 48 || e.keyCode > 57)) && (e.keyCode < 96 || e.keyCode > 105)) {
+                e.preventDefault();
+            }
+        });
+
 		
     };
 	
@@ -664,6 +678,11 @@ $(document).ready(function () {
             type: 'get',
             success: function (data) {
                 datos = eval(data);
+                $('#ubicacion').val(datos.ubicacion);
+                $('#edad').val(datos.edad);
+                $('#telefono').val(datos.telefono);
+                $('#observaciones').val(datos.observaciones);
+
             }
         });
     };
@@ -725,6 +744,11 @@ $(document).ready(function () {
             success: function (data) {
                 datos = eval(data);
 				
+                for (var i = 0; i < datos.cat_factores_top.length; i++) {
+                    $('<option value="' + datos.cat_factores_top[i].idfactorconservacion + '">('+ datos.cat_factores_top[i].valor_factor_conservacion  + ') ' + datos.cat_factores_top[i].factor_conservacion + '</option>').appendTo('#idfactortop');
+                }
+                $("#idfactortop option[value=" + datos.idfactortop + "]").attr("selected", true);
+
 				for (var i = 0; i < datos.cat_factores_frente.length; i++) {
 					$('<option value="' + datos.cat_factores_frente[i].idfactorfrente + '">('+ datos.cat_factores_frente[i].valor_factor_frente  + ') ' + datos.cat_factores_frente[i].factor_frente + '</option>').appendTo('#idfactorfrente');
 				}
@@ -878,6 +902,7 @@ $(document).ready(function () {
         }
     });
 
+/*
     $('#cuenta_catastral').mask('YY-S-YYYYYY', {
                                     placeholder: "__-_-______", 
                                     translation: {
@@ -907,6 +932,8 @@ $(document).ready(function () {
             }
         );
     });
+
+*/
 
 
 });

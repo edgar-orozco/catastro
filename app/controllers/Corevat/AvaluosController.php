@@ -1032,8 +1032,11 @@ class corevat_AvaluosController extends \BaseController {
 	 * @param  int  $id
 	 * @return Response
 	 */
-	public function getAemInformación($id) {
+	public function getAemInformacion($id){
+		// $row =  AemInformacion::find($id);
+		// $row->idfactorzona = CatFactoresZonas::getIdByValue($row->factor_zona);
 		return AemInformacion::find($id);
+
 	}
 
 	/**
@@ -1068,15 +1071,20 @@ class corevat_AvaluosController extends \BaseController {
 			$row->idfactorconservacion = 1;
 			$row->irregular = 0;
 			$row->indiviso = 0;
+			$row->idfactortop = 0;
 		} else {
 			$row = AefTerrenos::find($id);
+			$row->idfactortop = CatFactoresConservacion::getIdByValue($row->top);
 			$row->idfactorfrente = CatFactoresFrente::getIdByValue($row->frente);
 			$row->idfactorforma = CatFactoresForma::getIdByValue($row->forma);
 			$row->idfactorconservacion = CatFactoresConservacion::getIdByValue($row->otros);
+			$row->irregular = $row->irregular;
+			$row->indiviso = $row->indiviso;
 		}
 		$row->cat_factores_frente = CatFactoresFrente::orderBy('valor_factor_frente')->get();
 		$row->cat_factores_forma = CatFactoresForma::orderBy('valor_factor_forma')->get();
 		$row->cat_factores_conservacion = CatFactoresConservacion::orderBy('valor_factor_conservacion')->get();
+		$row->cat_factores_top = CatFactoresConservacion::orderBy('valor_factor_conservacion')->get();
 		return $row;
 	}
 

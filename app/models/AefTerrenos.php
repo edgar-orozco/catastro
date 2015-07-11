@@ -38,13 +38,19 @@ class AefTerrenos extends \Eloquent {
 			//Set @ValAppM2 = (select valor_aplicado_m2 from avaluo_enfoque_fisico where idavaluoenfoquefisico = new.idavaluoenfoquefisico);
 			$rowAvaluosFisico = AvaluosFisico::select('*')->where('idavaluoenfoquefisico', '=', $inputs['idAef'])->first();
 			//set @ValFR = new.irregular * new.top * new.frente * new.forma * new.otros;
+			$rowCatFactoresTop = CatFactoresConservacion::find($inputs['idfactortop']);
+			$rowAefTerrenos->top = $rowCatFactoresTop->valor_factor_conservacion;
+
 			$rowCatFactoresFrente = CatFactoresFrente::find($inputs['idfactorfrente']);
 			$rowAefTerrenos->frente = $rowCatFactoresFrente->valor_factor_frente;
+
 			$rowCatFactoresForma = CatFactoresForma::find($inputs['idfactorforma']);
 			$rowAefTerrenos->forma = $rowCatFactoresForma->valor_factor_forma;
+
 			$rowCatFactoresConservacion = CatFactoresConservacion::find($inputs['idfactorconservacion']);
 			$rowAefTerrenos->otros = $rowCatFactoresConservacion->valor_factor_conservacion;
-			$ValFR = $inputs['irregular'] * $inputs['top'] * $rowAefTerrenos->frente * $rowAefTerrenos->forma * $rowAefTerrenos->otros;
+
+			$ValFR = $inputs['irregular'] * $rowAefTerrenos->top * $rowAefTerrenos->frente * $rowAefTerrenos->forma * $rowAefTerrenos->otros;
 			//Set new.factor_resultante = @ValFR;
 			$rowAefTerrenos->factor_resultante = $ValFR;
 			//Set new.valor_unitario_neto = @ValAppM2 * @ValFR;
@@ -66,7 +72,7 @@ class AefTerrenos extends \Eloquent {
 		$rowAefTerrenos->idavaluoenfoquefisico = $inputs["idAef"];
 		$rowAefTerrenos->fraccion = $inputs["fraccion"];
 		$rowAefTerrenos->irregular = $inputs["irregular"];
-		$rowAefTerrenos->top = $inputs["top"];
+		// $rowAefTerrenos->top = $inputs["idfactortop"];
 		$rowAefTerrenos->indiviso = $inputs["indiviso"];
 		$rowAefTerrenos->idemp = 1;
 		$rowAefTerrenos->ip = $_SERVER['REMOTE_ADDR'];
@@ -110,17 +116,25 @@ class AefTerrenos extends \Eloquent {
 			//Set @ValAppM2 = (select valor_aplicado_m2 from avaluo_enfoque_fisico where idavaluoenfoquefisico = new.idavaluoenfoquefisico);
 			$rowAvaluosFisico = AvaluosFisico::select('*')->where('idavaluoenfoquefisico', '=', $inputs['idAef'])->first();
 			//set @ValFR = new.irregular * new.top * new.frente * new.forma * new.otros;
+
+			$rowCatFactoresTop = CatFactoresConservacion::find($inputs['idfactortop']);
+			$rowAefTerrenos->top = $rowCatFactoresTop->valor_factor_conservacion;
+			
 			$rowCatFactoresFrente = CatFactoresFrente::find($inputs['idfactorfrente']);
 			$rowAefTerrenos->frente = $rowCatFactoresFrente->valor_factor_frente;
+
 			$rowCatFactoresForma = CatFactoresForma::find($inputs['idfactorforma']);
 			$rowAefTerrenos->forma = $rowCatFactoresForma->valor_factor_forma;
 			$rowCatFactoresConservacion = CatFactoresConservacion::find($inputs['idfactorconservacion']);
 			$rowAefTerrenos->otros = $rowCatFactoresConservacion->valor_factor_conservacion;
-			$ValFR = $inputs['irregular'] * $inputs['top'] * $rowAefTerrenos->frente * $rowAefTerrenos->forma * $rowAefTerrenos->otros;
+			$ValFR = $inputs['irregular'] * $rowAefTerrenos->top * $rowAefTerrenos->frente * $rowAefTerrenos->forma * $rowAefTerrenos->otros;
 			//Set new.factor_resultante = @ValFR;
 			$rowAefTerrenos->factor_resultante = $ValFR;
 			//Set new.valor_unitario_neto = @ValAppM2 * @ValFR;
+	
 			$rowAefTerrenos->valor_unitario_neto = $rowAvaluosFisico->valor_aplicado_m2 * $ValFR;
+			// $rowAefTerrenos->valor_unitario_neto = 1000000;
+	
 			//Set new.valor_parcial = @suterr * new.valor_unitario_neto * (new.indiviso/100);
 			$rowAefTerrenos->valor_parcial = $rowAvaluosInmbueble->superficie_terreno * $rowAefTerrenos->valor_unitario_neto * ($inputs['indiviso']/100);
 		}
@@ -137,7 +151,9 @@ class AefTerrenos extends \Eloquent {
 		AefTerrenos::updBeforeAefTerrenos($inputs, $rowAefTerrenos);
 		$rowAefTerrenos->fraccion = $inputs["fraccion"];
 		$rowAefTerrenos->irregular = $inputs["irregular"];
-		$rowAefTerrenos->top = $inputs["top"];
+		// $rowAefTerrenos->top = $inputs["idfactortop"];
+		// $rowAefTerrenos->frente = $inputs["idfactorfrente"];
+		// $rowAefTerrenos->forma = $inputs["idfactorforma"];
 		$rowAefTerrenos->indiviso = $inputs["indiviso"];
 		$rowAefTerrenos->ip = $_SERVER['REMOTE_ADDR'];
 		$rowAefTerrenos->host = isset($_SERVER['HTTP_CLIENT_IP']) ? $_SERVER['HTTP_CLIENT_IP'] : '';

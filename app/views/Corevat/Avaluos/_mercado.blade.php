@@ -343,7 +343,8 @@
 			$('#idTable').val( $(this).attr('idTable') );
 			$('#containerDialogForm').empty();
 			$.createFormAemInformacion();
-			$.loadFormAemAnaInformacion();
+			$.loadFormAemInformacion();
+			// $.loadFormAemAnaInformacion();
 			$('#divDialogFormMercado').dialog({title: 'Modificar Registro Comparable Mercado: ' + $(this).attr('idTable') }).dialog('open');
 		});
 		/*++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
