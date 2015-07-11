@@ -88,6 +88,14 @@ class AemAnalisis extends \Eloquent {
 			$rowAem->valor_comparativo_mercado = round(($rowAiM->superficie_vendible * $PRR->avg),-1);
 			
 			$rowAem->save();
+
+			$rowConclu = Avaluos::find($rowAem->idavaluo)->AvaluosConclusiones;
+			
+			$rowConclu->valor_mercado = $rowAem->valor_comparativo_mercado;
+			
+			$rowConclu->save();
+
+
 		}
 		
 	}
