@@ -69,6 +69,10 @@ class HomeController extends BaseController
             //$homepage = 'folios';
             return Redirect::to('/compleme');
         }
+        elseif (Confide::user()->hasRole('Usuario de Notaría')) {
+            //$homepage = 'folios';
+            return Redirect::to('/ofvirtual/notario');
+        }
         return View::make($homepage);
     }
 } 

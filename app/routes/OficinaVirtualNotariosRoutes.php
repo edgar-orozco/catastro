@@ -1,5 +1,8 @@
 <?php
 
+//HomePage del notario la atiende el controlador HomeNotariaController
+Route::get('ofvirtual/notario', 'HomeNotariaController@index');
+
 //
 Route::get('ofvirtual/notario/traslado', 'OficinaVirtualNotarioController@index');
 

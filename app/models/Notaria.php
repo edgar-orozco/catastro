@@ -23,4 +23,12 @@ class Notaria extends Ardent
     public function estado(){
         return $this->hasOne('Entidad','entidad','entidad');
     }
+
+    /**
+     * Regresa la relacion de los usuarios del sistema que pertenecen a esta notaría
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function usuarios(){
+        return $this->hasMany('NotariaUsuario','notaria_id','id_notaria');
+    }
 }
