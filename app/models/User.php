@@ -1,6 +1,7 @@
 <?php
 
 
+use Illuminate\Database\Eloquent\Relations\Relation;
 use Zizaco\Confide\ConfideUser;
 use Zizaco\Confide\ConfideUserInterface;
 use Zizaco\Entrust\HasRole;
@@ -38,13 +39,35 @@ class User extends Eloquent implements ConfideUserInterface
     }
 
     /**
-     * relación con Notarias
+     * relación con NotariaUsuario
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function notariaUsuario()
+    {
+        return $this->belongsTo('NotariaUsuario', 'id', 'user_id');
+    }
+
+    /**
+     * Many-to-Many relación con Notarias
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
      */
-    public function notaria()
+    public function notarias()
     {
-        return $this->belongsTo('Notaria', 'notaria_usuario', 'user_id', 'notaria_id');
+        return $this->belongsToMany('Notaria', 'notaria_usuario', 'user_id', 'notaria_id')->withTimestamps();
+    }
+
+    /**
+     * Regresa la relacion notaria directamente sin pasar por la tabla intermedia
+     * @return mixed
+     */
+    public function notaria(){
+        $nu = $this->notariaUsuario;
+        if($nu) {
+            return $nu->belongsTo('Notaria', 'notaria_id', 'id_notaria');
+        }
+        return $this->belongsTo('NotariaUsuario', 'id', 'user_id');
     }
 
     /**
@@ -342,4 +365,11 @@ class User extends Eloquent implements ConfideUserInterface
         return $this->hasMany('Tramite', 'usuario_id', 'id' );
     }
 
+    /**
+     * Regresa las emisiones de predial que ha hecho un usuario
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function emisionesPredial(){
+        return $this->hasMany('EmisionPredial', 'usuario_id', 'id');
+    }
 }
