@@ -307,9 +307,10 @@
 						{{$errors->first('superficie_construccion', '<span class=text-danger>:message</span>')}}
 					</td>
 
-					<th class="bg-primary">{{Form::label('indiviso_accesoria', 'Indiviso Accesoría (%)')}}</th>
+					<th class="bg-primary">{{Form::label('indiviso_accesoria', 'Edad de la Construcción (años)')}}</th>
 					<td>
-						{{Form::number('indiviso_accesoria', $row->indiviso_accesoria, ['id'=>'indiviso_accesoria','class'=>'form-control', 'step'=>'0.0001', 'min'=>'0.0000', 'max'=>'999999999.9999', 'pattern'=>'[0-9]{9}[.]{1}[0-9]{4}'] )}}
+						<!-- {{Form::number('indiviso_accesoria', $row->indiviso_accesoria, ['id'=>'indiviso_accesoria','class'=>'form-control', 'step'=>'0.0001', 'min'=>'0.0000', 'max'=>'999999999.9999', 'pattern'=>'[0-9]{9}[.]{1}[0-9]{4}'] )}} -->
+						{{Form::number('indiviso_accesoria', $row->indiviso_accesoria, ['id'=>'indiviso_accesoria','class'=>'form-control'] )}}
 						{{$errors->first('indiviso_accesoria', '<span class=text-danger>:message</span>')}}
 					</td>
 				</tr>

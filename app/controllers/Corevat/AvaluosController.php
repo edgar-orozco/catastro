@@ -297,6 +297,8 @@ class corevat_AvaluosController extends \BaseController {
 	 */
 	public function updateInmueble($id) {
 		$inputs = Input::All();
+			// 'indiviso_accesoria' => 'numeric|min:0|max:999999999.9999|regex:/^[0-9]{1,9}(\.?)[0-9]{1,4}$/',
+	
 		$rules = array(
 			'unidades_rentables_escritura' => 'integer|min:0|max:9999',
 			'superficie_total_terreno' => 'numeric|min:0|max:999999999.9999|regex:/^[0-9]{1,9}(\.?)[0-9]{1,4}$/',
@@ -304,7 +306,6 @@ class corevat_AvaluosController extends \BaseController {
 			'superficie_terreno' => 'numeric|min:0|max:999999999.9999|regex:/^[0-9]{1,9}(\.?)[0-9]{1,4}$/',
 			'indiviso_areas_comunes' => 'numeric|min:0|max:999999999.9999|regex:/^[0-9]{1,9}(\.?)[0-9]{1,4}$/',
 			'superficie_construccion' => 'numeric|min:0|max:999999999.9999|regex:/^[0-9]{1,9}(\.?)[0-9]{1,4}$/',
-			'indiviso_accesoria' => 'numeric|min:0|max:999999999.9999|regex:/^[0-9]{1,9}(\.?)[0-9]{1,4}$/',
 			'superficie_escritura' => 'numeric|min:0|max:999999999.9999|regex:/^[0-9]{1,9}(\.?)[0-9]{1,4}$/',
 			'superficie_vendible' => 'numeric|min:0|max:999999999.9999|regex:/^[0-9]{1,9}(\.?)[0-9]{1,4}$/',
 		);
@@ -1078,8 +1079,6 @@ class corevat_AvaluosController extends \BaseController {
 			$row->idfactorfrente = CatFactoresFrente::getIdByValue($row->frente);
 			$row->idfactorforma = CatFactoresForma::getIdByValue($row->forma);
 			$row->idfactorconservacion = CatFactoresConservacion::getIdByValue($row->otros);
-			$row->irregular = $row->irregular;
-			$row->indiviso = $row->indiviso;
 		}
 		$row->cat_factores_frente = CatFactoresFrente::orderBy('valor_factor_frente')->get();
 		$row->cat_factores_forma = CatFactoresForma::orderBy('valor_factor_forma')->get();

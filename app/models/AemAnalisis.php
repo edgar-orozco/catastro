@@ -41,7 +41,7 @@ class AemAnalisis extends \Eloquent {
 		
 		$rowAemAnalisis->save();
 		
-		AemAnalisis::aemAnalisisAfterUpdate($rowAemAnalisis->idavaluoenfoquemercado, $rowAemAnalisis->in_promedio, $rowAemAnalisis->superficie_construida);
+		AemAnalisis::aemAnalisisAfterUpdate($rowAemAnalisis->idavaluoenfoquemercado, $rowAemAnalisis->in_promedio);
 	}
 	/**
 	 * Show the form for editing the specified resource.
@@ -49,7 +49,7 @@ class AemAnalisis extends \Eloquent {
 	 * @param  int  $id
 	 * @return Response
 	 */
-	public static function aemAnalisisAfterUpdate($idavaluoenfoquemercado, $in_promedio, $superficie_construida) {
+	public static function aemAnalisisAfterUpdate($idavaluoenfoquemercado, $in_promedio) {
 		$PRD = $PRDTerr = $PRDMin = $PRDMax = $PRR = $PRRMin = $PRRMax = 0; 
 		if ( $in_promedio == 1 ) {
 			// Obtenemos el Promedio Terreno
@@ -82,8 +82,10 @@ class AemAnalisis extends \Eloquent {
 			$rowAem->promedio_analisis = $PRR->avg;
 			$rowAem->minimo_analisis = $PRRMin->min;
 			$rowAem->maximo_analisis = $PRRMax->max;
+
+			$rowAiM = Avaluos::find($rowAem->idavaluo)->AvaluosInmueble;
 			
-			$rowAem->valor_comparativo_mercado = round(($superficie_construida * $PRR->avg),-1);
+			$rowAem->valor_comparativo_mercado = round(($rowAiM->superficie_vendible * $PRR->avg),-1);
 			
 			$rowAem->save();
 		}
