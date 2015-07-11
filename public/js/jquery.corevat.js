@@ -132,7 +132,7 @@ $(document).ready(function () {
 
         div = $('<div />');
         div.addClass('col-md-6');
-        $('<label for="idfactorfrente">Frete:</label>').appendTo(div);
+        $('<label for="idfactorfrente">Frente:</label>').appendTo(div);
 		$('<select id="idfactorfrente" name="idfactorfrente"><//select>').addClass('form-control').appendTo(div);
         div.appendTo('#containerDialogForm');
 

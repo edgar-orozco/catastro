@@ -71,10 +71,13 @@ class AemHomologacion extends \Eloquent {
 
 		if ($rowAvaluoInmueble->superficie_total_terreno > 0) {
 			$row->superficie =  round( pow($row->superficie_terreno / $rowAvaluoInmueble->superficie_total_terreno, 1 / 6), 2);
-			$row->valor_unitario_resultante_m2 = $row->valor_unitario * $rowCatFactoresZonas->valor_factor_zona *
+
+			$row->valor_unitario_resultante_m2 = round($row->valor_unitario,2) * $rowCatFactoresZonas->valor_factor_zona *
 					$rowCatFactoresUbicacion->valor_factor_ubicacion *
 					$rowCatFactoresFrente->valor_factor_frente *
+					$rowFactoresForma->valor_factor_forma *
 					$row->superficie * $inputs["valor_unitario_negociable"];
+
 		} else {
 			$row->superficie = 0;
 			$row->valor_unitario_resultante_m2 = 0;
