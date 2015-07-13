@@ -2,7 +2,7 @@
 
 use Illuminate\Database\Migrations\Migration;
 
-class ConfideSetupUsersTable extends Migration
+class ConfideSetupUsersTable2 extends Migration
 {
     /**
      * Run the migrations.

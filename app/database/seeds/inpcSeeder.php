@@ -3,7 +3,8 @@ class inpcSeeder extends Seeder {
     public function run()
     {
       DB::table('inpc')->delete();
-      $usuario =Auth::user()->id;  
+      //$usuario =Auth::user()->id;
+      $usuario = null;
       DB::table('inpc')->insert(
             array('mes' => 1,'anio' => 2009,'inpc'=>92.4544696, 'usuario'=>$usuario)
                 );
