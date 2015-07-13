@@ -3,9 +3,11 @@
 class corevat_AvaluosController extends \BaseController {
 
 	protected $avaluo;
+	protected $idavaluo;
 
 	public function __construct(Avaluos $avaluo) {
 		$this->avaluo = $avaluo;
+		$this->idavaluo = $avaluo->idavaluo;
 	}
 
 	/**
@@ -406,6 +408,8 @@ class corevat_AvaluosController extends \BaseController {
 			AvaluosFisico::insAvaluoFisico($id);
 			$row = Avaluos::find($id)->AvaluosFisico;
 		}
+		
+		$this->idavaluo = $idavaluo;
 
 		$aef_terrenos = AefTerrenos::AefTerrenosByFk($row->idavaluoenfoquefisico);
 		$aef_construcciones = AefConstrucciones::AefConstruccionesByFk($row->idavaluoenfoquefisico);
@@ -1064,7 +1068,9 @@ class corevat_AvaluosController extends \BaseController {
 	 * @param  int  $id
 	 * @return Response
 	 */
-	public function getAefTerrenos($id) {
+	public function getAefTerrenos($id,$idaef) {
+		
+
 		if ($id == '0') {
 			$row = new AefTerrenos();
 			$row->idfactorfrente = 1;
@@ -1073,18 +1079,27 @@ class corevat_AvaluosController extends \BaseController {
 			$row->irregular = 0;
 			$row->indiviso = 0;
 			$row->idfactortop = 0;
+
+			// $af = AvaluosFisico::find($idaef);
+			
+			// $ai = AvaluosInmueble::find($af->idavaluo);
+
+			$row->superficie = $idaef; //$af->idavaluo; //$ai->superficie_construida;
+
 		} else {
 			$row = AefTerrenos::find($id);
 			$row->idfactortop = CatFactoresConservacion::getIdByValue($row->top);
 			$row->idfactorfrente = CatFactoresFrente::getIdByValue($row->frente);
 			$row->idfactorforma = CatFactoresForma::getIdByValue($row->forma);
 			$row->idfactorconservacion = CatFactoresConservacion::getIdByValue($row->otros);
+
 		}
 		$row->cat_factores_frente = CatFactoresFrente::orderBy('valor_factor_frente')->get();
 		$row->cat_factores_forma = CatFactoresForma::orderBy('valor_factor_forma')->get();
 		$row->cat_factores_conservacion = CatFactoresConservacion::orderBy('valor_factor_conservacion')->get();
 		$row->cat_factores_top = CatFactoresConservacion::orderBy('valor_factor_conservacion')->get();
 		return $row;
+
 	}
 
 	/**

@@ -144,7 +144,7 @@ class AvaluosMercado extends \Eloquent {
 		$row->superficie_terreno = 0.0000;
 		$row->ip = $_SERVER['REMOTE_ADDR'];
 		$row->host = isset($_SERVER['HTTP_CLIENT_IP']) ? $_SERVER['HTTP_CLIENT_IP'] : '';
-		$row->creado_por = 1;
+		$row->creado_por = Auth::id();
 		$row->creado_el = date('Y-m-d H:i:s');
 		$row->save();
 	}
