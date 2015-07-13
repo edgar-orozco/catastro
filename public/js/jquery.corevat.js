@@ -302,7 +302,7 @@ $(document).ready(function () {
     $.createFormAefTerrenos = function () {
         div = $('<div  />');
         div.addClass('col-md-4');
-        $('<label for="fraccion">Fracción:::::</label>').appendTo(div);
+        $('<label for="fraccion">Fracción:</label>').appendTo(div);
         $('<input type="text" name="fraccion" id="fraccion" maxlength="50" />').attr('required', 'true').addClass('form-control').appendTo(div);
         div.appendTo('#containerDialogForm');
 
@@ -765,7 +765,7 @@ $(document).ready(function () {
 				}
                 $("#idfactorconservacion option[value=" + datos.idfactorconservacion + "]").attr("selected", true);
 
-				$('#fraccion').val( "checa->" + xx );
+				$('#fraccion').val( datos.fraccion );
 				$('#superficie').val(datos.superficie);
 				$('#irregular').val(datos.irregular);
 				$('#factor_resultante').val(datos.factor_resultante);

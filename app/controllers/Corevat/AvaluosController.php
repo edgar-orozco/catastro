@@ -1079,13 +1079,9 @@ class corevat_AvaluosController extends \BaseController {
 			$row->irregular = 0;
 			$row->indiviso = 0;
 			$row->idfactortop = 0;
-
-			// $af = AvaluosFisico::find($idaef);
-			
-			// $ai = AvaluosInmueble::find($af->idavaluo);
-
-			$row->superficie = $idaef; //$af->idavaluo; //$ai->superficie_construida;
-
+			$af = AvaluosFisico::select('idavaluo')->where('idavaluoenfoquefisico', '=', $idaef)->first();
+			$ai =AvaluosInmueble::select('superficie_construccion')->where('idavaluo', '=', $af->idavaluo)->first();
+			$row->superficie = $ai->superficie_construccion;
 		} else {
 			$row = AefTerrenos::find($id);
 			$row->idfactortop = CatFactoresConservacion::getIdByValue($row->top);
