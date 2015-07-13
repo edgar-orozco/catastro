@@ -302,7 +302,7 @@ $(document).ready(function () {
     $.createFormAefTerrenos = function () {
         div = $('<div  />');
         div.addClass('col-md-4');
-        $('<label for="fraccion">Fracción:</label>').appendTo(div);
+        $('<label for="fraccion">Fracción:::::</label>').appendTo(div);
         $('<input type="text" name="fraccion" id="fraccion" maxlength="50" />').attr('required', 'true').addClass('form-control').appendTo(div);
         div.appendTo('#containerDialogForm');
 
@@ -374,7 +374,7 @@ $(document).ready(function () {
 
 		$('<div">&nbsp;</div>').addClass('col-md-4').appendTo('#containerDialogForm');
 
-        $("#idfactortop, #irregular, #fraccion, #indiviso").keydown(function (e) {
+        $("#idfactortop, #irregular, #indiviso").keydown(function (e) {
             if ($.inArray(e.keyCode, [46, 8, 9, 27, 13, 110, 190]) !== -1 ||
                 (e.keyCode == 65 && e.ctrlKey === true) ||
                 (e.keyCode == 67 && e.ctrlKey === true) ||
@@ -735,11 +735,12 @@ $(document).ready(function () {
      * 
      ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
     $.loadFormAefTerrenos = function () {
+        var xx = $('#idTable').val();
         $.ajax({
             global: false,
             cache: false,
             dataType: 'json',
-            url: '/corevat/AefTerrenosGet/' + $('#idTable').val(),
+            url: '/corevat/AefTerrenosGet/' + $('#idTable').val() + '/' + $('#idAef').val(),
             type: 'get',
             success: function (data) {
                 datos = eval(data);
@@ -763,7 +764,8 @@ $(document).ready(function () {
 					$('<option value="' + datos.cat_factores_conservacion[i].idfactorconservacion + '">('+ datos.cat_factores_conservacion[i].valor_factor_conservacion  + ') ' + datos.cat_factores_conservacion[i].factor_conservacion + '</option>').appendTo('#idfactorconservacion');
 				}
                 $("#idfactorconservacion option[value=" + datos.idfactorconservacion + "]").attr("selected", true);
-				$('#fraccion').val(datos.fraccion);
+
+				$('#fraccion').val( "checa->" + xx );
 				$('#superficie').val(datos.superficie);
 				$('#irregular').val(datos.irregular);
 				$('#factor_resultante').val(datos.factor_resultante);

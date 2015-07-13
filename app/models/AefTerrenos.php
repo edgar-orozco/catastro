@@ -77,7 +77,7 @@ class AefTerrenos extends \Eloquent {
 		$rowAefTerrenos->idemp = 1;
 		$rowAefTerrenos->ip = $_SERVER['REMOTE_ADDR'];
 		$rowAefTerrenos->host = isset($_SERVER['HTTP_CLIENT_IP']) ? $_SERVER['HTTP_CLIENT_IP'] : '';
-		$rowAefTerrenos->creado_por = 1;
+		$rowAefTerrenos->creado_por = Auth::Id();
 		$rowAefTerrenos->creado_el = date('Y-m-d H:i:s');
 		$rowAefTerrenos->save();
 		AefTerrenos::insAfterAefTerrenos($inputs['idAef']);
@@ -157,7 +157,7 @@ class AefTerrenos extends \Eloquent {
 		$rowAefTerrenos->indiviso = $inputs["indiviso"];
 		$rowAefTerrenos->ip = $_SERVER['REMOTE_ADDR'];
 		$rowAefTerrenos->host = isset($_SERVER['HTTP_CLIENT_IP']) ? $_SERVER['HTTP_CLIENT_IP'] : '';
-		$rowAefTerrenos->modi_por = 1;
+		$rowAefTerrenos->modi_por = Auth::Id();
 		$rowAefTerrenos->modi_el = date('Y-m-d H:i:s');
 		$rowAefTerrenos->save();
 		AefTerrenos::updAfterAefTerrenos($inputs['idAef']);
