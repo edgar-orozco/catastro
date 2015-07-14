@@ -1088,7 +1088,6 @@ class corevat_AvaluosController extends \BaseController {
 			$row->idfactorfrente = CatFactoresFrente::getIdByValue($row->frente);
 			$row->idfactorforma = CatFactoresForma::getIdByValue($row->forma);
 			$row->idfactorconservacion = CatFactoresConservacion::getIdByValue($row->otros);
-
 		}
 		$row->cat_factores_frente = CatFactoresFrente::orderBy('valor_factor_frente')->get();
 		$row->cat_factores_forma = CatFactoresForma::orderBy('valor_factor_forma')->get();

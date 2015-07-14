@@ -315,7 +315,7 @@ $(document).ready(function () {
         div = $('<div />');
         div.addClass('col-md-4');
         $('<label for="irregular">Irregular:</label>').appendTo(div);
-        $('<input type="number" name="irregular" id="irregular" value="0.00" step="0.01" min="0.00" max="99999999.99" pattern="[0-9]{1,8}[.]{1}[1,2]" />').attr('required', 'true').addClass('form-control').appendTo(div);
+        $('<input type="number" name="irregular" id="irregular" value="0.00" step="0.01" min="0.00" max="99999999.99" pattern="[-+]?[0-9]*[.,]?[0-9]+" />').attr('required', 'true').addClass('form-control').appendTo(div);
         div.appendTo('#containerDialogForm');
 		
 		$('<div">&nbsp;</div>').addClass('col-md-12').appendTo('#containerDialogForm');
@@ -363,7 +363,7 @@ $(document).ready(function () {
         div = $('<div />');
         div.addClass('col-md-4');
         $('<label for="indiviso">Indiviso (%):</label>').appendTo(div);
-        $('<input type="number" name="indiviso" id="irregular" value="0.00" min="0.00" max="100.00" pattern="[0-9]{1,3}[.]{1}[0-9]{1,2}" step="0.01" />').attr('required', 'true').addClass('form-control').appendTo(div);
+        $('<input type="number" name="indiviso" id="irregular" value="0.01" min="0" max="100" pattern="[-+]?[0-9]*[.,]?[0-9]+" step="0.01" />').attr('required', 'true').addClass('form-control').appendTo(div);
         div.appendTo('#containerDialogForm');
 		
         div = $('<div />');

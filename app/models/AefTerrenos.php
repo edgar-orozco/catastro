@@ -101,8 +101,8 @@ class AefTerrenos extends \Eloquent {
 
 	/**
 	 * Show the form for editing the specified resource.
-	 *
-	 * @param  int  $id
+	 * Add Top Factor
+	 * @param  int  $id 
 	 * @return Response
 	 */
 	public static function updBeforeAefTerrenos($inputs, &$rowAefTerrenos) {

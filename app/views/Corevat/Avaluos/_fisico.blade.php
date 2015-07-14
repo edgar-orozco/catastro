@@ -518,6 +518,8 @@
 			buttons: {
 				Aceptar: function() {
 					$("#formDialogConfirm").submit();
+					window.location.href = '/corevat/AvaluoEnfoqueFisico/<?php echo $row->idavaluo ?>';
+					$(this).dialog('close');
 				},
 				Cancelar: function() {$(this).dialog('close');}
 			}
