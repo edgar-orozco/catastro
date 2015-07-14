@@ -33,7 +33,7 @@ class AefConstrucciones extends \Eloquent {
 		$rowAvaluosInmueble = AvaluosInmueble::select('*')->where('idavaluo', '=', $rowAvaluosFisico->idavaluo)->first();
 		if ( $rowAvaluosInmueble->superficie_construccion > 0 ) {
 			$rowAefConstrucciones->superficie_m2 = $rowAvaluosInmueble->superficie_construccion;
-			$rowAefConstrucciones->edad = $rowAvaluosFisico->edad_construccion;
+			$rowAefConstrucciones->edad = $rowAvaluosInmueble->indiviso_accesoria;
 			$rowAefConstrucciones->fe_v1 = 0.9;
 			$rowAefConstrucciones->fe_v2 = 80;
 			$rowAefConstrucciones->fe_v3 = 0.1;
@@ -99,7 +99,7 @@ class AefConstrucciones extends \Eloquent {
 		$rowAvaluosInmueble = AvaluosInmueble::select('*')->where('idavaluo', '=', $rowAvaluosFisico->idavaluo)->first();
 		if ( $rowAvaluosInmueble->superficie_construccion > 0 ) {
 			$rowAefConstrucciones->superficie_m2 = $rowAvaluosInmueble->superficie_construccion;
-			$rowAefConstrucciones->edad = $rowAvaluosFisico->edad_construccion;
+			$rowAefConstrucciones->edad = $rowAvaluosInmueble->indiviso_accesoria;
 			$rowAefConstrucciones->fe_v1 = 0.9;
 			$rowAefConstrucciones->fe_v2 = 80;
 			$rowAefConstrucciones->fe_v3 = 0.1;

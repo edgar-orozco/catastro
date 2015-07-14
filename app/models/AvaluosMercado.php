@@ -176,10 +176,17 @@ class AvaluosMercado extends \Eloquent {
 		$rowAvaluosConclusiones = Avaluos::find($idavaluo)->AvaluosConclusiones;
 		$rowAvaluosConclusiones->valor_mercado = $rowAem->valor_unitario_promedio;
 		$rowAvaluosConclusiones->save();
+
 		$rowAvaluosFisico = Avaluos::find($idavaluo)->AvaluosFisico;
 		$rowAvaluosFisico->valor_unitario_promedio = $rowAem->valor_unitario_promedio;
 		$rowAvaluosFisico->valor_aplicado_m2 = $rowAem->valor_aplicado_m2;
 		$rowAvaluosFisico->save();
+
+		// $rowAvaluosMercado = Avaluos::find($idavaluo)->AvaluosMercado;
+		// $rowAvaluosMercado->valor_unitario_promedio = $rowAem->valor_unitario_promedio;
+		// $rowAvaluosMercado->valor_aplicado_m2 = $rowAem->valor_aplicado_m2;
+		// $rowAvaluosMercado->save();
+
 	}
 
 }
