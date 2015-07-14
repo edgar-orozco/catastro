@@ -1,7 +1,7 @@
 <?php
 
 
-class admin_usuarioNotariaController extends \BaseController
+class admin_usuarioPeritoController extends \BaseController
 {
     /**
      * User Model
@@ -51,10 +51,10 @@ class admin_usuarioNotariaController extends \BaseController
         $user = $this->user;
 
         // Title
-        $title = "Administración de usuarios de notarias.";
+        $title = "Administración de usuarios peritos.";
 
         //Título de sección:
-        $title_section = "Administración de usuarios de notarias";
+        $title_section = "Administración de usuarios peritos";
 
         //Subtítulo de sección:
         $subtitle_section = "Buscar, crear y modificar usuarios.";
@@ -64,7 +64,7 @@ class admin_usuarioNotariaController extends \BaseController
 
         //Lista de usuarios
 
-        return  View::make('admin.user.notarias.index', compact('roles', 'selectedRoles', 'title', 'title_section', 'subtitle_section', 'user'));
+        return  View::make('admin.user.perito.index', compact('roles', 'selectedRoles', 'title', 'title_section', 'subtitle_section', 'user'));
     }
 
     /**
@@ -74,7 +74,7 @@ class admin_usuarioNotariaController extends \BaseController
      */
     public function all(){
 
-        return $this->user->listAngularNotarias();
+        return $this->user->listAngularPeritos();
     }
 
     /**
@@ -98,20 +98,21 @@ class admin_usuarioNotariaController extends \BaseController
         $this->user->password = $password;
         $this->user->password_confirmation = $password;
         $this->user->confirmed = true;
-
         if ($this->user->save()) {
             // Save if valid. Password field will be hashed before save
             // Save roles. Handles updating.
             if(Input::get( 'roles' )){
                 $this->user->saveRoles(Input::get( 'roles' ));
             }
-            if( is_array(Input::get( 'notarias' ) ) ){
+            if(Input::get( 'perito' )){
+                $perito = new PeritoUsuario;
+                $perito->perito_id = Input::get( 'perito' );
                 // Se guardan los municipios a los que pertenece un usuario
-                $this->user->notarias()->sync(Input::get( 'notarias' ));
+                $this->user->perito()->save( $perito );
             }
             $user = $this->user;
             // Se envía el correo al usuario
-            Mail::send('admin.user.notarias.email',
+            Mail::send('admin.user.perito.email',
                 array(
                     'user'      => $this->user,
                     'password'  => $password
@@ -128,12 +129,10 @@ class admin_usuarioNotariaController extends \BaseController
                     'status' => 'success',
                     'msg' => 'Usuario guardado',
                     'data' => array(
-                        'id'        => $this->user->id,
+                        'id'         => $this->user->id,
                         'idx'        => Input::get('idx'),
                         'roles'      => $this->user->roles,
-                        'notarias'   => $this->user->notarias,
-                        'municipio'  => $this->user->notarias()->first()->mpio->nombre_municipio,
-                        'estado'     => $this->user->notarias()->first()->estado->nom_ent
+                        'perito'     => $this->user->perito,
                     )
                 );
             }
@@ -204,14 +203,16 @@ class admin_usuarioNotariaController extends \BaseController
             $user->password_confirmation = $passwordConfirmation;
         }
 
+        if(Input::get( 'perito' )){
+            // Se guardan los municipios a los que pertenece un usuario
+            $perito = $user->perito;
+            $perito->perito_id = Input::get( 'perito' );
+            $perito->save();
+        }
+
         if ($user->save()) {
             if (Input::get( 'roles' )){
                 $user->saveRoles(Input::get( 'roles' ));
-            }
-
-            if ( is_array(Input::get( 'notarias' ) ) ){
-                // Se guardan los municipios a los que pertenece un usuario
-                $user->notarias()->sync(Input::get( 'notarias' ));
             }
             if ($format == 'json') {
                 return array(
@@ -220,9 +221,8 @@ class admin_usuarioNotariaController extends \BaseController
                     'data' => array(
                         'id'        => $user->id,
                         'idx'       => Input::get('idx'),
-                        'roles'     => $user->roles, 'notarias' => $user->notarias,
-                        'municipio' => $user->notarias()->first()->mpio->nombre_municipio,
-                        'estado'    => $user->notarias()->first()->estado->nom_ent
+                        'roles'     => $user->roles,
+                        'perito'    => $user->perito,
                     ),
                 );
             }

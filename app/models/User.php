@@ -12,7 +12,7 @@ class User extends Eloquent implements ConfideUserInterface
     use ConfideUser;
     use HasRole;
 
-    protected $fillable = ['username', 'email', 'password', 'nombre', 'apepat', 'apemat', 'roles', 'municipios', 'notarias', 'vigente', 'rfc', 'curp'];
+    protected $fillable = ['username', 'email', 'password', 'nombre', 'apepat', 'apemat', 'roles', 'municipios', 'notarias', 'vigente', 'rfc', 'curp', 'perito'];
 
     /**
      * The database table used by the model.
@@ -56,6 +56,16 @@ class User extends Eloquent implements ConfideUserInterface
     public function notarias()
     {
         return $this->belongsToMany('Notaria', 'notaria_usuario', 'user_id', 'notaria_id')->withTimestamps();
+    }
+
+    /**
+     * One-to-One relación con Peritos
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasOne
+     */
+    public function perito()
+    {
+        return $this->hasOne('PeritoUsuario', 'user_id', 'id');
     }
 
     /**
@@ -278,9 +288,44 @@ class User extends Eloquent implements ConfideUserInterface
                 'estado'         => $user->notarias()->first() ? $user->notarias()->first()->estado->nom_ent : ''
             );
         }
+
+        return $users;
+    }
+
+    /**
+     * Función para crear el arreglo de datos que espera procesar angular para peritos
+     * @return array
+     */
+    public function listAngularPeritos(){
+        $users = array();
+        $lista = $this->whereHas( 'roles' , function($q){
+            $q->where('name', '=', 'Perito Valuador');
+        })
+            ->with('roles')
+            ->with('perito')
+            ->get();
+        foreach( $lista as $user){
+            $users[] = array(
+                'id'             => $user->id,
+                'username'       => $user->username,
+                'email'          => $user->email,
+                'nombre'         => $user->nombre,
+                'apepat'         => $user->apepat,
+                'apemat'         => $user->apemat,
+                'nombreCompleto' => $user->nombreCompleto(),
+                'curp'           => $user->curp ?: '' ,
+                'rfc'            => $user->rfc ?: '',
+                'roles'          => $user->roles,
+                'perito'         => $user->perito,
+                'vigente'        => $user->vigente,
+                'municipio'      => $user->notarias()->first() ? $user->notarias()->first()->mpio->nombre_municipio : '',
+                'estado'         => $user->notarias()->first() ? $user->notarias()->first()->estado->nom_ent : ''
+            );
+        }
         return $users;
 
     }
+
     /**
      * Funcion para crear el arreglo de datos que espera procesar angular
      * @return array
