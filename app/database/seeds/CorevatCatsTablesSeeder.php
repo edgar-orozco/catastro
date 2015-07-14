@@ -40,5 +40,8 @@ class CorevatCatsTablesSeeder extends Seeder {
             DB::connection($this->conn)->statement("DELETE FROM cat_".$catalogo);
             DB::connection($this->conn)->statement("COPY cat_".$catalogo." FROM '/var/www/html/sources/cat_".$catalogo.".csv' CSV");
         }
+
+        //Se activan las entradas de cat_clase_general_inmueble (la tabla no tiene un default true en el campo de estatus)
+        DB::connection($this->conn)->statement("UPDATE cat_clase_general_inmueble SET status_clase_general_inmueble = 1");
 	}
 }
