@@ -363,7 +363,7 @@ $(document).ready(function () {
         div = $('<div />');
         div.addClass('col-md-4');
         $('<label for="indiviso">Indiviso (%):</label>').appendTo(div);
-        $('<input type="number" name="indiviso" id="irregular" value="0.01" min="0" max="100" pattern="[-+]?[0-9]*[.,]?[0-9]+" step="0.01" />').attr('required', 'true').addClass('form-control').appendTo(div);
+        $('<input type="number" name="indiviso" id="indiviso" value="0.01" min="0" max="100" pattern="[-+]?[0-9]*[.,]?[0-9]+" step="0.01" />').attr('required', 'true').addClass('form-control').appendTo(div);
         div.appendTo('#containerDialogForm');
 		
         div = $('<div />');
