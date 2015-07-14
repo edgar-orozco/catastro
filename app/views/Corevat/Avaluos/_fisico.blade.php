@@ -240,7 +240,7 @@
 					<td>{{$item->unidad}}</td>
 					<td>{{$item->cantidad}}</td>
 					<td>{{$item->valor_nuevo}}</td>
-					<td>{{$item->vida_remanente}}</td>
+					<td>{{$item->vida_util}}</td>
 					<td>{{$item->edad}}</td>
 					<td>{{$item->factor_edad}}</td>
 					<td>{{$item->factor_conservacion}}</td>

@@ -480,7 +480,7 @@ $(document).ready(function () {
 		
         div = $('<div />');
         div.addClass('col-md-4');
-        $('<label for="vida_util">Vida Remanente:</label>').appendTo(div);
+        $('<label for="vida_remanente">Vida Remanente:</label>').appendTo(div);
         $('<input type="number" name="vida_remanente" id="vida_remanente" value="0" step="0.01" min="0.00" max="99999999.99" pattern="[0-9]{1,8}[.]{1}[0-9]{1,2}" />').attr('required', 'true').addClass('form-control').appendTo(div);
         div.appendTo('#containerDialogForm');
 		
@@ -520,6 +520,19 @@ $(document).ready(function () {
         $('<input type="text" name="valor_parcial" id="valor_parcial"/>').attr('disabled', 'true').addClass('form-control').appendTo(div);
         div.appendTo('#containerDialogForm');
 
+        $("input[type=number], #unidad").keydown(function (e) {
+            if ($.inArray(e.keyCode, [46, 8, 9, 27, 13, 110, 190]) !== -1 ||
+                (e.keyCode == 65 && e.ctrlKey === true) ||
+                (e.keyCode == 67 && e.ctrlKey === true) ||
+                (e.keyCode == 88 && e.ctrlKey === true) ||
+                (e.keyCode >= 35 && e.keyCode <= 39)) {
+                 return;
+            }
+            if ((e.shiftKey || (e.keyCode < 48 || e.keyCode > 57)) && (e.keyCode < 96 || e.keyCode > 105)) {
+                e.preventDefault();
+            }
+        });
+
     };
     
     /*++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
@@ -547,7 +560,7 @@ $(document).ready(function () {
         div = $('<div />');
         div.addClass('col-md-4');
         $('<label for="unidad">Unidad:</label>').appendTo(div);
-        $('<input type="text" name="unidad" id="unidad" />').attr('required', 'true').addClass('form-control').appendTo(div);
+        $('<input type="text" name="unidad" id="unidad"  value="0" />').attr('required', 'true').addClass('form-control').appendTo(div);
         div.appendTo('#containerDialogForm');
 		
         div = $('<div />');
@@ -558,8 +571,8 @@ $(document).ready(function () {
 		
         div = $('<div />');
         div.addClass('col-md-4');
-        $('<label for="vida_util">Vida Útil:</label>').appendTo(div);
-        $('<input type="number" name="vida_util" id="vida_util" value="0.00" step="0.01" min="0.00" max="9999999999.99" pattern="[0-9]{1,8}[.]{1}[0-9]{1,2}" />').attr('required', 'true').addClass('form-control').appendTo(div);
+        $('<label for="eaf_Instalacion_vida_util">Vida Útil:</label>').appendTo(div);
+        $('<input type="text" name="eaf_Instalacion_vida_util" id="eaf_Instalacion_vida_util" value="0" />').attr('required', 'true').addClass('form-control').appendTo(div);
         div.appendTo('#containerDialogForm');
 		
         div = $('<div />');
@@ -597,6 +610,19 @@ $(document).ready(function () {
         $('<label for="valor_parcial">Valor Parcial:</label>').appendTo(div);
         $('<input type="text" name="valor_parcial" id="valor_parcial"/>').attr('disabled', 'true').addClass('form-control').appendTo(div);
         div.appendTo('#containerDialogForm');
+
+        $("input[type=number], #factor_conservacion, #cantidad, #unidad, #valor_nuevo, #eaf_Instalacion_vida_util, #edad ").keydown(function (e) {
+            if ($.inArray(e.keyCode, [46, 8, 9, 27, 13, 110, 190]) !== -1 ||
+                (e.keyCode == 65 && e.ctrlKey === true) ||
+                (e.keyCode == 67 && e.ctrlKey === true) ||
+                (e.keyCode == 88 && e.ctrlKey === true) ||
+                (e.keyCode >= 35 && e.keyCode <= 39)) {
+                 return;
+            }
+            if ((e.shiftKey || (e.keyCode < 48 || e.keyCode > 57)) && (e.keyCode < 96 || e.keyCode > 105)) {
+                e.preventDefault();
+            }
+        });
 
     };
     
@@ -878,7 +904,7 @@ $(document).ready(function () {
 				$('#cantidad').val(datos.cantidad);
 				$('#unidad').val(datos.unidad);
 				$('#valor_nuevo').val(datos.valor_nuevo);
-				$('#vida_util').val(datos.vida_util);
+				$('#eaf_Instalacion_vida_util').val(datos.vida_util);
 				$('#edad').val(datos.edad);
 				$('#factor_edad').val(datos.factor_edad);
 				$('#factor_conservacion').val(datos.factor_conservacion);

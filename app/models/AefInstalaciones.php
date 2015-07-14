@@ -31,11 +31,19 @@ class AefInstalaciones extends \Eloquent {
 	public static function insBeforoAefInstalaciones($inputs, &$rowAefInstalaciones) {
 		$fe_v1 = 0.1;
 		$fe_v2 = 0.9;
-		$Factor_Edad = $inputs["vida_util"] == 0 ? 0 : (($fe_v1 * $inputs["vida_util"] + $fe_v2 * ($inputs["vida_util"] - $inputs["edad"]))) / $inputs["vida_util"];
-		$Factor_Resultante = $Factor_Edad * $inputs["factor_conservacion"];
+		// $Factor_Edad = $inputs["eaf_Instalacion_vida_util"] == 0 ? 0 : (($fe_v1 * $inputs["eaf_Instalacion_vida_util"] + $fe_v2 * ($inputs["eaf_Instalacion_vida_util"] - $inputs["edad"]))) / $inputs["eaf_Instalacion_vida_util"];
+		$FE0 = (
+				( 
+					($fe_v1 * $inputs["eaf_Instalacion_vida_util"] ) + 
+					($fe_v2 * $inputs["eaf_Instalacion_vida_util"] ) - 
+					$inputs["edad"]
+				) / $inputs["eaf_Instalacion_vida_util"]
+			);
+		$FE = $inputs["eaf_Instalacion_vida_util"] == 0 ? 0 : $FE0;
+		$Factor_Resultante = $FE * $inputs["factor_conservacion"];
 		$Valor_Neto = $Factor_Resultante * $inputs["valor_nuevo"];
 		$Valor_Parcial = $Valor_Neto * $inputs["cantidad"];
-		$rowAefInstalaciones->factor_edad = $Factor_Edad;
+		$rowAefInstalaciones->factor_edad = $FE;
 		$rowAefInstalaciones->factor_resultante = $Factor_Resultante;
 		$rowAefInstalaciones->valor_neto = $Valor_Neto;
 		$rowAefInstalaciones->valor_parcial = $Valor_Parcial;
@@ -54,7 +62,7 @@ class AefInstalaciones extends \Eloquent {
 		$rowAefInstalaciones->cantidad = $inputs["cantidad"];
 		$rowAefInstalaciones->unidad = $inputs["unidad"];
 		$rowAefInstalaciones->valor_nuevo = $inputs["valor_nuevo"];
-		$rowAefInstalaciones->vida_util = $inputs["vida_util"];
+		$rowAefInstalaciones->vida_util = $inputs["eaf_Instalacion_vida_util"];
 		$rowAefInstalaciones->edad = $inputs["edad"];
 		$rowAefInstalaciones->factor_conservacion = $inputs["factor_conservacion"];
 
@@ -94,11 +102,19 @@ class AefInstalaciones extends \Eloquent {
 	public static function updBeforeAefInstalaciones($inputs, &$rowAefInstalaciones) {
 		$fe_v1 = 0.1;
 		$fe_v2 = 0.9;
-		$Factor_Edad = $inputs["vida_util"] == 0 ? 0 : (($fe_v1 * $inputs["vida_util"] + $fe_v2 * ($inputs["vida_util"] - $inputs["edad"]))) / $inputs["vida_util"];
-		$Factor_Resultante = $Factor_Edad * $inputs["factor_conservacion"];
+		// $Factor_Edad = $inputs["eaf_Instalacion_vida_util"] == 0 ? 0 : (($fe_v1 * $inputs["eaf_Instalacion_vida_util"] + $fe_v2 * ($inputs["eaf_Instalacion_vida_util"] - $inputs["edad"]))) / $inputs["eaf_Instalacion_vida_util"];
+		$FE0 = (
+				(
+					( $fe_v1 * $inputs["eaf_Instalacion_vida_util"] ) + 
+					( $fe_v2 * $inputs["eaf_Instalacion_vida_util"] ) - 
+					$inputs["edad"]
+				) / $inputs["eaf_Instalacion_vida_util"]
+			);
+		$FE = $inputs["eaf_Instalacion_vida_util"] == 0 ? 0 : $FE0;
+		$Factor_Resultante = $FE * $inputs["factor_conservacion"];
 		$Valor_Neto = $Factor_Resultante * $inputs["valor_nuevo"];
 		$Valor_Parcial = $Valor_Neto * $inputs["cantidad"];
-		$rowAefInstalaciones->factor_edad = $Factor_Edad;
+		$rowAefInstalaciones->factor_edad = $FE;
 		$rowAefInstalaciones->factor_resultante = $Factor_Resultante;
 		$rowAefInstalaciones->valor_neto = $Valor_Neto;
 		$rowAefInstalaciones->valor_parcial = $Valor_Parcial;
@@ -117,7 +133,7 @@ class AefInstalaciones extends \Eloquent {
 		$rowAefInstalaciones->cantidad = $inputs["cantidad"];
 		$rowAefInstalaciones->unidad = $inputs["unidad"];
 		$rowAefInstalaciones->valor_nuevo = $inputs["valor_nuevo"];
-		$rowAefInstalaciones->vida_util = $inputs["vida_util"];
+		$rowAefInstalaciones->vida_util = $inputs["eaf_Instalacion_vida_util"];
 		$rowAefInstalaciones->edad = $inputs["edad"];
 		$rowAefInstalaciones->factor_conservacion = $inputs["factor_conservacion"];
 		

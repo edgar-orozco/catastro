@@ -30,7 +30,13 @@ class AefCondominios extends \Eloquent {
 	public static function insBeforoAefCondominios($inputs, &$rowAefCondominios) {
 		$fe_v1 = 0.1;
 		$fe_v2 = 0.9;
-		$FE = (($fe_v1 * $inputs["vida_remanente"] + $fe_v2 * ($inputs["vida_remanente"] - $inputs["edad"]))) / $inputs["vida_remanente"];
+		$FE = (
+				( 
+					($fe_v1 * $inputs["vida_remanente"]) + 
+					( $fe_v2 * $inputs["vida_remanente"] - $inputs["edad"] ) 
+				) / $inputs["vida_remanente"]
+			);
+
 		$FR = $inputs["factor_conservacion"] * $FE;
         $rowAefCondominios->factor_edad = $FE;
         $rowAefCondominios->factor_resultante = $FR;
@@ -90,7 +96,13 @@ class AefCondominios extends \Eloquent {
 	public static function updBeforeAefCondominios($inputs, &$rowAefCondominios) {
 		$fe_v1 = 0.1;
 		$fe_v2 = 0.9;
-		$FE = $inputs["vida_remanente"] == 0 ? 0 : (($fe_v1 * $inputs["vida_remanente"] + $fe_v2 * ($inputs["vida_remanente"] - $inputs["edad"]))) / $inputs["vida_remanente"];
+		// $FE = $inputs["vida_remanente"] == 0 ? 0 : (($fe_v1 * $inputs["vida_remanente"] + $fe_v2 * ($inputs["vida_remanente"] - $inputs["edad"]))) / $inputs["vida_remanente"];
+		$FE = (
+				( 
+					($fe_v1 * $inputs["vida_remanente"]) + 
+					( $fe_v2 * $inputs["vida_remanente"] - $inputs["edad"] ) 
+				) / $inputs["vida_remanente"]
+			);
 		$FR = $inputs["factor_conservacion"] * $FE;
         $rowAefCondominios->factor_edad = $FE;
         $rowAefCondominios->factor_resultante = $FR;
