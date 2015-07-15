@@ -1,6 +1,6 @@
 <?php
 class RegistroEscrituras extends Eloquent  {
-    protected $table ='registro_escrituas';
+    protected $table ='registro_escrituras';
     protected $primaryKey = 'id';
     protected $guarded = array("*");
     protected $fillable = array("*");

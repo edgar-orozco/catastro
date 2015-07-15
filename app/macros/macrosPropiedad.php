@@ -4,23 +4,23 @@ Form::macro('propiedad', function($llave)
   $predios='
    <div class="row">
     <div class="col-md-6">'.
-    Form::label($llave . '[]', 'Bajo el numero:') .
+    Form::label($llave . '[numerocontro]', 'Bajo el numero:') .
     Form::text($llave.'[numerocontro]', null, ['class' => 'form-control'] ).
     '</div>'.
     ' <div class="col-md-6">'.
-     Form::label($llave . '[]', 'Folio' ) .
+     Form::label($llave . '[folio]', 'Folio' ) .
     Form::text($llave.'[folio]', null, ['class' => 'form-control'] ). 
    '</div>'.
     '<div class="col-md-6">'.
-    Form::label($llave . '[]', 'Clave') .
+    Form::label($llave . '[clave]', 'Clave') .
     Form::text($llave.'[clave]', null, ['class' => 'form-control'] ). 
    '</div>'.
     '<div class="col-md-6">'.
-    Form::label($llave . '[]', 'Predio') .
+    Form::label($llave . '[predio]', 'Predio') .
     Form::text($llave.'[predio]', null, ['class' => 'form-control'] ). 
    '</div>'.
     '<div class="col-md-6">'.
-    Form::label($llave . '[]', 'L.M.V :') .
+    Form::label($llave . '[lmv]', 'L.M.V :') .
     Form::text($llave.'[lmv]', null, ['class' => 'form-control'] ).
     '</div>
     </div>';
