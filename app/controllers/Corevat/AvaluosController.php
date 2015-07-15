@@ -285,18 +285,20 @@ class corevat_AvaluosController extends \BaseController {
 		$cat_plafones = CatPlafones::comboList();
 		$cat_orientaciones = CatOrientaciones::comboList();
 		$ai_medidas_colindancias = AiMedidasColindancias::AiMedidasColindanciasByFk($row->idavaluoinmueble);
+		$croquis = $row->croquis != '' ? '/corevat/files/' . $row->croquis : '';
+		$fachada = $row->fachada != '' ? '/corevat/files/' . $row->fachada : '';
 
     	$arrMedCol = array('Metros'=>'Metros','Metros Cuadrados'=>'Metros Cuadrados','Metros Cúbicos'=>'Metros Cúbicos','Metros Lineales'=>'Metros Lineales','Kilometros'=>'Kilometros','Kilometros Cuadrados'=>'Kilometros Cuadrados','Hectareas'=>'Hectareas','Hectareas Cuadradas'=>'Hectareas Cuadradas');
 
-		return View::make('Corevat.Avaluos.avaluos', compact('opt', 'idavaluo', 'title', 'row', 'cat_cimentaciones', 'cat_estructuras', 'cat_muros', 'cat_entrepisos', 'cat_techos', 'cat_bardas', 'cat_usos_suelos', 'cat_niveles', 'cat_pisos', 'cat_aplanados', 'cat_plafones', 'cat_orientaciones', 'ai_medidas_colindancias', 'arrMedCol'));
+		return View::make('Corevat.Avaluos.avaluos', compact('opt', 'idavaluo', 'title', 'row', 'cat_cimentaciones', 'cat_estructuras', 'cat_muros', 'cat_entrepisos', 'cat_techos', 'cat_bardas', 'cat_usos_suelos', 'cat_niveles', 'cat_pisos', 'cat_aplanados', 'cat_plafones', 'cat_orientaciones', 'ai_medidas_colindancias', 'arrMedCol', 'croquis','fachada'));
 	}
 
 	/**
 	 * Update the specified resource in storage.
-	 *
+	 *achada
 	 * @param  int  $id
 	 * @return Response
-	 */
+	 **/
 	public function updateInmueble($id) {
 		$inputs = Input::All();
 			// 'indiviso_accesoria' => 'numeric|min:0|max:999999999.9999|regex:/^[0-9]{1,9}(\.?)[0-9]{1,4}$/',
@@ -333,12 +335,16 @@ class corevat_AvaluosController extends \BaseController {
 			if (Input::hasFile('croquis') || Input::hasFile('fachada')) {
 				$row = Avaluos::find($id)->AvaluosInmueble;
 				if (Input::hasFile('croquis')) {
-					$row->croquis = 'croquis-' . $row->idavaluo . '.jpg';
+					// $fl = Input::file('croquis');
+					// $c0 = explode('.',$fl->getClientOriginalName());
+					$row->croquis = 'croquis-' . $row->idavaluo . '.' . Input::file('croquis')->guessExtension();
 					Input::file('croquis')->move(public_path() . '/corevat/files/', $row->croquis);
 					$message .= '<br />¡El croquis fue actualizado satisfactoriamente!';
 				}
 				if (Input::hasFile('fachada')) {
-					$row->fachada = 'fachada-' . $row->idavaluo . '.jpg';
+					// $fl = Input::file('fachada');
+					// $c0 = explode('.',$fl->getClientOriginalName());		
+					$row->fachada = 'fachada-' . $row->idavaluo  . '.' .  Input::file('fachada')->guessExtension();
 					Input::file('fachada')->move(public_path() . '/corevat/files/', $row->fachada);
 					$message .= '<br />¡La imagen de la fachada fue actualizada satisfactoriamente!';
 				}
@@ -489,6 +495,7 @@ class corevat_AvaluosController extends \BaseController {
 			AvaluosConclusiones::insAvaluoConclusiones($id);
 			$row = Avaluos::find($id)->AvaluosConclusiones;
 		}
+
 		return View::make('Corevat.Avaluos.avaluos', compact('opt', 'idavaluo', 'title', 'row'));
 	}
 
@@ -508,8 +515,15 @@ class corevat_AvaluosController extends \BaseController {
 			AvaluosFotos::insAvaluoFotos($id);
 			$row = Avaluos::find($id)->AvaluosFotos;
 		}
+		$foto0 = $row->foto0 != '' ? '/corevat/files/' . $row->foto0 : '';
+		$foto1 = $row->foto1 != '' ? '/corevat/files/' . $row->foto1 : '';
+		$foto2 = $row->foto2 != '' ? '/corevat/files/' . $row->foto2 : '';
+		$foto3 = $row->foto3 != '' ? '/corevat/files/' . $row->foto3 : '';
+		$foto4 = $row->foto4 != '' ? '/corevat/files/' . $row->foto4 : '';
+		$foto5 = $row->foto5 != '' ? '/corevat/files/' . $row->foto5 : '';
+		$plano0 = $row->plano0 != '' ? '/corevat/files/' . $row->plano0 : '';
 
-		return View::make('Corevat.Avaluos.avaluos', compact('opt', 'idavaluo', 'title', 'row'));
+		return View::make('Corevat.Avaluos.avaluos', compact('opt', 'idavaluo', 'title', 'row', 'foto0', 'foto1', 'foto2', 'foto3', 'foto4', 'foto5','plano0'));
 	}
 
 	/**
@@ -565,31 +579,31 @@ class corevat_AvaluosController extends \BaseController {
 		$row->modi_el = date('Y-m-d H:i:s');
 
 		if (Input::hasFile('foto0')) {
-			$row->foto0 = 'foto0-' . $row->idavaluo . '.jpg';
+			$row->foto0 = 'foto0-' . $row->idavaluo  . '.' .  Input::file('foto0')->guessExtension();
 			Input::file('foto0')->move(public_path() . '/corevat/files/', $row->foto0);
 		}
 		if (Input::hasFile('foto1')) {
-			$row->foto1 = 'foto1-' . $row->idavaluo . '.jpg';
+			$row->foto1 = 'foto1-' . $row->idavaluo  . '.' .  Input::file('foto1')->guessExtension();
 			Input::file('foto1')->move(public_path() . '/corevat/files/', $row->foto1);
 		}
 		if (Input::hasFile('foto2')) {
-			$row->foto2 = 'foto2-' . $row->idavaluo . '.jpg';
+			$row->foto2 = 'foto2-' . $row->idavaluo  . '.' .  Input::file('foto2')->guessExtension();
 			Input::file('foto2')->move(public_path() . '/corevat/files/', $row->foto2);
 		}
 		if (Input::hasFile('foto3')) {
-			$row->foto3 = 'foto3-' . $row->idavaluo . '.jpg';
+			$row->foto3 = 'foto3-' . $row->idavaluo  . '.' .  Input::file('foto3')->guessExtension();
 			Input::file('foto3')->move(public_path() . '/corevat/files/', $row->foto3);
 		}
 		if (Input::hasFile('foto4')) {
-			$row->foto4 = 'foto4-' . $row->idavaluo . '.jpg';
+			$row->foto4 = 'foto4-' . $row->idavaluo  . '.' .  Input::file('foto4')->guessExtension();
 			Input::file('foto4')->move(public_path() . '/corevat/files/', $row->foto4);
 		}
 		if (Input::hasFile('foto5')) {
-			$row->foto5 = 'foto5-' . $row->idavaluo . '.jpg';
+			$row->foto5 = 'foto5-' . $row->idavaluo  . '.' .  Input::file('foto5')->guessExtension();
 			Input::file('foto5')->move(public_path() . '/corevat/files/', $row->foto5);
 		}
 		if (Input::hasFile('plano0')) {
-			$row->plano0 = 'plano0-' . $row->idavaluo . '.jpg';
+			$row->plano0 = 'plano0-' . $row->idavaluo  . '.' .  Input::file('plano0')->guessExtension();
 			Input::file('plano0')->move(public_path() . '/corevat/files/', $row->plano0);
 		}
 		$row->save();
@@ -1459,16 +1473,16 @@ class corevat_AvaluosController extends \BaseController {
 		$pdf->SetFillColor(64, 64, 64);
 
 		$pdf->AddPage();
-		$pdf->Image(public_path() . "/css/images/corevat/crv-01.jpg", 5, 5, 139.57, 26.20);
+		$pdf->Image(public_path() . "/corevat/files/crv-01.jpg", 5, 5, 139.57, 26.20);
 
 		if ( $rs->foto != "" ) {
 			$userfoto = explode(".", $rs->foto);
 			$foto = public_path() . '/corevat/files/' . $userfoto[0] . '-big.' . $userfoto[1];
 			if ( !file_exists($foto) ) {
-				$foto = public_path() . "/css/images/corevat/user-big.jpg";
+				$foto = public_path() . "/corevat/files/user-big.jpg";
 			}
 		} else {
-			$foto = public_path() . "/css/images/corevat/user-big.jpg";
+			$foto = public_path() . "/corevat/files/user-big.jpg";
 		}
 		$pdf->Image($foto, 180, 5, 30.50, 26.56);
 		$pdf->Ln(25);
@@ -1823,36 +1837,37 @@ class corevat_AvaluosController extends \BaseController {
 
 		if ($in->croquis != "") {
 			$fc = explode('.', $in->croquis);
-			$archivo = public_path() . '/css/images/corevat/' . $fc[0] . '.' . $fc[1];
+			$archivo = public_path() . '/corevat/files/' .  $in->croquis;
 			if ( file_exists($archivo) ) {
 				$pdf->Image($archivo, 5, 32, 89.0, 65.40);
 			} else {
-				$archivo = public_path() . '/corevat/files/' . $fc[0] . '-big.' . $fc[1];
+				$archivo = public_path() . '/corevat/files/' .  $in->croquis;
 				if ( file_exists($archivo) ) {
 					$pdf->Image($archivo, 5, 32, 89.0, 65.40);
 				} else {
-					$pdf->Image(public_path() . '/css/images/corevat/blank.gif', 5, 32, 89.0, 65.40);
+					$pdf->Image('corevat/files/blank.gif', 5, 32, 89.0, 65.40);
 				}
 			}
 		} else {
-			$pdf->Image(public_path() . '/css/images/corevat/blank.gif', 5, 32, 89.0, 65.40);
+			$pdf->Image('corevat/files/blank.gif', 5, 32, 89.0, 65.40);
 		}
 
 		if ($in->fachada != "") {
 			$fc = explode('.', $in->fachada);
-			$archivo = public_path() . '/corevat/files/' . $fc[0] . '.' . $fc[1];
+			$archivo = public_path() . '/corevat/files/' . $in->fachada;
 			if ( file_exists($archivo) ) {
 				$pdf->Image($archivo, 122, 32, 89.0, 65.40);
 			} else {
-				$archivo = public_path() . '/corevat/files/' . $fc[0] . '-big.' . $fc[1];
+				// public_path() . 
+				$archivo = public_path() . '/corevat/files/' . $in->fachada;
 				if ( file_exists($archivo) ) {
 					$pdf->Image($archivo, 122, 32, 89.0, 65.40);
 				} else {
-					$pdf->Image(public_path() . '/css/images/corevat/blank.gif', 122, 32, 89.0, 65.40);
+					$pdf->Image('corevat/files/blank.gif', 122, 32, 89.0, 65.40);
 				}
 			}
 		} else {
-			$pdf->Image(public_path() . '/css/images/corevat/blank.gif', 122, 32, 89.0, 65.40);
+			$pdf->Image('corevat/files/blank.gif', 122, 32, 89.0, 65.40);
 		}
 
 		// Línea 1
@@ -2649,11 +2664,11 @@ class corevat_AvaluosController extends \BaseController {
 				if ( file_exists($archivo) ) {
 					$pdf->Image($archivo, 5, 22, 50.0, 50);
 				} else {
-					$pdf->Image(public_path() . '/css/images/corevat/blank.gif', 122, 32, 89.0, 65.40);
+					$pdf->Image('corevat/files/blank.gif', 122, 32, 89.0, 65.40);
 				}
 			}
 		} else {
-			$pdf->Image(public_path() . '/css/images/corevat/blank.gif', 122, 32, 89.0, 65.40);
+			$pdf->Image('corevat/files/blank.gif', 122, 32, 89.0, 65.40);
 		}
 
 		if ($ft->foto1 != "") {
@@ -2662,15 +2677,15 @@ class corevat_AvaluosController extends \BaseController {
 			if ( file_exists($archivo) ) {
 				$pdf->Image($archivo, 83, 22, 50.0, 50);
 			} else {
-				$archivo = public_path() . '/corevat/files/' . $fc[0] . '-big.' . $fc[1];
+				$archivo = public_path() . '/corevat/files/' . $fc[0] . '.' . $fc[1];
 				if ( file_exists($archivo) ) {
 					$pdf->Image($archivo, 83, 22, 50.0, 50);
 				} else {
-					$pdf->Image(public_path() . '/css/images/corevat/blank.gif', 83, 22, 50.0, 50);
+					$pdf->Image('corevat/files/blank.gif', 83, 22, 50.0, 50);
 				}
 			}
 		} else {
-			$pdf->Image(public_path() . '/css/images/corevat/blank.gif', 83, 22, 50.0, 50);
+			$pdf->Image('corevat/files/blank.gif', 83, 22, 50.0, 50);
 		}
 
 		if ($ft->foto2 != "") {
@@ -2683,11 +2698,11 @@ class corevat_AvaluosController extends \BaseController {
 				if ( file_exists($archivo) ) {
 					$pdf->Image($archivo, 161, 22, 50.0, 50);
 				} else {
-					$pdf->Image(public_path() . '/css/images/corevat/blank.gif', 161, 22, 50.0, 50);
+					$pdf->Image('corevat/files/blank.gif', 161, 22, 50.0, 50);
 				}
 			}
 		} else {
-			$pdf->Image(public_path() . '/css/images/corevat/blank.gif', 161, 22, 50.0, 50);
+			$pdf->Image('corevat/files/blank.gif', 161, 22, 50.0, 50);
 		}
 
 		$nFont = 6;
@@ -2713,11 +2728,11 @@ class corevat_AvaluosController extends \BaseController {
 				if ( file_exists($archivo) ) {
 					$pdf->Image($archivo, 5, 82, 50.0, 50);
 				} else {
-					$pdf->Image(public_path() . '/css/images/corevat/blank.gif', 5, 82, 50.0, 50);
+					$pdf->Image('corevat/files/blank.gif', 5, 82, 50.0, 50);
 				}
 			}
 		} else {
-			$pdf->Image(public_path() . '/css/images/corevat/blank.gif', 5, 82, 50.0, 50);
+			$pdf->Image('corevat/files/blank.gif', 5, 82, 50.0, 50);
 		}
 
 		if ($ft->foto4 != "") {
@@ -2730,11 +2745,11 @@ class corevat_AvaluosController extends \BaseController {
 				if ( file_exists($archivo) ) {
 					$pdf->Image($archivo, 83, 82, 50.0, 50);
 				} else {
-					$pdf->Image(public_path() . '/css/images/corevat/blank.gif', 83, 82, 50.0, 50);
+					$pdf->Image('corevat/files/blank.gif', 83, 82, 50.0, 50);
 				}
 			}
 		} else {
-			$pdf->Image(public_path() . '/css/images/corevat/blank.gif', 83, 82, 50.0, 50);
+			$pdf->Image('corevat/files/blank.gif', 83, 82, 50.0, 50);
 		}
 
 		if ($ft->foto5 != "") {
@@ -2747,11 +2762,11 @@ class corevat_AvaluosController extends \BaseController {
 				if ( file_exists($archivo) ) {
 					$pdf->Image($archivo, 161, 82, 50.0, 50);
 				} else {
-					$pdf->Image(public_path() . '/css/images/corevat/blank.gif', 161, 82, 50.0, 50);
+					$pdf->Image('corevat/files/blank.gif', 161, 82, 50.0, 50);
 				}
 			}
 		} else {
-			$pdf->Image(public_path() . '/css/images/corevat/blank.gif', 161, 82, 50.0, 50);
+			$pdf->Image('corevat/files/blank.gif', 161, 82, 50.0, 50);
 		}
 
 		$pdf->Ln(3);
