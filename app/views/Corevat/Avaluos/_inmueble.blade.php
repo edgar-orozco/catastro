@@ -1,18 +1,31 @@
 <h3 class="header">{{$title}}</h3>
 <hr>
-{{Form::model($row, ['route' => array('updateAvaluoInmueble', $idavaluo), 'method'=>'post', 'id'=>'formAvaluoInmueble', 'enctype'=>'multipart/form-data' ]) }}
+{{Form::model($row, ['route' => array('updateAvaluoInmueble', $idavaluo), 'class'=>'horizontal', 'method'=>'post', 'id'=>'formAvaluoInmueble', 'enctype'=>'multipart/form-data' ]) }}
 {{Form::hidden('idavaluoinmueble', $row->idavaluoinmueble)}}
 <div class="row">
 	<div class="col-md-12 bg-primary"><h4>Subir imagenes</h4></div>
-	<div class="col-md-5">
-		{{Form::label('croquis', 'Croquis')}}
-		{{Form::file('croquis') }}	
+	<div class="col-md-6">
+		<hr>
+		<div class="input-group">
+			<span class="input-group-addon">{{Form::label('croquis', 'Croquis')}}</span>
+		{{Form::file('croquis',['class='=>'input-group']) }}	
+		@if ( $croquis != '' )
+			<span class="input-group-btn"><a class="btn btn-success" type="button" target='_blank' href="{{$croquis}}">Ver Croquis</a></span>
+		@endif
+		</div>
 		<hr>
 	</div>
-	<div class="col-md-2">&nbsp;</div>
-	<div class="col-md-5">
-		{{Form::label('fachada', 'Fachada')}}
-		{{Form::file('fachada') }}	
+	
+	<div class="col-md-6">
+		<hr>
+		<div class="input-group">
+			<span class="input-group-addon" id="basic-addon1">{{Form::label('fachada', 'Fachada')}}</span>
+		{{Form::file('fachada',['class='=>'input-group']) }}	
+		@if ( $fachada != '' )
+			<span class="input-group-btn"><a class="btn btn-success" type="button" target='_blank' href="{{$fachada}}">Ver Fachada</a></span>
+		@endif
+		</div>
+		<hr>
 		<hr>
 	</div>
 
@@ -532,7 +545,7 @@
 		$('#fachada, #croquis').fileinput({
 			maxFileSize: 2000,
 			maxFileCount: 1,
-			allowedFileExtensions: ["jpg"]
+			allowedFileExtensions: ["gif","jpg","JPG","png"]
 		});
 	});
 </script>
