@@ -5,20 +5,19 @@
 @stop
 
 @section('content')
-{{ Form:: open(array('url'=>'catalogos/ejecutores')) }}
-<div class="row">
-    <a class="btn btn-info" href="{{action('catalogos_ejecutoresController@create')}}" role="button">
-        <span class="glyphicon glyphicon-plus"></span> Crear ejecución 
+<!--<div class="row">
+    <a class="btn btn-info" href="{{action('ofvirtual_RegistroEscrituraController@create')}}" role="button">
+        <span class="glyphicon glyphicon-plus"></span> Capturar 
     </a>
-</div>
-<br>
-
+</div> -->
 <div class="row">
-  <fieldset>
 
-  <legend>Datos notario</legend>
-    @include('ofvirtual.notario.registro._form')
-  </fieldset>
+     @include('ofvirtual.notario.registro._form',compact('municipios'))
+ 
 </div>
 
+<!-- listado traslados -->
+    <div class="row">
+        @include('ofvirtual.notario.registro._list', compact('registro'))
+    </div><!-- /.row -->
 @stop

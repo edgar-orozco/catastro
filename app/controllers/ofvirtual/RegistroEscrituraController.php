@@ -9,7 +9,11 @@ class ofvirtual_RegistroEscrituraController extends \BaseController {
 	 */
 	public function getIndex()
 	{
-
+		$title = "Registro de escrituras";
+		$registro= RegistroEscrituras::all();
+		//dd($registro);
+		$municipios = Municipio::orderBy('nombre_municipio', 'ASC')->lists('nombre_municipio', 'municipio');
+            return View::make('ofvirtual.notario.registro.index', compact('title','municipios','registro'));
 	}
 
 
@@ -20,7 +24,10 @@ class ofvirtual_RegistroEscrituraController extends \BaseController {
 	 */
 	public function create()
 	{
-	    $persona = new personas();
+	 /*	$municipios = Municipio::orderBy('nombre_municipio', 'ASC')->lists('nombre_municipio', 'municipio');
+		 return View::make('ofvirtual.notario.registro._form',compact('municipios'));
+           compact('title', 'title_section','subtitle_section', 'inpc', 'inpcs', 'mes', 'anio'));*/
+	   $persona = new personas();
 			$persona->fill(Input::get('persona'))->save();
 			Session::flash('mensaje', 'El registro ha sido ingresado exitosamente');
       return Response::json(array
