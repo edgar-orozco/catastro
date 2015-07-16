@@ -19,8 +19,8 @@
                 <tr>
                     <th>Clave</th>
                     <th>Cuenta</th>
-                    <th>Comprador</th>
-                    <th>Vendedor</th>
+                    <th>Adquiriente</th>
+                    <th>Enajenante</th>
                     <th>Fecha</th>
                     <th>Folio</th>
                     <th>Acciones</th>
@@ -36,9 +36,9 @@
                         <td>
                             {{$traslado->cuenta}}
                         </td>
-                        <td> {{$traslado->comprador->nombres}} {{$traslado->comprador->apellido_paterno}} {{$traslado->comprador->apellido_materno}}</td>
+                        <td> {{$traslado->adquiriente->nombres}} {{$traslado->adquiriente->apellido_paterno}} {{$traslado->adquiriente->apellido_materno}}</td>
 
-                        <td>{{$traslado->vendedor->nombres}} {{$traslado->vendedor->apellido_paterno}} {{$traslado->vendedor->apellido_materno}}</td>
+                        <td>{{$traslado->enajenante->nombres}} {{$traslado->enajenante->apellido_paterno}} {{$traslado->enajenante->apellido_materno}}</td>
                         <td nowrap> {{$traslado->created_at->format("d-m-Y")}}</td>
                         <td nowrap>
                             {{$traslado->folio}}
