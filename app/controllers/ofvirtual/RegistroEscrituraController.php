@@ -10,10 +10,16 @@ class ofvirtual_RegistroEscrituraController extends \BaseController {
 	public function getIndex()
 	{
 		$title = "Registro de escrituras";
-		$registro= RegistroEscrituras::all();
+		 //Título de sección:
+        $title_section = "Listado de Registro de Escrituras. ";
+
+        //Subtítulo de sección:
+        $subtitle_section = "Crear, modificar, buscar, imprimir.";
+
+		$registros= RegistroEscrituras::all();
 		//dd($registro);
 		$municipios = Municipio::orderBy('nombre_municipio', 'ASC')->lists('nombre_municipio', 'municipio');
-            return View::make('ofvirtual.notario.registro.index', compact('title','municipios','registro'));
+            return View::make('ofvirtual.notario.registro.index', compact('title',  'title_section', 'subtitle_section','municipios','registros'));
 	}
 
 
@@ -24,16 +30,22 @@ class ofvirtual_RegistroEscrituraController extends \BaseController {
 	 */
 	public function create()
 	{
-	 /*	$municipios = Municipio::orderBy('nombre_municipio', 'ASC')->lists('nombre_municipio', 'municipio');
-		 return View::make('ofvirtual.notario.registro._form',compact('municipios'));
-           compact('title', 'title_section','subtitle_section', 'inpc', 'inpcs', 'mes', 'anio'));*/
-	   $persona = new personas();
+		$title = "Captura de datos";
+		 //Título de sección:
+        $title_section = "Captura de datos. ";
+
+        
+
+	 $municipios = Municipio::orderBy('nombre_municipio', 'ASC')->lists('nombre_municipio', 'municipio');
+		 return View::make('ofvirtual.notario.registro._form',compact('municipios','title',  'title_section', 'subtitle_section'));
+       /*     compact('title', 'title_section','subtitle_section', 'inpc', 'inpcs', 'mes', 'anio'));
+		  $persona = new personas();
 			$persona->fill(Input::get('persona'))->save();
 			Session::flash('mensaje', 'El registro ha sido ingresado exitosamente');
       return Response::json(array
         (
           'valor' => 'exito'
-        ));
+        ));*/
 
 }
 	/**

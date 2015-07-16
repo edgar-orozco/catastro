@@ -4,20 +4,29 @@
 {{{ $title}}} :: @parent
 @stop
 
-@section('content')
-<!--<div class="row">
-    <a class="btn btn-info" href="{{action('ofvirtual_RegistroEscrituraController@create')}}" role="button">
-        <span class="glyphicon glyphicon-plus"></span> Capturar 
-    </a>
-</div> -->
-<div class="row">
+@section('javascript')
+ <script>
+    $(document).ready(function(){ 
+   $('#alternar-respuesta-ej1').on('click',function(){
+      $('#respuesta-ej1').toggle();
+   });
+});
 
-     @include('ofvirtual.notario.registro._form',compact('municipios'))
- 
+    </script>
+
+@stop
+
+
+@section('content')
+<div class="row">
+    <a class="btn btn-info" href="/ofvirtual/notario/registro" role="button">
+        <span class="glyphicon glyphicon-plus"></span> Capturar Registro
+    </a>
 </div>
+<br>
 
 <!-- listado traslados -->
     <div class="row">
-        @include('ofvirtual.notario.registro._list', compact('registro'))
+        @include('ofvirtual.notario.registro._list', compact('registros'))
     </div><!-- /.row -->
 @stop
