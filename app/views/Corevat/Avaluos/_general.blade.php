@@ -116,7 +116,7 @@
 	<div class="col-md-6">
 		<div class="form-group">
 			{{Form::label('cuenta_catastral', 'Catastral')}}
-			{{Form::text('cuenta_catastral', $row->cuenta_catastral, ['class'=>'form-control', 'tabindex'=>'20', 'maxlength'=>'15', 'size'=>'16','required' => 'required', 'pattern' => '\d{2}-[RUru]{1}-\d{6}'  ])}}
+			{{Form::text('cuenta_catastral', $row->cuenta_catastral, ['class'=>'form-control', 'tabindex'=>'20', 'maxlength'=>'15', 'size'=>'16','required' => 'required', 'pattern' => '\d{3}-\d{4}-\d{6}'  ])}}
 		</div>
 	</div>
 	<div class="col-md-6">
