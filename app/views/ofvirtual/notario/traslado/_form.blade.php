@@ -322,7 +322,7 @@
 
             <br>
             {{Form::label('traslado[precio_base]','Precio base')}}
-            {{Form::number('traslado[precio_base]', null, ['class'=>'form-control', 'min' => 0, 'step'=>'any', 'min'=>0, 'required'=>false] )}}
+            {{Form::number('traslado[precio_base]', null, ['id'=>'precio_base', 'class'=>'form-control', 'min' => 0, 'step'=>'any', 'min'=>0, 'required'=>false, 'readonly'=>true] )}}
             {{$errors->first('traslado[precio_base]', '<span class=text-danger>:message</span>')}}
 
 
@@ -369,15 +369,15 @@
         <div class="panel-body">
 
             {{Form::label('traslado[valor_catastral]','Valor catastral')}}
-            {{Form::number('traslado[valor_catastral]', null, ['class'=>'form-control', 'min' => 0, 'step'=>'any', 'min'=>0, 'required'=>false] )}}
+            {{Form::number('traslado[valor_catastral]', null, ['id'=>'valor_catastral','class'=>'form-control precioBase', 'min' => 0, 'step'=>'any', 'min'=>0, 'required'=>true] )}}
             {{$errors->first('traslado[valor_catastral]', '<span class=text-danger>:message</span>')}}
 
             {{Form::label('traslado[valor_operacion]','Valor de operación')}}
-            {{Form::number('traslado[valor_operacion]', null, ['class'=>'form-control', 'min' => 0, 'step'=>'any', 'min'=>0, 'required'=>false] )}}
+            {{Form::number('traslado[valor_operacion]', null, ['id'=>'valor_operacion', 'class'=>'form-control precioBase', 'min' => 0, 'step'=>'any', 'min'=>0, 'required'=>true] )}}
             {{$errors->first('traslado[valor_operacion]', '<span class=text-danger>:message</span>')}}
 
             {{Form::label('traslado[valor_comercial]','Valor comercial del inmueble')}}
-            {{Form::number('traslado[valor_comercial]', null, ['class'=>'form-control', 'min' => 0, 'step'=>'any', 'min'=>0, 'required'=>false] )}}
+            {{Form::number('traslado[valor_comercial]', null, ['id'=>'valor_comercial','class'=>'form-control precioBase', 'min' => 0, 'step'=>'any', 'min'=>0, 'required'=>true] )}}
             {{$errors->first('traslado[valor_comercial]', '<span class=text-danger>:message</span>')}}
 
             {{Form::label(null,'Valuador num')}}<br>
@@ -531,6 +531,30 @@
                     $('#enajenante-rfc').attr('pattern', '([A-Za-z]{3})([0-9]{6})([A-Za-z0-9]{3})');
                 }
             });
+
+           /* Se debe tomar el valor mayor de los ingresados en los campos de la sección Valores para base de pago
+            (ver referencia de campos en el ticket: #98251408)
+            el valor mayor de los tres campos:
+                    valor_catastral
+            valor_operacion
+            valor_comercial
+            debe ponerse en el campo que dice Precio base del impuesto en la sección Liquidación de vivienda
+            y debe ser de sólo lectura una vez que se ha realizado la peración.
+                    El evento que desencadena las operaciones es el evento onchange de cada uno de los tres campos.*/
+            $(".precioBase").change(function () {
+               var valorCatastral =$("#valor_catastral").val();
+               var valorOperacion = $("#valor_operacion").val();
+               var  valorComercial = $("#valor_comercial").val();
+
+                console.log
+                console.log(Math.max(valorCatastral, valorOperacion, valorComercial));
+
+                $("#precio_base").val(Math.max(valorCatastral, valorOperacion, valorComercial));
+            });
+
+
+
+
 
         });
     </script>
