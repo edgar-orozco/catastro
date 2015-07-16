@@ -32,35 +32,43 @@ class Traslado extends Eloquent
     public function notaria()
     {
 
-        return $this->belongsTo('Notaria', 'notaria_id', 'id_notaria');
+        return $this->belongsTo('Notaria', 'notaria_escritura_id', 'id_notaria');
 
 
     }
 
-    public function comprador()
+    public function notario()
     {
 
-        return $this->belongsTo('personas', 'comprador_id', 'id_p');
+        return $this->belongsTo('Notaria', 'notario_escritura_id', 'id_notario');
 
 
     }
 
-
-    public function vendedor()
+    public function adquiriente()
     {
 
-        return $this->belongsTo('personas', 'vendedor_id', 'id_p');
+        return $this->belongsTo('personas', 'adquiriente_id', 'id_p');
 
 
     }
 
-    public function colindancia()
+
+    public function enajenante()
+    {
+
+        return $this->belongsTo('personas', 'enajenante_id', 'id_p');
+
+
+    }
+
+   /* public function colindancia()
     {
 
         return $this->hasMany('TrasladoColindancia', 'traslado_id', 'id');
 
 
-    }
+    }*/
 
     /**
      * Scope para consultar  traslados por el nombre del vendedor, puede consultar por el nombre exacto o por nombre parcial (una fraccion del nombre)
@@ -68,8 +76,8 @@ class Traslado extends Eloquent
      * @param $nombre
      * @return mixed
      */
-    public function scopeVendedorNombreCompleto($q, $nombre){
-        return $q->whereHas('vendedor', function($qry) use ($nombre)
+    public function scopeEnajenanteNombreCompleto($q, $nombre){
+        return $q->whereHas('enajenante', function($qry) use ($nombre)
         {
             $qry->whereRaw('nombrec ~* ?', [$nombre]);
         });
@@ -82,8 +90,8 @@ class Traslado extends Eloquent
      * @param $nombre
      * @return mixed
      */
-    public function scopeCompradorNombreCompleto($q, $nombre){
-        return $q->whereHas('comprador', function($qry) use ($nombre)
+    public function scopeAdquirienteNombreCompleto($q, $nombre){
+        return $q->whereHas('adquiriente', function($qry) use ($nombre)
         {
             $qry->whereRaw('nombrec ~* ?', [$nombre]);
         });

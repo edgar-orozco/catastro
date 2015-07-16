@@ -13,8 +13,8 @@
             </button>
             <ul class="dropdown-menu dropdown-menu-right dropdown-tipo" role="menu">
                 <li><a href="javascript:void(0);" data-tipo="Folio">Folio</a></li>
-                <li><a href="javascript:void(0);" data-tipo="Vendedor">Nombre del vendedor</a></li>
-                <li><a href="javascript:void(0);" data-tipo="Comprador">Nombre del comprador</a></li>
+                <li><a href="javascript:void(0);" data-tipo="Enajenante">Nombre del enajenante</a></li>
+                <li><a href="javascript:void(0);" data-tipo="Adquiriente">Nombre del adquiriente</a></li>
                 <li><a href="javascript:void(0);" data-tipo="Ubicación">Ubicación de la propiedad</a></li>
                 <li><a href="javascript:void(0);" data-tipo="Clave">Clave catastral de propiedad</a></li>
                 <li><a href="javascript:void(0);" data-tipo="Cuenta">Número de cuenta de la propiedad</a></li>

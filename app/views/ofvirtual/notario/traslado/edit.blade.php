@@ -39,27 +39,27 @@
 @section('javascript')
     <script>
     $( document ).ready(function() {
-          $('.vendedor-radio-persona').each(function(){
+          $('.enajenante-radio-persona').each(function(){
                   var chb = $(this);
                   if(chb.is(':checked')){
                      //chb.click();
                      //$('label[for="'+chb.attr("id")+'"]').click();
                       //física
                      if(chb.val() == '1'){
-                         $('.vendedor-campos-fisica').show();
-                         $('.vendedor-tipo_persona').val('1');
-                         $('#vendedor-rfc').attr('pattern', '([A-Za-z]{4})([0-9]{6})([A-Za-z0-9]{3})');
+                         $('.enajenante-campos-fisica').show();
+                         $('.enajenante-tipo_persona').val('1');
+                         $('#enajenante-rfc').attr('pattern', '([A-Za-z]{4})([0-9]{6})([A-Za-z0-9]{3})');
                      }
                      //moral
                      else if(chb.val() == '2')
                      {
-                         $('.vendedor-campos-fisica').hide();
-                         $('.vendedor-tipo_persona').val('2');
-                         $('#vendedor-rfc').attr('pattern', '([A-Za-z]{3})([0-9]{6})([A-Za-z0-9]{3})');
+                         $('.enajenante-campos-fisica').hide();
+                         $('.enajenante-tipo_persona').val('2');
+                         $('#enajenante-rfc').attr('pattern', '([A-Za-z]{3})([0-9]{6})([A-Za-z0-9]{3})');
                      }
                    }
                });
-           $('.comprador-radio-persona').each(function(){
+           $('.adquiriente-radio-persona').each(function(){
                var chb = $(this);
                if(chb.is(':checked')){
                    //
@@ -67,21 +67,31 @@
                    //  $("label[for='"+chb.attr("id")+"']").click();
                    //física
                     if(chb.val() == '1'){
-                        $('.comprador-campos-fisica').show();
-                        $('.comprador-tipo_persona').val('1');
-                        $('#comprador-rfc').attr('pattern', '([A-Za-z]{4})([0-9]{6})([A-Za-z0-9]{3})');
+                        $('.adquiriente-campos-fisica').show();
+                        $('.adquiriente-tipo_persona').val('1');
+                        $('#adquiriente-rfc').attr('pattern', '([A-Za-z]{4})([0-9]{6})([A-Za-z0-9]{3})');
                     }
                     //mora
                     else if(chb.val() == '2')
                     {
-                        $('.comprador-campos-fisica').hide();
-                        $('.comprador-tipo_persona').val('1');
-                         $('#comprador-rfc').attr('pattern', '([A-Za-z]{3})([0-9]{6})([A-Za-z0-9]{3})');
+                        $('.adquiriente-campos-fisica').hide();
+                        $('.adquiriente-tipo_persona').val('1');
+                         $('#adquiriente-rfc').attr('pattern', '([A-Za-z]{3})([0-9]{6})([A-Za-z0-9]{3})');
                     }
 
                }
            });
-      });
+
+
+
+        $("#notario_antecedente_id").select2("val",  {{ $traslado->notario_antecedente_id }});
+
+        $("#valuador_num_ant").select2("val", {{ $traslado->valuador_num_ant }} );
+
+        $("#valuador_num").select2("val", {{ $traslado->valuador_num }} );
+
+
+    });
     </script>
 
 @append
