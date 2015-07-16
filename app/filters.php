@@ -107,7 +107,7 @@ Route::filter('admin', function () {
  */
 Route::filter('corevat', function () {
 
-    if (! ( Entrust::hasRole('Perito Valuador') ||  Entrust::hasRole('Super usuario') ) ) // Checks the current user
+    if (! ( Entrust::hasRole('Perito Valuador') ||  Entrust::hasRole('Administrador') ||  Entrust::hasRole('Super usuario') ) ) // Checks the current user
     {
         return Redirect::to('/');
     }
