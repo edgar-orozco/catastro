@@ -167,8 +167,8 @@
 <script>
 	$(document).ready(function () {
 
-    $('#cuenta_catastral').mask('YY-S-YYYYYY', {
-                                    placeholder: "__-_-______", 
+    $('#cuenta_catastral').mask('YYY-YYYY-YYYYYY', {
+                                    placeholder: "___-____-______", 
                                     translation: {
                                         S: {pattern: /[RUru]/},  
                                         Y: {pattern: /[0-9]/}
