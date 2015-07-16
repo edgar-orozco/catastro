@@ -71,14 +71,19 @@ class OficinaVirtualNotarioController extends \BaseController
         $identificador = strtoupper($identificador);
         $predio = $this->padron->getByClaveOCuenta($identificador);
 
+        $notarioEscritura = Auth::user()->notaria->notario->nombres.' ' .Auth::user()->notaria->notario->apellido_paterno. ' '.Auth::user()->notaria->notario->apellido_materno;
+
+        $notariaEscritura = Auth::user()->notaria->nombre.Auth::user()->notaria->mpio->nombre_municipio.Auth::user()->notaria->estado->nom_ent;
+
         //Si la clave no se encuentra
         if (!$predio) {
             return Redirect::to('ofvirtual/notario/traslado')->with('error', 'La clave o cuenta es incorrecta.');
         }
 
-        $JsonColindancias = NULL;
+        //$JsonColindancias = NULL;
 
-        return View:: make('ofvirtual.notario.traslado.create', compact('title', 'traslado', 'predio','JsonColindancias'));
+        return View:: make('ofvirtual.notario.traslado.create', compact('title', 'traslado', 'predio','notarioEscritura','notariaEscritura'));
+        //return View:: make('ofvirtual.notario.traslado.create', compact('title', 'traslado', 'predio','notarioEscritura','notariaEscritura',  'JsonColindancias'));
 
     }
 
@@ -93,34 +98,36 @@ class OficinaVirtualNotarioController extends \BaseController
         //
         $usuarioId = Auth::id();
 
-        //ToDo: sacar notaria del usuario
-        $notariaId = 1;
+        //
 
-        $vendedor = new personas();
-        $datosVendedor = Input::get('vendedor');
-        //$datosVendedor['nombrec'] = $datosVendedor['nombres'] . ' ' . $datosVendedor['apellido_paterno'] . ' ' . $datosVendedor['apellido_materno'];
-        $vendedor->fill($datosVendedor);
+        $notarioEscrituraId = Auth::user()->notaria->id_notario;
 
-        if (!$vendedor->save()) {
-            return Redirect::back()->with('error', 'Error en datos del vendedor.');
+        $notariaEscrituraId = Auth::user()->notaria->id_notaria;
+
+
+        $enajenante = new personas();
+        $datosEnajenante = Input::get('enajenante');
+        $enajenante->fill($datosEnajenante);
+
+        if (!$enajenante->save()) {
+            return Redirect::back()->with('error', 'Error en datos del enajenante.');
         }
 
-        $comprador = new personas();
-        //$datosComprador = array_map('mb_strtoupper', (Input::get('comprador')));
-        $datosComprador = Input::get('comprador');
-       // $datosComprador['nombrec'] = $datosComprador['nombres'] . ' ' . $datosComprador['apellido_paterno'] . ' ' . $datosComprador['apellido_materno'];
-        $comprador->fill($datosComprador);
+        $adquiriente = new personas();
+        $datosAdquiriente = Input::get('adquiriente');
+        $adquiriente->fill($datosAdquiriente);
 
-        if (!$comprador->save()) {
-            return Redirect::back()->with('error', 'Error en datos del comprador.');
+        if (!$adquiriente->save()) {
+            return Redirect::back()->with('error', 'Error en datos del adquiriente.');
         }
 
         $traslado = new Traslado();
         $traslado->fill(array_filter(Input::get('traslado')));
         $traslado->usuario_id = $usuarioId;
-        $traslado->notaria_id = $notariaId;
-        $traslado->vendedor_id = $vendedor->id_p;
-        $traslado->comprador_id = $comprador->id_p;
+        $traslado->notario_escritura_id = $notarioEscrituraId;
+        $traslado->notaria_escritura_id = $notariaEscrituraId;
+        $traslado->enajenante_id = $enajenante->id_p;
+        $traslado->adquiriente_id = $adquiriente->id_p;
 
         //Como usuario notario, requiero que se validen los montos de terreno a vender no sean mayores que el declarado en el registro de predio.
         $predio = $this->padron->getByClaveOCuenta($traslado->clave);
@@ -138,14 +145,14 @@ class OficinaVirtualNotarioController extends \BaseController
         }
 
 
-        foreach(Input::get('colindancia') as $colindancia) {
+        /*foreach(Input::get('colindancia') as $colindancia) {
             $colindancia['traslado_id'] = $traslado->id;
             $oColindancias[] = new TrasladoColindancia($colindancia);
-        }
+        }*/
 
-        if (!$traslado->colindancia()->saveMany($oColindancias)) {
+        /*if (!$traslado->colindancia()->saveMany($oColindancias)) {
             return Redirect::back()->with('error', 'Error en datos de la(s) colindancia(s).');
-        }
+        }*/
 
 
         //Dado que fue exitosa la creacion del traslado,  mostramos la salida al usuario.
@@ -167,23 +174,24 @@ class OficinaVirtualNotarioController extends \BaseController
 
         $predio = $this->padron->getByClaveOCuenta($traslado->clave);
 
-        //vendedor
-        $vendedor = personas::find($traslado->vendedor_id);
-        $traslado->vendedor->fill($vendedor->toArray());
+        //enajenante
+        $enajenante = personas::find($traslado->enajenante_id);
+        $traslado->enajenante->fill($enajenante->toArray());
 
-        //comprador
-        $comprador = personas::find($traslado->comprador_id);
-        $traslado->comprador->fill($comprador->toArray());
+        //adquiriente
+        $adquiriente = personas::find($traslado->adquiriente_id);
+        $traslado->adquiriente->fill($adquiriente->toArray());
 
         $traslado->traslado = $traslado;
 
-        $colindancias = $traslado->colindancia;
+        //$colindancias = $traslado->colindancia;
 
         // Title
         $title = 'Editar traslado de dominio';
 
         // Show the page
-        return View:: make('ofvirtual.notario.traslado.show', compact('title', 'traslado', 'predio', 'colindancias'));
+        return View:: make('ofvirtual.notario.traslado.show', compact('title', 'traslado', 'predio'));
+        //return View:: make('ofvirtual.notario.traslado.show', compact('title', 'traslado', 'predio', 'colindancias'));
 
     }
 
@@ -217,22 +225,32 @@ class OficinaVirtualNotarioController extends \BaseController
 
         $predio = $this->padron->getByClaveOCuenta($traslado->clave);
 
-        //vendedor
-        $vendedor = personas::find($traslado->vendedor_id);
-        $traslado->vendedor->fill($vendedor->toArray());
+        //enajenante
+        $enajenante = personas::find($traslado->enajenante_id);
+        $traslado->enajenante->fill($enajenante->toArray());
 
-        //comprador
-        $comprador = personas::find($traslado->comprador_id);
-        $traslado->comprador->fill($comprador->toArray());
+        //adquiriente
+        $adquiriente = personas::find($traslado->adquiriente_id);
+        $traslado->adquiriente->fill($adquiriente->toArray());
 
         $traslado->traslado = $traslado;
 
-        $JsonColindancias = $traslado->colindancia->toJson();
+        $notario = Notaria::where('id_notario', $traslado->notario_escritura_id)->first();
+
+        $notarioEscritura = $notario->notario->nombres.' ' .$notario->notario->apellido_paterno. ' '.$notario->notario->apellido_materno;
+
+        $notaria = Notaria::find($traslado->notaria_escritura_id);
+        $notariaEscritura = $notaria->nombre.$notaria->mpio->nombre_municipio.$notaria->estado->nom_ent;
+
+
+
+        //$JsonColindancias = $traslado->colindancia->toJson();
         // Title
         $title = 'Editar traslado de dominio';
 
         // Show the page
-        return View:: make('ofvirtual.notario.traslado.edit', compact('title', 'traslado', 'predio', 'JsonColindancias'));
+        //return View:: make('ofvirtual.notario.traslado.edit', compact('title', 'traslado', 'predio', 'JsonColindancias'));
+        return View:: make('ofvirtual.notario.traslado.edit', compact('title', 'traslado', 'predio', 'notarioEscritura','notariaEscritura'));
     }
 
 
@@ -252,27 +270,26 @@ class OficinaVirtualNotarioController extends \BaseController
 
         //ToDo: checar si se puede hacer update de notaria y usuario
         //$usuarioId = Auth::id();
-        //$notariaId =  1;
 
-        $vendedor = personas::find($traslado->vendedor_id);
-        //$datosVendedor = array_map('mb_strtoupper', (Input::get('vendedor')));
-        $datosVendedor = Input::get('vendedor');
-        //$datosVendedor['nombrec'] = $datosVendedor['nombres'] . ' ' . $datosVendedor['apellido_paterno'] . ' ' . $datosVendedor['apellido_materno'];
-        $vendedor->fill($datosVendedor);
+        $enajenante = personas::find($traslado->enajenante_id);
+        //$datosEnajenante = array_map('mb_strtoupper', (Input::get('enajenante')));
+        $datosEnajenante = Input::get('enajenante');
+        //$datosEnajenante['nombrec'] = $datosEnajenante['nombres'] . ' ' . $datosEnajenante['apellido_paterno'] . ' ' . $datosEnajenante['apellido_materno'];
+        $enajenante->fill($datosEnajenante);
 
-        if (!$vendedor->save()) {
-            return Redirect::back()->with('error', 'Error en datos del vendedor.');
+        if (!$enajenante->save()) {
+            return Redirect::back()->with('error', 'Error en datos del enajenante.');
         }
 
-        $comprador = personas::find($traslado->comprador_id);
-       // $datosComprador = array_map('mb_strtoupper', (Input::get('comprador')));
-        $datosComprador = Input::get('comprador');
-       // $datosComprador['nombrec'] = $datosComprador['nombres'] . ' ' . $datosComprador['apellido_paterno'] . ' ' . $datosComprador['apellido_materno'];
-        $comprador->fill($datosComprador);
+        $adquiriente = personas::find($traslado->adquiriente_id);
+       // $datosAdquiriente = array_map('mb_strtoupper', (Input::get('adquiriente')));
+        $datosAdquiriente = Input::get('adquiriente');
+       // $datosAdquiriente['nombrec'] = $datosAdquiriente['nombres'] . ' ' . $datosAdquiriente['apellido_paterno'] . ' ' . $datosAdquiriente['apellido_materno'];
+        $adquiriente->fill($datosAdquiriente);
 
 
-        if (!$comprador->save()) {
-            return Redirect::back()->with('error', 'Error en datos del comprador.');
+        if (!$adquiriente->save()) {
+            return Redirect::back()->with('error', 'Error en datos del adquiriente.');
         }
 
         $traslado->fill(array_filter(Input::get('traslado')));
@@ -293,7 +310,7 @@ class OficinaVirtualNotarioController extends \BaseController
         }
 
         //borramos primero las colindancias existentes
-        $traslado->colindancia()->delete();
+        /*$traslado->colindancia()->delete();
          foreach(Input::get('colindancia') as $colindancia) {
             $colindancia['traslado_id'] = $id;
             $oColindancias[] = new TrasladoColindancia($colindancia);
@@ -301,13 +318,13 @@ class OficinaVirtualNotarioController extends \BaseController
 
         if (!$traslado->colindancia()->saveMany($oColindancias)) {
             return Redirect::back()->with('error', 'Error en datos de la(s) colindancia(s).');
-        }
+        }*/
 
 
 
 
         //Dado que fue exitosa la actualización mostramos la salida al usuario.
-          return Redirect::to('ofvirtual/notario/traslado/show/' . $traslado->id)->with('success', '¡Se ha creado correctamente el traslado de dominio para la cuenta ' . $traslado->cuenta . '!');
+          return Redirect::to('ofvirtual/notario/traslado/show/' . $traslado->id)->with('success', '¡Se ha editado correctamente el traslado de dominio para la cuenta ' . $traslado->cuenta . '!');
     }
 
 
@@ -324,15 +341,15 @@ class OficinaVirtualNotarioController extends \BaseController
 
         $traslado = Traslado::find($id);
 
-        $traslado->colindancia()->delete();
+       // $traslado->colindancia()->delete();
 
         $traslado->delete();
 
-        $vendedor = personas::find($traslado->vendedor_id);
-        $vendedor->delete();
+        $enajenante = personas::find($traslado->enajenante_id);
+        $enajenante->delete();
 
-        $comprador = personas::find($traslado->comprador_id);
-        $comprador->delete();
+        $adquiriente = personas::find($traslado->adquiriente_id);
+        $adquiriente->delete();
 
 
 
@@ -353,11 +370,11 @@ class OficinaVirtualNotarioController extends \BaseController
         if ($tipo == 'Folio') {
             $traslados = Traslado::whereFolio($q)->paginate($this->numPags);
         }
-        if ($tipo == 'Vendedor') {
-            $traslados = Traslado::vendedorNombreCompleto(strtoupper($q))->paginate($this->numPags);
+        if ($tipo == 'Enajenante') {
+            $traslados = Traslado::enajenanteNombreCompleto(strtoupper($q))->paginate($this->numPags);
         }
-        if ($tipo == 'Comprador') {
-            $traslados = Traslado::compradorNombreCompleto(strtoupper($q))->paginate($this->numPags);
+        if ($tipo == 'Adquiriente') {
+            $traslados = Traslado::adquirienteNombreCompleto(strtoupper($q))->paginate($this->numPags);
         }
         if ($tipo == 'Ubicación de la propiedad') {
 
