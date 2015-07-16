@@ -101,3 +101,14 @@ Route::filter('admin', function () {
         return Redirect::to('/');
     }
 });
+
+/*
+ * Filtro para detección de roles corevat y admin
+ */
+Route::filter('corevat', function () {
+
+    if (! ( Entrust::hasRole('Perito Valuador') ||  Entrust::hasRole('Super usuario') ) ) // Checks the current user
+    {
+        return Redirect::to('/');
+    }
+});

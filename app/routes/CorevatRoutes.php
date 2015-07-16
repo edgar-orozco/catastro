@@ -1,6 +1,10 @@
 <?php
 
+/**
+ * Se agrupan las acciones administrativas sobre catálogos
+ */
 Route::group(array('before' => 'admin'), function () {
+
 	/*
 	 * CATALOGO DE EMPRESAS
 	 * empresas
@@ -526,6 +530,17 @@ Route::group(array('before' => 'admin'), function () {
 
 	Route::put('corevat/CatUsosSuelos/{id?}.{format}', array('as' => 'showCatUsosSuelos', 'uses' => 'corevat_CatUsosSuelosController@show'));
 
+});
+
+/**
+ * Se agrupan las funciones exclusivamente de valuador que no tienen que ver con administración de catálogos.
+ */
+Route::group(array('before' => 'corevat'), function () {
+    /**
+     * Home del perito valuador.
+     */
+    Route::get('corevat/index', array('as' => 'indexCorevat', 'uses' => 'CorevatHomeController@index'));
+
 	/*
 	 * AVALUOS
 	 * avaluos
@@ -605,5 +620,5 @@ Route::group(array('before' => 'admin'), function () {
 
 // ------------------------ finaliza ROUTES for JQuery -------------------------------------------------
 
-
 });
+

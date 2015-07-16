@@ -213,3 +213,13 @@
         </ul>
     </li>
 @endif
+
+
+@if(!Auth::guest() && ( Auth::user()->hasRole("Perito Valuador")))
+    <li class="@if(Request::is('corevat/Avaluos/create')) active @endif">
+        <a href="{{URL::to('corevat/Avaluos/create')}}">Registrar Avalúo</a>
+    </li>
+    <li class="@if(Request::is('corevat/Avaluos')) active @endif">
+        <a href="{{URL::to('corevat/Avaluos')}}">Listar Avalúos</a>
+    </li>
+@endif
