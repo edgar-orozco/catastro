@@ -65,7 +65,7 @@ class CorevatCatsTablesSeeder extends Seeder {
         DB::connection($this->conn)->statement("UPDATE cat_clase_general_inmueble SET status_clase_general_inmueble = 1");
 
         //Eliminamos todas las entradas del catálogo que tienen estatus 0
-        DB::connection($this->conn)->statement("DELETE FROM municipios WHERE status = 0");
+        //DB::connection($this->conn)->statement("DELETE FROM municipios WHERE status = 0");
 
         //Modificamos la clave de cada municipio
         foreach($this->municipios as $municipio => $cve){
