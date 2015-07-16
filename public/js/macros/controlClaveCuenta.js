@@ -34,7 +34,8 @@ $(function () {
             $('.control-clave-cuenta .dropdown-label').text('Cuenta');
         }
         else {
-            $('.clave-catastral').mask("00-000-000-0000-000000", {placeholder: "__-___-___-____-______"});
+            //El formato de "uso común" en documentos es MZ-Lote-Predio
+            $('.clave-catastral').mask("000-0000-000000", {placeholder: "___-____-______"});
             $('.control-clave-cuenta .dropdown-label').text('Clave');
         }
     };
