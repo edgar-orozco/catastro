@@ -125,7 +125,12 @@ class Avaluos extends \Eloquent {
 		$row->altitud = $inputs["altitud"];
 		$row->idregimenpropiedad = $inputs["idregimenpropiedad"];
 		$row->cuenta_predial = $inputs["cuenta_predial"];
-		$row->cuenta_catastral = strtoupper($inputs["cuenta_catastral"]);
+		
+		// DIVIDIMOS LA CUENTA CATASTRAL PARA POSTERIORMENTE INCORPORAR LA LETRA "U" O "R"
+		// QUE SON LOS POSIBLES VALORES DEL COMBO "Serie" DE LA UI.
+		$a = preg_split("/-/", $inputs["cuenta_catastral"]);
+		$row->cuenta_catastral = $a[0]."-".$inputs["serie"]."-".$a[2];
+		//$row->cuenta_catastral = strtoupper($inputs["cuenta_catastral"]);
 		$row->nombre_solicitante = $inputs["nombre_solicitante"];
 		$row->nombre_propietario = $inputs["nombre_propietario"];
 	}

@@ -614,7 +614,7 @@ Route::group(array('before' => 'corevat'), function () {
 
 	Route::get('getCPFromMunicipios', function(){
 		$input = Input::get('option');
-		return Asentamiento::where('municipio',$input)->distinct()->get(['codigo_postal']);
+		return Asentamiento::where('municipio',$input)->distinct()->orderBy('codigo_postal')->get(['codigo_postal']);
 	});
 
 
