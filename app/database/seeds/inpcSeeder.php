@@ -307,5 +307,12 @@ class inpcSeeder extends Seeder {
             array('mes' => 4,'anio' => 2015 ,'inpc'=>116.345, 'usuario'=>$usuario )                
                 );
 
+       DB::table('inpc')->insert(
+            array('mes' => 5,'anio' => 2015 ,'inpc'=>115.764, 'usuario'=>$usuario )                
+                );
+
+      DB::table('inpc')->insert(
+            array('mes' => 6,'anio' => 2015 ,'inpc'=>115.958, 'usuario'=>$usuario )                
+                );
     }
 }
