@@ -1,11 +1,17 @@
-
-
-@section('content')
 {{ HTML::style('js/jquery/jquery-ui.css') }}
 
 {{ HTML::script('js/jquery/jquery-ui.js') }}
 
 
+@section('title')
+{{{ $title}}} :: @parent
+@stop
+
+
+
+@section('content')
+
+{{ Form::open(array('url' => '', 'method' => 'post', 'name' => 'formulario', 'id' => 'formulario'))}}
 <fieldset>
   <legend>DATOS DEL NOTARIO</legend>
   <div class="form-group">
@@ -48,19 +54,28 @@
     {{Form::label('acto','Naturaleza del acto:')}}
     {{Form::text('acto', null, ['class' => 'form-control'] )}}
 </div>
-<div class="col-md-6">
-    {{Form::label('enajenante','Nombre del Enajenante:')}}
-    {{Form::text('enajenante', null, ['class' => 'form-control'] )}}
+</fieldset>
+<fieldset>
+  <legend>Nombre del Enajenante </legend>
+  <p>Pregunta... (<a href="#" id="alternar-respuesta-ej1">ver respuesta</a>)
+<div class="col-md-12 add" id="respuesta-ej1" style="display:none">
+    {{Form::label('adquiriente','')}}
+    {{--Form::text('adquiriente', null, ['class' => 'form-control'] )--}}
+    <div class="col-md-12" id="adq">{{form::personas('enajenante')}}</div>
 </div>
-<div class="col-md-6">
+<div class="col-md-12">
     {{Form::label('direccion_e','Diección del enajenante:')}}
     {{Form::text('direccion_e', null, ['class' => 'form-control'] )}}
 </div>
-<div class="col-md-6">
-    {{Form::label('adquiriente','Nombre del Adquiriente:')}}
-    {{Form::text('adquiriente', null, ['class' => 'form-control'] )}}
+</fieldset>
+<fieldset>
+  <legend>Nombre del Adquiriente </legend>
+<div class="col-md-12">
+    {{Form::label('adquiriente','')}}
+    {{--Form::text('adquiriente', null, ['class' => 'form-control'] )--}}
+    <div class="col-md-12" id="adq">{{form::personas('adquiriente')}}</div>
 </div>
-<div class="col-md-6">
+<div class="col-md-12">
     {{Form::label('direccion_a','Diección del adquiriente:')}}
     {{Form::text('direccion_a', null, ['class' => 'form-control'] )}}
 </div>
@@ -141,8 +156,12 @@
 </fieldset>
 
     </div>
- 
+ {{Form::close()}}
+
+
+
 <script>
+
    //Calendario
 $(function() {
     $( "#datepicker" ).datepicker();

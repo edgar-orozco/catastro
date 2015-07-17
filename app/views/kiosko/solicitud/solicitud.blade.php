@@ -138,6 +138,15 @@
             </div>
             <br>
             <p align="center"><strong>ATENTAMENTE<br><br><br>____________________________________________<br>{{$solicitud->solicitante->nombrec}}</strong></p>
+            <br>
+            <br>
+            <br>
+            <br>
+            <table width="40%" align="right">
+                <tr>
+                    <th><img src="barcodes/{{$solicitud->seguimiento}}.png"  height="30"><br>{{$solicitud->seguimiento}}</th>
+                </tr>
+            </table>
         </div>
     </body>
 </html>

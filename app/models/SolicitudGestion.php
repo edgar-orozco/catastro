@@ -31,12 +31,12 @@ class SolicitudGestion extends Eloquent {
         }
 
         //Consultamos si es que ya existe un registro con la misma cadena dentro del rango de un año
-        $haceunanio = "";
+        $haceunanio = date("Y-m-d", strtotime('-1 year'));
 
         //Hacemos la consulta a ver si ya existe:
         $solicitud = SolicitudGestion::where('seguimiento',$cadena)
           // Aqui se debe consultar desde hoy hasta un año atras
-          ->where('created_at' > $haceunanio)
+          ->where('create_at', '>', $haceunanio)
           ->first();
 
         //Si existe una solicitud con la misma clave dentro del rango de tiempo del año pasado, entonces volvemos a crear una nueva cadena

@@ -1,4 +1,4 @@
-<div id="lista-tramites">
+<div id="lista-tramites" class="row-fluid">
     <div class="panel">
 
 
@@ -6,15 +6,16 @@
             <h4><span class="glyphicon glyphicon-ok"></span> Se eliminó correctamente el traslado de dominio.</h4>
         </div>
 
-        @if(count($registro) == 0)
-            <div class="panel-body">
-                <p>No hay registros dados de alta actualmente en el sistema.</p>
-            </div>
+        @if(count($registros) == 0)
+            
+            <div class="alert alert-success">
+            <h4><span class="glyphicon glyphicon-warning"></span> Se eliminó correctamente el traslado de dominio.</h4>
+        </div>
+
         @endif
 
         <div class="list-group">
-            <br/>
-            <table class="table">
+          <table class="table">
                 <thead>
                 <tr>
                     <th>Clave</th>
@@ -27,38 +28,38 @@
                 </tr>
                 </thead>
                 <tbody>
-                @foreach($registro as $traslado)
-                    <tr id="traslado-{{$traslado->id}}">
+                @foreach($registros as $registro)
+                    <tr id="traslado-{{$registro->id}}">
 
                         <td nowrap>
-                            {{$traslado->clave}}
+                            {{$registro->clave}}
                         </td>
                         <td>
-                            {{$traslado->cuenta}}
+                            {{$registro->cuenta}}
                         </td>
-                        <td> {{$traslado->comprador->nombres}} {{$traslado->comprador->apellido_paterno}} {{$traslado->comprador->apellido_materno}}</td>
+                        <td> {{$registro->comprador->nombres}} {{$registro->comprador->apellido_paterno}} {{$registro->comprador->apellido_materno}}</td>
 
-                        <td>{{$traslado->vendedor->nombres}} {{$traslado->vendedor->apellido_paterno}} {{$traslado->vendedor->apellido_materno}}</td>
-                        <td nowrap> {{$traslado->created_at->format("d-m-Y")}}</td>
+                        <td>{{$registro->vendedor->nombres}} {{$registro->vendedor->apellido_paterno}} {{$registro->vendedor->apellido_materno}}</td>
+                        <td nowrap> {{$registro->created_at->format("d-m-Y")}}</td>
                         <td nowrap>
-                            {{$traslado->folio}}
+                            {{$registro->folio}}
                         </td>
 
                         <td style="text-align: right;" nowrap>
 
-                            @if(!is_null($traslado->folio))
-                                <a href="{{ action('OficinaVirtualNotarioController@show', ['id' => $traslado->id]) }}"
+                            @if(!is_null($registro->folio))
+                                <a href="{{ action('OficinaVirtualNotarioController@show', ['id' => $registro->id]) }}"
                                    class="btn btn-info" title="Ver traslado">
                                     <span class="glyphicon glyphicon-list-alt"></span>
                                 </a>
                             @else
 
-                                <a href="{{ action('OficinaVirtualNotarioController@edit', ['id' => $traslado->id]) }}"
+                                <a href="{{ action('OficinaVirtualNotarioController@edit', ['id' => $registro->id]) }}"
                                    class="btn btn-warning" title="Editar traslado">
                                     <span class="glyphicon glyphicon-pencil"></span>
                                 </a>
                                 <a href="#" data-toggle="modal" data-target="#confirm-delete"
-                                   class="btn-borrar btn btn-danger" data-traslado_id="{{$traslado->id}}">
+                                   class="btn-borrar btn btn-danger" data-traslado_id="{{$registro->id}}">
                                     <span class="glyphicon glyphicon-trash danger"></span>
                                 </a>
                             @endif

@@ -72,6 +72,10 @@ class kiosko_SolicitudGestionController extends \BaseController
             {
                 return Redirect::to('kiosko/solicitud')->with('error','La Clave o Cuenta Ctastral No Exite');
             }else {
+                //traemos el codigo del seguimiento
+                $seguimiento=SolicitudGestion::cadenaSeguimientoUnica();
+                //generamos el codigo de barra
+                $path_imagen = DNS1D::getBarcodePNGPath($seguimiento, "C128");
                 //guardamos el nombre del solicitante
                 $solicitante = new Solicitante();
                 $solicitante -> apellido_paterno = mb_strtoupper($inputs ["apellido_paterno"]);

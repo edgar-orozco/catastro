@@ -3,7 +3,7 @@
 Route::get('/ofvirtual/notario/registro-escrituras','ofvirtual_RegistroEscrituraController@getIndex'); 
 
 
-
+Route::get('/ofvirtual/notario/registro','ofvirtual_RegistroEscrituraController@create'); 
 
 /*function()
           {
