@@ -116,7 +116,7 @@
 	<div class="col-md-6">
 		<div class="form-group">
 			{{Form::label('cuenta_catastral', 'Catastral')}}
-			{{Form::text('cuenta_catastral', $row->cuenta_catastral, ['class'=>'form-control', 'tabindex'=>'20', 'maxlength'=>'15', 'size'=>'16','required' => 'required', 'pattern' => '\d{2}-[RUru]{1}-\d{6}'  ])}}
+			{{Form::text('cuenta_catastral', $row->cuenta_catastral, ['class'=>'form-control', 'tabindex'=>'20', 'maxlength'=>'15', 'size'=>'16','required' => 'required', 'pattern' => '\d{3}-\d{4}-\d{6}'  ])}}
 		</div>
 	</div>
 	<div class="col-md-6">
@@ -158,13 +158,14 @@
 
 	$('#btn1General').removeClass("btn-info").addClass("btn-primary");
 
-    $('#cuenta_catastral').mask('YY-S-YYYYYY', {
-                                    placeholder: "__-_-______", 
+    $('#cuenta_catastral').mask('YYY-YYYY-YYYYYY', {
+                                    placeholder: "___-____-______", 
                                     translation: {
                                         S: {pattern: /[RUru]/},  
                                         Y: {pattern: /[0-9]/}
                                     }
                                 });
+ 
 
     $('#idestado').on("change",function(){
         $.get("{{ url('getMunicipiosFromEstados')}}", { option: $(this).val() }, 

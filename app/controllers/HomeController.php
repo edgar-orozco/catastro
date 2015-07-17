@@ -55,23 +55,23 @@ class HomeController extends BaseController
             $homepage = 'folios';
         }
         elseif (Confide::user()->hasRole('Supervisor Cartográfico')) {
-            //$homepage = 'folios';
             return Redirect::to('cartografia/consultas');
         }
         elseif (Confide::user()->hasRole('Folios usuario')) {
             $homepage = 'folios';
         }
         elseif (Confide::user()->hasRole('Folios municipio')) {
-            //$homepage = 'folios';
             return Redirect::to('/entregafoliosmunicipal');
         }
         elseif (Confide::user()->hasRole('Complementarios')) {
-            //$homepage = 'folios';
             return Redirect::to('/compleme');
         }
         elseif (Confide::user()->hasRole('Usuario de Notaría')) {
-            //$homepage = 'folios';
             return Redirect::to('/ofvirtual/notario');
+        }
+        elseif (Confide::user()->hasRole('Perito Valuador')) {
+
+            return Redirect::to('/corevat/index');
         }
         return View::make($homepage);
     }
