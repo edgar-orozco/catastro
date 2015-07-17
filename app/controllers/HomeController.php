@@ -73,6 +73,9 @@ class HomeController extends BaseController
 
             return Redirect::to('/corevat/index');
         }
+        elseif (Confide::user()->hasRole('Kiosko')) {
+            return Redirect::to('/kiosko/solicitud');
+        }
         return View::make($homepage);
     }
 } 
