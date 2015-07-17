@@ -98,6 +98,7 @@ class kiosko_SolicitudGestionController extends \BaseController
                 $solicitud -> tramite_id = $inputs["tramite_id"];
                 $solicitud -> municipio = $inputs["municipio"];
                 $solicitud -> clave = $inputs["clave"];
+                $solicitud -> seguimiento = $seguimiento;
                 $solicitud -> create_at = date('Y-m-d');
                 $solicitud -> save();
                 $id=$solicitud -> id; 
