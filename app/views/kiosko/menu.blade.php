@@ -1,4 +1,4 @@
-@if(!Auth::guest() && ( Auth::user()->can("Kiosko ")) )
+@if(!Auth::guest() && ( Auth::user()->can("solicitud_kioskos") || Auth::user()->can("seguimiento_kioskos")))
 <li class="dropdown @if(Request::is('kiosko/*')) active @endif">
     <a data-toggle="dropdown" class="dropdown-toggle" href="#">Kiosko<b class="caret"></b></a>
     <ul role="menu" class="dropdown-menu">
@@ -11,7 +11,7 @@
         <li class="@if(Request::is('ventanilla/imprimir-catalogo-tramites')) active @endif">
             <a href="{{URL::to('ventanilla/imprimir-catalogo-tramites')}}" target="_blank">
                 <i class="glyphicon glyphicon-list-alt"></i>&nbsp;
-                Tr√°mites y Precios
+                Tr·mites y Precios
             </a>
         </li>
     </ul>

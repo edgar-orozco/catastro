@@ -1,5 +1,5 @@
 <?php
-Route::group(array('before'=>'Kiosko'),  function (){
+Route::group(array('before'=>'Usuario de kiosko'),  function (){
 //Rutas para la primera solicitud de kiosko
 Route::post('kiosko/store',
         array('as'=>'storeKiosko','uses'=>'kiosko_SolicitudGestionController@store'));
@@ -16,9 +16,9 @@ Route::put('kiosko/solicitud/{id?}',
         array('as' => 'updateSolicitud', 'uses' => 'kiosko_SolicitudGestionController@update'));
 });
 
-Route::filter('Kiosko', function () {
+Route::filter('Usuario de kiosko', function () {
 
-    if (! ( Entrust::hasRole('Kiosko') ||  Entrust::hasRole('Super usuario') ) )
+    if (! ( Entrust::hasRole('Usuario de kiosko') ||  Entrust::hasRole('Super usuario') ) )
     {
         return Redirect::to('/');
     }
