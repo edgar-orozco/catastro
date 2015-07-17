@@ -1,4 +1,4 @@
-@if(!Auth::guest() && (Auth::user()->hasRole("Administrador") || Auth::user()->can("Kiosko ")) )
+@if(!Auth::guest() && ( Auth::user()->can("Kiosko ")) )
 <li class="dropdown @if(Request::is('kiosko/*')) active @endif">
     <a data-toggle="dropdown" class="dropdown-toggle" href="#">Kiosko<b class="caret"></b></a>
     <ul role="menu" class="dropdown-menu">
