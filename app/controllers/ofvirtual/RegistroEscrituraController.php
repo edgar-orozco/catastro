@@ -9,17 +9,34 @@ class ofvirtual_RegistroEscrituraController extends \BaseController {
 	 */
 	public function getIndex()
 	{
-		$title = "Registro de escrituras";
-		 //Título de sección:
-        $title_section = "Listado de Registro de Escrituras. ";
+		  //
+        $title = 'Listas de Registro de Escritura';
+
+        //Título de sección:
+        $title_section = "Listado de de Registros de Escritura. ";
 
         //Subtítulo de sección:
         $subtitle_section = "Crear, modificar, buscar, imprimir.";
 
-		$registros= RegistroEscrituras::all();
-		//dd($registro);
-		$municipios = Municipio::orderBy('nombre_municipio', 'ASC')->lists('nombre_municipio', 'municipio');
-            return View::make('ofvirtual.notario.registro.index', compact('title',  'title_section', 'subtitle_section','municipios','registros'));
+
+        $registros = RegistroEscrituras::all();
+
+        $misMunicipios = Auth::user()->municipios()->get(['gid']);
+
+        $aMisMunicipios = array();
+        foreach ($misMunicipios as $mun) {
+            $aMisMunicipios[] = $mun->gid;
+        }
+
+        if (empty($aMisMunicipios)) {
+            $municipios = Municipio::orderBy('nombre_municipio')->get();
+        } else {
+            $municipios = Municipio::whereIn('gid', $aMisMunicipios)->orderBy('nombre_municipio')->get();
+        }
+		$municipio = Municipio::orderBy('nombre_municipio', 'ASC')->lists('nombre_municipio', 'municipio');
+
+        return View:: make('ofvirtual.notario.registro.index', compact('title', 'title_section', 'subtitle_section', 'traslados', 'municipios','registros'));
+
 	}
 
 
