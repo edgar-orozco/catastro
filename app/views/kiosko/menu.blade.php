@@ -11,7 +11,7 @@
         <li class="@if(Request::is('ventanilla/imprimir-catalogo-tramites')) active @endif">
             <a href="{{URL::to('ventanilla/imprimir-catalogo-tramites')}}" target="_blank">
                 <i class="glyphicon glyphicon-list-alt"></i>&nbsp;
-                Tr·mites y Precios
+                Tr√°mites y Precios
             </a>
         </li>
     </ul>
