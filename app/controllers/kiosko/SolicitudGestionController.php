@@ -109,9 +109,9 @@ class kiosko_SolicitudGestionController extends \BaseController
     
     public function edit($id) 
     {
-        $solicitudGestion = SolicitudGestion::find($id);
-        $idp = SolicitudGestion::where('id',$id)->pluck('solicitante_id');
-        $solicitante = Solicitante::find($idp);
+        $solicitudGestion = SolicitudGestion::where('seguimiento','=',$id)->first();
+        //$idp = SolicitudGestion::where('id',$id)->pluck('solicitante_id');
+        //$solicitante = Solicitante::find($idp);
         
         $title = 'Administración de solicitud';
         
@@ -130,25 +130,23 @@ class kiosko_SolicitudGestionController extends \BaseController
         
        
         return View::make('kiosko.solicitud.edit',
-                compact('solicitudGestion','solicitante','title','title_section','subtitle_section','Tipotramite','Municipio','tipo_telefono'));
+                compact('solicitudGestion','title','title_section','subtitle_section','Tipotramite','Municipio','tipo_telefono'));
     }
     
     public function update($id, $format = 'html')        
     {
          $inputs = Input::All();
          
-        $seguimiento = SolicitudGestion::where('id',$id)->pluck('seguimiento');
+        $seguimiento = SolicitudGestion::where('seguimiento',$id)->pluck('id');
         
         $clave = Input::get('clave');
-        
+        //checamos si existe la clave o cuenta
         $res = $this->padron->getByClaveOCuenta($clave); 
-        
+        //si existe la clabe o cuenta hacemos los cambios
         if($res)
         {
-            if(!$seguimiento)
-            {
                 $inputs = Input::All();
-                $n = SolicitudGestion::find($id);
+                $n = SolicitudGestion::find($seguimiento);
                 $n -> tramite_id  = $inputs["tramite_id"];
                 $n -> municipio = $inputs["municipio"];
                 $n -> clave = $inputs["clave"];
@@ -168,15 +166,11 @@ class kiosko_SolicitudGestionController extends \BaseController
                 $solicitante -> tipo_telefono = $inputs["tipo_telefono"];
                 $solicitante -> correo = $inputs["correo"];
                 $solicitante -> save();
-
+                
                 return Redirect::to('kiosko/solicitud_pdf/'.$id);
-             }
-             return Redirect::to('/kiosko/solicitud')->with('error',
-            'La solicitud ya fue tomada' . "!");   
         }
         return Redirect::to('/kiosko/solicitud')->with('error',
         'La Clave o Cuenta Ctastral No Exite' . "!");
-            
     }
 
 

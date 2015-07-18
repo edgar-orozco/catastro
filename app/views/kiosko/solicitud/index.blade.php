@@ -5,15 +5,14 @@
 @stop
 
 @section('content')
- <div class="col-md-4">
-    {{Form::label('BUSCAR GESTIÓN CATASTRAL PARA EDITAR')}}
-        <div class="form-group">
-        {{Form::open(array('id'=>'form2','url'=>'kiosko/solicitud/edit/','method'=>'GET'))}}
+<div class="col-md-4">
+{{Form::label('BUSCAR GESTIÓN CATASTRAL PARA EDITAR')}}
+    <div class="form-group">
         {{Form::text('clave', null, ['id'=>'id'] )}}
         <a id="buscar" class="btn btn-warning" title="Editar"><span class="glyphicon glyphicon-pencil"></span></a>
-        </div>
-    {{Form::close()}}
     </div>
+{{Form::close()}}
+</div>
 <div class="col-sm-12 col-md-12 col-lg-12" id="mainForm">
     {{Form::open(array('id'=>'form','url'=>'kiosko/solicitud','method'=>'POST'))}}
         @include('kiosko.solicitud._form')
@@ -37,31 +36,7 @@
           
       });
       
-  });
-    
-    
-// $('#form').bind('submit', function ()
-//    {
-//        $.ajax(
-//                {
-//                    type: 'POST',
-//                    data: new FormData(this), //Toma todo lo que hay en el formulario, en este caso el archivo .txt o .csv
-//                    processData: false,
-//                    contentType: false,
-//                    url: '/kiosko/store',
-//                    success: function (data)
-//                    {
-//                        if(data){
-//                            $('#hola').html('<div class="alert alert-danger">La clave o cuenta no existe</div>');
-//                        }else{$('#hola').html('<div class="alert alert-danger">La clave </div>');}
-//                        
-//                    }
-//                });
-//        return false;
-//    });
-    
-    
-    
+  });    
 </script>
 @append
 
