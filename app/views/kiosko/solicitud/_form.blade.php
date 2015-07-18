@@ -111,7 +111,7 @@
        {{Form::email('correo', $solicitante->correo, ['placeholder'=>'E-mail del Solicitante','tabindex'=>'8','class'=>'form-control', 'autofocus'=> 'autofocus', 'required' => 'required', 'ng-model' => 'solicitante.correo', 'tb-focus' => 'focusForm', 'ng-blur' => 'focusForm = false'] )}}
        {{$errors->first('Correo', '<span class=text-danger>:message</span>')}}
     </div>
-    <div class="col-md-9">
+    <div class="col-md-12">
        {{Form::label('direccion','Dirección')}} 
        {{Form::text('direccion', $solicitante->direccion, ['placeholder'=>'Dirección del Solicitante','tabindex'=>'9','class'=>'form-control', 'autofocus'=> 'autofocus', 'required' => 'required', 'ng-model' => 'solicitante.direccion', 'tb-focus' => 'focusForm', 'ng-blur' => 'focusForm = false'] )}}
        {{$errors->first('direccion', '<span class=text-danger>:message</span>')}}
