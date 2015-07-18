@@ -1,4 +1,4 @@
-{{ Form::open(array('url' => 'ofvirtual/notario/traslado/create', 'method' => 'GET')) }}
+{{ Form::open(array('url' => 'ofvirtual/notario/registro/create', 'method' => 'GET')) }}
 <!--<form id="lista-tipotramites">-->
     <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="false">
                         <!-- Inputs de clave o cuenta -->
@@ -6,8 +6,9 @@
                             <div>
                                 <div class="form-group">
 
-                                   <!-- <div class="input-group">
-                                         Select clave o cuenta 
+                                    <div class="input-group">
+                                       <!--  Select clave o cuenta-
+
                                         <div class="input-group-btn">
                                             <button type="button"
                                                     class="btn btn-default dropdown-toggle select-busqueda"
@@ -22,7 +23,7 @@
                                             </ul>
                                         </div>
 
-                                        <!-- Select municipios 
+                                        <!-- Select municipios
                                         <div class="input-group-btn control-municipios">
                                             <button type="button"
                                                     class="btn btn-default dropdown-toggle select-municipio"
@@ -45,9 +46,9 @@
                                                 @endforeach
                                             </ul>
                                         </div>
-                                        <!-- //Select municipios 
+                                        <!-- //Select municipios
 
-                                        <!-- Select Urbano o Rustico 
+                                        <!-- Select Urbano o Rustico
                                         <div class="input-group-btn control-tipopredio">
                                             <button type="button"
                                                     class="btn btn-default dropdown-toggle select-tipopredio"
@@ -59,12 +60,13 @@
                                                 <li><a href="javascript:void(0);" class="opcion-tipopredio" data-tipopredio="R">Rústico</a></li>
                                                 <li><a href="javascript:void(0);" class="opcion-tipopredio" data-tipopredio="U">Urbano</a></li>
                                             </ul>
-                                        </div> -->
-                                        <div class="col-md-12">
-                                        {{Form::claveCuenta('registro')}}
+                                        </div> -
+                                        <div class="col-md-12">-->
 
-                                       
-                                        {{Form::hidden('clave', null, ['id'=>'clave'])}}
+                                        {{--Form::text('claveTxt', null, ['class'=>'form-control clave-catastral', 'style'=>'text-transform: uppercase;'])--}}
+
+                                        {{Form::claveCuenta()}}
+                                        {{--Form::hidden('clave', null, ['id'=>'clave'])--}}
 
                                         <span class="input-group-btn">
                                             <button class="btn btn-success" type="submit">Crear Regisro de Escritura
@@ -95,7 +97,7 @@
     {{ HTML::script('js/laroute.js') }}
     {{ HTML::script('js/jquery/jquery.mask.min.js') }}
     {{--{{ HTML::script('js/ventanilla/primera-atencion.js') }}--}}
-    @if(count($municipios) == 1)
+    @if(count($municipios) >= 1)
     <script>
 
 
@@ -133,7 +135,7 @@
 
 
                  $('#clave').val(claveTxt);
-                  //console.log(claveTxt);
+                  console.log(claveTxt);
          });
 
 
@@ -188,10 +190,6 @@
 
 
 });
-
-
-
-
     </script>
     @endif
 @append
