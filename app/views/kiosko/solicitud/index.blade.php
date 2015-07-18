@@ -14,7 +14,7 @@
         </div>
     {{Form::close()}}
     </div>
-<div class="col-sm-9 col-md-9 col-lg-9" id="mainForm">
+<div class="col-sm-12 col-md-12 col-lg-12" id="mainForm">
     {{Form::open(array('id'=>'form','url'=>'kiosko/solicitud','method'=>'POST'))}}
         @include('kiosko.solicitud._form')
         <div class="form-actions form-group">
