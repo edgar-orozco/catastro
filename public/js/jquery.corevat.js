@@ -25,12 +25,12 @@ $(document).ready(function () {
 	$.datepicker.setDefaults($.datepicker.regional['es']);
 	if ( $('#fecha_reporte') && $('#fecha_avaluo') ) {
 		$('#fecha_reporte').datepicker({
-			onSelect: function( selectedDate ) {
+			onClose: function( selectedDate ) {
 				$( "#fecha_avaluo" ).datepicker( "option", "maxDate", selectedDate );
 			}
 		});
 		$('#fecha_avaluo').datepicker({
-			onSelect: function( selectedDate ) {
+			onClose: function( selectedDate ) {
 				$( "#fecha_reporte" ).datepicker( "option", "minDate", selectedDate );
 			}
 		});
