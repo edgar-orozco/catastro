@@ -1,7 +1,20 @@
 <?php
-
+use \Catastro\Repos\Padron\PadronRepositoryInterface;
 class ofvirtual_RegistroEscrituraController extends \BaseController {
 
+protected $padron;
+    protected $registro;
+
+    protected $numPags = 10;
+
+    /**
+     * @param PadronRepositoryInterface $padron
+     */
+    public function __construct(PadronRepositoryInterface $padron, RegistroEscrituras $registro)
+    {
+        $this->padron = $padron;
+        $this->registro = $registro;
+    }
 	/**
 	 * Display a listing of the resource.
 	 *
@@ -9,17 +22,35 @@ class ofvirtual_RegistroEscrituraController extends \BaseController {
 	 */
 	public function getIndex()
 	{
-		$title = "Registro de escrituras";
-		 //Título de sección:
-        $title_section = "Listado de Registro de Escrituras. ";
+		  //
+        $title = 'Listas de Registro de Escritura';
+
+        //Título de sección:
+        $title_section = "Listado de de Registros de Escritura. ";
 
         //Subtítulo de sección:
         $subtitle_section = "Crear, modificar, buscar, imprimir.";
 
-		$registros= RegistroEscrituras::all();
-		//dd($registro);
-		$municipios = Municipio::orderBy('nombre_municipio', 'ASC')->lists('nombre_municipio', 'municipio');
-            return View::make('ofvirtual.notario.registro.index', compact('title',  'title_section', 'subtitle_section','municipios','registros'));
+
+        $registros = RegistroEscrituras::all();
+
+        $misMunicipios = Auth::user()->municipios()->get(['gid']);
+
+        $aMisMunicipios = array();
+        foreach ($misMunicipios as $mun) {
+            $aMisMunicipios[] = $mun->gid;
+        }
+
+        if (empty($aMisMunicipios)) {
+            $municipios = Municipio::orderBy('nombre_municipio')->get();
+        } else {
+            $municipios = Municipio::whereIn('gid', $aMisMunicipios)->orderBy('nombre_municipio')->get();
+        }
+
+		$municipio = Municipio::orderBy('nombre_municipio', 'ASC')->lists('nombre_municipio', 'municipio');
+
+        return View:: make('ofvirtual.notario.registro.index', compact('title', 'title_section', 'subtitle_section', 'traslados', 'municipios','registros','municipio'));
+
 	}
 
 
@@ -30,15 +61,45 @@ class ofvirtual_RegistroEscrituraController extends \BaseController {
 	 */
 	public function create()
 	{
-		$title = "Captura de datos";
+
+     //ToDo: no muestra el titulo ?
+        $title = 'Crear registro de escritura';
+
+        $registro = new RegistroEscrituras();
+
+        $identificador = Request::get('clave');
+
+        $identificador = strtoupper($identificador);
+
+        $predio = $this->padron->getByClaveOCuenta($identificador);
+
+        $notarioEscritura = Auth::user()->notaria->notario->nombres.' ' .Auth::user()->notaria->notario->apellido_paterno. ' '.Auth::user()->notaria->notario->apellido_materno;
+
+        $notariaEscritura = Auth::user()->notaria->nombre.Auth::user()->notaria->mpio->nombre_municipio.Auth::user()->notaria->estado->nom_ent;
+
+        //Si la clave no se encuentra
+        if (!$predio) {
+            return Redirect::to('ofvirtual/notario/registro')->with('error', 'La clave o cuenta es incorrecta.');
+        }
+
+        //$JsonColindancias = NULL;
+$municipio = Municipio::orderBy('nombre_municipio', 'ASC')->lists('nombre_municipio', 'municipio');
+        return View:: make('ofvirtual.notario.registro.create', compact('title', 'registro', 'predio','notarioEscritura','notariaEscritura','municipio'));
+        //return View:: make('ofvirtual.notario.traslado.create', compact('title', 'traslado', 'predio','notarioEscritura','notariaEscritura',  'JsonColindancias'));
+
+
+
+
+    ///////////////////////////////////////////////////////////////
+		/*$title = "Captura de datos";
 		 //Título de sección:
         $title_section = "Captura de datos. ";
 
-        
+
 
 	 $municipios = Municipio::orderBy('nombre_municipio', 'ASC')->lists('nombre_municipio', 'municipio');
 		 return View::make('ofvirtual.notario.registro._form',compact('municipios','title',  'title_section', 'subtitle_section'));
-       /*     compact('title', 'title_section','subtitle_section', 'inpc', 'inpcs', 'mes', 'anio'));
+            compact('title', 'title_section','subtitle_section', 'inpc', 'inpcs', 'mes', 'anio'));
 		  $persona = new personas();
 			$persona->fill(Input::get('persona'))->save();
 			Session::flash('mensaje', 'El registro ha sido ingresado exitosamente');
@@ -65,7 +126,7 @@ class ofvirtual_RegistroEscrituraController extends \BaseController {
 	 * @param  int  $id
 	 * @return Response
 	 */
-	public function show($id)
+	public function buscar($id)
 	{
 		//
 	}

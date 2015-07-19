@@ -83,7 +83,7 @@
                         <td colspan="3" align="center">DE CONFORMIDAD CON LOS LINEAMIENTOS PARA LA OPERATIVIDAD DE LOS CATASTROS EN EL ESTADO DE TABASCO, LINEAMIENTO No. 3</td>
                     </tr>
                     <tr>
-                        <td>Lugar: {{$solicitud->mupio->nombre_municipio}}, Tabasco.<br>N° de Solicitud {{$solicitud->id}}</td>
+                        <td>Lugar: {{$solicitud->mupio->nombre_municipio}}, Tabasco.<br>N° de Solicitud {{$solicitud->seguimiento}}</td>
                         <td align="center"><strong>{{mb_strtoupper($solicitud->tramite->nombre)}}</strong></td>
                         <td align="right">Fecha: <?php $fecha=strtotime($solicitud->create_at); echo date("d/m/Y",$fecha) ?></td>
                     </tr>

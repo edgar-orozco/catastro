@@ -1,4 +1,4 @@
-<div id="lista-tramites" class="row-fluid">
+<div id="lista-tramites">
     <div class="panel">
 
 
@@ -7,14 +7,13 @@
         </div>
 
         @if(count($registros) == 0)
-            
-            <div class="alert alert-success">
-            <h4><span class="glyphicon glyphicon-warning"></span> Se eliminó correctamente el traslado de dominio.</h4>
-        </div>
-
+            <div class="panel-body">
+            <p>No hay registros de escrituras dados de alta actualmente en el sistema.</p>
+            </div>
         @endif
 
         <div class="list-group">
+         <br/>
           <table class="table">
                 <thead>
                 <tr>

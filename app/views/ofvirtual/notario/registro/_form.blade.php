@@ -3,31 +3,23 @@
 {{ HTML::script('js/jquery/jquery-ui.js') }}
 
 
-@section('title')
-{{{ $title}}} :: @parent
-@stop
-
-
-
-@section('content')
-
 {{ Form::open(array('url' => '', 'method' => 'post', 'name' => 'formulario', 'id' => 'formulario'))}}
 <fieldset>
   <legend>DATOS DEL NOTARIO</legend>
   <div class="form-group">
-  {{Form::notaria(1)}} 
+  {{Form::notaria(1)}}
 </div>
 </fieldset>
 <fieldset>
 <legend></legend>
 <div class="row-fluid">
-<div class="col-md-6"> 
+<div class="col-md-6">
       {{Form::label('tesoreria','Tesorería Municipal:')}}
       {{Form::text('tesoreria', null, ['class' => 'form-control'] )}}
 </div>
  <div class="col-md-6">
       {{Form::label('municipio','Municipio:')}}
-      {{Form::select('municipio', $municipios, null, ['class'=>'form-control'])}}
+      {{Form::select('municipio', $municipio, null, ['class'=>'form-control'])}}
 </div>
 
 <div class="col-md-3">
@@ -85,7 +77,7 @@
 </div>
 <div class="col-md-3">
       {{Form::label('fecha_firma','Fecha de firma')}}
-      {{Form::text('fecha_firma',null, ['id'=>'datepicker1', 'class'=>'btn btn-default btn-sm dropdown-toggle'] )}}         
+      {{Form::text('fecha_firma',null, ['id'=>'datepicker1', 'class'=>'btn btn-default btn-sm dropdown-toggle'] )}}
 </div>
 </div>
 </fieldset>
@@ -150,7 +142,7 @@
 <fieldset>
 <legend></legend>
 <div class="form-actions form-group col-md-12">
-            {{ Form::submit('Guardar Datos', array('class' => 'btn btn-primary')) }} 
+            {{ Form::submit('Guardar Datos', array('class' => 'btn btn-primary')) }}
             {{ Form::reset('Limpiar ', ['class' => 'btn btn-warning']) }}
         </div>
 </fieldset>
@@ -183,7 +175,7 @@ $(function() {
  isRTL: false,
  showMonthAfterYear: false,
  yearSuffix: '',
- beforeShowDay: $.datepicker.noWeekends 
+ beforeShowDay: $.datepicker.noWeekends
  };
  $.datepicker.setDefaults($.datepicker.regional['es']);
 $(function () {
@@ -210,7 +202,7 @@ $(function() {
  isRTL: false,
  showMonthAfterYear: false,
  yearSuffix: '',
- beforeShowDay: $.datepicker.noWeekends 
+ beforeShowDay: $.datepicker.noWeekends
  };
  $.datepicker.setDefaults($.datepicker.regional['es']);
 $(function () {

@@ -50,6 +50,7 @@ class PadronFiscalRepository implements PadronRepositoryInterface
      */
     public function getByClaveOCuenta($identificador)
     {
-        return PadronFiscal::where('clave',$identificador)->orWhere('cuenta', $identificador)->first();
+        $identificador = pg_escape_string($identificador);
+        return PadronFiscal::where('clave',$identificador)->orWhere('cuenta', $identificador)->orWhereRaw("clave like '%$identificador'")->first();
     }
 }

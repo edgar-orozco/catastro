@@ -40,54 +40,32 @@ class kiosko_SolicitudGestionController extends \BaseController
     
     public function store($format='html') 
     {
-       $inputs = Input::All();
-       //reglas
-       $reglas = array(
-           'nombres'=>'required',
-           'apellido_paterno'=>'required',
-           'apellido_materno'=>'required',
-           'curp'=>'required',
-           'rfc'=>'required',
-           'direccion'=>'required',
-           'telefono'=>'required',
-           'tipo_telefono'=>'required',
-           'correo'=>'required',
-           'tramite_id'=>'required',
-           'municipio'=>'required',
-           'clave'=>'required',
-       );
-       $clave = Input::get('clave');
-       
-       $res = $this->padron->getByClaveOCuenta($clave);
-       //mensaje
-       $mensajes = array("required"=>"*");
-       //valida
-       $validar = Validator::make($inputs, $reglas, $mensajes);
-       //en caso que no pesa la validacion
-       if ($validar->fails()) {
-            return Redirect::back()->withErrors($validar);
-        } else {
-           
-            if(!$res)
-            {
-                return Redirect::to('kiosko/solicitud')->with('error','La Clave o Cuenta Ctastral No Exite');
-            }else {
+        //traemos todos los inputs
+        $inputs = Input::All();
+        //traemos la clave o cuenta de los inputs
+        $clave = Input::get('clave');
+        //Corrobaramos si existe la clave o cuenta
+        $res = $this->padron->getByClaveOCuenta($clave);
+        //si res no trae datsos
+        if(!$res){
+            return Redirect::to('kiosko/solicitud')->with('error','La Clave o Cuenta Ctastral No Exite');
+            }else{
                 //traemos el codigo del seguimiento
                 $seguimiento=SolicitudGestion::cadenaSeguimientoUnica();
                 //generamos el codigo de barra
                 $path_imagen = DNS1D::getBarcodePNGPath($seguimiento, "C128");
                 //guardamos el nombre del solicitante
                 $solicitante = new Solicitante();
-                $solicitante -> apellido_paterno = mb_strtoupper($inputs ["apellido_paterno"]);
-                $solicitante -> apellido_materno = mb_strtoupper($inputs ["apellido_materno"]);
-                $solicitante -> nombres = mb_strtoupper($inputs ["nombres"]);
-                $solicitante -> nombrec = mb_strtoupper($inputs["nombres"]." ".$inputs["apellido_paterno"]." ".$inputs ["apellido_materno"]);
-                $solicitante -> rfc = mb_strtoupper($inputs ["rfc"]);
-                $solicitante -> curp = mb_strtoupper($inputs ["curp"]);
-                $solicitante -> direccion = $inputs["direccion"];
-                $solicitante -> telefono = $inputs["telefono"];
-                $solicitante -> tipo_telefono = $inputs["tipo_telefono"];
-                $solicitante -> correo = $inputs["correo"];
+                $solicitante -> apellido_paterno = mb_strtoupper($inputs["solicitante"]["apellido_paterno"]);
+                $solicitante -> apellido_materno = mb_strtoupper($inputs["solicitante"]["apellido_materno"]);
+                $solicitante -> nombres = mb_strtoupper($inputs["solicitante"]["nombres"]);
+                $solicitante -> nombrec = mb_strtoupper($inputs["solicitante"]["nombres"]." ".$inputs["solicitante"]["apellido_paterno"]." ".$inputs["solicitante"]["apellido_materno"]);
+                $solicitante -> rfc = mb_strtoupper($inputs["solicitante"]["rfc"]);
+                $solicitante -> curp = mb_strtoupper($inputs["solicitante"]["curp"]);
+                $solicitante -> direccion = $inputs["solicitante"]["direccion"];
+                $solicitante -> telefono = $inputs["solicitante"]["telefono"];
+                $solicitante -> tipo_telefono = $inputs["solicitante"]["tipo_telefono"];
+                $solicitante -> correo = $inputs["solicitante"]["correo"];
                 $solicitante -> fecha_ingr = date('Y-m-d');
                 $solicitante -> id_tipo = 1;
                 $solicitante -> save();
@@ -98,19 +76,19 @@ class kiosko_SolicitudGestionController extends \BaseController
                 $solicitud -> tramite_id = $inputs["tramite_id"];
                 $solicitud -> municipio = $inputs["municipio"];
                 $solicitud -> clave = $inputs["clave"];
+                $solicitud -> seguimiento = $seguimiento;
                 $solicitud -> create_at = date('Y-m-d');
                 $solicitud -> save();
                 $id=$solicitud -> id; 
                 return Redirect::to('kiosko/solicitud_pdf/'.$id);
             }
-        }  
     }
     
     public function edit($id) 
     {
-        $solicitudGestion = SolicitudGestion::find($id);
-        $idp = SolicitudGestion::where('id',$id)->pluck('solicitante_id');
-        $solicitante = Solicitante::find($idp);
+        $solicitudGestion = SolicitudGestion::where('seguimiento','=',$id)->first();
+        
+        $solicitante = $solicitudGestion->solicitante;
         
         $title = 'Administración de solicitud';
         
@@ -126,56 +104,49 @@ class kiosko_SolicitudGestionController extends \BaseController
         
         $tipo_telefono = [''=>'--Seleccione una opcion--']+$telefono;
         
-        
-       
         return View::make('kiosko.solicitud.edit',
                 compact('solicitudGestion','solicitante','title','title_section','subtitle_section','Tipotramite','Municipio','tipo_telefono'));
     }
     
     public function update($id, $format = 'html')        
     {
-         $inputs = Input::All();
-         
-        $seguimiento = SolicitudGestion::where('id',$id)->pluck('seguimiento');
-        
+        //traemos todos los inputs
+        $inputs = Input::All();
+        //traemos el input clave
         $clave = Input::get('clave');
-        
+        //checamos si existe la clave o cuenta
         $res = $this->padron->getByClaveOCuenta($clave); 
-        
+        //si existe la clabe o cuenta hacemos los cambios
         if($res)
         {
-            if(!$seguimiento)
-            {
-                $inputs = Input::All();
-                $n = SolicitudGestion::find($id);
-                $n -> tramite_id  = $inputs["tramite_id"];
-                $n -> municipio = $inputs["municipio"];
-                $n -> clave = $inputs["clave"];
-                $n -> updated_at = date('Y-m-d'); 
-                $n -> save();
-                $nombre = $n -> id;
-
-                $solicitante = Solicitante::find($nombre);
-                $solicitante -> apellido_paterno = mb_strtoupper($inputs ["apellido_paterno"]);
-                $solicitante -> apellido_materno = mb_strtoupper($inputs ["apellido_materno"]);
-                $solicitante -> nombres = mb_strtoupper($inputs ["nombres"]);
-                $solicitante -> nombrec = mb_strtoupper($inputs["nombres"]." ".$inputs["apellido_paterno"]." ".$inputs ["apellido_materno"]);
-                $solicitante -> rfc = mb_strtoupper($inputs ["rfc"]);
-                $solicitante -> curp = mb_strtoupper($inputs ["curp"]);
-                $solicitante -> direccion = $inputs["direccion"];
-                $solicitante -> telefono = $inputs["telefono"];
-                $solicitante -> tipo_telefono = $inputs["tipo_telefono"];
-                $solicitante -> correo = $inputs["correo"];
-                $solicitante -> save();
-
-                return Redirect::to('kiosko/solicitud_pdf/'.$id);
-             }
-             return Redirect::to('/kiosko/solicitud')->with('error',
-            'La solicitud ya fue tomada' . "!");   
+            //Editamos los datos de la solictud_gestion
+            $n = SolicitudGestion::find($id);
+            $n -> tramite_id  = $inputs["tramite_id"];
+            $n -> municipio = $inputs["municipio"];
+            $n -> clave = $inputs["clave"];
+            $n -> updated_at = date('Y-m-d'); 
+            $n -> save();
+            //traemos el id del solicitante
+            $nombre = $n -> solicitante_id;
+            //Editamos los datos del solicitante
+            $solicitante = Solicitante::find($nombre);
+            $solicitante -> apellido_paterno = mb_strtoupper($inputs["solicitante"]["apellido_paterno"]);
+            $solicitante -> apellido_materno = mb_strtoupper($inputs["solicitante"]["apellido_materno"]);
+            $solicitante -> nombres = mb_strtoupper($inputs["solicitante"]["nombres"]);
+            $solicitante -> nombrec = mb_strtoupper($inputs["solicitante"]["nombres"]." ".$inputs["solicitante"]["apellido_paterno"]." ".$inputs["solicitante"]["apellido_materno"]);
+            $solicitante -> rfc = mb_strtoupper($inputs["solicitante"]["rfc"]);
+            $solicitante -> curp = mb_strtoupper($inputs["solicitante"]["curp"]);
+            $solicitante -> direccion = $inputs["solicitante"]["direccion"];
+            $solicitante -> telefono = $inputs["solicitante"]["telefono"];
+            $solicitante -> tipo_telefono = $inputs["solicitante"]["tipo_telefono"];
+            $solicitante -> correo = $inputs["solicitante"]["correo"];
+            $solicitante -> save();
+            //redireccionamos al pdf de solicitud
+            return Redirect::to('kiosko/solicitud_pdf/'.$id);
         }
+        //encaso que no exista la clave o cuenta
         return Redirect::to('/kiosko/solicitud')->with('error',
         'La Clave o Cuenta Ctastral No Exite' . "!");
-            
     }
 
 
