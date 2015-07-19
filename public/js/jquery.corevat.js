@@ -940,7 +940,7 @@ $(document).ready(function () {
     });
 
 	if ( $("#formAvaluoZona") ) {
-		nivel_equipamiento
+		//nivel_equipamiento
 		if ($('#is_otro_servicio').val() === '1') {
 			$('#otro_servicio_municipal').prop('disabled', false);
 		} else {
