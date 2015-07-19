@@ -939,6 +939,42 @@ $(document).ready(function () {
         }
     });
 
+	if ( $("#formAvaluoZona") ) {
+		nivel_equipamiento
+		if ($('#is_otro_servicio').val() === '1') {
+			$('#otro_servicio_municipal').prop('disabled', false);
+		} else {
+			$('#otro_servicio_municipal').prop('disabled', true);
+		}
+		
+		$('#is_otro_servicio').click(function () {
+			if (this.checked) {
+				$(this).val('1');
+				$('#otro_servicio_municipal').prop('disabled', false);
+			} else {
+				$(this).val('0');
+				$('#otro_servicio_municipal').prop('disabled', true);
+			}
+		});
+		
+		if ($('#is_otro_equipamiento').val() === '1') {
+			$('#otro_equipamiento').prop('disabled', false);
+		} else {
+			$('#otro_equipamiento').prop('disabled', true);
+		}
+		
+		$('#is_otro_equipamiento').click(function () {
+			if (this.checked) {
+				$(this).val('1');
+				$('#otro_equipamiento').prop('disabled', false);
+			} else {
+				$(this).val('0');
+				$('#otro_equipamiento').prop('disabled', true);
+			}
+		});
+
+	}
+	
 /*
 
 */

@@ -151,7 +151,7 @@
 
 	<div class="col-md-4">
 		{{Form::label('nivel_equipamiento', 'Nivel de Equipamiento %')}}
-		{{Form::number('nivel_equipamiento', $row->nivel_equipamiento, ['class'=>'form-control', 'min'=>'0', 'max'=>'100', 'step'=>'0.01', 'pattern' => '[0-9]{3}'])}}
+		{{Form::number('nivel_equipamiento', $row->nivel_equipamiento, ['class'=>'form-control clsNumeric', 'min'=>'0', 'max'=>'100', 'step'=>'1', 'maxlength'=>'3'])}}
 		{{$errors->first('nivel_equipamiento', '<span class=text-danger>:message</span>')}}
 		<hr>
 	</div>
@@ -169,14 +169,12 @@
 	<div class="col-md-12">
 		{{Form::label('construc_predominante', 'Construcciones Predominante')}}
 		{{Form::textarea('construc_predominante', $row->construc_predominante, ['class'=>'form-control', 'maxlength'=>'500'] )}}
-		{{$errors->first('construc_predominante', '<span class=text-danger>:message</span>')}}
 		<hr>
 	</div>
 
 	<div class="col-md-12">
 		{{Form::label('vias_acceso_importante', 'Vias de acceso e importancia')}}
 		{{Form::textarea('vias_acceso_importante', $row->vias_acceso_importante, ['class'=>'form-control', 'maxlength'=>'500'] )}}
-		{{$errors->first('vias_acceso_importante', '<span class=text-danger>:message</span>')}}
 		<hr>
 	</div>
 
@@ -195,39 +193,6 @@
 <script>
 	$(document).ready(function () {
 		$('#btn2Zona').removeClass("btn-info").addClass("btn-primary");
-		
-		if ($('#is_otro_servicio').val() === '1') {
-			$('#otro_servicio_municipal').prop('disabled', false);
-		} else {
-			$('#otro_servicio_municipal').prop('disabled', true);
-		}
-		
-		$('#is_otro_servicio').click(function () {
-			if (this.checked) {
-				$(this).val('1');
-				$('#otro_servicio_municipal').prop('disabled', false);
-			} else {
-				$(this).val('0');
-				$('#otro_servicio_municipal').prop('disabled', true);
-			}
-		});
-		
-		if ($('#is_otro_equipamiento').val() === '1') {
-			$('#otro_equipamiento').prop('disabled', false);
-		} else {
-			$('#otro_equipamiento').prop('disabled', true);
-		}
-		
-		$('#is_otro_equipamiento').click(function () {
-			if (this.checked) {
-				$(this).val('1');
-				$('#otro_equipamiento').prop('disabled', false);
-			} else {
-				$(this).val('0');
-				$('#otro_equipamiento').prop('disabled', true);
-			}
-		});
-		
 	});
 </script>
 @stop
