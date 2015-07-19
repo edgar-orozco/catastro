@@ -357,25 +357,25 @@
 	<input type="hidden" name="idavaluoinmueble2" id="idavaluoinmueble2" value="{{$row->idavaluoinmueble}}" />
 	<input type="hidden" name="idaimedidacolindancia" id="idaimedidacolindancia" value="0" />
 	<div class="row">
-		<div class="col-md-12">
+		<div class="col-md-6">
 			{{Form::label('idorientacion', 'Orientación')}}
 			{{Form::select('idorientacion', $cat_orientaciones, 1, ['id' => 'idorientacion', 'class'=>'form-control'])}}
 			<hr>
 		</div>
 
-		<div class="col-md-12">
+		<div class="col-md-6">
 			{{Form::label('medidas', 'Medidas')}}
 			{{Form::text('medidas', $row->medidas, ['class'=>'form-control clsNumeric', 'required' => 'required', 'maxlength'=>'50'] )}}
 			<hr>
 		</div>
 
-		<div class="col-md-12">
+		<div class="col-md-4">
 			{{Form::label('unidad_medida', 'Unidad de Medida')}}
 			{{Form::select('unidad_medida', $arrMedCol, $row->unidad_medida, ['id' => 'unidad_medida', 'class'=>'form-control'])}}
 			<hr>
 		</div>
 
-		<div class="col-md-12">
+		<div class="col-md-8">
 			{{Form::label('colindancia', 'Colindancias')}}
 			{{Form::text('colindancia', '', ['class'=>'form-control', 'required' => 'required', 'maxlength'=>'100'] )}}
 			<hr>
@@ -403,8 +403,6 @@
 		 * 
 		 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
 		$('#btn3Inmueble').removeClass("btn-info").addClass("btn-primary");
-
-
 
 		/*++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 		 * 
@@ -487,8 +485,8 @@
 			draggable: false,
 			autoOpen: false,
 			closeOnEscape: true,
-			width: 600,
-			height: 550,
+			width: 800,
+			height: 400,
 			buttons: {
 				Guardar: function () {
 					$("#formAiMedidasColindancias").submit();

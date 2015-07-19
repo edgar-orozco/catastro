@@ -921,9 +921,9 @@ $(document).ready(function () {
 				$('#valor_neto').val(datos.valor_neto);
 				$('#valor_parcial').val(datos.valor_parcial);
 				
-            }
-        });
-    };
+			}
+		});
+	};
 
     // Va la validación a pie con JS Pure
     $("input[type=number], .clsNumeric").keydown(function (e) {
@@ -940,7 +940,7 @@ $(document).ready(function () {
     });
 
 	if ( $("#formAvaluoZona") ) {
-		//nivel_equipamiento
+		
 		if ($('#is_otro_servicio').val() === '1') {
 			$('#otro_servicio_municipal').prop('disabled', false);
 		} else {
