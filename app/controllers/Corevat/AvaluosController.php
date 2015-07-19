@@ -1,5 +1,5 @@
 <?php
-
+use Carbon\Carbon;
 class corevat_AvaluosController extends \BaseController {
 
 	protected $avaluo;
@@ -30,9 +30,17 @@ class corevat_AvaluosController extends \BaseController {
 	public function create() {
 		$title = 'COREVAT';
 		$row = $this->avaluo;
-		$row['fecha_reporte'] = date("d-m-Y");
-		$row['fecha_avaluo'] = date("d-m-Y");
+		//$row['fecha_reporte'] = date("d-m-Y");
+		//$row['fecha_avaluo'] = date("d-m-Y");
+		
+		$row['fecha_reporte'] =  new Carbon();
+		$row['fecha_reporte'] = $row['fecha_reporte']->format('d-m-Y');
+		
+		$row['fecha_avaluo'] =  new Carbon('last day');
+		$row['fecha_avaluo'] = $row['fecha_avaluo']->format('d-m-Y');
+		
 		$row['lon0'] = $row['lon1'] = $row['lat0'] = $row['lat1'] = 0;
+		$row['lon2'] = $row['lat2'] = '0.00';
 		
 		// $estados = Estados::comboList();
 		// $municipios = Municipios::comboList();
@@ -44,18 +52,15 @@ class corevat_AvaluosController extends \BaseController {
 		$cat_regimen_propiedad = CatRegimenPropiedad::comboList();
 		$idavaluo = 0;
 
-//		$lstCP = Asentamiento::where('municipio','000')->distinct()->lists('codigo_postal', 'codigo_postal');
-		$lstCP =  array('0' => '0',);
-		return View::make('Corevat.Avaluos.create', compact('title', 'row', 'estados', 'municipios', 'cat_tipo_inmueble', 'cat_regimen_propiedad', 'idavaluo','lstCP'));
+		$lstCP = Asentamiento::where('municipio','001')->distinct()->orderBy('codigo_postal')->lists('codigo_postal', 'codigo_postal');
+//		$lstCP =  array('0' => '0',);
+		return View::make('Corevat.Avaluos.create', compact('title', 'row', 'estados', 'municipios', 'cat_tipo_inmueble', 'cat_regimen_propiedad', 'idavaluo', 'lstCP'));
 	}
 
 	/**
 	 * Store a newly created resource in storage.
 	 *
 	 * @return Response
-	 regex:/^[0-9]{1,3}(\.?)[0-9]{1,2}$/
-	 
-	 'lon0' => array('required', 'integer', 'min:0', 'max:360', 'regex:/^[0-9]{1,3}$/'),
 	 */
 	public function store() {
 		$inputs = Input::All();
@@ -69,37 +74,38 @@ class corevat_AvaluosController extends \BaseController {
 			
 			'lon0' => 'integer|min:0|max:60',
 			'lon1' => 'integer|min:0|max:60',
-			'lon2' => 'numeric|min:0|max:60|regex:/^[0-9]{1,3}(\.?)[0-9]{1,2}$/',
+			'lon2' => 'numeric|min:0|max:60',
 			
 			'lat0' => 'integer|min:0|max:360',
 			'lat1' => 'integer|min:0|max:60',
-			'lat2' => 'numeric|min:0|max:60|regex:/^[0-9]{1,3}(\.?)[0-9]{1,2}$/',
+			'lat2' => 'numeric|min:0|max:60',
 			
-			'cuenta_catastral' => 'regex:/^[0-9]{2}(-?)[UR]{1}(-?)[0-9]{6}$/',
-			'cuenta_predial' => 'regex:/^[0-9]{3}(-?)[0-9]{4}(-?)[0-9]{6}$/',
+			'cuenta_predial' => 'regex:/^[0-9]{3}-[0-9]{4}-[0-9]{6}$/',
+			'cuenta_catastral' => 'regex:/^[0-9]{2}-[UR]{1}-[0-9]{6}$/',
 			
 		);
 		$messages = array(
 			'fecha_reporte.required' => '¡El campo "Fecha del reporte" es requerido!',
 			'fecha_reporte.date_format' => '¡El formato del campo "Fecha del reporte" es: dd-mm-aaaa!',
-			'fecha_avaluo.required' => '¡El campo "Fecha del avalúo" es requerido!',
-			'fecha_avaluo.date_format' => '¡El formato del campo "Fecha del avalúo" es: dd-mm-aaaa!',
-			'fecha_avaluo.before' => '¡La "Fecha del avalúo" debe ser menor a la "Fecha del reporte"!',
+			'fecha_avaluo.required' => '¡El campo "Fecha del Avalúo" es requerido!',
+			'fecha_avaluo.date_format' => '¡El formato del campo "Fecha del Avalúo" es: dd-mm-aaaa!',
+			'fecha_avaluo.before' => '¡La "Fecha del Avalúo" debe ser menor a la "Fecha del reporte"!',
 			
-			'proposito.required' => 'El campo "Propósito" es requerido!',
-			'finalidad.required' => 'El campo "Finalidad" es requerido!',
+			'proposito.required' => '!El campo "Propósito" es requerido!',
+			'finalidad.required' => '!El campo "Finalidad" es requerido!',
 			
-			'lon0.integer' => 'El valor correspondiente a los grados de la longitud debe ser un número entero positivo!',
-			'lon0.min' => 'El valor mínimo correspondiente a los grados de la longitud debe ser cero!',
-			'lon0.max' => 'El valor máximo correspondiente a los grados de la longitud debe ser 360!',
+			'lon0.integer' => '!El valor correspondiente a los grados de la longitud debe ser un número entero positivo!',
+			'lon0.min' => '!El valor mínimo correspondiente a los grados de la longitud debe ser cero!',
+			'lon0.max' => '!El valor máximo correspondiente a los grados de la longitud debe ser 360!',
 			
-			'lon1.integer' => 'El valor correspondiente a los minutos de la longitud debe ser un número entero positivo!',
-			'lon1.min' => 'El valor mínimo correspondiente a los minutos de la longitud debe ser cero!',
-			'lon1.max' => 'El valor máximo correspondiente a los minutos de la longitud debe ser 60!',
+			'lon1.integer' => '¡El valor correspondiente a los minutos de la longitud debe ser un número entero positivo!',
+			'lon1.min' => '!El valor mínimo correspondiente a los minutos de la longitud debe ser cero!',
+			'lon1.max' => '!El valor máximo correspondiente a los minutos de la longitud debe ser 60!',
 			
-			'lon2.numeric' => 'El valor correspondiente a los segundos de la longitud debe ser un número entero positivo!',
-			'lon2.min' => 'El valor mínimo correspondiente a los segundos de la longitud debe ser cero!',
-			'lon2.max' => 'El valor máximo correspondiente a los segundos de la longitud debe ser 60!',
+			'lon2.numeric' => '¡El valor correspondiente a los segundos de la longitud debe ser un número entero positivo!',
+			'lon2.min' => '¡El valor mínimo correspondiente a los segundos de la longitud debe ser cero!',
+			'lon2.max' => '¡El valor máximo correspondiente a los segundos de la longitud debe ser 60!',
+			//'lon2.regex' => '¡El formato de los segundos no es válido!',
 			
 			'lat0.integer' => 'El valor correspondiente a los grados de la latitud debe ser un número entero positivo!',
 			'lat0.min' => 'El valor mínimo correspondiente a los grados de la latitud debe ser cero!',
@@ -109,9 +115,10 @@ class corevat_AvaluosController extends \BaseController {
 			'lat1.min' => 'El valor mínimo correspondiente a los minutos de la latitud debe ser cero!',
 			'lat1.max' => 'El valor máximo correspondiente a los minutos de la latitud debe ser 60!',
 			
-			'lat2.numeric' => 'El valor correspondiente a los minutos de la latitud debe ser un número entero positivo!',
-			'lat2.min' => 'El valor mínimo correspondiente a los segundos de la latitud debe ser cero!',
-			'lat2.max' => 'El valor máximo correspondiente a los segundos de la latitud debe ser 60!',
+			'lat2.numeric' => '¡El valor correspondiente a los minutos de la latitud debe ser un número entero positivo!',
+			'lat2.min' => '¡El valor mínimo correspondiente a los segundos de la latitud debe ser cero!',
+			'lat2.max' => '¡El valor máximo correspondiente a los segundos de la latitud debe ser 60!',
+			//'lat2.regex' => 'El formato de los segundos no es válido!',
 			
 			'cuenta_catastral.regex' => '¡El formato de la "Clave Catastral no es válido"!',
 			'cuenta_predial.regex' => '¡El formato de la "Cuenta Predial no es válido"!',
@@ -122,7 +129,7 @@ class corevat_AvaluosController extends \BaseController {
 			return Redirect::back()->withInput()->withErrors($validate);
 		} else {
 			Avaluos::insAvaluo($inputs);
-			return Redirect::to('corevat/Avaluos/create')->with('success', '¡El Avalúo fue creado satisfactoriamente!');
+			return Redirect::to('/corevat/AvaluoGeneral/' . $inputs["idavaluo"])->with('success', '¡El Avalúo fue creado satisfactoriamente!');
 		}
 	}
 
@@ -182,6 +189,7 @@ class corevat_AvaluosController extends \BaseController {
 	 */
 	public function updateGeneral($id) {
 		$inputs = Input::All();
+		$inputs["cuenta_catastral"] = trim($inputs["cuenta_catastral"]);
 		$rules = array(
 			'fecha_reporte' => 'required|date_format:"d-m-Y"',
 			'fecha_avaluo' => 'required|date_format:"d-m-Y"|before:fecha_reporte',
@@ -192,37 +200,38 @@ class corevat_AvaluosController extends \BaseController {
 			
 			'lon0' => 'integer|min:0|max:60',
 			'lon1' => 'integer|min:0|max:60',
-			'lon2' => 'numeric|min:0|max:60|regex:/^[0-9]{1,3}(\.?)[0-9]{1,2}$/',
+			'lon2' => 'numeric|min:0|max:60',
 			
 			'lat0' => 'integer|min:0|max:360',
 			'lat1' => 'integer|min:0|max:60',
-			'lat2' => 'numeric|min:0|max:60|regex:/^[0-9]{1,3}(\.?)[0-9]{1,2}$/',
+			'lat2' => 'numeric|min:0|max:60',
 			
-			'cuenta_catastral' => 'regex:/^[0-9]{2}(-?)[UR]{1}(-?)[0-9]{6}$/',
-			'cuenta_predial' => 'regex:/^[0-9]{3}(-?)[0-9]{4}(-?)[0-9]{6}$/',
+			'cuenta_predial' => 'regex:/^[0-9]{3}-[0-9]{4}-[0-9]{6}$/',
+			'cuenta_catastral' => 'regex:/^[0-9]{2}-[UR]{1}-[0-9]{6}$/',
 			
 		);
 		$messages = array(
 			'fecha_reporte.required' => '¡El campo "Fecha del reporte" es requerido!',
 			'fecha_reporte.date_format' => '¡El formato del campo "Fecha del reporte" es: dd-mm-aaaa!',
-			'fecha_avaluo.required' => '¡El campo "Fecha del avalúo" es requerido!',
-			'fecha_avaluo.date_format' => '¡El formato del campo "Fecha del avalúo" es: dd-mm-aaaa!',
-			'fecha_avaluo.before' => '¡La "Fecha del avalúo" debe ser menor a la "Fecha del reporte"!',
+			'fecha_avaluo.required' => '¡El campo "Fecha del Avalúo" es requerido!',
+			'fecha_avaluo.date_format' => '¡El formato del campo "Fecha del Avalúo" es: dd-mm-aaaa!',
+			'fecha_avaluo.before' => '¡La "Fecha del Avalúo" debe ser menor a la "Fecha del reporte"!',
 			
-			'proposito.required' => 'El campo "Propósito" es requerido!',
-			'finalidad.required' => 'El campo "Finalidad" es requerido!',
+			'proposito.required' => '!El campo "Propósito" es requerido!',
+			'finalidad.required' => '!El campo "Finalidad" es requerido!',
 			
-			'lon0.integer' => 'El valor correspondiente a los grados de la longitud debe ser un número entero positivo!',
-			'lon0.min' => 'El valor mínimo correspondiente a los grados de la longitud debe ser cero!',
-			'lon0.max' => 'El valor máximo correspondiente a los grados de la longitud debe ser 360!',
+			'lon0.integer' => '!El valor correspondiente a los grados de la longitud debe ser un número entero positivo!',
+			'lon0.min' => '!El valor mínimo correspondiente a los grados de la longitud debe ser cero!',
+			'lon0.max' => '!El valor máximo correspondiente a los grados de la longitud debe ser 360!',
 			
-			'lon1.integer' => 'El valor correspondiente a los minutos de la longitud debe ser un número entero positivo!',
-			'lon1.min' => 'El valor mínimo correspondiente a los minutos de la longitud debe ser cero!',
-			'lon1.max' => 'El valor máximo correspondiente a los minutos de la longitud debe ser 60!',
+			'lon1.integer' => '¡El valor correspondiente a los minutos de la longitud debe ser un número entero positivo!',
+			'lon1.min' => '!El valor mínimo correspondiente a los minutos de la longitud debe ser cero!',
+			'lon1.max' => '!El valor máximo correspondiente a los minutos de la longitud debe ser 60!',
 			
-			'lon2.numeric' => 'El valor correspondiente a los segundos de la longitud debe ser un número entero positivo!',
-			'lon2.min' => 'El valor mínimo correspondiente a los segundos de la longitud debe ser cero!',
-			'lon2.max' => 'El valor máximo correspondiente a los segundos de la longitud debe ser 60!',
+			'lon2.numeric' => '¡El valor correspondiente a los segundos de la longitud debe ser un número entero positivo!',
+			'lon2.min' => '¡El valor mínimo correspondiente a los segundos de la longitud debe ser cero!',
+			'lon2.max' => '¡El valor máximo correspondiente a los segundos de la longitud debe ser 60!',
+			//'lon2.regex' => '¡El formato de los segundos no es válido!',
 			
 			'lat0.integer' => 'El valor correspondiente a los grados de la latitud debe ser un número entero positivo!',
 			'lat0.min' => 'El valor mínimo correspondiente a los grados de la latitud debe ser cero!',
@@ -232,9 +241,10 @@ class corevat_AvaluosController extends \BaseController {
 			'lat1.min' => 'El valor mínimo correspondiente a los minutos de la latitud debe ser cero!',
 			'lat1.max' => 'El valor máximo correspondiente a los minutos de la latitud debe ser 60!',
 			
-			'lat2.numeric' => 'El valor correspondiente a los minutos de la latitud debe ser un número entero positivo!',
-			'lat2.min' => 'El valor mínimo correspondiente a los segundos de la latitud debe ser cero!',
-			'lat2.max' => 'El valor máximo correspondiente a los segundos de la latitud debe ser 60!',
+			'lat2.numeric' => '¡El valor correspondiente a los minutos de la latitud debe ser un número entero positivo!',
+			'lat2.min' => '¡El valor mínimo correspondiente a los segundos de la latitud debe ser cero!',
+			'lat2.max' => '¡El valor máximo correspondiente a los segundos de la latitud debe ser 60!',
+			//'lat2.regex' => 'El formato de los segundos no es válido!',
 			
 			'cuenta_catastral.regex' => '¡El formato de la "Clave Catastral no es válido"!',
 			'cuenta_predial.regex' => '¡El formato de la "Cuenta Predial no es válido"!',

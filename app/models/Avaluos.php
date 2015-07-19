@@ -124,13 +124,18 @@ class Avaluos extends \Eloquent {
 		$row->lon2 = strlen($inputs["lon2"]) == 0 ? 0 : $inputs["lon2"];
 		$row->altitud = $inputs["altitud"];
 		$row->idregimenpropiedad = $inputs["idregimenpropiedad"];
+		
 		$row->cuenta_predial = $inputs["cuenta_predial"];
 		
 		// DIVIDIMOS LA CUENTA CATASTRAL PARA POSTERIORMENTE INCORPORAR LA LETRA "U" O "R"
 		// QUE SON LOS POSIBLES VALORES DEL COMBO "Serie" DE LA UI.
-		$a = preg_split("/-/", $inputs["cuenta_catastral"]);
-		$row->cuenta_catastral = $a[0]."-".$inputs["serie"]."-".$a[2];
-		//$row->cuenta_catastral = strtoupper($inputs["cuenta_catastral"]);
+		if ( $inputs["cuenta_catastral"] =='' )  {
+			$row->cuenta_catastral = strtoupper($inputs["cuenta_catastral"]);
+		} else {
+			$a = preg_split("/-/", $inputs["cuenta_catastral"]);
+			$row->cuenta_catastral = $a[0]."-".$inputs["serie"]."-".$a[2];
+		}
+		
 		$row->nombre_solicitante = $inputs["nombre_solicitante"];
 		$row->nombre_propietario = $inputs["nombre_propietario"];
 	}
@@ -141,7 +146,7 @@ class Avaluos extends \Eloquent {
 	 * @param  int  $id
 	 * @return Response
 	 */
-	public static function insAvaluo($inputs) {
+	public static function insAvaluo(&$inputs) {
 		$row = new Avaluos();
 		Avaluos::setAvaluo($row, $inputs);
 		$row->iduser = 1; //Auth::id()
@@ -158,6 +163,7 @@ class Avaluos extends \Eloquent {
 		AvaluosFisico::insAvaluoFisico($row->idavaluo);
 		AvaluosConclusiones::insAvaluoConclusiones($row->idavaluo);
 		AvaluosFotos::insAvaluoFotos($row->idavaluo);
+		$inputs["idavaluo"] = $row->idavaluo;
 	}
 
 	/**

@@ -23,8 +23,17 @@ $(document).ready(function () {
         yearSuffix: ''
     };
 	$.datepicker.setDefaults($.datepicker.regional['es']);
-	if ( $('#fecha_reporte') || $('#fecha_reporte') ) {
-		$('#fecha_reporte, #fecha_avaluo').datepicker();
+	if ( $('#fecha_reporte') && $('#fecha_avaluo') ) {
+		$('#fecha_reporte').datepicker({
+			onSelect: function( selectedDate ) {
+				$( "#fecha_avaluo" ).datepicker( "option", "maxDate", selectedDate );
+			}
+		});
+		$('#fecha_avaluo').datepicker({
+			onSelect: function( selectedDate ) {
+				$( "#fecha_reporte" ).datepicker( "option", "minDate", selectedDate );
+			}
+		});
 	}
     /*++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
      *  
@@ -931,35 +940,6 @@ $(document).ready(function () {
     });
 
 /*
-    $('#cuenta_catastral').mask('YY-S-YYYYYY', {
-                                    placeholder: "__-_-______", 
-                                    translation: {
-                                        S: {pattern: /[RUru]/},  
-                                        Y: {pattern: /[0-9]/}
-                                    }
-                                });
-
-    $('#idestado').on("change",function(){
-        $.get("{{ url('getMunicipiosFromEstados')}}", { option: $(this).val() }, 
-            function(json) {
-                var model = $('#idmunicipio').empty();
-                $.each(json, function(i, item) {
-                    model.append("<option value='"+ item.idmunicipio +"'>" + item.municipio + "</option>");
-                });
-            }
-        );
-    });
-
-    $('#idmunicipio').on("change",function(){
-        $.get("{{ url('getCPFromMunicipios')}}", { option: $(this).val() }, 
-            function(json) {
-                var model = $('#cp').empty();
-                $.each(json, function(i, item) {
-                    model.append("<option value='"+ item.codigo_postal +"'>" + item.codigo_postal + "</option>");
-                });
-            }
-        );
-    });
 
 */
 
