@@ -25,7 +25,7 @@ class TestIntegridadHistoricosCorevat extends Illuminate\Foundation\Testing\Test
     {
         $unitTesting = true;
 
-        $testEnvironment = 'local';
+        $testEnvironment = App::environment();
 
         return require __DIR__.'/../../bootstrap/start.php';
     }
