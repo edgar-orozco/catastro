@@ -83,5 +83,15 @@ class personas extends Eloquent
     public function setCurpAttribute($curp){
         $this->attributes['curp'] = mb_strtoupper(trim($curp));
     }
+    /**
+     * relacion registro escrituras - enajenante
+     */
+    public function enajenantes(){
+   return $this->hasMany('RegistroEscritura', 'enajenante_id', 'id_p');
+}
+
+public function adquiriente(){
+   return $this->hasMany('RegistroEscritura', 'enajenante_id', 'id_p');
+}
 }
 
