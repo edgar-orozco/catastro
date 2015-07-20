@@ -155,7 +155,7 @@
 
         <div class="form-group col-md-4">
             {{Form::label('traslado[escritura_registro]','N°. De escritura')}}
-            {{Form::number('traslado[escritura_registro]', null, ['class'=>'form-control'] )}}
+            {{Form::number('traslado[escritura_registro]', null, ['class'=>'form-control', 'min'=>0] )}}
             {{$errors->first('traslado[escritura_registro]', '<span class=text-danger>:message</span>')}}
         </div>
         <div class="form-group col-md-4">
@@ -214,7 +214,8 @@
                 ng-model="notarias" id="notario_antecedente_id" name="traslado[notario_antecedente_id]">
             @foreach(Notaria::all() as $notaria)
                 <option value="{{ $notaria->id_notaria }}"> {{ $notaria->nombre }}
-                    ( {{ $notaria->mpio['nombre_municipio'] }}, {{ $notaria->estado['nom_ent'] }} )
+                    ( {{ $notaria->mpio['nombre_municipio'] }}, {{ $notaria->estado['nom_ent'] }})
+                    ({{ $notaria->notario->nombres }} {{ $notaria->notario->apellido_paterno }} {{ $notaria->notario->apellido_materno }} )
                 </option>
             @endforeach
         </select>
@@ -284,8 +285,7 @@
             <select select-two="select2" placeholder="Peritos" class="select2-select" selection="valuador_num_ant"
                     ng-model="valuador_num_ant" id="valuador_num_ant" name="traslado[valuador_num_ant]">
                 @foreach(Perito::all() as $perito)
-                    $perito;
-                    <option value="{{ $perito->corevat}}"> {{ $perito->nombre }} </option>
+                    <option value="{{ $perito->corevat}}"> ({{ $perito->corevat }}) {{ $perito->nombre }} </option>
                 @endforeach
             </select>
             {{$errors->first('peritos[]', '<span class=text-danger>:message</span>')}}
@@ -322,7 +322,7 @@
 
             <br>
             {{Form::label('traslado[precio_base]','Precio base')}}
-            {{Form::number('traslado[precio_base]', null, ['id'=>'precio_base', 'class'=>'form-control', 'min' => 0, 'step'=>'any', 'min'=>0, 'required'=>false, 'readonly'=>true] )}}
+            {{Form::number('traslado[precio_base]', null, ['id'=>'precioBase', 'class'=>'form-control importeTotalFactores', 'min' => 0, 'step'=>'any', 'min'=>0, 'required'=>false, 'readonly'=>true] )}}
             {{$errors->first('traslado[precio_base]', '<span class=text-danger>:message</span>')}}
 
 
@@ -339,23 +339,42 @@
             {{$errors->first('traslado[diferencia_omitida]', '<span class=text-danger>:message</span>')}}
 
             {{Form::label('traslado[porcentaje_aplicarse]','Porcentaje aplicarse')}}
-            {{Form::number('traslado[porcentaje_aplicarse]', null, ['class'=>'form-control', 'min' => 0, 'step'=>'any', 'min'=>0, 'required'=>false] )}}
+            {{Form::number('traslado[porcentaje_aplicarse]', null, ['id'=>'porcentajeAplicarse', 'class'=>'form-control importeTotalFactores', 'min' => 2, 'step'=>'any', 'min'=>0, 'required'=>false] )}}
             {{$errors->first('traslado[porcentaje_aplicarse]', '<span class=text-danger>:message</span>')}}
 
             {{Form::label('traslado[impuesto_enterar]','Impuesto enterar')}}
             {{Form::number('traslado[impuesto_enterar]', null, ['class'=>'form-control', 'min' => 0, 'step'=>'any', 'min'=>0, 'required'=>false] )}}
             {{$errors->first('traslado[impuesto_enterar]', '<span class=text-danger>:message</span>')}}
 
+
+            <?php
+             //   print_r($predio);
+            $municipioArr = explode('-', $predio->clave);
+            $gid = Municipio::where('municipio', $municipioArr[1])->pluck('gid');
+            $resultadog = DB::select("select sp_get_concepto_adeudo('$predio->clave','$gid')");
+            foreach ($resultadog as $keyss) {
+                $itemsg = explode('-', $keyss->sp_get_concepto_adeudo);
+            }
+            $actualizacion = Number_format($itemsg[0], 2, '.', ',');
+            $recargo = Number_format($itemsg[1], 2, '.', ',');
+            $gastos_ejecucion = Number_format($itemsg[2], 2, '.', ',');
+            $gran_total = Number_format($itemsg[3], 2, '.', ',');
+            $descuento_multa = Number_format($itemsg[4], 2, '.', ',');
+            $descuento_gasto = Number_format($itemsg[5], 2, '.', ',');
+            $descuento_recargo = Number_format($itemsg[6], 2, '.', ',');
+            $totalConDescuentos = Number_format($itemsg[7], 2, '.', ',');
+            ?>
+
             {{Form::label('traslado[actualizacion]','Actualización')}}
-            {{Form::number('traslado[actualizacion]', null, ['class'=>'form-control', 'min' => 0, 'step'=>'any', 'min'=>0, 'required'=>false] )}}
+            {{Form::number('traslado[actualizacion]',  $actualizacion , ['id'=>'actualizacion', 'class'=>'form-control importeTotalFactores', 'readonly'=>true] )}}
             {{$errors->first('traslado[actualizacion]', '<span class=text-danger>:message</span>')}}
 
             {{Form::label('traslado[recargos]','Recargos')}}
-            {{Form::number('traslado[recargos]', null, ['class'=>'form-control', 'min' => 0, 'step'=>'any', 'min'=>0, 'required'=>false] )}}
+            {{Form::number('traslado[recargos]',$totalConDescuentos - $actualizacion, ['id'=>'recargos', 'class'=>'form-control importeTotalFactores',  'readonly'=>true] )}}
             {{$errors->first('traslado[recargos]', '<span class=text-danger>:message</span>')}}
 
             {{Form::label('traslado[importe_total]','Importe total')}}
-            {{Form::number('traslado[importe_total]', null, ['class'=>'form-control', 'min' => 0, 'step'=>'any', 'min'=>0, 'required'=>false] )}}
+            {{Form::number('traslado[importe_total]', null, ['id'=>'importeTotal', 'class'=>'form-control', 'readonly'=>true] )}}
             {{$errors->first('traslado[importe_total]', '<span class=text-danger>:message</span>')}}
         </div>
     </div>
@@ -384,8 +403,7 @@
             <select select-two="select2" placeholder="Peritos" class="select2-select" selection="valuador_num"
                     ng-model="valuador_num" id="valuador_num" name="traslado[valuador_num]">
                 @foreach(Perito::all() as $perito)
-                    $perito;
-                    <option value="{{ $perito->corevat}}"> {{ $perito->nombre }} </option>
+                    <option value="{{ $perito->corevat}}"> ({{ $perito->corevat }}) {{ $perito->nombre }} </option>
                 @endforeach
             </select>
             {{$errors->first('peritos[]', '<span class=text-danger>:message</span>')}}
@@ -546,10 +564,28 @@
                var valorOperacion = $("#valor_operacion").val();
                var  valorComercial = $("#valor_comercial").val();
 
-                console.log
-                console.log(Math.max(valorCatastral, valorOperacion, valorComercial));
+                $("#precioBase").val(Math.max(valorCatastral, valorOperacion, valorComercial));
+                $(".importeTotalFactores").change();
+            });
 
-                $("#precio_base").val(Math.max(valorCatastral, valorOperacion, valorComercial));
+
+
+
+            /*El importe total es la suma de los montos que aparecen en los siguientes campos de la sección Liquidación vivienda
+            (Ver referencia de campos en ticket #98251408)
+            importe total = porcentaje_aplicarse/100 * precio_base + actualizacion + recargos
+            El porcentaje_aplicarse no debe ser menor al 2%
+               */
+            $(".importeTotalFactores").change(function () {
+
+                var porcentajeAplicarse =Number($("#porcentajeAplicarse").val());
+                var precioBase = Number($("#precioBase").val());
+                var actualizacion = Number($("#actualizacion").val());
+                var recargos = Number($("#recargos").val());
+
+                var importeTotal = porcentajeAplicarse/100*precioBase+actualizacion+recargos;
+
+                $("#importeTotal").val(importeTotal);
             });
 
 
