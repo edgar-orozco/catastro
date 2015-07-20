@@ -86,9 +86,9 @@
 
         $("#notario_antecedente_id").select2("val",  {{ $traslado->notario_antecedente_id }});
 
-        $("#valuador_num_ant").select2("val", {{ $traslado->valuador_num_ant }} );
+        $("#valuador_num_ant").select2("val", "{{ $traslado->valuador_num_ant }}" );
 
-        $("#valuador_num").select2("val", {{ $traslado->valuador_num }} );
+        $("#valuador_num").select2("val", "{{ $traslado->valuador_num }}" );
 
 
     });
