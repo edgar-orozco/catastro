@@ -18,6 +18,7 @@
                 <li><a href="javascript:void(0);" data-tipo="Ubicación">Ubicación de la propiedad</a></li>
                 <li><a href="javascript:void(0);" data-tipo="Clave">Clave catastral de propiedad</a></li>
                 <li><a href="javascript:void(0);" data-tipo="Cuenta">Número de cuenta de la propiedad</a></li>
+                <li><a href="javascript:void(0);" data-tipo="Seguimiento">Clave seguimiento</a></li>
             </ul>
         </div><!-- /btn-group -->
     </div><!-- /input-group -->

@@ -402,6 +402,9 @@ class OficinaVirtualNotarioController extends \BaseController
         if ($tipo == 'Cuenta') {
             $traslados = Traslado::whereCuenta($q)->paginate($this->numPags);
         }
+        if ($tipo == 'Seguimiento') {
+            $traslados = Traslado::whereSeguimiento($q)->paginate($this->numPags);
+    }
         if (Request::ajax()) {
             return View:: make('ofvirtual.notario.traslado._list', compact(['traslados']));
         }
