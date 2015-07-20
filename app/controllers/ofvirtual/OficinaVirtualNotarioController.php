@@ -123,6 +123,10 @@ class OficinaVirtualNotarioController extends \BaseController
 
         $traslado = new Traslado();
         $traslado->fill(array_filter(Input::get('traslado')));
+
+        $seguimiento = Traslado::cadenaSeguimientoUnica(SeguimientoHelper::generarClave());;
+        $traslado->seguimiento = $seguimiento;
+
         $traslado->usuario_id = $usuarioId;
         $traslado->notario_escritura_id = $notarioEscrituraId;
         $traslado->notaria_escritura_id = $notariaEscrituraId;
