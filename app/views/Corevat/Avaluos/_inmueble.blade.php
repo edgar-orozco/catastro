@@ -1,7 +1,7 @@
 <h3 class="header">{{$title}}</h3>
 <hr>
 {{Form::model($row, ['route' => array('updateAvaluoInmueble', $idavaluo), 'class'=>'horizontal', 'method'=>'post', 'id'=>'formAvaluoInmueble', 'enctype'=>'multipart/form-data' ]) }}
-{{Form::hidden('idavaluoinmueble', $row->idavaluoinmueble)}}
+{{Form::hidden('idavaluoinmueble', $row->idavaluoinmueble, ['id'=>'idavaluoinmueble'])}}
 <div class="row">
 	<div class="col-md-12 bg-primary"><h4>Subir imagenes</h4></div>
 	<div class="col-md-6">
@@ -34,34 +34,22 @@
 
 	<div class="col-md-12 bg-primary"><h4>Detalles de Medidas y Colindancias</h4></div>
 	<div class="col-md-12">
-		<table cellpadding="0" cellspacing="0" border="0" class="table datatable table-striped corevatDataTable" id="ai_medidas_colindanciase-table">
+		<table cellpadding="0" cellspacing="0" border="0" class="table datatable table-striped" id="ai_medidas_colindanciase-table">
 			<thead>
 				<tr>
 					<th>#</th>
+					<th>IDORIENTACIÓN</th>
 					<th>ORIENTACIÓN</th>
+					<th>U.M.</th>
 					<th>MEDIDAS</th>
+					<th>MEDIDAS(ante)</th>
 					<th>COLINDANCIAS</th>
 					<th>OPCIONES</th>
 				</tr>
 			</thead>
-			<tbody>
-				@if ( count($ai_medidas_colindancias) > 0 )
-				@foreach ($ai_medidas_colindancias as $item)
-				<tr>
-					<td>{{$item->idaimedidacolindancia}}</td>
-					<td>{{$item->orientacion}}</td>
-					<td>{{$item->medidas}} {{$item->unidad_medida}}</td>
-					<td>{{$item->colindancia}}</td>
-					<td>
-						<a href="#" class="btn btn-xs btn-info btnEdit"  idAi="{{$item->idaimedidacolindancia}}" title="Editar"><i class="glyphicon glyphicon-pencil"></i></a>
-						<a href="#" class="btn btn-xs btn-danger btnDel" idAi="{{$item->idaimedidacolindancia}}" title="Eliminar"><i class="glyphicon glyphicon-remove"></i></a>
-					</td>
-				</tr>
-				@endforeach
-				@endif
-			</tbody>
 		</table>
 	</div>
+
 	<div class="col-md-12">&nbsp;</div>
 	<hr>
 
@@ -357,15 +345,21 @@
 	<input type="hidden" name="idavaluoinmueble2" id="idavaluoinmueble2" value="{{$row->idavaluoinmueble}}" />
 	<input type="hidden" name="idaimedidacolindancia" id="idaimedidacolindancia" value="0" />
 	<div class="row">
-		<div class="col-md-6">
+		<div class="col-md-4">
 			{{Form::label('idorientacion', 'Orientación')}}
 			{{Form::select('idorientacion', $cat_orientaciones, 1, ['id' => 'idorientacion', 'class'=>'form-control'])}}
 			<hr>
 		</div>
 
-		<div class="col-md-6">
+		<div class="col-md-4">
 			{{Form::label('medidas', 'Medidas')}}
-			{{Form::text('medidas', $row->medidas, ['class'=>'form-control clsNumeric', 'required' => 'required', 'maxlength'=>'50'] )}}
+			{{Form::number('medidas', $row->medidas, ['id'=>'medidas', 'class'=>'form-control clsNumeric', 'required' => 'required', 'step'=>'0.0001', 'min' => '0.0001', 'max' => '9999999999.9999', ])}}
+			<hr>
+		</div>
+
+		<div class="col-md-4">
+			{{Form::label('medida', 'Medidas (Anterior)')}}
+			{{Form::text('medida', $row->medida, ['id'=>'medida', 'class'=>'form-control', 'disabled'=>'disabled'])}}
 			<hr>
 		</div>
 
@@ -377,11 +371,11 @@
 
 		<div class="col-md-8">
 			{{Form::label('colindancia', 'Colindancias')}}
-			{{Form::text('colindancia', '', ['class'=>'form-control', 'required' => 'required', 'maxlength'=>'100'] )}}
+			{{Form::text('colindancia', '', ['id'=>'colindancia', 'class'=>'form-control', 'required' => 'required', 'maxlength'=>'100'] )}}
 			<hr>
 		</div>
 	</div>
-		<div style="text-align: center; margin-top: 10px;" id="messagesDialogForm"></div>
+		<div style="text-align: center;" id="messagesDialogForm"></div>
 	{{Form::close()}}
 </div>
 <div id="divDialogConfirm" style="display: none;">
@@ -407,6 +401,23 @@
 		/*++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 		 * 
 		 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
+		var table = $('#ai_medidas_colindanciase-table').DataTable( {
+			"ajax": '/corevat/AiMedidasColindanciasGetAjax/' + $("#idavaluoinmueble").val(),
+			"columnDefs": [
+				{
+					"targets": [ 1 ],
+					"visible": false
+				},
+				{
+					"targets": [ 5 ],
+					"visible": false
+				}
+			]
+		});
+		
+		/*++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+		 * 
+		 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
 		$('#btnNew').click(function () {
 			$('#ctrl').val('ins');
 			$('#idaimedidacolindancia, #medidas').val('0');
@@ -415,6 +426,28 @@
 			$('#divDialogForm').dialog({title: 'Capturar un nuevo registro'}).dialog('open');
 		});
 
+		$.pato = function(id) {
+			$('#ctrl').val('upd');
+			$('#idaimedidacolindancia').val(id);
+			$.ajax({
+				global: false,
+				cache: false,
+				dataType: 'json',
+				url: '/corevat/AiMedidasColindanciasGet/' + $('#idaimedidacolindancia').val(),
+				type: 'get',
+				success: function (data) {
+					datos = eval(data);
+					$("#idorientacion option[value=" + datos.idorientacion + "]").attr("selected", true);
+					$('#medida').val(datos.medida);
+					$('#medidas').val(datos.medidas);
+					$('#unidad_medida').val(datos.unidad_medida);
+					$('#colindancia').val(datos.colindancia);
+					$('#divDialogForm').dialog({title: 'Modificar registro'}).dialog('open');
+				}
+			});
+		};
+		
+		
 		/*++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 		 * 
 		 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
@@ -430,6 +463,7 @@
 				success: function (data) {
 					datos = eval(data);
 					$("#idorientacion option[value=" + datos.idorientacion + "]").attr("selected", true);
+					$('#medida').val(datos.medida);
 					$('#medidas').val(datos.medidas);
 					$('#unidad_medida').val(datos.unidad_medida);
 					$('#colindancia').val(datos.colindancia);
@@ -464,6 +498,9 @@
 					if (datos.success) {
 						$('#messagesDialogForm').removeClass().addClass('alert').addClass('alert-success').append(datos.message);
 						$('#idTable').val( datos.idTable );
+						//$("#ai_medidas_colindanciase-table").ajax.reload();
+						//'/corevat/AiMedidasColindanciasGetAjax/306'
+						table.ajax.reload();
 					} else {
 						var errores = '';
 						for(datos in data.errors) {
@@ -486,7 +523,7 @@
 			autoOpen: false,
 			closeOnEscape: true,
 			width: 800,
-			height: 400,
+			height: 450,
 			buttons: {
 				Guardar: function () {
 					$("#formAiMedidasColindancias").submit();
@@ -497,7 +534,8 @@
 			},
 			close: function() {
 				if ( $('#messagesDialogForm').attr('class') == 'alert alert-success' ) {
-					window.location.href = '/corevat/AvaluoInmueble/<?php echo $row->idavaluo ?>';
+					//window.location.href = '/corevat/AvaluoInmueble/<?php echo $row->idavaluo ?>';
+					
 				}
 			}
 		});
@@ -545,6 +583,7 @@
 			maxFileCount: 1,
 			allowedFileExtensions: ["gif","jpg","JPG","png"]
 		});
+		
 	});
 </script>
 @stop
