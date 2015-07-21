@@ -355,30 +355,55 @@ class corevat_AvaluosController extends \BaseController {
 	 **/
 	public function updateInmueble($id) {
 		$inputs = Input::All();
-			// 'indiviso_accesoria' => 'numeric|min:0|max:999999999.9999|regex:/^[0-9]{1,9}(\.?)[0-9]{1,4}$/',
-	
 		$rules = array(
 			'unidades_rentables_escritura' => 'integer|min:0|max:9999',
-			'superficie_total_terreno' => 'numeric|min:0|max:999999999.9999|regex:/^[0-9]{1,9}(\.?)[0-9]{1,4}$/',
-			'indiviso_terreno' => 'numeric|min:0|max:999999999.9999|regex:/^[0-9]{1,9}(\.?)[0-9]{1,4}$/',
-			'superficie_terreno' => 'numeric|min:0|max:999999999.9999|regex:/^[0-9]{1,9}(\.?)[0-9]{1,4}$/',
-			'indiviso_areas_comunes' => 'numeric|min:0|max:999999999.9999|regex:/^[0-9]{1,9}(\.?)[0-9]{1,4}$/',
-			'superficie_construccion' => 'numeric|min:0|max:999999999.9999|regex:/^[0-9]{1,9}(\.?)[0-9]{1,4}$/',
-			'superficie_escritura' => 'numeric|min:0|max:999999999.9999|regex:/^[0-9]{1,9}(\.?)[0-9]{1,4}$/',
-			'superficie_vendible' => 'numeric|min:0|max:999999999.9999|regex:/^[0-9]{1,9}(\.?)[0-9]{1,4}$/',
+			'superficie_total_terreno' => 'numeric|min:0.0001|max:9999999999.9999',
+			'indiviso_terreno' => 'numeric|min:0|max:100.0000',
+			'superficie_terreno' => 'numeric|min:0.0001|max:9999999999.9999',
+			'indiviso_areas_comunes' => 'numeric|min:0|max:100.0000',
+			'superficie_construccion' => 'numeric|min:0|max:9999999999.9999',
+			'indiviso_accesoria' => 'numeric|min:0|max:9999999999.9999',
+			'superficie_escritura' => 'numeric|min:0|max:9999999999.9999',
+			'superficie_vendible' => 'numeric|min:0|max:9999999999.9999',
 		);
 		$messages = array(
 			'unidades_rentables_escritura.integer' => '¡El campo "Unidades Rentables en la misma Estructura" debe ser un entero positivo!',
 			'unidades_rentables_escritura.min' => '¡El valor mínimo del campo "Unidades Rentables en la misma Estructura" debe ser cero!',
 			'unidades_rentables_escritura.max' => '¡El valor máximo del campo "Unidades Rentables en la misma Estructura" debe ser 9999!',
+			
 			'superficie_total_terreno.numeric' => '¡El campo "Superficie Total del Terreno" debe ser un número!',
-			'superficie_total_terreno.min' => '¡El valor mínimo del campo "Superficie Total del Terreno" debe ser cero!',
-			'superficie_total_terreno.max' => '¡El valor máximo del campo "Superficie Total del Terreno" debe ser 999999999.999!',
-			'superficie_total_terreno.regex' => '¡El formato del campo "Superficie Total del Terreno" debe ser 999999999.999!',
+			'superficie_total_terreno.min' => '¡El valor mínimo del campo "Superficie Total del Terreno" debe ser mayor a cero!',
+			'superficie_total_terreno.max' => '¡El valor máximo del campo "Superficie Total del Terreno" debe ser 9999999999.9999!',
+			
 			'indiviso_terreno.numeric' => '¡El campo "Indiviso del Terreno (%)" debe ser un número!',
-			'indiviso_terreno.min' => '¡El valor mínimo del campo "Indiviso del Terreno (%)" debe ser cero!',
-			'indiviso_terreno.max' => '¡El valor máximo del campo "Indiviso del Terreno (%)" debe ser 999999999.999!',
-			'indiviso_terreno.regex' => '¡El formato del campo "Indiviso del Terreno (%)" debe ser 999999999.999!',
+			'indiviso_terreno.min' => '¡El valor mínimo del campo "Indiviso del Terreno (%)" debe ser mayor cero!',
+			'indiviso_terreno.max' => '¡El valor máximo del campo "Indiviso del Terreno (%)" debe ser 100.0000!',
+			
+			'superficie_terreno.numeric' => '¡El campo "Superfice del Terreno" debe ser un número!',
+			'superficie_terreno.min' => '¡El valor mínimo del campo "Superfice del Terreno" debe ser mayor cero!',
+			'superficie_terreno.max' => '¡El valor máximo del campo "Superfice del Terreno" debe ser 9999999999.9999!',
+			
+			'indiviso_areas_comunes.numeric' => '¡El campo "Indiviso de Áreas Comunes (%)" debe ser un número!',
+			'indiviso_areas_comunes.min' => '¡El valor mínimo del campo "Indiviso de Áreas Comunes (%)" debe ser mayor o igual a cero!',
+			'indiviso_areas_comunes.max' => '¡El valor máximo del campo "Indiviso de Áreas Comunes (%)" debe ser 100.0000!',
+			
+			'superficie_construccion.numeric' => '¡El campo "Superficie de Construcción" debe ser un número!',
+			'superficie_construccion.min' => '¡El valor mínimo del campo "Superficie de Construcción" debe ser mayor o igual cero!',
+			'superficie_construccion.max' => '¡El valor máximo del campo "Superficie de Construcción" debe ser 9999999999.9999!',
+			
+			'indiviso_accesoria.numeric' => '¡El campo "Edad de la Construcción (años)" debe ser un número!',
+			'indiviso_accesoria.min' => '¡El valor mínimo del campo "Edad de la Construcción (años)" debe ser mayor o igual cero!',
+			'indiviso_accesoria.max' => '¡El valor máximo del campo "Edad de la Construcción (años)" debe ser 9999999999.9999!',
+			
+			'superficie_escritura.numeric' => '¡El campo "Superficie Asentada en Escritura" debe ser un número!',
+			'superficie_escritura.min' => '¡El valor mínimo del campo "Superficie Asentada en Escritura" debe ser mayor o igual cero!',
+			'superficie_escritura.max' => '¡El valor máximo del campo "Superficie Asentada en Escritura" debe ser 9999999999.9999!',
+			
+			'superficie_vendible.numeric' => '¡El campo "Superficie Vendible" debe ser un número!',
+			'superficie_vendible.min' => '¡El valor mínimo del campo "Superficie Vendible" debe ser mayor o igual cero!',
+			'superficie_vendible.max' => '¡El valor máximo del campo "Superficie Vendible" debe ser 9999999999.9999!',
+			'superficie_vendible.regex' => '¡El formato del campo "Superficie Vendible" debe ser 9999999999.9999!',
+			
 		);
 		$validate = Validator::make($inputs, $rules, $messages);
 		if ($validate->fails()) {
@@ -685,12 +710,14 @@ class corevat_AvaluosController extends \BaseController {
 		$inputs = Input::All();
 		$response = array('success' => true, 'message' => '', 'errors' => '', 'idTable' => '');
 		$rules = array(
-			'medidas' => 'required',
+			'medidas' => 'required|numeric|min:0.0001|max:9999999999.9999',
 			'unidad_medida' => 'required',
 			'colindancia' => 'required',
 		);
 		$messages = array(
 			'medidas.required' => '¡El campo "Medidas" es requerido!',
+			'medidas.min' => '¡El valor mínimo del campo "Medidas" es "0.0001"!',
+			'medidas.max' => '¡El valor máximo del campo "Medidas" es "9999999999.9999"!',
 			'unidad_medida.required' => '¡El campo "Unidad de Medida" es requerido!',
 			'colindancia.required' => '¡El campo "Colindancias" es requerido!',
 		);

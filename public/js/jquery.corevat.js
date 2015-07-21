@@ -3,6 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
+var corevatDataTable;
 
 $(document).ready(function () {
     $.datepicker.regional['es'] = {
@@ -35,25 +36,26 @@ $(document).ready(function () {
 			}
 		});
 	}
-    /*++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-     *  
-     ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
-    $('.corevatDataTable').dataTable({
-        language: {
-            lengthMenu: "Mostrar _MENU_ Registros por página",
-            zeroRecords: "No se encontraron registros",
-            info: "Mostrando pagina _PAGE_ de _PAGES_",
-            infoEmpty: "No hay registros", "search": "Filter records:",
-            search: "Buscar: ", "infoFiltered": "(Filtrado en _MAX_ total de registros)",
-            oPaginate: {
-                sPrevious: "Anterior",
-                sNext: "Siguiente"
-            }
-        },
-        ordering: true,
-        searching: false,
-        lengthMenu: [10, 20, 30]
-    });
+	/*++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+	*  
+	++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
+	corevatDataTable = $('.corevatDataTable').DataTable({
+		language: {
+			lengthMenu: "Mostrar _MENU_ Registros por página",
+			zeroRecords: "No se encontraron registros",
+			info: "Mostrando pagina _PAGE_ de _PAGES_",
+			infoEmpty: "No hay registros", "search": "Filter records:",
+			search: "Buscar: ", "infoFiltered": "(Filtrado en _MAX_ total de registros)",
+			oPaginate: {
+				sPrevious: "Anterior",
+				sNext: "Siguiente"
+			}
+		},
+		ordering: true,
+		searching: false,
+		lengthMenu: [10, 20, 30]
+	});
+	corevatDataTable.ajax.url( '/corevat/AiMedidasColindanciasGetAjax/' + $("#idavaluoinmueble").val() ).load();
 
     /*++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
      * 

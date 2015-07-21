@@ -23,9 +23,16 @@ class AiMedidasColindancias extends \Eloquent {
 						->get();
 						
 		 foreach ($rows as $row) {
-			 $opt = '<a href="#" class="btn btn-xs btn-info btnEdit"  idAi="'.$row['idaimedidacolindancia'].'" title="Editar" onclick="$.pato('.$row['idaimedidacolindancia'].');"><i class="glyphicon glyphicon-pencil"></i></a>';
-			 $opt .= '<a href="#" class="btn btn-xs btn-danger btnDel" idAi="'.$row['idaimedidacolindancia'].'" title="Eliminar"><i class="glyphicon glyphicon-remove"></i></a>';
-			 $pato[] = array($row['idaimedidacolindancia'], $row['idorientacion'], $row['orientacion'], $row['unidad_medida'], $row['medidas'], $row['medida'], $row['colindancia'], $opt);
+			 $pato[] = array(
+				$row['idaimedidacolindancia'], 
+				$row['idorientacion'], 
+				$row['orientacion'], 
+				$row['unidad_medida'], 
+				$row['medidas'], 
+				$row['medida'], 
+				$row['colindancia'], 
+				'<a class="btn btn-xs btn-info btnEdit"  title="Editar" onclick="$.editAiMedidasColindancias('.$row['idaimedidacolindancia'].');"><i class="glyphicon glyphicon-pencil"></i></a>', 
+				'<a class="btn btn-xs btn-danger btnDel" title="Eliminar" onclick="$.delAiMedidasColindancias('.$row['idaimedidacolindancia'].');"><i class="glyphicon glyphicon-remove"></i></a>');
 		 }
 		$res = array(
 			"draw" => 1,
@@ -34,13 +41,6 @@ class AiMedidasColindancias extends \Eloquent {
 			"data" => $pato
 		);
 		return $res;
-		/*
-		return AiMedidasColindancias::select('ai_medidas_colindancias.*', 'cat_orientaciones.orientacion')
-						->leftJoin('cat_orientaciones', 'ai_medidas_colindancias.idorientacion', '=', 'cat_orientaciones.idorientacion')
-						->where('ai_medidas_colindancias.idavaluoinmueble', '=', $fk)
-						->orderBy('ai_medidas_colindancias.idaimedidacolindancia')
-						->get();
-		*/
 	}
 
 	/**
@@ -53,9 +53,8 @@ class AiMedidasColindancias extends \Eloquent {
 		$row = new AiMedidasColindancias();
 		$row->idavaluoinmueble = $inputs['idavaluoinmueble2'];
 		$row->idorientacion = $inputs['idorientacion'];
-		// $row->medida = $inputs['medida'];
-		$row->medidas = $inputs['medidas'];
-		$row->unidad_medida = $inputs['unidad_medida'];
+		//$row->medidas = $inputs['medidas'];
+		//$row->unidad_medida = $inputs['unidad_medida'];
 		$row->colindancia = $inputs['colindancia'];
 		$row->idemp = 1;
 		$row->ip = $_SERVER['REMOTE_ADDR'];

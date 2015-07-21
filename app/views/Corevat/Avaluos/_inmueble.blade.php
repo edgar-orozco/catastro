@@ -30,21 +30,26 @@
 	</div>
 
 	<div class="col-md-11"><h3>Medidas y Colindancias</h3></div>
-	<div class="col-md-1"><a href="#" class="btn btn-primary nuevo" id="btnNew" title="Nuevo Avaluo">Nuevo</a></div>
+	<div class="col-md-1"><a class="btn btn-primary nuevo" id="btnNew" title="Nuevo Avaluo">Nuevo</a></div>
 
 	<div class="col-md-12 bg-primary"><h4>Detalles de Medidas y Colindancias</h4></div>
 	<div class="col-md-12">
-		<table cellpadding="0" cellspacing="0" border="0" class="table datatable table-striped" id="ai_medidas_colindanciase-table">
+		<table cellpadding="0" cellspacing="0" border="0" class="table datatable table-striped corevatDataTable" id="ai_medidas_colindanciase-table">
 			<thead>
 				<tr>
-					<th>#</th>
-					<th>IDORIENTACIÓN</th>
-					<th>ORIENTACIÓN</th>
-					<th>U.M.</th>
-					<th>MEDIDAS</th>
-					<th>MEDIDAS(ante)</th>
-					<th>COLINDANCIAS</th>
-					<th>OPCIONES</th>
+					<th colspan="7"></th>
+					<th colspan="2">OPCIONES</th>
+				</tr>
+				<tr>
+					<th style="width:9%;">#</th>
+					<th style="width:1%;">IDORIENTACIÓN</th>
+					<th style="width:20%;">ORIENTACIÓN</th>
+					<th style="width:10%;">U.M.</th>
+					<th style="width:20%;">MEDIDAS</th>
+					<th style="width:20%;">MEDIDAS(ante)</th>
+					<th style="width:20%;">COLINDANCIAS</th>
+					<th style="width:5%;"></th>
+					<th style="width:5%;"></th>
 				</tr>
 			</thead>
 		</table>
@@ -111,7 +116,7 @@
 	<div class="col-md-2"></div>
 	<div class="col-md-5">
 		{{Form::label('unidades_rentables_escritura', 'Unidades Rentables en la misma Estructura')}}
-		{{Form::number('unidades_rentables_escritura', $row->unidades_rentables_escritura, ['class'=>'form-control', 'step'=>'1', 'min' => '0', 'max' => '9999', 'pattern' => '[0-9]{4}'] )}}
+		{{Form::number('unidades_rentables_escritura', $row->unidades_rentables_escritura, ['class'=>'form-control', 'step'=>'1', 'min' => '0', 'max' => '9999'] )}}
 		{{$errors->first('unidades_rentables_escritura', '<span class=text-danger>:message</span>')}}
 	</div>
 	<div class="col-md-12">&nbsp;</div>
@@ -279,52 +284,51 @@
 				<tr>
 					<th class="bg-primary">{{Form::label('superficie_total_terreno', 'Superficie Total del Terreno')}}</th>
 					<td>
-						{{Form::number('superficie_total_terreno', $row->superficie_total_terreno, ['class'=>'form-control', 'step'=>'0.0001', 'min'=>'0.0000', 'max'=>'999999999.9999', 'pattern'=>'[0-9]{9}[.]{1}[0-9]{4}'] )}}
+						{{Form::number('superficie_total_terreno', $row->superficie_total_terreno, ['class'=>'form-control clsNumeric', 'step'=>'0.0001', 'min'=>'0.0001', 'max'=>'9999999999.9999'])}}
 						{{$errors->first('superficie_total_terreno', '<span class=text-danger>:message</span>')}}
 					</td>
 					<th class="bg-primary">{{Form::label('indiviso_terreno', 'Indiviso del Terreno (%)')}}</th>
 					<td>
-						{{Form::number('indiviso_terreno', $row->indiviso_terreno, ['class'=>'form-control', 'step'=>'0.0001', 'min'=>'0.0000', 'max'=>'999999999.9999', 'pattern'=>'[0-9]{9}[.]{1}[0-9]{4}'] )}}
+						{{Form::number('indiviso_terreno', $row->indiviso_terreno, ['class'=>'form-control clsNumeric', 'step'=>'0.0001', 'min'=>'0.0000', 'max'=>'999.9999'])}}
 						{{$errors->first('indiviso_terreno', '<span class=text-danger>:message</span>')}}
 					</td>
 				</tr>
 				<tr>
 					<th class="bg-primary">{{Form::label('superficie_terreno', 'Superficie del Terreno')}}</th>
 					<td>
-						{{Form::number('superficie_terreno', $row->superficie_terreno, ['id'=>'superficie_terreno','class'=>'form-control', 'step'=>'0.0001', 'min'=>'0.0000', 'max'=>'999999999.9999', 'pattern'=>'[0-9]{9}[.]{1}[0-9]{4}'] )}}
+						{{Form::number('superficie_terreno', $row->superficie_terreno, ['id'=>'superficie_terreno','class'=>'form-control clsNumeric', 'step'=>'0.0001', 'min'=>'0.0001', 'max'=>'9999999999.9999'] )}}
 						{{$errors->first('superficie_terreno', '<span class=text-danger>:message</span>')}}
 					</td>
 
 					<th class="bg-primary">{{Form::label('indiviso_areas_comunes', 'Indiviso de Áreas Comunes (%)')}}</th>
 					<td>
-						{{Form::number('indiviso_areas_comunes', $row->indiviso_areas_comunes, ['id'=>'indiviso_areas_comunes','class'=>'form-control', 'step'=>'0.0001', 'min'=>'0.0000', 'max'=>'999999999.9999', 'pattern'=>'[0-9]{9}[.]{1}[0-9]{4}'] )}}
+						{{Form::number('indiviso_areas_comunes', $row->indiviso_areas_comunes, ['id'=>'indiviso_areas_comunes','class'=>'form-control clsNumeric', 'step'=>'0.0001', 'min'=>'0.0000', 'max'=>'9999999999.9999'] )}}
 						{{$errors->first('indiviso_areas_comunes', '<span class=text-danger>:message</span>')}}
 					</td>
 				</tr>
 				<tr>
 					<th class="bg-primary">{{Form::label('superficie_construccion', 'Superficie de Construcción')}}</th>
 					<td>
-						{{Form::number('superficie_construccion', $row->superficie_construccion, ['id'=>'superficie_construccion','class'=>'form-control', 'step'=>'0.0001', 'min'=>'0.0000', 'max'=>'999999999.9999', 'pattern'=>'[0-9]{9}[.]{1}[0-9]{4}'] )}}
+						{{Form::number('superficie_construccion', $row->superficie_construccion, ['id'=>'superficie_construccion','class'=>'form-control clsNumeric', 'step'=>'0.0001', 'min'=>'0.0000', 'max'=>'9999999999.9999'] )}}
 						{{$errors->first('superficie_construccion', '<span class=text-danger>:message</span>')}}
 					</td>
 
 					<th class="bg-primary">{{Form::label('indiviso_accesoria', 'Edad de la Construcción (años)')}}</th>
 					<td>
-						<!-- {{Form::number('indiviso_accesoria', $row->indiviso_accesoria, ['id'=>'indiviso_accesoria','class'=>'form-control', 'step'=>'0.0001', 'min'=>'0.0000', 'max'=>'999999999.9999', 'pattern'=>'[0-9]{9}[.]{1}[0-9]{4}'] )}} -->
-						{{Form::number('indiviso_accesoria', $row->indiviso_accesoria, ['id'=>'indiviso_accesoria','class'=>'form-control'] )}}
+						{{Form::number('indiviso_accesoria', $row->indiviso_accesoria, ['id'=>'indiviso_accesoria','class'=>'form-control clsNumeric', 'step'=>'0.0001', 'min'=>'0.0000', 'max'=>'9999999999.9999'] )}}
 						{{$errors->first('indiviso_accesoria', '<span class=text-danger>:message</span>')}}
 					</td>
 				</tr>
 				<tr>
 					<th class="bg-primary">{{Form::label('superficie_escritura', 'Superficie Asentada en Escritura')}}</th>
 					<td>
-						{{Form::number('superficie_escritura', $row->superficie_escritura, ['id'=>'superficie_escritura','class'=>'form-control', 'step'=>'0.0001', 'min'=>'0.0000', 'max'=>'999999999.9999', 'pattern'=>'[0-9]{9}[.]{1}[0-9]{4}'] )}}
+						{{Form::number('superficie_escritura', $row->superficie_escritura, ['id'=>'superficie_escritura','class'=>'form-control clsNumeric', 'step'=>'0.0001', 'min'=>'0.0000', 'max'=>'9999999999.9999'])}}
 						{{$errors->first('superficie_escritura', '<span class=text-danger>:message</span>')}}
 					</td>
 
 					<th class="bg-primary">{{Form::label('superficie_vendible', 'Superficie Vendible')}}</th>
 					<td>
-						{{Form::number('superficie_vendible', $row->superficie_vendible, ['id'=>'superficie_vendible','class'=>'form-control', 'step'=>'0.0001', 'min'=>'0.0000', 'max'=>'999999999.9999', 'pattern'=>'[0-9]{9}[.]{1}[0-9]{4}'] )}}
+						{{Form::number('superficie_vendible', $row->superficie_vendible, ['id'=>'superficie_vendible','class'=>'form-control clsNumeric', 'step'=>'0.0001', 'min'=>'0.0000', 'max'=>'9999999999.9999'])}}
 						{{$errors->first('superficie_vendible', '<span class=text-danger>:message</span>')}}
 					</td>
 				</tr>
@@ -353,7 +357,7 @@
 
 		<div class="col-md-4">
 			{{Form::label('medidas', 'Medidas')}}
-			{{Form::number('medidas', $row->medidas, ['id'=>'medidas', 'class'=>'form-control clsNumeric', 'required' => 'required', 'step'=>'0.0001', 'min' => '0.0001', 'max' => '9999999999.9999', ])}}
+			{{Form::number('medidas', $row->medidas, ['id'=>'medidas', 'class'=>'form-control clsNumeric', 'required' => 'required', 'step'=>'0.0001', 'min' => '0.0001', 'max' => '9999999999.9999'])}}
 			<hr>
 		</div>
 
@@ -391,199 +395,9 @@
 {{ HTML::script('/js/jquery.corevat.js') }}
 {{ HTML::script('/js/fileinput.min.js') }}
 {{ HTML::script('/js/fileinput_locale_es.js') }}
+{{ HTML::script('/js/jquery.corevat.inmueble.js') }}
 <script>
 	$(document).ready(function () {
-		/*++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-		 * 
-		 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
-		$('#btn3Inmueble').removeClass("btn-info").addClass("btn-primary");
-
-		/*++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-		 * 
-		 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
-		var table = $('#ai_medidas_colindanciase-table').DataTable( {
-			"ajax": '/corevat/AiMedidasColindanciasGetAjax/' + $("#idavaluoinmueble").val(),
-			"columnDefs": [
-				{
-					"targets": [ 1 ],
-					"visible": false
-				},
-				{
-					"targets": [ 5 ],
-					"visible": false
-				}
-			]
-		});
-		
-		/*++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-		 * 
-		 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
-		$('#btnNew').click(function () {
-			$('#ctrl').val('ins');
-			$('#idaimedidacolindancia, #medidas').val('0');
-			$('#colindancia').val('');
-			$("#idorientacion option[value=1]").attr("selected", true);
-			$('#divDialogForm').dialog({title: 'Capturar un nuevo registro'}).dialog('open');
-		});
-
-		$.pato = function(id) {
-			$('#ctrl').val('upd');
-			$('#idaimedidacolindancia').val(id);
-			$.ajax({
-				global: false,
-				cache: false,
-				dataType: 'json',
-				url: '/corevat/AiMedidasColindanciasGet/' + $('#idaimedidacolindancia').val(),
-				type: 'get',
-				success: function (data) {
-					datos = eval(data);
-					$("#idorientacion option[value=" + datos.idorientacion + "]").attr("selected", true);
-					$('#medida').val(datos.medida);
-					$('#medidas').val(datos.medidas);
-					$('#unidad_medida').val(datos.unidad_medida);
-					$('#colindancia').val(datos.colindancia);
-					$('#divDialogForm').dialog({title: 'Modificar registro'}).dialog('open');
-				}
-			});
-		};
-		
-		
-		/*++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-		 * 
-		 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
-		$('.btnEdit').click(function () {
-			$('#ctrl').val('upd');
-			$('#idaimedidacolindancia').val($(this).attr('idAi'));
-			$.ajax({
-				global: false,
-				cache: false,
-				dataType: 'json',
-				url: '/corevat/AiMedidasColindanciasGet/' + $('#idaimedidacolindancia').val(),
-				type: 'get',
-				success: function (data) {
-					datos = eval(data);
-					$("#idorientacion option[value=" + datos.idorientacion + "]").attr("selected", true);
-					$('#medida').val(datos.medida);
-					$('#medidas').val(datos.medidas);
-					$('#unidad_medida').val(datos.unidad_medida);
-					$('#colindancia').val(datos.colindancia);
-					$('#divDialogForm').dialog({title: 'Modificar registro'}).dialog('open');
-				}
-			});
-		});
-
-		/*++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-		 * 
-		 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
-		$('.btnDel').click(function () {
-			$('#idaimedidacolindancia').val($(this).attr('idAi'));
-			$('#divDialogConfirm').dialog({title: 'Eliminar registro'}).dialog('open');
-
-		});
-
-		/*++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-		 * 
-		 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
-		$("#formAiMedidasColindancias").submit(function () {
-			$('#messagesDialogForm').empty().removeClass();
-			$.ajax({
-				global: false,
-				cache: false,
-				dataType: 'json',
-				url: $(this).attr("action"),
-				type: $(this).attr("method"),
-				data: $(this).serialize(),
-				success: function (data) {
-					datos = eval(data);
-					if (datos.success) {
-						$('#messagesDialogForm').removeClass().addClass('alert').addClass('alert-success').append(datos.message);
-						$('#idTable').val( datos.idTable );
-						//$("#ai_medidas_colindanciase-table").ajax.reload();
-						//'/corevat/AiMedidasColindanciasGetAjax/306'
-						table.ajax.reload();
-					} else {
-						var errores = '';
-						for(datos in data.errors) {
-							errores += '<p>' + data.errors[datos] + '</p>';
-						}
-						$('#messagesDialogForm').removeClass().addClass('alert').addClass('alert-danger').append(errores);
-					}
-				}
-			});
-			return false;
-		});
-
-		/*++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-		 * 
-		 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
-		$('#divDialogForm').dialog({
-			modal: true,
-			resizable: false,
-			draggable: false,
-			autoOpen: false,
-			closeOnEscape: true,
-			width: 800,
-			height: 450,
-			buttons: {
-				Guardar: function () {
-					$("#formAiMedidasColindancias").submit();
-				},
-				Cerrar: function () {
-					$(this).dialog('close');
-				}
-			},
-			close: function() {
-				if ( $('#messagesDialogForm').attr('class') == 'alert alert-success' ) {
-					//window.location.href = '/corevat/AvaluoInmueble/<?php echo $row->idavaluo ?>';
-					
-				}
-			}
-		});
-
-		/*++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-		 * 
-		 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
-		$('#divDialogConfirm').dialog({
-			modal: true,
-			resizable: false,
-			draggable: false,
-			autoOpen: false,
-			closeOnEscape: true,
-			width: 400,
-			height: 300,
-			buttons: {
-				Aceptar: function () {
-					$.ajax({
-						global: false,
-						cache: false,
-						dataType: 'json',
-						url: '/corevat/AiMedidasColindanciasDel/' + $('#idaimedidacolindancia').val(),
-						type: 'get',
-						success: function (data) {
-							datos = eval(data);
-							alert(datos.message);
-							if (datos.success === true) {
-								window.location.href = '/corevat/AvaluoInmueble/<?php echo $row->idavaluo ?>';
-							}
-						}
-					});
-					$('#divDialogConfirm').dialog("close");
-				},
-				Cancelar: function () {
-					$(this).empty().dialog("close");
-				}
-			}
-		});
-
-		/*++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-		 * 
-		 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
-		$('#fachada, #croquis').fileinput({
-			maxFileSize: 2000,
-			maxFileCount: 1,
-			allowedFileExtensions: ["gif","jpg","JPG","png"]
-		});
-		
 	});
 </script>
 @stop
