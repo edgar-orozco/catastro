@@ -10,7 +10,7 @@ protected $padron;
     /**
      * @param PadronRepositoryInterface $padron
      */
-    public function __construct(PadronRepositoryInterface $padron, RegistroEscrituras $registro)
+    public function __construct(PadronRepositoryInterface $padron, RegistroEscritura $registro)
     {
         $this->padron = $padron;
         $this->registro = $registro;
@@ -32,7 +32,7 @@ protected $padron;
         $subtitle_section = "Crear, modificar, buscar, imprimir.";
 
 
-        $registros = RegistroEscrituras::all();
+        $registros = RegistroEscritura::all();
 
         $misMunicipios = Auth::user()->municipios()->get(['gid']);
 
@@ -65,7 +65,7 @@ protected $padron;
      //ToDo: no muestra el titulo ?
         $title = 'Crear registro de escritura';
 
-        $registro = new RegistroEscrituras();
+        $registro = new RegistroEscritura();
 
         $identificador = Request::get('clave');
 
