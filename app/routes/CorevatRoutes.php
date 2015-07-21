@@ -566,6 +566,8 @@ Route::group(array('before' => 'corevat'), function () {
 	Route::get('/corevat/AiMedidasColindanciasGet/{id}', array('uses' => 'corevat_AvaluosController@getAiMedidasColindancias'));
 	Route::post('/corevat/AiMedidasColindanciasUpd/{id?}', array('as' => 'setAiMedidasColindancias', 'uses' => 'corevat_AvaluosController@setAiMedidasColindancias'));
 	Route::get('/corevat/AiMedidasColindanciasDel/{id}', array('as' => 'destroyAiMedidasColindancias', 'uses' => 'corevat_AvaluosController@delAiMedidasColindancias'));
+	// EN EXPERIMENTACION
+	Route::get('/corevat/AiMedidasColindanciasGetAjax/{id}', array('as' => 'getAjaxAiMedidasColindancias', 'uses' => 'corevat_AvaluosController@getAjaxAiMedidasColindancias'));
 	
 	// ENFOQUE MERCADO
 	Route::get('/corevat/AvaluoEnfoqueMercado/{id}', array('as' => 'editAvaluoEnfoqueMercado', 'uses' => 'corevat_AvaluosController@editMercado'));
@@ -606,7 +608,6 @@ Route::group(array('before' => 'corevat'), function () {
 	Route::resource('corevat/Avaluos', 'corevat_AvaluosController');
 
 // ------------------------ Inicia ROUTES for JQuery -------------------------------------------------
-
 	Route::get('getMunicipiosFromEstados', function(){
 		$input = Input::get('option');
 		return Municipios::orderBy('municipio','asc')->where('idestado', $input)->where('status', 1)->get(['idmunicipio','municipio']);
@@ -616,8 +617,6 @@ Route::group(array('before' => 'corevat'), function () {
 		$input = Input::get('option');
 		return Asentamiento::where('municipio',$input)->distinct()->orderBy('codigo_postal')->get(['codigo_postal']);
 	});
-
-
 // ------------------------ finaliza ROUTES for JQuery -------------------------------------------------
 
 });

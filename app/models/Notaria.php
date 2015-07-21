@@ -31,4 +31,8 @@ class Notaria extends Ardent
     public function usuarios(){
         return $this->hasMany('NotariaUsuario','notaria_id','id_notaria');
     }
+
+    public function notaria(){
+        return $this->belongsTo('RegistroEscritura', 'notaria_id', 'id_notaria');
+    }
 }

@@ -21,4 +21,12 @@ class Domicilio extends Eloquent {
         return $this->belongsTo('Entidad','entidad', 'entidad');
     }
 
+    public function adquirienteDomicilio(){
+        return $this->hasMany('RegistroEscritura', 'dir_adquiriente_id', 'id');
+    }
+
+    public function enajenanteDomicilio(){
+       return $this->hasMany('RegistroEscritura', 'dir_enajenante_id', 'id');
+    }
+
 }

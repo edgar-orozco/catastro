@@ -335,13 +335,16 @@ class corevat_AvaluosController extends \BaseController {
 		$cat_aplanados = CatAplanados::comboList();
 		$cat_plafones = CatPlafones::comboList();
 		$cat_orientaciones = CatOrientaciones::comboList();
-		$ai_medidas_colindancias = AiMedidasColindancias::AiMedidasColindanciasByFk($row->idavaluoinmueble);
+		//
+		//$ai_medidas_colindancias = AiMedidasColindancias::AiMedidasColindanciasByFk($row->idavaluoinmueble);
+		
 		$croquis = $row->croquis != '' ? '/corevat/files/' . $row->croquis : '';
 		$fachada = $row->fachada != '' ? '/corevat/files/' . $row->fachada : '';
 
-    	$arrMedCol = array('Metros'=>'Metros','Metros Cuadrados'=>'Metros Cuadrados','Metros Cúbicos'=>'Metros Cúbicos','Metros Lineales'=>'Metros Lineales','Kilometros'=>'Kilometros','Kilometros Cuadrados'=>'Kilometros Cuadrados','Hectareas'=>'Hectareas','Hectareas Cuadradas'=>'Hectareas Cuadradas');
+		$arrMedCol = array('Metros'=>'Metros','Metros Cuadrados'=>'Metros Cuadrados','Metros Cúbicos'=>'Metros Cúbicos','Metros Lineales'=>'Metros Lineales','Kilometros'=>'Kilometros','Kilometros Cuadrados'=>'Kilometros Cuadrados','Hectareas'=>'Hectareas','Hectareas Cuadradas'=>'Hectareas Cuadradas');
 
-		return View::make('Corevat.Avaluos.avaluos', compact('opt', 'idavaluo', 'title', 'row', 'cat_cimentaciones', 'cat_estructuras', 'cat_muros', 'cat_entrepisos', 'cat_techos', 'cat_bardas', 'cat_usos_suelos', 'cat_niveles', 'cat_pisos', 'cat_aplanados', 'cat_plafones', 'cat_orientaciones', 'ai_medidas_colindancias', 'arrMedCol', 'croquis','fachada'));
+		//return View::make('Corevat.Avaluos.avaluos', compact('opt', 'idavaluo', 'title', 'row', 'cat_cimentaciones', 'cat_estructuras', 'cat_muros', 'cat_entrepisos', 'cat_techos', 'cat_bardas', 'cat_usos_suelos', 'cat_niveles', 'cat_pisos', 'cat_aplanados', 'cat_plafones', 'cat_orientaciones', 'ai_medidas_colindancias', 'arrMedCol', 'croquis','fachada'));
+		return View::make('Corevat.Avaluos.avaluos', compact('opt', 'idavaluo', 'title', 'row', 'cat_cimentaciones', 'cat_estructuras', 'cat_muros', 'cat_entrepisos', 'cat_techos', 'cat_bardas', 'cat_usos_suelos', 'cat_niveles', 'cat_pisos', 'cat_aplanados', 'cat_plafones', 'cat_orientaciones', 'arrMedCol', 'croquis','fachada'));
 	}
 
 	/**
@@ -405,6 +408,16 @@ class corevat_AvaluosController extends \BaseController {
 		}
 	}
 
+	/**
+	 * Retorna los registros de la tabla ai_medidas_colindancias para cargar el dataTablY
+	 *
+	 * @param  int  $id [idavaluoinmueble]
+	 * @return Response
+	 */
+	public function getAjaxAiMedidasColindancias($id) {
+		return AiMedidasColindancias::AiMedidasColindanciasByFk($id);
+	}
+	
 	/**
 	 * Show the form for editing the specified resource.
 	 *
