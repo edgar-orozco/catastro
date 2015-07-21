@@ -1,8 +1,11 @@
 $(document).ready(function()
 {
-    $("input[name=opcion]").click(function() {
-        if ($(this).val() == "moral")
+    $("input[type='radio']").click(function() {
+      alert('entro'); 
+      alert($(this).data('tipo'));
+        if ($(this).data() == 1)
         {
+          alert($(this));
           $("#id_tipo").val(2);
           //oculta label de apellido_paterno
           $('#apellido_paterno').hide();
