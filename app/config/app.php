@@ -133,6 +133,7 @@ return array(
         'BotDetectCaptcha\LaravelCaptcha\LaravelCaptchaServiceProvider',
         'Anouar\Fpdf\FpdfServiceProvider',
         'Dinesh\Barcode\BarcodeServiceProvider',
+        'Artisaninweb\SoapWrapper\ServiceProvider',
 	),
 
 	/*
@@ -208,6 +209,7 @@ return array(
         'Fpdf'    => 'Anouar\Fpdf\Fpdf',
         'DNS1D' => 'Dinesh\Barcode\Facades\DNS1DFacade',
         'DNS2D' => 'Dinesh\Barcode\Facades\DNS2DFacade',
+        'SoapWrapper' => 'Artisaninweb\SoapWrapper\Facades\SoapWrapper',
 
 	),
 
