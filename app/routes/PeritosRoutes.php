@@ -58,6 +58,10 @@ Route::group(array('before'=>'Folios'),  function (){
             Route::get('/entregafoliose/rusticos/habilitare/{id}', 'folios_EntregaFoliosController@desestador');
             Route::get('/entregafoliose/urbanos/habilitare/{id}', 'folios_EntregaFoliosController@desestadou');
 
+            //Reportes
+            Route::get('/reporte/municipio', 'folios_reportes_MunicipioController@index');
+            Route::get('/reporte/municipio/{id}', 'folios_reportes_MunicipioController@municipio_detalles');
+
 
 });
  Route::filter('Folios', function () {
