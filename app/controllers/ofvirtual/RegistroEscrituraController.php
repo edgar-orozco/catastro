@@ -35,6 +35,7 @@ protected $padron;
         $registros = RegistroEscritura::all();
 
         $misMunicipios = Auth::user()->municipios()->get(['gid']);
+        $notaria = Auth::user()->notaria->id_notaria;
 
         $aMisMunicipios = array();
         foreach ($misMunicipios as $mun) {
@@ -49,7 +50,7 @@ protected $padron;
 
 		$municipio = Municipio::orderBy('nombre_municipio', 'ASC')->lists('nombre_municipio', 'municipio');
 
-        return View:: make('ofvirtual.notario.registro.index', compact('title', 'title_section', 'subtitle_section', 'traslados', 'municipios','registros','municipio'));
+        return View:: make('ofvirtual.notario.registro.index', compact('title', 'title_section', 'subtitle_section', 'traslados', 'municipios','registros','municipio','notaria'));
 
 	}
 
@@ -83,8 +84,11 @@ protected $padron;
         }
 
         //$JsonColindancias = NULL;
-$municipio = Municipio::orderBy('nombre_municipio', 'ASC')->lists('nombre_municipio', 'municipio');
-        return View:: make('ofvirtual.notario.registro.create', compact('title', 'registro', 'predio','notarioEscritura','notariaEscritura','municipio'));
+        $municipio = Municipio::orderBy('nombre_municipio', 'ASC')->lists('nombre_municipio', 'municipio');
+
+        $notaria = Auth::user()->notaria->id_notaria;
+
+        return View:: make('ofvirtual.notario.registro.create', compact('title', 'registro', 'predio','notarioEscritura','notariaEscritura','municipio','notaria'));
         //return View:: make('ofvirtual.notario.traslado.create', compact('title', 'traslado', 'predio','notarioEscritura','notariaEscritura',  'JsonColindancias'));
 
 

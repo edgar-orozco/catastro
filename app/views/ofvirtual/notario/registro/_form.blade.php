@@ -1,17 +1,19 @@
-{{ HTML::style('js/jquery/jquery-ui.css') }}
 
-{{ HTML::script('js/jquery/jquery-ui.js') }}
+{{HTML::script('js/macros.js')}}
+{{Form::hidden('registro[clave]', $predio->clave, ['class'=>'form-control'])}}
+{{$errors->first('registro[clave]', '<span class=text-danger>:message</span>')}}
+
+{{Form::hidden('registro[cuenta]', $predio->cuenta, ['class'=>'form-control'])}}
+{{$errors->first('registro[cuenta]', '<span class=text-danger>:message</span>')}}
+
+<div class="row">
+  <div class="panel panel-default">
+        <div class="panel-body">
+  {{Form::notaria($notaria)}}
 
 
-{{ Form::open(array('url' => '', 'method' => 'post', 'name' => 'formulario', 'id' => 'formulario'))}}
-<fieldset>
-  <legend>DATOS DEL NOTARIO</legend>
-  <div class="form-group">
-  {{Form::notaria(1)}}
-</div>
-</fieldset>
-<fieldset>
-<legend></legend>
+
+
 <div class="row-fluid">
 <div class="col-md-6">
       {{Form::label('tesoreria','Tesorería Municipal:')}}
@@ -46,30 +48,46 @@
     {{Form::label('acto','Naturaleza del acto:')}}
     {{Form::text('acto', null, ['class' => 'form-control'] )}}
 </div>
-</fieldset>
-<fieldset>
-  <legend>Nombre del Enajenante </legend>
-  <p>Pregunta... (<a href="#" id="alternar-respuesta-ej1">ver respuesta</a>)
-<div class="col-md-12 add" id="respuesta-ej1" style="display:none">
-    {{Form::label('adquiriente','')}}
-    {{--Form::text('adquiriente', null, ['class' => 'form-control'] )--}}
-    <div class="col-md-12" id="adq">{{form::personas('enajenante')}}</div>
 </div>
-<div class="col-md-12">
+</div></div>
+
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h3 class="panel-title">Datos Personas</h3>
+    </div>
+<div class="panel-body">
+        <!--<div class="row">-->
+        {{--adquiriente --}}
+        <div class="form-group col-md-6">
+            <h3> Enajenante </h3>
+<div class=" form-group " >
+
+    {{--Form::text('adquiriente', null, ['class' => 'form-control'] )--}}
+    {{form::personas('enajenante')}}
+
     {{Form::label('direccion_e','Diección del enajenante:')}}
     {{Form::text('direccion_e', null, ['class' => 'form-control'] )}}
 </div>
-</fieldset>
-<fieldset>
-  <legend>Nombre del Adquiriente </legend>
-<div class="col-md-12">
-    {{Form::label('adquiriente','')}}
-    {{--Form::text('adquiriente', null, ['class' => 'form-control'] )--}}
-    <div class="col-md-12" id="adq">{{form::personas('adquiriente')}}</div>
 </div>
-<div class="col-md-12">
+
+
+
+        <!--<div class="row">-->
+        {{--adquiriente --}}
+        <div class="form-group col-md-6">
+            <h3> Aquiriente </h3>
+<div class=" form-group " >
+
+    {{--Form::text('adquiriente', null, ['class' => 'form-control'] )--}}
+    {{form::personas('adquiriente')}}
+
     {{Form::label('direccion_a','Diección del adquiriente:')}}
     {{Form::text('direccion_a', null, ['class' => 'form-control'] )}}
+</div>
+</div>
+
+
+</div>
 </div>
 <div class="col-md-3">
      {{Form::label('fecha_inst','Fecha de Intrumento')}}
@@ -148,7 +166,6 @@
 </fieldset>
 
     </div>
- {{Form::close()}}
 
 
 

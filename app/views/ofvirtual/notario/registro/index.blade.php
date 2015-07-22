@@ -8,7 +8,7 @@
 
 <!-- municipios -->
   <div class="row">
-        @include('ofvirtual.notario.registro.municipios',compact('municipio'))
+        @include('ofvirtual.notario.registro.municipios',compact('municipio','notaria'))
   </div>
 
  <!--buscador -->

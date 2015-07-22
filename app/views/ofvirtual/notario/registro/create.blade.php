@@ -14,7 +14,7 @@
 
             {{ Form::open(array('url' => 'ofvirtual/notario/registro/create', 'method' => 'POST')) }}
 
-                @include('ofvirtual.notario.registro._form', compact('registro'))
+                @include('ofvirtual.notario.registro._form', compact('registro','notaria'))
 
                 <div class="form-actions form-group col-md-4" style="clear:both; float: right;">
                   {{ Form::submit('Crear nuevo traslado de dominio', array('class' => 'btn btn-primary')) }}

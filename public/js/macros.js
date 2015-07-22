@@ -1,48 +1,68 @@
 $(document).ready(function()
 {
     $("input[type='radio']").click(function() {
-      alert('entro'); 
-      alert($(this).data('tipo'));
-        if ($(this).data() == 1)
+
+alert($(this).data('tipo'));
+
+
+           if ($(this).data('tipo') == "enajenante")
         {
-          alert($(this));
-          $("#id_tipo").val(2);
+          alert( $(this).attr('id'));
+          var tipo = $(this).val();
+          alert(tipo);
+              if ($(this).val() == 2) {
+                $("#id_tipo").val(2);
+              var id = $(this).attr('id');
           //oculta label de apellido_paterno
-          $('#apellido_paterno').hide();
+          $('.'+id).hide();
           //oculta input de apellido_paterno
-          var apaterno = "persona[apellido_paterno]";
-          $( "#" + apaterno.replace( /(:|\.|\[|\]|,)/g, "\\$1" )).hide();
-          //oculta label de apellido_materno
-          $('#apellido_materno').hide();
-          //oculta input de apellido_materno
-          var amaterno = "persona[apellido_materno]";
-          $( "#" + amaterno.replace( /(:|\.|\[|\]|,)/g, "\\$1" )).hide();
-          //oculta label de apellido_paterno
-           $('#curp').hide();
-          //oculta input de apellido_paterno
-          var curp = "persona[curp]";
-          $( "#" + curp.replace( /(:|\.|\[|\]|,)/g, "\\$1" )).hide();
+          var curp = id+"[curp]";
           $( "#" + curp.replace( /(:|\.|\[|\]|,)/g, "\\$1" )).removeAttr('required');
-                  }
-           if ($(this).val() == "fisica")
+        }
+
+
+
+                  else if ($(this).val() ==1) {
+                $("#id_tipo").val(1);
+              var id = $(this).attr('id');
+          //oculta label de apellido_paterno
+          $('.'+id).show();
+          //oculta input de apellido_paterno
+          var curp = id+"[curp]";
+          $( "#" + curp.replace( /(:|\.|\[|\]|,)/g, "\\$1" )).removeAttr('required');
+        }
+
+}
+
+       if ($(this).data('tipo') == "adquiriente")
         {
-          $("#id_tipo").val(1);
-          //muestra label de apellido_paterno
-          $('#apellido_paterno').show();
-          //muestra input de apellido_paterno
-          var id = "persona[apellido_paterno]";
-          $( "#" + id.replace( /(:|\.|\[|\]|,)/g, "\\$1" )).show();
-          //oculta label de apellido_materno
-          $('#apellido_materno').show();
-          //oculta input de apellido_materno
-          var amaterno = "persona[apellido_materno]";
-          $( "#" + amaterno.replace( /(:|\.|\[|\]|,)/g, "\\$1" )).show();
-          //muestra label de apellido_paterno
-           $('#curp').show();
-          //muestra input de apellido_paterno
-          var curp = "persona[curp]";
-          $( "#" + curp.replace( /(:|\.|\[|\]|,)/g, "\\$1" )).show();
-          $( "#" + curp.replace( /(:|\.|\[|\]|,)/g, "\\$1" )).attr("required", "true");
-                  }
+          alert( $(this).attr('id'));
+          var tipo = $(this).val();
+          alert(tipo);
+              if ($(this).val() == 2) {
+                $("#id_tipo").val(2);
+              var id = $(this).attr('id');
+          //oculta label de apellido_paterno
+          $('.'+id).hide();
+          //oculta input de apellido_paterno
+          var curp = id+"[curp]";
+          $( "#" + curp.replace( /(:|\.|\[|\]|,)/g, "\\$1" )).removeAttr('required');
+        }
+
+
+
+                  else if ($(this).val() ==1) {
+                $("#id_tipo").val(1);
+              var id = $(this).attr('id');
+          //oculta label de apellido_paterno
+          $('.'+id).show();
+          //oculta input de apellido_paterno
+          var curp = id+"[curp]";
+         $( "#" + curp.replace( /(:|\.|\[|\]|,)/g, "\\$1" )).attr("required", "true");
+        }
+
+}
+
+
     });
 });
