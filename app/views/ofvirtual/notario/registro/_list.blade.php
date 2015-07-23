@@ -1,4 +1,4 @@
-<div id="lista-tramites">
+<div>
     <div class="panel">
 
 
@@ -36,9 +36,9 @@
                         <td>
                             {{$registro->cuenta}}
                         </td>
-                        <td> {{$registro->comprador->nombres}} {{$registro->comprador->apellido_paterno}} {{$registro->comprador->apellido_materno}}</td>
+                        <td> {{$registro->enajenante->nombres}} {{$registro->enajenante->apellido_paterno}} {{$registro->enajenante->apellido_materno}}</td>
 
-                        <td>{{$registro->vendedor->nombres}} {{$registro->vendedor->apellido_paterno}} {{$registro->vendedor->apellido_materno}}</td>
+                        <td>{{$registro->enajenante->nombres}} {{$registro->enajenante->apellido_paterno}} {{$registro->enajenante->apellido_materno}}</td>
                         <td nowrap> {{$registro->created_at->format("d-m-Y")}}</td>
                         <td nowrap>
                             {{$registro->folio}}

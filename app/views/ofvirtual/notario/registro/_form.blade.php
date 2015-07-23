@@ -98,10 +98,13 @@
       {{Form::text('fecha_firma',null, ['id'=>'datepicker1', 'class'=>'btn btn-default btn-sm dropdown-toggle'] )}}
 </div>
 </div>
-</fieldset>
-<fieldset>
-  <legend>DATOS DEL INMUEBLE</legend>
-    <div class="row-fluid">
+
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h3 class="panel-title">Datos del Inmueble</h3>
+    </div>
+
+    <div class="row-fluid panel-body">
         <div class="col-md-12">
             {{Form::label('ubicacion_inmu','Ubicacion del Inmueble:')}}
             {{Form::text('ubicacion_inmu', null, ['class' => 'form-control'] )}}
@@ -122,23 +125,36 @@
             {{Form::label('estado_conserv','Estado de conservacion:')}}
             {{Form::text('estado_conserv', null, ['class' => 'form-control'] )}}
         </div>
-</fieldset>
-<fieldset>
-<legend>COLINDANCIAS</legend>
+
+</div>
+</div>
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h3 class="panel-title">Colindancias</h3>
+    </div>
+ <div class="row-fluid panel-body">
         <div class="col-md-12">
             {{Form::colindancias('escrituras','sur')}}
         </div>
-</fieldset>
-<fieldset>
-<legend>ANTECEDENTES DE LA PROPIEDAD</legend>
+  </div>
+</div>
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h3 class="panel-title">ANTECEDENTES DE LA PROPIEDAD</h3>
+    </div>
+ <div class="row-fluid panel-body">
+
         <div class="col-md-12">
             {{Form::propiedad('escrituras')}}
         </div>
-</fieldset>
+</div>
+</div>
 
-<fieldset>
-<legend>ANTECEDENTES DE LA PROPIEDAD</legend>
-    <div class="row-fluid">
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h3 class="panel-title">ANTECEDENTES DE LA PROPIEDAD</h3>
+    </div>
+    <div class="row-fluid panel-body">
         <div class="col-md-6">
             {{Form::label('valor_catastral','Valor Catastral:')}}
             {{Form::number('valor_catastral', null, ['class' => 'form-control'] )}}
@@ -156,16 +172,15 @@
             {{Form::text('avaluo_efec', null, ['class' => 'form-control'] )}}
         </div>
     </div>
-</fieldset>
-<fieldset>
-<legend></legend>
-<div class="form-actions form-group col-md-12">
-            {{ Form::submit('Guardar Datos', array('class' => 'btn btn-primary')) }}
-            {{ Form::reset('Limpiar ', ['class' => 'btn btn-warning']) }}
-        </div>
-</fieldset>
+</div>
 
-    </div>
+<div class="form-actions form-group col-md-6" style="clear:both; ">
+                  {{ Form::submit('Crear nuevo traslado de dominio', array('class' => 'btn btn-primary')) }}
+                  {{ Form::reset('Limpiar formato', ['class' => 'btn btn-warning']) }}
+                </div>
+
+
+
 
 
 
