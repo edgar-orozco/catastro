@@ -14,7 +14,7 @@
 
             {{ Form::open(array('url' => 'ofvirtual/notario/registro/create', 'method' => 'POST')) }}
 
-                @include('ofvirtual.notario.registro._form', compact('registro','notaria'))
+                @include('ofvirtual.notario.registro._form', compact('registro','notaria','vialidad','entidad','asentamiento','municipio','JsonColindancias'))
 
 
             {{Form::close()}}

@@ -1,5 +1,7 @@
 
 {{HTML::script('js/macros.js')}}
+{{ HTML::style('js/jquery/jquery-ui.css') }}
+{{ HTML::script('js/jquery/jquery-ui.js') }}
 {{Form::hidden('registro[clave]', $predio->clave, ['class'=>'form-control'])}}
 {{$errors->first('registro[clave]', '<span class=text-danger>:message</span>')}}
 
@@ -64,9 +66,10 @@
 
     {{--Form::text('adquiriente', null, ['class' => 'form-control'] )--}}
     {{form::personas('enajenante')}}
-
-    {{Form::label('direccion_e','Diección del enajenante:')}}
-    {{Form::text('direccion_e', null, ['class' => 'form-control'] )}}
+        <h3 class="panel-title">Dirección Enajenante</h3>
+        {{Form::domicilio('enajenante',$vialidad,$entidad,$asentamiento,$municipio)}}
+    {{--Form::label('direccion_e','Diección del enajenante:')--}}
+    {{--Form::text('direccion_e', null, ['class' => 'form-control'] )--}}
 </div>
 </div>
 
@@ -81,8 +84,10 @@
     {{--Form::text('adquiriente', null, ['class' => 'form-control'] )--}}
     {{form::personas('adquiriente')}}
 
-    {{Form::label('direccion_a','Diección del adquiriente:')}}
-    {{Form::text('direccion_a', null, ['class' => 'form-control'] )}}
+    <h3 class="panel-title">Dirección Adquiriente</h3>
+        {{Form::domicilio('adquiriente',$vialidad,$entidad,$asentamiento,$municipio)}}
+    {{--Form::label('direccion_a','Diección del adquiriente:')--}}
+    {{--Form::text('direccion_a', null, ['class' => 'form-control'] )--}}
 </div>
 </div>
 
@@ -134,7 +139,7 @@
     </div>
  <div class="row-fluid panel-body">
         <div class="col-md-12">
-            {{Form::colindancias('escrituras','sur')}}
+            {{Form::colindancias('escrituras',$JsonColindancias)}}
         </div>
   </div>
 </div>

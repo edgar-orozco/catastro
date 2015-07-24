@@ -88,7 +88,15 @@ protected $padron;
 
         $notaria = Auth::user()->notaria->id_notaria;
 
-        return View:: make('ofvirtual.notario.registro.create', compact('title', 'registro', 'predio','notarioEscritura','notariaEscritura','municipio','notaria'));
+        $vialidad= TipoVialidad::orderBy('descripcion', 'ASC')->lists('descripcion', 'id');
+
+        $asentamiento= TipoAsentamiento::orderBy('descripcion', 'ASC')->lists('descripcion', 'id');
+
+        $entidad= Entidad::orderBy('nom_ent', 'ASC')->lists('nom_ent', 'gid');
+
+          $JsonColindancias = NULL;
+
+        return View:: make('ofvirtual.notario.registro.create', compact('title', 'registro', 'predio','notarioEscritura','notariaEscritura','municipio','notaria','vialidad','asentamiento','entidad','JsonColindancias'));
         //return View:: make('ofvirtual.notario.traslado.create', compact('title', 'traslado', 'predio','notarioEscritura','notariaEscritura',  'JsonColindancias'));
 
 
