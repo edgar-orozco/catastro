@@ -150,7 +150,7 @@
 	<div class="col-md-12">
 		<div class="form-group">
 			{{Form::label('nombre_propietario','Propietario')}}
-			{{Form::text('nombre_propietario', $row->nombre_propietario, ['class'=>'form-control', 'tabindex'=>'25', 'maxlength'=>'100'])}}
+			{{Form::text('nombre_propietario', $row->nombre_propietario, ['class'=>'form-control', 'tabindex'=>'25', 'maxlength'=>'100', 'required'=>'required'])}}
 		</div>
 	</div>
 	<div class="col-md-12 form-actions form-group">
