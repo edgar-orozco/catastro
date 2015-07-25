@@ -80,8 +80,8 @@ class corevat_AvaluosController extends \BaseController {
 			'lat1' => 'integer|min:0|max:60',
 			'lat2' => 'numeric|min:0|max:60',
 			
-			'cuenta_predial' => 'regex:/^[0-9]{3}-[0-9]{4}-[0-9]{6}$/',
-			'cuenta_catastral' => 'regex:/^[0-9]{2}-[UR]{1}-[0-9]{6}$/',
+			'cuenta_predial' => 'regex:/^[0-9]{2}-[UR]{1}-[0-9]{6}$/',
+			'cuenta_catastral' => 'regex:/^[0-9]{3}-[0-9]{4}-[0-9]{6}$/',
 			
 		);
 		$messages = array(
@@ -206,8 +206,8 @@ class corevat_AvaluosController extends \BaseController {
 			'lat1' => 'integer|min:0|max:60',
 			'lat2' => 'numeric|min:0|max:60',
 			
-			'cuenta_predial' => 'regex:/^[0-9]{3}-[0-9]{4}-[0-9]{6}$/',
-			'cuenta_catastral' => 'regex:/^[0-9]{2}-[UR]{1}-[0-9]{6}$/',
+			'cuenta_catastral' => 'regex:/^[0-9]{3}-[0-9]{4}-[0-9]{6}$/',
+			'cuenta_predial' => 'regex:/^[0-9]{2}-[UR]{1}-[0-9]{6}$/',
 			
 		);
 		$messages = array(
