@@ -128,7 +128,12 @@ protected $padron;
 	 */
 	public function store()
 	{
-		//
+		$enajenante=Input::get('enajenante');
+    $adquiriente=Input::get('adquiriente');
+    $colindancias=Input::get('colindancias');
+    print_r($colindancias);
+    print_r($enajenante);
+    print_r($adquiriente);
 	}
 
 

@@ -67,7 +67,7 @@
     {{--Form::text('adquiriente', null, ['class' => 'form-control'] )--}}
     {{form::personas('enajenante')}}
         <h3 class="panel-title">Dirección Enajenante</h3>
-        {{Form::domicilio('enajenante',$vialidad,$entidad,$asentamiento,$municipio)}}
+        {{Form::domicilio('Denajenante',$vialidad,$entidad,$asentamiento,$municipio)}}
     {{--Form::label('direccion_e','Diección del enajenante:')--}}
     {{--Form::text('direccion_e', null, ['class' => 'form-control'] )--}}
 </div>
@@ -85,7 +85,7 @@
     {{form::personas('adquiriente')}}
 
     <h3 class="panel-title">Dirección Adquiriente</h3>
-        {{Form::domicilio('adquiriente',$vialidad,$entidad,$asentamiento,$municipio)}}
+        {{Form::domicilio('Dadquiriente',$vialidad,$entidad,$asentamiento,$municipio)}}
     {{--Form::label('direccion_a','Diección del adquiriente:')--}}
     {{--Form::text('direccion_a', null, ['class' => 'form-control'] )--}}
 </div>
@@ -139,7 +139,7 @@
     </div>
  <div class="row-fluid panel-body">
         <div class="col-md-12">
-            {{Form::colindancias('escrituras',$JsonColindancias)}}
+            {{Form::colindancias('colindancias',$JsonColindancias)}}
         </div>
   </div>
 </div>
@@ -150,7 +150,7 @@
  <div class="row-fluid panel-body">
 
         <div class="col-md-12">
-            {{Form::propiedad('escrituras')}}
+            {{Form::propiedad('propiedad')}}
         </div>
 </div>
 </div>
