@@ -198,7 +198,7 @@ class corevat_AvaluosController extends \BaseController {
 			'proposito' => 'required',
 			'finalidad' => 'required',
 			
-			'lon0' => 'integer|min:0|max:60',
+			'lon0' => 'integer|min:0|max:360',
 			'lon1' => 'integer|min:0|max:60',
 			'lon2' => 'numeric|min:0|max:60',
 			
