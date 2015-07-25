@@ -44,15 +44,15 @@ $( ".agregarColindancia" ).click(function() {
     var superficie = clon.find('input')[0];
     var colindancia = clon.find('input')[1];
 
-    orientacion.name = 'colindancia['+num+'][orientacion]';
-    superficie.name = 'colindancia['+num+'][superficie]';
-    clon.find('input')[1].name = 'colindancia['+num+'][colindancia]';
+    //modificamos el nombre
+    orientacion.name = orientacion.name.replace(/(\w+)\[(\d+)\]\[(\w+)\]/, "$1["+num+"][$3]");
+    superficie.name = superficie.name.replace(/(\w+)\[(\d+)\]\[(\w+)\]/, "$1["+num+"][$3]");
+    clon.find('input')[1].name = clon.find('input')[1].name.replace(/(\w+)\[(\d+)\]\[(\w+)\]/, "$1["+num+"][$3]");
 
     //los creamos en blanco
     $(orientacion).val('');
     $(superficie).val('');
     $(colindancia).val('');
-
 
     $($div).after(clon);
 
@@ -69,3 +69,6 @@ $(".quitarColindancia").click(function() {
         }
     }
 });
+
+
+
