@@ -128,14 +128,14 @@
 	<div class="col-md-6">
 		<div class="form-group">
 			{{Form::label('cuenta_predial', 'Cuenta Predial')}}
-			{{Form::text('cuenta_predial', $row->cuenta_predial, ['class'=>'form-control', 'tabindex'=>'21', 'maxlength'=>'15', 'size'=>'16'])}}
+			{{Form::text('cuenta_predial', $row->cuenta_predial, ['class'=>'form-control', 'tabindex'=>'21', 'maxlength'=>'11', 'size'=>'12'])}}
 			{{$errors->first('cuenta_predial', '<span class=text-danger>:message</span>')}}
 		</div>
 	</div>
 	<div class="col-md-6">
 		<div class="form-group">
 			{{Form::label('cuenta_catastral', 'Clave Catastral')}}
-			{{Form::text('cuenta_catastral', $row->cuenta_catastral, ['class'=>'form-control', 'tabindex'=>'22', 'maxlength'=>'11', 'size'=>'12'])}}
+			{{Form::text('cuenta_catastral', $row->cuenta_catastral, ['class'=>'form-control', 'tabindex'=>'22', 'maxlength'=>'15', 'size'=>'16'])}}
 			{{$errors->first('cuenta_catastral', '<span class=text-danger>:message</span>')}}
 		</div>
 	</div>
@@ -178,14 +178,14 @@
 <script>
 	$(document).ready(function () {
 
-    $('#cuenta_predial').mask('YYY-YYYY-YYYYYY', {
+    $('#cuenta_catastral').mask('YYY-YYYY-YYYYYY', {
                                     placeholder: "___-____-______", 
                                     translation: {
                                         Y: {pattern: /[0-9]/}
                                     }
                                 });
 
-    $('#cuenta_catastral').mask('YY-S-YYYYYY', {
+    $('#cuenta_predial').mask('YY-S-YYYYYY', {
                                     placeholder: "__-_-______", 
                                     translation: {
                                         S: {pattern: /[RUru]/},
