@@ -80,10 +80,7 @@ class OficinaVirtualNotarioController extends \BaseController
             return Redirect::to('ofvirtual/notario/traslado')->with('error', 'La clave o cuenta es incorrecta.');
         }
 
-        //$JsonColindancias = NULL;
-
         return View:: make('ofvirtual.notario.traslado.create', compact('title', 'traslado', 'predio','notarioEscritura','notariaEscritura'));
-        //return View:: make('ofvirtual.notario.traslado.create', compact('title', 'traslado', 'predio','notarioEscritura','notariaEscritura',  'JsonColindancias'));
 
     }
 
@@ -149,16 +146,6 @@ class OficinaVirtualNotarioController extends \BaseController
         }
 
 
-        /*foreach(Input::get('colindancia') as $colindancia) {
-            $colindancia['traslado_id'] = $traslado->id;
-            $oColindancias[] = new TrasladoColindancia($colindancia);
-        }*/
-
-        /*if (!$traslado->colindancia()->saveMany($oColindancias)) {
-            return Redirect::back()->with('error', 'Error en datos de la(s) colindancia(s).');
-        }*/
-
-
         //Dado que fue exitosa la creacion del traslado,  mostramos la salida al usuario.
         return Redirect::to('ofvirtual/notario/traslado/show/' . $traslado->id)->with('success', '¡Se ha creado correctamente el traslado de dominio para la cuenta ' . $traslado->cuenta . '!');
     }
@@ -188,15 +175,54 @@ class OficinaVirtualNotarioController extends \BaseController
 
         $traslado->traslado = $traslado;
 
-        //$colindancias = $traslado->colindancia;
+        $notario = Notaria::where('id_notario', $traslado->notario_escritura_id)->first();
+        $traslado->notarioEscritura = $notario->notario->nombres.' ' .$notario->notario->apellido_paterno. ' '.$notario->notario->apellido_materno;
+
+        $notaria = Notaria::find($traslado->notaria_escritura_id);
+        $traslado->notariaEscritura = $notaria->nombre.$notaria->mpio->nombre_municipio.$notaria->estado->nom_ent;
 
         // Title
         $title = 'Editar traslado de dominio';
 
         // Show the page
         return View:: make('ofvirtual.notario.traslado.show', compact('title', 'traslado', 'predio'));
-        //return View:: make('ofvirtual.notario.traslado.show', compact('title', 'traslado', 'predio', 'colindancias'));
 
+    }
+
+    public function imprimir($id){
+
+        // confirmar datos y confirmar folio
+        $traslado = Traslado::find($id);
+
+        $predio = $this->padron->getByClaveOCuenta($traslado->clave);
+
+        //enajenante
+        $enajenante = personas::find($traslado->enajenante_id);
+        $traslado->enajenante->fill($enajenante->toArray());
+
+        //adquiriente
+        $adquiriente = personas::find($traslado->adquiriente_id);
+        $traslado->adquiriente->fill($adquiriente->toArray());
+
+        $traslado->traslado = $traslado;
+
+        $notario = Notaria::where('id_notario', $traslado->notario_escritura_id)->first();
+        $traslado->notarioEscritura = $notario->notario->nombres.' ' .$notario->notario->apellido_paterno. ' '.$notario->notario->apellido_materno;
+
+        $notaria = Notaria::find($traslado->notaria_escritura_id);
+        $traslado->notariaEscritura = $notaria->nombre.$notaria->mpio->nombre_municipio.$notaria->estado->nom_ent;
+
+        // Title
+        $title = 'Imprimir traslado de dominio';
+
+
+        // Show the page
+        $vista =  View:: make('ofvirtual.notario.traslado.pdf', compact('title', 'traslado', 'predio'));
+        //devuelvo los datos en PDF
+        $pdf      = PDF::load($vista)->show();
+        $response = Response::make($pdf, 200);
+        $response->header('Content-Type', 'application/pdf');
+        return $response;
     }
 
     public function asignarFolio($id)
@@ -276,9 +302,7 @@ class OficinaVirtualNotarioController extends \BaseController
         //$usuarioId = Auth::id();
 
         $enajenante = personas::find($traslado->enajenante_id);
-        //$datosEnajenante = array_map('mb_strtoupper', (Input::get('enajenante')));
         $datosEnajenante = Input::get('enajenante');
-        //$datosEnajenante['nombrec'] = $datosEnajenante['nombres'] . ' ' . $datosEnajenante['apellido_paterno'] . ' ' . $datosEnajenante['apellido_materno'];
         $enajenante->fill($datosEnajenante);
 
         if (!$enajenante->save()) {
@@ -286,9 +310,7 @@ class OficinaVirtualNotarioController extends \BaseController
         }
 
         $adquiriente = personas::find($traslado->adquiriente_id);
-       // $datosAdquiriente = array_map('mb_strtoupper', (Input::get('adquiriente')));
         $datosAdquiriente = Input::get('adquiriente');
-       // $datosAdquiriente['nombrec'] = $datosAdquiriente['nombres'] . ' ' . $datosAdquiriente['apellido_paterno'] . ' ' . $datosAdquiriente['apellido_materno'];
         $adquiriente->fill($datosAdquiriente);
 
 
@@ -313,20 +335,6 @@ class OficinaVirtualNotarioController extends \BaseController
             return Redirect::back()->withInput()->withErrors($traslado->errors());
         }
 
-        //borramos primero las colindancias existentes
-        /*$traslado->colindancia()->delete();
-         foreach(Input::get('colindancia') as $colindancia) {
-            $colindancia['traslado_id'] = $id;
-            $oColindancias[] = new TrasladoColindancia($colindancia);
-        }
-
-        if (!$traslado->colindancia()->saveMany($oColindancias)) {
-            return Redirect::back()->with('error', 'Error en datos de la(s) colindancia(s).');
-        }*/
-
-
-
-
         //Dado que fue exitosa la actualización mostramos la salida al usuario.
           return Redirect::to('ofvirtual/notario/traslado/show/' . $traslado->id)->with('success', '¡Se ha editado correctamente el traslado de dominio para la cuenta ' . $traslado->cuenta . '!');
     }
@@ -344,8 +352,6 @@ class OficinaVirtualNotarioController extends \BaseController
         //ToDo: revisar primero que no tenga asignado un folio, si tiene asigando un folio no se puede borrar
 
         $traslado = Traslado::find($id);
-
-       // $traslado->colindancia()->delete();
 
         $traslado->delete();
 
