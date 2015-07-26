@@ -13,163 +13,240 @@
 
     <div class="row">
 
-
-        <table class="table table-striped">
-            <tr>
-                <th class="text-right"><b>Clave catastral:</b></th>
-                <td>{{$predio->clave}}</td>
-            </tr>
-            <tr>
-                <th class="text-right"><b>Cuenta catastral:</b></th>
-                <td>{{$predio->cuenta}}</td>
-            </tr>
-            <tr>
-                <th class="text-right"><b>Tipo predio:</b></th>
-                <td>{{$predio->tipo_predio}}</td>
-            </tr>
-            <tr>
-                <th class="text-right"><b>Ubicacion:</b></th>
-                <td>{{$predio->ubicacionFiscal->ubicacion}}</td>
-            </tr>
-            <tr>
-                <th class="text-right"><b>Superficie terreno:</b></th>
-                <td>{{number_format($predio->superficie_terreno,2, '.', ',')}} m<sup>2</sup></td>
-            </tr>
-            <tr>
-                <th class="text-right"><b>Superficie construcción:</b></th>
-                <td>{{number_format($predio->superficie_construccion,2, '.', ',')}} m<sup>2</sup></td>
-            </tr>
-
-
-            <tr>
-                <th class="text-right" colspan="2"><b>Vendedor:</b></th>
-            </tr>
-
-            <tr>
-                <th class="text-right"><b>Tipo Persona:</b></th>
-                <td>{{$traslado->vendedor->tipo['nombre']}}</td>
-            </tr>
-
-            <tr>
-                <th class="text-right"><b>Nombre:</b></th>
-                <td>{{$traslado->vendedor['nombres']}} {{$traslado->vendedor['apellido_paterno']}} {{$traslado->vendedor['apellido_materno']}}</td>
-            </tr>
-            <!-- Persona física -->
-            <tr>
-                <th class="text-right"><b>CURP:</b></th>
-                <td>{{$traslado->vendedor['curp']}}</td>
-            </tr>
-            <!-- Persona física -->
-            <tr>
-                <th class="text-right"><b>RFC:</b></th>
-                <td>{{$traslado->vendedor['rfc']}}</td>
-            </tr>
-            {{--/Vendedor --}}
-
-
-
-            {{--Comprador --}}
-            <tr>
-                <th class="text-right" colspan="2"><b>Comprador:</b></th>
-            </tr>
-
-            <tr>
-                <th class="text-right"><b>Tipo Persona:</b></th>
-                <td>{{$traslado->comprador->tipo['nombre']}}</td>
-            </tr>
-
-            <tr>
-                <th class="text-right"><b>Nombre:</b></th>
-                <td>{{$traslado->comprador['nombres']}} {{$traslado->comprador['apellido_paterno']}} {{$traslado->comprador['apellido_materno']}}</td>
-            </tr>
-
-            <!-- Persona física -->
-            <tr>
-                <th class="text-right"><b>CURP:</b></th>
-                <td>{{$traslado->comprador['curp']}}</td>
-            </tr>
-            <!-- Persona física -->
-
-            <tr>
-                <th class="text-right"><b>RFC:</b></th>
-                <td>{{$traslado->comprador['rfc']}}</td>
-            </tr>
-            {{--/Comprador --}}
-
-
-            <tr>
-                <th class="text-right" colspan="2"><b>Datos del predio:</b></th>
-            </tr>
-            <tr>
-                <th class="text-right"><b>Superficie vendida M2:</b></th>
-                <td>{{$traslado->superficie_vendida}}</td>
-            </tr>
-            <tr>
-                <th class="text-right"><b>Superficie construcción vendida M2:</b></th>
-                <td>{{$traslado->superficie_construccion_vendida}}</td>
-            </tr>
-
-            <tr>
-                <th class="text-right" colspan="2"><b>Colindancias:</b></th>
-            </tr>
-                @foreach($colindancias as $colindancia)
-                   <tr>
-                     <th class="text-right"><b>Colindancia: </b></th>
-                     <td>{{$colindancia->orientacion}}
-                         {{$colindancia->superficie}}
-                         {{$colindancia->colindancia}}
-                     </td>
-                    </tr>
-                @endforeach
-
-            <tr>
-                <th class="text-right" colspan="2"><b>Datos de la escritura precedente:</b></th>
-            </tr>
-            <tr>
-                <th class="text-right"><b>Escritura de fecha:</b></th>
-                <td>{{$traslado->escritura_fecha ?date("d-m-Y", strtotime($traslado->escritura_fecha)) : ''}}</td>
-            </tr>
-            <tr>
-                <th class="text-right"><b>N° registro:</b></th>
-                <td>{{$traslado->escritura_registro}}</td>
-            </tr>
-
-            <tr>
-                <th class="text-right"><b>Predio:</b></th>
-                <td>{{$traslado->escritura_predio}}</td>
-            </tr>
-            <tr>
-                <th class="text-right"><b>Folio:</b></th>
-                <td>{{$traslado->escritura_folio}}</td>
-            </tr>
-
-            <tr>
-                <th class="text-right"><b>Volumen:</b></th>
-                <td>{{$traslado->escritura_volumen}}</td>
-            </tr>
-            <tr>
-                <th class="text-right"><b>Impuesto pagado del:</b></th>
-                <td>{{$traslado->escritura_impuesto_desde ?date("d-m-Y", strtotime($traslado->escritura_impuesto_desde)) : ''}}</td>
-            </tr>
-            <tr>
-                <th class="text-right"><b>Al:</b></th>
-                <td>{{$traslado->escritura_impuesto_hasta ?date("d-m-Y", strtotime($traslado->escritura_impuesto_hasta)) : ''}}</td>
-            </tr>
-
-        </table>
+        <p>Con fundamento en los articulos 78, 108, 109, 110, 111, 112,113, 114 Y Art 5to Transitorio de la Ley de
+            Hacienda
+            Municipal del Estado de Tabasco en Vigor; me permito enterar el pago de Impuesto sobre el Traslado de
+            Dominio de
+            Bienes Inmuebles, mediante la siguiente Declaracion presentada en duplicado.</p>
     </div>
 
-    {{ Form::model($traslado, ['url' => array('ofvirtual/notario/traslado/asignarFolio', $traslado->id ), 'method'=>'GET' ]) }}
-    <div class="form-actions form-group col-md-4" style="clear:both; float: right;">
-        {{ Form::submit('Finalizar traslado de dominio', array('class' => 'btn btn-primary')) }}
+
+    <div class="row">
+
+        {{-- <div class=" col-md-6">--}}
+        <div class="panel panel-default">
+            <div class="panel-body">
+                <div class=" col-md-4">
+                    Lugar:   {{ $traslado->lugar}}
+                </div>
+                <div class=" col-md-4">
+                    Fecha:{{ $traslado->fecha}}
+                </div>
+                <div class=" col-md-4">
+                    Declaración: {{$traslado->declaracion}}
+                </div>
+            </div>
+        </div>
+
+
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3 class="panel-title">Contratantes</h3>
+            </div>
+            <div class="panel-body">
+                {{--adquiriente --}}
+                <div class=" col-md-6">
+                    <h3> Adquiriente </h3>
+
+                    <div>
+                        Tipo de persona: {{$traslado->adquiriente->tipo->nombre}}
+                    </div>
+                    Nombre: {{$traslado->adquiriente->nombres}} {{$traslado->adquiriente->apellido_paterno}}  {{$traslado->adquiriente->apellido_materno}}
+
+                    <div>
+                        CURP/RFC: {{$traslado->adquiriente->curp}} {{$traslado->adquiriente->rfc}}
+                    </div>
+
+                </div>
+                {{--/adquiriente --}}
+
+                {{--enajenante --}}
+                <div class=" col-md-6">
+
+                    <h3> Enajenante </h3>
+
+                    <div>
+                        Tipo de persona: {{$traslado->enajenante->tipo->nombre}}
+                    </div>
+
+                    Nombre: {{$traslado->enajenante->nombres}} {{$traslado->enajenante->apellido_paterno }} {{$traslado->enajenante->apellido_materno }}
+
+                    <div>
+                        CURP/RFC: {{$traslado->enajenante->curp}} {{$traslado->enajenante->rfc}}
+                    </div>
+                    {{--/enajenante --}}
+                </div>
+            </div>
+        </div>
+
+
+        {{--Datos del predio --}}
+
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3 class="panel-title">Datos del bien inmueble</h3>
+            </div>
+            <div class="panel-body">
+                <div>
+                    Tipo de escritura: {{$traslado->tipo_escritura}}
+                </div>
+                <div class=" col-md-4">
+                    N°. De escritura: {{$traslado->escritura_registro}}
+                </div>
+                <div class=" col-md-4">
+                    Volumen: {{$traslado->escritura_volumen }}
+                </div>
+                <div class=" col-md-4">
+                    De fecha: {{$traslado->escritura_fecha}}
+                </div>
+
+                <div style="clear:both"></div>
+                <div>
+
+                    Pasada ante la fe del notario: {{$traslado->notarioEscritura}}
+
+                    <br>
+                    Notaría pública: {{$traslado->notariaEscritura}}
+
+                </div>
+
+                <div style="clear:both"></div>
+                Naturaleza del Contrato: {{$traslado->naturaleza_contrato}}
+
+                <br>
+
+                <div style="clear:both"></div>
+                <div>
+                    Ubicacion: {{$predio->ubicacionFiscal->ubicacion}}
+                    <br>
+
+                    Superficie terreno: {{$predio->superficie_terreno}} m2
+                    <br>
+
+                    Superficie construcción: {{$predio->superficie_construccion}} m2
+                </div>
+            </div>
+        </div>
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3 class="panel-title">Antecedentes de la propiedad</h3>
+            </div>
+            <div class="panel-body">
+
+                Pasada ante la fe del notario: {{$traslado->notario_antecedente_id}}
+                <br>
+
+                <div class=" col-md-4">
+                    N° de escritura: {{$traslado->num_antecedente}}
+                </div>
+                <div class=" col-md-4">
+                    Volumen:{{$traslado->volumen_antecedente}}
+                </div>
+                <div class=" col-md-4">
+
+                    De fecha: {{$traslado->fecha_antecedente}}
+                </div>
+
+                <div class=" col-md-4">
+                    Partida: {{$traslado->partida_antecedente  }}
+                </div>
+                <div class=" col-md-4">
+                    Predio: {{$traslado->predio_antecedente }}
+
+                </div>
+                <div class=" col-md-4">
+                    Folio: {{$traslado->folio_real_antecedente  }}
+                </div>
+
+                <div class=" col-md-4">
+                    Volumen: {{$traslado->volumen_freal_antecedente}}
+                </div>
+
+                <div style="clear:both"></div>
+                <div>
+                    <div class="row">
+                        No. de cuenta predial: {{$predio->cuenta}}
+                    </div>
+                    <div class="row">
+                        Regimen: {{$predio->tipo_predio}}
+                    </div>
+                    <div class="row">
+                        Clave catastral: {{$predio->clave}}
+                    </div>
+                </div>
+                <div style="clear:both"></div>
+                <div class=" col-md-4">
+                    Valor comercial de inmueble: {{$traslado->valor_comercial_antecedentre }}
+                </div>
+                <div class=" col-md-4">
+                    Valuador con registro estatal: {{$traslado->valuador_num_ant}}
+                </div>
+                <div class=" col-md-4">
+                    No de folio de avaluo: {{$traslado->folio_avaluo_ant  }}
+                </div>
+            </div>
+        </div>
+
+
+        <div class=" col-md-6">
+
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h3 class="panel-title">Liquidación vivienda</h3>
+                </div>
+                <div class="panel-body">
+                    Tipo Vivienda: {{$traslado->tipo_vivienda}}
+                    <br>
+                    Precio base: {{$traslado->precio_base}}
+                    <br>
+                    Deducción: {{$traslado->deduccion}}
+                    <br>
+                    Base gravable por la que pagaron: {{$traslado->base_gravable}}
+                    <br>
+                    Diferencia omitida: {{$traslado->diferencia_omitida}}
+                    <br>
+                    Porcentaje aplicarse: {{$traslado->porcentaje_aplicarse}}
+<br>
+                    Impuesto enterar: {{$traslado->impuesto_enterar}}
+<br>
+                    Actualización: {{$traslado->actualizacion}}
+                    <br>
+                    Recargos: {{$traslado->recargos}}
+                    <br>
+                    Importe total: {{$traslado->importe_total}}
+                </div>
+            </div>
+        </div>
+        {{--/Datos del predio --}}
+        <div class=" col-md-6">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h3 class="panel-title">Valores para base de pago</h3>
+                </div>
+                <div class="panel-body">
+                    Valor catastral: {{ $traslado->valor_catastral}}
+                    <br>
+                    Valor de operación: {{ $traslado->valor_operacion}}
+                    <br>
+                    Valor comercial del inmueble: {{ $traslado->valor_comercial }}
+                    <br>
+                    Valuador num: {{ $traslado->valuador_num}}
+                    <br>
+                    N° de folio de avaluo: {{ $traslado->folio_avaluo}}
+                </div>
+            </div>
+        </div>
+
+        {{ Form::model($traslado, ['url' => array('ofvirtual/notario/traslado/asignarFolio', $traslado->id ), 'method'=>'GET' ]) }}
+        <div class="form-actions  col-md-4" style="clear:both; float: right;">
+            {{ Form::submit('Finalizar traslado de dominio', array('class' => 'btn btn-primary')) }}
+        </div>
+        {{Form::close()}}
+
+        {{ Form::model($traslado, ['url' => array('ofvirtual/notario/traslado'), 'method'=>'GET' ]) }}
+        <div class="form-actions  col-md-4" style="clear:both; float: right;">
+            {{ Form::submit('Salir sin finalizar traslado de dominio', array('class' => 'btn btn-warning')) }}
+        </div>
+        {{Form::close()}}
     </div>
-    {{Form::close()}}
-
-    {{ Form::model($traslado, ['url' => array('ofvirtual/notario/traslado'), 'method'=>'GET' ]) }}
-    <div class="form-actions form-group col-md-4" style="clear:both; float: right;">
-        {{ Form::submit('Salir sin finalizar traslado de dominio', array('class' => 'btn btn-warning')) }}
-    </div>
-    {{Form::close()}}
-
-
 @stop
