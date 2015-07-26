@@ -215,9 +215,11 @@ class OficinaVirtualNotarioController extends \BaseController
         // Title
         $title = 'Imprimir traslado de dominio';
 
+        //barcodes
+        $seguimiento = DNS1D::getBarcodePNGPath($traslado->seguimiento, "C128");
 
         // Show the page
-        $vista =  View:: make('ofvirtual.notario.traslado.pdf', compact('title', 'traslado', 'predio'));
+        $vista =  View:: make('ofvirtual.notario.traslado.pdf', compact('title', 'traslado', 'predio','seguimiento'));
         //devuelvo los datos en PDF
         $pdf      = PDF::load($vista)->show();
         $response = Response::make($pdf, 200);

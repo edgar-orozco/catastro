@@ -20,15 +20,18 @@
     #cabecera {
         height: 20%;
     }
-    table{
+
+    table {
         width: 100%;
         margin-bottom: 30px;
         border: 1px solid black;
     }
-    td{
+
+    td {
         padding: 8px;
     }
-    th{
+
+    th {
         border-bottom: 1px solid black;
     }
 
@@ -47,13 +50,13 @@
 
     <h1>Traslado de dominios</h1>
 
-                <p>Con fundamento en los articulos 78, 108, 109, 110, 111, 112,113, 114 Y Art 5to Transitorio de la Ley
-                    de
-                    Hacienda
-                    Municipal del Estado de Tabasco en Vigor; me permito enterar el pago de Impuesto sobre el Traslado
-                    de
-                    Dominio de
-                    Bienes Inmuebles, mediante la siguiente Declaracion presentada en duplicado.</p>
+    <p>Con fundamento en los articulos 78, 108, 109, 110, 111, 112,113, 114 Y Art 5to Transitorio de la Ley
+        de
+        Hacienda
+        Municipal del Estado de Tabasco en Vigor; me permito enterar el pago de Impuesto sobre el Traslado
+        de
+        Dominio de
+        Bienes Inmuebles, mediante la siguiente Declaracion presentada en duplicado.</p>
     <br>
 
 
@@ -238,33 +241,78 @@
                         <th colspan="2">
                             <h3>Liquidación vivienda</h3>
                         </th>
-                        <tr>
+                    <tr>
                         <td>
-                            Tipo Vivienda: </td><td>$ {{$traslado->tipo_vivienda}}
-                        </td></tr><tr><td>
-                            Precio base: </td><td>$ {{$traslado->precio_base}}
-                        </td></tr><tr><td>
-                            Deducción: </td><td>$ {{$traslado->deduccion}}
-                        </td></tr><tr><td>
-                            Base gravable por la que pagaron: </td><td>$ {{$traslado->base_gravable}}
-                        </td></tr><tr><td>
-                            Diferencia omitida: </td><td>$ {{$traslado->diferencia_omitida}}
-                        </td></tr><tr><td>
-                            Porcentaje aplicarse: </td><td>$ {{$traslado->porcentaje_aplicarse}}
-                        </td></tr><tr><td>
-                            Impuesto enterar: </td><td>$ {{$traslado->impuesto_enterar}}
-                        </td></tr><tr><td>
-                            Actualización: </td><td>$ {{$traslado->actualizacion}}
-                        </td></tr><tr><td>
-                            Recargos: </td><td>$ {{$traslado->recargos}}
-                        </td></tr><tr><td>
-                            Importe total: </td><td>$ {{$traslado->importe_total}}
+                            Tipo Vivienda:
+                        </td>
+                        <td>$ {{$traslado->tipo_vivienda}}
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            Precio base:
+                        </td>
+                        <td>$ {{$traslado->precio_base}}
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            Deducción:
+                        </td>
+                        <td>$ {{$traslado->deduccion}}
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            Base gravable por la que pagaron:
+                        </td>
+                        <td>$ {{$traslado->base_gravable}}
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            Diferencia omitida:
+                        </td>
+                        <td>$ {{$traslado->diferencia_omitida}}
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            Porcentaje aplicarse:
+                        </td>
+                        <td>$ {{$traslado->porcentaje_aplicarse}}
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            Impuesto enterar:
+                        </td>
+                        <td>$ {{$traslado->impuesto_enterar}}
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            Actualización:
+                        </td>
+                        <td>$ {{$traslado->actualizacion}}
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            Recargos:
+                        </td>
+                        <td>$ {{$traslado->recargos}}
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            Importe total:
+                        </td>
+                        <td>$ {{$traslado->importe_total}}
                         </td>
                     </tr>
 
                 </table>
-
-
 
 
             </td>
@@ -275,17 +323,39 @@
                         <th colspan="2">
                             <h3>Valores para base de pago</h3>
                         </th>
-                        <tr>
+                    <tr>
                         <td>
-                            Valor catastral: </td><td>$ {{ $traslado->valor_catastral}}
-                        </td></tr><tr><td>
-                            Valor de operación: </td><td>$ {{ $traslado->valor_operacion}}
-                        </td></tr><tr><td>
-                            Valor comercial del </td><td> $ {{ $traslado->valor_comercial }}
-                        </td></tr><tr><td>
-                            Valuador num: </td><td>{{ $traslado->valuador_num}}
-                        </td></tr><tr><td>
-                            N° de folio de avaluo:</td><td> {{ $traslado->folio_avaluo}}
+                            Valor catastral:
+                        </td>
+                        <td>$ {{ $traslado->valor_catastral}}
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            Valor de operación:
+                        </td>
+                        <td>$ {{ $traslado->valor_operacion}}
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            Valor comercial del
+                        </td>
+                        <td> $ {{ $traslado->valor_comercial }}
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            Valuador num:
+                        </td>
+                        <td>{{ $traslado->valuador_num}}
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            N° de folio de avaluo:
+                        </td>
+                        <td> {{ $traslado->folio_avaluo}}
                         </td>
                     </tr>
                 </table>
@@ -296,7 +366,6 @@
     </table>
 
 
-
     <table>
         <tr>
             <td align="center">
@@ -304,10 +373,21 @@
                 Firma de los compradores o Fedatario Publico<br>
                 esta declaracion se apegan a la realidad.
 
-                <br><br><br>
+                <br><br><br><br><br>
             </td>
         </tr>
-</table>
+    </table>
+    <table>
+        <tr>
+            <td align="center">
+                <img src=".{{$seguimiento}}">
+                <br>
+                {{$traslado->seguimiento}}
+            </td>
+        </tr>
+    </table>
+
+
 </div>
 
 
