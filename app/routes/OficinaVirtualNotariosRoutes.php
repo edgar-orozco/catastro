@@ -28,6 +28,8 @@ Route::get('ofvirtual/notario/traslado/show/{id}', 'OficinaVirtualNotarioControl
 //show
 Route::get('ofvirtual/notario/traslado/asignarFolio/{id}', 'OficinaVirtualNotarioController@asignarFolio');
 
+//imprimir
+Route::get('ofvirtual/notario/traslado/imprimir/{id}', 'OficinaVirtualNotarioController@imprimir');
 
 //buscador
 //Búsqueda de trámites
