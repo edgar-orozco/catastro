@@ -128,12 +128,60 @@ protected $padron;
 	 */
 	public function store()
 	{
-		$enajenante=Input::get('enajenante');
-    $adquiriente=Input::get('adquiriente');
-    $colindancias=Input::get('colindancias');
-    print_r($colindancias);
-    print_r($enajenante);
-    print_r($adquiriente);
+
+
+
+$enajenante = new personas();
+$enajenante->fill(Input::get('enajenante'))->save();
+$enajenante->id_p;
+//
+$denajenante = new Domicilio();
+$denajenante->fill(Input::get('Denajenante'))->save();
+$denajenante->id;
+
+
+$adquiriente = new personas();
+$adquiriente->fill(Input::get('adquiriente'))->save();
+$adquiriente->id_p;
+//
+$dadquiriente = new Domicilio();
+$dadquiriente->fill(Input::get('Dadquiriente'))->save();
+$dadquiriente->id;
+
+/*$colindancias = new Colindancias();
+$colindancias->fill(Input::get('colindancia'))->save();
+echo 'id colindancias'.$colindancias;*/
+
+$antecedentes=Input::get('propiedad');
+
+$registro = new RegistroEscritura();
+
+$registro->tesoreria=Input::get('tesoreria');
+$registro->municipio_id=Input::get('municipio_id');
+$registro->cuenta=Input::get('cuenta');
+$registro->clave=Input::get('clave');
+$registro->tipo_predio=Input::get('tipo_predio');
+$registro->notaria_id=Input::get('notaria_id');
+$registro->escritura_num=Input::get('escritura_num');
+$registro->volumen=Input::get('volumen');
+$registro->naturaleza_acto=Input::get('naturaleza_acto');
+$registro->fecha_instrumento=Input::get('fecha_instrumento');
+$registro->fecha_firma=Input::get('fecha_firma');
+$registro->valor_catastral=Input::get('valor_catastral');
+$registro->importe_operacion=Input::get('importe_operacion');
+$registro->avaluo_por=Input::get('avaluo_por');
+$registro->antecedente_num=$antecedentes['antecedente_num'];
+$registro->antecedente_folio=$antecedentes['antecedente_folio'];
+$registro->clave_antecedente=$antecedentes['clave_antecedente'];
+$registro->predio_antecedente=$antecedentes['predio_antecedente'];
+$registro->lvm_antecedente=$antecedentes['lvm_antecedente'];
+$registro->usuario_id=Auth::user()->id;
+$registro->enajenante_id=$enajenante->id_p;
+$registro->dir_enajenante_id=$denajenante->id;
+$registro->adquiriente_id=$enajenante->id_p;
+$registro->dir_adquiriente_id=$dadquiriente->id;
+$registro->save();
+
 	}
 
 
