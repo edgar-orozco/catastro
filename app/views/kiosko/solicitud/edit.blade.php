@@ -10,7 +10,7 @@
 
 @section('content')
 <div class="col-sm-12 col-md-12 col-lg-12" id="mainForm">
-    {{ Form::model($solicitudGestion, ['url' => array('/kiosko/solicitud', $solicitudGestion->id), 'method'=>'POST','id'=>'form']) }}
+    {{ Form::model($solicitudGestion, ['url' => array('kiosko/solicitud', $solicitudGestion->id), 'method'=>'put','id'=>'form']) }}
         @include('kiosko.solicitud._form',compact('solicitudGestion'))
         <div class="form-actions form-group">
             {{Form::submit('Editar solicitud',array('class' => 'btn btn-primary', 'tabindex'=>'13', 'data-toggle'=>'modal', 'data-target'=>'#myModal'))}}
@@ -27,7 +27,7 @@
                 <h4 class="modal-title">Nueva Solicitud</h4>
             </div>
             <div class="modal-body" id="modalBody">
-                <!--Aqui se carga el PDF en la pantalla modal-->
+                Aqui se carga el PDF en la pantalla modal
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-danger" data-dismiss="modal">Cerrar</button>
@@ -53,7 +53,7 @@
               data: new FormData(this),
               processData: false,
               contentType: false,
-              url: form.attr('url'),
+              url: '/kiosko/solicitud/'+$('#solicitud').val(),
               beforeSend: function(){
                   //alert("sii"),
                   $('.modal-body').html('Cargando PDF... <span class="glyphicon glyphicon-refresh spin"></span>');

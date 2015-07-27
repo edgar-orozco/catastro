@@ -10,7 +10,7 @@ Route::get("kiosko/solicitud_pdf/{id}",array('as'=>'pdfKiosko', 'uses'=>"kiosko_
 Route::resource('kiosko/solicitud','kiosko_SolicitudGestionController');
 //editar
 Route::get('/kiosko/solicitud/edit/{id}', 'kiosko_SolicitudGestionController@edit');
-Route::post('kiosko/solicitud/{id}',
+Route::put('kiosko/solicitud/{id}',
         array('as' => 'updateSolicitud', 'uses' => 'kiosko_SolicitudGestionController@update'));
 //auto completar
 Route::get('kiosko/autocomplete', 'kiosko_SolicitudGestionController@autocomplete');
