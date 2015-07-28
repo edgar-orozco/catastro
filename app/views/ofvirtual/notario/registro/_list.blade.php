@@ -22,7 +22,7 @@
                     <th>Adquiriente</th>
                     <th>Enajenante</th>
                     <th>Fecha</th>
-                    
+                    <th>Folio</th>
                     <th>Acciones</th>
                 </tr>
                 </thead>
@@ -40,8 +40,7 @@
 
                         <td>{{$registro->adquiriente->nombres}} {{$registro->adquiriente->apellido_paterno}} {{$registro->adquiriente->apellido_materno}}</td>
                         <td nowrap> {{$registro->created_at->format("d-m-Y")}}</td>
-                      
-
+                        <td nowrap> {{$registro->folio}}</td>
                         <td style="text-align: right;" nowrap>
 
                             @if(!is_null($registro->folio))
