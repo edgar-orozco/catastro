@@ -50,10 +50,7 @@
   $(document).ready(function(){
       //para buscar los datos con la referencia
       $('#buscar').on('click',function(){
-          $.get('/kiosko/solicitud/edit/'+$('#id').val(), function(data){
-              //$("#mainForm").html("");
-              $("#mainForm").html(data);
-          });
+         window.location.assign('/kiosko/solicitud/edit/'+$('#id').val())
       });
       //para tener el pdf en un modal cuando guarda
       var form = $('#form');
@@ -85,7 +82,7 @@
   $(function () {
         $("#curp").autocomplete({
             source: "/kiosko/autocomplete",
-            minLength: 1,
+            minLength: 18,
             select: function (event, ui) {
                 $('#response').val(ui.item.id);
                 $('#nombres').val(ui.item.nombres);
