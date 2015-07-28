@@ -43,4 +43,21 @@ class Role extends EntrustRole
         return self::all()->count();
     }
 
+    /**
+     * Función para obtener los datos que requiere select2 para formar los filtros
+     * de la bitacora de actividades
+     */
+    public static function filtro() {
+        $roles = array();
+        $raw = self::all();
+        foreach($raw as $role){
+            $roles[] = array(
+                'id'    => $role->id,
+                'label' => $role->name,
+            );
+        }
+
+        return $roles;
+    }
+
 }
