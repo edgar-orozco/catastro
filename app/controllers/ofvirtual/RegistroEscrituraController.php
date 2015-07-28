@@ -184,12 +184,15 @@ $registro->save();
 //print_r(Input::get('colindancia'));
 
  foreach(Input::get('colindancia') as $colindancia) {
+          //hasta aqui funiona correctamente
            $colindancia['registro_id'] = $registro->id;
-            $oColindancias[] = new RegistroColindancias($colindancia);
-          // 
+           //aqui ya no funciona no se si tenga que ver con el modelo
+            $Colindancias[] = new RegistroColindancias($colindancia);
+          //
         }
-        print_r($oColindancias);
-       // $registro->colindancia()->saveMany($oColindancias);
+       // print_r($oColindancias);
+        //aqui la varianble $Colindancias llega vacia
+        $registro->colindancia()->saveMany($Colindancias);
 	}
 
 
