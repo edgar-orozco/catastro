@@ -133,24 +133,24 @@ protected $padron;
 
 $enajenante = new personas();
 $enajenante->fill(Input::get('enajenante'))->save();
-$enajenante->id_p;
+
 //
 $denajenante = new Domicilio();
 $denajenante->fill(Input::get('Denajenante'))->save();
-$denajenante->id;
+
 
 
 $adquiriente = new personas();
 $adquiriente->fill(Input::get('adquiriente'))->save();
-$adquiriente->id_p;
+
 //
 $dadquiriente = new Domicilio();
 $dadquiriente->fill(Input::get('Dadquiriente'))->save();
-$dadquiriente->id;
+
 
 /*$colindancias = new Colindancias();
 $colindancias->fill(Input::get('colindancia'))->save();
-echo 'id colindancias'.$colindancias;*/
+*/
 
 $antecedentes=Input::get('propiedad');
 
@@ -181,7 +181,15 @@ $registro->dir_enajenante_id=$denajenante->id;
 $registro->adquiriente_id=$enajenante->id_p;
 $registro->dir_adquiriente_id=$dadquiriente->id;
 $registro->save();
+//print_r(Input::get('colindancia'));
 
+ foreach(Input::get('colindancia') as $colindancia) {
+           $colindancia['registro_id'] = $registro->id;
+            $oColindancias[] = new RegistroColindancias($colindancia);
+          // 
+        }
+        print_r($oColindancias);
+       // $registro->colindancia()->saveMany($oColindancias);
 	}
 
 
