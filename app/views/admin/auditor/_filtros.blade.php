@@ -129,8 +129,9 @@
                 class       = "select2-select"
                 selection   = "selectOption.actividades"
                 ng-model    = "selectOption.actividades">
-                <option value="Nuevo usuario"> Nuevo usuario </option>
                 <option value="Modificación de usuario"> Modificación de usuario </option>
+                <option value="Nuevo usuario">Nuevo usuario</option>
+                <option value="Usuario activado">Usuario activado</option>
         </select>
     </div>
     <div class="col-xs-8" ng-show="filtro == 'usuario'">

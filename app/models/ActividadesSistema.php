@@ -80,7 +80,7 @@ class ActividadesSistema extends Eloquent  {
                 'actividad' => $actividad->actividad,
                 'modulo'    => $actividad->modulo,
                 'usuario'   => $actividad->usuario->nombreCompleto(),
-                'registro'  => $actividad->registro->nombreCompleto(),
+                'registro'  => $actividad->registro ? $actividad->registro->nombreCompleto() : '-' ,
             );
         }
 
