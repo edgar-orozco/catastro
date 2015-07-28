@@ -53,7 +53,7 @@ class AiMedidasColindancias extends \Eloquent {
 		$row = new AiMedidasColindancias();
 		$row->idavaluoinmueble = $inputs['idavaluoinmueble2'];
 		$row->idorientacion = $inputs['idorientacion'];
-		//$row->medidas = $inputs['medidas'];
+		$row->medidas = $inputs['medidas'];
 		$row->unidad_medida = $inputs['unidad_medida'];
 		$row->colindancia = $inputs['colindancia'];
 		$row->idemp = 1;
