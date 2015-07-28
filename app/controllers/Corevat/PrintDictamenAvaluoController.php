@@ -438,7 +438,7 @@ class corevat_PrintDictamenAvaluoController extends \BaseController {
 		$pdf->setX(5);
 		$pdf->SetFont('Arial', 'B', 8);
 		$pdf->SetFont('Arial', '', 6);
-		$rstMedCol = AiMedidasColindancias::AiMedidasColindanciasByFk($in->idavaluoinmueble);
+		$rstMedCol = AiMedidasColindancias::getOrientacionFromMedCol($in->idavaluoinmueble);
 		foreach ($rstMedCol as $medcol) {
 			$pdf->setX(5);
 			$pdf->SetFont('Arial', 'B', 6);

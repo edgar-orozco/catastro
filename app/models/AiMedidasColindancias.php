@@ -49,6 +49,22 @@ class AiMedidasColindancias extends \Eloquent {
 	 * @param  int  $idavaluo
 	 * @return Response
 	 */
+	public static function getOrientacionFromMedCol($fk) {
+		$rows = AiMedidasColindancias::select('ai_medidas_colindancias.*', 'cat_orientaciones.orientacion')
+						->leftJoin('cat_orientaciones', 'ai_medidas_colindancias.idorientacion', '=', 'cat_orientaciones.idorientacion')
+						->where('ai_medidas_colindancias.idavaluoinmueble', '=', $fk)
+						->orderBy('ai_medidas_colindancias.idaimedidacolindancia')
+						->get();
+		return $rows;
+	}
+
+
+	/**
+	 * Show the form for editing the specified resource.
+	 *
+	 * @param  int  $idavaluo
+	 * @return Response
+	 */
 	public static function insAiMedidasColindancias($inputs) {
 		$row = new AiMedidasColindancias();
 		$row->idavaluoinmueble = $inputs['idavaluoinmueble2'];
