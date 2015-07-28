@@ -195,7 +195,7 @@ class Avaluos extends \Eloquent {
 						->orderBy('ai_medidas_colindancias.idaimedidacolindancia')
 						->get();
 	}
-
+/*
 	public static function getFoliosDisponibles($id) {
 		$pato = array();
 		$perito = PeritoUsuario::select('*')->where('user_id', '=', $id)->first();
@@ -205,7 +205,7 @@ class Avaluos extends \Eloquent {
 		}
 		return $pato;
 	}
-	
+*/
 }
 /*
 		$rows = AiMedidasColindancias::select('ai_medidas_colindancias.*', 'cat_orientaciones.orientacion')

@@ -67,7 +67,7 @@
 
 <div class="form-group">
     {{Form::label(null,'COVERAT')}}
-    <select select-two="select2" placeholder="COVERTA" class="select2-select" selection="perito"  ng-model="perito">
+    <select select-two="select2" placeholder="COVERAT" class="select2-select" selection="perito"  ng-model="perito">
         @foreach(Perito::all() as $perito)
             <option value="{{ $perito->id }}"> {{ $perito->corevat }} </option>
         @endforeach

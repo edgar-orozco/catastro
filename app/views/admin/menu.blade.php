@@ -67,7 +67,18 @@
                 Carga Cartográfica
             </a>
         </li>
-
+        <li class="divider"></li>
+        <li class="dropdown-submenu @if(Request::is('admin/auditor')) active @endif">
+            <a data-toggle="dropdwon" class="dropdown-toggle" href="#">Auditoria</a>
+            <ul role="menu" class="dropdown-menu">
+                <li class="@if(Request::is('admin/auditor')) active @endif">
+                    <a href="{{URL::to('admin/auditor')}}">
+                        <i class="glyphicon glyphicon-user"></i>&nbsp;
+                        Movimientos usuarios
+                    </a>
+                </li>
+            </ul>
+        </li>
         @if(in_array(App::environment(), ['local','staging']))
         <li class="divider"></li>
 
@@ -78,7 +89,6 @@
             </a>
         </li>
         @endif
-
     </ul>
 </li>
 

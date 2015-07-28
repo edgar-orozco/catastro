@@ -137,7 +137,6 @@
 	<div class="col-md-6">
 		<div class="form-group">
 			{{Form::label('foliocoretemp', 'Folio COREVAT')}}
-			<!--{{Form::select('foliocoretemp', $folios_corevat, $row->foliocoretemp, ['id' => 'foliocoretemp', 'class'=>'form-control', 'tabindex'=>'23'])}}-->
 			{{Form::text('foliocoretemp', $row->foliocoretemp, ['class'=>'form-control', 'tabindex'=>'23', 'required' => 'required', 'maxlength'=>'20', 'size'=>'21'])}}
 			{{$errors->first('foliocoretemp', '<span class=text-danger>:message</span>')}}
 		</div>
