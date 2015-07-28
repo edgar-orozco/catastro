@@ -184,8 +184,8 @@ class corevat_AvaluosController extends \BaseController {
 
 				$mun = Municipios::find($row->idmunicipio);
 				$lstCP = Asentamiento::where('municipio',$mun->clave)->distinct()->orderBy('codigo_postal')->lists('codigo_postal', 'codigo_postal');
-				$folios_corevat = Avaluos::getFoliosDisponibles(Auth::id());
-				return View::make('Corevat.Avaluos.avaluos', compact('opt', 'idavaluo', 'title', 'row', 'estados', 'municipios', 'cat_tipo_inmueble', 'cat_regimen_propiedad','lstCP', 'folios_corevat'));
+				//$folios_corevat = Avaluos::getFoliosDisponibles(Auth::id());
+				return View::make('Corevat.Avaluos.avaluos', compact('opt', 'idavaluo', 'title', 'row', 'estados', 'municipios', 'cat_tipo_inmueble', 'cat_regimen_propiedad','lstCP'));
 			} else {
 				return Redirect::to('/corevat/index')->with('error', '¡Permiso denegado a este avalúo!');;
 			}
