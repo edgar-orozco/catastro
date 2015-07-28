@@ -13,9 +13,10 @@ $(document).ready(function () {
 		/*++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 		 * 
 		 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
-		corevatDataTable.ajax.url('/corevat/AiMedidasColindanciasGetAjax/' + $("#idavaluoinmueble").val());
+		//corevatDataTable.ajax.url('/corevat/AiMedidasColindanciasGetAjax/' + $("#idavaluoinmueble").val());
 		corevatDataTable.column( 1 ).visible( false );
 		corevatDataTable.column( 5 ).visible( false );
+		corevatDataTable.ajax.url( '/corevat/AiMedidasColindanciasGetAjax/' + $("#idavaluoinmueble").val() ).load();
 		
 		/*++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 		 * 
