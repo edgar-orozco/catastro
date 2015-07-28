@@ -47,7 +47,7 @@ class kiosko_SolicitudGestionController extends \BaseController
         $res = $this->padron->getByClaveOCuenta($clave);
         //si res no trae datsos
         if(!$res){
-            return Redirect::to('kiosko/solicitud')->with('error','La Clave o Cuenta Ctastral No Exite');
+            return Redirect::with('error','La Clave o Cuenta Ctastral No Exite');
             }else{
                 if(!$solicitante_id){
                     //traemos el codigo del seguimiento
@@ -163,8 +163,7 @@ class kiosko_SolicitudGestionController extends \BaseController
             return $id;
         }
         //encaso que no exista la clave o cuenta
-        return Redirect::to('/kiosko/solicitud')->with('error',
-        'La Clave o Cuenta Ctastral No Exite' . "!");
+        return Redirect::with('error','La Clave o Cuenta Ctastral No Exite' . "!");
     }
     public function solicitudIndex($id) 
     {
