@@ -17,14 +17,14 @@
 	<div class="col-md-4">
 		<div class="form-group">
 			{{Form::label('fecha_reporte', 'Fecha del Reporte')}}
-			{{Form::text('fecha_reporte', $row->fecha_reporte, ['class'=>'form-control', 'tabindex'=>'1', 'required' => 'required', 'maxlength' => '10', 'size' => '11', 'style' => 'width:110px;', 'data-date-format'=>'dd-mm-yyyy'])}}
+			{{Form::text('fecha_reporte', $row->fecha_reporte, ['class'=>'form-control', 'tabindex'=>'1', 'required' => 'required', 'maxlength' => '10', 'size' => '11', 'style' => 'width:110px;', 'readonly'=>'readonly'])}}
 			{{$errors->first('fecha_reporte', '<span class=text-danger>:message</span>')}}
 		</div>
 	</div>
 	<div class="col-md-4">
 		<div class="form-group">
 			{{Form::label('fecha_avaluo', 'Fecha del Avalúo')}}
-			{{Form::text('fecha_avaluo', $row->fecha_avaluo, ['class'=>'form-control', 'tabindex'=>'2', 'required' => 'required', 'maxlength' => '10', 'size' => '11', 'style' => 'width:110px', 'data-date-format'=>'dd-mm-yyyy'])}}
+			{{Form::text('fecha_avaluo', $row->fecha_avaluo, ['class'=>'form-control', 'tabindex'=>'2', 'required' => 'required', 'maxlength' => '10', 'size' => '11', 'style' => 'width:110px', 'readonly'=>'readonly'])}}
 			{{$errors->first('fecha_avaluo', '<span class=text-danger>:message</span>')}}
 		</div>
 	</div>
