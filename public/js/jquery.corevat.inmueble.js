@@ -21,6 +21,7 @@ $(document).ready(function () {
 		 * 
 		 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
 		$('#btnNew').click(function () {
+			$('#messagesDialogForm').empty().removeClass();
 			$('#ctrl').val('ins');
 			$('#idaimedidacolindancia, #medidas').val('0');
 			$('#colindancia').val('');
@@ -32,6 +33,7 @@ $(document).ready(function () {
 		 * 
 		 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
 		$.editAiMedidasColindancias = function(id) {
+			$('#messagesDialogForm').empty().removeClass();
 			$('#ctrl').val('upd');
 			$('#idaimedidacolindancia').val(id);
 			$.ajax({
@@ -52,6 +54,9 @@ $(document).ready(function () {
 			});
 		};
 		
+		/*++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+		 * 
+		 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
 		$.delAiMedidasColindancias = function(id) {
 			$('#idaimedidacolindancia').val(id);
 			$('#divDialogConfirm').dialog({title: 'Eliminar registro'}).dialog('open');

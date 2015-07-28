@@ -21,7 +21,7 @@ class AiMedidasColindancias extends \Eloquent {
 						->where('ai_medidas_colindancias.idavaluoinmueble', '=', $fk)
 						->orderBy('ai_medidas_colindancias.idaimedidacolindancia')
 						->get();
-						
+		$count = count($rows);
 		 foreach ($rows as $row) {
 			 $pato[] = array(
 				$row['idaimedidacolindancia'], 
@@ -36,8 +36,8 @@ class AiMedidasColindancias extends \Eloquent {
 		 }
 		$res = array(
 			"draw" => 1,
-			"recordsTotal" => 57,
-			"recordsFiltered" => 57,
+			"recordsTotal" => $count,//DB::table('users')->count();
+			"recordsFiltered" => $count,
 			"data" => $pato
 		);
 		return $res;
