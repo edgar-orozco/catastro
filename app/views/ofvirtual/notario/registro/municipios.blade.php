@@ -1,92 +1,19 @@
 {{ Form::open(array('url' => 'ofvirtual/notario/registro/create', 'method' => 'GET')) }}
-<!--<form id="lista-tipotramites">-->
-    <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="false">
-                        <!-- Inputs de clave o cuenta -->
-                         <div class="row col-sm-8">
-                            <div>
-                                <div class="form-group">
+                                        <div class="row col-sm-4">
 
-                                    <div class="input-group">
-                                       <!--  Select clave o cuenta-
 
-                                        <div class="input-group-btn">
-                                            <button type="button"
-                                                    class="btn btn-default dropdown-toggle select-busqueda"
-                                                    data-tipobusqueda="cuenta"
-                                                    data-toggle="dropdown" aria-expanded="false">
-                                                <span class="dropdown-label">Cuenta</span>
-                                                <span class="caret"></span></button>
-                                            <ul class="dropdown-menu tipo-busqueda" role="menu">
-                                                <li><a href="javascript:void(0);" class="opcion-buqueda" data-tipo="cuenta">Cuenta</a>
-                                                </li>
-                                                <li><a href="javascript:void(0);" class="opcion-busqueda" data-tipo="clave">Clave</a></li>
-                                            </ul>
+                                            {{Form::claveCuenta()}}
                                         </div>
-
-                                        <!-- Select municipios
-                                        <div class="input-group-btn control-municipios">
-                                            <button type="button"
-                                                    class="btn btn-default dropdown-toggle select-municipio"
-                                                    data-municipio=""
-                                                    data-toggle="dropdown" aria-expanded="false">
-                                                <span class="dropdown-label">
-                                                    @if(count($municipios) == 1)
-                                                        {{$municipios[0]->nombre_municipio}} - {{$municipios[0]->municipio}}
-                                                    @else
-                                                    Municipio
-
-                                                    @endif
-                                                </span>
-                                                <span class="caret"></span></button>
-                                            <ul class="dropdown-menu municipio" role="menu">
-                                                @foreach($municipios as $municipio)
-                                                    <li><a href="javascript:void(0);" class="opcion-municipio"
-                                                           data-municipio="{{$municipio->municipio}}">{{$municipio->nombre_municipio}}
-                                                            - {{$municipio->municipio}}</a></li>
-                                                @endforeach
-                                            </ul>
-                                        </div>
-                                        <!-- //Select municipios
-
-                                        <!-- Select Urbano o Rustico
-                                        <div class="input-group-btn control-tipopredio">
-                                            <button type="button"
-                                                    class="btn btn-default dropdown-toggle select-tipopredio"
-                                                    data-tipopredio="U"
-                                                    data-toggle="dropdown" aria-expanded="false">
-                                                <span class="dropdown-label">Urbano</span>
-                                                <span class="caret"></span></button>
-                                            <ul class="dropdown-menu tipo-predio" role="menu">
-                                                <li><a href="javascript:void(0);" class="opcion-tipopredio" data-tipopredio="R">Rústico</a></li>
-                                                <li><a href="javascript:void(0);" class="opcion-tipopredio" data-tipopredio="U">Urbano</a></li>
-                                            </ul>
-                                        </div> -
-                                        <div class="col-md-12">-->
-
-                                        {{--Form::text('claveTxt', null, ['class'=>'form-control clave-catastral', 'style'=>'text-transform: uppercase;'])--}}
-
-                                        {{Form::claveCuenta()}}
-                                        {{--Form::hidden('clave', null, ['id'=>'clave'])--}}
-
                                         <span class="input-group-btn">
                                             <button class="btn btn-success" type="submit">Crear Regisro de Escritura
                                                 <span class="glyphicon glyphicon-plus boton-buscador" aria-hidden="true"></span>
                                             </button>
                                         </span>
-                                        </div>
-
-                                    </div>
-
-
-                            <!-- /col-md-6 -->
                             <div>
                                 <div class="alert alert-danger" style="display: none;">
                                     No se encontró el predio solicitado en el padrón.
                                 </div>
                             </div>
-                        <!-- //Inputs de clave o cuenta -->
-           </div></div></div>      </div>
-<!--</form>-->
 
 
 

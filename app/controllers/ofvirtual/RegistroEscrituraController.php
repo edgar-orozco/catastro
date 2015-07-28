@@ -33,7 +33,6 @@ protected $padron;
 
 
         $registros = RegistroEscritura::all();
-
         $misMunicipios = Auth::user()->municipios()->get(['gid']);
         $notaria = Auth::user()->notaria->id_notaria;
 
@@ -178,7 +177,7 @@ $registro->lvm_antecedente=$antecedentes['lvm_antecedente'];
 $registro->usuario_id=Auth::user()->id;
 $registro->enajenante_id=$enajenante->id_p;
 $registro->dir_enajenante_id=$denajenante->id;
-$registro->adquiriente_id=$enajenante->id_p;
+$registro->adquiriente_id=$adquiriente->id_p;
 $registro->dir_adquiriente_id=$dadquiriente->id;
 $registro->save();
 //print_r(Input::get('colindancia'));
