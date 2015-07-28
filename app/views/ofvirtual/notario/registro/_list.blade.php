@@ -22,7 +22,7 @@
                     <th>Adquiriente</th>
                     <th>Enajenante</th>
                     <th>Fecha</th>
-                    <th>Folio</th>
+                    
                     <th>Acciones</th>
                 </tr>
                 </thead>
@@ -38,11 +38,9 @@
                         </td>
                         <td> {{$registro->enajenante->nombres}} {{$registro->enajenante->apellido_paterno}} {{$registro->enajenante->apellido_materno}}</td>
 
-                        <td>{{$registro->enajenante->nombres}} {{$registro->enajenante->apellido_paterno}} {{$registro->enajenante->apellido_materno}}</td>
+                        <td>{{$registro->adquiriente->nombres}} {{$registro->adquiriente->apellido_paterno}} {{$registro->adquiriente->apellido_materno}}</td>
                         <td nowrap> {{$registro->created_at->format("d-m-Y")}}</td>
-                        <td nowrap>
-                            {{$registro->folio}}
-                        </td>
+                      
 
                         <td style="text-align: right;" nowrap>
 
