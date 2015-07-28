@@ -129,7 +129,7 @@ class kiosko_SolicitudGestionController extends \BaseController
     {
         //traemos todos los inputs
         $inputs = Input::All();
-        //traemos el input clave
+        //traemos el input clave.
         $clave = Input::get('clave');
         //checamos si existe la clave o cuenta
         $res = $this->padron->getByClaveOCuenta($clave); 
