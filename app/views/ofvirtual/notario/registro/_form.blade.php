@@ -1,5 +1,7 @@
 
 {{HTML::script('js/macros.js')}}
+{{ HTML::style('js/jquery/jquery-ui.css') }}
+{{ HTML::script('js/jquery/jquery-ui.js') }}
 {{Form::hidden('registro[clave]', $predio->clave, ['class'=>'form-control'])}}
 {{$errors->first('registro[clave]', '<span class=text-danger>:message</span>')}}
 
@@ -10,7 +12,7 @@
   <div class="panel panel-default">
         <div class="panel-body">
   {{Form::notaria($notaria)}}
-
+    {{Form::hidden('notaria_id',$notaria,['class' => 'form-control'])}}
 
 
 
@@ -20,13 +22,13 @@
       {{Form::text('tesoreria', null, ['class' => 'form-control'] )}}
 </div>
  <div class="col-md-6">
-      {{Form::label('municipio','Municipio:')}}
-      {{Form::select('municipio', $municipio, null, ['class'=>'form-control'])}}
+      {{Form::label('municipio_id','Municipio:')}}
+      {{Form::select('municipio_id', $municipio, null, ['class'=>'form-control'])}}
 </div>
 
 <div class="col-md-3">
-      {{Form::label('escritura','Nomero de escritura:')}}
-      {{Form::text('escritura', null, ['class' => 'form-control'] )}}
+      {{Form::label('escritura_num','Nomero de escritura:')}}
+      {{Form::text('escritura_num', null, ['class' => 'form-control'] )}}
 </div>
 <div class="col-md-3">
       {{Form::label('volumen','Volumen:')}}
@@ -41,12 +43,12 @@
     {{Form::select('tipo_predio', ['U' => 'Urbano','R' => 'Rustico'], null, ['class' => 'form-control focus'])}}
 </div>
 <div class="col-md-6">
-    {{Form::label('clave_catastral','Clave Catastral:')}}
-    {{Form::text('clave_catastral', null, ['class' => 'form-control'] )}}
+    {{Form::label('clave','Clave Catastral:')}}
+    {{Form::text('clave', null, ['class' => 'form-control'] )}}
 </div>
 <div class="col-md-6">
-    {{Form::label('acto','Naturaleza del acto:')}}
-    {{Form::text('acto', null, ['class' => 'form-control'] )}}
+    {{Form::label('naturaleza_acto','Naturaleza del acto:')}}
+    {{Form::text('naturaleza_acto', null, ['class' => 'form-control'] )}}
 </div>
 </div>
 </div></div>
@@ -64,9 +66,10 @@
 
     {{--Form::text('adquiriente', null, ['class' => 'form-control'] )--}}
     {{form::personas('enajenante')}}
-
-    {{Form::label('direccion_e','Diección del enajenante:')}}
-    {{Form::text('direccion_e', null, ['class' => 'form-control'] )}}
+        <h3 class="panel-title">Dirección Enajenante</h3>
+        {{Form::domicilio('Denajenante',$vialidad,$entidad,$asentamiento,$municipio)}}
+    {{--Form::label('direccion_e','Diección del enajenante:')--}}
+    {{--Form::text('direccion_e', null, ['class' => 'form-control'] )--}}
 </div>
 </div>
 
@@ -81,8 +84,10 @@
     {{--Form::text('adquiriente', null, ['class' => 'form-control'] )--}}
     {{form::personas('adquiriente')}}
 
-    {{Form::label('direccion_a','Diección del adquiriente:')}}
-    {{Form::text('direccion_a', null, ['class' => 'form-control'] )}}
+    <h3 class="panel-title">Dirección Adquiriente</h3>
+        {{Form::domicilio('Dadquiriente',$vialidad,$entidad,$asentamiento,$municipio)}}
+    {{--Form::label('direccion_a','Diección del adquiriente:')--}}
+    {{--Form::text('direccion_a', null, ['class' => 'form-control'] )--}}
 </div>
 </div>
 
@@ -90,18 +95,21 @@
 </div>
 </div>
 <div class="col-md-3">
-     {{Form::label('fecha_inst','Fecha de Intrumento')}}
-     {{Form::text('fecha_inst', null,['id'=>'datepicker', 'class'=>'btn btn-default btn-sm dropdown-toggle'] )}}
+     {{Form::label('fecha_instrumento','Fecha de Intrumento')}}
+     {{Form::text('fecha_instrumento', null,['id'=>'datepicker', 'class'=>'btn btn-default btn-sm dropdown-toggle'] )}}
 </div>
 <div class="col-md-3">
       {{Form::label('fecha_firma','Fecha de firma')}}
       {{Form::text('fecha_firma',null, ['id'=>'datepicker1', 'class'=>'btn btn-default btn-sm dropdown-toggle'] )}}
 </div>
 </div>
-</fieldset>
-<fieldset>
-  <legend>DATOS DEL INMUEBLE</legend>
-    <div class="row-fluid">
+
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h3 class="panel-title">Datos del Inmueble</h3>
+    </div>
+
+    <div class="row-fluid panel-body">
         <div class="col-md-12">
             {{Form::label('ubicacion_inmu','Ubicacion del Inmueble:')}}
             {{Form::text('ubicacion_inmu', null, ['class' => 'form-control'] )}}
@@ -122,50 +130,62 @@
             {{Form::label('estado_conserv','Estado de conservacion:')}}
             {{Form::text('estado_conserv', null, ['class' => 'form-control'] )}}
         </div>
-</fieldset>
-<fieldset>
-<legend>COLINDANCIAS</legend>
-        <div class="col-md-12">
-            {{Form::colindancias('escrituras','sur')}}
-        </div>
-</fieldset>
-<fieldset>
-<legend>ANTECEDENTES DE LA PROPIEDAD</legend>
-        <div class="col-md-12">
-            {{Form::propiedad('escrituras')}}
-        </div>
-</fieldset>
 
-<fieldset>
-<legend>ANTECEDENTES DE LA PROPIEDAD</legend>
-    <div class="row-fluid">
+</div>
+</div>
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h3 class="panel-title">Colindancias</h3>
+    </div>
+ <div class="row-fluid panel-body">
+        <div class="col-md-12">
+            {{Form::colindancias('colindancia',$JsonColindancias)}}
+        </div>
+  </div>
+</div>
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h3 class="panel-title">ANTECEDENTES DE LA PROPIEDAD</h3>
+    </div>
+ <div class="row-fluid panel-body">
+
+        <div class="col-md-12">
+            {{Form::propiedad('propiedad')}}
+        </div>
+</div>
+</div>
+
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h3 class="panel-title">MANIFESTACIÓN</h3>
+    </div>
+    <div class="row-fluid panel-body">
         <div class="col-md-6">
             {{Form::label('valor_catastral','Valor Catastral:')}}
             {{Form::number('valor_catastral', null, ['class' => 'form-control'] )}}
         </div>
         <div class="col-md-6">
-            {{Form::label('import_opera','Importe de la operación:')}}
-            {{Form::number('import_opera', null, ['class' => 'form-control'] )}}
+            {{Form::label('importe_operacion','Importe de la operación:')}}
+            {{Form::number('importe_operacion', null, ['class' => 'form-control'] )}}
         </div>
         <div class="col-md-6">
             {{Form::label('import_avaluo','Importe del avalúo:')}}
             {{Form::number('import_avaluo', null, ['class' => 'form-control'] )}}
         </div>
         <div class="col-md-6">
-            {{Form::label('avaluo_efec','Avaluo efectuado por:')}}
-            {{Form::text('avaluo_efec', null, ['class' => 'form-control'] )}}
+            {{Form::label('avaluo_por','Avaluo efectuado por:')}}
+            {{Form::text('avaluo_por', null, ['class' => 'form-control'] )}}
         </div>
     </div>
-</fieldset>
-<fieldset>
-<legend></legend>
-<div class="form-actions form-group col-md-12">
-            {{ Form::submit('Guardar Datos', array('class' => 'btn btn-primary')) }}
-            {{ Form::reset('Limpiar ', ['class' => 'btn btn-warning']) }}
-        </div>
-</fieldset>
+</div>
 
-    </div>
+<div class="form-actions form-group col-md-6" style="clear:both; ">
+                  {{ Form::submit('Crear nuevo traslado de dominio', array('class' => 'btn btn-primary')) }}
+                  {{ Form::reset('Limpiar formato', ['class' => 'btn btn-warning']) }}
+                </div>
+
+
+
 
 
 

@@ -101,8 +101,8 @@ class Avaluos extends \Eloquent {
 	private static function setAvaluo(&$row, $inputs) {
 		$row->proposito = $inputs["proposito"];
 		$row->finalidad = $inputs["finalidad"];
-		$row->idmunicipio = $inputs["idmunicipio"];
-		$row->idestado = $inputs["idestado"];
+		$municipios = Municipios::where('clave', $inputs["idmunicipio"])->first();
+		$row->idmunicipio = $municipios->idmunicipio;
 		$row->idestado = $inputs["idestado"];
 		$row->fecha_reporte = $inputs["fecha_reporte"];
 		$row->fecha_avaluo = $inputs["fecha_avaluo"];
@@ -125,15 +125,15 @@ class Avaluos extends \Eloquent {
 		$row->altitud = $inputs["altitud"];
 		$row->idregimenpropiedad = $inputs["idregimenpropiedad"];
 		
-		$row->cuenta_predial = $inputs["cuenta_predial"];
+		$row->cuenta_catastral = $inputs["cuenta_catastral"];
 		
 		// DIVIDIMOS LA CUENTA CATASTRAL PARA POSTERIORMENTE INCORPORAR LA LETRA "U" O "R"
 		// QUE SON LOS POSIBLES VALORES DEL COMBO "Serie" DE LA UI.
-		if ( $inputs["cuenta_catastral"] =='' )  {
-			$row->cuenta_catastral = strtoupper($inputs["cuenta_catastral"]);
+		if ( $inputs["cuenta_predial"] =='' )  {
+			$row->cuenta_predial = strtoupper($inputs["cuenta_predial"]);
 		} else {
-			$a = preg_split("/-/", $inputs["cuenta_catastral"]);
-			$row->cuenta_catastral = $a[0]."-".$inputs["serie"]."-".$a[2];
+			$a = preg_split("/-/", $inputs["cuenta_predial"]);
+			$row->cuenta_predial = $a[0]."-".$inputs["serie"]."-".$a[2];
 		}
 		
 		$row->nombre_solicitante = $inputs["nombre_solicitante"];
@@ -149,7 +149,7 @@ class Avaluos extends \Eloquent {
 	public static function insAvaluo(&$inputs) {
 		$row = new Avaluos();
 		Avaluos::setAvaluo($row, $inputs);
-		$row->iduser = 1; //Auth::id()
+		$row->iduser = Auth::id();
 		$row->idemp = 1; //Auth::id()
 		$row->ip = $_SERVER['REMOTE_ADDR'];
 		$row->host = isset($_SERVER['HTTP_CLIENT_IP']) ? $_SERVER['HTTP_CLIENT_IP'] : '';
@@ -195,5 +195,35 @@ class Avaluos extends \Eloquent {
 						->orderBy('ai_medidas_colindancias.idaimedidacolindancia')
 						->get();
 	}
-
+/*
+	public static function getFoliosDisponibles($id) {
+		$pato = array();
+		$perito = PeritoUsuario::select('*')->where('user_id', '=', $id)->first();
+		$folios = FoliosComprados::select('*')->where('perito_id', '=', $perito->perito_id)->get();
+		foreach ($folios as $folio) {
+			$pato[] = array($folio['numero_folio'], $folio['numero_folio']);
+		}
+		return $pato;
+	}
+*/
 }
+/*
+		$rows = AiMedidasColindancias::select('ai_medidas_colindancias.*', 'cat_orientaciones.orientacion')
+						->leftJoin('cat_orientaciones', 'ai_medidas_colindancias.idorientacion', '=', 'cat_orientaciones.idorientacion')
+						->where('ai_medidas_colindancias.idavaluoinmueble', '=', $fk)
+						->orderBy('ai_medidas_colindancias.idaimedidacolindancia')
+						->get();
+						
+		 foreach ($rows as $row) {
+			 $pato[] = array(
+				$row['idaimedidacolindancia'], 
+				$row['idorientacion'], 
+				$row['orientacion'], 
+				$row['unidad_medida'], 
+				$row['medidas'], 
+				$row['medida'], 
+				$row['colindancia'], 
+				'<a class="btn btn-xs btn-info btnEdit"  title="Editar" onclick="$.editAiMedidasColindancias('.$row['idaimedidacolindancia'].');"><i class="glyphicon glyphicon-pencil"></i></a>', 
+				'<a class="btn btn-xs btn-danger btnDel" title="Eliminar" onclick="$.delAiMedidasColindancias('.$row['idaimedidacolindancia'].');"><i class="glyphicon glyphicon-remove"></i></a>');
+		 }
+*/

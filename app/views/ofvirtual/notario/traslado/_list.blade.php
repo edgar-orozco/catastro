@@ -51,6 +51,12 @@
                                    class="btn btn-info" title="Ver traslado">
                                     <span class="glyphicon glyphicon-list-alt"></span>
                                 </a>
+
+
+                                <a href="{{ action('OficinaVirtualNotarioController@imprimir', ['id' => $traslado->id]) }}"
+                                   class="print btn btn-info" target="_blank">
+                                    <span class="glyphicon glyphicon-print"></span>
+                                </a>
                             @else
 
                                 <a href="{{ action('OficinaVirtualNotarioController@edit', ['id' => $traslado->id]) }}"
@@ -62,6 +68,8 @@
                                     <span class="glyphicon glyphicon-trash danger"></span>
                                 </a>
                             @endif
+
+
 
                         </td>
                     </tr>

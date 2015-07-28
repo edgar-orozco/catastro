@@ -12,14 +12,14 @@
 	<div class="col-md-4">
 		<div class="form-group">
 			{{Form::label('fecha_reporte', 'Fecha del Reporte')}}
-			{{Form::text('fecha_reporte', $row->fecha_reporte, ['class'=>'form-control', 'tabindex'=>'1', 'autofocus' => 'autofocus', 'required' => 'required', 'maxlength' => '10', 'size' => '11', 'style' => 'width:110px'])}}
+			{{Form::text('fecha_reporte', $row->fecha_reporte, ['class'=>'form-control', 'tabindex'=>'1', 'autofocus' => 'autofocus', 'required' => 'required', 'maxlength' => '10', 'size' => '11', 'style' => 'width:110px', 'readonly'=>'readonly'])}}
 			{{$errors->first('fecha_reporte', '<span class=text-danger>:message</span>')}}
 		</div>
 	</div>
 	<div class="col-md-4">
 		<div class="form-group">
 			{{Form::label('fecha_avaluo', 'Fecha del Avalúo')}}
-			{{Form::text('fecha_avaluo', $row->fecha_avaluo, ['class'=>'form-control', 'tabindex'=>'2', 'required' => 'required', 'maxlength' => '10', 'size' => '11', 'style' => 'width:110px'])}}
+			{{Form::text('fecha_avaluo', $row->fecha_avaluo, ['class'=>'form-control', 'tabindex'=>'2', 'required' => 'required', 'maxlength' => '10', 'size' => '11', 'style' => 'width:110px', 'readonly'=>'readonly'])}}
 			{{$errors->first('fecha_avaluo', '<span class=text-danger>:message</span>')}}
 		</div>
 	</div>
@@ -123,14 +123,14 @@
 	<div class="col-md-6">
 		<div class="form-group">
 			{{Form::label('cuenta_predial', 'Cuenta Predial')}}
-			{{Form::text('cuenta_predial', $row->cuenta_predial, ['class'=>'form-control', 'tabindex'=>'21', 'maxlength'=>'15', 'size'=>'16'])}}
+			{{Form::text('cuenta_predial', $row->cuenta_predial, ['class'=>'form-control', 'tabindex'=>'21', 'maxlength'=>'11', 'size'=>'11'])}}
 			{{$errors->first('cuenta_predial', '<span class=text-danger>:message</span>')}}
 		</div>
 	</div>
 	<div class="col-md-6">
 		<div class="form-group">
 			{{Form::label('cuenta_catastral', 'Clave Catastral')}}
-			{{Form::text('cuenta_catastral', $row->cuenta_catastral, ['class'=>'form-control', 'tabindex'=>'22', 'maxlength'=>'11', 'size'=>'12'])}}
+			{{Form::text('cuenta_catastral', $row->cuenta_catastral, ['class'=>'form-control', 'tabindex'=>'22', 'maxlength'=>'15', 'size'=>'16'])}}
 			{{$errors->first('cuenta_catastral', '<span class=text-danger>:message</span>')}}
 		</div>
 	</div>
@@ -150,7 +150,7 @@
 	<div class="col-md-12">
 		<div class="form-group">
 			{{Form::label('nombre_propietario','Propietario')}}
-			{{Form::text('nombre_propietario', $row->nombre_propietario, ['class'=>'form-control', 'tabindex'=>'25', 'maxlength'=>'100'])}}
+			{{Form::text('nombre_propietario', $row->nombre_propietario, ['class'=>'form-control', 'tabindex'=>'25', 'maxlength'=>'100', 'required'=>'required'])}}
 		</div>
 	</div>
 	<div class="col-md-12 form-actions form-group">
@@ -173,14 +173,14 @@ $(document).ready(function () {
 
 	$('#btn1General').removeClass("btn-info").addClass("btn-primary");
 
-    $('#cuenta_predial').mask('YYY-YYYY-YYYYYY', {
+    $('#cuenta_catastral').mask('YYY-YYYY-YYYYYY', {
                                     placeholder: "___-____-______", 
                                     translation: {
                                         Y: {pattern: /[0-9]/}
                                     }
                                 });
 
-    $('#cuenta_catastral').mask('YY-S-YYYYYY', {
+    $('#cuenta_predial').mask('YY-S-YYYYYY', {
                                     placeholder: "__-_-______", 
                                     translation: {
                                         S: {pattern: /[RUru]/},

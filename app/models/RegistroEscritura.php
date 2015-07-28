@@ -2,7 +2,7 @@
 class RegistroEscritura extends Eloquent  {
     protected $table ='registro_escrituras';
     protected $primaryKey = 'id';
-    protected $guarded = array("*");
+    
     protected $fillable = array("*");
 
 
@@ -50,6 +50,14 @@ class RegistroEscritura extends Eloquent  {
     {
 
         return $this->belongsTo('Municipio', 'municipio_id', 'municipio');
+
+
+    }
+
+    public function colindancia()
+    {
+
+        return $this->hasMany('RegistroColindancias', 'registro_id', 'id');
 
 
     }

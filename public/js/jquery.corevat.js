@@ -55,7 +55,7 @@ $(document).ready(function () {
 		searching: false,
 		lengthMenu: [10, 20, 30]
 	});
-	corevatDataTable.ajax.url( '/corevat/AiMedidasColindanciasGetAjax/' + $("#idavaluoinmueble").val() ).load();
+	//corevatDataTable.ajax.url( '/corevat/AiMedidasColindanciasGetAjax/' + $("#idavaluoinmueble").val() ).load();
 
     /*++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
      * 

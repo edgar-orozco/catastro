@@ -1,6 +1,5 @@
 <?php
 use \Catastro\Repos\Padron\PadronRepositoryInterface;
-
 class kiosko_SolicitudGestionController extends \BaseController
 {
     protected $padron;
@@ -9,8 +8,6 @@ class kiosko_SolicitudGestionController extends \BaseController
     protected $solicitudGestion;
     protected $solicitante;
     
-
-
     public function __construct(PadronRepositoryInterface $padron, Tipotramite $tipotramite, SolicitudGestion $solicitudGestion, Solicitante $solicitante)
     {
         $this->padron = $padron; 
@@ -44,43 +41,63 @@ class kiosko_SolicitudGestionController extends \BaseController
         $inputs = Input::All();
         //traemos la clave o cuenta de los inputs
         $clave = Input::get('clave');
+        //raemos el id del solicitante_id de los inputs
+        $solicitante_id = Input::get('solicitante_id');
         //Corrobaramos si existe la clave o cuenta
         $res = $this->padron->getByClaveOCuenta($clave);
         //si res no trae datsos
         if(!$res){
             return Redirect::to('kiosko/solicitud')->with('error','La Clave o Cuenta Ctastral No Exite');
             }else{
-                //traemos el codigo del seguimiento
-                $seguimiento=SolicitudGestion::cadenaSeguimientoUnica();
-                //generamos el codigo de barra
-                $path_imagen = DNS1D::getBarcodePNGPath($seguimiento, "C128");
-                //guardamos el nombre del solicitante
-                $solicitante = new Solicitante();
-                $solicitante -> apellido_paterno = mb_strtoupper($inputs["solicitante"]["apellido_paterno"]);
-                $solicitante -> apellido_materno = mb_strtoupper($inputs["solicitante"]["apellido_materno"]);
-                $solicitante -> nombres = mb_strtoupper($inputs["solicitante"]["nombres"]);
-                $solicitante -> nombrec = mb_strtoupper($inputs["solicitante"]["nombres"]." ".$inputs["solicitante"]["apellido_paterno"]." ".$inputs["solicitante"]["apellido_materno"]);
-                $solicitante -> rfc = mb_strtoupper($inputs["solicitante"]["rfc"]);
-                $solicitante -> curp = mb_strtoupper($inputs["solicitante"]["curp"]);
-                $solicitante -> direccion = $inputs["solicitante"]["direccion"];
-                $solicitante -> telefono = $inputs["solicitante"]["telefono"];
-                $solicitante -> tipo_telefono = $inputs["solicitante"]["tipo_telefono"];
-                $solicitante -> correo = $inputs["solicitante"]["correo"];
-                $solicitante -> fecha_ingr = date('Y-m-d');
-                $solicitante -> id_tipo = 1;
-                $solicitante -> save();
-                $nombre = $solicitante -> id;
-                //guardamos la solicitud
-                $solicitud = new SolicitudGestion();
-                $solicitud -> solicitante_id = $nombre;
-                $solicitud -> tramite_id = $inputs["tramite_id"];
-                $solicitud -> municipio = $inputs["municipio"];
-                $solicitud -> clave = $inputs["clave"];
-                $solicitud -> seguimiento = $seguimiento;
-                $solicitud -> create_at = date('Y-m-d');
-                $solicitud -> save();
-                $id=$solicitud -> id; 
-                return Redirect::to('kiosko/solicitud_pdf/'.$id);
+                if(!$solicitante_id){
+                    //traemos el codigo del seguimiento
+                    $seguimiento=SolicitudGestion::cadenaSeguimientoUnica();
+                    //generamos el codigo de barra
+                    $path_imagen = DNS1D::getBarcodePNGPath($seguimiento, "C128");
+                    //guardamos el nombre del solicitante
+                    $solicitante = new Solicitante();
+                    $solicitante -> apellido_paterno = mb_strtoupper($inputs["solicitante"]["apellido_paterno"]);
+                    $solicitante -> apellido_materno = mb_strtoupper($inputs["solicitante"]["apellido_materno"]);
+                    $solicitante -> nombres = mb_strtoupper($inputs["solicitante"]["nombres"]);
+                    $solicitante -> nombrec = mb_strtoupper($inputs["solicitante"]["nombres"]." ".$inputs["solicitante"]["apellido_paterno"]." ".$inputs["solicitante"]["apellido_materno"]);
+                    $solicitante -> rfc = mb_strtoupper($inputs["solicitante"]["rfc"]);
+                    $solicitante -> curp = mb_strtoupper($inputs["solicitante"]["curp"]);
+                    $solicitante -> direccion = $inputs["solicitante"]["direccion"];
+                    $solicitante -> telefono = $inputs["solicitante"]["telefono"];
+                    $solicitante -> tipo_telefono = $inputs["solicitante"]["tipo_telefono"];
+                    $solicitante -> correo = $inputs["solicitante"]["correo"];
+                    $solicitante -> fecha_ingr = date('Y-m-d');
+                    $solicitante -> id_tipo = 1;
+                    $solicitante -> save();
+                    $nombre = $solicitante -> id;
+                    //guardamos la solicitud
+                    $solicitud = new SolicitudGestion();
+                    $solicitud -> solicitante_id = $nombre;
+                    $solicitud -> tramite_id = $inputs["tramite_id"];
+                    $solicitud -> municipio = $inputs["municipio"];
+                    $solicitud -> clave = $inputs["clave"];
+                    $solicitud -> seguimiento = $seguimiento;
+                    $solicitud -> create_at = date('Y-m-d');
+                    $solicitud -> save();
+                    $id=$solicitud -> id; 
+                    return $id;
+                }else{
+                    //traemos el codigo del seguimiento
+                    $seguimiento=SolicitudGestion::cadenaSeguimientoUnica();
+                    //generamos el codigo de barra
+                    $path_imagen = DNS1D::getBarcodePNGPath($seguimiento, "C128");
+                    //guardamos la solicitud
+                    $solicitud = new SolicitudGestion();
+                    $solicitud -> solicitante_id = $solicitante_id;
+                    $solicitud -> tramite_id = $inputs["tramite_id"];
+                    $solicitud -> municipio = $inputs["municipio"];
+                    $solicitud -> clave = $inputs["clave"];
+                    $solicitud -> seguimiento = $seguimiento;
+                    $solicitud -> create_at = date('Y-m-d');
+                    $solicitud -> save();
+                    $id=$solicitud -> id; 
+                    return $id;
+                }
             }
     }
     
@@ -142,14 +159,13 @@ class kiosko_SolicitudGestionController extends \BaseController
             $solicitante -> correo = $inputs["solicitante"]["correo"];
             $solicitante -> save();
             //redireccionamos al pdf de solicitud
-            return Redirect::to('kiosko/solicitud_pdf/'.$id);
+            //return Redirect::to('kiosko/solicitud_pdf/'.$id);
+            return $id;
         }
         //encaso que no exista la clave o cuenta
         return Redirect::to('/kiosko/solicitud')->with('error',
         'La Clave o Cuenta Ctastral No Exite' . "!");
     }
-
-
     public function solicitudIndex($id) 
     {
         //Traigo la clave o cuenta de la tabla
@@ -169,8 +185,32 @@ class kiosko_SolicitudGestionController extends \BaseController
         $pdf = PDF::load($vista)->show('Solicitud '.$tipo);
         $response = Response::make($pdf, 200);
         $response->header('Content-Type', 'application/pdf');
-        return $vista;
+        return $response;
     }
     
+    public function autocomplete() {
+//        $term = Input::get('term');
+        $term = Str::upper(Input::get('term'));
+        //ARRAY DONDE CARGA LOS DATOS
+        $results = array();
+
+        $id_p = array();
+        //CONSULTA A LA TABLA PERSONAS
+        $queries = DB::select(DB::raw("SELECT * FROM solicitante WHERE curp LIKE '%" . $term . "%' limit 5"));
+        //DONDE LLAMA LOS DATOS Y LOS PASA A LAS VARIABLES CORRESPONDIENTES
+        foreach ($queries as $query) {
+            //ARRAY DONDE CARGA LOS DATOS
+            $id_p[] = ['id' => $query->id];
+            $results[] = ['value' => $query->curp , 'id' => $query->id, 'nombres' => $query->nombres, 'apellido_paterno' => $query->apellido_paterno, 'apellido_materno'=>$query->apellido_materno,'rfc'=>$query->rfc,'tipo_telefono'=>$query->tipo_telefono,'telefono'=>$query->telefono,'correo'=>$query->correo,'direccion'=>$query->direccion];
+        }
+        if ($results) {
+            //SI EXITE LA PERSONA            
+            return Response::json($results);
+        } else {
+            //SI NO EXITE LA PAERSONA
+            $mensaje[] = "NO EXISTE LA PERSONAS";
+            return Response::json($mensaje);
+        }
+    }
     
 }

@@ -2,14 +2,13 @@ $(document).ready(function()
 {
     $("input[type='radio']").click(function() {
 
-alert($(this).data('tipo'));
 
 
            if ($(this).data('tipo') == "enajenante")
         {
-          alert( $(this).attr('id'));
+          //alert( $(this).attr('id'));
           var tipo = $(this).val();
-          alert(tipo);
+          //alert(tipo);
               if ($(this).val() == 2) {
                 $("#id_tipo").val(2);
               var id = $(this).attr('id');
@@ -36,9 +35,9 @@ alert($(this).data('tipo'));
 
        if ($(this).data('tipo') == "adquiriente")
         {
-          alert( $(this).attr('id'));
+          //alert( $(this).attr('id'));
           var tipo = $(this).val();
-          alert(tipo);
+          //alert(tipo);
               if ($(this).val() == 2) {
                 $("#id_tipo").val(2);
               var id = $(this).attr('id');
