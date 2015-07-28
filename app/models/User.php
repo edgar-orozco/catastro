@@ -347,6 +347,36 @@ class User extends Eloquent implements ConfideUserInterface
     }
 
     /**
+     * Función para obtener la lista de administradores
+     * @return array
+     */
+    public static function filtroAdmins(){
+        $admins = array();
+        $lista = self::whereHas( 'roles' , function($q){
+            $q->where('name', '=', 'Administrador');
+            //->orWhere('name', '=', 'Super usuario');
+            })
+            ->with('roles')
+            ->get();
+        foreach( $lista as $user){
+            $roles = '';
+            $idx = 0;
+            foreach($user->roles as $role){
+                $roles .= $role->name;
+                if($idx != (count($user->roles)-1) ){
+                    $roles .= ', ';
+                }
+                $idx++;
+            }
+            $admins[] = array(
+                'id'             => $user->id,
+                'label'          => $user->nombreCompleto().'('.$roles.')',
+            );
+        }
+        return $admins;
+    }
+
+    /**
      * Devuelve el numero total de usuarios registrados
      * @return int
      */

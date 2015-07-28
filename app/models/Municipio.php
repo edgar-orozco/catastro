@@ -28,4 +28,21 @@ class Municipio extends Ardent
     public function asentamientos(){
         return $this->hasMany('Asentamiento', 'municipio', 'municipio');
     }
+
+    /**
+     * Función para obtener los datos que requiere select2 para formar los filtros
+     * de la bitacora de actividades
+     */
+    public static function filtro() {
+        $municipios = array();
+        $raw = self::all();
+        foreach($raw as $municipio){
+            $municipios[] = array(
+                'id'    => $municipio->gid,
+                'label' => $municipio->nombre_municipio,
+            );
+        }
+
+        return $municipios;
+    }
 }
