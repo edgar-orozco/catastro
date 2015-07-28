@@ -348,15 +348,12 @@ class corevat_AvaluosController extends \BaseController {
 		$cat_aplanados = CatAplanados::comboList();
 		$cat_plafones = CatPlafones::comboList();
 		$cat_orientaciones = CatOrientaciones::comboList();
-		//
-		//$ai_medidas_colindancias = AiMedidasColindancias::AiMedidasColindanciasByFk($row->idavaluoinmueble);
 		
 		$croquis = $row->croquis != '' ? '/corevat/files/' . $row->croquis : '';
 		$fachada = $row->fachada != '' ? '/corevat/files/' . $row->fachada : '';
 
 		$arrMedCol = array('Metros'=>'Metros','Metros Cuadrados'=>'Metros Cuadrados','Metros Cúbicos'=>'Metros Cúbicos','Metros Lineales'=>'Metros Lineales','Kilometros'=>'Kilometros','Kilometros Cuadrados'=>'Kilometros Cuadrados','Hectareas'=>'Hectareas','Hectareas Cuadradas'=>'Hectareas Cuadradas');
 
-		//return View::make('Corevat.Avaluos.avaluos', compact('opt', 'idavaluo', 'title', 'row', 'cat_cimentaciones', 'cat_estructuras', 'cat_muros', 'cat_entrepisos', 'cat_techos', 'cat_bardas', 'cat_usos_suelos', 'cat_niveles', 'cat_pisos', 'cat_aplanados', 'cat_plafones', 'cat_orientaciones', 'ai_medidas_colindancias', 'arrMedCol', 'croquis','fachada'));
 		return View::make('Corevat.Avaluos.avaluos', compact('opt', 'idavaluo', 'title', 'row', 'cat_cimentaciones', 'cat_estructuras', 'cat_muros', 'cat_entrepisos', 'cat_techos', 'cat_bardas', 'cat_usos_suelos', 'cat_niveles', 'cat_pisos', 'cat_aplanados', 'cat_plafones', 'cat_orientaciones', 'arrMedCol', 'croquis','fachada'));
 	}
 
@@ -427,15 +424,11 @@ class corevat_AvaluosController extends \BaseController {
 			if (Input::hasFile('croquis') || Input::hasFile('fachada')) {
 				$row = Avaluos::find($id)->AvaluosInmueble;
 				if (Input::hasFile('croquis')) {
-					// $fl = Input::file('croquis');
-					// $c0 = explode('.',$fl->getClientOriginalName());
 					$row->croquis = 'croquis-' . $row->idavaluo . '.' . Input::file('croquis')->guessExtension();
 					Input::file('croquis')->move(public_path() . '/corevat/files/', $row->croquis);
 					$message .= '<br />¡El croquis fue actualizado satisfactoriamente!';
 				}
 				if (Input::hasFile('fachada')) {
-					// $fl = Input::file('fachada');
-					// $c0 = explode('.',$fl->getClientOriginalName());		
 					$row->fachada = 'fachada-' . $row->idavaluo  . '.' .  Input::file('fachada')->guessExtension();
 					Input::file('fachada')->move(public_path() . '/corevat/files/', $row->fachada);
 					$message .= '<br />¡La imagen de la fachada fue actualizada satisfactoriamente!';

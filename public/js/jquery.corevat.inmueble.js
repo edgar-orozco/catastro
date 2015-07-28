@@ -13,7 +13,6 @@ $(document).ready(function () {
 		/*++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 		 * 
 		 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
-		//corevatDataTable.ajax.url('/corevat/AiMedidasColindanciasGetAjax/' + $("#idavaluoinmueble").val());
 		corevatDataTable.column( 1 ).visible( false );
 		corevatDataTable.column( 5 ).visible( false );
 		corevatDataTable.ajax.url( '/corevat/AiMedidasColindanciasGetAjax/' + $("#idavaluoinmueble").val() ).load();
@@ -53,6 +52,10 @@ $(document).ready(function () {
 			});
 		};
 		
+		$.delAiMedidasColindancias = function(id) {
+			$('#idaimedidacolindancia').val(id);
+			$('#divDialogConfirm').dialog({title: 'Eliminar registro'}).dialog('open');
+		}
 		/*++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 		 * 
 		 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
@@ -140,10 +143,8 @@ $(document).ready(function () {
 						type: 'get',
 						success: function (data) {
 							datos = eval(data);
+							corevatDataTable.ajax.reload();
 							alert(datos.message);
-							if (datos.success === true) {
-								window.location.href = '/corevat/AvaluoInmueble/<?php echo $row->idavaluo ?>';
-							}
 						}
 					});
 					$('#divDialogConfirm').dialog("close");
