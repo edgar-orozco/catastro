@@ -41,7 +41,7 @@ class kiosko_SolicitudGestionController extends \BaseController
         $inputs = Input::All();
         //traemos la clave o cuenta de los inputs
         $clave = Input::get('clave');
-        //raemos el id del solicitante_id de los inputs
+        //traemos el id del solicitante_id de los inputs
         $solicitante_id = Input::get('solicitante_id');
         //Corrobaramos si existe la clave o cuenta
         $res = $this->padron->getByClaveOCuenta($clave);
