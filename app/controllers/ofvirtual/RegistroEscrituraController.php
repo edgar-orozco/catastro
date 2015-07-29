@@ -199,6 +199,8 @@ $registro->save();
        // print_r($oColindancias);
         //aqui la varianble $Colindancias llega vacia
         $registro->colindancia()->saveMany($Colindancias);
+
+
 	}
 
 
@@ -208,9 +210,52 @@ $registro->save();
 	 * @param  int  $id
 	 * @return Response
 	 */
-	public function buscar($id)
+	public function buscar()
 	{
-		//
+		$q = Input::get('q');
+        $tipo = Input::get('tipo');
+
+        $traslados = new RegistroEscritura();
+
+        if ($tipo == 'Folio') {
+            $traslados = RegistroEscritura::whereFolio($q)->paginate($this->numPags);
+        }
+        if ($tipo == 'Enajenante') {
+            $traslados = RegistroEscritura::enajenanteNombreCompleto(strtoupper($q))->paginate($this->numPags);
+        }
+        if ($tipo == 'Adquiriente') {
+            $traslados = RegistroEscritura::adquirienteNombreCompleto(strtoupper($q))->paginate($this->numPags);
+        }
+        if ($tipo == 'Ubicación de la propiedad') {
+
+            $ubicaciones = RegistroEscritura::ubicacion(strtoupper(trim($q)))->paginate($this->numPags);
+
+            $trasladosArr = array();
+            foreach ($ubicaciones as $ubicacion) {
+                try {
+                    $trasladosArr[] = RegistroEscritura::find($ubicacion->id);
+                } catch (Exception $e) {
+                }
+
+            }
+            $traslados = $trasladosArr;
+
+            //
+        }
+        if ($tipo == 'Clave') {
+            $traslados = RegistroEscritura::whereClave($q)->paginate($this->numPags);
+        }
+        if ($tipo == 'Cuenta') {
+            $traslados = RegistroEscritura::whereCuenta($q)->paginate($this->numPags);
+        }
+        if ($tipo == 'Seguimiento') {
+            $traslados = RegistroEscritura::whereSeguimiento($q)->paginate($this->numPags);
+    }
+        if (Request::ajax()) {
+            return View:: make('ofvirtual.notario.traslado._list', compact(['traslados']));
+        }
+
+        return $traslados;
 	}
 
 
@@ -248,6 +293,36 @@ $registro->save();
 	{
 		//
 	}
+
+    public function autocomplete()
+    {
+          $term = Str::upper(Input::get('term'));
+        //ARRAY DONDE CARGA LOS DATOS
+        $results = array();
+
+        $id_p = array();
+        //CONSULTA A LA TABLA PERSONAS
+        $queries = DB::select(DB::raw("SELECT * FROM personas WHERE curp LIKE '%" . $term . "%' limit 5"));
+        //DONDE LLAMA LOS DATOS Y LOS PASA A LAS VARIABLES CORRESPONDIENTES
+        foreach ($queries as $query) {
+            //ARRAY DONDE CARGA LOS DATOS
+            $id_p[] = ['id_p' => $query->id_p];
+            $results[] = ['value' => $query->curp , 'id' => $query->id_p, 'nombres' => $query->nombres, 'apellido_paterno' => $query->apellido_paterno, 'apellido_materno'=>$query->apellido_materno,'rfc'=>$query->rfc];
+        }
+        if ($results) {
+            //SI EXITE LA PERSONA            
+            return Response::json($results);
+        } else {
+            //SI NO EXITE LA PAERSONA
+            $mensaje[] = "NO EXISTE LA PERSONAS";
+            return Response::json($mensaje);
+        }
+    
+    }
+    public function show()
+    {
+        //
+    }
 
 
 }
