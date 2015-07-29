@@ -7,7 +7,7 @@
 	<div class="col-md-12">&nbsp;</div>
 
 	<div class="col-md-11"><h3>Investigación de Terrenos Comparables</h3></div>
-	<div class="col-md-1"><a href="#" class="btn btn-primary nuevo" id="btnNewAemComp" title="Nuevo Registro">Nuevo</a></div>
+	<div class="col-md-1"><a class="btn btn-primary nuevo" id="btnNewAemComp" title="Nuevo Registro">Nuevo</a></div>
 	<div class="col-md-12">
 		<table cellpadding="0" cellspacing="0" border="0" class="table datatable table-striped" id="aemCompTerrenosDataTable">
 			<thead>
@@ -89,7 +89,7 @@
 	<div class="col-md-12"><h2>Venta de Inmuebles</h2></div>
 	<div class="col-md-12">&nbsp;</div>
 	<div class="col-md-11"><h3>Venta de inmuebles similares en uso al que se valua(sujeto)</h3></div>
-	<div class="col-md-1"><a href="#" class="btn btn-primary nuevo" id="btnNewAemInf" title="Nuevo Registro">Nuevo</a></div>
+	<div class="col-md-1"><a class="btn btn-primary nuevo" id="btnNewAemInf" title="Nuevo Registro">Nuevo</a></div>
 	<div class="col-md-12">
 		<table cellpadding="0" cellspacing="0" border="0" class="table datatable table-striped" id="aemInformacionDataTable">
 			<thead>
@@ -152,19 +152,19 @@
 			<tfoot>
 				<tr>
 					<td class="bg-primary" colspan="8">&nbsp;</td>
-					<td class="bg-primary" colspan="4" style="text-align: right;">Promedio:</td>
+					<td class="bg-primary" colspan="5" style="text-align: right;">Promedio:</td>
 					<td class="bg-info">{{$row->promedio_analisis}}</td>
 					<td class="bg-primary">&nbsp;</td>
 				</tr>
 				<tr>
 					<td class="bg-primary" colspan="8">&nbsp;</td>
-					<td class="bg-primary" colspan="4" style="text-align: right;">Superficie Construida del Sujeto:</td>
+					<td class="bg-primary" colspan="5" style="text-align: right;">Superficie Construida del Sujeto:</td>
 					<td class="bg-info">{{$row->superficie_construida}}</td>
 					<td class="bg-primary">&nbsp;</td>
 				</tr>
 				<tr>
 					<td class="bg-primary" colspan="8">&nbsp;</td>
-					<td class="bg-primary" colspan="4" style="text-align: right;">Valor comparativo de mercado:</td>
+					<td class="bg-primary" colspan="5" style="text-align: right;">Valor comparativo de mercado:</td>
 					<td class="bg-info">{{$row->valor_comparativo_mercado}}</td>
 					<td class="bg-primary">&nbsp;</td>
 				</tr>
