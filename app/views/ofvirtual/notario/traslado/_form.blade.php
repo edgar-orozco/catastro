@@ -160,12 +160,12 @@
         </div>
         <div class="form-group col-md-4">
             {{Form::label('traslado[escritura_volumen]','Volumen')}}
-            {{Form::number('traslado[escritura_volumen]', null, ['class'=>'form-control'] )}}
+            {{Form::number('traslado[escritura_volumen]', null, ['class'=>'form-control', 'min'=>0] )}}
             {{$errors->first('traslado[escritura_volumen]', '<span class=text-danger>:message</span>')}}
         </div>
         <div class="form-group col-md-4">
             {{Form::label('traslado[escritura_fecha]','De fecha')}}
-            {{Form::input('text', 'traslado[escritura_fecha]', null, ['class'=>'form-control fecha'] )}}
+            {{Form::input('text', 'traslado[escritura_fecha]', null, ['class'=>'form-control fecha' ] )}}
             {{$errors->first('traslado[escritura_fecha]', '<span class=text-danger>:message</span>')}}
         </div>
 
@@ -215,7 +215,8 @@
             @foreach(Notaria::all() as $notaria)
                 <option value="{{ $notaria->id_notaria }}"> {{ $notaria->nombre }}
                     ( {{ $notaria->mpio['nombre_municipio'] }}, {{ $notaria->estado['nom_ent'] }})
-                    ({{ $notaria->notario->nombres }} {{ $notaria->notario->apellido_paterno }} {{ $notaria->notario->apellido_materno }} )
+                    ({{ $notaria->notario->nombres }} {{ $notaria->notario->apellido_paterno }} {{ $notaria->notario->apellido_materno }}
+                    )
                 </option>
             @endforeach
         </select>
@@ -225,12 +226,12 @@
 
         <div class="form-group col-md-4">
             {{Form::label('traslado[num_antecedente]','N° de escritura')}}
-            {{Form::number('traslado[num_antecedente]', null, ['class'=>'form-control'] )}}
+            {{Form::number('traslado[num_antecedente]', null, ['class'=>'form-control', 'min'=>0] )}}
             {{$errors->first('traslado[num_antecedente]', '<span class=text-danger>:message</span>')}}
         </div>
         <div class="form-group col-md-4">
             {{Form::label('traslado[volumen_antecedente]','Volumen')}}
-            {{Form::number('traslado[volumen_antecedente]', null, ['class'=>'form-control'] )}}
+            {{Form::number('traslado[volumen_antecedente]', null, ['class'=>'form-control', 'min'=>0] )}}
             {{$errors->first('traslado[volumen_antecedente]', '<span class=text-danger>:message</span>')}}
         </div>
         <div class="form-group col-md-4">
@@ -247,19 +248,19 @@
         </div>
         <div class="form-group col-md-4">
             {{Form::label('traslado[predio_antecedente]','Predio')}}
-            {{Form::number('traslado[predio_antecedente]', null, ['class'=>'form-control'] )}}
+            {{Form::number('traslado[predio_antecedente]', null, ['class'=>'form-control', 'min'=>0] )}}
             {{$errors->first('traslado[predio_antecedente]', '<span class=text-danger>:message</span>')}}
 
         </div>
         <div class="form-group col-md-4">
             {{Form::label('traslado[folio_real_antecedente]','Folio')}}
-            {{Form::number('traslado[folio_real_antecedente]', null, ['class'=>'form-control'] )}}
+            {{Form::number('traslado[folio_real_antecedente]', null, ['class'=>'form-control', 'min'=>0] )}}
             {{$errors->first('traslado[folio_real_antecedente]', '<span class=text-danger>:message</span>')}}
         </div>
 
         <div class="form-group col-md-4">
             {{Form::label('traslado[volumen_freal_antecedente]','Volumen')}}
-            {{Form::number('traslado[volumen_freal_antecedente]', null, ['class'=>'form-control'] )}}
+            {{Form::number('traslado[volumen_freal_antecedente]', null, ['class'=>'form-control', 'min'=>0] )}}
             {{$errors->first('traslado[volumen_freal_antecedente]', '<span class=text-danger>:message</span>')}}
         </div>
 
@@ -277,7 +278,7 @@
 
         <div class="form-group col-md-4">
             {{Form::label('traslado[valor_comercial_antecedente]','Valor comercial de inmueble')}}
-            {{Form::number('traslado[valor_comercial_antecedente]', null, ['class'=>'form-control'] )}}
+            {{Form::number('traslado[valor_comercial_antecedente]', null, ['class'=>'form-control', 'min'=>0] )}}
             {{$errors->first('traslado[valor_comercial_antecedentre]', '<span class=text-danger>:message</span>')}}
         </div>
         <div class="form-group col-md-4">
@@ -322,59 +323,40 @@
 
             <br>
             {{Form::label('traslado[precio_base]','Precio base')}}
-            {{Form::number('traslado[precio_base]', null, ['id'=>'precioBase', 'class'=>'form-control importeTotalFactores', 'min' => 0, 'step'=>'any', 'min'=>0, 'required'=>false, 'readonly'=>true] )}}
+            {{Form::number('traslado[precio_base]', null, ['id'=>'precio_base', 'class'=>'form-control', 'min' => 0, 'step'=>'any', 'required'=>true] )}}
             {{$errors->first('traslado[precio_base]', '<span class=text-danger>:message</span>')}}
 
 
             {{Form::label('traslado[deduccion]','Deducción')}}
-            {{Form::number('traslado[deduccion]', null, ['class'=>'form-control', 'min' => 0, 'step'=>'any', 'min'=>0, 'required'=>false] )}}
+            {{Form::number('traslado[deduccion]', null, ['class'=>'form-control', 'min' => 0, 'step'=>'any', 'required'=>true] )}}
             {{$errors->first('traslado[deduccion]', '<span class=text-danger>:message</span>')}}
 
             {{Form::label('traslado[base_gravable]','Base gravable por la que pagaron')}}
-            {{Form::number('traslado[base_gravable]', null, ['class'=>'form-control', 'min' => 0, 'step'=>'any', 'min'=>0, 'required'=>false] )}}
+            {{Form::number('traslado[base_gravable]', null, ['class'=>'form-control', 'min' => 0, 'step'=>'any',  'required'=>true] )}}
             {{$errors->first('traslado[base_gravable]', '<span class=text-danger>:message</span>')}}
 
             {{Form::label('traslado[diferencia_omitida]','Diferencia omitida')}}
-            {{Form::number('traslado[diferencia_omitida]', null, ['class'=>'form-control', 'min' => 0, 'step'=>'any', 'min'=>0, 'required'=>false] )}}
+            {{Form::number('traslado[diferencia_omitida]', null, ['class'=>'form-control', 'min' => 0, 'step'=>'any', 'required'=>true] )}}
             {{$errors->first('traslado[diferencia_omitida]', '<span class=text-danger>:message</span>')}}
 
             {{Form::label('traslado[porcentaje_aplicarse]','Porcentaje aplicarse')}}
-            {{Form::number('traslado[porcentaje_aplicarse]', null, ['id'=>'porcentajeAplicarse', 'class'=>'form-control importeTotalFactores', 'min' => 2, 'step'=>'any', 'min'=>0, 'required'=>false] )}}
+            {{Form::number('traslado[porcentaje_aplicarse]', null, ['id'=>'porcentajeAplicarse', 'class'=>'form-control', 'step'=>'any', 'min'=>0, 'required'=>true] )}}
             {{$errors->first('traslado[porcentaje_aplicarse]', '<span class=text-danger>:message</span>')}}
 
             {{Form::label('traslado[impuesto_enterar]','Impuesto enterar')}}
-            {{Form::number('traslado[impuesto_enterar]', null, ['class'=>'form-control', 'min' => 0, 'step'=>'any', 'min'=>0, 'required'=>false] )}}
+            {{Form::number('traslado[impuesto_enterar]', null, ['class'=>'form-control', 'min' => 0, 'step'=>'any', 'required'=>true] )}}
             {{$errors->first('traslado[impuesto_enterar]', '<span class=text-danger>:message</span>')}}
 
-
-            <?php
-             //   print_r($predio);
-            $municipioArr = explode('-', $predio->clave);
-            $gid = Municipio::where('municipio', $municipioArr[1])->pluck('gid');
-            $resultadog = DB::select("select sp_get_concepto_adeudo('$predio->clave','$gid')");
-            foreach ($resultadog as $keyss) {
-                $itemsg = explode('-', $keyss->sp_get_concepto_adeudo);
-            }
-            $actualizacion = Number_format($itemsg[0], 2, '.', ',');
-            $recargo = Number_format($itemsg[1], 2, '.', ',');
-            $gastos_ejecucion = Number_format($itemsg[2], 2, '.', ',');
-            $gran_total = Number_format($itemsg[3], 2, '.', ',');
-            $descuento_multa = Number_format($itemsg[4], 2, '.', ',');
-            $descuento_gasto = Number_format($itemsg[5], 2, '.', ',');
-            $descuento_recargo = Number_format($itemsg[6], 2, '.', ',');
-            $totalConDescuentos = Number_format($itemsg[7], 2, '.', ',');
-            ?>
-
             {{Form::label('traslado[actualizacion]','Actualización')}}
-            {{Form::number('traslado[actualizacion]',  $actualizacion , ['id'=>'actualizacion', 'class'=>'form-control importeTotalFactores', 'readonly'=>true] )}}
+            {{Form::number('traslado[actualizacion]',  null , ['id'=>'actualizacion', 'class'=>'form-control', 'min' => 0, 'step'=>'any', 'required'=>true] )}}
             {{$errors->first('traslado[actualizacion]', '<span class=text-danger>:message</span>')}}
 
             {{Form::label('traslado[recargos]','Recargos')}}
-            {{Form::number('traslado[recargos]',$totalConDescuentos - $actualizacion, ['id'=>'recargos', 'class'=>'form-control importeTotalFactores',  'readonly'=>true] )}}
+            {{Form::number('traslado[recargos]',null, ['id'=>'recargos', 'class'=>'form-control', 'min' => 0, 'step'=>'any', 'required'=>true] )}}
             {{$errors->first('traslado[recargos]', '<span class=text-danger>:message</span>')}}
 
             {{Form::label('traslado[importe_total]','Importe total')}}
-            {{Form::number('traslado[importe_total]', null, ['id'=>'importeTotal', 'class'=>'form-control', 'readonly'=>true] )}}
+            {{Form::number('traslado[importe_total]', null, ['id'=>'importeTotal', 'class'=>'form-control', 'min' => 0, 'step'=>'any', 'required'=>true] )}}
             {{$errors->first('traslado[importe_total]', '<span class=text-danger>:message</span>')}}
         </div>
     </div>
@@ -388,15 +370,15 @@
         <div class="panel-body">
 
             {{Form::label('traslado[valor_catastral]','Valor catastral')}}
-            {{Form::number('traslado[valor_catastral]', null, ['id'=>'valor_catastral','class'=>'form-control precioBase', 'min' => 0, 'step'=>'any', 'min'=>0, 'required'=>true] )}}
+            {{Form::number('traslado[valor_catastral]', null, ['id'=>'valor_catastral','class'=>'form-control', 'min' => 0, 'step'=>'any', 'required'=>true] )}}
             {{$errors->first('traslado[valor_catastral]', '<span class=text-danger>:message</span>')}}
 
             {{Form::label('traslado[valor_operacion]','Valor de operación')}}
-            {{Form::number('traslado[valor_operacion]', null, ['id'=>'valor_operacion', 'class'=>'form-control precioBase', 'min' => 0, 'step'=>'any', 'min'=>0, 'required'=>true] )}}
+            {{Form::number('traslado[valor_operacion]', null, ['id'=>'valor_operacion', 'class'=>'form-control', 'min' => 0, 'step'=>'any', 'required'=>true] )}}
             {{$errors->first('traslado[valor_operacion]', '<span class=text-danger>:message</span>')}}
 
             {{Form::label('traslado[valor_comercial]','Valor comercial del inmueble')}}
-            {{Form::number('traslado[valor_comercial]', null, ['id'=>'valor_comercial','class'=>'form-control precioBase', 'min' => 0, 'step'=>'any', 'min'=>0, 'required'=>true] )}}
+            {{Form::number('traslado[valor_comercial]', null, ['id'=>'valor_comercial','class'=>'form-control', 'min' => 0, 'step'=>'any', 'required'=>true] )}}
             {{$errors->first('traslado[valor_comercial]', '<span class=text-danger>:message</span>')}}
 
             {{Form::label(null,'Valuador num')}}<br>
@@ -418,53 +400,6 @@
     </div>
 </div>
 
-
-{{--
-
-    {{Form::label('traslado[seguimiento]','Seguimiento')}}
-    {{Form::input('text', 'traslado[seguimiento]', null, ['class'=>'form-control'] )}}
-    {{$errors->first('traslado[seguimiento]', '<span class=text-danger>:message</span>')}}
-
-
-
-    {{Form::label('traslado[escritura_predio]','Predio')}}
-    {{Form::number('traslado[escritura_predio]', null, ['class'=>'form-control'] )}}
-    {{$errors->first('traslado[escritura_predio]', '<span class=text-danger>:message</span>')}}
-
-    {{Form::label('traslado[escritura_folio]','Folio')}}
-    {{Form::number('traslado[escritura_folio]', null, ['class'=>'form-control'] )}}
-    {{$errors->first('traslado[escritura_folio]', '<span class=text-danger>:message</span>')}}
-
-    {{Form::label('traslado[valuador_num_ant]','Valuador número anterior')}}
-    {{Form::input('text', 'traslado[valuador_num_ant]', null, ['class'=>'form-control'] )}}
-    {{$errors->first('traslado[valuador_num_ant]', '<span class=text-danger>:message</span>')}}
-
-
-    {{Form::label('traslado[escritura_impuesto_desde]','Impuesto pagado del')}}
-    {{Form::input('text', 'traslado[escritura_impuesto_desde]', null, ['class'=>'form-control fecha'] )}}
-    {{$errors->first('traslado[escritura_impuesto_desde]', '<span class=text-danger>:message</span>')}}
-
-    {{Form::label('traslado[escritura_impuesto_hasta]','Al')}}
-    {{Form::input('text', 'traslado[escritura_impuesto_hasta]', null, ['class'=>'form-control fecha'] )}}
-    {{$errors->first('traslado[escritura_impuesto_hasta]', '<span class=text-danger>:message</span>')}}
-
-    {{Form::label('traslado[superficie_vendida]','Superficie vendida M2')}}
-    {{Form::number('traslado[superficie_vendida]', null, ['class'=>'col-xs-4 form-control', 'min' => 0, 'step'=>'any', 'min'=>0, 'max'=>$predio->superficie_terreno, 'required'=>true] )}}
-    {{$errors->first('traslado[superficie_vendida]', '<span class=text-danger>:message</span>')}}
-
-    {{Form::label('traslado[superficie_construccion_vendida]','Superficie construcción vendida M2')}}
-    {{Form::number('traslado[superficie_construccion_vendida]', null, ['class'=>'form-control input-medium',  'min' => 0, 'step'=>'any', 'min'=>0, 'max'=>$predio->superficie_construccion, 'required'=>true] )}}
-    {{$errors->first('traslado[superficie_construccion_vendida]', '<span class=text-danger>:message</span>')}}
-
-</div>
-<div class="row col-lg-10">
-    {{--macro colindancias--}}
-{{--}}
-{{ Form::colindancias('colindancia', $JsonColindancias) }}
-</div>
-
-
---}}
 
 
 @section('javascript')
@@ -549,47 +484,6 @@
                     $('#enajenante-rfc').attr('pattern', '([A-Za-z]{3})([0-9]{6})([A-Za-z0-9]{3})');
                 }
             });
-
-           /* Se debe tomar el valor mayor de los ingresados en los campos de la sección Valores para base de pago
-            (ver referencia de campos en el ticket: #98251408)
-            el valor mayor de los tres campos:
-                    valor_catastral
-            valor_operacion
-            valor_comercial
-            debe ponerse en el campo que dice Precio base del impuesto en la sección Liquidación de vivienda
-            y debe ser de sólo lectura una vez que se ha realizado la peración.
-                    El evento que desencadena las operaciones es el evento onchange de cada uno de los tres campos.*/
-            $(".precioBase").change(function () {
-               var valorCatastral =$("#valor_catastral").val();
-               var valorOperacion = $("#valor_operacion").val();
-               var  valorComercial = $("#valor_comercial").val();
-
-                $("#precioBase").val(Math.max(valorCatastral, valorOperacion, valorComercial));
-                $(".importeTotalFactores").change();
-            });
-
-
-
-
-            /*El importe total es la suma de los montos que aparecen en los siguientes campos de la sección Liquidación vivienda
-            (Ver referencia de campos en ticket #98251408)
-            importe total = porcentaje_aplicarse/100 * precio_base + actualizacion + recargos
-            El porcentaje_aplicarse no debe ser menor al 2%
-               */
-            $(".importeTotalFactores").change(function () {
-
-                var porcentajeAplicarse =Number($("#porcentajeAplicarse").val());
-                var precioBase = Number($("#precioBase").val());
-                var actualizacion = Number($("#actualizacion").val());
-                var recargos = Number($("#recargos").val());
-
-                var importeTotal = porcentajeAplicarse/100*precioBase+actualizacion+recargos;
-
-                $("#importeTotal").val(importeTotal);
-            });
-
-
-
 
 
         });
