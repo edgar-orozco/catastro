@@ -72,7 +72,7 @@
               },
               error: function(){
                   //alert("mmmmmm... bueno"),
-                $('.modal-body').html('<div class="alert alert-danger"><ul id="errores">Error al guardar, verifique los datos</ul></div>');
+                $('.modal-body').html('<div class="alert alert-danger"><ul id="errores">Error al guardar, no existe el registro de cuenta predial.</ul></div>');
               }     
           });
       return false;        

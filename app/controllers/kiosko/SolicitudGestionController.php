@@ -109,6 +109,12 @@ class kiosko_SolicitudGestionController extends \BaseController
     {
         $solicitudGestion = SolicitudGestion::where('seguimiento','=',$id)->first();
         
+        if(!$solicitudGestion){
+            
+            return Redirect::to('kiosko/solicitud')->with('error','El N° de solicitud '.$id." no existe !");
+        }
+        else{
+        
         $solicitante = $solicitudGestion->solicitante;
         
         $title = 'Administración de solicitud';
@@ -125,8 +131,10 @@ class kiosko_SolicitudGestionController extends \BaseController
         
         $tipo_telefono = [''=>'--Seleccione una opcion--']+$telefono;
         
+        
         return View::make('kiosko.solicitud.edit',
                 compact('solicitudGestion','solicitante','title','title_section','subtitle_section','Tipotramite','Municipio','tipo_telefono'));
+        }
     }
     
     public function update($id, $format = 'html')        
@@ -210,7 +218,7 @@ class kiosko_SolicitudGestionController extends \BaseController
             return Response::json($results);
         } else {
             //SI NO EXITE LA PAERSONA
-            $mensaje[] = "NO EXISTE LA PERSONAS";
+            $mensaje[] = "NO HAY REGISTROS PREVIOS";
             return Response::json($mensaje);
         }
     }

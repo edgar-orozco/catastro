@@ -2,7 +2,7 @@
     <div class="panel-heading">DATOS DE LA SOLICITUD</div>
     <div class="panel-body">
         <div class="col-md-4">
-            {{Form::label('tramite_id','Tipo Tramite')}}
+            {{Form::label('tramite_id','Tipo Trámite')}}
             {{Form::select('tramite_id',$Tipotramite, null,['tabindex'=>'1','class'=>'form-control','autofocus'=> 'autofocus', 'required' => 'required', 'ng-model' => 'solicitudGestion.tramite_id', 'tb-focus' => 'focusForm', 'ng-blur' => 'focusForm = false'])}}
             {{$errors->first('tramite_id', '<span class=text-danger>:message</span>')}}
         </div> 
@@ -12,7 +12,7 @@
             {{$errors->first('municipio', '<span class=text-danger>:message</span>')}}
         </div>
         <div class="col-md-4">
-            {{Form::label('clave','Cleve o Cuenta Catastral')}}
+            {{Form::label('clave','Cuenta predial o Clave catastral')}}
             {{Form::claveCuenta('clave', null, ['id'=>'clave','placeholder'=>'Clave o Cuenta Catastral','tabindex'=>'3','class'=>'form-control', 'autofocus'=> 'autofocus', 'required' => 'required', 'ng-model' => 'solicitudGestion.clave', 'tb-focus' => 'focusForm', 'ng-blur' => 'focusForm = false'] )}}
             {{$errors->first('clave', '<span class=text-danger>:message</span>')}}
             {{Form::text('id',null, ['id'=>'solicitud','hidden'])}}
