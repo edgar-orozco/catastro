@@ -10,6 +10,16 @@ Route::post('ofvirtual/notario/registro/buscar','ofvirtual_RegistroEscrituraCont
 
 Route::get('/ofvirtual/notario/registro','ofvirtual_RegistroEscrituraController@create');
 
+//buscador
+//Búsqueda de trámites
+Route::post('ofvirtual/notario/registro/buscar','ofvirtual_RegistroEscrituraController@buscar');
+
+//auto completar para la curp
+Route::get('/registro/autocomplete', 'ofvirtual_RegistroEscrituraController@autocomplete');
+
+//show
+Route::get('ofvirtual/notario/registro/show/{id}', 'ofvirtual_RegistroEscrituraController@show');
+
 /*function()
           {
             $title = "Registro de escrituras";

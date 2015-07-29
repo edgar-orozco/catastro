@@ -1,4 +1,4 @@
-<div>
+<div id="lista-tramites">
     <div class="panel">
 
 
@@ -69,7 +69,6 @@
     </div>
 </div>
 
-
 <!--60 líneas de código en algo que se pudo hacer con 2 :/ -->
 
 
@@ -85,14 +84,14 @@
                 <h4 class="modal-title" id="confirm-logout-title">Confirme la acción:</h4>
             </div>
             <div class="modal-body">
-                <h4 style="text-align: center">¿Desea eliminar el traslado de dominio de su lista? <br>Esta acción no
+                <h4 style="text-align: center">¿Desea eliminar el registro de escritura de su lista? <br>Esta acción no
                     puede deshacerse.</h4>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
                 <button type="submit" class="btn btn-danger btn-submit-borrar" data-documento_id=""
                         data-dismiss="modal">
-                    <span class="glyphicon glyphicon-trash "></span> Eliminar traslado de dominio
+                    <span class="glyphicon glyphicon-trash "></span> Eliminar registro de escritura
                 </button>
                 <input type="hidden" name="documento_id" id="documento_id">
             </div>

@@ -31,6 +31,7 @@
 
 $(function () {
 
+
     $( document ).ready(function() {
         $('.buscador').text('Cuenta');
          $('#tipo').val('Cuenta');
@@ -41,7 +42,7 @@ $(function () {
         var tipo = $('#tipo').val();
         var q = $('#q').val();
         if(q=='') return false;
-        $( "#lista-tramites" ).load( "{{URL::to('ofvirtual/notario/traslado/buscar')}}", { tipo: tipo, q: q }, function() {
+        $( "#lista-tramites" ).load( "{{URL::to('ofvirtual/notario/registro/buscar')}}", { tipo: tipo, q: q }, function() {
             //console.log('Se ha cargado la lista de trámites');
         });
                 return false;
