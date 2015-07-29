@@ -573,29 +573,48 @@ Route::group(array('before' => 'corevat'), function () {
 	Route::get('/corevat/AvaluoEnfoqueMercado/{id}', array('as' => 'editAvaluoEnfoqueMercado', 'uses' => 'corevat_AvaluosController@editMercado'));
 	Route::post('/corevat/AvaluoEnfoqueMercadoUpd/{id?}', array('as' => 'updateAvaluoEnfoqueMercado', 'uses' => 'corevat_AvaluosController@updateMercado'));
 	Route::post('/corevat/AvaluoEnfoqueMercadoDel/{id}', array('as' => 'delAvaluoEnfoqueMercado', 'uses' => 'corevat_AvaluosController@delAvaluoEnfoqueMercado'));
+
 	// ENFOQUE MERCADO [COMPARATIVO DE TERRENOS]
 	Route::get('/corevat/AemCompTerrenosGet/{id?}', array('as' => 'getAemCompTerrenos', 'uses' => 'corevat_AvaluosController@getAemCompTerrenos'));
+	Route::get('/corevat/AemCompTerrenosGetAjax/{id}', array('as' => 'getAemCompTerrenos', 'uses' => 'corevat_AvaluosController@getAjaxAemCompTerrenos'));
+
 	// ENFOQUE MERCADO [HOMOLOGACION]
 	Route::get('/corevat/AemHomologacionGet/{id?}', array('as' => 'getAemHomologacion', 'uses' => 'corevat_AvaluosController@getAemHomologacion'));
+	Route::get('/corevat/AemHomologacionGetAjax/{id}', array('as' => 'getAjaxAemHomologacion', 'uses' => 'corevat_AvaluosController@getAjaxAemHomologacion'));
+
 	// ENFOQUE MERCADO [INFORMACION]
 	Route::get('/corevat/AemInformacionGet/{id?}', array('as' => 'getAemInformacion', 'uses' => 'corevat_AvaluosController@getAemInformacion'));
+	Route::get('/corevat/AemInformacionGetAjax/{id}', array('as' => 'getAjaxAemInformacion', 'uses' => 'corevat_AvaluosController@getAjaxAemInformacion'));
+
 	// ENFOQUE MERCADO [ANALISIS]
 	Route::get('/corevat/AemAnalisisGet/{id?}', array('as' => 'getAemAnalisis', 'uses' => 'corevat_AvaluosController@getAemAnalisis'));
-	
+	Route::get('/corevat/AemAnalisisGetAjax/{id}', array('as' => 'getAjaxAemAnalisis', 'uses' => 'corevat_AvaluosController@getAjaxAemAnalisis'));
+
 	// ENFOQUE FISICO
 	Route::get('/corevat/AvaluoEnfoqueFisico/{id}', array('as' => 'editAvaluoEnfoqueFisico', 'uses' => 'corevat_AvaluosController@editFisico'));
 	Route::post('/corevat/AvaluoEnfoqueFisicoUpd/{id?}', array('as' => 'updateAvaluoEnfoqueFisico', 'uses' => 'corevat_AvaluosController@updateFisico'));
 	Route::post('/corevat/AvaluoEnfoqueFisicoDel/{id}', array('as' => 'delAvaluoEnfoqueFisico', 'uses' => 'corevat_AvaluosController@delAvaluoEnfoqueFisico'));
+
 	// ENFOQUE FISICO [TERRENO]
-	Route::get('/corevat/AefTerrenosGet/{id}/{idaef}', array('as' => 'getAefTerrenos', 'uses' => 'corevat_AvaluosController@getAefTerrenos'));
+	//Route::get('/corevat/AefTerrenosGet/{id}/{idaef}', array('as' => 'getAefTerrenos', 'uses' => 'corevat_AvaluosController@getAefTerrenos'));
+	Route::get('/corevat/AefTerrenosGetAjax/{id}', array('as' => 'getAjaxAefTerrenos', 'uses' => 'corevat_AvaluosController@getAjaxAefTerrenos'));
+
 	// ENFOQUE FISICO [CONSTRUCCIONES]
 	Route::get('/corevat/AefConstruccionesGet/{id?}', array('as' => 'getAefConstrucciones', 'uses' => 'corevat_AvaluosController@getAefConstrucciones'));
+	Route::get('/corevat/AefConstruccionesGetAjax/{id?}', array('as' => 'getAjaxAefConstrucciones', 'uses' => 'corevat_AvaluosController@getAjaxAefConstrucciones'));
+
 	// ENFOQUE FISICO [CONDOMINIOS]
 	Route::get('/corevat/AefCondominiosGet/{id?}', array('as' => 'getAefCondominios', 'uses' => 'corevat_AvaluosController@getAefCondominios'));
+	Route::get('/corevat/AefCondominiosGetAjax/{id?}', array('as' => 'getAjaxAefCondominios', 'uses' => 'corevat_AvaluosController@getAjaxAefCondominios'));
+
 	// ENFOQUE FISICO [COMPARATIVO DE CONSTRUCCIONES]
 	Route::get('/corevat/AefCompConstruccionesGet/{id?}', array('as' => 'getAefCompConstrucciones', 'uses' => 'corevat_AvaluosController@getAefCompConstrucciones'));
+	Route::get('/corevat/AefCompConstruccionesGetAjax/{id?}', array('as' => 'getAjaxAefCompConstrucciones', 'uses' => 'corevat_AvaluosController@getAjaxAefCompConstrucciones'));
+
 	// ENFOQUE FISICO [INSTALACIONES]
 	Route::get('/corevat/AefInstalacionesGet/{id?}', array('as' => 'getAefInstalaciones', 'uses' => 'corevat_AvaluosController@getAefInstalaciones'));
+	Route::get('/corevat/AefInstalacionesGetAjax/{id?}', array('as' => 'getAjaxAefInstalaciones', 'uses' => 'corevat_AvaluosController@getAjaxAefInstalaciones'));
+
 	
 	// CONCLUSIONES
 	Route::get('/corevat/AvaluoConclusiones/{id}', array('as' => 'editAvaluoConclusiones', 'uses' => 'corevat_AvaluosController@editConclusiones'));

@@ -99,4 +99,52 @@ class AemAnalisis extends \Eloquent {
 		}
 		
 	}
+
+	public static function getAjaxAemAnalisisByFk($fk) {
+		$pato = array();
+		$rows = AemAnalisis::select(
+		'aem_analisis.idaemanalisis', 
+		'aem_analisis.precio_venta',
+		'aem_analisis.superficie_terreno',
+		'aem_analisis.superficie_construccion',
+		'aem_analisis.valor_unitario_m2',
+		'aem_analisis.factor_zona',
+		'aem_analisis.factor_ubicacion',
+		'aem_analisis.factor_superficie',
+		'aem_analisis.factor_edad',
+		'aem_analisis.factor_conservacion',
+		'aem_analisis.factor_negociacion',
+		'aem_analisis.factor_resultante',
+		'aem_analisis.valor_unitario_resultante_m2')
+						->where('aem_analisis.idavaluoenfoquemercado', '=', $fk)
+						->orderBy('aem_analisis.idaeminformacion')
+						->get();
+		$count = count($rows);
+		$i = 0;
+		 foreach ($rows as $row) {
+			 $pato[] = array(
+				++$i,
+				$row['idaemanalisis'], 
+				$row['precio_venta'], 
+				$row['superficie_terreno'], 
+				$row['superficie_construccion'], 
+				$row['valor_unitario_m2'],
+				$row['factor_zona'], 
+				$row['factor_ubicacion'], 
+				$row['factor_superficie'], 
+				$row['factor_edad'],
+				$row['factor_conservacion'], 
+				$row['factor_negociacion'], 
+				$row['factor_resultante'], 
+				$row['valor_unitario_resultante_m2'],
+				'<a class="btn btn-xs btn-info btnEdit"  title="Editar" onclick="$.editAemAnalisis('.$row['idaemanalisis'].');"><i class="glyphicon glyphicon-pencil"></i></a>');
+		 }
+		$res = array(
+			"draw" => 1,
+			"recordsTotal" => $count,
+			"recordsFiltered" => $count,
+			"data" => $pato
+		);
+		return $res;
+	}
 }

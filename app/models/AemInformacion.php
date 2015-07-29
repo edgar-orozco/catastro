@@ -92,4 +92,37 @@ class AemInformacion extends \Eloquent {
 		$rowAemInformacion->modi_el = date('Y-m-d H:i:s');
 		$rowAemInformacion->save();
 	}
+	
+	public static function getAjaxAemInformacionByFk($fk) {
+		$pato = array();
+		$rows = AemInformacion::select(
+		'aem_informacion.idaeminformacion', 
+		'aem_informacion.ubicacion',
+		'aem_informacion.edad',
+		'aem_informacion.telefono',
+		'aem_informacion.observaciones')
+						->where('aem_informacion.idavaluoenfoquemercado', '=', $fk)
+						->orderBy('aem_informacion.idaeminformacion')
+						->get();
+		$count = count($rows);
+		$i = 0;
+		 foreach ($rows as $row) {
+			 $pato[] = array(
+				++$i,
+				$row['idaeminformacion'], 
+				$row['ubicacion'], 
+				$row['edad'], 
+				$row['telefono'], 
+				$row['observaciones'],
+				'<a class="btn btn-xs btn-info btnEdit"  title="Editar" onclick="$.editAemInformacion('.$row['idaeminformacion'].');"><i class="glyphicon glyphicon-pencil"></i></a>', 
+				'<a class="btn btn-xs btn-danger btnDel" title="Eliminar" onclick="$.delAemInformacion('.$row['idaeminformacion'].');"><i class="glyphicon glyphicon-remove"></i></a>');
+		 }
+		$res = array(
+			"draw" => 1,
+			"recordsTotal" => $count,
+			"recordsFiltered" => $count,
+			"data" => $pato
+		);
+		return $res;
+	}
 }

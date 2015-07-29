@@ -149,4 +149,45 @@ class AemHomologacion extends \Eloquent {
 		
 	}
 
+	public static function getAjaxAemHomologacionByFk($fk) {
+		$pato = array();
+		$rows = AemHomologacion::select('aem_homologacion.idaemhomologacion', 'aem_homologacion.comparable', 
+		'aem_homologacion.superficie_terreno', 
+		'aem_homologacion.valor_unitario', 
+		'aem_homologacion.zona', 
+		'aem_homologacion.ubicacion', 
+		'aem_homologacion.frente',
+		'aem_homologacion.forma', 
+		'aem_homologacion.superficie', 
+		'aem_homologacion.valor_unitario_negociable', 
+		'aem_homologacion.valor_unitario_resultante_m2')
+						->where('aem_homologacion.idavaluoenfoquemercado', '=', $fk)
+						->orderBy('aem_homologacion.idaemcompterreno')
+						->get();
+		$count = count($rows);
+		$i = 0;
+		foreach ($rows as $row) {
+			 $pato[] = array(
+				++$i,
+				$row['idaemhomologacion'], 
+				$row['comparable'], 
+				$row['superficie_terreno'], 
+				$row['valor_unitario'], 
+				$row['zona'], 
+				$row['ubicacion'], 
+				$row['frente'], 
+				$row['forma'], 
+				$row['superficie'], 
+				$row['valor_unitario_negociable'], 
+				$row['valor_unitario_resultante_m2'], 
+				'<a class="btn btn-xs btn-info btnEdit"  title="Editar" onclick="$.editAemHomologacion('.$row['idaemhomologacion'].');"><i class="glyphicon glyphicon-pencil"></i></a>');
+		 }
+		$res = array(
+			"draw" => 1,
+			"recordsTotal" => $count,
+			"recordsFiltered" => $count,
+			"data" => $pato
+		);
+		return $res;
+	}
 }

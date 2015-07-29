@@ -11,14 +11,15 @@ class AemCompTerrenos extends \Eloquent {
 	public function AemHomologacion() {
 		return $this->hasOne('AemHomologacion', 'idaemcompterreno', 'idaemcompterreno');
 	}
-
+/*
 	public static function getAemCompTerrenosByFk($idavaluoenfoquemercado) {
 		return AemCompTerrenos::select('*')
 						->where('idavaluoenfoquemercado', '=', $idavaluoenfoquemercado)
 						->orderBy('idaemcompterreno')
 						->get();
 	}
-
+*/
+/*
 	public static function getAemHomologacionByFk($idavaluoenfoquemercado) {
 		return AemHomologacion::select('aem_homologacion.*')
 						->join('aem_comp_terrenos', 'aem_homologacion.idaemcompterreno', '=', 'aem_comp_terrenos.idaemcompterreno')
@@ -26,6 +27,7 @@ class AemCompTerrenos extends \Eloquent {
 						->orderBy('aem_homologacion.idaemhomologacion')
 						->get();
 	}
+*/
 
 	/**
 	 * Show the form for editing the specified resource.
@@ -86,5 +88,47 @@ class AemCompTerrenos extends \Eloquent {
 		$rowAemHomologacion->save();
 		AvaluosMercado::updateAemValorUnitario($rowAemCompTerrenos->idavaluoenfoquemercado);
 		
+	}
+
+	/**
+	 * Show the form for editing the specified resource.
+	 *
+	 * @param  int  $idavaluo
+	 * @return Response
+	 */
+	public static function getAjaxAemCompTerrenosByFk($fk) {
+		$pato = array();
+		$rows = AemCompTerrenos::select(
+		'aem_comp_terrenos.idaemcompterreno', 
+		'aem_comp_terrenos.ubicacion', 
+		'aem_comp_terrenos.precio', 
+		'aem_comp_terrenos.superficie_terreno', 
+		'aem_comp_terrenos.precio_unitario_m2_terreno',
+		'aem_comp_terrenos.observaciones'
+		)
+						->where('aem_comp_terrenos.idavaluoenfoquemercado', '=', $fk)
+						->orderBy('aem_comp_terrenos.idaemcompterreno')
+						->get();
+		$count = count($rows);
+		$i = 0;
+		 foreach ($rows as $row) {
+			 $pato[] = array(
+				++$i,
+				$row['idaemcompterreno'], 
+				$row['ubicacion'], 
+				$row['precio'], 
+				$row['superficie_terreno'], 
+				$row['precio_unitario_m2_terreno'], 
+				$row['observaciones'], 
+				'<a class="btn btn-xs btn-info btnEdit"  title="Editar" onclick="$.editAemCompTerrenos('.$row['idaemcompterreno'].');"><i class="glyphicon glyphicon-pencil"></i></a>', 
+				'<a class="btn btn-xs btn-danger btnDel" title="Eliminar" onclick="$.delAemCompTerrenos('.$row['idaemcompterreno'].');"><i class="glyphicon glyphicon-remove"></i></a>');
+		 }
+		$res = array(
+			"draw" => 1,
+			"recordsTotal" => $count,
+			"recordsFiltered" => $count,
+			"data" => $pato
+		);
+		return $res;
 	}
 }

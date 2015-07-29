@@ -465,11 +465,12 @@ class corevat_AvaluosController extends \BaseController {
 			AvaluosMercado::insAvaluoMercado($id);
 			$row = Avaluos::find($id)->AvaluosMercado;
 		}
-		$aem_comp_terrenos = AvaluosMercado::find($row->idavaluoenfoquemercado)->AemCompTerrenos;
-		$aem_homologacion = AvaluosMercado::find($row->idavaluoenfoquemercado)->AemHomologacion;
-		$aem_informacion = AvaluosMercado::find($row->idavaluoenfoquemercado)->AemInformacion;
-		$aem_analisis = AvaluosMercado::find($row->idavaluoenfoquemercado)->AemAnalisis;
-		return View::make('Corevat.Avaluos.avaluos', compact('opt', 'idavaluo', 'title', 'row', 'aem_comp_terrenos', 'aem_homologacion', 'aem_informacion', 'aem_analisis'));
+		//$aem_comp_terrenos = AvaluosMercado::find($row->idavaluoenfoquemercado)->AemCompTerrenos;
+		//$aem_homologacion = AvaluosMercado::find($row->idavaluoenfoquemercado)->AemHomologacion;
+		//$aem_informacion = AvaluosMercado::find($row->idavaluoenfoquemercado)->AemInformacion;
+		//$aem_analisis = AvaluosMercado::find($row->idavaluoenfoquemercado)->AemAnalisis;
+		//return View::make('Corevat.Avaluos.avaluos', compact('opt', 'idavaluo', 'title', 'row', 'aem_comp_terrenos', 'aem_homologacion', 'aem_informacion', 'aem_analisis'));
+		return View::make('Corevat.Avaluos.avaluos', compact('opt', 'idavaluo', 'title', 'row'));
 	}
 
 	/**
@@ -1543,5 +1544,40 @@ class corevat_AvaluosController extends \BaseController {
 		}
 	}
 
+	public function getAjaxAemCompTerrenos($id) {
+		return AemCompTerrenos::getAjaxAemCompTerrenosByFk($id);
+	}
+	
+	public function getAjaxAemHomologacion($id) {
+		return AemHomologacion::getAjaxAemHomologacionByFk($id);
+	}
+	
+	public function getAjaxAemInformacion($id) {
+		return AemInformacion::getAjaxAemInformacionByFk($id);
+	}
+	
+	public function getAjaxAemAnalisis($id) {
+		return AemAnalisis::getAjaxAemAnalisisByFk($id);
+	}
 
+
+	public function getAjaxAefTerrenos($id) {
+		return AefTerrenos::getAjaxAefTerrenosByFk($id);
+	}
+	
+	public function getAjaxAefConstrucciones($id) {
+		return AefConstrucciones::getAjaxAefConstruccionesByFk($id);
+	}
+	
+	public function getAjaxAefCondominios($id) {
+		return AefCondominios::getAjaxAefCondominiosByFk($id);
+	}
+	
+	public function getAjaxAefCompConstrucciones($id) {
+		return AemAnalisis::getAjaxAefCompConstruccionesByFk($id);
+	}
+	
+	public function getAjaxAefInstalaciones($id) {
+		return AemAnalisis::getAjaxAefInstalacionesByFk($id);
+	}
 }
