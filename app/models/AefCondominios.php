@@ -152,4 +152,49 @@ class AefCondominios extends \Eloquent {
 		AvaluosFisico::updAfterAvaluoEnfoqueFisico($rowEnfoqueFisico->idavaluo, $rowEnfoqueFisico->total_valor_fisico);
 	}
 
+	public static function getAjaxAefCondominiosByFk($fk) {
+		$pato = array();
+		$rows = AefCondominios::select(
+		'aef_condominios.idaefcondominio', 
+		'aef_condominios.descripcion', 
+		'aef_condominios.unidad', 
+		'aef_condominios.cantidad', 
+		'aef_condominios.valor_nuevo', 
+		'aef_condominios.vida_remanente', 
+		'aef_condominios.edad', 
+		'aef_condominios.factor_edad', 
+		'aef_condominios.factor_conservacion', 
+		'aef_condominios.factor_resultante', 
+		'aef_condominios.indiviso', 
+		'aef_condominios.valor_parcial')
+						->where('aef_condominios.idavaluoenfoquefisico', '=', $fk)
+						->orderBy('aef_condominios.idaefcondominio')
+						->get();
+		$count = count($rows);
+		 foreach ($rows as $row) {
+			 $pato[] = array(
+				$row['idaefcondominio'], 
+				$row['descripcion'], 
+				$row['unidad'], 
+				$row['cantidad'], 
+				$row['valor_nuevo'], 
+				$row['vida_remanente'], 
+				$row['edad'], 
+				$row['factor_edad'], 
+				$row['factor_conservacion'], 
+				$row['factor_resultante'], 
+				$row['indiviso'], 
+				$row['valor_parcial'], 
+				'<a class="btn btn-xs btn-info btnEdit"  title="Editar" onclick="$.editAefCondominios('.$row['idaefcondominio'].');"><i class="glyphicon glyphicon-pencil"></i></a>', 
+				'<a class="btn btn-xs btn-danger btnDel" title="Eliminar" onclick="$.delAefCondominios('.$row['idaefcondominio'].');"><i class="glyphicon glyphicon-remove"></i></a>');
+		 }
+		$res = array(
+			"draw" => 1,
+			"recordsTotal" => $count,
+			"recordsFiltered" => $count,
+			"data" => $pato
+		);
+		return $res;
+	}
+
 }

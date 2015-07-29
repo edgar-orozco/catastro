@@ -112,6 +112,42 @@ class AefCompConstrucciones extends \Eloquent {
 	}	
 	
 	
+	public static function getAjaxAefCompConstruccionesByFk($fk) {
+		$pato = array();
+		$rows = AefCompConstrucciones::select(
+		'aef_comp_construcciones.idaefcompconstruccion', 
+		'cat_tipo.tipo',
+		'aef_comp_construcciones.caracteristicas',
+		'aef_comp_construcciones.m2construido',
+		'aef_comp_construcciones.precio',
+		'aef_comp_construcciones.precio_unitario_m2',
+		'aef_comp_construcciones.observaciones')
+						->leftJoin('cat_tipo', 'aef_comp_construcciones.idtipo', '=', 'cat_tipo.idtipo')
+						->where('aef_comp_construcciones.idavaluoenfoquefisico', '=', $fk)
+						->orderBy('aef_comp_construcciones.idaefcompconstruccion')
+						->get();
+		$count = count($rows);
+		 foreach ($rows as $row) {
+			 $pato[] = array(
+				$row['idaefcompconstruccion'], 
+				$row['tipo'], 
+				$row['caracteristicas'], 
+				$row['m2construido'], 
+				$row['precio'], 
+				$row['precio_unitario_m2'], 
+				$row['observaciones'], 
+				'<a class="btn btn-xs btn-info btnEdit"  title="Editar" onclick="$.editAefCompConstrucciones('.$row['idaefcompconstruccion'].');"><i class="glyphicon glyphicon-pencil"></i></a>', 
+				'<a class="btn btn-xs btn-danger btnDel" title="Eliminar" onclick="$.delAefCompConstrucciones('.$row['idaefcompconstruccion'].');"><i class="glyphicon glyphicon-remove"></i></a>');
+		 }
+		$res = array(
+			"draw" => 1,
+			"recordsTotal" => $count,
+			"recordsFiltered" => $count,
+			"data" => $pato
+		);
+		return $res;
+	}
+
 	
 	
 }

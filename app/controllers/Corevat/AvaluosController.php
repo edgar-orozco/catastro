@@ -1181,8 +1181,6 @@ class corevat_AvaluosController extends \BaseController {
 	 * @return Response
 	 */
 	public function getAefTerrenos($id,$idaef) {
-		
-
 		if ($id == '0') {
 			$row = new AefTerrenos();
 			$row->idfactorfrente = 1;
@@ -1457,7 +1455,7 @@ class corevat_AvaluosController extends \BaseController {
 			$Total = AefCondominios::select(DB::raw('sum(valor_parcial) AS nsuma'))->where('idavaluoenfoquefisico', '=', $idavaluoenfoquefisico)->first();
 
 			$rowEnfoqueFisico = AvaluosFisico::find($idavaluoenfoquefisico);
-			$rowEnfoqueFisico->subtotal_area_condominio = $Total->nsuma;
+			$rowEnfoqueFisico->subtotal_area_condominio = ( is_null($Total->nsuma) ? 0 : $Total->nsuma);
 			$rowEnfoqueFisico->total_valor_fisico = AvaluosFisico::updBeforeAvaluoEnfoqueFisico($rowEnfoqueFisico);
 			$rowEnfoqueFisico->save();
 			AvaluosFisico::updAfterAvaluoEnfoqueFisico($rowEnfoqueFisico->idavaluo, $rowEnfoqueFisico->total_valor_fisico);
@@ -1487,8 +1485,8 @@ class corevat_AvaluosController extends \BaseController {
 
 			//update avaluo_enfoque_fisico set valor_construccion = @VPC, total_metros_construccion = @TMC where idavaluoenfoquefisico = old.idavaluoenfoquefisico;
 			$rowEnfoqueFisico = AvaluosFisico::find($idavaluoenfoquefisico);
-			$rowEnfoqueFisico->valor_construccion = $VPC->nsuma;
-			$rowEnfoqueFisico->total_metros_construccion = $TMC->msuma;
+			$rowEnfoqueFisico->valor_construccion = ( is_null($VPC->nsuma) ? 0 : $VPC->nsuma);
+			$rowEnfoqueFisico->total_metros_construccion = ( is_null($TMC->msuma) ? 0 : $TMC->msuma);
 			$rowEnfoqueFisico->total_valor_fisico = AvaluosFisico::updBeforeAvaluoEnfoqueFisico($rowEnfoqueFisico);
 			$rowEnfoqueFisico->save();
 			AvaluosFisico::updAfterAvaluoEnfoqueFisico($rowEnfoqueFisico->idavaluo, $rowEnfoqueFisico->total_valor_fisico);
@@ -1511,7 +1509,7 @@ class corevat_AvaluosController extends \BaseController {
 			$row->delete($id);
 			$Total = AefInstalaciones::select(DB::raw('sum(valor_parcial) AS nsuma'))->where('idavaluoenfoquefisico', '=', $idavaluoenfoquefisico)->first();
 			$rowEnfoqueFisico = AvaluosFisico::find($idavaluoenfoquefisico);
-			$rowEnfoqueFisico->valor_construccion = $Total->nsuma;
+			$rowEnfoqueFisico->valor_construccion = ( is_null($Total->nsuma) ? 0 : $Total->nsuma);
 			$rowEnfoqueFisico->total_valor_fisico = AvaluosFisico::updBeforeAvaluoEnfoqueFisico($rowEnfoqueFisico);
 			$rowEnfoqueFisico->save();
 			AvaluosFisico::updAfterAvaluoEnfoqueFisico($rowEnfoqueFisico->idavaluo, $rowEnfoqueFisico->total_valor_fisico);
@@ -1534,7 +1532,7 @@ class corevat_AvaluosController extends \BaseController {
 			$row->delete($id);
 			$Val = AefTerrenos::select(DB::raw('sum(valor_parcial) AS valorpar'))->where('idavaluoenfoquefisico', '=', $idavaluoenfoquefisico)->first();
 			$rowEnfoqueFisico = AvaluosFisico::find($idavaluoenfoquefisico);
-			$rowEnfoqueFisico->valor_terreno = $Val->valorpar;
+			$rowEnfoqueFisico->valor_terreno = ( is_null($Val->valorpar) ? 0 : $Val->valorpar);
 			$rowEnfoqueFisico->total_valor_fisico = AvaluosFisico::updBeforeAvaluoEnfoqueFisico($rowEnfoqueFisico);
 			$rowEnfoqueFisico->save();
 			AvaluosFisico::updAfterAvaluoEnfoqueFisico($rowEnfoqueFisico->idavaluo, $rowEnfoqueFisico->total_valor_fisico);
@@ -1572,12 +1570,12 @@ class corevat_AvaluosController extends \BaseController {
 	public function getAjaxAefCondominios($id) {
 		return AefCondominios::getAjaxAefCondominiosByFk($id);
 	}
-	
+	/*
 	public function getAjaxAefCompConstrucciones($id) {
 		return AemAnalisis::getAjaxAefCompConstruccionesByFk($id);
 	}
-	
+	*/
 	public function getAjaxAefInstalaciones($id) {
-		return AemAnalisis::getAjaxAefInstalacionesByFk($id);
+		return AefInstalaciones::getAjaxAefInstalacionesByFk($id);
 	}
 }

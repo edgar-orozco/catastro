@@ -163,4 +163,50 @@ class AefInstalaciones extends \Eloquent {
 		AvaluosFisico::updAfterAvaluoEnfoqueFisico($rowEnfoqueFisico->idavaluo, $rowEnfoqueFisico->total_valor_fisico);
 	}
 
+	public static function getAjaxAefInstalacionesByFk($fk) {
+		$pato = array();
+		$rows = AefInstalaciones::select(
+		'aef_instalaciones.idaefinstalacion', 
+		'cat_obras_complementarias.obra_complementaria', 
+		'aef_instalaciones.unidad', 
+		'aef_instalaciones.cantidad', 
+		'aef_instalaciones.valor_nuevo', 
+		'aef_instalaciones.vida_util', 
+		'aef_instalaciones.edad', 
+		'aef_instalaciones.factor_edad', 
+		'aef_instalaciones.factor_conservacion', 
+		'aef_instalaciones.factor_resultante', 
+		'aef_instalaciones.valor_neto', 
+		'aef_instalaciones.valor_parcial')
+						->leftJoin('cat_obras_complementarias', 'aef_instalaciones.idobracomplementaria', '=', 'cat_obras_complementarias.idobracomplementaria')
+						->where('aef_instalaciones.idavaluoenfoquefisico', '=', $fk)
+						->orderBy('aef_instalaciones.idaefinstalacion')
+						->get();
+		$count = count($rows);
+		 foreach ($rows as $row) {
+			 $pato[] = array(
+				$row['idaefinstalacion'], 
+				$row['obra_complementaria'], 
+				$row['unidad'], 
+				$row['cantidad'], 
+				$row['valor_nuevo'], 
+				$row['vida_util'], 
+				$row['edad'], 
+				$row['factor_edad'], 
+				$row['factor_conservacion'], 
+				$row['factor_resultante'], 
+				$row['valor_neto'], 
+				$row['valor_parcial'], 
+				'<a class="btn btn-xs btn-info btnEdit"  title="Editar" onclick="$.editAefInstalaciones('.$row['idaefinstalacion'].');"><i class="glyphicon glyphicon-pencil"></i></a>', 
+				'<a class="btn btn-xs btn-danger btnDel" title="Eliminar" onclick="$.delAefInstalaciones('.$row['idaefinstalacion'].');"><i class="glyphicon glyphicon-remove"></i></a>');
+		 }
+		$res = array(
+			"draw" => 1,
+			"recordsTotal" => $count,
+			"recordsFiltered" => $count,
+			"data" => $pato
+		);
+		return $res;
+	}
+
 }

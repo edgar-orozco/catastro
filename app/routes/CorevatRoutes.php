@@ -596,7 +596,7 @@ Route::group(array('before' => 'corevat'), function () {
 	Route::post('/corevat/AvaluoEnfoqueFisicoDel/{id}', array('as' => 'delAvaluoEnfoqueFisico', 'uses' => 'corevat_AvaluosController@delAvaluoEnfoqueFisico'));
 
 	// ENFOQUE FISICO [TERRENO]
-	//Route::get('/corevat/AefTerrenosGet/{id}/{idaef}', array('as' => 'getAefTerrenos', 'uses' => 'corevat_AvaluosController@getAefTerrenos'));
+	Route::get('/corevat/AefTerrenosGet/{id}/{idaef}', array('as' => 'getAefTerrenos', 'uses' => 'corevat_AvaluosController@getAefTerrenos'));
 	Route::get('/corevat/AefTerrenosGetAjax/{id}', array('as' => 'getAjaxAefTerrenos', 'uses' => 'corevat_AvaluosController@getAjaxAefTerrenos'));
 
 	// ENFOQUE FISICO [CONSTRUCCIONES]
@@ -608,8 +608,8 @@ Route::group(array('before' => 'corevat'), function () {
 	Route::get('/corevat/AefCondominiosGetAjax/{id?}', array('as' => 'getAjaxAefCondominios', 'uses' => 'corevat_AvaluosController@getAjaxAefCondominios'));
 
 	// ENFOQUE FISICO [COMPARATIVO DE CONSTRUCCIONES]
-	Route::get('/corevat/AefCompConstruccionesGet/{id?}', array('as' => 'getAefCompConstrucciones', 'uses' => 'corevat_AvaluosController@getAefCompConstrucciones'));
-	Route::get('/corevat/AefCompConstruccionesGetAjax/{id?}', array('as' => 'getAjaxAefCompConstrucciones', 'uses' => 'corevat_AvaluosController@getAjaxAefCompConstrucciones'));
+	//Route::get('/corevat/AefCompConstruccionesGet/{id?}', array('as' => 'getAefCompConstrucciones', 'uses' => 'corevat_AvaluosController@getAefCompConstrucciones'));
+	//Route::get('/corevat/AefCompConstruccionesGetAjax/{id?}', array('as' => 'getAjaxAefCompConstrucciones', 'uses' => 'corevat_AvaluosController@getAjaxAefCompConstrucciones'));
 
 	// ENFOQUE FISICO [INSTALACIONES]
 	Route::get('/corevat/AefInstalacionesGet/{id?}', array('as' => 'getAefInstalaciones', 'uses' => 'corevat_AvaluosController@getAefInstalaciones'));

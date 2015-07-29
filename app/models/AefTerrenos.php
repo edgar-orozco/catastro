@@ -178,4 +178,49 @@ class AefTerrenos extends \Eloquent {
 		AvaluosFisico::updAfterAvaluoEnfoqueFisico($rowEnfoqueFisico->idavaluo, $rowEnfoqueFisico->total_valor_fisico);
 	}
 
+	public static function getAjaxAefTerrenosByFk($fk) {
+		$pato = array();
+		$rows = AefTerrenos::select(
+		'aef_terrenos.idaefterreno', 
+		'aef_terrenos.fraccion',
+		'aef_terrenos.superficie',
+		'aef_terrenos.irregular',
+		'aef_terrenos.top',
+		'aef_terrenos.frente',
+		'aef_terrenos.forma',
+		'aef_terrenos.otros',
+		'aef_terrenos.factor_resultante',
+		'aef_terrenos.valor_unitario_neto',
+		'aef_terrenos.indiviso',
+		'aef_terrenos.valor_parcial')
+						->where('aef_terrenos.idavaluoenfoquefisico', '=', $fk)
+						->orderBy('aef_terrenos.idaefterreno')
+						->get();
+		$count = count($rows);
+		 foreach ($rows as $row) {
+			 $pato[] = array(
+				$row['idaefterreno'], 
+				$row['fraccion'], 
+				$row['superficie'], 
+				$row['irregular'], 
+				$row['top'], 
+				$row['frente'], 
+				$row['forma'], 
+				$row['otros'], 
+				$row['factor_resultante'], 
+				$row['valor_unitario_neto'], 
+				$row['indiviso'], 
+				$row['valor_parcial'], 
+				'<a class="btn btn-xs btn-info btnEdit"  title="Editar" onclick="$.editAefTerrenos('.$row['idaefterreno'].');"><i class="glyphicon glyphicon-pencil"></i></a>', 
+				'<a class="btn btn-xs btn-danger btnDel" title="Eliminar" onclick="$.delAefTerrenos('.$row['idaefterreno'].');"><i class="glyphicon glyphicon-remove"></i></a>');
+		 }
+		$res = array(
+			"draw" => 1,
+			"recordsTotal" => $count,
+			"recordsFiltered" => $count,
+			"data" => $pato
+		);
+		return $res;
+	}
+
 }
