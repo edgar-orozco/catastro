@@ -75,15 +75,15 @@
             <div id="cabecera">
                 <table width="100%">
                     <tr>
-                        <td width="25%" align="center"><img src="css/images/main/main-logo.png"  height="70"></td>
-                        <td width="50%" align="center" class="title"><strong>GESTIÓN CATASTRAL</strong></td>
-                        <td width="25%" align="center"><img src="css/images/main/logo-spf.png"  height="70"></td>
+                        <td width="30%" align="center"><img src="css/images/main/main-logo.png"  height="70"></td>
+                        <td width="40%" align="center" class="title"><strong>GESTIÓN CATASTRAL</strong></td>
+                        <td width="30%" align="center"><img src="css/images/main/logo-spf.png"  height="70"></td>
                     </tr>
                     <tr>
                         <td colspan="3" align="center">DE CONFORMIDAD CON LOS LINEAMIENTOS PARA LA OPERATIVIDAD DE LOS CATASTROS EN EL ESTADO DE TABASCO, LINEAMIENTO No. 3</td>
                     </tr>
                     <tr>
-                        <td>Lugar: {{$solicitud->mupio->nombre_municipio}}, Tabasco.<br>N° de Solicitud {{$solicitud->seguimiento}}</td>
+                        <td>Lugar: {{$solicitud->mupio->nombre_municipio}}, Tabasco.<br>Clave de Seguimiento: {{$solicitud->seguimiento}}</td>
                         <td align="center"><strong>{{mb_strtoupper($solicitud->tramite->nombre)}}</strong></td>
                         <td align="right">Fecha: <?php $fecha=strtotime($solicitud->create_at); echo date("d/m/Y",$fecha) ?></td>
                     </tr>
