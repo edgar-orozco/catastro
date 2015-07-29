@@ -153,6 +153,12 @@ $colindancias->fill(Input::get('colindancia'))->save();
 
 $antecedentes=Input::get('propiedad');
 
+//clave unica de seguimineto con cosigo de barras
+ //traemos el codigo del seguimiento
+  $seguimiento=SolicitudGestion::cadenaSeguimientoUnica();
+  //generamos el codigo de barra
+  $path_imagen = DNS1D::getBarcodePNGPath($seguimiento, "C128");
+
 $registro = new RegistroEscritura();
 
 $registro->tesoreria=Input::get('tesoreria');
@@ -174,6 +180,7 @@ $registro->antecedente_folio=$antecedentes['antecedente_folio'];
 $registro->clave_antecedente=$antecedentes['clave_antecedente'];
 $registro->predio_antecedente=$antecedentes['predio_antecedente'];
 $registro->lvm_antecedente=$antecedentes['lvm_antecedente'];
+$registro->seguimiento=$seguimiento;
 $registro->usuario_id=Auth::user()->id;
 $registro->enajenante_id=$enajenante->id_p;
 $registro->dir_enajenante_id=$denajenante->id;

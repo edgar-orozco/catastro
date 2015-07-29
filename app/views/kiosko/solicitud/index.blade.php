@@ -13,7 +13,7 @@
 {{Form::label('BUSCAR GESTIÓN CATASTRAL PARA EDITAR')}}
     <div class="form-group">
         {{Form::text('clave', null, ['id'=>'id','placeholder'=>'N° de Solicitud'] )}}
-        <a id="buscar" class="btn btn-warning" title="Editar"><span class="glyphicon glyphicon-pencil"></span></a>
+        <a id="buscar" class="btn btn-warning" title="Editar"><span class="glyphicon glyphicon-search"></span></a>
     </div>
 </div>
 <div class="col-sm-12 col-md-12 col-lg-12" id="mainForm">
