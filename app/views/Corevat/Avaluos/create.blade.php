@@ -22,7 +22,7 @@
     div[class^='col-md-'],div[class*=' col-md-']{
         margin-bottom: 5px;
     }
-    div.col-md-10{
+    div.col-md-10, div.col-md-9{
         border-left: 1px solid gray;
         background: #eee;
     }
