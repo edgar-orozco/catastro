@@ -16,7 +16,7 @@
 <div class="row">
 	<div class="col-md-12">
 		<div class="form-group">
-			{{Form::label('fecha_reporte', 'Fecha del Reporte',['class'=>'col-sm-2 control-label'])}}
+			{{Form::label('fecha_reporte', 'Fecha del Reporte',['class'=>'col-sm-2'])}}
             <div class="col-sm-10">
                 {{Form::text('fecha_reporte', $row->fecha_reporte, ['class'=>'form-control', 'tabindex'=>'1', 'required' => 'required', 'maxlength' => '10', 'size' => '11', 'style' => 'width:110px;', 'readonly'=>'readonly'])}}
                 {{$errors->first('fecha_reporte', '<span class=text-danger>:message</span>')}}
