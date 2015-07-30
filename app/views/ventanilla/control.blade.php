@@ -7,6 +7,7 @@
 @section('content')
     {{ HTML::style('css/forms.css') }}
     {{ HTML::style('css/select2.min.css') }}
+    {{ HTML::style('js/jquery/jquery-ui.css') }}
 
     <div class="row clearfix">
         @if($folio)
@@ -50,6 +51,19 @@
                         </div>
                     </div>
                     <br/>
+
+                    <div class="campos-fisica">
+                        <div class="form-group">
+                            {{Form::label('curp','CURP', ['class'=>'' ])}}
+                            {{Form::text('curp', null, ['class' => 'form-control', 'minlength'=>'18', 'maxlength'=>'18', 'pattern' => '([A-Za-z]{4})([0-9]{6})([A-Za-z]{6})([0-9]{2})', 'title' => 'El CURP ingresado no tiene el formato esperado, verifique nuevamente el CURP ingresado' ] )}}
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        {{Form::label('rfc','RFC', ['class'=>'', 'p' ])}}
+                        {{Form::text('rfc', null, ['class' => 'form-control', 'id' => 'rfc', 'minlength'=>'12', 'maxlength'=>'13', 'pattern' => '([A-Za-z]{4})([0-9]{6})([A-Za-z0-9]{3})', 'title' => 'El RFC ingresado no tiene el formato esperado, verifique nuevamente el RFC ingresado'] )}}
+                    </div>
+
                     <div class="form-group clearfix">
                         {{Form::label('nombres','Nombre', ['class'=>''])}}
                         {{Form::text('nombres', null, ['class' => 'form-control', 'required'=>true] )}}
@@ -63,19 +77,11 @@
                             {{Form::label('apellido_materno','Apellido Materno', ['class'=>''])}}
                             {{Form::text('apellido_materno', null, ['class' => 'form-control'] )}}
                         </div>
-                        <div class="form-group">
-                            {{Form::label('curp','CURP', ['class'=>'' ])}}
-                            {{Form::text('curp', null, ['class' => 'form-control', 'minlength'=>'18', 'maxlength'=>'18', 'pattern' => '([A-Za-z]{4})([0-9]{6})([A-Za-z]{6})([0-9]{2})', 'title' => 'El CURP ingresado no tiene el formato esperado, verifique nuevamente el CURP ingresado' ] )}}
-                        </div>
-
                     </div>
 
-                    <div class="form-group">
-                        {{Form::label('rfc','RFC', ['class'=>'', 'p' ])}}
-                        {{Form::text('rfc', null, ['class' => 'form-control', 'id' => 'rfc', 'minlength'=>'12', 'maxlength'=>'13', 'pattern' => '([A-Za-z]{4})([0-9]{6})([A-Za-z0-9]{3})', 'title' => 'El RFC ingresado no tiene el formato esperado, verifique nuevamente el RFC ingresado'] )}}
-                    </div>
 
                     {{Form::hidden('tipotramite_id', $tipotramite_id)}}
+                    {{Form::hidden('solicitante_id', '', ['id'=>'solicitante_id'])}}
                     {{Form::hidden('clave', $clave)}}
                     {{Form::hidden('cuenta', $cuenta)}}
                     {{Form::hidden('tipo_persona', 'F', ['id'=>'tipo_persona'])}}
@@ -112,9 +118,6 @@
                 <ul class="nav nav-tabs">
                     <li class="active">
                         <a href="#panel-generales" data-toggle="tab">Generales</a>
-                    </li>
-                    <li>
-                        <a href="#panel-cartografia" data-toggle="tab">Cartografía</a>
                     </li>
                     <li>
                         <a href="#panel-historial" data-toggle="tab">Historial del trámite</a>
@@ -179,11 +182,6 @@
                         </table>
                     </div>
 
-                    <div class="tab-pane" id="panel-cartografia">
-                        </br>
-                        <h4>Cartografía</h4>
-
-                    </div>
                     <div class="tab-pane" id="panel-historial">
                         </br>
                         <h4>Historial del trámite</h4>
@@ -198,15 +196,16 @@
     </div>
 @stop
 
-
 @section('javascript')
     {{ HTML::script('js/select2/select2.min.js') }}
     {{ HTML::script('js/select2/i18n/es.js') }}
+    {{ HTML::script('js/jquery/jquery-ui.js') }}
 
     <script>
 
         $(function () {
 
+            //El selector de las notarías.
             $("#notaria_id").select2({
                 language: "es",
                 placeholder: "Seleccione una notaría",
@@ -218,16 +217,58 @@
                 var radio = $(this);
                 if(radio.val() == 'F'){
                     $('.campos-fisica').show();
+                    //Habilitamos el autocomplete del curp
+                    $("#curp").autocomplete("enable");
+                    //Deshabilitamos el autocomplete del rfc
+                    $("#rfc").autocomplete("disable");
                     $('#rfc').attr('pattern', '([A-Za-z]{4})([0-9]{6})([A-Za-z0-9]{3})');
                     $('.tipo_persona').val('F');
                 }
                 else if(radio.val() == 'M')
                 {
                     $('.campos-fisica').hide();
+                    //Habilitamos el autocomplete del curp
+                    $("#curp").autocomplete("disable");
+                    //Deshabilitamos el autocomplete del rfc
+                    $("#rfc").autocomplete("enable");
                     $('#rfc').attr('pattern', '([A-Za-z]{3})([0-9]{6})([A-Za-z0-9]{3})');
                     $('.tipo_persona').val('M');
                 }
             });
+
+            //Estas son las opciones con las que se construye el autocomplete, como son comunes a los dos inputs rfc y curp se sacan para reutlizar
+            var autoCompleteOpts = {
+                source: "/ventanilla/solicitante", //Ruta al controlador que provee los resultados de la busqueda
+                minLength: 8, //Empezamos a mandar los teclazos si han tecleado 8 caracteres
+                select: function (event, ui) {
+                    //console.log(ui);
+                    //Al seleccionar un valor de los desplegados rellenamos los campos
+                    $('#curp').val(ui.item.curp);
+                    $('#rfc').val(ui.item.rfc);
+                    $('#nombres').val(ui.item.nombres);
+                    $('#apellido_paterno').val(ui.item.apellido_paterno);
+                    $('#apellido_materno').val(ui.item.apellido_materno);
+                    $('#solicitante_id').val(ui.item.id);
+                    return false;
+                }
+            };
+
+            //Se crea autocompleter de CURP
+            $("#curp").autocomplete(autoCompleteOpts).autocomplete( "instance" )._renderItem = function( ul, item ) {
+                return $( "<li>" )
+                        .append( "<a>" + item.curp + "<br>" + "<span class='nombre-coincidencia'><i class='glyphicon glyphicon-user'></i><small> " + item.nombrec + "</small><span></a>" )
+                        .appendTo( ul );
+            };
+
+            //Se crea autocompleter de RFC
+            $("#rfc").autocomplete(autoCompleteOpts).autocomplete( "instance" )._renderItem = function( ul, item ) {
+                return $( "<li>" )
+                        .append( "<a>" + item.rfc + "<br>" + "<span class='nombre-coincidencia'><i class='glyphicon glyphicon-user'></i> <small>" + item.nombrec + "</small><span></a>" )
+                        .appendTo( ul );
+            };
+
+            //por default es persona física por lo que el autocomplete lo deshabilitamos
+            $("#rfc").autocomplete("disable");
 
         });
     </script>

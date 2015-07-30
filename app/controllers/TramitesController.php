@@ -118,6 +118,7 @@ class TramitesController extends BaseController {
         $folio = FolioTramite::actual($oMunicipio->gid);
 
         $nombre = Input::get('nombres');
+        $solicitante_id = intval(Input::get('solicitante_id'));
         $apepat = Input::get('apellido_paterno');
         $apemat = Input::get('apellido_materno');
         $rfc = Input::get('rfc');
@@ -151,24 +152,30 @@ class TramitesController extends BaseController {
             if(count($aNombrec)>0) {
                 $nombrec = implode(" ", $aNombrec);
             }
-            $solicitante = personas::create([
-                'nombres'=>mb_strtoupper($nombre),
-                'apellido_paterno'=>mb_strtoupper($apepat),
-                'apellido_materno'=>mb_strtoupper($apemat),
-                'nombrec' => $nombrec,
-                'rfc' => mb_strtoupper($rfc),
-                'curp' => mb_strtoupper($curp),
-            ]);
 
-            $this->tramite->solicitante_id = $solicitante->id_p;
+            if(!($solicitante = Solicitante::find($solicitante_id))){
+
+                $solicitante = Solicitante::create([
+                    'nombres'=>mb_strtoupper($nombre),
+                    'apellido_paterno'=>mb_strtoupper($apepat),
+                    'apellido_materno'=>mb_strtoupper($apemat),
+                    'nombrec' => $nombrec,
+                    'rfc' => mb_strtoupper($rfc),
+                    'curp' => mb_strtoupper($curp),
+                    'id_tipo' => 1,
+                ]);
+            }
+
+            $this->tramite->solicitante_id = $solicitante->id;
         }
         else if($tipo_persona == 'M'){
-            $solicitante = personas::create([
+            $solicitante = Solicitante::create([
                 'nombres'=>mb_strtoupper($nombre),
                 'rfc' => mb_strtoupper($rfc),
+                'id_tipo' => 2,
             ]);
 
-            $this->tramite->solicitante()->create(['nombres'=>$nombre]);
+            $this->tramite->solicitante_id = $solicitante->id;
             $this->tramite->tipo_solicitante = 'MORAL';
         }
 
@@ -602,7 +609,7 @@ class TramitesController extends BaseController {
     public function get_pdf($id, $format = 'html'){
       
         //trae todos los datos del tramite para el recibo
-        $tramites = $this-> tramite ->join('personas as p', 'solicitante_id','=','p.id_p')
+        $tramites = $this-> tramite ->join('solicitante as p', 'solicitante_id','=','p.id')
                                     ->join('propietarios as pro','tramites.clave','=','pro.clave')
                                     ->join('personas as p1','pro.id_propietario','=','p1.id_p')
                                     ->join('fiscal as f','tramites.clave','=','f.clave')
@@ -647,7 +654,7 @@ class TramitesController extends BaseController {
         $logo = configuracionMunicipal::where('municipio','=', $gid)->pluck('file');
         $autorizo = configuracionMunicipal::where('municipio','=', $gid)->pluck('nombre');
         //traigo el nombre del solicitante solicitante
-        $solicitante = $this->tramite -> join('personas as p', 'solicitante_id','=','p.id_p') -> where('id', '=', '2') -> select('p.nombres as nombre','p.apellido_paterno as paterno','p.apellido_materno as materno') -> get();
+        $solicitante = $this->tramite -> join('solicitante as p', 'solicitante_id','=','p.id') -> where('id', '=', '2') -> select('p.nombres as nombre','p.apellido_paterno as paterno','p.apellido_materno as materno') -> get();
         //traigo los datos del predio con la clave de la tabla fiscal
         $datos = $this-> fiscal -> join ('personas as p', 'id_propietarios','=','p.id_p') -> join ('ubicacion_fiscal as u', 'id_ubicacion_fiscal','=','id_ubicacion') -> where ('clave', '=', $clave) -> select ('clave', 'cuenta', 'tipo_predio', 'superficie_terreno', 'superficie_construccion', 'valor_catastral','p.nombres','p.apellido_paterno','p.apellido_materno','u.ubicacion') -> get();
         //Mandamos las bariables para imprimir y conbertimos en pdf el archivo
@@ -658,6 +665,15 @@ class TramitesController extends BaseController {
 //        return $vista;
     }
 
+
+    public function solicitante(){
+        $q = Input::get('term');
+        if (Request::ajax())
+        {
+            return Solicitante::getPorCurpRFC($q);
+        }
+
+    }
 }
 
 

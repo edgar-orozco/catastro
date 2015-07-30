@@ -52,7 +52,7 @@ class Tramite extends Ardent
     }
 
     public function solicitante(){
-        return $this->hasOne('personas', 'id_p', 'solicitante_id');
+        return $this->hasOne('Solicitante', 'id', 'solicitante_id');
     }
 
     public function departamento(){
