@@ -257,6 +257,10 @@ class OficinaVirtualNotarioController extends \BaseController
 
         $predio = $this->padron->getByClaveOCuenta($traslado->clave);
 
+        $predio->ubicacionFiscal->ubicacion = $traslado->ubicacion;
+        $predio->superficie_terreno = $traslado->superficie_terreno;
+        $predio->superficie_construccion = $traslado->superficie_construccion;
+
         //enajenante
         $enajenante = personas::find($traslado->enajenante_id);
         $traslado->enajenante->fill($enajenante->toArray());

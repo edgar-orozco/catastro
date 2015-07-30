@@ -117,13 +117,13 @@
 
                 <div style="clear:both"></div>
                 <div>
-                    Ubicacion: {{$predio->ubicacionFiscal->ubicacion}}
+                    Ubicacion: {{$traslado->ubicacion}}
                     <br>
 
-                    Superficie terreno: {{$predio->superficie_terreno}} m2
+                    Superficie terreno: {{$traslado->superficie_terreno}} m2
                     <br>
 
-                    Superficie construcción: {{$predio->superficie_construccion}} m2
+                    Superficie construcción: {{$traslado->superficie_construccion}} m2
                 </div>
             </div>
         </div>
