@@ -22,6 +22,10 @@
     div[class^='col-md-'],div[class*=' col-md-']{
         margin-bottom: 5px;
     }
+    div.col-md-10{
+        background: #eee;
+    }
+
 </style>
 <h1>Crear Nuevo Avalúo</h1>
     @if( $errors->all() )
