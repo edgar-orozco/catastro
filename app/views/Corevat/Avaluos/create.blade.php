@@ -67,16 +67,20 @@
 	</div>
 	<div class="col-md-12">
 		<div class="form-group">
-			{{Form::label('proposito', 'Propósito')}}
+			{{Form::label('proposito', 'Propósito',['class'=>'col-sm-2'])}}
+            <div class="col-md-10">
 			{{Form::text('proposito', $row->proposito, ['class'=>'form-control', 'tabindex'=>'4', 'required' => 'required', 'maxlength' => '250'])}}
 			{{$errors->first('proposito', '<span class=text-danger>:message</span>')}}
+            </div>
 		</div>
 	</div>
 	<div class="col-md-12">
 		<div class="form-group">
-			{{Form::label('finalidad', 'Finalidad')}}
+			{{Form::label('finalidad', 'Finalidad',['class'=>'col-sm-2'])}}
+            <div class="col-md-10">
 			{{Form::text('finalidad', $row->finalidad, ['class'=>'form-control', 'tabindex'=>'5', 'required' => 'required', 'maxlength' => '250'])}}
 			{{$errors->first('finalidad', '<span class=text-danger>:message</span>')}}
+            </div>
 		</div>
 	</div>
 	<div class="col-md-4">
