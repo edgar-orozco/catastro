@@ -1,4 +1,3 @@
-
 {{HTML::script('js/macros.js')}}
 {{ HTML::style('js/jquery/jquery-ui.css') }}
 {{ HTML::script('js/jquery/jquery-ui.js') }}
@@ -22,19 +21,20 @@
 
 
 <div class="row-fluid">
-<div class="col-md-6">
-      {{Form::label('tesoreria','Tesorería Municipal:')}}
-      {{Form::text('tesoreria', null, ['class' => 'form-control'] )}}
-</div>
- <div class="col-md-6">
-      {{Form::label('municipio_id','Municipio:')}}
-      {{Form::select('municipio_id', $municipio, null, ['class'=>'form-control requerido'])}}
-</div>
+    <div class="panel-body">
+        <h3>Tipo de escritura</h3>
 
-<div class="col-md-3">
-      {{Form::label('escritura_num','Nomero de escritura:')}}
-      {{Form::text('escritura_num', null, ['class' => 'form-control numeros'] )}}
-</div>
+                {{Form::label('tipo_persona','Publica', ['class'=>''])}}
+                 {{Form::radio('tipo_escritura', 'publica', null, ['class'=>'-radio-persona ' ])}}
+                {{Form::label('tipo_persona','Privada', ['class'=>''])}}
+                 {{Form::radio('tipo_escritura', 'privada', null, ['class'=>'-radio-persona'])}}
+                 {{Form::label('tipo_persona','Titulo', ['class'=>''])}}
+                 {{Form::radio('tipo_escritura', 'titulos', null, ['class'=>'-radio-persona'])}}
+    </div>
+
+
+
+
 <div class="col-md-3">
       {{Form::label('volumen','Volumen:')}}
       {{Form::text('volumen', null, ['class' => 'form-control numeros'] )}}
@@ -51,10 +51,7 @@
     {{Form::label('clave','Clave Catastral:')}}
     {{Form::text('clave', null, ['class' => 'form-control clave_cata'] )}}
 </div>
-<div class="col-md-6">
-    {{Form::label('naturaleza_acto','Naturaleza del acto:')}}
-    {{Form::text('naturaleza_acto', null, ['class' => 'form-control requerido'] )}}
-</div>
+
 </div>
 </div></div>
 
@@ -99,16 +96,9 @@
 
 </div>
 </div>
-<div class="col-md-3">
-     {{Form::label('fecha_instrumento','Fecha de Intrumento')}}
-     {{Form::text('fecha_instrumento', null,['id'=>'datepicker', 'class'=>'btn btn-default btn-sm dropdown-toggle requerido'] )}}
-</div>
-<div class="col-md-3">
-      {{Form::label('fecha_firma','Fecha de firma')}}
-      {{Form::text('fecha_firma',null, ['id'=>'datepicker1', 'class'=>'btn btn-default btn-sm dropdown-toggle requerido'] )}}
-</div>
-</div>
 
+</div>
+<div class="row">
 <div class="panel panel-default">
     <div class="panel-heading">
         <h3 class="panel-title">Datos del Inmueble</h3>
@@ -138,6 +128,8 @@
 
 </div>
 </div>
+</div>
+<div class="row">
 <div class="panel panel-default">
     <div class="panel-heading">
         <h3 class="panel-title">Colindancias</h3>
@@ -148,6 +140,8 @@
         </div>
   </div>
 </div>
+</div>
+<div class="row">
 <div class="panel panel-default">
     <div class="panel-heading">
         <h3 class="panel-title">ANTECEDENTES DE LA PROPIEDAD</h3>
@@ -159,30 +153,8 @@
         </div>
 </div>
 </div>
-
-<div class="panel panel-default">
-    <div class="panel-heading">
-        <h3 class="panel-title">MANIFESTACIÓN</h3>
-    </div>
-    <div class="row-fluid panel-body">
-        <div class="col-md-6">
-            {{Form::label('valor_catastral','Valor Catastral:')}}
-            {{Form::number('valor_catastral', null, ['class' => 'form-control numeros'] )}}
-        </div>
-        <div class="col-md-6">
-            {{Form::label('importe_operacion','Importe de la operación:')}}
-            {{Form::number('importe_operacion', null, ['class' => 'form-control numeros'] )}}
-        </div>
-        <div class="col-md-6">
-            {{Form::label('import_avaluo','Importe del avalúo:')}}
-            {{Form::number('import_avaluo', null, ['class' => 'form-control numeros'] )}}
-        </div>
-        <div class="col-md-6">
-            {{Form::label('avaluo_por','Avaluo efectuado por:')}}
-            {{Form::text('avaluo_por', null, ['class' => 'form-control requerido'] )}}
-        </div>
-    </div>
 </div>
+
 
 <div class="form-actions form-group col-md-6" style="clear:both; ">
                   {{ Form::submit('Crear nuevo traslado de dominio', array('class' => 'btn btn-primary')) }}
