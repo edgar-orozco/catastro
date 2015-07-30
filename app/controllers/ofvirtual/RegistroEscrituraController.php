@@ -200,6 +200,8 @@ $registro->save();
         //aqui la varianble $Colindancias llega vacia
         $registro->colindancia()->saveMany($Colindancias);
 
+        //Dado que fue exitosa la creacion del traslado,  mostramos la salida al usuario.
+        return Redirect::to('ofvirtual/notario/registro/show/' . $registro->id)->with('success', '¡Se ha creado correctamente el traslado de dominio para la cuenta ' . $registro->cuenta . '!');
 
 	}
 
@@ -310,18 +312,62 @@ $registro->save();
             $results[] = ['value' => $query->curp , 'id' => $query->id_p, 'nombres' => $query->nombres, 'apellido_paterno' => $query->apellido_paterno, 'apellido_materno'=>$query->apellido_materno,'rfc'=>$query->rfc];
         }
         if ($results) {
-            //SI EXITE LA PERSONA            
+            //SI EXITE LA PERSONA
             return Response::json($results);
         } else {
             //SI NO EXITE LA PAERSONA
             $mensaje[] = "NO EXISTE LA PERSONAS";
             return Response::json($mensaje);
         }
-    
+
     }
-    public function show()
+    public function show($id)
     {
-        //
+
+        // confirmar datos y confirmar folio
+        $registro = RegistroEscritura::find($id);
+
+        $predio = $this->padron->getByClaveOCuenta($registro->clave);
+
+        //enajenante
+        $enajenante = personas::find($registro->enajenante_id);
+        $registro->enajenante->fill($enajenante->toArray());
+
+        //adquiriente
+        $adquiriente = personas::find($registro->adquiriente_id);
+        $registro->adquiriente->fill($adquiriente->toArray());
+
+        $registro->registro = $registro;
+
+        $notaria = Notaria::find($registro->notaria_id);
+        $registro->notariaEscritura = $notaria->id_notario.$notaria->nombre.$notaria->mpio->nombre_municipio.$notaria->estado->nom_ent;
+
+         $notario = Notaria::where('id_notario', $notaria->id_notario)->first();
+        $registro->notarioEscritura = $notario->notario->nombres.' ' .$notario->notario->apellido_paterno. ' '.$notario->notario->apellido_materno;
+
+        // Title
+        $title = 'Editar registro de escritura';
+
+        // Show the page
+        return View:: make('ofvirtual.notario.registro.show', compact('title', 'registro', 'predio'));
+
+        //print_r($registro);
+    }
+       public function asignarFolio($id)
+    {
+
+        $registro = RegistroEscritura::find($id);
+
+        //ToDo: generar folios correctos
+        $registro->folio = rand(1, 1000000);
+
+        if (!$registro->save()) {
+            return Redirect::back()->withInput()->withErrors($registro->errors());
+        }
+
+        // Show the page
+        return Redirect::to('/ofvirtual/notario/registro-escrituras')->with('success', '¡Se ha finalizado correctamente el traslado!');
+
     }
 
 

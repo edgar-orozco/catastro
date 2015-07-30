@@ -20,6 +20,10 @@ Route::get('/registro/autocomplete', 'ofvirtual_RegistroEscrituraController@auto
 //show
 Route::get('ofvirtual/notario/registro/show/{id}', 'ofvirtual_RegistroEscrituraController@show');
 
+//show
+Route::get('ofvirtual/notario/registro/asignarFolio/{id}', 'ofvirtual_RegistroEscrituraController@asignarFolio');
+
+
 /*function()
           {
             $title = "Registro de escrituras";

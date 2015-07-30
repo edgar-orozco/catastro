@@ -307,10 +307,10 @@ class corevat_AvaluosController extends \BaseController {
 		);
 		$messages = array(
 			'nivel_equipamiento.integer' => '¡El campo "Nivel de Equipamiento" debe ser un entero positivo!',
-			'nivel_equipamiento.min' => '¡El valor mínimo del campo "Nivel de Equipamiento" debe ser cero!',
-			'nivel_equipamiento.min' => '¡El valor máximo del campo "Nivel de Equipamiento" debe ser 100!',
+			'nivel_equipamiento.min' => '¡El valor mínimo del campo "Nivel de Equipamiento" debe ser 0%!',
+			'nivel_equipamiento.max' => '¡El valor máximo del campo "Nivel de Equipamiento" debe ser 100%!',
 		);
-		$validate = Validator::make($inputs, $rules);
+		$validate = Validator::make($inputs, $rules, $messages);
 		if ($validate->fails()) {
 			return Redirect::back()->withInput()->withErrors($validate);
 		} else {
