@@ -17,7 +17,7 @@ $(document).ready(function()
             //oculta input de apellido_paterno
             var curp = id+"[rfc]";
             alert(curp);
-            //$( "#" + curp.replace( /(:|\.|\[|\]|,)/g, "\\$1" )).removeAttr('required');
+            $( "#" + curp.replace( /(:|\.|\[|\]|,)/g, "\\$1" )).removeAttr('required');
             $("#" + curp.replace( /(:|\.|\[|\]|,)/g, "\\$1" )).attr('pattern', '([A-Za-z]{3})([0-9]{6})([A-Za-z0-9]{3})');
         }
 
@@ -71,9 +71,10 @@ $(document).ready(function()
     });
 
 
- //autocompletar  
+ //autocompletar enajenante
   $(function () {
-        $(".curp").autocomplete({
+      var curpe = "enajenante[curp]";
+        $('#' + curpe.replace( /(:|\.|\[|\]|,)/g, "\\$1" )).autocomplete({
             source: "/registro/autocomplete",
             minLength: 18,
             select: function (event, ui) {
@@ -86,6 +87,28 @@ $(document).ready(function()
                 var apellido_materno = "enajenante[apellido_materno]";
                 $('#' + apellido_materno.replace( /(:|\.|\[|\]|,)/g, "\\$1" )).val(ui.item.apellido_materno);
                 var rfc = "enajenante[rfc]";
+                $('#' + rfc.replace( /(:|\.|\[|\]|,)/g, "\\$1" )).val(ui.item.rfc);
+            }
+        });
+    });
+
+
+  //autocompletar adquiriente
+  $(function () {
+         var curpa = "adquiriente[curp]";
+        $('#' + curpa.replace( /(:|\.|\[|\]|,)/g, "\\$1" )).autocomplete({
+            source: "/registro/autocomplete",
+            minLength: 18,
+            select: function (event, ui) {
+                var res = "adquiriente[response]";
+                $('#' + res.replace( /(:|\.|\[|\]|,)/g, "\\$1" )).val(ui.item.id);
+                var nombres = "adquiriente[nombres]";
+                $('#' + nombres.replace( /(:|\.|\[|\]|,)/g, "\\$1" )).val(ui.item.nombres);
+                var apellido_paterno = "adquiriente[apellido_paterno]";
+                $('#' + apellido_paterno.replace( /(:|\.|\[|\]|,)/g, "\\$1" )).val(ui.item.apellido_paterno);
+                var apellido_materno = "adquiriente[apellido_materno]";
+                $('#' + apellido_materno.replace( /(:|\.|\[|\]|,)/g, "\\$1" )).val(ui.item.apellido_materno);
+                var rfc = "adquiriente[rfc]";
                 $('#' + rfc.replace( /(:|\.|\[|\]|,)/g, "\\$1" )).val(ui.item.rfc);
             }
         });

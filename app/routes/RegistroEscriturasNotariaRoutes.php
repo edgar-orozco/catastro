@@ -23,6 +23,11 @@ Route::get('ofvirtual/notario/registro/show/{id}', 'ofvirtual_RegistroEscrituraC
 //show
 Route::get('ofvirtual/notario/registro/asignarFolio/{id}', 'ofvirtual_RegistroEscrituraController@asignarFolio');
 
+//Delete traslado de dominio
+Route::get('ofvirtual/notario/registro/destroy/{id}', 'ofvirtual_RegistroEscrituraController@destroy');
+
+//imprimir
+Route::get('ofvirtual/notario/registro/imprimir/{id}', 'ofvirtual_RegistroEscrituraController@imprimir');
 
 /*function()
           {

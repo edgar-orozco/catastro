@@ -285,17 +285,6 @@ $registro->save();
 	}
 
 
-	/**
-	 * Remove the specified resource from storage.
-	 *
-	 * @param  int  $id
-	 * @return Response
-	 */
-	public function destroy($id)
-	{
-		//
-	}
-
     public function autocomplete()
     {
           $term = Str::upper(Input::get('term'));
@@ -308,7 +297,7 @@ $registro->save();
         //DONDE LLAMA LOS DATOS Y LOS PASA A LAS VARIABLES CORRESPONDIENTES
         foreach ($queries as $query) {
             //ARRAY DONDE CARGA LOS DATOS
-            $id_p[] = ['id_p' => $query->id_p];
+            //$id_p[] = ['id_p' => $query->id_p];
             $results[] = ['value' => $query->curp , 'id' => $query->id_p, 'nombres' => $query->nombres, 'apellido_paterno' => $query->apellido_paterno, 'apellido_materno'=>$query->apellido_materno,'rfc'=>$query->rfc];
         }
         if ($results) {
@@ -368,6 +357,81 @@ $registro->save();
         // Show the page
         return Redirect::to('/ofvirtual/notario/registro-escrituras')->with('success', '¡Se ha finalizado correctamente el traslado!');
 
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  int $id
+     * @return Response
+     */
+    public function destroy($id)
+    {
+        //
+        //ToDo: revisar primero que no tenga asignado un folio, si tiene asigando un folio no se puede borrar
+        $colindancias = Colindancias::where('registro_id',$id);
+        $colindancias->delete();
+
+        $registro = RegistroEscritura::find($id);
+
+        $registro->delete();
+
+        $enajenante = personas::find($registro->enajenante_id);
+        $enajenante->delete();
+
+        $adquiriente = personas::find($registro->adquiriente_id);
+        $adquiriente->delete();
+
+        $domicilioE = Domicilio::findfind($registro->dir_enajenante_id);
+        $domicilioE->delete();
+
+        $domicilioA = Domicilio::findfind($registro->dir_adquiriente_id);
+        $domicilioA->delete();
+
+
+        return Redirect::to('/ofvirtual/notario/registro-escrituras')->with('success', '¡Se ha eliminado correctamente el registro!');
+
+
+    }
+
+    public function imprimir($id)
+    {
+            // confirmar datos y confirmar folio
+        $registro = RegistroEscritura::find($id);
+
+        $predio = $this->padron->getByClaveOCuenta($registro->clave);
+
+        //enajenante
+        $enajenante = personas::find($registro->enajenante_id);
+        $registro->enajenante->fill($enajenante->toArray());
+
+        //adquiriente
+        $adquiriente = personas::find($registro->adquiriente_id);
+        $registro->adquiriente->fill($adquiriente->toArray());
+
+        $registro->registro = $registro;
+
+        $notaria = Notaria::find($registro->notaria_id);
+        $registro->notariaEscritura = $notaria->nombre.$notaria->mpio->nombre_municipio.$notaria->estado->nom_ent;
+
+        $notario = Notaria::where('id_notario', $notaria->id_notario)->first();
+        $registro->notarioEscritura = $notario->notario->nombres.' ' .$notario->notario->apellido_paterno. ' '.$notario->notario->apellido_materno;
+
+        // Title
+        $title = 'Imprimir registro de escritura';
+
+        //barcodes
+        $seguimiento = DNS1D::getBarcodePNGPath($registro->seguimiento, "C128");
+
+        $colindancias = Colindancias::where('registro_id',$id);
+
+        // Show the page
+        $vista =  View:: make('ofvirtual.notario.registro.pdf', compact('title', 'traslado', 'predio','seguimiento','colindancias'));
+        //devuelvo los datos en PDF
+        $pdf      = PDF::load($vista)->show();
+        $response = Response::make($pdf, 200);
+        $response->header('Content-Type', 'application/pdf');
+        return $response;
     }
 
 

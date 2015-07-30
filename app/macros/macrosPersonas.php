@@ -9,7 +9,7 @@ $personas = '
 
 
             <div class="">'.
-           
+
 
                 Form::label('tipo_persona','Tipo de persona', ['class'=>'']).
                 '<br>'.
@@ -38,7 +38,7 @@ $personas = '
         '</span>'.
 
             Form::label($llave.'[rfc]','RFC', ['class'=>'']).
-            Form::text($llave.'[rfc]', null, ['class' => 'form-control', 'id'=>$llave.'-rfc', 'minlength'=>'12', 'maxlength'=>'13', 'pattern' => '([A-Za-z]{4})([0-9]{6})([A-Za-z0-9]{3})', 'title' => 'El RFC ingresado no tiene el formato esperado, verifique nuevamente el RFC ingresado'] )
+            Form::text($llave.'[rfc]', null, ['class' => 'form-control', 'minlength'=>'12', 'maxlength'=>'13', 'pattern' => '([A-Za-z]{4})([0-9]{6})([A-Za-z0-9]{3})', 'title' => 'El RFC ingresado no tiene el formato esperado, verifique nuevamente el RFC ingresado'] )
         ;
 
 

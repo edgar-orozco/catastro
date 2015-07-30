@@ -44,14 +44,20 @@
                         <td style="text-align: right;" nowrap>
 
                             @if(!is_null($registro->folio))
-                                <a href="{{ action('OficinaVirtualNotarioController@show', ['id' => $registro->id]) }}"
-                                   class="btn btn-info" title="Ver traslado">
+                                <a href="{{ action('ofvirtual_RegistroEscrituraController@show', ['id' => $registro->id]) }}"
+                                   class="btn btn-info" title="Ver registro">
                                     <span class="glyphicon glyphicon-list-alt"></span>
+                                </a>
+
+
+                                <a href="{{ action('ofvirtual_RegistroEscrituraController@imprimir', ['id' => $registro->id]) }}"
+                                   class="print btn btn-info" target="_blank">
+                                    <span class="glyphicon glyphicon-print"></span>
                                 </a>
                             @else
 
-                                <a href="{{ action('OficinaVirtualNotarioController@edit', ['id' => $registro->id]) }}"
-                                   class="btn btn-warning" title="Editar traslado">
+                                <a href="{{ action('ofvirtual_RegistroEscrituraController@edit', ['id' => $registro->id]) }}"
+                                   class="btn btn-warning" title="Editar registro">
                                     <span class="glyphicon glyphicon-pencil"></span>
                                 </a>
                                 <a href="#" data-toggle="modal" data-target="#confirm-delete"
@@ -59,6 +65,7 @@
                                     <span class="glyphicon glyphicon-trash danger"></span>
                                 </a>
                             @endif
+
 
                         </td>
                     </tr>
@@ -117,7 +124,7 @@
             $('.btn-submit-borrar').click(function () {
                 var traslado_id = $(this).data('traslado_id');
                 console.log('se quiere borrar este: ' + traslado_id);
-                $.get("{{url('ofvirtual/notario/traslado/destroy/')}}" + '/' + traslado_id, function (data) {
+                $.get("{{url('ofvirtual/notario/registro/destroy/')}}" + '/' + traslado_id, function (data) {
                     console.log('Regresa de borrar el traslado:' + traslado_id);
                     $('#traslado-' + traslado_id).hide();
                     $('#dominio-eliminado').show();
