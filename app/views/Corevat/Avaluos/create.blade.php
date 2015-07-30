@@ -27,8 +27,10 @@
         background: #eee;
     }
     input, select{
+        box-shadow: none !important;
         background: none !important;
         border: none !important;
+        width: 100%;
     }
 </style>
 <h1>Crear Nuevo Avalúo</h1>
