@@ -151,7 +151,7 @@
 
 	<div class="col-md-4">
 		{{Form::label('nivel_equipamiento', 'Nivel de Equipamiento %')}}
-		{{Form::number('nivel_equipamiento', $row->nivel_equipamiento, ['class'=>'form-control clsNumeric', 'min'=>'0', 'max'=>'100', 'step'=>'1', 'maxlength'=>'3'])}}
+		{{Form::text('nivel_equipamiento', $row->nivel_equipamiento, ['id' => 'nivel_equipamiento', 'class'=>'form-control', 'maxlength'=>'3', 'size'=>'4'])}}
 		{{$errors->first('nivel_equipamiento', '<span class=text-danger>:message</span>')}}
 		<hr>
 	</div>
@@ -189,10 +189,14 @@
 {{ HTML::script('/js/jquery/jquery-ui.js') }}
 {{ HTML::script('/js/jquery/jquery.dataTables.min.js') }}
 {{ HTML::script('/js/jquery/dataTables.bootstrap.js') }}
+{{ HTML::script('/js/jquery/jquery.mask.min.js') }}
 {{ HTML::script('/js/jquery.corevat.js') }}
 <script>
 	$(document).ready(function () {
 		$('#btn2Zona').removeClass("btn-info").addClass("btn-primary");
+
+		$('#nivel_equipamiento').mask('YYY', {placeholder: "___", translation: {Y: {pattern: /[0-9]/}}});
+
 	});
 </script>
 @stop
