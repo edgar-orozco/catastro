@@ -17,8 +17,10 @@
 	<div class="col-md-12">
 		<div class="form-group">
 			{{Form::label('fecha_reporte', 'Fecha del Reporte',['class'=>'col-sm-2'])}}
-			{{Form::text('fecha_reporte', $row->fecha_reporte, ['class'=>'form-control', 'tabindex'=>'1', 'required' => 'required', 'maxlength' => '10', 'size' => '11', 'style' => 'width:110px;', 'readonly'=>'readonly'])}}
-			{{$errors->first('fecha_reporte', '<span class=text-danger>:message</span>')}}
+            <div class="col-sm-10">
+                {{Form::text('fecha_reporte', $row->fecha_reporte, ['class'=>'form-control', 'tabindex'=>'1', 'required' => 'required', 'maxlength' => '10', 'size' => '11', 'style' => 'width:110px;', 'readonly'=>'readonly'])}}
+                {{$errors->first('fecha_reporte', '<span class=text-danger>:message</span>')}}
+            </div>
 		</div>
 	</div>
 	<div class="col-md-4">
