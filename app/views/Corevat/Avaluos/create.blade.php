@@ -12,23 +12,25 @@
         </div>
     @endif
 <hr>
-{{ Form::open(array('id'=>'form','url' => 'corevat/Avaluos/', 'method' => 'POST')) }}
+{{ Form::open(array('id'=>'form','url' => 'corevat/Avaluos/', 'method' => 'POST',['class'=>'form-horizontal'])) }}
 <div class="row">
-	<div class="col-md-4">
+	<div class="col-md-12">
 		<div class="form-group">
-			{{Form::label('fecha_reporte', 'Fecha del Reporte',['class'=>'geo'])}}
-			{{Form::text('fecha_reporte', $row->fecha_reporte, ['class'=>'form-control', 'tabindex'=>'1', 'required' => 'required', 'maxlength' => '10', 'size' => '11', 'style' => 'width:110px;', 'readonly'=>'readonly'])}}
-			{{$errors->first('fecha_reporte', '<span class=text-danger>:message</span>')}}
+			{{Form::label('fecha_reporte', 'Fecha del Reporte',['class'=>'col-sm-2 control-label'])}}
+            <div class="col-sm-10">
+                {{Form::text('fecha_reporte', $row->fecha_reporte, ['class'=>'form-control', 'tabindex'=>'1', 'required' => 'required', 'maxlength' => '10', 'size' => '11', 'style' => 'width:110px;', 'readonly'=>'readonly'])}}
+                {{$errors->first('fecha_reporte', '<span class=text-danger>:message</span>')}}
+            </div>
 		</div>
 	</div>
-	<div class="col-md-4">
+	<div class="col-md-12">
 		<div class="form-group">
 			{{Form::label('fecha_avaluo', 'Fecha del Avalúo')}}
 			{{Form::text('fecha_avaluo', $row->fecha_avaluo, ['class'=>'form-control', 'tabindex'=>'2', 'required' => 'required', 'maxlength' => '10', 'size' => '11', 'style' => 'width:110px', 'readonly'=>'readonly'])}}
 			{{$errors->first('fecha_avaluo', '<span class=text-danger>:message</span>')}}
 		</div>
 	</div>
-	<div class="col-md-4">
+	<div class="col-md-12">
 		<div class="form-group">
 			{{Form::label('serie', 'Serie')}}
 			{{Form::select('serie', array('U'=>'Urbano', 'R'=>'Rural'), null, ['id' => 'serie', 'class'=>'form-control', 'tabindex'=>'3', 'style' => 'width:110px'])}}
