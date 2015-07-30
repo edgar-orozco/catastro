@@ -2,6 +2,11 @@
 {{HTML::script('js/macros.js')}}
 {{ HTML::style('js/jquery/jquery-ui.css') }}
 {{ HTML::script('js/jquery/jquery-ui.js') }}
+{{HTML::script('http://jqueryvalidation.org/files/dist/jquery.validate.min.js')}}
+{{HTML::script('http://jqueryvalidation.org/files/dist/additional-methods.min.js')}}
+{{HTML::script('js/registro_escritura/validacion.js')}}
+{{HTML::script('js/registro_escritura/validacion_esp.js')}}
+
 {{Form::hidden('registro[clave]', $predio->clave, ['class'=>'form-control'])}}
 {{$errors->first('registro[clave]', '<span class=text-danger>:message</span>')}}
 
@@ -23,20 +28,20 @@
 </div>
  <div class="col-md-6">
       {{Form::label('municipio_id','Municipio:')}}
-      {{Form::select('municipio_id', $municipio, null, ['class'=>'form-control'])}}
+      {{Form::select('municipio_id', $municipio, null, ['class'=>'form-control requerido'])}}
 </div>
 
 <div class="col-md-3">
       {{Form::label('escritura_num','Nomero de escritura:')}}
-      {{Form::text('escritura_num', null, ['class' => 'form-control'] )}}
+      {{Form::text('escritura_num', null, ['class' => 'form-control numeros'] )}}
 </div>
 <div class="col-md-3">
       {{Form::label('volumen','Volumen:')}}
-      {{Form::text('volumen', null, ['class' => 'form-control'] )}}
+      {{Form::text('volumen', null, ['class' => 'form-control numeros'] )}}
 </div>
 <div class="col-md-3">
     {{Form::label('cuenta','No. de cuenta:')}}
-    {{Form::text('cuenta', null, ['class' => 'form-control'] )}}
+    {{Form::text('cuenta', null, ['class' => 'form-control numeros'] )}}
 </div>
 <div class="col-md-3">
     {{Form::label('tipo_predio','Tipo de predio:')}}
@@ -44,11 +49,11 @@
 </div>
 <div class="col-md-6">
     {{Form::label('clave','Clave Catastral:')}}
-    {{Form::text('clave', null, ['class' => 'form-control'] )}}
+    {{Form::text('clave', null, ['class' => 'form-control clave_cata'] )}}
 </div>
 <div class="col-md-6">
     {{Form::label('naturaleza_acto','Naturaleza del acto:')}}
-    {{Form::text('naturaleza_acto', null, ['class' => 'form-control'] )}}
+    {{Form::text('naturaleza_acto', null, ['class' => 'form-control requerido'] )}}
 </div>
 </div>
 </div></div>
@@ -96,11 +101,11 @@
 </div>
 <div class="col-md-3">
      {{Form::label('fecha_instrumento','Fecha de Intrumento')}}
-     {{Form::text('fecha_instrumento', null,['id'=>'datepicker', 'class'=>'btn btn-default btn-sm dropdown-toggle'] )}}
+     {{Form::text('fecha_instrumento', null,['id'=>'datepicker', 'class'=>'btn btn-default btn-sm dropdown-toggle requerido'] )}}
 </div>
 <div class="col-md-3">
       {{Form::label('fecha_firma','Fecha de firma')}}
-      {{Form::text('fecha_firma',null, ['id'=>'datepicker1', 'class'=>'btn btn-default btn-sm dropdown-toggle'] )}}
+      {{Form::text('fecha_firma',null, ['id'=>'datepicker1', 'class'=>'btn btn-default btn-sm dropdown-toggle requerido'] )}}
 </div>
 </div>
 
@@ -112,23 +117,23 @@
     <div class="row-fluid panel-body">
         <div class="col-md-12">
             {{Form::label('ubicacion_inmu','Ubicacion del Inmueble:')}}
-            {{Form::text('ubicacion_inmu', null, ['class' => 'form-control'] )}}
+            {{Form::text('ubicacion_inmu', null, ['class' => 'form-control requerido'] )}}
         </div>
         <div class="col-md-6">
             {{Form::label('superficie_construc','Superficie de construccion:')}}
-            {{Form::number('superficie_construc', null, ['class' => 'form-control'] )}}
+            {{Form::number('superficie_construc', null, ['class' => 'form-control numeros'] )}}
         </div>
         <div class="col-md-6">
             {{Form::label('superficie_terreno','Superficie del terrreno:')}}
-            {{Form::number('superficie_terreno', null, ['class' => 'form-control'] )}}
+            {{Form::number('superficie_terreno', null, ['class' => 'form-control numeros'] )}}
         </div>
          <div class="col-md-6">
             {{Form::label('niveles','Niveles:')}}
-            {{Form::number('niveles', null, ['class' => 'form-control'] )}}
+            {{Form::number('niveles', null, ['class' => 'form-control numeros'] )}}
         </div>
          <div class="col-md-6">
             {{Form::label('estado_conserv','Estado de conservacion:')}}
-            {{Form::text('estado_conserv', null, ['class' => 'form-control'] )}}
+            {{Form::text('estado_conserv', null, ['class' => 'form-control requerido'] )}}
         </div>
 
 </div>
@@ -162,19 +167,19 @@
     <div class="row-fluid panel-body">
         <div class="col-md-6">
             {{Form::label('valor_catastral','Valor Catastral:')}}
-            {{Form::number('valor_catastral', null, ['class' => 'form-control'] )}}
+            {{Form::number('valor_catastral', null, ['class' => 'form-control numeros'] )}}
         </div>
         <div class="col-md-6">
             {{Form::label('importe_operacion','Importe de la operación:')}}
-            {{Form::number('importe_operacion', null, ['class' => 'form-control'] )}}
+            {{Form::number('importe_operacion', null, ['class' => 'form-control numeros'] )}}
         </div>
         <div class="col-md-6">
             {{Form::label('import_avaluo','Importe del avalúo:')}}
-            {{Form::number('import_avaluo', null, ['class' => 'form-control'] )}}
+            {{Form::number('import_avaluo', null, ['class' => 'form-control numeros'] )}}
         </div>
         <div class="col-md-6">
             {{Form::label('avaluo_por','Avaluo efectuado por:')}}
-            {{Form::text('avaluo_por', null, ['class' => 'form-control'] )}}
+            {{Form::text('avaluo_por', null, ['class' => 'form-control requerido'] )}}
         </div>
     </div>
 </div>

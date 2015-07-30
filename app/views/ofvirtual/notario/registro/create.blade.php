@@ -12,7 +12,7 @@
 
         <div class="row">
 
-            {{ Form::open(array('url' => 'ofvirtual/notario/registro/create', 'method' => 'POST')) }}
+            {{ Form::open(array('url' => 'ofvirtual/notario/registro/create', 'method' => 'POST', 'id' => 'formRegistro')) }}
 
                 @include('ofvirtual.notario.registro._form', compact('registro','notaria','vialidad','entidad','asentamiento','municipio','JsonColindancias'))
 
