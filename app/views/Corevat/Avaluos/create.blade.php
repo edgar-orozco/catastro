@@ -178,50 +178,54 @@
             </div>
 		</div>
 	</div>
-	<div class="col-md-4">
+	<div class="col-md-6">
 		<div class="form-inline">
-			{{Form::label('Altitud')}}
+			{{Form::label('','Altitud',['class'=>'col-sm-2'])}}
+            <div class="col-md-10">
 			{{Form::text('altitud', $row->altitud, ['id'=>'altitud','class'=>'form-control clsNumeric', 'tabindex'=>'19', 'style'=>'width:300px', 'maxlength'=>'50', 'size'=>'30', 'pattern' => '[-+]?[0-9]*[.,]?[0-9]+' ] )}}
 			{{$errors->first('altitud', '<span class=text-danger>:message</span>')}}
+            </div>
 		</div>
 	</div>
 	<br />
 	<div class="col-md-6">
 		<div class="form-group">
-			{{Form::label('idregimenpropiedad', 'Regimen')}}
+			{{Form::label('idregimenpropiedad', 'Regimen',['class'=>'col-sm-2'])}}
+            <div class="col-md-10"></div>
 			{{Form::select('idregimenpropiedad', $cat_regimen_propiedad, $row->idregimenpropiedad, ['id' => 'idregimenpropiedad', 'class'=>'form-control', 'tabindex'=>'20'])}}
+        </div>
 		</div>
 	</div>
 	<div class="col-md-6">
 		<div class="form-group">
-			{{Form::label('cuenta_predial', 'Cuenta Predial')}}
+			{{Form::label('cuenta_predial', 'Cuenta Predial',['class'=>'col-sm-2'])}}
 			{{Form::text('cuenta_predial', $row->cuenta_predial, ['class'=>'form-control', 'tabindex'=>'21', 'maxlength'=>'11', 'size'=>'12'])}}
 			{{$errors->first('cuenta_predial', '<span class=text-danger>:message</span>')}}
 		</div>
 	</div>
 	<div class="col-md-6">
 		<div class="form-group">
-			{{Form::label('cuenta_catastral', 'Clave Catastral')}}
+			{{Form::label('cuenta_catastral', 'Clave Catastral',['class'=>'col-sm-2'])}}
 			{{Form::text('cuenta_catastral', $row->cuenta_catastral, ['class'=>'form-control', 'tabindex'=>'22', 'maxlength'=>'15', 'size'=>'16'])}}
 			{{$errors->first('cuenta_catastral', '<span class=text-danger>:message</span>')}}
 		</div>
 	</div>
 	<div class="col-md-6">
 		<div class="form-group">
-			{{Form::label('foliocoretemp', 'Folio COREVAT')}}
+			{{Form::label('foliocoretemp', 'Folio COREVAT',['class'=>'col-sm-2'])}}
 			{{Form::text('foliocoretemp', $row->foliocoretemp, ['class'=>'form-control', 'tabindex'=>'23', 'required' => 'required', 'maxlength'=>'20', 'size'=>'21'])}}
 			{{$errors->first('foliocoretemp', '<span class=text-danger>:message</span>')}}
 		</div>
 	</div>
 	<div class="col-md-12">
 		<div class="form-group">
-			{{Form::label('nombre_solicitante','Solicitante')}}
+			{{Form::label('nombre_solicitante','Solicitante',['class'=>'col-sm-2'])}}
 			{{Form::text('nombre_solicitante','', ['class'=>'form-control', 'tabindex'=>'24', 'maxlength'=>'100'])}}
 		</div>
 	</div>
 	<div class="col-md-12">
 		<div class="form-group">
-			{{Form::label('nombre_propietario','Propietario')}}
+			{{Form::label('nombre_propietario','Propietario',['class'=>'col-sm-2'])}}
 			{{Form::text('nombre_propietario','', ['class'=>'form-control', 'tabindex'=>'25', 'maxlength'=>'100', 'required'=>'required'])}}
 		</div>
 	</div>
