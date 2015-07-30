@@ -156,7 +156,7 @@
 		</div>
 	</div>
 	<br />
-	<div class="col-md-12">
+	<div class="col-md-6">
 		<div class="form-inline">
 			{{Form::label('','Longitud',['class'=>'col-sm-2'])}}
             <div class="col-md-10 cords">
@@ -178,7 +178,7 @@
             </div>
 		</div>
 	</div>
-	<div class="col-md-6">
+	<div class="col-md-4">
 		<div class="form-inline">
 			{{Form::label('Altitud')}}
 			{{Form::text('altitud', $row->altitud, ['id'=>'altitud','class'=>'form-control clsNumeric', 'tabindex'=>'19', 'style'=>'width:300px', 'maxlength'=>'50', 'size'=>'30', 'pattern' => '[-+]?[0-9]*[.,]?[0-9]+' ] )}}
