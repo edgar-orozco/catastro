@@ -151,27 +151,27 @@
 		</div>
 	</div>
 	<br />
-	<div class="col-md-6">
+	<div class="col-md-4">
 		<div class="form-inline">
-			{{Form::label('Longitud',['class'=>'col-sm-2'])}}
+			{{Form::label('Longitud')}}
 			{{Form::number('lon0', $row->lat0, ['class'=>'form-control', 'tabindex'=>'13', 'style'=>'width:75px', 'step'=>'1', 'min' => '0', 'max' => '360', 'required' => 'required'])}}&nbsp;&ring;&nbsp;
 			{{Form::number('lon1', $row->lon1, ['class'=>'form-control', 'tabindex'=>'14', 'style'=>'width:75px', 'step'=>'1', 'min' => '0', 'max' => '60', 'required' => 'required'])}}&nbsp;'&nbsp;
 			{{Form::number('lon2', $row->lon2, ['class'=>'form-control', 'tabindex'=>'15', 'style'=>'width:75px', 'step'=>'0.01', 'min' => '0.00', 'max' => '60.00', 'pattern' => '[0-9]{3}[.]{1}[0-9]{2}', 'required' => 'required'])}}"
 			{{$errors->first('lon2', '<span class=text-danger>:message</span>')}}
 		</div>
 	</div>
-	<div class="col-md-6">
+	<div class="col-md-4">
 		<div class="form-inline">
-			{{Form::label('Latitud',['class'=>'col-sm-2'])}}
+			{{Form::label('Latitud')}}
 			{{Form::number('lat0', $row->lat0, ['class'=>'form-control', 'tabindex'=>'16', 'style'=>'width:75px', 'step'=>'1', 'min' => '0', 'max' => '360', 'required' => 'required'])}}&nbsp;&ring;&nbsp;
 			{{Form::number('lat1', $row->lat1, ['class'=>'form-control', 'tabindex'=>'17', 'style'=>'width:75px', 'step'=>'1', 'min' => '0', 'max' => '60', 'required' => 'required'])}}&nbsp;'&nbsp;
 			{{Form::number('lat2', $row->lat2, ['class'=>'form-control', 'tabindex'=>'18', 'style'=>'width:75px', 'step'=>'0.01', 'min' => '0.00', 'max' => '60', 'required' => 'required'])}}&nbsp;"
 			{{$errors->first('lat2', '<span class=text-danger>:message</span>')}}
 		</div>
 	</div>
-	<div class="col-md-6">
+	<div class="col-md-4">
 		<div class="form-inline">
-			{{Form::label('Altitud',['class'=>'col-sm-2'])}}
+			{{Form::label('Altitud')}}
 			{{Form::text('altitud', $row->altitud, ['id'=>'altitud','class'=>'form-control clsNumeric', 'tabindex'=>'19', 'style'=>'width:300px', 'maxlength'=>'50', 'size'=>'30', 'pattern' => '[-+]?[0-9]*[.,]?[0-9]+' ] )}}
 			{{$errors->first('altitud', '<span class=text-danger>:message</span>')}}
 		</div>
