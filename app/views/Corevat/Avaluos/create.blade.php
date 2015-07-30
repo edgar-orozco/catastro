@@ -86,15 +86,17 @@
             </div>
 		</div>
 	</div>
-	<div class="col-md-4">
+	<div class="col-md-12">
 		<div class="form-group">
 			{{Form::label('idtipoinmueble', 'Tipo Inmueble',['class'=>'col-sm-2'])}}
+            <div class="col-sm-10">
 			{{Form::select('idtipoinmueble', $cat_tipo_inmueble, $row->idtipoinmueble, ['id' => 'idtipoinmueble', 'class'=>'form-control', 'tabindex'=>'6'])}}
+            </div>
 		</div>
 	</div>
 	<div class="col-md-8">
 		<div class="form-group">
-			{{Form::label('ubicacion', 'Ubicación',['class'=>'col-sm-2'])}}
+			{{Form::label('ubicacion', 'Ubicación')}}
 			{{Form::text('ubicacion', $row->ubicacion, ['class'=>'form-control', 'tabindex'=>'7', 'maxlength' => '300'])}}
 		</div>
 	</div>
@@ -102,38 +104,38 @@
 	<!-- RENGLON 5 -->
 	<div class="col-md-4">
 		<div class="form-group">
-			{{Form::label('conjunto', 'Conjunto',['class'=>'col-sm-2'])}}
+			{{Form::label('conjunto', 'Conjunto')}}
 			{{Form::text('conjunto', $row->conjunto, ['class'=>'form-control', 'tabindex'=>'8', 'maxlength' => '150'])}}
 		</div>
 	</div>
 	<div class="col-md-2">
 		<div class="form-group">
-			{{Form::label('colonia', 'Colonia',['class'=>'col-sm-2'])}}
+			{{Form::label('colonia', 'Colonia')}}
 			{{Form::text('colonia', $row->colonia, ['class'=>'form-control', 'tabindex'=>'9', 'maxlength' => '150'])}}
 		</div>
 	</div>
 	<div class="col-md-2">
 		<div class="form-group">
-			{{Form::label('idestado', 'Estados',['class'=>'col-sm-2'])}}
+			{{Form::label('idestado', 'Estados')}}
 			{{Form::select('idestado', $estados, $row->idestado, ['id' => 'idestado', 'class'=>'form-control', 'tabindex'=>'10'])}}
 		</div>
 	</div>
 	<div class="col-md-2">
 		<div class="form-group">
-			{{Form::label('idmunicipio', 'Municipios',['class'=>'col-sm-2'])}}
+			{{Form::label('idmunicipio', 'Municipios')}}
 			{{Form::select('idmunicipio', $municipios, $row->idmunicipio, ['id' => 'idmunicipio', 'class'=>'form-control', 'tabindex'=>'11'])}}
 		</div>
 	</div>
 	<div class="col-md-2">
 		<div class="form-group">
-			{{Form::label('cp', 'C. P.',['class'=>'col-sm-2'])}}
+			{{Form::label('cp', 'C. P.')}}
 			{{Form::select('cp', $lstCP, $row->cp, ['id' => 'cp', 'class'=>'form-control', 'tabindex'=>'12', 'required' => 'required'])}}
 		</div>
 	</div>
 	<br />
 	<div class="col-md-4">
 		<div class="form-inline">
-			{{Form::label('Longitud',['class'=>'col-sm-2'])}}
+			{{Form::label('Longitud')}}
 			{{Form::number('lon0', $row->lat0, ['class'=>'form-control', 'tabindex'=>'13', 'style'=>'width:75px', 'step'=>'1', 'min' => '0', 'max' => '360', 'required' => 'required'])}}&nbsp;&ring;&nbsp;
 			{{Form::number('lon1', $row->lon1, ['class'=>'form-control', 'tabindex'=>'14', 'style'=>'width:75px', 'step'=>'1', 'min' => '0', 'max' => '60', 'required' => 'required'])}}&nbsp;'&nbsp;
 			{{Form::number('lon2', $row->lon2, ['class'=>'form-control', 'tabindex'=>'15', 'style'=>'width:75px', 'step'=>'0.01', 'min' => '0.00', 'max' => '60.00', 'pattern' => '[0-9]{3}[.]{1}[0-9]{2}', 'required' => 'required'])}}"
@@ -142,7 +144,7 @@
 	</div>
 	<div class="col-md-4">
 		<div class="form-inline">
-			{{Form::label('Latitud',['class'=>'col-sm-2'])}}
+			{{Form::label('Latitud')}}
 			{{Form::number('lat0', $row->lat0, ['class'=>'form-control', 'tabindex'=>'16', 'style'=>'width:75px', 'step'=>'1', 'min' => '0', 'max' => '360', 'required' => 'required'])}}&nbsp;&ring;&nbsp;
 			{{Form::number('lat1', $row->lat1, ['class'=>'form-control', 'tabindex'=>'17', 'style'=>'width:75px', 'step'=>'1', 'min' => '0', 'max' => '60', 'required' => 'required'])}}&nbsp;'&nbsp;
 			{{Form::number('lat2', $row->lat2, ['class'=>'form-control', 'tabindex'=>'18', 'style'=>'width:75px', 'step'=>'0.01', 'min' => '0.00', 'max' => '60', 'required' => 'required'])}}&nbsp;"
@@ -151,7 +153,7 @@
 	</div>
 	<div class="col-md-4">
 		<div class="form-inline">
-			{{Form::label('Altitud',['class'=>'col-sm-2'])}}
+			{{Form::label('Altitud')}}
 			{{Form::text('altitud', $row->altitud, ['id'=>'altitud','class'=>'form-control clsNumeric', 'tabindex'=>'19', 'style'=>'width:300px', 'maxlength'=>'50', 'size'=>'30', 'pattern' => '[-+]?[0-9]*[.,]?[0-9]+' ] )}}
 			{{$errors->first('altitud', '<span class=text-danger>:message</span>')}}
 		</div>
@@ -159,20 +161,20 @@
 	<br />
 	<div class="col-md-6">
 		<div class="form-group">
-			{{Form::label('idregimenpropiedad', 'Regimen',['class'=>'col-sm-2'])}}
+			{{Form::label('idregimenpropiedad', 'Regimen')}}
 			{{Form::select('idregimenpropiedad', $cat_regimen_propiedad, $row->idregimenpropiedad, ['id' => 'idregimenpropiedad', 'class'=>'form-control', 'tabindex'=>'20'])}}
 		</div>
 	</div>
 	<div class="col-md-6">
 		<div class="form-group">
-			{{Form::label('cuenta_predial', 'Cuenta Predial',['class'=>'col-sm-2'])}}
+			{{Form::label('cuenta_predial', 'Cuenta Predial')}}
 			{{Form::text('cuenta_predial', $row->cuenta_predial, ['class'=>'form-control', 'tabindex'=>'21', 'maxlength'=>'11', 'size'=>'12'])}}
 			{{$errors->first('cuenta_predial', '<span class=text-danger>:message</span>')}}
 		</div>
 	</div>
 	<div class="col-md-6">
 		<div class="form-group">
-			{{Form::label('cuenta_catastral', 'Clave Catastral',['class'=>'col-sm-2'])}}
+			{{Form::label('cuenta_catastral', 'Clave Catastral')}}
 			{{Form::text('cuenta_catastral', $row->cuenta_catastral, ['class'=>'form-control', 'tabindex'=>'22', 'maxlength'=>'15', 'size'=>'16'])}}
 			{{$errors->first('cuenta_catastral', '<span class=text-danger>:message</span>')}}
 		</div>
@@ -186,13 +188,13 @@
 	</div>
 	<div class="col-md-12">
 		<div class="form-group">
-			{{Form::label('nombre_solicitante','Solicitante',['class'=>'col-sm-2'])}}
+			{{Form::label('nombre_solicitante','Solicitante')}}
 			{{Form::text('nombre_solicitante','', ['class'=>'form-control', 'tabindex'=>'24', 'maxlength'=>'100'])}}
 		</div>
 	</div>
 	<div class="col-md-12">
 		<div class="form-group">
-			{{Form::label('nombre_propietario','Propietario',['class'=>'col-sm-2'])}}
+			{{Form::label('nombre_propietario','Propietario')}}
 			{{Form::text('nombre_propietario','', ['class'=>'form-control', 'tabindex'=>'25', 'maxlength'=>'100', 'required'=>'required'])}}
 		</div>
 	</div>
