@@ -97,4 +97,33 @@ class RegistroEscritura extends Eloquent  {
             return $cadena;
         }
     }
+
+
+    /**
+     * Scope para consultar  traslados por el nombre del vendedor, puede consultar por el nombre exacto o por nombre parcial (una fraccion del nombre)
+     * @param $q
+     * @param $nombre
+     * @return mixed
+     */
+    public function scopeEnajenanteNombreCompleto($q, $nombre){
+        return $q->whereHas('enajenante', function($qry) use ($nombre)
+        {
+            $qry->whereRaw('nombrec ~* ?', [$nombre]);
+        });
+    }
+
+
+    /**
+     * Scope para consultar  traslados por el nombre del comprador, puede consultar por el nombre exacto o por nombre parcial (una fraccion del nombre)
+     * @param $q
+     * @param $nombre
+     * @return mixed
+     */
+    public function scopeAdquirienteNombreCompleto($q, $nombre){
+        return $q->whereHas('adquiriente', function($qry) use ($nombre)
+        {
+            $qry->whereRaw('nombrec ~* ?', [$nombre]);
+        });
+    }
+
 }
