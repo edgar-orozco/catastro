@@ -19,6 +19,9 @@
         border-left: 1px solid gray;
         border-radius: 0;
     }
+    div[class^='col-md-'],div[class*=' col-md-']{
+        margin-bottom: 5px;
+    }
 </style>
 <h1>Crear Nuevo Avalúo</h1>
     @if( $errors->all() )
