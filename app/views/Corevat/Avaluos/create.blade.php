@@ -32,6 +32,9 @@
         border: none !important;
         width: 100%;
     }
+    label{
+        padding: 5px 0 !important;
+    }
 </style>
 <h1>Crear Nuevo Avalúo</h1>
     @if( $errors->all() )
