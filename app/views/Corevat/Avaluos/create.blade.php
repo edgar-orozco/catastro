@@ -151,7 +151,7 @@
 		</div>
 	</div>
 	<br />
-	<div class="col-md-4">
+	<div class="col-md-12">
 		<div class="form-inline">
 			{{Form::label('Longitud')}}
 			{{Form::number('lon0', $row->lat0, ['class'=>'form-control', 'tabindex'=>'13', 'style'=>'width:75px', 'step'=>'1', 'min' => '0', 'max' => '360', 'required' => 'required'])}}&nbsp;&ring;&nbsp;
@@ -160,7 +160,7 @@
 			{{$errors->first('lon2', '<span class=text-danger>:message</span>')}}
 		</div>
 	</div>
-	<div class="col-md-4">
+	<div class="col-md-12">
 		<div class="form-inline">
 			{{Form::label('Latitud')}}
 			{{Form::number('lat0', $row->lat0, ['class'=>'form-control', 'tabindex'=>'16', 'style'=>'width:75px', 'step'=>'1', 'min' => '0', 'max' => '360', 'required' => 'required'])}}&nbsp;&ring;&nbsp;
