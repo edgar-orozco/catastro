@@ -27,8 +27,8 @@
         background: #eee;
     }
     input{
-        background: none;
-        border: none;
+        background: none !important;
+        border: none !important;
     }
 </style>
 <h1>Crear Nuevo Avalúo</h1>
