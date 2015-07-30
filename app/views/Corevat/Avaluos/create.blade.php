@@ -30,7 +30,7 @@
         box-shadow: none !important;
         background: none !important;
         border: none !important;
-        width: 100%;
+        width: 100% !important;
     }
     label{
         padding: 5px 0 !important;
