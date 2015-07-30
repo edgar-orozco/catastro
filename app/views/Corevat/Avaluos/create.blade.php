@@ -96,7 +96,7 @@
             </div>
 		</div>
 	</div>
-	<div class="col-md-6">
+	<div class="col-md-8">
 		<div class="form-group">
 			{{Form::label('ubicacion', 'Ubicación',['class'=>'col-sm-2'])}}
             <div class="col-md-10">
@@ -106,10 +106,10 @@
 	</div>
 
 
-	<div class="col-md-6">
+	<div class="col-md-4">
 		<div class="form-group">
-			{{Form::label('conjunto', 'Conjunto',['class'=>'col-sm-2'])}}
-            <div class="col-md-10">
+			{{Form::label('conjunto', 'Conjunto',['class'=>'col-sm-3'])}}
+            <div class="col-md-9">
 			{{Form::text('conjunto', $row->conjunto, ['class'=>'form-control', 'tabindex'=>'8', 'maxlength' => '150'])}}
             </div>
 		</div>
