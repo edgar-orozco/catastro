@@ -12,7 +12,7 @@
         </div>
     @endif
 <hr>
-{{ Form::open(array('id'=>'form','url' => 'corevat/Avaluos/', 'method' => 'POST',['class'=>'form-horizontal'])) }}
+{{ Form::open(array('id'=>'form','url' => 'corevat/Avaluos/', 'method' => 'POST','class'=>'form-horizontal')) }}
 <div class="row">
 	<div class="col-md-12">
 		<div class="form-group">
