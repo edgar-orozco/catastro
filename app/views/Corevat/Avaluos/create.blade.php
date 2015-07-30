@@ -11,6 +11,13 @@
     }
     .hasDatepicker{
         cursor: pointer !important;
+        cursor: not-allowed;
+        background-color: none;
+        opacity: 1;
+        border: none;
+        box-shadow: none;
+        border-left: 1px solid gray;
+        border-radius: 0;
     }
 </style>
 <h1>Crear Nuevo Avalúo</h1>
