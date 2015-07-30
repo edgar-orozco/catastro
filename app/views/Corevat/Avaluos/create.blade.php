@@ -32,6 +32,10 @@
         border: none !important;
         width: 100% !important;
     }
+    input[type="reset"],input[type="submit"]{
+        background: #F27007 !important;
+
+    }
     label{
         padding: 5px 0 !important;
     }
@@ -240,9 +244,9 @@
 		</div>
 	</div>
 	<div class="col-md-12 form-actions form-group">
-		{{Form::submit('Guardar', ['class'=>'btn btn-primary'])}}
-		{{Form::reset('Limpiar formulario', ['class' => 'btn btn-primary']) }}
-		<a href="{{URL::route('corevat.Avaluos.index')}}" class="btn btn-primary" role="button"><i class="glyphicon glyphicon-arrow-left"></i> Regresar</a>
+		{{Form::submit('Guardar', ['class'=>'btn btn-primary col-md-4'])}}
+		{{Form::reset('Limpiar formulario', ['class' => 'btn btn-primary col-md-4']) }}
+		<a href="{{URL::route('corevat.Avaluos.index')}}" class="btn btn-primary col-md-4" role="button"><i class="glyphicon glyphicon-arrow-left"></i> Regresar</a>
 	</div>
 </div>
 {{Form::close()}}
