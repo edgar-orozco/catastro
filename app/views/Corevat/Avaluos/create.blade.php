@@ -194,7 +194,6 @@
             <div class="col-md-10">
                 {{Form::select('idregimenpropiedad', $cat_regimen_propiedad, $row->idregimenpropiedad, ['id' => 'idregimenpropiedad', 'class'=>'form-control', 'tabindex'=>'20'])}}
             </div>
-        </div>
 		</div>
 	</div>
 	<div class="col-md-6">
