@@ -191,30 +191,37 @@
 	<div class="col-md-6">
 		<div class="form-group">
 			{{Form::label('idregimenpropiedad', 'Regimen',['class'=>'col-sm-2'])}}
-            <div class="col-md-10"></div>
-			{{Form::select('idregimenpropiedad', $cat_regimen_propiedad, $row->idregimenpropiedad, ['id' => 'idregimenpropiedad', 'class'=>'form-control', 'tabindex'=>'20'])}}
+            <div class="col-md-10">
+                {{Form::select('idregimenpropiedad', $cat_regimen_propiedad, $row->idregimenpropiedad, ['id' => 'idregimenpropiedad', 'class'=>'form-control', 'tabindex'=>'20'])}}
+            </div>
         </div>
 		</div>
 	</div>
 	<div class="col-md-6">
 		<div class="form-group">
 			{{Form::label('cuenta_predial', 'Cuenta Predial',['class'=>'col-sm-2'])}}
-			{{Form::text('cuenta_predial', $row->cuenta_predial, ['class'=>'form-control', 'tabindex'=>'21', 'maxlength'=>'11', 'size'=>'12'])}}
-			{{$errors->first('cuenta_predial', '<span class=text-danger>:message</span>')}}
+            <div class="col-md-10">
+                {{Form::text('cuenta_predial', $row->cuenta_predial, ['class'=>'form-control', 'tabindex'=>'21', 'maxlength'=>'11', 'size'=>'12'])}}
+                {{$errors->first('cuenta_predial', '<span class=text-danger>:message</span>')}}
+            </div>
 		</div>
 	</div>
 	<div class="col-md-6">
 		<div class="form-group">
 			{{Form::label('cuenta_catastral', 'Clave Catastral',['class'=>'col-sm-2'])}}
-			{{Form::text('cuenta_catastral', $row->cuenta_catastral, ['class'=>'form-control', 'tabindex'=>'22', 'maxlength'=>'15', 'size'=>'16'])}}
-			{{$errors->first('cuenta_catastral', '<span class=text-danger>:message</span>')}}
-		</div>
+            <div class="col-md-10">
+                {{Form::text('cuenta_catastral', $row->cuenta_catastral, ['class'=>'form-control', 'tabindex'=>'22', 'maxlength'=>'15', 'size'=>'16'])}}
+                {{$errors->first('cuenta_catastral', '<span class=text-danger>:message</span>')}}
+            </div>
+        </div>
 	</div>
 	<div class="col-md-6">
 		<div class="form-group">
 			{{Form::label('foliocoretemp', 'Folio COREVAT',['class'=>'col-sm-2'])}}
-			{{Form::text('foliocoretemp', $row->foliocoretemp, ['class'=>'form-control', 'tabindex'=>'23', 'required' => 'required', 'maxlength'=>'20', 'size'=>'21'])}}
-			{{$errors->first('foliocoretemp', '<span class=text-danger>:message</span>')}}
+            <div class="col-md-10">
+                {{Form::text('foliocoretemp', $row->foliocoretemp, ['class'=>'form-control', 'tabindex'=>'23', 'required' => 'required', 'maxlength'=>'20', 'size'=>'21'])}}
+                {{$errors->first('foliocoretemp', '<span class=text-danger>:message</span>')}}
+            </div>
 		</div>
 	</div>
 	<div class="col-md-12">
