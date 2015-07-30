@@ -26,7 +26,10 @@
         border-left: 1px solid gray;
         background: #eee;
     }
-
+    input{
+        background: none;
+        border: none;
+    }
 </style>
 <h1>Crear Nuevo Avalúo</h1>
     @if( $errors->all() )
