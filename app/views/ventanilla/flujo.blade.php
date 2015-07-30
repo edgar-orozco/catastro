@@ -104,9 +104,6 @@
                         <a href="#panel-docs" data-toggle="tab">Documentos Digitalizados</a>
                     </li>
                     <li>
-                        <a href="#panel-cartografia" data-toggle="tab">Cartografía</a>
-                    </li>
-                    <li>
                         <a href="#panel-historial" data-toggle="tab">Historial del trámite</a>
                     </li>
                 </ul>
@@ -181,17 +178,14 @@
                         @if($tramite->tipo_solicitante == 'FISICA')
                             <h4><small>Apellido Paterno:</small> {{$tramite->solicitante->apellido_paterno}} </h4>
                             <h4><small>Apellido Materno:</small> {{$tramite->solicitante->apellido_materno}} </h4>
+                            <h4><small>CURP:</small> {{$tramite->solicitante->curp}} </h4>
                         @endif
-                        @if($tramite->notaria)
+                        <h4><small>RFC:</small> {{$tramite->solicitante->rfc}} </h4>
+                    @if($tramite->notaria)
                             <h4><small>Notaría:</small> {{$tramite->notaria->nombre}} @if($tramite->notaria->mpio) de {{$tramite->notaria->mpio->nombre_municipio}} @endif</h4>
                         @endif
                     </div>
 
-                    <div class="tab-pane" id="panel-cartografia">
-                        </br>
-                        <h4>Cartografía</h4>
-
-                    </div>
                     <div class="tab-pane" id="panel-historial">
                         </br>
                         @include('ventanilla._timeline',compact('tramite'))
