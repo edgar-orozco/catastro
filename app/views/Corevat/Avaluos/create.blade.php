@@ -214,7 +214,7 @@
             </div>
         </div>
 	</div>
-	<div class="col-md-6">
+	<div class="col-md-12">
 		<div class="form-group">
 			{{Form::label('foliocoretemp', 'Folio COREVAT',['class'=>'col-sm-2'])}}
             <div class="col-md-10">
@@ -226,13 +226,17 @@
 	<div class="col-md-12">
 		<div class="form-group">
 			{{Form::label('nombre_solicitante','Solicitante',['class'=>'col-sm-2'])}}
+            <div class="col-md-10">
 			{{Form::text('nombre_solicitante','', ['class'=>'form-control', 'tabindex'=>'24', 'maxlength'=>'100'])}}
+            </div>
 		</div>
 	</div>
 	<div class="col-md-12">
 		<div class="form-group">
 			{{Form::label('nombre_propietario','Propietario',['class'=>'col-sm-2'])}}
+            <div class="col-md-10">
 			{{Form::text('nombre_propietario','', ['class'=>'form-control', 'tabindex'=>'25', 'maxlength'=>'100', 'required'=>'required'])}}
+            </div>
 		</div>
 	</div>
 	<div class="col-md-12 form-actions form-group">
