@@ -3,6 +3,13 @@
 {{ HTML::style('/css/bootstrap.min.css') }}
 {{ HTML::style('/css/dataTables.bootstrap.css') }}
 {{ HTML::style('/js/jquery/jquery-ui.css') }}
+<style>
+    label{
+        color: slategray;
+        font-size: 16px;
+        font-weight: lighter;
+    }
+</style>
 <h1>Crear Nuevo Avalúo</h1>
     @if( $errors->all() )
         <div class="alert alert-danger">
