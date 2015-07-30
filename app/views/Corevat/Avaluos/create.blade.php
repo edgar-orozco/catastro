@@ -5,12 +5,12 @@
 {{ HTML::style('/js/jquery/jquery-ui.css') }}
 <style>
     label{
-        color: slategray;
+        color: #515152;
         font-size: 18px;
         font-weight: 300;
     }
     .hasDatepicker{
-        cursor: pointer;
+        cursor: pointer !important;
     }
 </style>
 <h1>Crear Nuevo Avalúo</h1>
@@ -33,17 +33,21 @@
             </div>
 		</div>
 	</div>
-	<div class="col-md-4">
+	<div class="col-md-12">
 		<div class="form-group">
-			{{Form::label('fecha_avaluo', 'Fecha del Avalúo')}}
-			{{Form::text('fecha_avaluo', $row->fecha_avaluo, ['class'=>'form-control', 'tabindex'=>'2', 'required' => 'required', 'maxlength' => '10', 'size' => '11', 'style' => 'width:110px', 'readonly'=>'readonly'])}}
+			{{Form::label('fecha_avaluo', 'Fecha del Avalúo',['class'=>'col-sm-2'])}}
+            <div class="col-sm-10">
+            {{Form::text('fecha_avaluo', $row->fecha_avaluo, ['class'=>'form-control', 'tabindex'=>'2', 'required' => 'required', 'maxlength' => '10', 'size' => '11', 'style' => 'width:110px', 'readonly'=>'readonly'])}}
 			{{$errors->first('fecha_avaluo', '<span class=text-danger>:message</span>')}}
+            </div>
 		</div>
 	</div>
-	<div class="col-md-4">
+	<div class="col-md-12">
 		<div class="form-group">
-			{{Form::label('serie', 'Serie')}}
-			{{Form::select('serie', array('U'=>'Urbano', 'R'=>'Rural'), null, ['id' => 'serie', 'class'=>'form-control', 'tabindex'=>'3', 'style' => 'width:110px'])}}
+			{{Form::label('serie', 'Serie',['class'=>'col-sm-2'])}}
+            <div class="col-sm-10">
+            {{Form::select('serie', array('U'=>'Urbano', 'R'=>'Rural'), null, ['id' => 'serie', 'class'=>'form-control', 'tabindex'=>'3', 'style' => 'width:110px'])}}
+            </div>
 		</div>
 	</div>
 	<div class="col-md-12">
