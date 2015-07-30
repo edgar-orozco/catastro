@@ -35,6 +35,10 @@
     label{
         padding: 5px 0 !important;
     }
+    .cords input{
+        border-bottom: 1px solid #000000 !important;
+        width: 24% !important;
+    }
 </style>
 <h1>Crear Nuevo Avalúo</h1>
     @if( $errors->all() )
@@ -154,7 +158,7 @@
 	<div class="col-md-12">
 		<div class="form-inline">
 			{{Form::label('','Longitud',['class'=>'col-sm-2'])}}
-            <div class="col-md-10">
+            <div class="col-md-10 cords">
                 {{Form::number('lon0', $row->lat0, ['class'=>'form-control', 'tabindex'=>'13', 'style'=>'width:75px', 'step'=>'1', 'min' => '0', 'max' => '360', 'required' => 'required'])}}&nbsp;&ring;&nbsp;
                 {{Form::number('lon1', $row->lon1, ['class'=>'form-control', 'tabindex'=>'14', 'style'=>'width:75px', 'step'=>'1', 'min' => '0', 'max' => '60', 'required' => 'required'])}}&nbsp;'&nbsp;
                 {{Form::number('lon2', $row->lon2, ['class'=>'form-control', 'tabindex'=>'15', 'style'=>'width:75px', 'step'=>'0.01', 'min' => '0.00', 'max' => '60.00', 'pattern' => '[0-9]{3}[.]{1}[0-9]{2}', 'required' => 'required'])}}"
@@ -165,7 +169,7 @@
 	<div class="col-md-12">
 		<div class="form-inline">
 			{{Form::label('','Latitud',['class'=>'col-sm-2'])}}
-            <div class="col-md-10">
+            <div class="col-md-10 cords">
                 {{Form::number('lat0', $row->lat0, ['class'=>'form-control', 'tabindex'=>'16', 'style'=>'width:75px', 'step'=>'1', 'min' => '0', 'max' => '360', 'required' => 'required'])}}&nbsp;&ring;&nbsp;
                 {{Form::number('lat1', $row->lat1, ['class'=>'form-control', 'tabindex'=>'17', 'style'=>'width:75px', 'step'=>'1', 'min' => '0', 'max' => '60', 'required' => 'required'])}}&nbsp;'&nbsp;
                 {{Form::number('lat2', $row->lat2, ['class'=>'form-control', 'tabindex'=>'18', 'style'=>'width:75px', 'step'=>'0.01', 'min' => '0.00', 'max' => '60', 'required' => 'required'])}}&nbsp;"
