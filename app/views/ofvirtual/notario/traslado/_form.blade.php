@@ -218,7 +218,7 @@
         <select select-two="select2" placeholder="Notarias" class="select2-select" selection="notarias"
                 ng-model="notarias" id="notario_antecedente_id" name="traslado[notario_antecedente_id]">
             @foreach(Notaria::all() as $notaria)
-                <option value="{{ $notaria->id_notaria }}"> {{ $notaria->nombre }}
+                <option value="{{ $notaria->id_notario }}"> {{ $notaria->nombre }}
                     ( {{ $notaria->mpio['nombre_municipio'] }}, {{ $notaria->estado['nom_ent'] }})
                     ({{ $notaria->notario->nombres }} {{ $notaria->notario->apellido_paterno }} {{ $notaria->notario->apellido_materno }}
                     )

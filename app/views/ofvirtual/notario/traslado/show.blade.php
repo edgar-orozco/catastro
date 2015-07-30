@@ -105,6 +105,7 @@
 
                     Pasada ante la fe del notario: {{$traslado->notarioEscritura}}
 
+
                     <br>
                     Notaría pública: {{$traslado->notariaEscritura}}
 
@@ -133,7 +134,7 @@
             </div>
             <div class="panel-body">
 
-                Pasada ante la fe del notario: {{$traslado->notario_antecedente_id}}
+                Pasada ante la fe del notario: {{$traslado->notarioAntecedente}}
                 <br>
 
                 <div class=" col-md-4">
@@ -176,7 +177,7 @@
                 </div>
                 <div style="clear:both"></div>
                 <div class=" col-md-4">
-                    Valor comercial de inmueble: {{$traslado->valor_comercial_antecedentre }}
+                    Valor comercial de inmueble: {{$traslado->valor_comercial_antecedente }}
                 </div>
                 <div class=" col-md-4">
                     Valuador con registro estatal: {{$traslado->valuador_num_ant}}
@@ -195,25 +196,48 @@
                     <h3 class="panel-title">Liquidación vivienda</h3>
                 </div>
                 <div class="panel-body">
-                    Tipo Vivienda: {{$traslado->tipo_vivienda}}
-                    <br>
-                    Precio base: {{$traslado->precio_base}}
-                    <br>
-                    Deducción: {{$traslado->deduccion}}
-                    <br>
-                    Base gravable por la que pagaron: {{$traslado->base_gravable}}
-                    <br>
-                    Diferencia omitida: {{$traslado->diferencia_omitida}}
-                    <br>
-                    Porcentaje aplicarse: {{$traslado->porcentaje_aplicarse}}
-<br>
-                    Impuesto enterar: {{$traslado->impuesto_enterar}}
-<br>
-                    Actualización: {{$traslado->actualizacion}}
-                    <br>
-                    Recargos: {{$traslado->recargos}}
-                    <br>
-                    Importe total: {{$traslado->importe_total}}
+                    <table width="100%">
+                        <tr>
+                            <td>Tipo Vivienda:</td>
+                            <td align="right">{{$traslado->tipo_vivienda}}</td>
+                        </tr>
+                        <tr>
+                            <td>Precio base:</td>
+                            <td align="right">$ {{$traslado->precio_base}}</td>
+                        </tr>
+                        <tr>
+                            <td>Deducción:</td>
+                            <td align="right"> $ {{$traslado->deduccion}}</td>
+                        </tr>
+                        <tr>
+                            <td> Base gravable por la que pagaron:</td>
+                            <td align="right">$ {{$traslado->base_gravable}}</td>
+                        </tr>
+                        <tr>
+                            <td> Diferencia omitida:</td>
+                            <td align="right">$ {{$traslado->diferencia_omitida}}</td>
+                        </tr>
+                        <tr>
+                            <td>Porcentaje aplicarse:</td>
+                            <td align="right">$ {{$traslado->porcentaje_aplicarse}}</td>
+                        </tr>
+                        <tr>
+                            <td>Impuesto enterar:</td>
+                            <td align="right">$ {{$traslado->impuesto_enterar}}</td>
+                        </tr>
+                        <tr>
+                            <td>Actualización:</td>
+                            <td align="right">$ {{$traslado->actualizacion}}</td>
+                        </tr>
+                        <tr>
+                            <td>Recargos:</td>
+                            <td align="right">$ {{$traslado->recargos}}</td>
+                        </tr>
+                        <tr>
+                            <td>Importe total:</td>
+                            <td align="right">$ {{$traslado->importe_total}}</td>
+                        </tr>
+                    </table>
                 </div>
             </div>
         </div>
@@ -224,15 +248,30 @@
                     <h3 class="panel-title">Valores para base de pago</h3>
                 </div>
                 <div class="panel-body">
-                    Valor catastral: {{ $traslado->valor_catastral}}
-                    <br>
-                    Valor de operación: {{ $traslado->valor_operacion}}
-                    <br>
-                    Valor comercial del inmueble: {{ $traslado->valor_comercial }}
-                    <br>
-                    Valuador num: {{ $traslado->valuador_num}}
-                    <br>
-                    N° de folio de avaluo: {{ $traslado->folio_avaluo}}
+                    <table width="100%">
+                        <tr>
+                            <td>
+                                Valor catastral:
+                            </td>
+                            <td align="right">$ {{$traslado->valor_catastral}}</td>
+                        </tr>
+                        <tr>
+                            <td>Valor de operación:</td>
+                            <td align="right">$ {{ $traslado->valor_operacion}}</td>
+                        </tr>
+                        <tr>
+                            <td> Valor comercial del inmueble:</td>
+                            <td align="right">$ {{ $traslado->valor_comercial }}</td>
+                        </tr>
+                        <tr>
+                            <td>Valuador num:</td>
+                            <td align="right">{{ $traslado->valuador_num}}</td>
+                        </tr>
+                        <tr>
+                            <td> N° de folio de avaluo:</td>
+                            <td align="right"> {{ $traslado->folio_avaluo}}</td>
+                        </tr>
+                        </table>
                 </div>
             </div>
         </div>

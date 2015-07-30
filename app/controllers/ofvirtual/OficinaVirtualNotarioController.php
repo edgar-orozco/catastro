@@ -176,10 +176,19 @@ class OficinaVirtualNotarioController extends \BaseController
         $traslado->traslado = $traslado;
 
         $notario = Notaria::where('id_notario', $traslado->notario_escritura_id)->first();
-        $traslado->notarioEscritura = $notario->notario->nombres.' ' .$notario->notario->apellido_paterno. ' '.$notario->notario->apellido_materno;
+        $traslado->notarioEscritura =$notario->nombre .' ' .
+            $notario->mpio['nombre_municipio'].' '. $notario->estado['nom_ent'] .' '.
+            $notario->notario->nombres.' ' .$notario->notario->apellido_paterno. ' '.$notario->notario->apellido_materno;
+
 
         $notaria = Notaria::find($traslado->notaria_escritura_id);
         $traslado->notariaEscritura = $notaria->nombre.$notaria->mpio->nombre_municipio.$notaria->estado->nom_ent;
+
+
+        $notarioAntecedente = Notaria::where('id_notario', $traslado->notario_antecedente_id)->first();
+        $traslado->notarioAntecedente =  $notarioAntecedente->nombre .' ' .
+                    $notarioAntecedente->mpio['nombre_municipio'].' '. $notarioAntecedente->estado['nom_ent'] .' '.
+                     $notarioAntecedente->notario->nombres.' ' .$notarioAntecedente->notario->apellido_paterno. ' '.$notarioAntecedente->notario->apellido_materno;
 
         // Title
         $title = 'Editar traslado de dominio';
@@ -207,10 +216,20 @@ class OficinaVirtualNotarioController extends \BaseController
         $traslado->traslado = $traslado;
 
         $notario = Notaria::where('id_notario', $traslado->notario_escritura_id)->first();
-        $traslado->notarioEscritura = $notario->notario->nombres.' ' .$notario->notario->apellido_paterno. ' '.$notario->notario->apellido_materno;
+        $traslado->notarioEscritura =$notario->nombre .' ' .
+            $notario->mpio['nombre_municipio'].' '. $notario->estado['nom_ent'] .' '.
+            $notario->notario->nombres.' ' .$notario->notario->apellido_paterno. ' '.$notario->notario->apellido_materno;
+
 
         $notaria = Notaria::find($traslado->notaria_escritura_id);
         $traslado->notariaEscritura = $notaria->nombre.$notaria->mpio->nombre_municipio.$notaria->estado->nom_ent;
+
+
+        $notarioAntecedente = Notaria::where('id_notario', $traslado->notario_antecedente_id)->first();
+        $traslado->notarioAntecedente =  $notarioAntecedente->nombre .' ' .
+            $notarioAntecedente->mpio['nombre_municipio'].' '. $notarioAntecedente->estado['nom_ent'] .' '.
+            $notarioAntecedente->notario->nombres.' ' .$notarioAntecedente->notario->apellido_paterno. ' '.$notarioAntecedente->notario->apellido_materno;
+
 
         // Title
         $title = 'Imprimir traslado de dominio';

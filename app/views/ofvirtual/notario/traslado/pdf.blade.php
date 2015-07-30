@@ -177,7 +177,7 @@
         </tr>
         <tr>
             <td colspan="3">
-                Pasada ante la fe del notario: {{$traslado->notario_antecedente_id}}
+                Pasada ante la fe del notario: {{$traslado->notarioAntecedente}}
             </td>
         <tr>
             <td>
@@ -219,7 +219,7 @@
         </tr>
         <tr>
             <td>
-                Valor comercial de inmueble: {{$traslado->valor_comercial_antecedentre }}
+                Valor comercial de inmueble: {{$traslado->valor_comercial_antecedente }}
             </td>
             <td>
                 Valuador con registro estatal: {{$traslado->valuador_num_ant}}
@@ -245,7 +245,7 @@
                         <td>
                             Tipo Vivienda:
                         </td>
-                        <td>$ {{$traslado->tipo_vivienda}}
+                        <td>{{$traslado->tipo_vivienda}}
                         </td>
                     </tr>
                     <tr>
