@@ -153,15 +153,15 @@
         </tr>
         <tr>
             <td colspan="3">
-                Ubicacion: {{$predio->ubicacionFiscal->ubicacion}}
+                Ubicacion: {{$traslado->ubicacion}}
             </td>
         </tr>
         <tr>
             <td>
-                Superficie terreno: {{$predio->superficie_terreno}} m2
+                Superficie terreno: {{$traslado->superficie_terreno}} m2
             </td>
             <td>
-                Superficie construcción: {{$predio->superficie_construccion}} m2
+                Superficie construcción: {{$traslado->superficie_construccion}} m2
 
             <td></td>
         </tr>

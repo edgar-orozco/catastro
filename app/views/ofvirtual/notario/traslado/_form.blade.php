@@ -189,17 +189,22 @@
         <br>
 
         <div style="clear:both"></div>
-        <div class="well well-sm">
-            {{Form::label('','Ubicacion:')}}
-            {{$predio->ubicacionFiscal->ubicacion}}
-            <br>
+            <div class="form-group col-md-4">
+                {{Form::label('traslado[ubicacion]','Ubicacion')}}
+                {{Form::input('text', 'traslado[ubicacion]', $predio->ubicacionFiscal->ubicacion, ['class'=>'form-control'] )}}
+                {{$errors->first('traslado[ubicacion]', '<span class=text-danger>:message</span>')}}
+            </div>
 
-            {{Form::label('','Superficie terreno:')}}
-            {{number_format($predio->superficie_terreno,2, '.', ',')}} m<sup>2</sup>
-            <br>
+            <div class="form-group col-md-4">
+                {{Form::label('traslado[superficie_terreno]','Superficie terreno (m2)')}}
+                {{Form::number('traslado[superficie_terreno]', $predio->superficie_terreno, ['class'=>'form-control', 'min'=>0, 'step'=>'any'] )}}
+                {{$errors->first('traslado[superficie_terreno]', '<span class=text-danger>:message</span>')}}
+            </div>
+        <div class="form-group col-md-4">
+            {{Form::label('traslado[superficie_construccion]','Superficie construcción (m2)')}}
+            {{Form::number('traslado[superficie_construccion]', $predio->superficie_construccion, ['class'=>'form-control', 'min'=>0, 'step'=>'any'] )}}
+            {{$errors->first('traslado[superficie_construccion]', '<span class=text-danger>:message</span>')}}
 
-            {{Form::label('','Superficie construcción:')}}
-            {{number_format($predio->superficie_construccion,2, '.', ',')}} m<sup>2</sup>
         </div>
     </div>
 </div>
