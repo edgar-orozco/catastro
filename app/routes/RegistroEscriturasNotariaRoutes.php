@@ -29,6 +29,10 @@ Route::get('ofvirtual/notario/registro/destroy/{id}', 'ofvirtual_RegistroEscritu
 //imprimir
 Route::get('ofvirtual/notario/registro/imprimir/{id}', 'ofvirtual_RegistroEscrituraController@imprimir');
 
+//edit
+Route::get('ofvirtual/notario/registro/edit/{id}', 'ofvirtual_RegistroEscrituraController@edit');
+
+
 /*function()
           {
             $title = "Registro de escrituras";
