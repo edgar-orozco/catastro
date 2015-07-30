@@ -6,8 +6,11 @@
 <style>
     label{
         color: slategray;
-        font-size: 16px;
-        font-weight: lighter;
+        font-size: 18px;
+        font-weight: 300;
+    }
+    .hasDatepicker{
+        cursor: pointer;
     }
 </style>
 <h1>Crear Nuevo Avalúo</h1>
