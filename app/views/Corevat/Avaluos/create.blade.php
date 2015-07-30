@@ -118,28 +118,36 @@
 		</div>
 	</div>
     <!-- RENGLON 5 -->
-	<div class="col-md-2">
+	<div class="col-md-6">
 		<div class="form-group">
-			{{Form::label('colonia', 'Colonia')}}
-			{{Form::text('colonia', $row->colonia, ['class'=>'form-control', 'tabindex'=>'9', 'maxlength' => '150'])}}
+			{{Form::label('colonia', 'Colonia',['class'=>'col-sm-2'])}}
+            <div class="col-md-10">
+			    {{Form::text('colonia', $row->colonia, ['class'=>'form-control', 'tabindex'=>'9', 'maxlength' => '150'])}}
+            </div>
 		</div>
 	</div>
-	<div class="col-md-2">
+	<div class="col-md-6">
 		<div class="form-group">
-			{{Form::label('idestado', 'Estados')}}
-			{{Form::select('idestado', $estados, $row->idestado, ['id' => 'idestado', 'class'=>'form-control', 'tabindex'=>'10'])}}
+			{{Form::label('idestado', 'Estados',['class'=>'col-sm-2'])}}
+            <div class="col-md-10">
+			    {{Form::select('idestado', $estados, $row->idestado, ['id' => 'idestado', 'class'=>'form-control', 'tabindex'=>'10'])}}
+            </div>
 		</div>
 	</div>
-	<div class="col-md-2">
+	<div class="col-md-6">
 		<div class="form-group">
-			{{Form::label('idmunicipio', 'Municipios')}}
-			{{Form::select('idmunicipio', $municipios, $row->idmunicipio, ['id' => 'idmunicipio', 'class'=>'form-control', 'tabindex'=>'11'])}}
+			{{Form::label('idmunicipio', 'Municipios',['class'=>'col-sm-2'])}}
+            <div class="col-md-10">
+			    {{Form::select('idmunicipio', $municipios, $row->idmunicipio, ['id' => 'idmunicipio', 'class'=>'form-control', 'tabindex'=>'11'])}}
+            </div>
 		</div>
 	</div>
-	<div class="col-md-2">
+	<div class="col-md-6">
 		<div class="form-group">
-			{{Form::label('cp', 'C. P.')}}
-			{{Form::select('cp', $lstCP, $row->cp, ['id' => 'cp', 'class'=>'form-control', 'tabindex'=>'12', 'required' => 'required'])}}
+			{{Form::label('cp', 'C. P.',['class'=>'col-sm-2'])}}
+            <div class="col-md-10">
+                {{Form::select('cp', $lstCP, $row->cp, ['id' => 'cp', 'class'=>'form-control', 'tabindex'=>'12', 'required' => 'required'])}}
+            </div>
 		</div>
 	</div>
 	<br />
