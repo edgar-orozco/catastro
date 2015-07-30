@@ -243,9 +243,13 @@
             </div>
 		</div>
 	</div>
-	<div class="col-md-12 form-actions form-group">
-		{{Form::submit('Guardar', ['class'=>'btn btn-primary col-md-4'])}}
-		{{Form::reset('Limpiar formulario', ['class' => 'btn btn-primary col-md-4']) }}
+	<div class="col-md-4 form-actions form-group">
+        {{Form::submit('Guardar', ['class'=>'btn btn-primary col-md-4'])}}
+    </div>
+    <div class="col-md-4 form-actions form-group">
+        {{Form::reset('Limpiar formulario', ['class' => 'btn btn-primary col-md-4']) }}
+    </div>
+    <div class="col-md-4 form-actions form-group">
 		<a href="{{URL::route('corevat.Avaluos.index')}}" class="btn btn-primary col-md-4" role="button"><i class="glyphicon glyphicon-arrow-left"></i> Regresar</a>
 	</div>
 </div>
