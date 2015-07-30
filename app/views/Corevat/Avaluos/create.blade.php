@@ -36,6 +36,7 @@
         padding: 5px 0 !important;
     }
     .cords input{
+        border-radius: 0;
         border-bottom: 1px solid #000000 !important;
         width: 24% !important;
     }
@@ -166,7 +167,7 @@
             </div>
 		</div>
 	</div>
-	<div class="col-md-12">
+	<div class="col-md-6">
 		<div class="form-inline">
 			{{Form::label('','Latitud',['class'=>'col-sm-2'])}}
             <div class="col-md-10 cords">
@@ -177,7 +178,7 @@
             </div>
 		</div>
 	</div>
-	<div class="col-md-4">
+	<div class="col-md-6">
 		<div class="form-inline">
 			{{Form::label('Altitud')}}
 			{{Form::text('altitud', $row->altitud, ['id'=>'altitud','class'=>'form-control clsNumeric', 'tabindex'=>'19', 'style'=>'width:300px', 'maxlength'=>'50', 'size'=>'30', 'pattern' => '[-+]?[0-9]*[.,]?[0-9]+' ] )}}
