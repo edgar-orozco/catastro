@@ -26,7 +26,7 @@
         border-left: 1px solid gray;
         background: #eee;
     }
-    input{
+    input, select{
         background: none !important;
         border: none !important;
     }
@@ -63,7 +63,7 @@
 	<div class="col-md-12">
 		<div class="form-group">
 			{{Form::label('serie', 'Serie',['class'=>'col-sm-2'])}}
-            <div class="col-sm-10">
+            <div class="col-md-10">
             {{Form::select('serie', array('U'=>'Urbano', 'R'=>'Rural'), null, ['id' => 'serie', 'class'=>'form-control', 'tabindex'=>'3', 'style' => 'width:110px'])}}
             </div>
 		</div>
@@ -89,25 +89,30 @@
 	<div class="col-md-12">
 		<div class="form-group">
 			{{Form::label('idtipoinmueble', 'Tipo Inmueble',['class'=>'col-sm-2'])}}
-            <div class="col-sm-10">
+            <div class="col-md-10">
 			{{Form::select('idtipoinmueble', $cat_tipo_inmueble, $row->idtipoinmueble, ['id' => 'idtipoinmueble', 'class'=>'form-control', 'tabindex'=>'6'])}}
             </div>
 		</div>
 	</div>
-	<div class="col-md-8">
+	<div class="col-md-6">
 		<div class="form-group">
-			{{Form::label('ubicacion', 'Ubicación')}}
+			{{Form::label('ubicacion', 'Ubicación',['class'=>'col-sm-2'])}}
+            <div class="col-md-10">
 			{{Form::text('ubicacion', $row->ubicacion, ['class'=>'form-control', 'tabindex'=>'7', 'maxlength' => '300'])}}
+            </div>
 		</div>
 	</div>
 
-	<!-- RENGLON 5 -->
-	<div class="col-md-4">
+
+	<div class="col-md-6">
 		<div class="form-group">
-			{{Form::label('conjunto', 'Conjunto')}}
+			{{Form::label('conjunto', 'Conjunto',['class'=>'col-sm-2'])}}
+            <div class="col-md-10">
 			{{Form::text('conjunto', $row->conjunto, ['class'=>'form-control', 'tabindex'=>'8', 'maxlength' => '150'])}}
+            </div>
 		</div>
 	</div>
+    <!-- RENGLON 5 -->
 	<div class="col-md-2">
 		<div class="form-group">
 			{{Form::label('colonia', 'Colonia')}}
