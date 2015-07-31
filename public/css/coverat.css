@@ -59,6 +59,7 @@ h3{
 #menuAvaluosSections a{
     border-bottom-left-radius: 0;
     border-bottom-right-radius: 0;
+    vertical-align: bottom;
 }
 #menuAvaluosSections a.btn-info{
     background-color: gray;
