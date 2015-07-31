@@ -8,7 +8,7 @@
         background-color: darkgray;
         font-size: 36px;
         padding: 20px;
-        margin: 0 0 5px 0;
+        margin: 0 0 20px 0;
     }
 
     .coveratCont label{
