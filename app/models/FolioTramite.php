@@ -5,7 +5,7 @@ use LaravelBook\Ardent\Ardent;
 class FolioTramite extends Ardent
 {
 
-    protected $fillable = ['municipio_id', 'folio'];
+    protected $fillable = ['municipio', 'folio', 'anio'];
 
     /**
      * Devuelve el folio siguiente de la llave dada (puede ser una oficina o un municipio o cualquier cosa foliable
@@ -15,13 +15,18 @@ class FolioTramite extends Ardent
      */
     public static function actual($llave)
     {
+        $anio = date("Y");
 
-        $res = FolioTramite::where('municipio_id', $llave)->first();
+        $res = FolioTramite::whereMunicipio($llave)->whereAnio($anio)->first();
 
         // Si no existe registro de folio para esa llave entonces la creamos.
         if ($res == null) {
 
-            $res = FolioTramite::create(['municipio_id' => $llave, 'folio' => 1]);
+            $res = FolioTramite::create([
+              'municipio' => $llave,
+              'folio' => 1,
+              'anio' => $anio,
+            ]);
         }
 
         if (is_a($res, 'FolioTramite')) {
@@ -38,18 +43,25 @@ class FolioTramite extends Ardent
      */
     public static function incrementar($llave)
     {
-        $folio = FolioTramite::where('municipio_id', $llave)->first();
+        $anio = date("Y");
+
+        $folio = FolioTramite::whereMunicipio($llave)->whereAnio($anio)->first();
 
         // Si no existe registro de folio para esa llave entonces la creamos.
         if ($folio == null) {
 
-            $folio = FolioTramite::create(['municipio_id' => $llave, 'folio' => 1]);
+            $folio = FolioTramite::create([
+                'municipio' => $llave,
+                'anio' => $anio,
+                'folio' => 1
+            ]);
         }
 
         if (is_a($folio, 'FolioTramite')) {
             $folio->folio = $folio->folio + 1;
             $folio->save();
         }
+
         return true;
     }
 }

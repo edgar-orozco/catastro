@@ -12,7 +12,7 @@
     <div class="row clearfix">
         @if($folio)
             <div class="col-md-2 col-md-offset-7">
-                <h4>Folio: {{$folio}}</h4>
+                <h4>Folio: {{$anio}}/{{$municipio}}/{{sprintf("%06d",$folio)}}</h4>
             </div>
 
             <div class="col-md-3">

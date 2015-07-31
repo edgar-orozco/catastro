@@ -28,8 +28,8 @@
                     <td >
                         {{$tramite->tipotramite->nombre}}
                     </td>
-                    <td>
-                        {{ sprintf("%06d",$tramite->folio)}}
+                    <td nowrap>
+                        {{$tramite->anio}}/{{$tramite->municipio}}/{{sprintf("%06d",$tramite->folio)}}
                     </td>
                     <td>
                         {{$tramite->solicitante->nombrec}}

@@ -1,4 +1,7 @@
 <?php
+define('_PERSONA_FISICA_', 1);
+define('_PERSONA_MORAL_', 2);
+
 use \Catastro\Repos\Padron\PadronRepositoryInterface;
 use Carbon\Carbon;
 use Illuminate\Http\JsonResponse;
@@ -44,7 +47,6 @@ class TramitesController extends BaseController {
 
         $title_section = $tipotramite->nombre;
 
-        //TODO: catálogo de folios por municipio.
         $folio = "";
 
         //TODO: cálculo de tiempo consumido de trámite
@@ -112,18 +114,18 @@ class TramitesController extends BaseController {
 
         //Por el momento en lo que se implementa la dependencia foliable, se asocia al municipio
 
-        $municipio = substr($cuenta, 0, 2);
-        $oMunicipio = Municipio::where('municipio',"0".$municipio)->first();
+        $municipio = "0".substr($cuenta, 0, 2);
 
-        $folio = FolioTramite::actual($oMunicipio->gid);
+        $folio = FolioTramite::actual($municipio);
 
         $nombre = Input::get('nombres');
         $solicitante_id = intval(Input::get('solicitante_id'));
         $apepat = Input::get('apellido_paterno');
         $apemat = Input::get('apellido_materno');
-        $rfc = Input::get('rfc');
-        $curp = Input::get('curp');
+        $rfc = strtoupper(Input::get('rfc'));
+        $curp = strtoupper(Input::get('curp'));
         $notaria_id = Input::get('notaria_id');
+        $anio = date("Y");
 
         //echo $nombre,$apepat,$apemat;
 
@@ -134,6 +136,8 @@ class TramitesController extends BaseController {
             $this->tramite->notaria_id = $notaria_id;
         }
         $this->tramite->folio = $folio;
+        $this->tramite->anio = $anio;
+        $this->tramite->municipio = $municipio;
         $this->tramite->uuid = $uuid;
 
         //Asociamos el estado iniciado
@@ -153,7 +157,8 @@ class TramitesController extends BaseController {
                 $nombrec = implode(" ", $aNombrec);
             }
 
-            if(!($solicitante = Solicitante::find($solicitante_id))){
+            $solicitante = Solicitante::findPorCurpRFC($curp);
+            if(!$solicitante){
 
                 $solicitante = Solicitante::create([
                     'nombres'=>mb_strtoupper($nombre),
@@ -162,18 +167,23 @@ class TramitesController extends BaseController {
                     'nombrec' => $nombrec,
                     'rfc' => mb_strtoupper($rfc),
                     'curp' => mb_strtoupper($curp),
-                    'id_tipo' => 1,
+                    'id_tipo' => _PERSONA_FISICA_,
                 ]);
             }
 
             $this->tramite->solicitante_id = $solicitante->id;
         }
         else if($tipo_persona == 'M'){
-            $solicitante = Solicitante::create([
-                'nombres'=>mb_strtoupper($nombre),
-                'rfc' => mb_strtoupper($rfc),
-                'id_tipo' => 2,
-            ]);
+            $solicitante = Solicitante::findPorCurpRFC($rfc);
+            if(!$solicitante) {
+
+                $solicitante = Solicitante::create([
+                  'nombres' => mb_strtoupper($nombre),
+                  'rfc' => mb_strtoupper($rfc),
+                  'id_tipo' => _PERSONA_MORAL_,
+                ]);
+
+            }
 
             $this->tramite->solicitante_id = $solicitante->id;
             $this->tramite->tipo_solicitante = 'MORAL';
@@ -188,7 +198,7 @@ class TramitesController extends BaseController {
 
         $res = $this->tramite->save();
         if($res) {
-            FolioTramite::incrementar($oMunicipio->gid);
+            FolioTramite::incrementar($municipio);
 
             //Se crea la primera actividad del tramite, es decir, la acción de iniciar tramite:
             $actividad = TipoActividadTramite::where('nombre', 'Iniciar trámite')->first();
@@ -199,7 +209,7 @@ class TramitesController extends BaseController {
             ]);
         }
 
-        return Redirect::to('tramites/proceso/'.$this->tramite->id)->with('success', "Se ha iniciado el trámite con folio: ".$folio);
+        return Redirect::to('tramites/proceso/'.$this->tramite->id)->with('success', "Se ha iniciado el trámite con folio: $anio/$municipio/$folio");
     }
 
 
@@ -317,6 +327,8 @@ class TramitesController extends BaseController {
         }
 
         $folio = $tramite->folio;
+        $anio = $tramite->anio;
+        $municipio = $tramite->municipio;
 
         $title = $tipotramite->nombre;
 
@@ -353,8 +365,8 @@ class TramitesController extends BaseController {
         //Los municipios que está autorizado atender.
         $oMunicipios = Auth::user()->municipios()->get();
         $municipios = array();
-        foreach($oMunicipios as $municipio){
-            $municipios[] = $municipio->municipio;
+        foreach($oMunicipios as $mpio){
+            $municipios[] = $mpio->municipio;
         }
 
         //Indica si es responsable o no del trámite actual
@@ -374,6 +386,8 @@ class TramitesController extends BaseController {
             'tipotramite',
             'tipotramite_id',
             'folio',
+            'anio',
+            'municipio',
             'tiempo_transcurrido',
             'tiempo_tramite',
             'lista_notarias',
@@ -487,7 +501,7 @@ class TramitesController extends BaseController {
 
         ActividadTramite::create($actividad);
 
-        return Redirect::to('/')->with('success',"Se ha guardado trámite con folio: ".sprintf("%06d", $folio));
+        return Redirect::to('/')->with('success',"Se ha guardado trámite con folio: ".$folio);
     }
 
     /**
@@ -615,7 +629,7 @@ class TramitesController extends BaseController {
                                     ->join('fiscal as f','tramites.clave','=','f.clave')
                                     ->join('tipotramites as ti','tipotramite_id','=','ti.id')
                                     ->where('tramites.id', '=', $id)
-                                    ->select('tramites.created_at','folio','solicitante_id','p.nombres','p.apellido_paterno','p.apellido_materno','pro.clave','p1.nombres as nombre','p1.apellido_paterno as paterno','p1.apellido_materno as materno','f.cuenta','ti.nombre as tramite','ti.tiempo')
+                                    ->select('tramites.created_at','tramites.anio','tramites.municipio','folio','solicitante_id','p.nombres','p.apellido_paterno','p.apellido_materno','pro.clave','p1.nombres as nombre','p1.apellido_paterno as paterno','p1.apellido_materno as materno','f.cuenta','ti.nombre as tramite','ti.tiempo')
                                     ->get();
         //trae el nombre de la notaria
         $notaria = $this-> tramite ->join('notarias as n','notaria_id','=','n.id_notaria')->where('tramites.id', '=', $id)->select('n.nombre as notaria')->get();
