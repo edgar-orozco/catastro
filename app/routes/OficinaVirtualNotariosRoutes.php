@@ -36,8 +36,8 @@ Route::get('ofvirtual/notario/traslado/imprimir/{id}', 'OficinaVirtualNotarioCon
 Route::post('ofvirtual/notario/traslado/buscar','OficinaVirtualNotarioController@buscar');
 
 //Ruta para consulta de solicitantes via ajax
-Route::get('ofvirtual/notario/traslado/enajenante', 'OficinaVirtualNotarioController@enajenante');
-Route::get('ofvirtual/notario/traslado/adquiriente', 'OficinaVirtualNotarioController@adquiriente');
+Route::get('ofvirtual/notario/traslado/enajenante', 'OficinaVirtualNotarioController@getEnajenante');
+Route::get('ofvirtual/notario/traslado/adquiriente', 'OficinaVirtualNotarioController@getAdquiriente');
 
 
 //rutas de las macros para registro de escrituras

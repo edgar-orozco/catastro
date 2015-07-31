@@ -498,7 +498,7 @@
 
             //Estas son las opciones con las que se construye el autocomplete, como son comunes a los dos inputs rfc y curp se sacan para reutlizar
             var autoCompleteOptsAdquiriente = {
-                source: "ofvirtual/notario/traslado/adquiriente", //Ruta al controlador que provee los resultados de la busqueda
+                source: "/ofvirtual/notario/traslado/adquiriente", //Ruta al controlador que provee los resultados de la busqueda
                 minLength: 8, //Empezamos a mandar los teclazos si han tecleado 8 caracteres
                 select: function (event, ui) {
                     console.log(ui);
@@ -556,7 +556,7 @@
 
             //Estas son las opciones con las que se construye el autocomplete, como son comunes a los dos inputs rfc y curp se sacan para reutlizar
             var autoCompleteOptsEnajenante = {
-                source: "ofvirtual/notario/traslado/enajenante", //Ruta al controlador que provee los resultados de la busqueda
+                source: "/ofvirtual/notario/traslado/enajenante", //Ruta al controlador que provee los resultados de la busqueda
                 minLength: 8, //Empezamos a mandar los teclazos si han tecleado 8 caracteres
                 select: function (event, ui) {
                     console.log(ui);
@@ -569,6 +569,7 @@
                     return false;
                 }
             };
+            console.log(item);
             //Se crea autocompleter de CURP
             $("#enajenante-curp").autocomplete(autoCompleteOptsEnajenante).autocomplete("instance")._renderItem = function (ul, item) {
                 console.log('aqui');

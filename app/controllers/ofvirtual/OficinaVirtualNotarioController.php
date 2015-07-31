@@ -445,20 +445,20 @@ class OficinaVirtualNotarioController extends \BaseController
     }
 
 
-    public function enajenante(){
+    public function getEnajenante(){
         $q = Input::get('term');
         if (Request::ajax())
         {
-            return Enajenante::getPorCurpRFC($q);
+            return personas::getPorCurpRFC($q);
         }
     }
 
 
-    public function adquiriente(){
+    public function getAdquiriente(){
         $q = Input::get('term');
         if (Request::ajax())
         {
-            return Adquiriente::getPorCurpRFC($q);
+            return personas::getPorCurpRFC($q);
         }
     }
 
