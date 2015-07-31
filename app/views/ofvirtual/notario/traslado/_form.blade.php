@@ -73,21 +73,21 @@
             </div>
 
             {{Form::label('adquiriente[curp]','CURP', ['class'=>'adquiriente-campos-fisica'])}}
-            {{Form::text('adquiriente[curp]', null, ['class' => 'form-control adquiriente-campos-fisica', 'minlength'=>'18', 'maxlength'=>'18', 'pattern' => '([A-Za-z]{4})([0-9]{6})([A-Za-z]{6})([0-9]{2})', 'title' => 'El CURP ingresado no tiene el formato esperado, verifique nuevamente el CURP ingresado'])}}
+            {{Form::text('adquiriente[curp]', null, ['class' => 'form-control adquiriente-campos-fisica', 'id'=>'adquiriente-curp', 'minlength'=>'18', 'maxlength'=>'18', 'pattern' => '([A-Za-z]{4})([0-9]{6})([A-Za-z]{6})([0-9]{2})', 'title' => 'El CURP ingresado no tiene el formato esperado, verifique nuevamente el CURP ingresado'])}}
 
             {{Form::label('adquiriente[rfc]','RFC', ['class'=>''])}}
             {{Form::text('adquiriente[rfc]', null, ['class' => 'form-control', 'id'=>'adquiriente-rfc', 'minlength'=>'12', 'maxlength'=>'13', 'pattern' => '([A-Za-z]{4})([0-9]{6})([A-Za-z0-9]{3})', 'title' => 'El RFC ingresado no tiene el formato esperado, verifique nuevamente el RFC ingresado'] )}}
 
             {{Form::label('adquiriente[nombres]','Nombre', ['class'=>''])}}
-            {{Form::text('adquiriente[nombres]', null, ['class' => 'form-control', 'required'=>true] )}}
+            {{Form::text('adquiriente[nombres]', null, ['class' => 'form-control', 'id'=>'adquiriente-nombres', 'required'=>true] )}}
 
             <span class="adquiriente-campos-fisica">
 
             {{Form::label('adquiriente[apellido_paterno]','Apellido Paterno', ['class'=>''])}}
-                {{Form::text('adquiriente[apellido_paterno]', null, ['class' => 'form-control'] )}}
+                {{Form::text('adquiriente[apellido_paterno]', null, ['class' => 'form-control', 'id'=>'adquiriente-apellido_paterno'] )}}
 
                 {{Form::label('adquiriente[apellido_materno]','Apellido Materno', ['class'=>''])}}
-                {{Form::text('adquiriente[apellido_materno]', null, ['class' => 'form-control'] )}}
+                {{Form::text('adquiriente[apellido_materno]', null, ['class' => 'form-control', 'id'=>'adquiriente-apellido_materno'] )}}
 
         </span>
 
@@ -113,7 +113,7 @@
 
 
             {{Form::label('enajenante[curp]','CURP', ['class'=>'enajenante-campos-fisica'])}}
-            {{Form::text('enajenante[curp]', null, ['class' => 'form-control enajenante-campos-fisica', 'minlength'=>'18', 'maxlength'=>'18', 'pattern' => '([A-Za-z]{4})([0-9]{6})([A-Za-z]{6})([0-9]{2})', 'title' => 'El CURP ingresado no tiene el formato esperado, verifique nuevamente el CURP ingresado' ] )}}
+            {{Form::text('enajenante[curp]', null, ['id'=>'enajenante-curp','class' => 'form-control enajenante-campos-fisica', 'minlength'=>'18', 'maxlength'=>'18', 'pattern' => '([A-Za-z]{4})([0-9]{6})([A-Za-z]{6})([0-9]{2})', 'title' => 'El CURP ingresado no tiene el formato esperado, verifique nuevamente el CURP ingresado' ] )}}
 
 
             {{Form::label('enajenante[rfc]','RFC', ['class'=>''])}}
@@ -121,15 +121,15 @@
 
 
             {{Form::label('enajenante[nombres]','Nombre', ['class'=>''])}}
-            {{Form::text('enajenante[nombres]', null, ['class' => 'form-control', 'required'=>true] )}}
+            {{Form::text('enajenante[nombres]', null, ['class' => 'form-control', 'id'=>'enajenante-nombres', 'required'=>true] )}}
 
             <span class="enajenante-campos-fisica">
 
                  {{Form::label('enajenante[apellido_paterno]','Apellido Paterno', ['class'=>''])}}
-                {{Form::text('enajenante[apellido_paterno]', null, ['class' => 'form-control'] )}}
+                {{Form::text('enajenante[apellido_paterno]', null, ['class' => 'form-control', 'id'=>'enajenante-apellido_paterno'] )}}
 
                 {{Form::label('enajenante[apellido_materno]','Apellido Materno', ['class'=>''])}}
-                {{Form::text('enajenante[apellido_materno]', null, ['class' => 'form-control'] )}}
+                {{Form::text('enajenante[apellido_materno]', null, ['class' => 'form-control', 'id'=>'enajenante-apellido_materno'] )}}
 
             </span>
 
