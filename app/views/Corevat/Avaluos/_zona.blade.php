@@ -1,9 +1,8 @@
 <h3 class="header">{{$title}}</h3>
-<hr>
 {{Form::model($row, ['route' => array('updateAvaluoZona', $idavaluo), 'method'=>'post', 'id'=>'formAvaluoZona' ]) }}
 {{Form::hidden('idavaluozona', $row->idavaluozona)}}
 <div class="zonaCoveratSecc">
-	<div class="col-md-6 bg-primary">
+	<div class="col-md-6">
         <h4>Servicios Municipales</h4>
         <div class="checkbox">
             {{Form::label('is_agua_potable', 'Agua Potable')}}
@@ -51,7 +50,7 @@
         </div>
     </div>
 
-	<div class="col-md-6 bg-primary">
+	<div class="col-md-6">
         <h4>Equipamiento Urbano</h4>
         <div class="checkbox">
             {{Form::label('is_escuela', 'Escuela')}}
