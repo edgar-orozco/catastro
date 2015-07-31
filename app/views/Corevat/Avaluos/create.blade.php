@@ -4,6 +4,13 @@
 {{ HTML::style('/css/dataTables.bootstrap.css') }}
 {{ HTML::style('/js/jquery/jquery-ui.css') }}
 <style>
+    h1{
+        background-color: darkgray;
+        font-size: 36px;
+        padding: 20px;
+        margin: 0;
+    }
+
     .coveratCont label{
         color: #515152;
         font-size: 18px;
@@ -64,7 +71,6 @@
 			@endforeach
         </div>
     @endif
-<hr>
 {{ Form::open(array('id'=>'form','url' => 'corevat/Avaluos/', 'method' => 'POST')) }}
 <div class="row coveratCont">
 	<div class="col-md-12">

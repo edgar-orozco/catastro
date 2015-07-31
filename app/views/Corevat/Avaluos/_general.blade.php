@@ -1,13 +1,11 @@
-<h3 class="header">{{$title}}</h3>
-    @if( $errors->all() )
-        <div class="alert alert-danger">
-			@foreach($errors->all() as $error )
-			<h4><span class="glyphicon glyphicon-remove"></span>  {{ $error }}</h4>
-			@endforeach
-        </div>
-    @endif
-<hr>
+
 <style>
+    h3{
+        background-color: darkgray;
+        font-size: 36px;
+        padding: 20px;
+        margin: 0;
+    }
     .coveratCont label{
         color: #515152;
         font-size: 18px;
@@ -60,6 +58,14 @@
         width: 24% !important;
     }
 </style>
+<h3 class="header">{{$title}}</h3>
+    @if( $errors->all() )
+        <div class="alert alert-danger">
+            @foreach($errors->all() as $error )
+                <h4><span class="glyphicon glyphicon-remove"></span>  {{ $error }}</h4>
+            @endforeach
+        </div>
+    @endif
 {{ Form::model($row, ['route' => array('updateAvaluoGeneral', $row->idavaluo), 'method'=>'post' ]) }}
 <div class="row coveratCont">
 	<div class="col-md-12">
