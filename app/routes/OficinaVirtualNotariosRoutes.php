@@ -35,7 +35,12 @@ Route::get('ofvirtual/notario/traslado/imprimir/{id}', 'OficinaVirtualNotarioCon
 //Búsqueda de trámites
 Route::post('ofvirtual/notario/traslado/buscar','OficinaVirtualNotarioController@buscar');
 
-//rutas de las macros para registro de escituras
+//Ruta para consulta de solicitantes via ajax
+Route::get('ofvirtual/notario/traslado/solicitante', 'OficinaVirtualNotarioController@solicitante');
+Route::get('ofvirtual/notario/traslado/adquiriente', 'OficinaVirtualNotarioController@adquiriente');
+
+
+//rutas de las macros para registro de escrituras
  Route::get('/macro', function()
           {
             $title = "Captura de personas";

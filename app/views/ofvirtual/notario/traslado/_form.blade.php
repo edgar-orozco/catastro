@@ -494,4 +494,73 @@
         });
     </script>
 
+
+
+
+
+    {{ HTML::script('js/jquery/jquery-ui.js') }}
+
+    <script>
+        $(function () {
+            //El selector de las notarías.
+            $("#notaria_id").select2({
+                language: "es",
+                placeholder: "Seleccione una notaría",
+                allowClear: true
+            });
+            //Cuando hay cambios en los radio buttons de los requisitos
+            $('.radio-persona').change(function (ev) {
+                var radio = $(this);
+                if(radio.val() == 'F'){
+                    $('.campos-fisica').show();
+                    //Habilitamos el autocomplete del curp
+                    $("#curp").autocomplete("enable");
+                    //Deshabilitamos el autocomplete del rfc
+                    $("#rfc").autocomplete("disable");
+                    $('#rfc').attr('pattern', '([A-Za-z]{4})([0-9]{6})([A-Za-z0-9]{3})');
+                    $('.tipo_persona').val('F');
+                }
+                else if(radio.val() == 'M')
+                {
+                    $('.campos-fisica').hide();
+                    //Habilitamos el autocomplete del curp
+                    $("#curp").autocomplete("disable");
+                    //Deshabilitamos el autocomplete del rfc
+                    $("#rfc").autocomplete("enable");
+                    $('#rfc').attr('pattern', '([A-Za-z]{3})([0-9]{6})([A-Za-z0-9]{3})');
+                    $('.tipo_persona').val('M');
+                }
+            });
+            //Estas son las opciones con las que se construye el autocomplete, como son comunes a los dos inputs rfc y curp se sacan para reutlizar
+            var autoCompleteOpts = {
+                source: "/ventanilla/solicitante", //Ruta al controlador que provee los resultados de la busqueda
+                minLength: 8, //Empezamos a mandar los teclazos si han tecleado 8 caracteres
+                select: function (event, ui) {
+                    //console.log(ui);
+                    //Al seleccionar un valor de los desplegados rellenamos los campos
+                    $('#curp').val(ui.item.curp);
+                    $('#rfc').val(ui.item.rfc);
+                    $('#nombres').val(ui.item.nombres);
+                    $('#apellido_paterno').val(ui.item.apellido_paterno);
+                    $('#apellido_materno').val(ui.item.apellido_materno);
+                    $('#solicitante_id').val(ui.item.id);
+                    return false;
+                }
+            };
+            //Se crea autocompleter de CURP
+            $("#curp").autocomplete(autoCompleteOpts).autocomplete( "instance" )._renderItem = function( ul, item ) {
+                return $( "<li>" )
+                        .append( "<a>" + item.curp + "<br>" + "<span class='nombre-coincidencia'><i class='glyphicon glyphicon-user'></i><small> " + item.nombrec + "</small><span></a>" )
+                        .appendTo( ul );
+            };
+            //Se crea autocompleter de RFC
+            $("#rfc").autocomplete(autoCompleteOpts).autocomplete( "instance" )._renderItem = function( ul, item ) {
+                return $( "<li>" )
+                        .append( "<a>" + item.rfc + "<br>" + "<span class='nombre-coincidencia'><i class='glyphicon glyphicon-user'></i> <small>" + item.nombrec + "</small><span></a>" )
+                        .appendTo( ul );
+            };
+            //por default es persona física por lo que el autocomplete lo deshabilitamos
+            $("#rfc").autocomplete("disable");
+        });
+
 @stop

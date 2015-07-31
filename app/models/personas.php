@@ -93,5 +93,24 @@ class personas extends Eloquent
 public function adquiriente(){
    return $this->hasMany('RegistroEscritura', 'enajenante_id', 'id_p');
 }
+
+    /**
+     * Consulta los registros de solicitante dado un fragmento de cadena curp o rfc
+     * @param $dato
+     * @return \Illuminate\Database\Eloquent\Collection|static[]
+     */
+    public static function getPorCurpRFC($dato){
+        return self::where('curp', 'ilike', $dato.'%')
+            ->orWhere('rfc','ilike', $dato.'%')->get();
+    }
+    /**
+     * Retorna un registro de solicitante si se ha consultado ya sea por curp o por rfc, Si no existe regresa null
+     * @param $dato
+     * @return \Illuminate\Database\Eloquent\Model|null|static
+     */
+    public static function findPorCurpRFC($dato){
+        return self::where('curp', $dato)
+            ->orWhere('rfc', $dato)->first();
+    }
 }
 
