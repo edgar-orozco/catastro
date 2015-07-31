@@ -178,7 +178,7 @@
             </div>
 		</div>
 	</div>
-	<div class="col-md-4">
+	<div class="col-md-6">
 		<div class="form-inline">
             {{Form::label('','Latitud',['class'=>'col-sm-2'])}}
             <div class="col-md-10 cords">
@@ -189,7 +189,7 @@
             </div>
 		</div>
 	</div>
-	<div class="col-md-4">
+	<div class="col-md-6">
 		<div class="form-inline">
             {{Form::label('','Altitud',['class'=>'col-sm-4'])}}
             <div class="col-md-8">
@@ -224,28 +224,36 @@
             </div>
 		</div>
 	</div>
-	<div class="col-md-6">
+	<div class="col-md-12">
 		<div class="form-group">
-			{{Form::label('foliocoretemp', 'Folio COREVAT')}}
+			{{Form::label('foliocoretemp', 'Folio COREVAT',['class'=>'col-sm-2'])}}
+            <div class="col-md-10">
 			{{Form::text('foliocoretemp', $row->foliocoretemp, ['class'=>'form-control', 'tabindex'=>'23', 'required' => 'required', 'maxlength'=>'20', 'size'=>'21'])}}
 			{{$errors->first('foliocoretemp', '<span class=text-danger>:message</span>')}}
+            </div>
 		</div>
 	</div>
 	<div class="col-md-12">
 		<div class="form-group">
-			{{Form::label('nombre_solicitante','Solicitante')}}
+			{{Form::label('nombre_solicitante','Solicitante',['class'=>'col-sm-2'])}}
+            <div class="col-md-10">
 			{{Form::text('nombre_solicitante', $row->nombre_solicitante, ['class'=>'form-control', 'tabindex'=>'24', 'maxlength'=>'100'])}}
+            </div>
 		</div>
 	</div>
 	<div class="col-md-12">
 		<div class="form-group">
-			{{Form::label('nombre_propietario','Propietario')}}
+			{{Form::label('nombre_propietario','Propietario',['class'=>'col-sm-2'])}}
+            <div class="col-md-10">
 			{{Form::text('nombre_propietario', $row->nombre_propietario, ['class'=>'form-control', 'tabindex'=>'25', 'maxlength'=>'100', 'required'=>'required'])}}
+            </div>
 		</div>
 	</div>
-	<div class="col-md-12 form-actions form-group">
-		{{Form::submit('Guardar', ['class'=>'btn btn-primary'])}}
-		<a href="{{URL::route('indexAvaluos')}}" class="btn btn-primary" role="button"><i class="glyphicon glyphicon-arrow-left"></i> Regresar</a>
+    <div class="col-md-6 form-actions form-group">
+        <a href="{{URL::route('indexAvaluos')}}" class="btn btn-primary back" role="button"><i class="glyphicon glyphicon-arrow-left"></i> Regresar</a>
+    </div>
+    <div class="col-md-6 form-actions form-group">
+        {{Form::submit('Guardar', ['class'=>'btn save btn-success'])}}
 	</div>
 </div>
 {{Form::close()}}
