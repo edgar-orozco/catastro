@@ -11,28 +11,29 @@
         background-repeat: no-repeat;
         background-position: center;
         font-family: Verdana, Arial, Helvetica, sans-serif;
-        font-size: 12px;
+        font-size: 9px;
         color: #000000;
         width: 100%;
         height: 97%;
     }
 
     #cabecera {
-        height: 20%;
+        height: 15%;
     }
 
     table {
         width: 100%;
-        margin-bottom: 30px;
+        margin-bottom: 15px;
         border: 1px solid black;
     }
 
     td {
-        padding: 8px;
+        padding: 3px;
     }
 
     th {
         border-bottom: 1px solid black;
+        height: 2px;
     }
 
 </style>
@@ -77,7 +78,7 @@
     <table>
         <tr>
             <th colspan="4">
-                <h3>Contratantes</h3>
+                Contratantes
             </th>
         </tr>
         <tr>
@@ -118,7 +119,7 @@
     <table>
         <tr>
             <th colspan="3">
-                <h3>Datos del bien inmueble</h3>
+                Datos del bien inmueble
             </th>
         </tr>
         <tr>
@@ -172,7 +173,7 @@
     <table>
         <tr>
             <th colspan="3">
-                <h3>Antecedentes de la propiedad</h3>
+               Antecedentes de la propiedad
             </th>
         </tr>
         <tr>
@@ -239,7 +240,7 @@
                 <table>
                     <tr>
                         <th colspan="2">
-                            <h3>Liquidación vivienda</h3>
+                            Liquidación vivienda
                         </th>
                     <tr>
                         <td>
@@ -321,7 +322,7 @@
                 <table>
                     <tr>
                         <th colspan="2">
-                            <h3>Valores para base de pago</h3>
+                            Valores para base de pago
                         </th>
                     <tr>
                         <td>
