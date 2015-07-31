@@ -46,7 +46,6 @@ h3{
     margin-bottom: 5px;
 }
 .coveratCont div.col-md-10, .coveratCont div.col-md-8{
-    border-left: 1px solid gray;
     background: #eee;
 }
 .coveratCont input, .coveratCont select{
