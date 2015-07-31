@@ -4,7 +4,7 @@
 {{ HTML::style('/css/dataTables.bootstrap.css') }}
 {{ HTML::style('/css/coverat.css') }}
 {{ HTML::style('/js/jquery/jquery-ui.css') }}
-<h1>Crear Nuevo Avalúo</h1>
+<h3>Crear Nuevo Avalúo</h3>
     @if( $errors->all() )
         <div class="alert alert-danger">
 			@foreach($errors->all() as $error )
