@@ -72,6 +72,12 @@
 
             </div>
 
+            {{Form::label('adquiriente[curp]','CURP', ['class'=>'adquiriente-campos-fisica'])}}
+            {{Form::text('adquiriente[curp]', null, ['class' => 'form-control adquiriente-campos-fisica', 'minlength'=>'18', 'maxlength'=>'18', 'pattern' => '([A-Za-z]{4})([0-9]{6})([A-Za-z]{6})([0-9]{2})', 'title' => 'El CURP ingresado no tiene el formato esperado, verifique nuevamente el CURP ingresado'])}}
+
+            {{Form::label('adquiriente[rfc]','RFC', ['class'=>''])}}
+            {{Form::text('adquiriente[rfc]', null, ['class' => 'form-control', 'id'=>'adquiriente-rfc', 'minlength'=>'12', 'maxlength'=>'13', 'pattern' => '([A-Za-z]{4})([0-9]{6})([A-Za-z0-9]{3})', 'title' => 'El RFC ingresado no tiene el formato esperado, verifique nuevamente el RFC ingresado'] )}}
+
             {{Form::label('adquiriente[nombres]','Nombre', ['class'=>''])}}
             {{Form::text('adquiriente[nombres]', null, ['class' => 'form-control', 'required'=>true] )}}
 
@@ -83,13 +89,8 @@
                 {{Form::label('adquiriente[apellido_materno]','Apellido Materno', ['class'=>''])}}
                 {{Form::text('adquiriente[apellido_materno]', null, ['class' => 'form-control'] )}}
 
-                {{Form::label('adquiriente[curp]','CURP', ['class'=>''])}}
-                {{Form::text('adquiriente[curp]', null, ['class' => 'form-control', 'minlength'=>'18', 'maxlength'=>'18', 'pattern' => '([A-Za-z]{4})([0-9]{6})([A-Za-z]{6})([0-9]{2})', 'title' => 'El CURP ingresado no tiene el formato esperado, verifique nuevamente el CURP ingresado'])}}
-
         </span>
 
-            {{Form::label('adquiriente[rfc]','RFC', ['class'=>''])}}
-            {{Form::text('adquiriente[rfc]', null, ['class' => 'form-control', 'id'=>'adquiriente-rfc', 'minlength'=>'12', 'maxlength'=>'13', 'pattern' => '([A-Za-z]{4})([0-9]{6})([A-Za-z0-9]{3})', 'title' => 'El RFC ingresado no tiene el formato esperado, verifique nuevamente el RFC ingresado'] )}}
 
         </div>
         {{--/adquiriente --}}
@@ -110,23 +111,27 @@
 
             </div>
 
+
+            {{Form::label('enajenante[curp]','CURP', ['class'=>'enajenante-campos-fisica'])}}
+            {{Form::text('enajenante[curp]', null, ['class' => 'form-control enajenante-campos-fisica', 'minlength'=>'18', 'maxlength'=>'18', 'pattern' => '([A-Za-z]{4})([0-9]{6})([A-Za-z]{6})([0-9]{2})', 'title' => 'El CURP ingresado no tiene el formato esperado, verifique nuevamente el CURP ingresado' ] )}}
+
+
+            {{Form::label('enajenante[rfc]','RFC', ['class'=>''])}}
+            {{Form::text('enajenante[rfc]', null, ['class' => 'form-control', 'id'=>'enajenante-rfc', 'minlength'=>'12', 'maxlength'=>'13', 'pattern' => '([A-Za-z]{4})([0-9]{6})([A-Za-z0-9]{3})', 'title' => 'El RFC ingresado no tiene el formato esperado, verifique nuevamente el RFC ingresado'] )}}
+
+
             {{Form::label('enajenante[nombres]','Nombre', ['class'=>''])}}
             {{Form::text('enajenante[nombres]', null, ['class' => 'form-control', 'required'=>true] )}}
 
             <span class="enajenante-campos-fisica">
 
-        {{Form::label('enajenante[apellido_paterno]','Apellido Paterno', ['class'=>''])}}
+                 {{Form::label('enajenante[apellido_paterno]','Apellido Paterno', ['class'=>''])}}
                 {{Form::text('enajenante[apellido_paterno]', null, ['class' => 'form-control'] )}}
 
                 {{Form::label('enajenante[apellido_materno]','Apellido Materno', ['class'=>''])}}
                 {{Form::text('enajenante[apellido_materno]', null, ['class' => 'form-control'] )}}
 
-                {{Form::label('enajenante[curp]','CURP', ['class'=>''])}}
-                {{Form::text('enajenante[curp]', null, ['class' => 'form-control', 'minlength'=>'18', 'maxlength'=>'18', 'pattern' => '([A-Za-z]{4})([0-9]{6})([A-Za-z]{6})([0-9]{2})', 'title' => 'El CURP ingresado no tiene el formato esperado, verifique nuevamente el CURP ingresado' ] )}}
-    </span>
-
-            {{Form::label('enajenante[rfc]','RFC', ['class'=>''])}}
-            {{Form::text('enajenante[rfc]', null, ['class' => 'form-control', 'id'=>'enajenante-rfc', 'minlength'=>'12', 'maxlength'=>'13', 'pattern' => '([A-Za-z]{4})([0-9]{6})([A-Za-z0-9]{3})', 'title' => 'El RFC ingresado no tiene el formato esperado, verifique nuevamente el RFC ingresado'] )}}
+            </span>
 
         </div>
         {{--/enajenante --}}
@@ -189,17 +194,17 @@
         <br>
 
         <div style="clear:both"></div>
-            <div class="form-group col-md-4">
-                {{Form::label('traslado[ubicacion]','Ubicacion')}}
-                {{Form::input('text', 'traslado[ubicacion]', $predio->ubicacionFiscal->ubicacion, ['class'=>'form-control'] )}}
-                {{$errors->first('traslado[ubicacion]', '<span class=text-danger>:message</span>')}}
-            </div>
+        <div class="form-group col-md-4">
+            {{Form::label('traslado[ubicacion]','Ubicacion')}}
+            {{Form::input('text', 'traslado[ubicacion]', $predio->ubicacionFiscal->ubicacion, ['class'=>'form-control'] )}}
+            {{$errors->first('traslado[ubicacion]', '<span class=text-danger>:message</span>')}}
+        </div>
 
-            <div class="form-group col-md-4">
-                {{Form::label('traslado[superficie_terreno]','Superficie terreno (m2)')}}
-                {{Form::number('traslado[superficie_terreno]', $predio->superficie_terreno, ['class'=>'form-control', 'min'=>0, 'step'=>'any'] )}}
-                {{$errors->first('traslado[superficie_terreno]', '<span class=text-danger>:message</span>')}}
-            </div>
+        <div class="form-group col-md-4">
+            {{Form::label('traslado[superficie_terreno]','Superficie terreno (m2)')}}
+            {{Form::number('traslado[superficie_terreno]', $predio->superficie_terreno, ['class'=>'form-control', 'min'=>0, 'step'=>'any'] )}}
+            {{$errors->first('traslado[superficie_terreno]', '<span class=text-danger>:message</span>')}}
+        </div>
         <div class="form-group col-md-4">
             {{Form::label('traslado[superficie_construccion]','Superficie construcción (m2)')}}
             {{Form::number('traslado[superficie_construccion]', $predio->superficie_construccion, ['class'=>'form-control', 'min'=>0, 'step'=>'any'] )}}
@@ -419,7 +424,6 @@
     {{ HTML::style('css/datepicker3.css') }}
 
 
-
     {{ HTML::script('js/jquery/jquery-ui.js') }}
     {{ HTML::style('js/jquery/jquery-ui.css') }}
 
@@ -508,18 +512,18 @@
                 }
             };
             //Se crea autocompleter de CURP
-            $("#adquiriente-curp").autocomplete(autoCompleteOptsAdquiriente).autocomplete( "instance" )._renderItem = function( ul, item ) {
+            $("#adquiriente-curp").autocomplete(autoCompleteOptsAdquiriente).autocomplete("instance")._renderItem = function (ul, item) {
                 console.log('aqui');
-                return $( "<li>" )
-                        .append( "<a>" + item.curp + "<br>" + "<span class='nombre-coincidencia'><i class='glyphicon glyphicon-user'></i><small> " + item.nombrec + "</small><span></a>" )
-                        .appendTo( ul );
+                return $("<li>")
+                        .append("<a>" + item.curp + "<br>" + "<span class='nombre-coincidencia'><i class='glyphicon glyphicon-user'></i><small> " + item.nombrec + "</small><span></a>")
+                        .appendTo(ul);
             };
             //Se crea autocompleter de RFC
-            $("#adquiriente-rfc").autocomplete(autoCompleteOptsAdquiriente).autocomplete( "instance" )._renderItem = function( ul, item ) {
+            $("#adquiriente-rfc").autocomplete(autoCompleteOptsAdquiriente).autocomplete("instance")._renderItem = function (ul, item) {
                 console.log('aqui');
-                return $( "<li>" )
-                        .append( "<a>" + item.rfc + "<br>" + "<span class='nombre-coincidencia'><i class='glyphicon glyphicon-user'></i> <small>" + item.nombrec + "</small><span></a>" )
-                        .appendTo( ul );
+                return $("<li>")
+                        .append("<a>" + item.rfc + "<br>" + "<span class='nombre-coincidencia'><i class='glyphicon glyphicon-user'></i> <small>" + item.nombrec + "</small><span></a>")
+                        .appendTo(ul);
             };
             //por default es persona física por lo que el autocomplete lo deshabilitamos
             $("#adquiriente-rfc").autocomplete("disable");
@@ -566,23 +570,23 @@
                 }
             };
             //Se crea autocompleter de CURP
-            $("#enajenante-curp").autocomplete(autoCompleteOptsEnajenante).autocomplete( "instance" )._renderItem = function( ul, item ) {
+            $("#enajenante-curp").autocomplete(autoCompleteOptsEnajenante).autocomplete("instance")._renderItem = function (ul, item) {
                 console.log('aqui');
-                return $( "<li>" )
-                        .append( "<a>" + item.curp + "<br>" + "<span class='nombre-coincidencia'><i class='glyphicon glyphicon-user'></i><small> " + item.nombrec + "</small><span></a>" )
-                        .appendTo( ul );
+                return $("<li>")
+                        .append("<a>" + item.curp + "<br>" + "<span class='nombre-coincidencia'><i class='glyphicon glyphicon-user'></i><small> " + item.nombrec + "</small><span></a>")
+                        .appendTo(ul);
             };
             //Se crea autocompleter de RFC
-            $("#enajenante-rfc").autocomplete(autoCompleteOptsEnajenante).autocomplete( "instance" )._renderItem = function( ul, item ) {
+            $("#enajenante-rfc").autocomplete(autoCompleteOptsEnajenante).autocomplete("instance")._renderItem = function (ul, item) {
                 console.log('aqui');
-                return $( "<li>" )
-                        .append( "<a>" + item.rfc + "<br>" + "<span class='nombre-coincidencia'><i class='glyphicon glyphicon-user'></i> <small>" + item.nombrec + "</small><span></a>" )
-                        .appendTo( ul );
+                return $("<li>")
+                        .append("<a>" + item.rfc + "<br>" + "<span class='nombre-coincidencia'><i class='glyphicon glyphicon-user'></i> <small>" + item.nombrec + "</small><span></a>")
+                        .appendTo(ul);
             };
             //por default es persona física por lo que el autocomplete lo deshabilitamos
             $("#enajenante-rfc").autocomplete("disable");
         });
 
 
-</script>
+    </script>
 @stop
