@@ -55,7 +55,7 @@
             <tr>
               <td>Fecha ingreso: <?php $fecha=strtotime($row->created_at); echo date("d/m/Y",$fecha) ?></td>
               <td align="center"><strong>{{strtoupper($row->tramite)}}</strong></td>
-              <td>FOLIO: <strong>{{sprintf("%06d",$row->folio)}}</strong><br/>Copia solicitante</td>
+              <td>FOLIO: <strong>{{$row->anio}}/{{$row->municipio}}/{{sprintf("%06d",$row->folio)}}</strong><br/>Copia solicitante</td>
             </tr>  
         </table>
     </div>
@@ -100,7 +100,7 @@
             <tr>
               <td>Fecha ingreso: <?php $fecha=strtotime($row->created_at); echo date("d/m/Y",$fecha) ?></td>
               <td align="center"><strong>{{strtoupper($row->tramite)}}</strong></td>
-              <td>FOLIO: <strong>{{sprintf("%06d",$row->folio)}}</strong><br/>Copia municipio</td>
+              <td>FOLIO: <strong>{{$row->anio}}/{{$row->municipio}}/{{sprintf("%06d",$row->folio)}}</strong><br/>Copia municipio</td>
             </tr>
         </table>
     </div>
