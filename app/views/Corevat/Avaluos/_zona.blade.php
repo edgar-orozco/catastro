@@ -144,12 +144,12 @@
 		<hr>
 	</div>
 
-	<div class="col-md-6 form-actions">
-		{{Form::submit('Guardar', ['class'=>'btn btn-primary btn-coveratPrincipal'])}}
+    <div class="col-md-6 form-actions">
+        <a href="{{URL::route('indexAvaluos')}}" class="btn btn-primary btn-coveratSecondary" role="button"><i class="glyphicon glyphicon-arrow-left"></i> Regresar</a>
     </div>
     <div class="col-md-6 form-actions">
-		<a href="{{URL::route('indexAvaluos')}}" class="btn btn-primary btn-coveratSecondary" role="button"><i class="glyphicon glyphicon-arrow-left"></i> Regresar</a>
-	</div>
+		{{Form::submit('Guardar', ['class'=>'btn btn-primary btn-coveratPrincipal'])}}
+    </div>
 </div>
 
 {{Form::close()}}
