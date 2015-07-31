@@ -24,11 +24,11 @@
     <div class="panel-body">
         <h3>Tipo de escritura</h3>
 
-                {{Form::label('tipo_persona','Publica', ['class'=>''])}}
+                {{Form::label('tipo_escritura','Publica', ['class'=>''])}}
                  {{Form::radio('tipo_escritura', 'publica', null, ['class'=>'-radio-persona ' ])}}
-                {{Form::label('tipo_persona','Privada', ['class'=>''])}}
+                {{Form::label('tipo_escritura','Privada', ['class'=>''])}}
                  {{Form::radio('tipo_escritura', 'privada', null, ['class'=>'-radio-persona'])}}
-                 {{Form::label('tipo_persona','Titulo', ['class'=>''])}}
+                 {{Form::label('tipo_escritura','Titulo', ['class'=>''])}}
                  {{Form::radio('tipo_escritura', 'titulos', null, ['class'=>'-radio-persona'])}}
     </div>
 

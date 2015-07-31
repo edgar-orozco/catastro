@@ -12,15 +12,71 @@
     <h1>Registro de escrituras</h1>
 
     <div class="row">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3 class="panel-title">Folio</h3>
+                {{$registro->folio}}
+            </div>
+        </div>
+    </div>
+    
 
-        <p>Con fundamento en los articulos 78, 108, 109, 110, 111, 112,113, 114 Y Art 5to Transitorio de la Ley de
-            Hacienda
-            Municipal del Estado de Tabasco en Vigor; me permito enterar el pago de Impuesto sobre el Traslado de
-            Dominio de
-            Bienes Inmuebles, mediante la siguiente Declaracion presentada en duplicado.</p>
+    <div class="row">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3 class="panel-title">Datos del notario</h3>
+                <div class="panel-body">
+                <div class=" col-md-6">
+                    Notaria No.:{{$notaria->nombre}}
+                </div>
+                    <div class=" col-md-6">
+                        Nombre del Notario:{{$registro->notarioEscritura}}
+                    </div>
+                    <div class=" col-md-12">
+                        Domicilio:{{$notaria->domicilio}}
+                    </div>
+                                        <div class=" col-md-6">
+                        No. Telefónico:{{$notaria->telefono}}
+                    </div>
+                                        <div class=" col-md-6">
+                        E-mail:{{$notaria->domicilio}}
+                    </div>
+
+            </div>
+            </div>
+        </div>
     </div>
 
+    <div class="row">
+        <div class="panel panel-default">
+            <div class="panel-heading">
 
+                <div class="panel-body">
+                <div class=" col-md-6">
+                    Tesorería Municipal:{{$registro->tesoreria}}
+                </div>
+                    <div class=" col-md-6">
+                        Municipio:{{$municipio}}
+                    </div>
+                    <div class=" col-md-6">
+                        Escritura No.:{{$registro->escritura_num}}
+                    </div>
+                                        <div class=" col-md-6">
+                        Volumen:{{$registro->volumen}}
+                    </div>
+                                        <div class=" col-md-6">
+                        No. De cuenta:{{$registro->cuenta}}
+                    </div>
+                    <div class=" col-md-6">
+                        Tipo de predio:{{$registro->tipo_predio}}
+                    </div>
+                    <div class=" col-md-6">
+                        Clave Catastral:{{$registro->clave}}
+                    </div>
+
+            </div>
+        </div>
+    </div>
     <div class="row">
 
 
