@@ -209,7 +209,7 @@ class TramitesController extends BaseController {
             ]);
         }
 
-        return Redirect::to('tramites/proceso/'.$this->tramite->id)->with('success', "Se ha iniciado el trámite con folio: $anio/$municipio/$folio");
+        return Redirect::to('tramites/proceso/'.$this->tramite->id)->with('success', "Se ha iniciado el trámite con folio: $anio/$municipio/".sprintf("%06d",$folio));
     }
 
 
@@ -411,6 +411,8 @@ class TramitesController extends BaseController {
         $tramite = Tramite::findOrFail($tramite_id);
 
         $folio = $tramite->folio;
+        $anio = $tramite->anio;
+        $municipio = $tramite->municipio;
 
         $tipo_id = Input::get('tipo_id');
         $departamento_id = Input::get('departamento_id');
@@ -501,7 +503,7 @@ class TramitesController extends BaseController {
 
         ActividadTramite::create($actividad);
 
-        return Redirect::to('/')->with('success',"Se ha guardado trámite con folio: ".$folio);
+        return Redirect::to('/')->with('success',"Se ha guardado trámite con folio: $anio/$municipio/".sprintf("%06d",$folio));
     }
 
     /**
