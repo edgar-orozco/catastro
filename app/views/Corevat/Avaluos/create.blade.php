@@ -32,9 +32,12 @@
         border: none !important;
         width: 100% !important;
     }
-    input[type="reset"],input[type="submit"]{
+    input[type="reset"],input[type="submit"], a.back{
         background: #F27007 !important;
-
+        padding: 15px 0;
+        margin-top: 20px;
+        text-align: center;
+        color: white;
     }
     label{
         padding: 5px 0 !important;
@@ -242,16 +245,16 @@
 			{{Form::text('nombre_propietario','', ['class'=>'form-control', 'tabindex'=>'25', 'maxlength'=>'100', 'required'=>'required'])}}
             </div>
 		</div>
-	</div>
-	<div class="col-md-4 form-actions form-group">
-        {{Form::submit('Guardar', ['class'=>'btn btn-primary col-md-4'])}}
     </div>
     <div class="col-md-4 form-actions form-group">
-        {{Form::reset('Limpiar formulario', ['class' => 'btn btn-primary col-md-4']) }}
+        <a href="{{URL::route('corevat.Avaluos.index')}}" class="btn btn-primary back btn-block col-md-4" role="button"><i class="glyphicon glyphicon-arrow-left"></i> Regresar</a>
     </div>
     <div class="col-md-4 form-actions form-group">
-		<a href="{{URL::route('corevat.Avaluos.index')}}" class="btn btn-primary col-md-4" role="button"><i class="glyphicon glyphicon-arrow-left"></i> Regresar</a>
-	</div>
+        {{Form::reset('Limpiar formulario', ['class' => 'btn reset btn-primary col-md-4']) }}
+    </div>
+    <div class="col-md-4 form-actions form-group">
+        {{Form::submit('Guardar', ['class'=>'btn btn-primary save col-md-4'])}}
+    </div>
 </div>
 {{Form::close()}}
 @stop
