@@ -55,3 +55,8 @@ h3{
     border-bottom: 1px solid #000000 !important;
     width: 24% !important;
 }
+
+#menuAvaluosSections a{
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
+}

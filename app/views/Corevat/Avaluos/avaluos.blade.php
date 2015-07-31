@@ -5,7 +5,7 @@
 {{ HTML::style('/js/jquery/jquery-ui.css') }}
 	<h1>Avalúos</h1>
 	<hr>
-	<div>
+	<div id="menuAvaluosSections">
 		<a class="btn btn-info btn0" id="btn1General" href="{{ action('editAvaluoGeneral',['id'=>$idavaluo])}}" role="button">General</a>
 		<a class="btn btn-info btn0" id="btn2Zona" href="{{ action('editAvaluoZona',['id'=>$idavaluo])}}" role="button">Zona</a>
 		<a class="btn btn-info btn0" id="btn3Inmueble" href="{{ action('editAvaluoInmueble',['id'=>$idavaluo])}}" role="button">Inmueble</a>
