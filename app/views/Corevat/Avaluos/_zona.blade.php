@@ -1,7 +1,7 @@
 <h3 class="header">{{$title}}</h3>
 {{Form::model($row, ['route' => array('updateAvaluoZona', $idavaluo), 'method'=>'post', 'id'=>'formAvaluoZona' ]) }}
 {{Form::hidden('idavaluozona', $row->idavaluozona)}}
-<div class="zonaCoveratSecc">
+<div id="zonaCoveratSecc">
 	<div class="col-md-6">
         <h4>Servicios Municipales</h4>
         <div class="checkbox">

@@ -70,3 +70,9 @@ h3{
     border-color: darkgray;
     padding: 10px 15px;
 }
+
+
+#zonaCoveratSecc .checkbox input[type="checkbox"]{
+    margin-left: 0px;
+    left: 0;
+}
