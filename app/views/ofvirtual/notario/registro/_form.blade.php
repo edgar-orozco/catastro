@@ -69,7 +69,7 @@
     {{--Form::text('adquiriente', null, ['class' => 'form-control'] )--}}
     {{form::personas('enajenante')}}
         <h3 class="panel-title">Dirección Enajenante</h3>
-        {{Form::domicilio('Denajenante',$vialidad,$entidad,$asentamiento,$municipio)}}
+        {{Form::domicilio('enajenanteDomicilio',$vialidad,$entidad,$asentamiento,$municipio)}}
     {{--Form::label('direccion_e','Diección del enajenante:')--}}
     {{--Form::text('direccion_e', null, ['class' => 'form-control'] )--}}
 </div>
@@ -87,7 +87,7 @@
     {{form::personas('adquiriente')}}
 
     <h3 class="panel-title">Dirección Adquiriente</h3>
-        {{Form::domicilio('Dadquiriente',$vialidad,$entidad,$asentamiento,$municipio)}}
+        {{Form::domicilio('adquirienteDomicilio',$vialidad,$entidad,$asentamiento,$municipio)}}
     {{--Form::label('direccion_a','Diección del adquiriente:')--}}
     {{--Form::text('direccion_a', null, ['class' => 'form-control'] )--}}
 </div>
