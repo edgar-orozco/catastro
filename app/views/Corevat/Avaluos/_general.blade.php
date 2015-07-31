@@ -1,4 +1,4 @@
-{{ HTML::style('/css/coverat.css.css') }}
+{{ HTML::style('/css/coverat.css') }}
 <h3 class="header">{{$title}}</h3>
     @if( $errors->all() )
         <div class="alert alert-danger">
