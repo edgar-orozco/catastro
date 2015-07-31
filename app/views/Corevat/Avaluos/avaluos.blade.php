@@ -2,6 +2,7 @@
 @section('content')
 {{ HTML::style('/css/bootstrap.min.css') }}
 {{ HTML::style('/css/dataTables.bootstrap.css') }}
+{{ HTML::style('/css/coverat.css') }}
 {{ HTML::style('/js/jquery/jquery-ui.css') }}
 	<h1>Avalúos</h1>
 	<hr>
