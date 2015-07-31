@@ -60,3 +60,14 @@ h3{
     border-bottom-left-radius: 0;
     border-bottom-right-radius: 0;
 }
+#menuAvaluosSections a.btn-info{
+    background-color: gray;
+    border-color: gray;
+}
+#menuAvaluosSections a.btn-primary{
+    font-size: 16px;
+    color: #fff;
+    background-color: darkgray;
+    border-color: darkgray;
+    padding: 10px 15px;
+}
