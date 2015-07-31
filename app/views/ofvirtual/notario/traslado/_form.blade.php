@@ -569,7 +569,6 @@
                     return false;
                 }
             };
-            console.log(item);
             //Se crea autocompleter de CURP
             $("#enajenante-curp").autocomplete(autoCompleteOptsEnajenante).autocomplete("instance")._renderItem = function (ul, item) {
                 console.log('aqui');
