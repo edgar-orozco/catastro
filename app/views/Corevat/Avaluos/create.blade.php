@@ -55,7 +55,7 @@
         border-color: #2e6da4 !important;;
     }
     .coveratCont label{
-        padding: 5px 0 !important;
+        padding: 0 !important;
     }
     .coveratCont .cords input{
         border-radius: 0;
