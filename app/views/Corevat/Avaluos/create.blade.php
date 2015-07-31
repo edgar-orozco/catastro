@@ -43,6 +43,10 @@
     input.save{
         background: #F27007 !important;
     }
+    input.reset{
+        background-color: #5cb85c !important;
+        border-color: #4cae4c !important;
+    }
     label{
         padding: 5px 0 !important;
     }
