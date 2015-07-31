@@ -21,8 +21,6 @@ h3{
 }
 .coveratCont div[class^='col-md-'],div[class*=' col-md-']{
     margin-bottom: 5px;
-    border-top: 1px solid gray;
-    border-bottom: 1px solid gray;
 }
 .coveratCont div.col-md-10, .coveratCont div.col-md-8{
     border-left: 1px solid gray;
