@@ -71,16 +71,16 @@ class OficinaVirtualNotarioController extends \BaseController
         $identificador = strtoupper($identificador);
         $predio = $this->padron->getByClaveOCuenta($identificador);
 
-        $notarioEscritura = Auth::user()->notaria->notario->nombres.' ' .Auth::user()->notaria->notario->apellido_paterno. ' '.Auth::user()->notaria->notario->apellido_materno;
+        $notarioEscritura = Auth::user()->notaria->notario->nombres . ' ' . Auth::user()->notaria->notario->apellido_paterno . ' ' . Auth::user()->notaria->notario->apellido_materno;
 
-        $notariaEscritura = Auth::user()->notaria->nombre.Auth::user()->notaria->mpio->nombre_municipio.Auth::user()->notaria->estado->nom_ent;
+        $notariaEscritura = Auth::user()->notaria->nombre . Auth::user()->notaria->mpio->nombre_municipio . Auth::user()->notaria->estado->nom_ent;
 
         //Si la clave no se encuentra
         if (!$predio) {
             return Redirect::to('ofvirtual/notario/traslado')->with('error', 'La clave o cuenta es incorrecta.');
         }
 
-        return View:: make('ofvirtual.notario.traslado.create', compact('title', 'traslado', 'predio','notarioEscritura','notariaEscritura'));
+        return View:: make('ofvirtual.notario.traslado.create', compact('title', 'traslado', 'predio', 'notarioEscritura', 'notariaEscritura'));
 
     }
 
@@ -96,27 +96,69 @@ class OficinaVirtualNotarioController extends \BaseController
         $usuarioId = Auth::id();
 
         //
-
         $notarioEscrituraId = Auth::user()->notaria->id_notario;
 
         $notariaEscrituraId = Auth::user()->notaria->id_notaria;
 
-
-        $enajenante = new personas();
+        //Busca Enajenante
         $datosEnajenante = Input::get('enajenante');
-        $enajenante->fill($datosEnajenante);
+        $enajenanteRFC = $datosEnajenante->rfc;
+        $enajenanteCurp = $datosEnajenante->curp;
+        if (!empty($enajenanteRFC)) $enajenanteExistente = personas::getPorCurpRFC($enajenanteRFC);
+        else $enajenanteExistente = personas::getPorCurpRFC($enajenanteCurp);
 
-        if (!$enajenante->save()) {
-            return Redirect::back()->with('error', 'Error en datos del enajenante.');
+        //si existe, update
+        if (!empty($enajenanteExistente)) {
+            $enajenante = personas::find($enajenanteExistente->id_p);
+            $datosEnajenante = Input::get('enajenante');
+            $enajenante->fill($datosEnajenante);
+
+
+            if (!$enajenante->save()) {
+                return Redirect::back()->with('error', 'Error en datos del enajenante.');
+            }
+        } //si no existe, insert
+        else {
+            $enajenante = new personas();
+
+            $enajenante->fill($datosEnajenante);
+
+            if (!$enajenante->save()) {
+                return Redirect::back()->with('error', 'Error en datos del enajenante.');
+            }
         }
+        //
 
-        $adquiriente = new personas();
+
+        //Busca Adquiriente
         $datosAdquiriente = Input::get('adquiriente');
-        $adquiriente->fill($datosAdquiriente);
 
-        if (!$adquiriente->save()) {
-            return Redirect::back()->with('error', 'Error en datos del adquiriente.');
+        $adquirienteRFC = $datosAdquiriente->rfc;
+        $adquirienteCurp = $datosAdquiriente->curp;
+        if (!empty($adquirienteRFC)) $adquirienteExistente = personas::getPorCurpRFC($adquirienteRFC);
+        else $adquirienteExistente = personas::getPorCurpRFC($adquirienteCurp);
+
+        //si existe, update
+        if (!empty($adquirienteExistente)) {
+            $adquiriente = personas::find($adquirienteExistente->id_p);
+            $datosAdquiriente = Input::get('adquiriente');
+            $adquiriente->fill($datosAdquiriente);
+
+
+            if (!$adquiriente->save()) {
+                return Redirect::back()->with('error', 'Error en datos del adquiriente.');
+            }
+        } //si no existe, insert
+        else {
+            $adquiriente = new personas();
+
+            $adquiriente->fill($datosAdquiriente);
+
+            if (!$adquiriente->save()) {
+                return Redirect::back()->with('error', 'Error en datos del adquiriente.');
+            }
         }
+        //
 
         $traslado = new Traslado();
         $traslado->fill(array_filter(Input::get('traslado')));
@@ -130,7 +172,7 @@ class OficinaVirtualNotarioController extends \BaseController
         $traslado->enajenante_id = $enajenante->id_p;
         $traslado->adquiriente_id = $adquiriente->id_p;
 
-        //Como usuario notario, requiero que se validen los montos de terreno a vender no sean mayores que el declarado en el registro de predio.
+    //Como usuario notario, requiero que se validen los montos de terreno a vender no sean mayores que el declarado en el registro de predio.
         $predio = $this->padron->getByClaveOCuenta($traslado->clave);
 
         if ($traslado->superficie_vendida > $predio->superficie_terreno) {
@@ -146,7 +188,7 @@ class OficinaVirtualNotarioController extends \BaseController
         }
 
 
-        //Dado que fue exitosa la creacion del traslado,  mostramos la salida al usuario.
+//Dado que fue exitosa la creacion del traslado,  mostramos la salida al usuario.
         return Redirect::to('ofvirtual/notario/traslado/show/' . $traslado->id)->with('success', '¡Se ha creado correctamente el traslado de dominio para la cuenta ' . $traslado->cuenta . '!');
     }
 
@@ -157,7 +199,8 @@ class OficinaVirtualNotarioController extends \BaseController
      * @param  int $id
      * @return Response
      */
-    public function show($id)
+    public
+    function show($id)
     {
 
         // confirmar datos y confirmar folio
@@ -176,19 +219,19 @@ class OficinaVirtualNotarioController extends \BaseController
         $traslado->traslado = $traslado;
 
         $notario = Notaria::where('id_notario', $traslado->notario_escritura_id)->first();
-        $traslado->notarioEscritura =$notario->nombre .' ' .
-            $notario->mpio['nombre_municipio'].' '. $notario->estado['nom_ent'] .' '.
-            $notario->notario->nombres.' ' .$notario->notario->apellido_paterno. ' '.$notario->notario->apellido_materno;
+        $traslado->notarioEscritura = $notario->nombre . ' ' .
+            $notario->mpio['nombre_municipio'] . ' ' . $notario->estado['nom_ent'] . ' ' .
+            $notario->notario->nombres . ' ' . $notario->notario->apellido_paterno . ' ' . $notario->notario->apellido_materno;
 
 
         $notaria = Notaria::find($traslado->notaria_escritura_id);
-        $traslado->notariaEscritura = $notaria->nombre.$notaria->mpio->nombre_municipio.$notaria->estado->nom_ent;
+        $traslado->notariaEscritura = $notaria->nombre . $notaria->mpio->nombre_municipio . $notaria->estado->nom_ent;
 
 
         $notarioAntecedente = Notaria::where('id_notario', $traslado->notario_antecedente_id)->first();
-        $traslado->notarioAntecedente =  $notarioAntecedente->nombre .' ' .
-                    $notarioAntecedente->mpio['nombre_municipio'].' '. $notarioAntecedente->estado['nom_ent'] .' '.
-                     $notarioAntecedente->notario->nombres.' ' .$notarioAntecedente->notario->apellido_paterno. ' '.$notarioAntecedente->notario->apellido_materno;
+        $traslado->notarioAntecedente = $notarioAntecedente->nombre . ' ' .
+            $notarioAntecedente->mpio['nombre_municipio'] . ' ' . $notarioAntecedente->estado['nom_ent'] . ' ' .
+            $notarioAntecedente->notario->nombres . ' ' . $notarioAntecedente->notario->apellido_paterno . ' ' . $notarioAntecedente->notario->apellido_materno;
 
         // Title
         $title = 'Editar traslado de dominio';
@@ -198,7 +241,9 @@ class OficinaVirtualNotarioController extends \BaseController
 
     }
 
-    public function imprimir($id){
+    public
+    function imprimir($id)
+    {
 
         // confirmar datos y confirmar folio
         $traslado = Traslado::find($id);
@@ -216,19 +261,19 @@ class OficinaVirtualNotarioController extends \BaseController
         $traslado->traslado = $traslado;
 
         $notario = Notaria::where('id_notario', $traslado->notario_escritura_id)->first();
-        $traslado->notarioEscritura =$notario->nombre .' ' .
-            $notario->mpio['nombre_municipio'].' '. $notario->estado['nom_ent'] .' '.
-            $notario->notario->nombres.' ' .$notario->notario->apellido_paterno. ' '.$notario->notario->apellido_materno;
+        $traslado->notarioEscritura = $notario->nombre . ' ' .
+            $notario->mpio['nombre_municipio'] . ' ' . $notario->estado['nom_ent'] . ' ' .
+            $notario->notario->nombres . ' ' . $notario->notario->apellido_paterno . ' ' . $notario->notario->apellido_materno;
 
 
         $notaria = Notaria::find($traslado->notaria_escritura_id);
-        $traslado->notariaEscritura = $notaria->nombre.$notaria->mpio->nombre_municipio.$notaria->estado->nom_ent;
+        $traslado->notariaEscritura = $notaria->nombre . $notaria->mpio->nombre_municipio . $notaria->estado->nom_ent;
 
 
         $notarioAntecedente = Notaria::where('id_notario', $traslado->notario_antecedente_id)->first();
-        $traslado->notarioAntecedente =  $notarioAntecedente->nombre .' ' .
-            $notarioAntecedente->mpio['nombre_municipio'].' '. $notarioAntecedente->estado['nom_ent'] .' '.
-            $notarioAntecedente->notario->nombres.' ' .$notarioAntecedente->notario->apellido_paterno. ' '.$notarioAntecedente->notario->apellido_materno;
+        $traslado->notarioAntecedente = $notarioAntecedente->nombre . ' ' .
+            $notarioAntecedente->mpio['nombre_municipio'] . ' ' . $notarioAntecedente->estado['nom_ent'] . ' ' .
+            $notarioAntecedente->notario->nombres . ' ' . $notarioAntecedente->notario->apellido_paterno . ' ' . $notarioAntecedente->notario->apellido_materno;
 
 
         // Title
@@ -238,15 +283,16 @@ class OficinaVirtualNotarioController extends \BaseController
         $seguimiento = DNS1D::getBarcodePNGPath($traslado->seguimiento, "C128");
 
         // Show the page
-        $vista =  View:: make('ofvirtual.notario.traslado.pdf', compact('title', 'traslado', 'predio','seguimiento'));
+        $vista = View:: make('ofvirtual.notario.traslado.pdf', compact('title', 'traslado', 'predio', 'seguimiento'));
         //devuelvo los datos en PDF
-        $pdf      = PDF::load($vista)->show();
+        $pdf = PDF::load($vista)->show();
         $response = Response::make($pdf, 200);
         $response->header('Content-Type', 'application/pdf');
         return $response;
     }
 
-    public function asignarFolio($id)
+    public
+    function asignarFolio($id)
     {
 
         $traslado = Traslado::find($id);
@@ -269,7 +315,8 @@ class OficinaVirtualNotarioController extends \BaseController
      * @param  int $id
      * @return Response
      */
-    public function edit($id)
+    public
+    function edit($id)
     {
         //
         $traslado = Traslado::find($id);
@@ -292,11 +339,10 @@ class OficinaVirtualNotarioController extends \BaseController
 
         $notario = Notaria::where('id_notario', $traslado->notario_escritura_id)->first();
 
-        $notarioEscritura = $notario->notario->nombres.' ' .$notario->notario->apellido_paterno. ' '.$notario->notario->apellido_materno;
+        $notarioEscritura = $notario->notario->nombres . ' ' . $notario->notario->apellido_paterno . ' ' . $notario->notario->apellido_materno;
 
         $notaria = Notaria::find($traslado->notaria_escritura_id);
-        $notariaEscritura = $notaria->nombre.$notaria->mpio->nombre_municipio.$notaria->estado->nom_ent;
-
+        $notariaEscritura = $notaria->nombre . $notaria->mpio->nombre_municipio . $notaria->estado->nom_ent;
 
 
         //$JsonColindancias = $traslado->colindancia->toJson();
@@ -305,7 +351,7 @@ class OficinaVirtualNotarioController extends \BaseController
 
         // Show the page
         //return View:: make('ofvirtual.notario.traslado.edit', compact('title', 'traslado', 'predio', 'JsonColindancias'));
-        return View:: make('ofvirtual.notario.traslado.edit', compact('title', 'traslado', 'predio', 'notarioEscritura','notariaEscritura'));
+        return View:: make('ofvirtual.notario.traslado.edit', compact('title', 'traslado', 'predio', 'notarioEscritura', 'notariaEscritura'));
     }
 
 
@@ -315,35 +361,78 @@ class OficinaVirtualNotarioController extends \BaseController
      * @param  int $id
      * @return Response
      */
-    public function update($id)
+    public
+    function update($id)
     {
-        //ToDo: revisar primero que no tenga asignado un folio, si tiene asigando un folio no se puede editar
 
         //Buscamos el traslado original relacionado con el id
         $traslado = Traslado::find($id);
         //
 
-        //ToDo: checar si se puede hacer update de notaria y usuario
-        //$usuarioId = Auth::id();
-
-        $enajenante = personas::find($traslado->enajenante_id);
+        //Busca Enajenante
         $datosEnajenante = Input::get('enajenante');
-        $enajenante->fill($datosEnajenante);
+        $enajenanteRFC = $datosEnajenante->rfc;
+        $enajenanteCurp = $datosEnajenante->curp;
+        if (!empty($enajenanteRFC)) $enajenanteExistente = personas::getPorCurpRFC($enajenanteRFC);
+        else $enajenanteExistente = personas::getPorCurpRFC($enajenanteCurp);
 
-        if (!$enajenante->save()) {
-            return Redirect::back()->with('error', 'Error en datos del enajenante.');
+        //si existe, update
+        if (!empty($enajenanteExistente)) {
+            $enajenante = personas::find($enajenanteExistente->id_p);
+            $datosEnajenante = Input::get('enajenante');
+            $enajenante->fill($datosEnajenante);
+
+
+            if (!$enajenante->save()) {
+                return Redirect::back()->with('error', 'Error en datos del enajenante.');
+            }
+        } //si no existe, insert
+        else {
+            $enajenante = new personas();
+
+            $enajenante->fill($datosEnajenante);
+
+            if (!$enajenante->save()) {
+                return Redirect::back()->with('error', 'Error en datos del enajenante.');
+            }
         }
+        //
 
-        $adquiriente = personas::find($traslado->adquiriente_id);
+
+        //Busca Adquiriente
         $datosAdquiriente = Input::get('adquiriente');
-        $adquiriente->fill($datosAdquiriente);
+
+        $adquirienteRFC = $datosAdquiriente->rfc;
+        $adquirienteCurp = $datosAdquiriente->curp;
+        if (!empty($adquirienteRFC)) $adquirienteExistente = personas::getPorCurpRFC($adquirienteRFC);
+        else $adquirienteExistente = personas::getPorCurpRFC($adquirienteCurp);
+
+        //si existe, update
+        if (!empty($adquirienteExistente)) {
+            $adquiriente = personas::find($adquirienteExistente->id_p);
+            $datosAdquiriente = Input::get('adquiriente');
+            $adquiriente->fill($datosAdquiriente);
 
 
-        if (!$adquiriente->save()) {
-            return Redirect::back()->with('error', 'Error en datos del adquiriente.');
+            if (!$adquiriente->save()) {
+                return Redirect::back()->with('error', 'Error en datos del adquiriente.');
+            }
+        } //si no existe, insert
+        else {
+            $adquiriente = new personas();
+
+            $adquiriente->fill($datosAdquiriente);
+
+            if (!$adquiriente->save()) {
+                return Redirect::back()->with('error', 'Error en datos del adquiriente.');
+            }
         }
+        //
 
         $traslado->fill(array_filter(Input::get('traslado')));
+
+        $traslado->enajenante_id = $enajenante->id_p;
+        $traslado->adquiriente_id = $adquiriente->id_p;
 
         //Como usuario notario, requiero que se validen los montos de terreno a vender no sean mayores que el declarado en el registro de predio.
         $predio = $this->padron->getByClaveOCuenta($traslado->clave);
@@ -361,7 +450,7 @@ class OficinaVirtualNotarioController extends \BaseController
         }
 
         //Dado que fue exitosa la actualización mostramos la salida al usuario.
-          return Redirect::to('ofvirtual/notario/traslado/show/' . $traslado->id)->with('success', '¡Se ha editado correctamente el traslado de dominio para la cuenta ' . $traslado->cuenta . '!');
+        return Redirect::to('ofvirtual/notario/traslado/show/' . $traslado->id)->with('success', '¡Se ha editado correctamente el traslado de dominio para la cuenta ' . $traslado->cuenta . '!');
     }
 
 
@@ -371,7 +460,8 @@ class OficinaVirtualNotarioController extends \BaseController
      * @param  int $id
      * @return Response
      */
-    public function destroy($id)
+    public
+    function destroy($id)
     {
         //
         //ToDo: revisar primero que no tenga asignado un folio, si tiene asigando un folio no se puede borrar
@@ -387,14 +477,14 @@ class OficinaVirtualNotarioController extends \BaseController
         $adquiriente->delete();
 
 
-
         return Redirect::to('ofvirtual/notario/traslado')->with('success', '¡Se ha eliminado correctamente el traslado!');
 
 
     }
 
 
-    public function buscar()
+    public
+    function buscar()
     {
 
         $q = Input::get('q');
@@ -435,7 +525,7 @@ class OficinaVirtualNotarioController extends \BaseController
         }
         if ($tipo == 'Seguimiento') {
             $traslados = Traslado::whereSeguimiento($q)->paginate($this->numPags);
-    }
+        }
         if (Request::ajax()) {
             return View:: make('ofvirtual.notario.traslado._list', compact(['traslados']));
         }
@@ -445,19 +535,21 @@ class OficinaVirtualNotarioController extends \BaseController
     }
 
 
-    public function getEnajenante(){
+    public
+    function getEnajenante()
+    {
         $q = Input::get('term');
-        if (Request::ajax())
-        {
+        if (Request::ajax()) {
             return personas::getPorCurpRFC($q);
         }
     }
 
 
-    public function getAdquiriente(){
+    public
+    function getAdquiriente()
+    {
         $q = Input::get('term');
-        if (Request::ajax())
-        {
+        if (Request::ajax()) {
             return personas::getPorCurpRFC($q);
         }
     }
