@@ -14,78 +14,106 @@
     <div class="row">
         <div class="panel panel-default">
             <div class="panel-heading">
-                <h3 class="panel-title">Folio</h3>
-                {{$registro->folio}}
             </div>
-        </div>
+                <h3 class="panel-title">Folio</h3>
+                <div class="col-md-12">
+                {{$registro->folio}}
+                </div>
+                <div class="col-md-12">
+            Naturaleza del Contrato: {{$registro->naturaleza_acto}}
+            </div>
+            </div>
+
+
     </div>
-    
+
 
     <div class="row">
         <div class="panel panel-default">
             <div class="panel-heading">
                 <h3 class="panel-title">Datos del notario</h3>
-                <div class="panel-body">
-                <div class=" col-md-6">
-                    Notaria No.:{{$notaria->nombre}}
                 </div>
-                    <div class=" col-md-6">
+                <div class="panel-body">
+                <div class=" col-md-12">
+                    Tipo de escritura: {{$registro->tipo_escritura}}
+                </div>
+                <div class=" col-md-6">
                         Nombre del Notario:{{$registro->notarioEscritura}}
                     </div>
+                <div class=" col-md-6">
+                   No. de Notaria:{{$notaria->nombre}}
+                </div>
+
                     <div class=" col-md-12">
                         Domicilio:{{$notaria->domicilio}}
                     </div>
-                                        <div class=" col-md-6">
+                                        <div class=" col-md-4">
                         No. Telefónico:{{$notaria->telefono}}
                     </div>
-                                        <div class=" col-md-6">
-                        E-mail:{{$notaria->domicilio}}
+                                        <div class=" col-md-4">
+                        E-mail:{{$notaria->correo}}
                     </div>
-
-            </div>
-            </div>
-        </div>
-    </div>
-
-    <div class="row">
-        <div class="panel panel-default">
-            <div class="panel-heading">
-
-                <div class="panel-body">
-                <div class=" col-md-6">
-                    Tesorería Municipal:{{$registro->tesoreria}}
-                </div>
-                    <div class=" col-md-6">
-                        Municipio:{{$municipio}}
-                    </div>
-                    <div class=" col-md-6">
-                        Escritura No.:{{$registro->escritura_num}}
-                    </div>
-                                        <div class=" col-md-6">
+                     <div class=" col-md-4">
                         Volumen:{{$registro->volumen}}
                     </div>
-                                        <div class=" col-md-6">
+                    <div class=" col-md-4">
                         No. De cuenta:{{$registro->cuenta}}
                     </div>
-                    <div class=" col-md-6">
-                        Tipo de predio:{{$registro->tipo_predio}}
-                    </div>
-                    <div class=" col-md-6">
+                    <div class=" col-md-4">
                         Clave Catastral:{{$registro->clave}}
+                    </div>
+                    <div class=" col-md-4">
+                        Tipo de predio:{{$registro->tipo_predio}}
                     </div>
 
             </div>
-        </div>
+            </div>
+
     </div>
+
     <div class="row">
+      {{--Datos del predio --}}
+
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3 class="panel-title">Datos del inmueble</h3>
+            </div>
+            <div class="panel-body">
+
+                <div class="col-md-12">
+                    Ubicacion: {{$predio->ubicacionFiscal->ubicacion}}
+                </div>
+                <div class="col-md-6">
 
 
+                    Superficie terreno: {{$predio->superficie_terreno}} m2
+                </div>
+                <div class="col-md-6">
+                    Superficie construcción: {{$predio->superficie_construccion}} m2
+                </div>
+                <div class=" col-md-4">
+                    Volumen: {{$registro->escritura_volumen }}
+                </div>
+                <div class=" col-md-4">
+                    De fecha: {{$registro->escritura_fecha}}
+                </div>
+                <div class=" col-md-6">
+                   Niveles: {{$registro->escritura_fecha}}
+                </div>
+                <div class=" col-md-6">
+                    Estado de conservación: {{$registro->escritura_fecha}}
+                </div>
+
+
+            </div>
+        </div>
 
         <div class="panel panel-default">
             <div class="panel-heading">
                 <h3 class="panel-title">Contratantes</h3>
             </div>
             <div class="panel-body">
+
                 {{--adquiriente --}}
                 <div class=" col-md-6">
                     <h3> Adquiriente </h3>
@@ -118,57 +146,19 @@
                     </div>
                     {{--/enajenante --}}
                 </div>
+                <div class="col-md-6"><h3>Fecha del Instrumento</h3> </div>
+                <div class="col-md-6"><h3>Fecha de Firma</h3></div>
             </div>
         </div>
-
-
-        {{--Datos del predio --}}
 
         <div class="panel panel-default">
             <div class="panel-heading">
-                <h3 class="panel-title">Datos del bien inmueble</h3>
+                <h3 class="panel-title">Colindancias</h3>
             </div>
             <div class="panel-body">
-                <div>
-                    Tipo de escritura: {{$registro->tipo_escritura}}
-                </div>
-                <div class=" col-md-4">
-                    N°. De escritura: {{$registro->escritura_registro}}
-                </div>
-                <div class=" col-md-4">
-                    Volumen: {{$registro->escritura_volumen }}
-                </div>
-                <div class=" col-md-4">
-                    De fecha: {{$registro->escritura_fecha}}
-                </div>
 
-                <div style="clear:both"></div>
-                <div>
-
-                    Pasada ante la fe del notario: {{$registro->notarioEscritura}}
-
-                    <br>
-                    Notaría pública: {{$registro->notariaEscritura}}
-
-                </div>
-
-                <div style="clear:both"></div>
-                Naturaleza del Acto: {{$registro->naturaleza_acto}}
-
-                <br>
-
-                <div style="clear:both"></div>
-                <div>
-                    Ubicacion: {{$predio->ubicacionFiscal->ubicacion}}
-                    <br>registroregistro
-
-                    Superficie terreno: {{$predio->superficie_terreno}} m2
-                    <br>
-
-                    Superficie construcción: {{$predio->superficie_construccion}} m2
-                </div>
             </div>
-        </div>
+
         <div class="panel panel-default">
             <div class="panel-heading">
                 <h3 class="panel-title">Antecedentes de la propiedad</h3>
@@ -230,7 +220,7 @@
         </div>
 
 
-
+</div>
 
 
         {{ Form::model($registro, ['url' => array('ofvirtual/notario/registro/asignarFolio', $registro->id ), 'method'=>'GET' ]) }}
