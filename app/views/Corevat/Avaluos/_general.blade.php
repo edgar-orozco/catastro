@@ -100,8 +100,8 @@
 	<div class="col-md-12">
 		<div class="form-group">
 			{{Form::label('finalidad', 'Finalidad', ['class'=>'col-md-2'])}}
-			{{Form::text('finalidad', $row->finalidad, ['class'=>'form-control', 'tabindex'=>'5', 'required' => 'required', 'maxlength' => '250'])}}
             <div class="col-md-10">
+                {{Form::text('finalidad', $row->finalidad, ['class'=>'form-control', 'tabindex'=>'5', 'required' => 'required', 'maxlength' => '250'])}}
 			{{$errors->first('finalidad', '<span class=text-danger>:message</span>')}}
             </div>
 		</div>
