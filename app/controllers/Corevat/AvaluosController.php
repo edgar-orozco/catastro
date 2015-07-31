@@ -953,11 +953,15 @@ class corevat_AvaluosController extends \BaseController {
 			$response = array('success' => false, 'errors' => $validate->getMessageBag()->toArray());
 		} else {
 			if ($inputs["idTable"] == '0') {
-				AefTerrenos::insAefTerrenos($inputs, $idaefterreno);
-				$response = array('success' => true, 'message' => '¡El registro fue ingresado satisfactoriamente!', 'ctrl' => 'btnEditAefTerrenos', 'idTable' => $idaefterreno);
+				AefTerrenos::insAefTerrenos($inputs, $idaefterreno, $valor_terreno, $total_valor_fisico);
+				$valor_terreno = number_format($valor_terreno, 2, ".", ",");
+				$total_valor_fisico = number_format($total_valor_fisico, 2, ".", ",");
+				$response = array('success' => true, 'message' => '¡El registro fue ingresado satisfactoriamente!', 'ctrl' => 'btnEditAefTerrenos', 'idTable' => $idaefterreno, 'valor_terreno' => $valor_terreno, 'total_valor_fisico' => $total_valor_fisico);
 			} else {
-				AefTerrenos::updAefTerrenos($inputs);
-				$response = array('success' => true, 'message' => '¡El registro fue modificado satisfactoriamente!', 'ctrl' => 'btnEditAefTerrenos', 'idTable' => $inputs["idTable"]);
+				AefTerrenos::updAefTerrenos($inputs, $valor_terreno, $total_valor_fisico);
+				$valor_terreno = number_format($valor_terreno, 2, ".", ",");
+				$total_valor_fisico = number_format($total_valor_fisico, 2, ".", ",");
+				$response = array('success' => true, 'message' => '¡El registro fue modificado satisfactoriamente!', 'ctrl' => 'btnEditAefTerrenos', 'idTable' => $inputs["idTable"], 'valor_terreno' => $valor_terreno, 'total_valor_fisico' => $total_valor_fisico);
 			}
 		}
 		return $response;
@@ -1011,41 +1015,81 @@ class corevat_AvaluosController extends \BaseController {
 		} else {
 			if ($inputs["idTable"] == '0') {
 				AefInstalaciones::insAefInstalaciones($inputs, $idaefinstalacion);
-				$response = array('success' => true, 'message' => '¡El registro fue ingresado satisfactoriamente!', 'ctrl' => 'btnEditAefInstalaciones', 'idTable' => $idaefinstalacion);
+				$total_metros_construccion = number_format($total_metros_construccion, 2, ".", ",");
+				$valor_construccion = number_format($valor_construccion, 2, ".", ",");
+				$total_valor_fisico = number_format($total_valor_fisico, 2, ".", ",");
+				$response = array(
+				'success' => true, 
+				'message' => '¡El registro fue ingresado satisfactoriamente!', 
+				'ctrl' => 'btnEditAefInstalaciones', 
+				'idTable' => $idaefinstalacion
+				);
 			} else {
 				AefInstalaciones::updAefInstalaciones($inputs);
-				$response = array('success' => true, 'message' => '¡El registro fue modificado satisfactoriamente!', 'ctrl' => 'btnEditAefInstalaciones', 'idTable' => $inputs["idTable"]);
+				$valor_terreno = number_format($valor_terreno, 2, ".", ",");
+				$total_valor_fisico = number_format($total_valor_fisico, 2, ".", ",");
+				$response = array(
+				'success' => true, 
+				'message' => '¡El registro fue modificado satisfactoriamente!', 
+				'ctrl' => 'btnEditAefInstalaciones', 
+				'idTable' => $inputs["idTable"]
+				);
 			}
 		}
 		return $response;
 	}
 
-	/*
-	 * 
-	 */
-
 	private function setAefConstrucciones($inputs) {
 		$idaefconstruccion = 0;
 		$rules = array(
 			'valor_nuevo' => array('required', 'numeric', 'min:0.00', 'max:99999999.99', 'regex:/^[0-9]{1,8}(\.?)[0-9]{1,2}$/'),
+			'edad' => array('integer', 'min:0', 'max:999', 'regex:/^[0-9]{1,3}$/'),
 		);
 		$messages = array(
+			'edad.integer' => '¡El valor del campo "Edad" debe ser un entero positivo!',
+			'edad.min' => '¡El valor mínimo del campo "Edad" debe ser cero!',
+			'edad.max' => '¡El valor máximo del campo "Edad" debe ser 99999999.99!',
+			'edad.regex' => '¡El formato del campo "Edad" debe ser 999!',
+
 			'valor_nuevo.required' => '¡El campo "V.R. Nuevo" es requerido!',
 			'valor_nuevo.numeric' => '¡El valor del campo "V.R. Nuevo" debe ser numérico!',
 			'valor_nuevo.min' => '¡El valor mínimo del campo "V.R. Nuevo" debe ser cero!',
 			'valor_nuevo.max' => '¡El valor máximo del campo "V.R. Nuevo" debe ser 99999999.99!',
 			'valor_nuevo.regex' => '¡El formato del campo "V.R. Nuevo" debe ser 99999999.99!',
+
 		);
 		$validate = Validator::make($inputs, $rules, $messages);
 		if ($validate->fails()) {
 			$response = array('success' => false, 'errors' => $validate->getMessageBag()->toArray());
 		} else {
 			if ($inputs["idTable"] == '0') {
-				AefConstrucciones::insAefConstrucciones($inputs, $idaefconstruccion);
-				$response = array('success' => true, 'message' => '¡El registro fue ingresado satisfactoriamente!', 'ctrl' => 'btnEditAefConstrucciones', 'idTable' => $idaefconstruccion);
+				AefConstrucciones::insAefConstrucciones($inputs, $idaefconstruccion, $total_metros_construccion, $valor_construccion, $total_valor_fisico);
+				$total_metros_construccion = number_format($total_metros_construccion, 2, ".", ",");
+				$valor_construccion = number_format($valor_construccion, 2, ".", ",");
+				$total_valor_fisico = number_format($total_valor_fisico, 2, ".", ",");
+				$response = array(
+				'success' => true, 
+				'message' => '¡El registro fue ingresado satisfactoriamente!', 
+				'ctrl' => 'btnEditAefConstrucciones', 
+				'idTable' => $idaefconstruccion,
+				'total_metros_construccion' => $total_metros_construccion,
+				'valor_construccion' => $valor_construccion,
+				'total_valor_fisico' => $total_valor_fisico
+				);
 			} else {
-				AefConstrucciones::updAefConstrucciones($inputs);
-				$response = array('success' => true, 'message' => '¡El registro fue modificado satisfactoriamente!', 'ctrl' => 'btnEditAefConstrucciones', 'idTable' => $inputs["idTable"]);
+				AefConstrucciones::updAefConstrucciones($inputs, $total_metros_construccion, $valor_construccion, $total_valor_fisico);
+				$total_metros_construccion = number_format($total_metros_construccion, 2, ".", ",");
+				$valor_construccion = number_format($valor_construccion, 2, ".", ",");
+				$total_valor_fisico = number_format($total_valor_fisico, 2, ".", ",");
+				$response = array(
+				'success' => true, 
+				'message' => '¡El registro fue modificado satisfactoriamente!', 
+				'ctrl' => 'btnEditAefConstrucciones', 
+				'idTable' => $inputs["idTable"],
+				'total_metros_construccion' => $total_metros_construccion,
+				'valor_construccion' => $valor_construccion,
+				'total_valor_fisico' => $total_valor_fisico
+				);
 			}
 		}
 		return $response;
@@ -1202,8 +1246,8 @@ class corevat_AvaluosController extends \BaseController {
 			$row->indiviso = 0;
 			$row->idfactortop = 0;
 			$af = AvaluosFisico::select('idavaluo')->where('idavaluoenfoquefisico', '=', $idaef)->first();
-			$ai =AvaluosInmueble::select('superficie_construccion')->where('idavaluo', '=', $af->idavaluo)->first();
-			$row->superficie = $ai->superficie_construccion;
+			$ai =AvaluosInmueble::select('superficie_total_terreno')->where('idavaluo', '=', $af->idavaluo)->first();
+			$row->superficie = $ai->superficie_total_terreno;
 		} else {
 			$row = AefTerrenos::find($id);
 			$row->idfactortop = CatFactoresConservacion::getIdByValue($row->top);
@@ -1548,7 +1592,8 @@ class corevat_AvaluosController extends \BaseController {
 			$rowEnfoqueFisico->total_valor_fisico = AvaluosFisico::updBeforeAvaluoEnfoqueFisico($rowEnfoqueFisico);
 			$rowEnfoqueFisico->save();
 			AvaluosFisico::updAfterAvaluoEnfoqueFisico($rowEnfoqueFisico->idavaluo, $rowEnfoqueFisico->total_valor_fisico);
-			return Response::json(array('success' => true, 'message' => '!El registro fue eliminado satisfactoriamente!'));
+			$valor_terreno = $rowEnfoqueFisico->valor_terreno;
+			return Response::json(array('success' => true, 'message' => '!El registro fue eliminado satisfactoriamente!', 'valor_terreno' => $valor_terreno));
 		} else {
 			return Response::json(array('success' => false, 'message' => '!El registro no existe!'));
 		}
