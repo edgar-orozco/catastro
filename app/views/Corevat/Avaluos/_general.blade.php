@@ -7,6 +7,7 @@
         </div>
     @endif
 <hr>
+<h1> Geo Sanchez</h1>
 {{ Form::model($row, ['route' => array('updateAvaluoGeneral', $row->idavaluo), 'method'=>'post' ]) }}
 <div class="row">
 	<div class="col-md-4">
