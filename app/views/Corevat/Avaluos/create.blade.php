@@ -22,7 +22,7 @@
     .create div[class^='col-md-'],div[class*=' col-md-']{
         margin-bottom: 5px;
     }
-    .create div.col-md-10, div.col-md-8{
+    .create div.col-md-10, .create div.col-md-8{
         border-left: 1px solid gray;
         background: #eee;
     }
