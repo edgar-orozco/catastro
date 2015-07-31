@@ -197,10 +197,10 @@
 		</div>
 	</div>
     <div class="col-md-6 form-actions form-group">
-        <a href="{{URL::route('indexAvaluos')}}" class="btn btn-primary back" role="button"><i class="glyphicon glyphicon-arrow-left"></i> Regresar</a>
+        <a href="{{URL::route('indexAvaluos')}}" class="btn btn-coveratSecondary" role="button"><i class="glyphicon glyphicon-arrow-left"></i> Regresar</a>
     </div>
     <div class="col-md-6 form-actions form-group">
-        {{Form::submit('Guardar : ', ['class'=>'btn save btn-success'])}}
+        {{Form::submit('Guardar : ', ['class'=>'btn btn-coveratPrincipal'])}}
 	</div>
 </div>
 {{Form::close()}}

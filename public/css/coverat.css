@@ -1,3 +1,24 @@
+
+.btn-coveratPrincipal{
+    padding: 15px 0;
+    margin-top: 20px;
+    text-align: center;
+    color: white;
+    width: 100%;
+    border: none;
+    background: #F27007 !important;
+}
+.btn-coveratSecondary{
+    padding: 15px 0;
+    margin-top: 20px;
+    text-align: center;
+    color: white;
+    width: 100%;
+    border: none;
+    background-color: #337ab7 !important;;
+    border-color: #2e6da4 !important;;
+}
+
 h3{
     background-color: darkgray;
     font-size: 36px;
@@ -34,25 +55,6 @@ h3{
     width: 100% !important;
 }
 
-.btn-coveratPrincipal{
-    padding: 15px 0;
-    margin-top: 20px;
-    text-align: center;
-    color: white;
-    width: 100%;
-    border: none;
-    background: #F27007 !important;
-}
-.btn-coveratSecondary{
-    padding: 15px 0;
-    margin-top: 20px;
-    text-align: center;
-    color: white;
-    width: 100%;
-    border: none;
-    background-color: #337ab7 !important;;
-    border-color: #2e6da4 !important;;
-}
 .coveratCont .cords input{
     border-radius: 0;
     border-bottom: 1px solid #000000 !important;

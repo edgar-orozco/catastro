@@ -202,13 +202,13 @@
 		</div>
     </div>
     <div class="col-md-4 form-actions form-group">
-        <a href="{{URL::route('corevat.Avaluos.index')}}" class="btn btn-primary back btn-block" role="button"><i class="glyphicon glyphicon-arrow-left"></i> Regresar</a>
+        <a href="{{URL::route('corevat.Avaluos.index')}}" class="btn btn-coveratSecondary" role="button"><i class="glyphicon glyphicon-arrow-left"></i> Regresar</a>
     </div>
     <div class="col-md-4 form-actions form-group">
-        {{Form::reset('Limpiar formulario', ['class' => 'btn reset btn-success']) }}
+        {{Form::reset('Limpiar formulario', ['class' => 'btn btn-coveratSecondary']) }}
     </div>
     <div class="col-md-4 form-actions form-group">
-        {{Form::submit('Guardar', ['class'=>'btn save'])}}
+        {{Form::submit('Guardar', ['class'=>'btn btn-coveratPrincipal'])}}
     </div>
 </div>
 {{Form::close()}}
