@@ -174,7 +174,7 @@ class Avaluos extends \Eloquent {
 	 */
 	public static function updAvaluo($id, $inputs) {
 		$row = Avaluos::find($id);
-		$row->iduser = 1; //Auth::id()
+		//$row->iduser = Auth::id();
 		Avaluos::setAvaluo($row, $inputs);
 		$row->modi_por = Auth::id();
 		$row->modi_el = date('Y-m-d H:i:s');
