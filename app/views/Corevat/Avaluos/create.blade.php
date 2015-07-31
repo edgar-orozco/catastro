@@ -38,6 +38,8 @@
         margin-top: 20px;
         text-align: center;
         color: white;
+        width: 100%;
+        border: none;
     }
     label{
         padding: 5px 0 !important;
