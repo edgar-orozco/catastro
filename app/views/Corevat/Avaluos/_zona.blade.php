@@ -5,7 +5,7 @@
     <div class="row">
         <div class="col-md-6">
             <h4>Servicios Municipales</h4>
-            <div class="row">
+            <div class="checkboxContainer">
                 <div class="checkbox">
                     {{Form::label('is_agua_potable', 'Agua Potable')}}
                     {{Form::checkbox('is_agua_potable', 1,  $row->is_agua_potable)}}
@@ -56,7 +56,7 @@
 
         <div class="col-md-6">
             <h4>Equipamiento Urbano</h4>
-            <div class="row">
+            <div class="checkboxContainer">
                 <div class="checkbox">
                     {{Form::label('is_escuela', 'Escuela')}}
                     {{Form::checkbox('is_escuela', 1,  $row->is_escuela)}}

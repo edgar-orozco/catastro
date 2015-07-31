@@ -76,6 +76,9 @@ h3{
     padding: 20px;
     color: #E0E0E0;
 }
+#zonaCoveratSecc .checkboxContainer{
+    padding: 10px;
+}
 
 #zonaCoveratSecc .checkbox{
     width: 49%;
