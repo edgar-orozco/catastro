@@ -143,8 +143,10 @@
 	</div>
 	<div class="col-md-6">
 		<div class="form-group">
-			{{Form::label('idestado', 'Estados')}}
-			{{Form::select('idestado', $estados, $row->idestado, ['id' => 'idestado', 'class'=>'form-control', 'tabindex'=>'10'])}}
+			{{Form::label('idestado', 'Estados',['class'=>'col-sm-2'])}}
+            <div class="col-md-10">
+                {{Form::select('idestado', $estados, $row->idestado, ['id' => 'idestado', 'class'=>'form-control', 'tabindex'=>'10'])}}
+            </div>
 		</div>
 	</div>
 	<div class="col-md-6">
@@ -157,8 +159,10 @@
 	</div>
 	<div class="col-md-6">
 		<div class="form-group">
-			{{Form::label('cp', 'C. P.')}}
-			{{Form::select('cp', $lstCP, $row->cp, ['id' => 'cp', 'class'=>'form-control', 'tabindex'=>'12', 'required' => 'required'])}}
+			{{Form::label('cp', 'C. P.',['class'=>'col-sm-2'])}}
+            <div class="col-md-10">
+                {{Form::select('cp', $lstCP, $row->cp, ['id' => 'cp', 'class'=>'form-control', 'tabindex'=>'12', 'required' => 'required'])}}
+            </div>
 		</div>
 	</div>
 
