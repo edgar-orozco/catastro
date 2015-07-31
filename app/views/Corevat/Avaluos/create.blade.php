@@ -44,8 +44,8 @@
         background: #F27007 !important;
     }
     .create input.reset{
-        background-color: #286090 !important;
-        border-color: #204d74 !important;
+        background-color: #337ab7 !important;;
+        border-color: #2e6da4 !important;;
     }
     .create label{
         padding: 5px 0 !important;
