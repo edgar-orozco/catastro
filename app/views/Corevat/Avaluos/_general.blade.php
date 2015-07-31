@@ -7,14 +7,68 @@
         </div>
     @endif
 <hr>
-<h1> Geo Sanchez</h1>
+<style>
+    .coveratCont label{
+        color: #515152;
+        font-size: 18px;
+        font-weight: 300;
+    }
+    .coveratCont .hasDatepicker{
+        cursor: pointer !important;
+        cursor: not-allowed;
+        background-color: none;
+        opacity: 1;
+        border: none;
+        box-shadow: none;
+
+        border-radius: 0;
+    }
+    .coveratCont div[class^='col-md-'],div[class*=' col-md-']{
+        margin-bottom: 5px;
+    }
+    .coveratCont div.col-md-10, .coveratCont div.col-md-8{
+        border-left: 1px solid gray;
+        background: #eee;
+    }
+    .coveratCont input, select{
+        box-shadow: none !important;
+        background: none !important;
+        border: none !important;
+        width: 100% !important;
+    }
+    .coveratCont input[type="reset"],input[type="submit"], a.back{
+        padding: 15px 0;
+        margin-top: 20px;
+        text-align: center;
+        color: white;
+        width: 100%;
+        border: none;
+    }
+    .coveratCont input.save{
+        background: #F27007 !important;
+    }
+    .coveratCont input.reset{
+        background-color: #337ab7 !important;;
+        border-color: #2e6da4 !important;;
+    }
+    .coveratCont label{
+        padding: 5px 0 !important;
+    }
+    .coveratCont .cords input{
+        border-radius: 0;
+        border-bottom: 1px solid #000000 !important;
+        width: 24% !important;
+    }
+</style>
 {{ Form::model($row, ['route' => array('updateAvaluoGeneral', $row->idavaluo), 'method'=>'post' ]) }}
-<div class="row">
+<div class="row coveratCont">
 	<div class="col-md-4">
 		<div class="form-group">
-			{{Form::label('fecha_reporte', 'Fecha del Reporte')}}
-			{{Form::text('fecha_reporte', $row->fecha_reporte, ['class'=>'form-control', 'tabindex'=>'1', 'autofocus' => 'autofocus', 'required' => 'required', 'maxlength' => '10', 'size' => '11', 'style' => 'width:110px', 'readonly'=>'readonly'])}}
-			{{$errors->first('fecha_reporte', '<span class=text-danger>:message</span>')}}
+			{{Form::label('fecha_reporte', 'Fecha del Reporte', ['class'=>'col-md-2'])}}
+            <div class="col-md-12">
+                {{Form::text('fecha_reporte', $row->fecha_reporte, ['class'=>'form-control', 'tabindex'=>'1', 'autofocus' => 'autofocus', 'required' => 'required', 'maxlength' => '10', 'size' => '11', 'style' => 'width:110px', 'readonly'=>'readonly'])}}
+                {{$errors->first('fecha_reporte', '<span class=text-danger>:message</span>')}}
+            </div>
 		</div>
 	</div>
 	<div class="col-md-4">

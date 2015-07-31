@@ -4,12 +4,12 @@
 {{ HTML::style('/css/dataTables.bootstrap.css') }}
 {{ HTML::style('/js/jquery/jquery-ui.css') }}
 <style>
-    .create label{
+    .coveratCont label{
         color: #515152;
         font-size: 18px;
         font-weight: 300;
     }
-    .create .hasDatepicker{
+    .coveratCont .hasDatepicker{
         cursor: pointer !important;
         cursor: not-allowed;
         background-color: none;
@@ -19,20 +19,20 @@
 
         border-radius: 0;
     }
-    .create div[class^='col-md-'],div[class*=' col-md-']{
+    .coveratCont div[class^='col-md-'],div[class*=' col-md-']{
         margin-bottom: 5px;
     }
-    .create div.col-md-10, .create div.col-md-8{
+    .coveratCont div.col-md-10, .coveratCont div.col-md-8{
         border-left: 1px solid gray;
         background: #eee;
     }
-    .create input, select{
+    .coveratCont input, select{
         box-shadow: none !important;
         background: none !important;
         border: none !important;
         width: 100% !important;
     }
-    .create input[type="reset"],input[type="submit"], a.back{
+    .coveratCont input[type="reset"],input[type="submit"], a.back{
         padding: 15px 0;
         margin-top: 20px;
         text-align: center;
@@ -40,17 +40,17 @@
         width: 100%;
         border: none;
     }
-    .create input.save{
+    .coveratCont input.save{
         background: #F27007 !important;
     }
-    .create input.reset{
+    .coveratCont input.reset{
         background-color: #337ab7 !important;;
         border-color: #2e6da4 !important;;
     }
-    .create label{
+    .coveratCont label{
         padding: 5px 0 !important;
     }
-    .create .cords input{
+    .coveratCont .cords input{
         border-radius: 0;
         border-bottom: 1px solid #000000 !important;
         width: 24% !important;
@@ -66,7 +66,7 @@
     @endif
 <hr>
 {{ Form::open(array('id'=>'form','url' => 'corevat/Avaluos/', 'method' => 'POST')) }}
-<div class="row create">
+<div class="row coveratCont">
 	<div class="col-md-12">
 		<div class="form-group">
 			{{Form::label('fecha_reporte', 'Fecha del Reporte',['class'=>'col-sm-2'])}}
