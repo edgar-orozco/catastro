@@ -14,13 +14,10 @@
     <div class="row">
         <div class="panel panel-default">
             <div class="panel-heading">
-            </div>
                 <h3 class="panel-title">Folio</h3>
-                <div class="col-md-12">
-                {{$registro->folio}}
-                </div>
-                <div class="col-md-12">
-            Naturaleza del Contrato: {{$registro->naturaleza_acto}}
+            </div>
+                <div class="panel-body">
+                No. de folio: {{$registro->folio}}
             </div>
             </div>
 
@@ -34,9 +31,12 @@
                 <h3 class="panel-title">Datos del notario</h3>
                 </div>
                 <div class="panel-body">
-                <div class=" col-md-12">
+                <div class=" col-md-6">
                     Tipo de escritura: {{$registro->tipo_escritura}}
                 </div>
+                <div class="col-md-6">
+            Naturaleza del Contrato: {{$registro->naturaleza_acto}}
+            </div>
                 <div class=" col-md-6">
                         Nombre del Notario:{{$registro->notarioEscritura}}
                     </div>
@@ -156,66 +156,74 @@
                 <h3 class="panel-title">Colindancias</h3>
             </div>
             <div class="panel-body">
+                <table  class="table">
+                    <thead>
+                    <tr>
+                    <th><P align="center">Orientación:</p></th>
+                    <th><P align="center">Superficie</p></th>
+                    <th><P align="center">Colindancia</p></th>
+                </tr>
+            </thead>
+                <?php 
+                    $colindanciasArray=json_decode($JsonColindancias);
+                    ?>
 
+                      @foreach($colindanciasArray as $key => $value)
+                      <tr>
+                        <th>{{$value->orientacion}}</th>
+                        <th>{{$value->superficie}}</th>
+                        <th>{{$value->colindancia}}</th>
+                    </tr>
+
+                     @endforeach
+            </table>
             </div>
-
+        </div>
         <div class="panel panel-default">
             <div class="panel-heading">
                 <h3 class="panel-title">Antecedentes de la propiedad</h3>
             </div>
             <div class="panel-body">
-
-                Pasada ante la fe del notario: {{$registro->notario_antecedente_id}}
-                <br>
-
-                <div class=" col-md-4">
-                    N° de escritura: {{$registro->num_antecedente}}
-                </div>
-                <div class=" col-md-4">
-                    Volumen:{{$registro->volumen_antecedente}}
-                </div>
-                <div class=" col-md-4">
-
-                    De fecha: {{$registro->fecha_antecedente}}
+                <div class=" col-md-8">
+                Pasada ante la fe del notario: {{$registro->notarioEscritura}}
                 </div>
 
                 <div class=" col-md-4">
-                    Partida: {{$registro->partida_antecedente  }}
+                    N° de Notaria: {{$notaria->nombre}}
                 </div>
-                <div class=" col-md-4">
-                    Predio: {{$registro->predio_antecedente }}
+                <div class=" col-md-6">
+                    Bajo el Número:{{$registro->antecedente_num}}
+                </div>
+                <div class=" col-md-6">
+
+                   Folio: {{$registro->folio}}
+                </div>
+
+                <div class=" col-md-3">
+                    No. De Cuenta Predial: {{$registro->cuenta}}
+                </div>
+                <div class=" col-md-5">
+                    No. Clave catastral: {{$registro->clave }}
 
                 </div>
                 <div class=" col-md-4">
-                    Folio: {{$registro->folio_real_antecedente  }}
+                    Tipo de Predio: {{$registro->tipo_predio}}
                 </div>
 
                 <div class=" col-md-4">
                     Volumen: {{$registro->volumen_freal_antecedente}}
                 </div>
 
-                <div style="clear:both"></div>
-                <div>
-                    <div class="row">
-                        No. de cuenta predial: {{$predio->cuenta}}
-                    </div>
-                    <div class="row">
-                        Regimen: {{$predio->tipo_predio}}
-                    </div>
-                    <div class="row">
-                        Clave catastral: {{$predio->clave}}
-                    </div>
-                </div>
-                <div style="clear:both"></div>
+                <div style="clear:both">
                 <div class=" col-md-4">
-                    Valor comercial de inmueble: {{$registro->valor_comercial_antecedentre }}
+                    Valor comercial de inmueble: {{$registro->valor_comercial }}
                 </div>
                 <div class=" col-md-4">
-                    Valuador con registro estatal: {{$registro->valuador_num_ant}}
+                    Valuador con registro estatal: {{$registro->valor_registro}}
                 </div>
                 <div class=" col-md-4">
-                    No de folio de avaluo: {{$registro->folio_avaluo_ant  }}
-                </div>
+                    No de folio de avaluo: {{$registro->folio_avaluo  }}
+                </div></div>
             </div>
         </div>
 

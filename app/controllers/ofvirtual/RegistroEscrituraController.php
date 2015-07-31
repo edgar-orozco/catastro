@@ -296,10 +296,17 @@ $registro->save();
         $enajenante = personas::find($registro->enajenante_id);
         $registro->enajenante->fill($enajenante->toArray());
 
-        
+        //enajenante
+        $dirEnajenante = Domicilio::find($registro->dir_enajenante_id);
+        $registro->enajenanteDomicilio->fill($dirEnajenante->toArray());
+
         //adquiriente
         $adquiriente = personas::find($registro->adquiriente_id);
         $registro->adquiriente->fill($adquiriente->toArray());
+
+        //enajenante
+        $dirEnajenante = Domicilio::find($registro->dir_enajenante_id);
+        $registro->adquirienteDomicilio->fill($dirEnajenante->toArray());
 
         $registro->registro = $registro;
 
@@ -315,7 +322,7 @@ $registro->save();
          $notaria = Auth::user()->notaria->id_notaria;
 
         $municipio = Municipio::orderBy('nombre_municipio', 'ASC')->lists('nombre_municipio', 'municipio');
-        
+
         $vialidad= TipoVialidad::orderBy('descripcion', 'ASC')->lists('descripcion', 'id');
 
         $asentamiento= TipoAsentamiento::orderBy('descripcion', 'ASC')->lists('descripcion', 'id');
@@ -352,15 +359,18 @@ $registro->save();
         $id_p = array();
         //CONSULTA A LA TABLA PERSONAS
         $queries = DB::select(DB::raw("SELECT * FROM personas WHERE curp LIKE '%" . $term . "%' limit 5"));
+
         //DONDE LLAMA LOS DATOS Y LOS PASA A LAS VARIABLES CORRESPONDIENTES
         foreach ($queries as $query) {
             //ARRAY DONDE CARGA LOS DATOS
             //$id_p[] = ['id_p' => $query->id_p];
+
             $results[] = ['value' => $query->curp , 'id' => $query->id_p, 'nombres' => $query->nombres, 'apellido_paterno' => $query->apellido_paterno, 'apellido_materno'=>$query->apellido_materno,'rfc'=>$query->rfc];
         }
         if ($results) {
+            $idp=$results['id'];
             //SI EXITE LA PERSONA
-            return Response::json($results);
+            return Response::json($idp);
         } else {
             //SI NO EXITE LA PAERSONA
             $mensaje[] = "NO EXISTE LA PERSONAS";
@@ -398,8 +408,10 @@ $registro->save();
         //municipio
         $municipio=Municipio::where('municipio',$registro->municipio_id)->pluck('nombre_municipio');
 
+         $JsonColindancias = $registro->colindancia->toJson();
+
         // Show the page
-        return View:: make('ofvirtual.notario.registro.show', compact('title', 'registro', 'predio','notaria','municipio'));
+        return View:: make('ofvirtual.notario.registro.show', compact('title', 'registro', 'predio','notaria','municipio','JsonColindancias'));
 
         //print_r($registro);
     }
