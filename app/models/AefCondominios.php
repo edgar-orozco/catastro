@@ -65,7 +65,7 @@ class AefCondominios extends \Eloquent {
 		$rowAefCondominios->idemp = 1;
 		$rowAefCondominios->ip = $_SERVER['REMOTE_ADDR'];
 		$rowAefCondominios->host = isset($_SERVER['HTTP_CLIENT_IP']) ? $_SERVER['HTTP_CLIENT_IP'] : '';
-		$rowAefCondominios->creado_por = 1;
+		$rowAefCondominios->creado_por = Auth::Id();
 		$rowAefCondominios->creado_el = date('Y-m-d H:i:s');
 		$rowAefCondominios->save();
 		AefCondominios::insAfterAefCondominios($inputs["idAef"]);
@@ -131,7 +131,7 @@ class AefCondominios extends \Eloquent {
 		$rowAefCondominios->idemp = 1;
 		$rowAefCondominios->ip = $_SERVER['REMOTE_ADDR'];
 		$rowAefCondominios->host = isset($_SERVER['HTTP_CLIENT_IP']) ? $_SERVER['HTTP_CLIENT_IP'] : '';
-		$rowAefCondominios->modi_por = 1;
+		$rowAefCondominios->modi_por = Auth::Id();
 		$rowAefCondominios->modi_el = date('Y-m-d H:i:s');
 		$rowAefCondominios->save();
 		AefCondominios::updAfterAefCondominios($inputs["idAef"]);

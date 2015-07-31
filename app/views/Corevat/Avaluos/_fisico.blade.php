@@ -31,7 +31,7 @@
 				<tr>
 					<td class="bg-primary" colspan="7">&nbsp;</td>
 					<td class="bg-primary" colspan="3" style="text-align: right;">Valor del Terreno:</td>
-					<td class="bg-info" colspan="3" style="text-align: right;">{{number_format($row->valor_terreno, 2, ".", ",")}}</td>
+					<td class="bg-info" colspan="3" style="text-align: right;" id="valor_terreno">{{number_format($row->valor_terreno, 2, ".", ",")}}</td>
 					<td class="bg-primary"></td>
 				</tr>
 			</tfoot>
@@ -104,10 +104,10 @@
 			<tfoot>
 				<tr>
 					<td class="bg-primary" colspan="4" style="text-align: right;">Total Metros Construcción</td>
-					<td class="bg-info" style="text-align: right;">{{number_format($row->total_metros_construccion, 2, ".", ",")}}</td>
+					<td class="bg-info" style="text-align: right;" id="total_metros_construccion">{{number_format($row->total_metros_construccion, 2, ".", ",")}}</td>
 					<td class="bg-primary" colspan="2"></td>
 					<td class="bg-primary" colspan="3" style="text-align: right;">Valor del Terreno</td>
-					<td class="bg-info" style="text-align: right;">{{number_format($row->valor_construccion, 2, ".", ",")}}</td>
+					<td class="bg-info" style="text-align: right;" id="valor_construccion">{{number_format($row->valor_construccion, 2, ".", ",")}}</td>
 					<td class="bg-primary"></td>
 			</tfoot>
 		</table>
@@ -141,7 +141,7 @@
 			<tfoot>
 				<tr>
 					<td class="bg-primary" colspan="8" style="text-align: right;">Valor del Área</td>
-					<td class="bg-info" colspan="2" style="text-align: right;">{{number_format($row->subtotal_area_condominio, 2, ".", ",")}}</td>
+					<td class="bg-info" colspan="2" style="text-align: right;" id="subtotal_area_condominio">{{number_format($row->subtotal_area_condominio, 2, ".", ",")}}</td>
 					<td class="bg-primary" colspan="2"></td>
 					<td class="bg-primary" colspan="2"></td>
 				</tr>
@@ -178,7 +178,7 @@
 			<tfoot>
 				<tr>
 					<td class="bg-primary" colspan="8" style="text-align: right;">Valor del Área</td>
-					<td class="bg-info" colspan="2" style="text-align: right;">{{number_format($row->subtotal_instalaciones_especiales, 2, ".", ",")}}</td>
+					<td class="bg-info" colspan="2" style="text-align: right;" id="subtotal_instalaciones_especiales">{{number_format($row->subtotal_instalaciones_especiales, 2, ".", ",")}}</td>
 					<td class="bg-primary" colspan="2"></td>
 					<td class="bg-primary" colspan="2"></td>
 				</tr>
@@ -190,7 +190,7 @@
 	<div class="col-md-12"><hr></div>
 	
 	<div class="col-md-9"><h1>Enfoque Físico</h1></div>
-	<div class="col-md-3"><h1>{{number_format($row->total_valor_fisico, 2, ".", ",")}}</h1></div>
+	<div class="col-md-3"><h1 id="total_valor_fisico">{{number_format($row->total_valor_fisico, 2, ".", ",")}}</h1></div>
 	
 	<div class="col-md-12"><hr></div>
 	<div class="col-md-12">&nbsp;</div>
@@ -226,6 +226,8 @@
 	{{Form::close()}}
 </div>
 @section('javascript')
+{{ HTML::script('/js/jquery/jquery.min.js') }}
+{{ HTML::script('/js/jquery/jquery.mask.min.js') }}
 {{ HTML::script('/js/jquery/jquery-ui.js') }}
 {{ HTML::script('/js/jquery/jquery.dataTables.min.js') }}
 {{ HTML::script('/js/jquery/dataTables.bootstrap.js') }}
@@ -530,13 +532,20 @@
 
 					} else if (  $('#ctrl').val() === 'btnEditAefTerrenos' ) {
 						aefTerrenosDataTable.ajax.reload();
+						$('#valor_terreno').empty().append(datos.valor_terreno);
 					} else if (  $('#ctrl').val() === 'btnEditAefConstrucciones' ) {
 						aefConstruccionesDataTable.ajax.reload();
+						$('#total_metros_construccion').empty().append(datos.total_metros_construccion);
+						$('#valor_construccion').empty().append(datos.valor_construccion);
 					} else if (  $('#ctrl').val() === 'btnEditAefCondominios' ) {
 						aefCondominiosDataTable.ajax.reload();
+						//$('#subtotal_area_condominio').empty().append(datos.subtotal_area_condominio);
 					} else if (  $('#ctrl').val() === 'btnEditAefInstalaciones' ) {
 						aefInstalacionesDataTable.ajax.reload();
+						//$('#subtotal_instalaciones_especiales').empty().append(datos.subtotal_instalaciones_especiales);
 					}
+					$('#total_valor_fisico').empty().append(datos.total_valor_fisico);
+
 				} else {
 					var errores = '';
 					for(datos in data.errors) {
@@ -587,6 +596,7 @@
 					if (datos.success === true) {
 						if (  $('#ctrlDel').val() === 'btnDelAefTerreno' ) {
 							aefTerrenosDataTable.ajax.reload();
+							$('#valor_terreno').empty().append(datos.valor_terreno);
 						} else if ( $('#ctrlDel').val() === 'btnDelAefConstrucciones' ) {
 							aefConstruccionesDataTable.ajax.reload();
 						} else if (  $('#ctrlDel').val() === 'btnDelAefCondominios' ) {
@@ -733,11 +743,11 @@
         $('<label for="idtipo">Tipo:</label>').appendTo(div);
         $('<select name="idtipo" id="idtipo" class="form-control" style="width:100%"></select>').appendTo(div);
         div.appendTo('#containerDialogForm');
-	
+
         div = $('<div />');
         div.addClass('col-md-4');
         $('<label for="edad">Edad:</label>').appendTo(div);
-        $('<input type="text" name="edad" id="edad"/>').attr('disabled', 'true').addClass('form-control').appendTo(div);
+        $('<input type="text" name="edad" />').attr('id', 'edad').addClass('form-control').addClass('clsNumeric').appendTo(div);
         div.appendTo('#containerDialogForm');
 
         div = $('<div />');
@@ -966,18 +976,18 @@
 	$.loadFormAefTerrenos = function () {
 		var xx = $('#idTable').val();
 		$.ajax({
-            global: false,
-            cache: false,
-            dataType: 'json',
-            url: '/corevat/AefTerrenosGet/' + $('#idTable').val() + '/' + $('#idAef').val(),
-            type: 'get',
-            success: function (data) {
-                datos = eval(data);
-				
-                for (var i = 0; i < datos.cat_factores_top.length; i++) {
-                    $('<option value="' + datos.cat_factores_top[i].idfactorconservacion + '">('+ datos.cat_factores_top[i].valor_factor_conservacion  + ') ' + datos.cat_factores_top[i].factor_conservacion + '</option>').appendTo('#idfactortop');
-                }
-                $("#idfactortop option[value=" + datos.idfactortop + "]").attr("selected", true);
+			global: false,
+			cache: false,
+			dataType: 'json',
+			url: '/corevat/AefTerrenosGet/' + $('#idTable').val() + '/' + $('#idAef').val(),
+			type: 'get',
+			success: function (data) {
+				datos = eval(data);
+
+				for (var i = 0; i < datos.cat_factores_top.length; i++) {
+					$('<option value="' + datos.cat_factores_top[i].idfactorconservacion + '">('+ datos.cat_factores_top[i].valor_factor_conservacion  + ') ' + datos.cat_factores_top[i].factor_conservacion + '</option>').appendTo('#idfactortop');
+				}
+				$("#idfactortop option[value=" + datos.idfactortop + "]").attr("selected", true);
 
 				for (var i = 0; i < datos.cat_factores_frente.length; i++) {
 					$('<option value="' + datos.cat_factores_frente[i].idfactorfrente + '">('+ datos.cat_factores_frente[i].valor_factor_frente  + ') ' + datos.cat_factores_frente[i].factor_frente + '</option>').appendTo('#idfactorfrente');
@@ -1118,6 +1128,7 @@
 		});
 	};
 
+    $('.edad, #edad').mask('YYY', {placeholder: "___", translation: {Y: {pattern: /[0-9]/}}});
     });
 </script>
 @stop
