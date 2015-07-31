@@ -62,7 +62,6 @@ class OficinaVirtualNotarioController extends \BaseController
      */
     public function create()
     {
-        //ToDo: no muestra el titulo ?
         $title = 'Crear traslado de dominio';
 
         $traslado = new Traslado();
@@ -172,7 +171,7 @@ class OficinaVirtualNotarioController extends \BaseController
         $traslado->enajenante_id = $enajenante->id_p;
         $traslado->adquiriente_id = $adquiriente->id_p;
 
-    //Como usuario notario, requiero que se validen los montos de terreno a vender no sean mayores que el declarado en el registro de predio.
+        //Como usuario notario, requiero que se validen los montos de terreno a vender no sean mayores que el declarado en el registro de predio.
         $predio = $this->padron->getByClaveOCuenta($traslado->clave);
 
         if ($traslado->superficie_vendida > $predio->superficie_terreno) {
@@ -464,7 +463,6 @@ class OficinaVirtualNotarioController extends \BaseController
     function destroy($id)
     {
         //
-        //ToDo: revisar primero que no tenga asignado un folio, si tiene asigando un folio no se puede borrar
 
         $traslado = Traslado::find($id);
 
@@ -475,7 +473,6 @@ class OficinaVirtualNotarioController extends \BaseController
 
         $adquiriente = personas::find($traslado->adquiriente_id);
         $adquiriente->delete();
-
 
         return Redirect::to('ofvirtual/notario/traslado')->with('success', '¡Se ha eliminado correctamente el traslado!');
 
