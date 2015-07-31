@@ -4,12 +4,12 @@
 {{ HTML::style('/css/dataTables.bootstrap.css') }}
 {{ HTML::style('/js/jquery/jquery-ui.css') }}
 <style>
-    label{
+    .create label{
         color: #515152;
         font-size: 18px;
         font-weight: 300;
     }
-    .hasDatepicker{
+    .create .hasDatepicker{
         cursor: pointer !important;
         cursor: not-allowed;
         background-color: none;
@@ -19,20 +19,20 @@
 
         border-radius: 0;
     }
-    div[class^='col-md-'],div[class*=' col-md-']{
+    .create div[class^='col-md-'],div[class*=' col-md-']{
         margin-bottom: 5px;
     }
-    div.col-md-10, div.col-md-8{
+    .create div.col-md-10, div.col-md-8{
         border-left: 1px solid gray;
         background: #eee;
     }
-    input, select{
+    .create input, select{
         box-shadow: none !important;
         background: none !important;
         border: none !important;
         width: 100% !important;
     }
-    input[type="reset"],input[type="submit"], a.back{
+    .create input[type="reset"],input[type="submit"], a.back{
         padding: 15px 0;
         margin-top: 20px;
         text-align: center;
@@ -40,17 +40,17 @@
         width: 100%;
         border: none;
     }
-    input.save{
+    .create input.save{
         background: #F27007 !important;
     }
-    input.reset{
+    .create input.reset{
         background-color: #5cb85c !important;
         border-color: #4cae4c !important;
     }
-    label{
+    .create label{
         padding: 5px 0 !important;
     }
-    .cords input{
+    .create .cords input{
         border-radius: 0;
         border-bottom: 1px solid #000000 !important;
         width: 24% !important;
@@ -66,7 +66,7 @@
     @endif
 <hr>
 {{ Form::open(array('id'=>'form','url' => 'corevat/Avaluos/', 'method' => 'POST')) }}
-<div class="row">
+<div class="row create">
 	<div class="col-md-12">
 		<div class="form-group">
 			{{Form::label('fecha_reporte', 'Fecha del Reporte',['class'=>'col-sm-2'])}}
