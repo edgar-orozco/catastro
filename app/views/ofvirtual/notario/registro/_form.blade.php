@@ -45,7 +45,7 @@
 </div>
 <div class="col-md-3">
     {{Form::label('tipo_predio','Tipo de predio:')}}
-    {{Form::select('tipo_predio', ['U' => 'Urbano','R' => 'Rustico'], null, ['class' => 'form-control focus'])}}
+    {{Form::select('tipo_predio', ['Urbano' => 'Urbano','Rustico' => 'Rustico'], null, ['class' => 'form-control focus'])}}
 </div>
 <div class="col-md-6">
     {{Form::label('clave','Clave Catastral:')}}
