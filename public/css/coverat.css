@@ -50,7 +50,7 @@ h3{
 }
 .coveratCont input, .coveratCont select{
     box-shadow: none !important;
-    background: none !important;
+    background: none;
     border: none !important;
     width: 100% !important;
 }

@@ -200,7 +200,7 @@
         <a href="{{URL::route('indexAvaluos')}}" class="btn btn-coveratSecondary" role="button"><i class="glyphicon glyphicon-arrow-left"></i> Regresar</a>
     </div>
     <div class="col-md-6 form-actions form-group">
-        {{Form::submit('Guardar : ', ['class'=>'btn btn-coveratPrincipal'])}}
+        {{Form::submit('Guardar', ['class'=>'btn btn-coveratPrincipal'])}}
 	</div>
 </div>
 {{Form::close()}}
