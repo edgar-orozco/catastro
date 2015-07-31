@@ -132,21 +132,23 @@
 		<hr>
 	</div>
 
-	<div class="col-md-12">
+	<div class="col-md-6">
 		{{Form::label('construc_predominante', 'Construcciones Predominante')}}
 		{{Form::textarea('construc_predominante', $row->construc_predominante, ['class'=>'form-control', 'maxlength'=>'500'] )}}
 		<hr>
 	</div>
 
-	<div class="col-md-12">
+	<div class="col-md-6">
 		{{Form::label('vias_acceso_importante', 'Vias de acceso e importancia')}}
 		{{Form::textarea('vias_acceso_importante', $row->vias_acceso_importante, ['class'=>'form-control', 'maxlength'=>'500'] )}}
 		<hr>
 	</div>
 
-	<div class="col-md-12 form-actions">
-		{{Form::submit('Guardar', ['class'=>'btn btn-primary'])}}
-		<a href="{{URL::route('indexAvaluos')}}" class="btn btn-primary" role="button"><i class="glyphicon glyphicon-arrow-left"></i> Regresar</a>
+	<div class="col-md-6 form-actions">
+		{{Form::submit('Guardar', ['class'=>'btn btn-primary btn-coveratPrincipal'])}}
+    </div>
+    <div class="col-md-6 form-actions">
+		<a href="{{URL::route('indexAvaluos')}}" class="btn btn-primary btn-coveratSecondary" role="button"><i class="glyphicon glyphicon-arrow-left"></i> Regresar</a>
 	</div>
 </div>
 
