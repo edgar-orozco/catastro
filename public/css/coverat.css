@@ -20,9 +20,10 @@
 }
 
 h3{
-    background-color: darkgray;
-    font-size: 36px;
+    background: none;
+    font-size: 40px;
     padding: 20px;
+    font-weight: 300;
     margin: 0 0 20px 0;
 }
 .coveratCont label{
