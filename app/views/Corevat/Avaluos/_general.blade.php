@@ -133,25 +133,29 @@
 		</div>
 	</div>
     <!-- RENGLON 5 -->
-	<div class="col-md-2">
+	<div class="col-md-6">
 		<div class="form-group">
-			{{Form::label('colonia', 'Colonia')}}
-			{{Form::text('colonia', $row->colonia, ['class'=>'form-control', 'tabindex'=>'9', 'maxlength' => '150'])}}
+			{{Form::label('colonia', 'Colonia',['class'=>'col-sm-4'])}}
+            <div class="col-md-8">
+                {{Form::text('colonia', $row->colonia, ['class'=>'form-control', 'tabindex'=>'9', 'maxlength' => '150'])}}
+            </div>
 		</div>
 	</div>
-	<div class="col-md-2">
+	<div class="col-md-6">
 		<div class="form-group">
 			{{Form::label('idestado', 'Estados')}}
 			{{Form::select('idestado', $estados, $row->idestado, ['id' => 'idestado', 'class'=>'form-control', 'tabindex'=>'10'])}}
 		</div>
 	</div>
-	<div class="col-md-2">
+	<div class="col-md-6">
 		<div class="form-group">
-			{{Form::label('idmunicipio', 'Municipios')}}
+			{{Form::label('idmunicipio', 'Municipios',['class'=>'col-sm-4'])}}
+            <div class="col-md-8">
 			{{Form::select('idmunicipio', $municipios, $row->idmunicipio, ['id' => 'idmunicipio', 'class'=>'form-control', 'tabindex'=>'11'])}}
+            </div>
 		</div>
 	</div>
-	<div class="col-md-2">
+	<div class="col-md-6">
 		<div class="form-group">
 			{{Form::label('cp', 'C. P.')}}
 			{{Form::select('cp', $lstCP, $row->cp, ['id' => 'cp', 'class'=>'form-control', 'tabindex'=>'12', 'required' => 'required'])}}
@@ -159,7 +163,7 @@
 	</div>
 
 	<br />
-	<div class="col-md-4">
+	<div class="col-md-6">
 		<div class="form-inline">
 			{{Form::label('Longitud')}}
 			{{Form::number('lon0', $row->lat0, ['class'=>'form-control', 'tabindex'=>'13', 'style'=>'width:75px', 'step'=>'1', 'min' => '0', 'max' => '360', 'required' => 'required'])}}&nbsp;&ring;&nbsp;
