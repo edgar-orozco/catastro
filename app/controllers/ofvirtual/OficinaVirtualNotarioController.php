@@ -445,4 +445,22 @@ class OficinaVirtualNotarioController extends \BaseController
     }
 
 
+    public function solicitante(){
+        $q = Input::get('term');
+        if (Request::ajax())
+        {
+            return Solicitante::getPorCurpRFC($q);
+        }
+    }
+
+
+    public function adquiriente(){
+        $q = Input::get('term');
+        if (Request::ajax())
+        {
+            return Solicitante::getPorCurpRFC($q);
+        }
+    }
+
+
 }
