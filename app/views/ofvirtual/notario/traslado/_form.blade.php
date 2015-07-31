@@ -418,6 +418,11 @@
     {{ HTML::script('js/bootstrap-datepicker.es.js') }}
     {{ HTML::style('css/datepicker3.css') }}
 
+
+
+    {{ HTML::script('js/jquery/jquery-ui.js') }}
+    {{ HTML::style('js/jquery/jquery-ui.css') }}
+
     <script>
 
         $("#notario_antecedente_id").select2({
@@ -457,6 +462,7 @@
         });
         {{--/datepicker--}}
 
+
         $(function () {
             //Cuando hay cambios en los radio buttons de los requisitos
             //adquiriente
@@ -466,13 +472,57 @@
                     $('.adquiriente-campos-fisica').show();
                     $('.adquiriente-tipo_persona').val('1');
                     $('#adquiriente-rfc').attr('pattern', '([A-Za-z]{4})([0-9]{6})([A-Za-z0-9]{3})');
+
+                    //Habilitamos el autocomplete del curp
+                    $("#adquiriente-curp").autocomplete("enable");
+                    //Deshabilitamos el autocomplete del rfc
+                    $("#adquiriente-rfc").autocomplete("disable");
+
                 }
                 else if (radio.val() == '2') {
                     $('.adquiriente-campos-fisica').hide();
                     $('.adquiriente-tipo_persona').val('2');
                     $('#adquiriente-rfc').attr('pattern', '([A-Za-z]{3})([0-9]{6})([A-Za-z0-9]{3})');
+
+                    //Habilitamos el autocomplete del curp
+                    $("#adquiriente-curp").autocomplete("disable");
+                    //Deshabilitamos el autocomplete del rfc
+                    $("#adquiriente-rfc").autocomplete("enable");
                 }
             });
+
+
+            //Estas son las opciones con las que se construye el autocomplete, como son comunes a los dos inputs rfc y curp se sacan para reutlizar
+            var autoCompleteOptsAdquiriente = {
+                source: "ofvirtual/notario/traslado/adquiriente", //Ruta al controlador que provee los resultados de la busqueda
+                minLength: 8, //Empezamos a mandar los teclazos si han tecleado 8 caracteres
+                select: function (event, ui) {
+                    console.log(ui);
+                    //Al seleccionar un valor de los desplegados rellenamos los campos
+                    $('#adquiriente-curp').val(ui.item.curp);
+                    $('#adquiriente-rfc').val(ui.item.rfc);
+                    $('#adquiriente-nombres').val(ui.item.nombres);
+                    $('#adquiriente-apellido_paterno').val(ui.item.apellido_paterno);
+                    $('#adquiriente-apellido_materno').val(ui.item.apellido_materno);
+                    return false;
+                }
+            };
+            //Se crea autocompleter de CURP
+            $("#adquiriente-curp").autocomplete(autoCompleteOptsAdquiriente).autocomplete( "instance" )._renderItem = function( ul, item ) {
+                console.log('aqui');
+                return $( "<li>" )
+                        .append( "<a>" + item.curp + "<br>" + "<span class='nombre-coincidencia'><i class='glyphicon glyphicon-user'></i><small> " + item.nombrec + "</small><span></a>" )
+                        .appendTo( ul );
+            };
+            //Se crea autocompleter de RFC
+            $("#adquiriente-rfc").autocomplete(autoCompleteOptsAdquiriente).autocomplete( "instance" )._renderItem = function( ul, item ) {
+                console.log('aqui');
+                return $( "<li>" )
+                        .append( "<a>" + item.rfc + "<br>" + "<span class='nombre-coincidencia'><i class='glyphicon glyphicon-user'></i> <small>" + item.nombrec + "</small><span></a>" )
+                        .appendTo( ul );
+            };
+            //por default es persona física por lo que el autocomplete lo deshabilitamos
+            $("#adquiriente-rfc").autocomplete("disable");
 
             //Cuando hay cambios en los radio buttons de los requisitos
             //enajenante
@@ -482,85 +532,57 @@
                     $('.enajenante-campos-fisica').show();
                     $('.enajenante-tipo_persona').val('1');
                     $('#enajenante-rfc').attr('pattern', '([A-Za-z]{4})([0-9]{6})([A-Za-z0-9]{3})');
+
+                    //Habilitamos el autocomplete del curp
+                    $("#enajenante-curp").autocomplete("enable");
+                    //Deshabilitamos el autocomplete del rfc
+                    $("#enajenante-rfc").autocomplete("disable");
                 }
                 else if (radio.val() == '2') {
                     $('.enajenante-campos-fisica').hide();
                     $('.enajenante-tipo_persona').val('2');
                     $('#enajenante-rfc').attr('pattern', '([A-Za-z]{3})([0-9]{6})([A-Za-z0-9]{3})');
-                }
-            });
 
-
-        });
-    </script>
-
-
-
-
-
-    {{ HTML::script('js/jquery/jquery-ui.js') }}
-
-    <script>
-        $(function () {
-            //El selector de las notarías.
-            $("#notaria_id").select2({
-                language: "es",
-                placeholder: "Seleccione una notaría",
-                allowClear: true
-            });
-            //Cuando hay cambios en los radio buttons de los requisitos
-            $('.radio-persona').change(function (ev) {
-                var radio = $(this);
-                if(radio.val() == 'F'){
-                    $('.campos-fisica').show();
                     //Habilitamos el autocomplete del curp
-                    $("#curp").autocomplete("enable");
+                    $("#enajenante-curp").autocomplete("disable");
                     //Deshabilitamos el autocomplete del rfc
-                    $("#rfc").autocomplete("disable");
-                    $('#rfc').attr('pattern', '([A-Za-z]{4})([0-9]{6})([A-Za-z0-9]{3})');
-                    $('.tipo_persona').val('F');
-                }
-                else if(radio.val() == 'M')
-                {
-                    $('.campos-fisica').hide();
-                    //Habilitamos el autocomplete del curp
-                    $("#curp").autocomplete("disable");
-                    //Deshabilitamos el autocomplete del rfc
-                    $("#rfc").autocomplete("enable");
-                    $('#rfc').attr('pattern', '([A-Za-z]{3})([0-9]{6})([A-Za-z0-9]{3})');
-                    $('.tipo_persona').val('M');
+                    $("#enajenante-rfc").autocomplete("enable");
                 }
             });
+
             //Estas son las opciones con las que se construye el autocomplete, como son comunes a los dos inputs rfc y curp se sacan para reutlizar
-            var autoCompleteOpts = {
-                source: "/ventanilla/solicitante", //Ruta al controlador que provee los resultados de la busqueda
+            var autoCompleteOptsEnajenante = {
+                source: "ofvirtual/notario/traslado/enajenante", //Ruta al controlador que provee los resultados de la busqueda
                 minLength: 8, //Empezamos a mandar los teclazos si han tecleado 8 caracteres
                 select: function (event, ui) {
-                    //console.log(ui);
+                    console.log(ui);
                     //Al seleccionar un valor de los desplegados rellenamos los campos
-                    $('#curp').val(ui.item.curp);
-                    $('#rfc').val(ui.item.rfc);
-                    $('#nombres').val(ui.item.nombres);
-                    $('#apellido_paterno').val(ui.item.apellido_paterno);
-                    $('#apellido_materno').val(ui.item.apellido_materno);
-                    $('#solicitante_id').val(ui.item.id);
+                    $('#enajenante-curp').val(ui.item.curp);
+                    $('#enajenante-rfc').val(ui.item.rfc);
+                    $('#enajenante-nombres').val(ui.item.nombres);
+                    $('#enajenante-apellido_paterno').val(ui.item.apellido_paterno);
+                    $('#enajenante-apellido_materno').val(ui.item.apellido_materno);
                     return false;
                 }
             };
             //Se crea autocompleter de CURP
-            $("#curp").autocomplete(autoCompleteOpts).autocomplete( "instance" )._renderItem = function( ul, item ) {
+            $("#enajenante-curp").autocomplete(autoCompleteOptsEnajenante).autocomplete( "instance" )._renderItem = function( ul, item ) {
+                console.log('aqui');
                 return $( "<li>" )
                         .append( "<a>" + item.curp + "<br>" + "<span class='nombre-coincidencia'><i class='glyphicon glyphicon-user'></i><small> " + item.nombrec + "</small><span></a>" )
                         .appendTo( ul );
             };
             //Se crea autocompleter de RFC
-            $("#rfc").autocomplete(autoCompleteOpts).autocomplete( "instance" )._renderItem = function( ul, item ) {
+            $("#enajenante-rfc").autocomplete(autoCompleteOptsEnajenante).autocomplete( "instance" )._renderItem = function( ul, item ) {
+                console.log('aqui');
                 return $( "<li>" )
                         .append( "<a>" + item.rfc + "<br>" + "<span class='nombre-coincidencia'><i class='glyphicon glyphicon-user'></i> <small>" + item.nombrec + "</small><span></a>" )
                         .appendTo( ul );
             };
             //por default es persona física por lo que el autocomplete lo deshabilitamos
-            $("#rfc").autocomplete("disable");
+            $("#enajenante-rfc").autocomplete("disable");
         });
 
+
+</script>
 @stop
