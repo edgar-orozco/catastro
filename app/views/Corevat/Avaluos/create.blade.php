@@ -4,12 +4,12 @@
 {{ HTML::style('/css/dataTables.bootstrap.css') }}
 {{ HTML::style('/js/jquery/jquery-ui.css') }}
 <style>
-    label{
+    .coveratCont label{
         color: #515152;
         font-size: 18px;
         font-weight: 300;
     }
-    .hasDatepicker{
+    .coveratCont .hasDatepicker{
         cursor: pointer !important;
         cursor: not-allowed;
         background-color: none;
@@ -19,27 +19,38 @@
 
         border-radius: 0;
     }
-    div[class^='col-md-'],div[class*=' col-md-']{
+    .coveratCont div[class^='col-md-'],div[class*=' col-md-']{
         margin-bottom: 5px;
     }
-    div.col-md-10, div.col-md-9{
+    .coveratCont div.col-md-10, .coveratCont div.col-md-8{
         border-left: 1px solid gray;
         background: #eee;
     }
-    input, select{
+    .coveratCont input, select{
         box-shadow: none !important;
         background: none !important;
         border: none !important;
         width: 100% !important;
     }
-    input[type="reset"],input[type="submit"]{
-        background: #F27007 !important;
-
+    .coveratCont input[type="reset"],input[type="submit"], a.back{
+        padding: 15px 0;
+        margin-top: 20px;
+        text-align: center;
+        color: white;
+        width: 100%;
+        border: none;
     }
-    label{
+    .coveratCont input.save{
+        background: #F27007 !important;
+    }
+    .coveratCont input.reset{
+        background-color: #337ab7 !important;;
+        border-color: #2e6da4 !important;;
+    }
+    .coveratCont label{
         padding: 5px 0 !important;
     }
-    .cords input{
+    .coveratCont .cords input{
         border-radius: 0;
         border-bottom: 1px solid #000000 !important;
         width: 24% !important;
@@ -55,7 +66,7 @@
     @endif
 <hr>
 {{ Form::open(array('id'=>'form','url' => 'corevat/Avaluos/', 'method' => 'POST')) }}
-<div class="row">
+<div class="row coveratCont">
 	<div class="col-md-12">
 		<div class="form-group">
 			{{Form::label('fecha_reporte', 'Fecha del Reporte',['class'=>'col-sm-2'])}}
@@ -110,8 +121,8 @@
 	</div>
 	<div class="col-md-6">
 		<div class="form-group">
-			{{Form::label('ubicacion', 'Ubicación',['class'=>'col-sm-2'])}}
-            <div class="col-md-10">
+			{{Form::label('ubicacion', 'Ubicación',['class'=>'col-sm-4'])}}
+            <div class="col-md-8">
 			{{Form::text('ubicacion', $row->ubicacion, ['class'=>'form-control', 'tabindex'=>'7', 'maxlength' => '300'])}}
             </div>
 		</div>
@@ -129,8 +140,8 @@
     <!-- RENGLON 5 -->
 	<div class="col-md-6">
 		<div class="form-group">
-			{{Form::label('colonia', 'Colonia',['class'=>'col-sm-2'])}}
-            <div class="col-md-10">
+			{{Form::label('colonia', 'Colonia',['class'=>'col-sm-4'])}}
+            <div class="col-md-8">
 			    {{Form::text('colonia', $row->colonia, ['class'=>'form-control', 'tabindex'=>'9', 'maxlength' => '150'])}}
             </div>
 		</div>
@@ -145,8 +156,8 @@
 	</div>
 	<div class="col-md-6">
 		<div class="form-group">
-			{{Form::label('idmunicipio', 'Municipios',['class'=>'col-sm-2'])}}
-            <div class="col-md-10">
+			{{Form::label('idmunicipio', 'Municipios',['class'=>'col-sm-4'])}}
+            <div class="col-md-8">
 			    {{Form::select('idmunicipio', $municipios, $row->idmunicipio, ['id' => 'idmunicipio', 'class'=>'form-control', 'tabindex'=>'11'])}}
             </div>
 		</div>
@@ -162,8 +173,8 @@
 	<br />
 	<div class="col-md-6">
 		<div class="form-inline">
-			{{Form::label('','Longitud',['class'=>'col-sm-2'])}}
-            <div class="col-md-10 cords">
+			{{Form::label('','Longitud',['class'=>'col-sm-4'])}}
+            <div class="col-md-8 cords">
                 {{Form::number('lon0', $row->lat0, ['class'=>'form-control', 'tabindex'=>'13', 'style'=>'width:75px', 'step'=>'1', 'min' => '0', 'max' => '360', 'required' => 'required'])}}&nbsp;&ring;&nbsp;
                 {{Form::number('lon1', $row->lon1, ['class'=>'form-control', 'tabindex'=>'14', 'style'=>'width:75px', 'step'=>'1', 'min' => '0', 'max' => '60', 'required' => 'required'])}}&nbsp;'&nbsp;
                 {{Form::number('lon2', $row->lon2, ['class'=>'form-control', 'tabindex'=>'15', 'style'=>'width:75px', 'step'=>'0.01', 'min' => '0.00', 'max' => '60.00', 'pattern' => '[0-9]{3}[.]{1}[0-9]{2}', 'required' => 'required'])}}"
@@ -184,8 +195,8 @@
 	</div>
 	<div class="col-md-6">
 		<div class="form-inline">
-			{{Form::label('','Altitud',['class'=>'col-sm-2'])}}
-            <div class="col-md-10">
+			{{Form::label('','Altitud',['class'=>'col-sm-4'])}}
+            <div class="col-md-8">
 			{{Form::text('altitud', $row->altitud, ['id'=>'altitud','class'=>'form-control clsNumeric', 'tabindex'=>'19', 'style'=>'width:300px', 'maxlength'=>'50', 'size'=>'30', 'pattern' => '[-+]?[0-9]*[.,]?[0-9]+' ] )}}
 			{{$errors->first('altitud', '<span class=text-danger>:message</span>')}}
             </div>
@@ -202,8 +213,8 @@
 	</div>
 	<div class="col-md-6">
 		<div class="form-group">
-			{{Form::label('cuenta_predial', 'Cuenta Predial',['class'=>'col-sm-2'])}}
-            <div class="col-md-10">
+			{{Form::label('cuenta_predial', 'Cuenta Predial',['class'=>'col-sm-4'])}}
+            <div class="col-md-8">
                 {{Form::text('cuenta_predial', $row->cuenta_predial, ['class'=>'form-control', 'tabindex'=>'21', 'maxlength'=>'11', 'size'=>'12'])}}
                 {{$errors->first('cuenta_predial', '<span class=text-danger>:message</span>')}}
             </div>
@@ -242,16 +253,16 @@
 			{{Form::text('nombre_propietario','', ['class'=>'form-control', 'tabindex'=>'25', 'maxlength'=>'100', 'required'=>'required'])}}
             </div>
 		</div>
-	</div>
-	<div class="col-md-4 form-actions form-group">
-        {{Form::submit('Guardar', ['class'=>'btn btn-primary col-md-4'])}}
     </div>
     <div class="col-md-4 form-actions form-group">
-        {{Form::reset('Limpiar formulario', ['class' => 'btn btn-primary col-md-4']) }}
+        <a href="{{URL::route('corevat.Avaluos.index')}}" class="btn btn-primary back btn-block col-md-4" role="button"><i class="glyphicon glyphicon-arrow-left"></i> Regresar</a>
     </div>
     <div class="col-md-4 form-actions form-group">
-		<a href="{{URL::route('corevat.Avaluos.index')}}" class="btn btn-primary col-md-4" role="button"><i class="glyphicon glyphicon-arrow-left"></i> Regresar</a>
-	</div>
+        {{Form::reset('Limpiar formulario', ['class' => 'btn reset btn-success col-md-4']) }}
+    </div>
+    <div class="col-md-4 form-actions form-group">
+        {{Form::submit('Guardar', ['class'=>'btn save col-md-4'])}}
+    </div>
 </div>
 {{Form::close()}}
 @stop

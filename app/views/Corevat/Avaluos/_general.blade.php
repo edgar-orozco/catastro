@@ -7,89 +7,167 @@
         </div>
     @endif
 <hr>
+<style>
+    .coveratCont label{
+        color: #515152;
+        font-size: 18px;
+        font-weight: 300;
+    }
+    .coveratCont .hasDatepicker{
+        cursor: pointer !important;
+        cursor: not-allowed;
+        background-color: none;
+        opacity: 1;
+        border: none;
+        box-shadow: none;
+
+        border-radius: 0;
+    }
+    .coveratCont div[class^='col-md-'],div[class*=' col-md-']{
+        margin-bottom: 5px;
+    }
+    .coveratCont div.col-md-10, .coveratCont div.col-md-8{
+        border-left: 1px solid gray;
+        background: #eee;
+    }
+    .coveratCont input, select{
+        box-shadow: none !important;
+        background: none !important;
+        border: none !important;
+        width: 100% !important;
+    }
+    .coveratCont input[type="reset"],input[type="submit"], a.back{
+        padding: 15px 0;
+        margin-top: 20px;
+        text-align: center;
+        color: white;
+        width: 100%;
+        border: none;
+    }
+    .coveratCont input.save{
+        background: #F27007 !important;
+    }
+    .coveratCont input.reset{
+        background-color: #337ab7 !important;;
+        border-color: #2e6da4 !important;;
+    }
+    .coveratCont label{
+        padding: 5px 0 !important;
+    }
+    .coveratCont .cords input{
+        border-radius: 0;
+        border-bottom: 1px solid #000000 !important;
+        width: 24% !important;
+    }
+</style>
 {{ Form::model($row, ['route' => array('updateAvaluoGeneral', $row->idavaluo), 'method'=>'post' ]) }}
-<div class="row">
-	<div class="col-md-4">
+<div class="row coveratCont">
+	<div class="col-md-12">
 		<div class="form-group">
-			{{Form::label('fecha_reporte', 'Fecha del Reporte')}}
-			{{Form::text('fecha_reporte', $row->fecha_reporte, ['class'=>'form-control', 'tabindex'=>'1', 'autofocus' => 'autofocus', 'required' => 'required', 'maxlength' => '10', 'size' => '11', 'style' => 'width:110px', 'readonly'=>'readonly'])}}
-			{{$errors->first('fecha_reporte', '<span class=text-danger>:message</span>')}}
-		</div>
-	</div>
-	<div class="col-md-4">
-		<div class="form-group">
-			{{Form::label('fecha_avaluo', 'Fecha del Avalúo')}}
-			{{Form::text('fecha_avaluo', $row->fecha_avaluo, ['class'=>'form-control', 'tabindex'=>'2', 'required' => 'required', 'maxlength' => '10', 'size' => '11', 'style' => 'width:110px', 'readonly'=>'readonly'])}}
-			{{$errors->first('fecha_avaluo', '<span class=text-danger>:message</span>')}}
-		</div>
-	</div>
-	<div class="col-md-4">
-		<div class="form-group">
-			{{Form::label('serie', 'Serie')}}
-			{{Form::select('serie', array('U'=>'Urbano', 'R'=>'Rural'), null, ['id' => 'serie', 'class'=>'form-control', 'tabindex'=>'3', 'style' => 'width:110px'])}}
+			{{Form::label('fecha_reporte', 'Fecha del Reporte', ['class'=>'col-md-2'])}}
+            <div class="col-md-10">
+                {{Form::text('fecha_reporte', $row->fecha_reporte, ['class'=>'form-control', 'tabindex'=>'1', 'autofocus' => 'autofocus', 'required' => 'required', 'maxlength' => '10', 'size' => '11', 'style' => 'width:110px', 'readonly'=>'readonly'])}}
+                {{$errors->first('fecha_reporte', '<span class=text-danger>:message</span>')}}
+            </div>
 		</div>
 	</div>
 	<div class="col-md-12">
 		<div class="form-group">
-			{{Form::label('proposito', 'Propósito')}}
+			{{Form::label('fecha_avaluo', 'Fecha del Avalúo', ['class'=>'col-md-2'])}}
+            <div class="col-md-10">
+            {{Form::text('fecha_avaluo', $row->fecha_avaluo, ['class'=>'form-control', 'tabindex'=>'2', 'required' => 'required', 'maxlength' => '10', 'size' => '11', 'style' => 'width:110px', 'readonly'=>'readonly'])}}
+			{{$errors->first('fecha_avaluo', '<span class=text-danger>:message</span>')}}
+            </div>
+		</div>
+	</div>
+	<div class="col-md-12">
+		<div class="form-group">
+			{{Form::label('serie', 'Serie', ['class'=>'col-md-2'])}}
+            <div class="col-md-10">
+			{{Form::select('serie', array('U'=>'Urbano', 'R'=>'Rural'), null, ['id' => 'serie', 'class'=>'form-control', 'tabindex'=>'3', 'style' => 'width:110px'])}}
+            </div>
+		</div>
+	</div>
+	<div class="col-md-12">
+		<div class="form-group">
+			{{Form::label('proposito', 'Propósito', ['class'=>'col-md-2'])}}
+            <div class="col-md-10">
 			{{Form::text('proposito', $row->proposito, ['class'=>'form-control', 'tabindex'=>'4', 'required' => 'required', 'maxlength' => '250'])}}
 			{{$errors->first('proposito', '<span class=text-danger>:message</span>')}}
+            </div>
 		</div>
 	</div>
 	<div class="col-md-12">
 		<div class="form-group">
-			{{Form::label('finalidad', 'Finalidad')}}
-			{{Form::text('finalidad', $row->finalidad, ['class'=>'form-control', 'tabindex'=>'5', 'required' => 'required', 'maxlength' => '250'])}}
+			{{Form::label('finalidad', 'Finalidad', ['class'=>'col-md-2'])}}
+            <div class="col-md-10">
+                {{Form::text('finalidad', $row->finalidad, ['class'=>'form-control', 'tabindex'=>'5', 'required' => 'required', 'maxlength' => '250'])}}
 			{{$errors->first('finalidad', '<span class=text-danger>:message</span>')}}
+            </div>
 		</div>
 	</div>
-	<div class="col-md-4">
+	<div class="col-md-12">
 		<div class="form-group">
-			{{Form::label('idtipoinmueble', 'Tipo Inmueble')}}
+			{{Form::label('idtipoinmueble', 'Tipo Inmueble', ['class'=>'col-md-2'])}}
+            <div class="col-md-10">
 			{{Form::select('idtipoinmueble', $cat_tipo_inmueble, $row->idtipoinmueble, ['id' => 'idtipoinmueble', 'class'=>'form-control', 'tabindex'=>'6'])}}
+            </div>
 		</div>
 	</div>
-	<div class="col-md-8">
+	<div class="col-md-6">
 		<div class="form-group">
-			{{Form::label('ubicacion', 'Ubicación')}}
+			{{Form::label('ubicacion', 'Ubicación', ['class'=>'col-md-4'])}}
+            <div class="col-md-8">
 			{{Form::text('ubicacion', $row->ubicacion, ['class'=>'form-control', 'tabindex'=>'7', 'maxlength' => '300'])}}
+            </div>
 		</div>
 	</div>
 	
-	<!-- RENGLON 5 -->
-	<div class="col-md-4">
+
+	<div class="col-md-6">
 		<div class="form-group">
-			{{Form::label('conjunto', 'Conjunto')}}
+			{{Form::label('conjunto', 'Conjunto', ['class'=>'col-md-2'])}}
+            <div class="col-md-10">
 			{{Form::text('conjunto', $row->conjunto, ['class'=>'form-control', 'tabindex'=>'8', 'maxlength' => '150'])}}
+            </div>
 		</div>
 	</div>
-	<div class="col-md-2">
+    <!-- RENGLON 5 -->
+	<div class="col-md-6">
 		<div class="form-group">
-			{{Form::label('colonia', 'Colonia')}}
-			{{Form::text('colonia', $row->colonia, ['class'=>'form-control', 'tabindex'=>'9', 'maxlength' => '150'])}}
+			{{Form::label('colonia', 'Colonia',['class'=>'col-sm-4'])}}
+            <div class="col-md-8">
+                {{Form::text('colonia', $row->colonia, ['class'=>'form-control', 'tabindex'=>'9', 'maxlength' => '150'])}}
+            </div>
 		</div>
 	</div>
-	<div class="col-md-2">
+	<div class="col-md-6">
 		<div class="form-group">
-			{{Form::label('idestado', 'Estados')}}
-			{{Form::select('idestado', $estados, $row->idestado, ['id' => 'idestado', 'class'=>'form-control', 'tabindex'=>'10'])}}
+			{{Form::label('idestado', 'Estados',['class'=>'col-sm-2'])}}
+            <div class="col-md-10">
+                {{Form::select('idestado', $estados, $row->idestado, ['id' => 'idestado', 'class'=>'form-control', 'tabindex'=>'10'])}}
+            </div>
 		</div>
 	</div>
-	<div class="col-md-2">
+	<div class="col-md-6">
 		<div class="form-group">
-			{{Form::label('idmunicipio', 'Municipios')}}
+			{{Form::label('idmunicipio', 'Municipios',['class'=>'col-sm-4'])}}
+            <div class="col-md-8">
 			{{Form::select('idmunicipio', $municipios, $row->idmunicipio, ['id' => 'idmunicipio', 'class'=>'form-control', 'tabindex'=>'11'])}}
+            </div>
 		</div>
 	</div>
-	<div class="col-md-2">
+	<div class="col-md-6">
 		<div class="form-group">
-			{{Form::label('cp', 'C. P.')}}
-			{{Form::select('cp', $lstCP, $row->cp, ['id' => 'cp', 'class'=>'form-control', 'tabindex'=>'12', 'required' => 'required'])}}
+			{{Form::label('cp', 'C. P.',['class'=>'col-sm-2'])}}
+            <div class="col-md-10">
+                {{Form::select('cp', $lstCP, $row->cp, ['id' => 'cp', 'class'=>'form-control', 'tabindex'=>'12', 'required' => 'required'])}}
+            </div>
 		</div>
 	</div>
 
 	<br />
-	<div class="col-md-4">
+	<div class="col-md-6">
 		<div class="form-inline">
 			{{Form::label('Longitud')}}
 			{{Form::number('lon0', $row->lat0, ['class'=>'form-control', 'tabindex'=>'13', 'style'=>'width:75px', 'step'=>'1', 'min' => '0', 'max' => '360', 'required' => 'required'])}}&nbsp;&ring;&nbsp;
