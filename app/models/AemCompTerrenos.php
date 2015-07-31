@@ -11,15 +11,13 @@ class AemCompTerrenos extends \Eloquent {
 	public function AemHomologacion() {
 		return $this->hasOne('AemHomologacion', 'idaemcompterreno', 'idaemcompterreno');
 	}
-/*
 	public static function getAemCompTerrenosByFk($idavaluoenfoquemercado) {
 		return AemCompTerrenos::select('*')
 						->where('idavaluoenfoquemercado', '=', $idavaluoenfoquemercado)
 						->orderBy('idaemcompterreno')
 						->get();
 	}
-*/
-/*
+
 	public static function getAemHomologacionByFk($idavaluoenfoquemercado) {
 		return AemHomologacion::select('aem_homologacion.*')
 						->join('aem_comp_terrenos', 'aem_homologacion.idaemcompterreno', '=', 'aem_comp_terrenos.idaemcompterreno')
@@ -27,7 +25,6 @@ class AemCompTerrenos extends \Eloquent {
 						->orderBy('aem_homologacion.idaemhomologacion')
 						->get();
 	}
-*/
 
 	/**
 	 * Show the form for editing the specified resource.
