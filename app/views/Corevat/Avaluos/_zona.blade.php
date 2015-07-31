@@ -44,6 +44,7 @@
             {{Form::label('is_otro_servicio', 'Otros')}}
             {{Form::checkbox('is_otro_servicio', $row->is_otro_servicio, ['class'=>'form-control', 'id'=>'is_otro_servicio'])}}
         </div>
+        <div class="checkbox"></div>
         <div class="checkbox">
             {{Form::text('otro_servicio_municipal', $row->otro_servicio_municipal, ['class'=>'form-control', 'id'=>'otro_servicio_municipal', 'maxlength'=>'300'])}}
             {{$errors->first('otro_servicio_municipal', '<span class=text-danger>:message</span>')}}
@@ -92,6 +93,7 @@
             {{Form::label('is_otro_equipamiento', 'Otros')}}
             {{Form::checkbox('is_otro_equipamiento', $row->is_otro_equipamiento)}}
         </div>
+        <div class="checkbox"></div>
         <div class="checkbox">
             {{Form::text('otro_equipamiento', $row->otro_equipamiento, ['class'=>'form-control', 'id'=>'otro_equipamiento', 'maxlength'=>'300'])}}
             {{$errors->first('otro_equipamiento', '<span class=text-danger>:message</span>')}}
