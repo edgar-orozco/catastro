@@ -55,7 +55,7 @@ class AemInformacion extends \Eloquent {
 		$rowAemInformacion = new AemInformacion();
 		$rowAemInformacion->idavaluoenfoquemercado = $inputs['idAem'];
 		$rowAemInformacion->ubicacion = $inputs['ubicacion'];
-		$rowAemInformacion->edad = $inputs['edad']=='' ? $inputs['edad'] : 0.00;
+		$rowAemInformacion->edad = $inputs['edad'];
 		$rowAemInformacion->telefono = $inputs['telefono'];
 		$rowAemInformacion->observaciones = $inputs['observaciones'];
 		$rowAemInformacion->idemp = 1;
@@ -81,7 +81,6 @@ class AemInformacion extends \Eloquent {
 	public static function updInformacion($inputs) {
 		$rowAemInformacion = AemInformacion::find($inputs['idTable']);
 		$rowAemInformacion->ubicacion = $inputs['ubicacion'];
-		// $rowAemInformacion->edad = $inputs['edad']=='' ? $inputs['edad'] : 0.00;
 		$rowAemInformacion->edad = $inputs['edad'];
 		$rowAemInformacion->telefono = $inputs['telefono'];
 		$rowAemInformacion->observaciones = $inputs['observaciones'];

@@ -79,7 +79,7 @@ class AemCompTerrenos extends \Eloquent {
 		$rowAvaluoEnfoqueMercado = AvaluosMercado::find($rowAemCompTerrenos->idavaluoenfoquemercado);
 		$rowAvaluoInmueble = Avaluos::find($rowAvaluoEnfoqueMercado->idavaluo)->AvaluosInmueble;
 		if ($rowAvaluoInmueble->superficie_total_terreno > 0) {
-			$rowAemHomologacion->superficie =round(  pow($rowAemHomologacion->superficie_terreno / $rowAvaluoInmueble->superficie_total_terreno, 1 / 6), 2);
+			$rowAemHomologacion->superficie = round(  pow($rowAemHomologacion->superficie_terreno / $rowAvaluoInmueble->superficie_total_terreno, 1 / 6), 2);
 			$rowAemHomologacion->valor_unitario_resultante_m2 = $rowAemHomologacion->valor_unitario *
 					$rowAemHomologacion->zona * $rowAemHomologacion->ubicacion * $rowAemHomologacion->frente *
 					$rowAemHomologacion->forma * $rowAemHomologacion->superficie *

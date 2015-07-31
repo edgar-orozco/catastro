@@ -805,8 +805,14 @@ class corevat_AvaluosController extends \BaseController {
 		if ($validate->fails()) {
 			$response = array('success' => false, 'errors' => $validate->getMessageBag()->toArray());
 		} else {
-			AemHomologacion::updAemHomologacion($inputs);
-			$response = array('success' => true, 'message' => '¡El registro fue modificado satisfactoriamente!', 'ctrl' => 'btnEditAemHom', 'idTable' => $inputs["idTable"]);
+			AemHomologacion::updAemHomologacion($inputs, $valor_unitario_promedio, $valor_aplicado_m2);
+			$response = array(
+				'success' => true, 
+				'message' => '¡El registro fue modificado satisfactoriamente!', 
+				'ctrl' => 'btnEditAemHom', 
+				'idTable' => $inputs["idTable"], 
+				'valor_unitario_promedio' => $valor_unitario_promedio,
+				'valor_aplicado_m2' => $valor_aplicado_m2);
 		}
 		return $response;
 	}
@@ -819,17 +825,16 @@ class corevat_AvaluosController extends \BaseController {
 		$idaeminformacion = 0;
 		$rules = array(
 			'ubicacion' => 'required',
-			'edad' => array('required', 'numeric', 'min:0.00', 'max:99999999.99', 'regex:/^[0-9]{1,8}(\.?)[0-9]{1,2}$/'),
+			'edad' => array('required', 'integer', 'min:0', 'max:99999999', 'regex:/^[0-9]{1,8}$/'),
 			'telefono' => array('required'),
 			'observaciones' => array('required'),
 		);
 		$messages = array(
 			'ubicacion.required' => '¡El campo "Ubicación" es requerido!',
 			'edad.required' => '¡El campo "Edad" es requerido!',
-			'edad.numeric' => '¡El valor del campo "Edad" debe ser numérico!',
 			'edad.min' => '¡El valor mínimo del campo "Edad" debe ser cero!',
-			'edad.max' => '¡El valor máximo del campo "Edad" debe ser 99999999.99!',
-			'edad.regex' => '¡El formato del campo "Edad" debe ser 99999999.99!',
+			'edad.max' => '¡El valor máximo del campo "Edad" debe ser 99999999!',
+			'edad.regex' => '¡El formato del campo "Edad" debe ser 99999999!',
 			'telefono.required' => '¡El campo "Telefóno" es requerido!',
 			'observaciones.required' => '¡El campo "Observaciones" es requerido!',
 		);
@@ -897,8 +902,15 @@ class corevat_AvaluosController extends \BaseController {
 		if ($validate->fails()) {
 			$response = array('success' => false, 'errors' => $validate->getMessageBag()->toArray());
 		} else {
-			AemAnalisis::updAemAnalisis($inputs);
-			$response = array('success' => true, 'message' => '¡El registro fue modificado satisfactoriamente!', 'ctrl' => 'btnEditAemHom', 'idTable' => $inputs["idTable"]);
+			AemAnalisis::updAemAnalisis($inputs, $promedio_analisis, $superficie_construida, $valor_comparativo_mercado);
+			$response = array(
+			'success' => true, 
+			'message' => '¡El registro fue modificado satisfactoriamente!', 
+			'ctrl' => 'btnEditAemHom', 
+			'idTable' => $inputs["idTable"],
+			'promedio_analisis' => $promedio_analisis,
+			'superficie_construida' => $superficie_construida,
+			'valor_comparativo_mercado' => $valor_comparativo_mercado);
 		}
 		return $response;
 	}

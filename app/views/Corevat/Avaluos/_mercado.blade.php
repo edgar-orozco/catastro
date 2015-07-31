@@ -72,13 +72,13 @@
 				<tr>
 					<td class="bg-primary" colspan="6">&nbsp;</td>
 					<td class="bg-primary" colspan="4" style="text-align: right;">Valor Unitario Promedio ($/m&sup2;)</td>
-					<td class="bg-info" colspan="2">{{$row->valor_unitario_promedio}}</td>
+					<td class="bg-info" colspan="2" id="valor_unitario_promedio">{{$row->valor_unitario_promedio}}</td>
 					<td class="bg-primary">&nbsp;</td>
 				</tr>
 				<tr>
 					<td class="bg-primary" colspan="6">&nbsp;</td>
 					<td class="bg-primary" colspan="4" style="text-align: right;">Valor Aplicado por M&sup2;</td>
-					<td class="bg-info" colspan="2">{{$row->valor_aplicado_m2}}</td>
+					<td class="bg-info" colspan="2" id="valor_aplicado_m2">{{$row->valor_aplicado_m2}}</td>
 					<td class="bg-primary">&nbsp;</td>
 				</tr>
 			</tfoot>
@@ -101,9 +101,9 @@
 					<th>#</th>
 					<th>ID</th>
 					<th>UBICACIÓN</th>
-					<th>PRECIO</th>
 					<th>EDAD</th>
 					<th>TELÉFONO</th>
+					<th>OBSERVACIONES</th>
 					<th style="width:5%;"></th>
 					<th style="width:5%;"></th>
 				</tr>
@@ -153,19 +153,19 @@
 				<tr>
 					<td class="bg-primary" colspan="8">&nbsp;</td>
 					<td class="bg-primary" colspan="5" style="text-align: right;">Promedio:</td>
-					<td class="bg-info">{{$row->promedio_analisis}}</td>
+					<td class="bg-info" id="promedio_analisis">{{$row->promedio_analisis}}</td>
 					<td class="bg-primary">&nbsp;</td>
 				</tr>
 				<tr>
 					<td class="bg-primary" colspan="8">&nbsp;</td>
 					<td class="bg-primary" colspan="5" style="text-align: right;">Superficie Construida del Sujeto:</td>
-					<td class="bg-info">{{$row->superficie_construida}}</td>
+					<td class="bg-info" id="superficie_construida">{{$row->superficie_construida}}</td>
 					<td class="bg-primary">&nbsp;</td>
 				</tr>
 				<tr>
 					<td class="bg-primary" colspan="8">&nbsp;</td>
 					<td class="bg-primary" colspan="5" style="text-align: right;">Valor comparativo de mercado:</td>
-					<td class="bg-info">{{$row->valor_comparativo_mercado}}</td>
+					<td class="bg-info" id="valor_comparativo_mercado">{{$row->valor_comparativo_mercado}}</td>
 					<td class="bg-primary">&nbsp;</td>
 				</tr>
 			</tfoot>
@@ -511,13 +511,22 @@
 						if ( $('#ctrl').val() === 'btnNewAemComp' || $('#ctrl').val() === 'btnEditAemComp' ) {
 							aemCompTerrenosDataTable.ajax.reload();
 							aemHomologacionDataTable.ajax.reload();
+
 						} else if ( $('#ctrl').val() === 'btnEditAemHom' ) {
 							aemHomologacionDataTable.ajax.reload();
+							$('#valor_unitario_promedio').empty().append(datos.valor_unitario_promedio);
+							$('#valor_aplicado_m2').empty().append(datos.valor_aplicado_m2);
+
 						} else if ( $('#ctrl').val() === 'btnNewAemInf' || $('#ctrl').val() === 'btnEditAemInf' ) {
 							aemInformacionDataTable.ajax.reload();
 							aemAnalisisDataTable.ajax.reload();
+
 						} else if ( $('#ctrl').val() === 'btnEditAemAna' ) {
 							aemAnalisisDataTable.ajax.reload();
+							$('#promedio_analisis').empty().append(datos.promedio_analisis);
+							$('#superficie_construida').empty().append(datos.superficie_construida);
+							$('#valor_comparativo_mercado').empty().append(datos.valor_comparativo_mercado);
+
 						}
 					} else {
 						var errores = '';
@@ -714,7 +723,7 @@
         div = $('<div />');
         div.addClass('col-md-12');
         $('<label for="edad">Edad:</label>').appendTo(div);
-        $('<input type="number" name="edad" id="edad" value="0.00" min="0.00" max="9999999.99" step="0.01" pattern="[0-9]{1,8}[.]{1}[0-9]{2}"/>').attr('required', 'true').addClass('form-control').appendTo(div);
+        $('<input type="number" name="edad" id="edad" value="0" min="0" max="9999999" step="1" pattern="[0-9]{1,3}"/>').attr('required', 'true').addClass('form-control').appendTo(div);
         div.appendTo('#containerDialogForm');
 
         div = $('<div />');

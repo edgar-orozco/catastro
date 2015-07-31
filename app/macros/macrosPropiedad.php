@@ -4,24 +4,21 @@ Form::macro('propiedad', function($llave)
   $predios='
    <div class="row">
     <div class="col-md-6">'.
-    Form::label($llave . '[antecedente_num]', 'Bajo el numero:') .
-    Form::text($llave.'[antecedente_num]', null, ['class' => 'form-control'] ).
+    Form::label('antecedente_num', 'Bajo el numero:') .
+    Form::text('antecedente_num', null, ['class' => 'form-control'] ).
     '</div>'.
-    ' <div class="col-md-6">'.
-     Form::label($llave . '[antecedente_folio]', 'Folio' ) .
-    Form::text($llave.'[antecedente_folio]', null, ['class' => 'form-control'] ). 
+    
+    '<div class="col-md-6">'.
+    Form::label('valor_registro', 'Valor con Registro Estatal no: ') .
+    Form::text('valor_registro', null, ['class' => 'form-control'] ). 
    '</div>'.
     '<div class="col-md-6">'.
-    Form::label($llave . '[clave_antecedente]', 'Clave') .
-    Form::text($llave.'[clave_antecedente]', null, ['class' => 'form-control'] ). 
+    Form::label('folio_avaluo]', 'no. De Folio de Avaluó:') .
+    Form::text('folio_avaluo', null, ['class' => 'form-control'] ). 
    '</div>'.
     '<div class="col-md-6">'.
-    Form::label($llave . '[predio_antecedente]', 'Predio') .
-    Form::text($llave.'[predio_antecedente]', null, ['class' => 'form-control'] ). 
-   '</div>'.
-    '<div class="col-md-6">'.
-    Form::label($llave . '[lvm_antecedente]', 'L.M.V :') .
-    Form::text($llave.'[lvm_antecedente]', null, ['class' => 'form-control'] ).
+    Form::label('valor_comercial', 'alor Comercial del Inmueble:') .
+    Form::text('valor_comercial]', null, ['class' => 'form-control'] ).
     '</div>
     </div>';
     return $predios;
