@@ -80,46 +80,59 @@
             </div>
 		</div>
 	</div>
-	<div class="col-md-4">
+	<div class="col-md-12">
 		<div class="form-group">
-			{{Form::label('serie', 'Serie')}}
+			{{Form::label('serie', 'Serie', ['class'=>'col-md-2'])}}
+            <div class="col-md-10">
 			{{Form::select('serie', array('U'=>'Urbano', 'R'=>'Rural'), null, ['id' => 'serie', 'class'=>'form-control', 'tabindex'=>'3', 'style' => 'width:110px'])}}
+            </div>
 		</div>
 	</div>
 	<div class="col-md-12">
 		<div class="form-group">
-			{{Form::label('proposito', 'Propósito')}}
+			{{Form::label('proposito', 'Propósito', ['class'=>'col-md-2'])}}
+            <div class="col-md-10">
 			{{Form::text('proposito', $row->proposito, ['class'=>'form-control', 'tabindex'=>'4', 'required' => 'required', 'maxlength' => '250'])}}
 			{{$errors->first('proposito', '<span class=text-danger>:message</span>')}}
+            </div>
 		</div>
 	</div>
 	<div class="col-md-12">
 		<div class="form-group">
-			{{Form::label('finalidad', 'Finalidad')}}
+			{{Form::label('finalidad', 'Finalidad', ['class'=>'col-md-2'])}}
 			{{Form::text('finalidad', $row->finalidad, ['class'=>'form-control', 'tabindex'=>'5', 'required' => 'required', 'maxlength' => '250'])}}
+            <div class="col-md-10">
 			{{$errors->first('finalidad', '<span class=text-danger>:message</span>')}}
+            </div>
 		</div>
 	</div>
-	<div class="col-md-4">
+	<div class="col-md-12">
 		<div class="form-group">
-			{{Form::label('idtipoinmueble', 'Tipo Inmueble')}}
+			{{Form::label('idtipoinmueble', 'Tipo Inmueble', ['class'=>'col-md-2'])}}
+            <div class="col-md-10">
 			{{Form::select('idtipoinmueble', $cat_tipo_inmueble, $row->idtipoinmueble, ['id' => 'idtipoinmueble', 'class'=>'form-control', 'tabindex'=>'6'])}}
+            </div>
 		</div>
 	</div>
-	<div class="col-md-8">
+	<div class="col-md-6">
 		<div class="form-group">
-			{{Form::label('ubicacion', 'Ubicación')}}
+			{{Form::label('ubicacion', 'Ubicación', ['class'=>'col-md-4'])}}
+            <div class="col-md-8">
 			{{Form::text('ubicacion', $row->ubicacion, ['class'=>'form-control', 'tabindex'=>'7', 'maxlength' => '300'])}}
+            </div>
 		</div>
 	</div>
 	
-	<!-- RENGLON 5 -->
-	<div class="col-md-4">
+
+	<div class="col-md-6">
 		<div class="form-group">
-			{{Form::label('conjunto', 'Conjunto')}}
+			{{Form::label('conjunto', 'Conjunto', ['class'=>'col-md-2'])}}
+            <div class="col-md-10">
 			{{Form::text('conjunto', $row->conjunto, ['class'=>'form-control', 'tabindex'=>'8', 'maxlength' => '150'])}}
+            </div>
 		</div>
 	</div>
+    <!-- RENGLON 5 -->
 	<div class="col-md-2">
 		<div class="form-group">
 			{{Form::label('colonia', 'Colonia')}}
