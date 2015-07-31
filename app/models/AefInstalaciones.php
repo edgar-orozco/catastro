@@ -71,7 +71,7 @@ class AefInstalaciones extends \Eloquent {
 		$rowAefInstalaciones->idemp = 1;
 		$rowAefInstalaciones->ip = $_SERVER['REMOTE_ADDR'];
 		$rowAefInstalaciones->host = isset($_SERVER['HTTP_CLIENT_IP']) ? $_SERVER['HTTP_CLIENT_IP'] : '';
-		$rowAefInstalaciones->creado_por = 1;
+		$rowAefInstalaciones->creado_por = Auth::Id();
 		$rowAefInstalaciones->creado_el = date('Y-m-d H:i:s');
 		$rowAefInstalaciones->save();
 		AefInstalaciones::insAfterAefInstalaciones($inputs["idAef"]);
@@ -142,7 +142,7 @@ class AefInstalaciones extends \Eloquent {
 		$rowAefInstalaciones->idemp = 1;
 		$rowAefInstalaciones->ip = $_SERVER['REMOTE_ADDR'];
 		$rowAefInstalaciones->host = isset($_SERVER['HTTP_CLIENT_IP']) ? $_SERVER['HTTP_CLIENT_IP'] : '';
-		$rowAefInstalaciones->modi_por = 1;
+		$rowAefInstalaciones->modi_por = Auth::Id();
 		$rowAefInstalaciones->modi_el = date('Y-m-d H:i:s');
 		$rowAefInstalaciones->save();
 		AefInstalaciones::updAfterAefInstalaciones($inputs["idAef"]);
