@@ -71,6 +71,12 @@ h3{
     padding: 10px 15px;
 }
 
+#zonaCoveratSecc h4{
+    background-color: dimgray;
+    padding: 20px;
+    color: #E0E0E0;
+}
+
 #zonaCoveratSecc .checkbox{
     width: 49%;
     display: inline-block;
