@@ -32,6 +32,9 @@ Route::get('ofvirtual/notario/registro/imprimir/{id}', 'ofvirtual_RegistroEscrit
 //edit
 Route::get('ofvirtual/notario/registro/edit/{id}', 'ofvirtual_RegistroEscrituraController@edit');
 
+//update
+Route::get('ofvirtual/notario/registro/update/{id}', 'ofvirtual_RegistroEscrituraController@update');
+
 
 /*function()
           {
