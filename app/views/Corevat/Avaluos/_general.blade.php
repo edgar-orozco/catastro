@@ -11,7 +11,7 @@
 <div class="row coveratCont">
 	<div class="col-md-12">
 		<div class="form-group">
-			{{Form::label('fecha_reporte', 'Fecha del Reporte', ['class'=>'col-md-2'])}}
+			{{Form::label('fecha_reporte', 'Fecha del Reporte : ', ['class'=>'col-md-2'])}}
             <div class="col-md-10">
                 {{Form::text('fecha_reporte', $row->fecha_reporte, ['class'=>'form-control', 'tabindex'=>'1', 'autofocus' => 'autofocus', 'required' => 'required', 'maxlength' => '10', 'size' => '11', 'style' => 'width:110px', 'readonly'=>'readonly'])}}
                 {{$errors->first('fecha_reporte', '<span class=text-danger>:message</span>')}}
@@ -20,7 +20,7 @@
 	</div>
 	<div class="col-md-12">
 		<div class="form-group">
-			{{Form::label('fecha_avaluo', 'Fecha del Avalúo', ['class'=>'col-md-2'])}}
+			{{Form::label('fecha_avaluo', 'Fecha del Avalúo : ', ['class'=>'col-md-2'])}}
             <div class="col-md-10">
             {{Form::text('fecha_avaluo', $row->fecha_avaluo, ['class'=>'form-control', 'tabindex'=>'2', 'required' => 'required', 'maxlength' => '10', 'size' => '11', 'style' => 'width:110px', 'readonly'=>'readonly'])}}
 			{{$errors->first('fecha_avaluo', '<span class=text-danger>:message</span>')}}
@@ -29,7 +29,7 @@
 	</div>
 	<div class="col-md-12">
 		<div class="form-group">
-			{{Form::label('serie', 'Serie', ['class'=>'col-md-2'])}}
+			{{Form::label('serie', 'Serie : ', ['class'=>'col-md-2'])}}
             <div class="col-md-10">
 			{{Form::select('serie', array('U'=>'Urbano', 'R'=>'Rural'), null, ['id' => 'serie', 'class'=>'form-control', 'tabindex'=>'3', 'style' => 'width:110px'])}}
             </div>
@@ -37,7 +37,7 @@
 	</div>
 	<div class="col-md-12">
 		<div class="form-group">
-			{{Form::label('proposito', 'Propósito', ['class'=>'col-md-2'])}}
+			{{Form::label('proposito', 'Propósito : ', ['class'=>'col-md-2'])}}
             <div class="col-md-10">
 			{{Form::text('proposito', $row->proposito, ['class'=>'form-control', 'tabindex'=>'4', 'required' => 'required', 'maxlength' => '250'])}}
 			{{$errors->first('proposito', '<span class=text-danger>:message</span>')}}
@@ -46,7 +46,7 @@
 	</div>
 	<div class="col-md-12">
 		<div class="form-group">
-			{{Form::label('finalidad', 'Finalidad', ['class'=>'col-md-2'])}}
+			{{Form::label('finalidad', 'Finalidad : ', ['class'=>'col-md-2'])}}
             <div class="col-md-10">
                 {{Form::text('finalidad', $row->finalidad, ['class'=>'form-control', 'tabindex'=>'5', 'required' => 'required', 'maxlength' => '250'])}}
 			{{$errors->first('finalidad', '<span class=text-danger>:message</span>')}}
@@ -55,7 +55,7 @@
 	</div>
 	<div class="col-md-12">
 		<div class="form-group">
-			{{Form::label('idtipoinmueble', 'Tipo Inmueble', ['class'=>'col-md-2'])}}
+			{{Form::label('idtipoinmueble', 'Tipo Inmueble : ', ['class'=>'col-md-2'])}}
             <div class="col-md-10">
 			{{Form::select('idtipoinmueble', $cat_tipo_inmueble, $row->idtipoinmueble, ['id' => 'idtipoinmueble', 'class'=>'form-control', 'tabindex'=>'6'])}}
             </div>
@@ -63,7 +63,7 @@
 	</div>
 	<div class="col-md-6">
 		<div class="form-group">
-			{{Form::label('ubicacion', 'Ubicación', ['class'=>'col-md-4'])}}
+			{{Form::label('ubicacion', 'Ubicación : ', ['class'=>'col-md-4'])}}
             <div class="col-md-8">
 			{{Form::text('ubicacion', $row->ubicacion, ['class'=>'form-control', 'tabindex'=>'7', 'maxlength' => '300'])}}
             </div>
@@ -73,8 +73,8 @@
 
 	<div class="col-md-6">
 		<div class="form-group">
-			{{Form::label('conjunto', 'Conjunto', ['class'=>'col-md-2'])}}
-            <div class="col-md-10">
+			{{Form::label('conjunto', 'Conjunto : ', ['class'=>'col-md-4'])}}
+            <div class="col-md-8">
 			{{Form::text('conjunto', $row->conjunto, ['class'=>'form-control', 'tabindex'=>'8', 'maxlength' => '150'])}}
             </div>
 		</div>
@@ -90,8 +90,8 @@
 	</div>
 	<div class="col-md-6">
 		<div class="form-group">
-			{{Form::label('idestado', 'Estados',['class'=>'col-sm-2'])}}
-            <div class="col-md-10">
+			{{Form::label('idestado', 'Estados',['class'=>'col-sm-4'])}}
+            <div class="col-md-8">
                 {{Form::select('idestado', $estados, $row->idestado, ['id' => 'idestado', 'class'=>'form-control', 'tabindex'=>'10'])}}
             </div>
 		</div>
@@ -106,8 +106,8 @@
 	</div>
 	<div class="col-md-6">
 		<div class="form-group">
-			{{Form::label('cp', 'C. P.',['class'=>'col-sm-2'])}}
-            <div class="col-md-10">
+			{{Form::label('cp', 'C. P.',['class'=>'col-sm-4'])}}
+            <div class="col-md-8">
                 {{Form::select('cp', $lstCP, $row->cp, ['id' => 'cp', 'class'=>'form-control', 'tabindex'=>'12', 'required' => 'required'])}}
             </div>
 		</div>
@@ -127,8 +127,8 @@
 	</div>
 	<div class="col-md-6">
 		<div class="form-inline">
-            {{Form::label('','Latitud',['class'=>'col-sm-2'])}}
-            <div class="col-md-10 cords">
+            {{Form::label('','Latitud',['class'=>'col-sm-4'])}}
+            <div class="col-md-8 cords">
 			{{Form::number('lat0', $row->lat0, ['class'=>'form-control', 'tabindex'=>'16', 'style'=>'width:75px', 'step'=>'1', 'min' => '0', 'max' => '360', 'required' => 'required'])}}&nbsp;&ring;&nbsp;
 			{{Form::number('lat1', $row->lat1, ['class'=>'form-control', 'tabindex'=>'17', 'style'=>'width:75px', 'step'=>'1', 'min' => '0', 'max' => '60', 'required' => 'required'])}}&nbsp;'&nbsp;
 			{{Form::number('lat2', $row->lat2, ['class'=>'form-control', 'tabindex'=>'18', 'style'=>'width:75px', 'step'=>'0.01', 'min' => '0.00', 'max' => '60', 'required' => 'required'])}}&nbsp;"
@@ -147,8 +147,8 @@
 	<br />
 	<div class="col-md-6">
 		<div class="form-group">
-			{{Form::label('idregimenpropiedad', 'Regimen',['class'=>'col-sm-2'])}}
-            <div class="col-md-10">
+			{{Form::label('idregimenpropiedad', 'Regimen',['class'=>'col-sm-4'])}}
+            <div class="col-md-8">
             {{Form::select('idregimenpropiedad', $cat_regimen_propiedad, $row->idregimenpropiedad, ['id' => 'idregimenpropiedad', 'class'=>'form-control', 'tabindex'=>'20'])}}
             </div>
 		</div>
@@ -164,8 +164,8 @@
 	</div>
 	<div class="col-md-6">
 		<div class="form-group">
-			{{Form::label('cuenta_catastral', 'Clave Catastral',['class'=>'col-sm-2'])}}
-            <div class="col-md-10">
+			{{Form::label('cuenta_catastral', 'Clave Catastral',['class'=>'col-sm-4'])}}
+            <div class="col-md-8">
 			{{Form::text('cuenta_catastral', $row->cuenta_catastral, ['class'=>'form-control', 'tabindex'=>'22', 'maxlength'=>'15', 'size'=>'16'])}}
 			{{$errors->first('cuenta_catastral', '<span class=text-danger>:message</span>')}}
             </div>
@@ -200,7 +200,7 @@
         <a href="{{URL::route('indexAvaluos')}}" class="btn btn-primary back" role="button"><i class="glyphicon glyphicon-arrow-left"></i> Regresar</a>
     </div>
     <div class="col-md-6 form-actions form-group">
-        {{Form::submit('Guardar', ['class'=>'btn save btn-success'])}}
+        {{Form::submit('Guardar : ', ['class'=>'btn save btn-success'])}}
 	</div>
 </div>
 {{Form::close()}}
