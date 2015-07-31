@@ -368,9 +368,9 @@ $registro->save();
             $results[] = ['value' => $query->curp , 'id' => $query->id_p, 'nombres' => $query->nombres, 'apellido_paterno' => $query->apellido_paterno, 'apellido_materno'=>$query->apellido_materno,'rfc'=>$query->rfc];
         }
         if ($results) {
-            $idp=$results['id'];
+            //$results=$results->id;
             //SI EXITE LA PERSONA
-            return Response::json($idp);
+            return Response::json($results);
         } else {
             //SI NO EXITE LA PAERSONA
             $mensaje[] = "NO EXISTE LA PERSONAS";
@@ -498,8 +498,19 @@ $registro->save();
 
         $colindancias = Colindancias::where('registro_id',$id);
 
+        $notaria = Notaria::find($registro->notaria_id);
+        $registro->notariaEscritura = $notaria->id_notario.$notaria->nombre.$notaria->mpio->nombre_municipio.$notaria->estado->nom_ent;
+
+         $notario = Notaria::where('id_notario', $notaria->id_notario)->first();
+        $registro->notarioEscritura = $notario->notario->nombres.' ' .$notario->notario->apellido_paterno. ' '.$notario->notario->apellido_materno;
+
+         $JsonColindancias = $registro->colindancia->toJson();
+
+          //barcodes
+        $seguimiento = DNS1D::getBarcodePNGPath($registro->seguimiento, "C128");
+
         // Show the page
-        $vista =  View:: make('ofvirtual.notario.registro.pdf', compact('title', 'traslado', 'predio','seguimiento','colindancias'));
+        $vista =  View:: make('ofvirtual.notario.registro.pdf', compact('title', 'registro', 'predio','seguimiento','colindancias','notaria','notario','JsonColindancias'));
         //devuelvo los datos en PDF
         $pdf      = PDF::load($vista)->show();
         $response = Response::make($pdf, 200);

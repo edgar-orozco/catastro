@@ -91,11 +91,8 @@
                 <div class="col-md-6">
                     Superficie construcción: {{$predio->superficie_construccion}} m2
                 </div>
-                <div class=" col-md-4">
+                <div class=" col-md-6">
                     Volumen: {{$registro->escritura_volumen }}
-                </div>
-                <div class=" col-md-4">
-                    De fecha: {{$registro->escritura_fecha}}
                 </div>
                 <div class=" col-md-6">
                    Niveles: {{$registro->escritura_fecha}}
@@ -124,7 +121,7 @@
                     Nombre: {{$registro->adquiriente->nombres}} {{$registro->adquiriente->apellido_paterno}}  {{$registro->adquiriente->apellido_materno}}
 
                     <div>
-                        CURP/RFC: {{$registro->adquiriente->curp}} {{$registro->adquiriente->rfc}}
+                        CURP/RFC: {{$registro->adquiriente->curp}} / {{$registro->adquiriente->rfc}}
                     </div>
 
                 </div>
@@ -142,7 +139,7 @@
                     Nombre: {{$registro->enajenante->nombres}} {{$registro->enajenante->apellido_paterno }} {{$registro->enajenante->apellido_materno }}
 
                     <div>
-                        CURP/RFC: {{$registro->enajenante->curp}} {{$registro->enajenante->rfc}}
+                        CURP/RFC: {{$registro->enajenante->curp}} / {{$registro->enajenante->rfc}}
                     </div>
                     {{--/enajenante --}}
                 </div>
