@@ -61,7 +61,7 @@ class AemHomologacion extends \Eloquent {
 	 * @param  int  $id
 	 * @return Response
 	 */
-	public static function aemHomologacionBeforeUpdate(&$row, $inputs) {
+	public static function aemHomologacionBeforeUpdate(&$superficie, &$valor_unitario_resultante_m2, $row, $inputs) {
 		$rowAvaluoEnfoqueMercado = AvaluosMercado::find($row->idavaluoenfoquemercado);
 		$rowAvaluoInmueble = Avaluos::find($rowAvaluoEnfoqueMercado->idavaluo)->AvaluosInmueble;
 		$rowCatFactoresZonas = CatFactoresZonas::find($inputs["idfactorzona"]);
@@ -70,17 +70,17 @@ class AemHomologacion extends \Eloquent {
 		$rowFactoresForma = CatFactoresForma::find($inputs["idfactorforma"]);
 
 		if ($rowAvaluoInmueble->superficie_total_terreno > 0) {
-			$row->superficie =  round( pow($row->superficie_terreno / $rowAvaluoInmueble->superficie_total_terreno, 1 / 6), 2);
+			$superficie =  (float) pow($row->superficie_terreno / $rowAvaluoInmueble->superficie_total_terreno, 0.166666666666667);
 
-			$row->valor_unitario_resultante_m2 = round($row->valor_unitario,2) * $rowCatFactoresZonas->valor_factor_zona *
+			$valor_unitario_resultante_m2 = $row->valor_unitario * $rowCatFactoresZonas->valor_factor_zona *
 					$rowCatFactoresUbicacion->valor_factor_ubicacion *
 					$rowCatFactoresFrente->valor_factor_frente *
 					$rowFactoresForma->valor_factor_forma *
-					$row->superficie * $inputs["valor_unitario_negociable"];
+					$superficie * $inputs["valor_unitario_negociable"];
 
 		} else {
-			$row->superficie = 0;
-			$row->valor_unitario_resultante_m2 = 0;
+			$superficie = 0;
+			$valor_unitario_resultante_m2 = 0;
 		}
 	}
 
@@ -90,9 +90,9 @@ class AemHomologacion extends \Eloquent {
 	 * @param  int  $id
 	 * @return Response
 	 */
-	public static function updAemHomologacion($inputs) {
+	public static function updAemHomologacion($inputs, &$valor_unitario_promedio, &$valor_aplicado_m2) {
 		$row = AemHomologacion::find($inputs["idTable"]);
-		AemHomologacion::aemHomologacionBeforeUpdate($row, $inputs);
+		AemHomologacion::aemHomologacionBeforeUpdate($superficie, $valor_unitario_resultante_m2, $row, $inputs);
 		$rowCatFactoresZonas = CatFactoresZonas::find($inputs["idfactorzona"]);
 		$row->zona = $rowCatFactoresZonas->valor_factor_zona;
 		$rowCatFactoresUbicacion = CatFactoresUbicacion::find($inputs["idfactorubicacion"]);
@@ -103,10 +103,18 @@ class AemHomologacion extends \Eloquent {
 		$row->forma = $rowFactoresForma->valor_factor_forma;
 		$row->valor_unitario_negociable = $inputs["valor_unitario_negociable"];
 		$row->in_promedio = isset($inputs["in_promedio"]) ? 1 : 0;
+		$row->superficie = $superficie;
+		$row->valor_unitario_resultante_m2 = $valor_unitario_resultante_m2;
+		
 		$row->modi_por = 1;
 		$row->modi_el = date('Y-m-d H:i:s');
 		$row->save();
 		AemHomologacion::aemHomologacionAfterUpdate($row->idavaluoenfoquemercado);
+		
+		$rowAem = AvaluosMercado::find($row->idavaluoenfoquemercado);
+		$valor_unitario_promedio = $rowAem->valor_unitario_promedio;
+		$valor_aplicado_m2 = $rowAem->valor_aplicado_m2;
+		
 	}
 
 	/**

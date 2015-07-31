@@ -14,21 +14,29 @@ class AemAnalisis extends \Eloquent {
 	 * @param  int  $id
 	 * @return Response
 	 */
-	public static function updAemAnalisis($inputs) {
+	public static function updAemAnalisis($inputs, &$promedio_analisis, &$superficie_construida, &$valor_comparativo_mercado) {
 		$rowAemAnalisis = AemAnalisis::find($inputs["idTable"]);
+		
 		$rowCatFactoresZonas = CatFactoresZonas::find($inputs["idfactorzona"]);
 		$rowAemAnalisis->factor_zona = $rowCatFactoresZonas->valor_factor_zona;
+		
 		$rowCatFactoresUbicacion = CatFactoresUbicacion::find($inputs["idfactorubicacion"]);
 		$rowAemAnalisis->factor_ubicacion = $rowCatFactoresUbicacion->valor_factor_ubicacion;
+		
 		$rowCatFactoresConservacion = CatFactoresConservacion::find($inputs["idfactorconservacion"]);
 		$rowAemAnalisis->factor_conservacion = $rowCatFactoresConservacion->valor_factor_conservacion;
 		
 		$rowAemAnalisis->in_promedio = isset($inputs["in_promedio"]) ? 1 : 0;
 		$rowAemAnalisis->precio_venta = $inputs['precio_venta']=='' ? 0.00 : $inputs['precio_venta'];
+		
 		$rowAemAnalisis->superficie_terreno = $inputs['superficie_terreno']=='' ? 0.00 : $inputs['superficie_terreno'];
+		
 		$rowAemAnalisis->superficie_construccion = $inputs['superficie_construccion']=='' ? 0.00 : $inputs['superficie_construccion'];
+		
 		$rowAemAnalisis->factor_superficie = $inputs['factor_superficie']=='' ? 0.00 : $inputs['factor_superficie'];
+		
 		$rowAemAnalisis->factor_edad = $inputs['factor_edad']=='' ? 0.00 : $inputs['factor_edad'];
+		
 		$rowAemAnalisis->factor_negociacion = $inputs['factor_negociacion']=='' ? 0.00 : $inputs['factor_negociacion'];
 		
 		$rowAemAnalisis->valor_unitario_m2 = $rowAemAnalisis->superficie_construccion==0 ? 0 : round($rowAemAnalisis->precio_venta/$rowAemAnalisis->superficie_construccion, 2);
@@ -42,6 +50,13 @@ class AemAnalisis extends \Eloquent {
 		$rowAemAnalisis->save();
 		
 		AemAnalisis::aemAnalisisAfterUpdate($rowAemAnalisis->idavaluoenfoquemercado, $rowAemAnalisis->in_promedio);
+		
+		$rowAem = AvaluosMercado::find($rowAemAnalisis->idavaluoenfoquemercado);
+		$promedio_analisis = $rowAem->promedio_analisis;
+		$superficie_construida = $rowAem->superficie_construida;
+		$valor_comparativo_mercado = $rowAem->valor_comparativo_mercado;
+		
+		
 	}
 	/**
 	 * Show the form for editing the specified resource.

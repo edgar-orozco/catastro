@@ -83,6 +83,7 @@ class AvaluosMercado extends \Eloquent {
 
 		$rowAemHomologacion = AemHomologacion::select(DB::raw('avg(valor_unitario_resultante_m2) AS avg'))->groupBy('idavaluoenfoquemercado')->where('idavaluoenfoquemercado', '=', $idavaluoenfoquemercado)->where('in_promedio', '=', 1)->first();
 		$x = isset($rowAemHomologacion->avg) ? $rowAemHomologacion->avg : 0;
+
 		if ($x >= 0 && $x <= 9) {
 			$y = 0;
 		} else if ($x >= 10 && $x <= 99) {
@@ -96,13 +97,16 @@ class AvaluosMercado extends \Eloquent {
 		} else {
 			$y = 0;
 		}
+
 		$rowAem = AvaluosMercado::find($idavaluoenfoquemercado);
 		$rowAem->valor_unitario_promedio = $z;
 		$rowAem->valor_aplicado_m2 = round($x, $y);
 		$rowAem->save();
+		
 		$rowAvaluosConclusiones = Avaluos::find($rowAem->idavaluo)->AvaluosConclusiones;
 		$rowAvaluosConclusiones->valor_mercado = 0;
 		$rowAvaluosConclusiones->save();
+		
 		$rowAvaluosFisico = Avaluos::find($rowAem->idavaluo)->AvaluosFisico;
 		$rowAvaluosFisico->valor_unitario_promedio = $rowAem->valor_unitario_promedio;
 		$rowAvaluosFisico->valor_aplicado_m2 = $rowAem->valor_aplicado_m2;
