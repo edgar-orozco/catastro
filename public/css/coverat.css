@@ -71,7 +71,16 @@ h3{
     padding: 10px 15px;
 }
 
-
+#zonaCoveratSecc .checkbox{
+    width: 49%;
+    display: inline-block;
+    padding: 5px;
+    border-bottom: 1px solid #808080;
+}
+#zonaCoveratSecc .checkbox label{
+    font-size: 18px;
+    font-weight: 300;
+}
 #zonaCoveratSecc .checkbox input[type="checkbox"]{
     margin-left: 0px;
     left: 0;
