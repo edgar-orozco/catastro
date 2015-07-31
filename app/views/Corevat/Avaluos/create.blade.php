@@ -110,8 +110,8 @@
 	</div>
 	<div class="col-md-6">
 		<div class="form-group">
-			{{Form::label('ubicacion', 'Ubicación',['class'=>'col-sm-2'])}}
-            <div class="col-md-10">
+			{{Form::label('ubicacion', 'Ubicación',['class'=>'col-sm-4'])}}
+            <div class="col-md-8">
 			{{Form::text('ubicacion', $row->ubicacion, ['class'=>'form-control', 'tabindex'=>'7', 'maxlength' => '300'])}}
             </div>
 		</div>
@@ -129,8 +129,8 @@
     <!-- RENGLON 5 -->
 	<div class="col-md-6">
 		<div class="form-group">
-			{{Form::label('colonia', 'Colonia',['class'=>'col-sm-2'])}}
-            <div class="col-md-10">
+			{{Form::label('colonia', 'Colonia',['class'=>'col-sm-4'])}}
+            <div class="col-md-8">
 			    {{Form::text('colonia', $row->colonia, ['class'=>'form-control', 'tabindex'=>'9', 'maxlength' => '150'])}}
             </div>
 		</div>
@@ -145,8 +145,8 @@
 	</div>
 	<div class="col-md-6">
 		<div class="form-group">
-			{{Form::label('idmunicipio', 'Municipios',['class'=>'col-sm-2'])}}
-            <div class="col-md-10">
+			{{Form::label('idmunicipio', 'Municipios',['class'=>'col-sm-4'])}}
+            <div class="col-md-8">
 			    {{Form::select('idmunicipio', $municipios, $row->idmunicipio, ['id' => 'idmunicipio', 'class'=>'form-control', 'tabindex'=>'11'])}}
             </div>
 		</div>
