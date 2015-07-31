@@ -19,14 +19,14 @@ h3{
 
     border-radius: 0;
 }
-.coveratCont div[class^='col-md-'],div[class*=' col-md-']{
+.coveratCont div[class^='col-md-'], .coveratCont div[class*=' col-md-']{
     margin-bottom: 5px;
 }
 .coveratCont div.col-md-10, .coveratCont div.col-md-8{
     border-left: 1px solid gray;
     background: #eee;
 }
-.coveratCont input, select{
+.coveratCont input, .coveratCont select{
     box-shadow: none !important;
     background: none !important;
     border: none !important;
