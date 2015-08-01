@@ -42,17 +42,17 @@
 <div id="contenedor">
     <table width="100%">
         <tr>
-            <td width="20%" align="right"><img src="css/images/main/logo-spf.png" height="70"></td>
+            <td width="20%" align="center"><img src="css/images/main/main-logo.png"  height="70"></td>
             <td width="60%" align="center" class="title"><strong>Subsecretaría de Ingresos<br>
                     Dirección General de Catastro<br>
                     Y Ejecución Fiscal<br>
                     Dirección de Catastro</strong></td>
-            <td width="20%" align="center"></td>
+            <td width="20%" align="right"><img src="css/images/main/logo-spf.png" height="70"></td>
         </tr>
     </table>
 
 
-    <h1>FORMATO ÚNICO DECLARACIÓN DE TRASLADO DE DOMINIO Y PAGO DEL IMPUESTO</h1>
+    <h2>FORMATO ÚNICO DECLARACIÓN DE TRASLADO DE DOMINIO Y PAGO DEL IMPUESTO</h2>
 
     <p>Con fundamento en los articulos 78, 108, 109, 110, 111, 112,113, 114 Y Art 5to Transitorio de la Ley
         de
@@ -188,7 +188,7 @@
                 N° de escritura: {{$traslado->num_antecedente}}
             </td>
             <td>
-                Volumen:{{$traslado->volumen_antecedente}}
+                Volumen: {{$traslado->volumen_antecedente}}
             </td>
             <td>
                 De fecha: {{$traslado->fecha_antecedente}}
@@ -363,11 +363,30 @@
                         </td>
                     </tr>
                 </table>
+
+                <table>
+                    <tr><th>Clave de Seguimiento</th></tr>
+                    <tr>
+                        <td align="center">
+                            <img src=".{{$seguimiento}}">
+                        </td>
+                    </tr>
+                    <tr><td align="center">
+                            {{$traslado->seguimiento}}
+                        </td>
+                    </tr>
+                </table>
             </td>
 
         </tr>
 
+
+
+
+
+
     </table>
+
 
 
     <table>
@@ -377,22 +396,12 @@
                 Firma de los compradores o Fedatario Publico
                 esta declaracion se apegan a la realidad.
 
-                <br><br><br><br><br>
+                <br><br><br><br><br><br><br>
             </td>
         </tr>
     </table>
 
-    <table style="border: none !important" width="150" align="right">
-        <tr>
-            <td>
-            <img src=".{{$seguimiento}}">
-            </td>
-        </tr>
-        <tr><td align="center">
-                {{$traslado->seguimiento}}
-            </td>
-        </tr>
-    </table>
+
 
 </div>
 
