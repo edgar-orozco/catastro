@@ -18,6 +18,38 @@ class personas extends Eloquent
     }
 
     /**
+     * Regresa la relación de traslados de dominio como adquiriente de esta persona
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function trasladosComoAdquiriente() {
+        return $this->hasMany('Traslado','adquiriente_id','id_p');
+    }
+
+    /**
+     * Regresa la relación de los traslados de dominio como enajenante de esta persona
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function trasladosComoEnajenante() {
+        return $this->hasMany('Traslado','enajenante_id','id_p');
+    }
+
+    /**
+     * Regresa la relación de registros de escritura como adquiriente de esta persona
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function registrosEscrituraComoAdquiriente() {
+        return $this->hasMany('RegistroEscritura','adquiriente_id','id_p');
+    }
+
+    /**
+     * Regresa la relación de los traslados de dominio como enajenante de esta persona
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function registrosEscrituraComoEnajenante() {
+        return $this->hasMany('RegistroEscritura','enajenante_id','id_p');
+    }
+
+    /**
      * Se hace override del metodo save para invocar el seteo automatico del nombre completo, ya que estamos repitiendo mucho codigo a lo tonto
      * para cumplir con la especificación de los constraints manejados en la tabla personas
      * @param array $options
@@ -109,8 +141,8 @@ public function adquiriente(){
      * @return \Illuminate\Database\Eloquent\Model|null|static
      */
     public static function findPorCurpRFC($dato){
-        return self::where('curp', $dato)
-            ->orWhere('rfc', $dato)->first();
+        return self::where('curp', strtoupper($dato))
+            ->orWhere('rfc', strtoupper($dato))->first();
     }
 }
 
