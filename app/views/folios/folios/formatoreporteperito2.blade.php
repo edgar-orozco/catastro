@@ -10,6 +10,15 @@
 		<title>Reporte de Folios Por Perito</title>
 	</head>
 	<body>
+
+	<img src="css/images/folios/EncabezadoDC.jpg" WIDTH=560 HEIGHT=100 >
+
+
+	<br>
+
+	<h2 align="center">Dirección de catastro</h2>
+
+
 		<?php
 		$mes = array();
 
@@ -31,7 +40,7 @@
 		//echo $fecha['day']. " de " . $mes[$fecha['month']] . " del " . $fecha['year'];
 	?>
 
-		<h1>Reporte de Folios Hasta {{date("d") . " de " .$mes[date('m')]." del ". date("Y");}}</h1>
+		<h4>Reporte de entrega de folios hasta {{date("d") . " de " .$mes[date('m')]." del ". date("Y");}}</h4>
 
 			<table border="1">
 				<thead>
@@ -62,5 +71,13 @@
 					@endforeach
 				</tbody>
 		</table>
+		<br>
+		<br>
+
+		<div class="row" align="center">Revisado por</div>
+		<br>
+		<br>
+		<div class="row" align="center">__________________________________</div>
+		<div class="row" align="center">Alfredo Lopez Carrasco</div>
 	</body>
 </html>
