@@ -91,11 +91,8 @@
                 <div class="col-md-6">
                     Superficie construcción: {{$predio->superficie_construccion}} m2
                 </div>
-                <div class=" col-md-4">
+                <div class=" col-md-6">
                     Volumen: {{$registro->escritura_volumen }}
-                </div>
-                <div class=" col-md-4">
-                    De fecha: {{$registro->escritura_fecha}}
                 </div>
                 <div class=" col-md-6">
                    Niveles: {{$registro->escritura_fecha}}
@@ -124,7 +121,7 @@
                     Nombre: {{$registro->adquiriente->nombres}} {{$registro->adquiriente->apellido_paterno}}  {{$registro->adquiriente->apellido_materno}}
 
                     <div>
-                        CURP/RFC: {{$registro->adquiriente->curp}} {{$registro->adquiriente->rfc}}
+                        CURP/RFC: {{$registro->adquiriente->curp}} / {{$registro->adquiriente->rfc}}
                     </div>
 
                 </div>
@@ -142,7 +139,7 @@
                     Nombre: {{$registro->enajenante->nombres}} {{$registro->enajenante->apellido_paterno }} {{$registro->enajenante->apellido_materno }}
 
                     <div>
-                        CURP/RFC: {{$registro->enajenante->curp}} {{$registro->enajenante->rfc}}
+                        CURP/RFC: {{$registro->enajenante->curp}} / {{$registro->enajenante->rfc}}
                     </div>
                     {{--/enajenante --}}
                 </div>
@@ -210,9 +207,6 @@
                     Tipo de Predio: {{$registro->tipo_predio}}
                 </div>
 
-                <div class=" col-md-4">
-                    Volumen: {{$registro->volumen_freal_antecedente}}
-                </div>
 
                 <div style="clear:both">
                 <div class=" col-md-4">
@@ -230,17 +224,28 @@
 
 </div>
 
-
+        @if(!$registro->folio)
         {{ Form::model($registro, ['url' => array('ofvirtual/notario/registro/asignarFolio', $registro->id ), 'method'=>'GET' ]) }}
-        <div class="form-actions  col-md-4" style="clear:both; float: right;">
+        <div class="form-actions terminar  col-md-4" style="clear:both; float: right;">
             {{ Form::submit('Finalizar registro de escritura', array('class' => 'btn btn-primary')) }}
         </div>
         {{Form::close()}}
+        
 
         {{ Form::model($registro, ['url' => array('/ofvirtual/notario/registro-escrituras'), 'method'=>'GET' ]) }}
         <div class="form-actions  col-md-4" style="clear:both; float: right;">
             {{ Form::submit('Salir sin finalizar registro de escritura', array('class' => 'btn btn-warning')) }}
         </div>
         {{Form::close()}}
+        @endif
+        
+        @if($registro->folio)
+        {{ Form::model($registro, ['url' => array('/ofvirtual/notario/registro-escrituras'), 'method'=>'GET' ]) }}
+        <div class="form-actions  col-md-4" style="clear:both; float: right;">
+            {{ Form::submit('Regresar al listado', array('class' => 'btn btn-warning')) }}
+        </div>
+        {{Form::close()}}
+        @endif
+
     </div>
 @stop

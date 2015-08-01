@@ -51,6 +51,10 @@
     {{Form::label('clave','Clave Catastral:')}}
     {{Form::text('clave', null, ['class' => 'form-control clave_cata'] )}}
 </div>
+<div class="col-md-6">
+    {{Form::label('naturaleza_contrato','Naturaleza del Contrato::')}}
+    {{Form::text('naturaleza_contrato', null, ['class' => 'form-control'] )}}
+</div>
 
 </div>
 </div></div>
@@ -107,15 +111,15 @@
     <div class="row-fluid panel-body">
         <div class="col-md-12">
             {{Form::label('ubicacion_inmu','Ubicacion del Inmueble:')}}
-            {{Form::text('ubicacion_inmu', null, ['class' => 'form-control requerido'] )}}
+            {{Form::text('ubicacion_inmu', $predio->ubicacionFiscal->ubicacion, ['class' => 'form-control requerido'] )}}
         </div>
         <div class="col-md-6">
             {{Form::label('superficie_construc','Superficie de construccion:')}}
-            {{Form::number('superficie_construc', null, ['class' => 'form-control numeros'] )}}
+            {{Form::number('superficie_construc', $predio->superficie_construccion, ['class' => 'form-control numeros'] )}}
         </div>
         <div class="col-md-6">
             {{Form::label('superficie_terreno','Superficie del terrreno:')}}
-            {{Form::number('superficie_terreno', null, ['class' => 'form-control numeros'] )}}
+            {{Form::number('superficie_terreno', $predio->superficie_terreno, ['class' => 'form-control numeros'] )}}
         </div>
          <div class="col-md-6">
             {{Form::label('niveles','Niveles:')}}
@@ -125,7 +129,17 @@
             {{Form::label('estado_conserv','Estado de conservacion:')}}
             {{Form::text('estado_conserv', null, ['class' => 'form-control requerido'] )}}
         </div>
-
+        <div class="form-group col-md-6">
+            {{Form::label('fecha_instrumento','Fecha de instrumento:')}}
+            {{Form::input('text', 'fecha_instrumento', null, ['class'=>'form-control fecha' ] )}}
+            {{$errors->first('fecha_instrumento', '<span class=text-danger>:message</span>')}}
+        </div>
+        
+        <div class="form-group col-md-6">
+            {{Form::label('fecha_firma','Fecha de firma:')}}
+            {{Form::input('text', 'fecha_firma', null, ['class'=>'form-control fecha' ] )}}
+            {{$errors->first('fecha_firma', '<span class=text-danger>:message</span>')}}
+        </div>
 </div>
 </div>
 </div>
@@ -156,10 +170,6 @@
 </div>
 
 
-<div class="form-actions form-group col-md-6" style="clear:both; ">
-                  {{ Form::submit('Crear nuevo traslado de dominio', array('class' => 'btn btn-primary')) }}
-                  {{ Form::reset('Limpiar formato', ['class' => 'btn btn-warning']) }}
-                </div>
 
 
 
@@ -170,7 +180,7 @@
 
    //Calendario
 $(function() {
-    $( "#datepicker" ).datepicker();
+    $( ".fecha" ).datepicker();
   });
 //Cambiar a español el calendario
  $.datepicker.regional['es'] = {
@@ -196,30 +206,5 @@ $(function () {
 $("#fecha").datepicker();
 });
 
-$(function() {
-    $( "#datepicker1" ).datepicker();
-  });
-//Cambiar a español el calendario
- $.datepicker.regional['es'] = {
- closeText: 'Cerrar',
- prevText: '<Ant',
- nextText: 'Sig>',
- currentText: 'Hoy',
- monthNames: ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'],
- monthNamesShort: ['Ene','Feb','Mar','Abr', 'May','Jun','Jul','Ago','Sep', 'Oct','Nov','Dic'],
- dayNames: ['Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado'],
- dayNamesShort: ['Dom','Lun','Mar','Mié','Juv','Vie','Sáb'],
- dayNamesMin: ['Do','Lu','Ma','Mi','Ju','Vi','Sá'],
- weekHeader: 'Sm',
- dateFormat: 'yy-mm-dd',
- firstDay: 1,
- isRTL: false,
- showMonthAfterYear: false,
- yearSuffix: '',
- beforeShowDay: $.datepicker.noWeekends
- };
- $.datepicker.setDefaults($.datepicker.regional['es']);
-$(function () {
-$("#fecha").datepicker();
-});
+
 </script>

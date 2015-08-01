@@ -23,8 +23,8 @@ class Solicitante extends Eloquent {
      * @return \Illuminate\Database\Eloquent\Model|null|static
      */
     public static function findPorCurpRFC($dato){
-        return self::where('curp', $dato)
-          ->orWhere('rfc', $dato)->first();
+        return self::where('curp', strtoupper($dato))
+          ->orWhere('rfc', strtoupper($dato))->first();
     }
 
     /**

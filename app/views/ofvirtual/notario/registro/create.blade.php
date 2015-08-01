@@ -16,6 +16,10 @@
 
                 @include('ofvirtual.notario.registro._form', compact('registro','notaria','vialidad','entidad','asentamiento','municipio','JsonColindancias'))
 
+            <div class="form-actions form-group col-md-6" style="clear:both; ">
+                  {{ Form::submit('Crear nuevo traslado de dominio', array('class' => 'btn btn-primary')) }}
+                  {{ Form::reset('Limpiar formato', ['class' => 'btn btn-warning']) }}
+                </div>
 
             {{Form::close()}}
 

@@ -144,7 +144,7 @@ if($enajenanteR['response'])
 
 //
 $denajenante = new Domicilio();
-$denajenante->fill(Input::get('Denajenante'))->save();
+$denajenante->fill(Input::get('enajenanteDomicilio'))->save();
 
 
 $enajenanteA=Input::get('adquiriente');
@@ -161,7 +161,7 @@ if($enajenanteA['response'])
 
 //
 $dadquiriente = new Domicilio();
-$dadquiriente->fill(Input::get('Dadquiriente'))->save();
+$dadquiriente->fill(Input::get('adquirienteDomicilio'))->save();
 
 
 /*$colindancias = new Colindancias();
@@ -187,7 +187,6 @@ $registro->notaria_id=Input::get('notaria_id');
 $registro->volumen=Input::get('volumen');
 $registro->valor_catastral=Input::get('valor_catastral');
 $registro->importe_operacion=Input::get('importe_operacion');
-$registro->avaluo_por=Input::get('avaluo_por');
 $registro->antecedente_num=Input::get('antecedente_num');
 $registro->valor_registro=Input::get('valor_registro');
 $registro->folio_avaluo=Input::get('folio_avaluo');
@@ -198,6 +197,13 @@ $registro->enajenante_id=$enajenante_id;
 $registro->dir_enajenante_id=$denajenante->id;
 $registro->adquiriente_id=$adquiriente_id;
 $registro->dir_adquiriente_id=$dadquiriente->id;
+$registro->fecha_instrumento=Input::get('fecha_instrumento');
+$registro->fecha_firma=Input::get('fecha_firma');
+$registro->naturaleza_contrato=Input::get('naturaleza_contrato');
+$registro->niveles=Input::get('niveles');
+$registro->estado_conserv=Input::get('estado_conserv');
+
+
 $registro->save();
 //print_r(Input::get('colindancia'));
 
@@ -368,9 +374,9 @@ $registro->save();
             $results[] = ['value' => $query->curp , 'id' => $query->id_p, 'nombres' => $query->nombres, 'apellido_paterno' => $query->apellido_paterno, 'apellido_materno'=>$query->apellido_materno,'rfc'=>$query->rfc];
         }
         if ($results) {
-            $idp=$results['id'];
+            //$results=$results->id;
             //SI EXITE LA PERSONA
-            return Response::json($idp);
+            return Response::json($results);
         } else {
             //SI NO EXITE LA PAERSONA
             $mensaje[] = "NO EXISTE LA PERSONAS";
@@ -446,8 +452,7 @@ $registro->save();
         $colindancias->delete();
 
         $registro = RegistroEscritura::find($id);
-
-        $registro->delete();
+       
 
         $enajenante = personas::find($registro->enajenante_id);
         $enajenante->delete();
@@ -460,7 +465,8 @@ $registro->save();
 
         $domicilioA = Domicilio::find($registro->dir_adquiriente_id);
         $domicilioA->delete();
-
+        
+        $registro->delete();
 
         return Redirect::to('/ofvirtual/notario/registro-escrituras')->with('success', '¡Se ha eliminado correctamente el registro!');
 
@@ -498,8 +504,19 @@ $registro->save();
 
         $colindancias = Colindancias::where('registro_id',$id);
 
+        $notaria = Notaria::find($registro->notaria_id);
+        $registro->notariaEscritura = $notaria->id_notario.$notaria->nombre.$notaria->mpio->nombre_municipio.$notaria->estado->nom_ent;
+
+         $notario = Notaria::where('id_notario', $notaria->id_notario)->first();
+        $registro->notarioEscritura = $notario->notario->nombres.' ' .$notario->notario->apellido_paterno. ' '.$notario->notario->apellido_materno;
+
+         $JsonColindancias = $registro->colindancia->toJson();
+
+          //barcodes
+        $seguimiento = DNS1D::getBarcodePNGPath($registro->seguimiento, "C128");
+
         // Show the page
-        $vista =  View:: make('ofvirtual.notario.registro.pdf', compact('title', 'traslado', 'predio','seguimiento','colindancias'));
+        $vista =  View:: make('ofvirtual.notario.registro.pdf', compact('title', 'registro', 'predio','seguimiento','colindancias','notaria','notario','JsonColindancias'));
         //devuelvo los datos en PDF
         $pdf      = PDF::load($vista)->show();
         $response = Response::make($pdf, 200);
