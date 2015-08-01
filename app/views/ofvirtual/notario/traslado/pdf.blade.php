@@ -40,7 +40,7 @@
 <body>
 
 <div id="contenedor">
-    <table width="100%">
+    <table width="100%" style="border: none !important">
         <tr>
             <td width="20%" align="center"><img src="css/images/main/main-logo.png"  height="70"></td>
             <td width="60%" align="center" class="title"><strong>Subsecretaría de Ingresos<br>
@@ -52,7 +52,7 @@
     </table>
 
 
-    <h2>FORMATO ÚNICO DECLARACIÓN DE TRASLADO DE DOMINIO Y PAGO DEL IMPUESTO</h2>
+    <div align="center"><h2>FORMATO ÚNICO DECLARACIÓN DE TRASLADO DE DOMINIO Y PAGO DEL IMPUESTO</h2></div>
 
     <p>Con fundamento en los articulos 78, 108, 109, 110, 111, 112,113, 114 Y Art 5to Transitorio de la Ley
         de
@@ -396,7 +396,7 @@
                 Firma de los compradores o Fedatario Publico
                 esta declaracion se apegan a la realidad.
 
-                <br><br><br><br><br><br><br>
+                <br><br><br><br><br><br><br><br><br><br><br>
             </td>
         </tr>
     </table>
