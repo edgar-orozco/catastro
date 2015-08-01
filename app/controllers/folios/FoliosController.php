@@ -317,26 +317,9 @@ class folios_FoliosController extends BaseController {
 
 	public function formatoreporteperito2()
 	{
+		$peritos = Perito::All();
 
-		$conf=FoliosConf::all()->first();
-
-		$folios_historial=FoliosHistorial::select('perito_id',
-											DB::raw('Max(folio_urbano_final) as folio_urbano_final'),
-											DB::raw('Max(folio_rustico_final) as folio_rustico_final'))
-											->distinct()
-											->groupBy('perito_id')
-											->orderBy('perito_id')
-											->get();
-
-		$folios_totales=FoliosHistorial::select(
-											DB::raw('Sum(cantidad_urbanos) as folios_urbanos'),
-											DB::raw('Sum(cantidad_rusticos) as folios_rusticos'),
-											DB::raw('Sum(total_urbano) as total_urbano'),
-											DB::raw('Sum(total_rustico) as total_rustico'),
-											DB::raw('Sum(total) as total'))
-											->get();
-
-		$vista= View::make('folios.folios.formatoreporteperito2')->withFolios_historial($folios_historial)->withFolios_totales($folios_totales)->withConf($conf);	
+		$vista= View::make('folios.folios.formatoreporteperito2')->withPeritos($peritos);	
 
 		$pdf = PDF::load($vista)->show();
 		//load(variable, tamaño de hoja, orientacion landscape)

@@ -39,11 +39,9 @@
 						<th rowspan="2">Perito</th>
 						<th colspan="2">Folios Autorizados</th>
 						<th colspan="2">Folios Entregados</th>
-						<th colspan="2">Folios Disponibles</th>
+						<th rowspan="2">Ultima Entrega</th>
 					</tr>
 					<tr>
-						<th>U</th>
-						<th>R</th>
 						<th>U</th>
 						<th>R</th>
 						<th>U</th>
@@ -51,38 +49,17 @@
 					</tr>
 				</thead>
 				<tbody>
-					@foreach ($folios_historial as $folios)
+					@foreach ($peritos as $perito)
 						<tr>
 							
-							<td align="left">{{$folios->perito->nombre}}</td>
-							<td align="center">{{$folios->folio_urbano_final}}</td>
-							<td align="center">{{$folios->folio_rustico_final}}</td>
-							<td align="center">{{$folios->folio_urbano_final}}</td>
-							<td align="center">{{$folios->folio_rustico_final}}</td>
-
-							<?php 
-
-								$totalingresos = ($folios->folio_urbano_final*($conf->salario_minimo*$conf->salario_folio_urbano))
-								                +($folios->folio_rustico_final*($conf->salario_minimo*$conf->salario_folio_rustico));
-
-
-							?>
-							<td align="center">$ {{number_format($totalingresos,'2')}}</td>
-							<td align="center">$ {{number_format($totalingresos,'2')}}</td>
+							<td align="left">{{$perito->nombre}}</td>
+							<td align="center">{{$perito->sumFoliosE('U')->autorizado}}</td>
+							<td align="center">{{$perito->sumFoliosE('R')->autorizado}}</td>
+							<td align="center">{{$perito->sumFoliosE('U')->entregado}}</td>
+							<td align="center">{{$perito->sumFoliosE('R')->entregado}}</td>
+							<td align="center">{{$perito->ultimaFechaE()}}</td>
 						</tr>
 					@endforeach
-					@foreach ($folios_totales as $totales)
-						<tr>
-							<td></td>
-							<th>TOTAL</th>
-							<th align="center">{{$totales->folios_urbanos}}</th>
-							<th align="center">{{$totales->folios_rusticos}}</th>
-							<th align="center">{{$totales->folios_urbanos}}</th>
-							<th align="center">{{$totales->folios_rusticos}}</th>
-							<th align="center">${{number_format($totales->total,'2')}}</th>
-							
-						</tr>
-					@endforeach 
 				</tbody>
 		</table>
 	</body>
