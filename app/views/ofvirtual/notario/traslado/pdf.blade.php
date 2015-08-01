@@ -42,14 +42,17 @@
 <div id="contenedor">
     <table width="100%">
         <tr>
-            <td width="20%" align="right"><img src="css/images/main/main-logo.png" height="70"></td>
-            <td width="60%" align="center" class="title"><strong>SERVICIOS CATASTRALES</strong></td>
+            <td width="20%" align="right"><img src="css/images/main/logo-spf.png" height="70"></td>
+            <td width="60%" align="center" class="title"><strong>Subsecretaría de Ingresos<br>
+                    Dirección General de Catastro<br>
+                    Y Ejecución Fiscal<br>
+                    Dirección de Catastro</strong></td>
             <td width="20%" align="center"></td>
         </tr>
     </table>
 
 
-    <h1>Traslado de dominios</h1>
+    <h1>FORMATO ÚNICO DECLARACIÓN DE TRASLADO DE DOMINIO Y PAGO DEL IMPUESTO</h1>
 
     <p>Con fundamento en los articulos 78, 108, 109, 110, 111, 112,113, 114 Y Art 5to Transitorio de la Ley
         de
@@ -173,7 +176,7 @@
     <table>
         <tr>
             <th colspan="3">
-               Antecedentes de la propiedad
+                Antecedentes de la propiedad
             </th>
         </tr>
         <tr>
@@ -220,7 +223,7 @@
         </tr>
         <tr>
             <td>
-                Valor comercial de inmueble: {{$traslado->valor_comercial_antecedente }}
+                Valor comercial de inmueble: $ {{$traslado->valor_comercial_antecedente }}
             </td>
             <td>
                 Valuador con registro estatal: {{$traslado->valuador_num_ant}}
@@ -234,7 +237,7 @@
 
 
 
-    <table>
+    <table style="border: none !important">
         <tr>
             <td>
                 <table>
@@ -253,63 +256,63 @@
                         <td>
                             Precio base:
                         </td>
-                        <td>$ {{$traslado->precio_base}}
+                        <td align="right">$ {{$traslado->precio_base}}
                         </td>
                     </tr>
                     <tr>
                         <td>
                             Deducción:
                         </td>
-                        <td>$ {{$traslado->deduccion}}
+                        <td align="right">$ {{$traslado->deduccion}}
                         </td>
                     </tr>
                     <tr>
                         <td>
                             Base gravable por la que pagaron:
                         </td>
-                        <td>$ {{$traslado->base_gravable}}
+                        <td align="right">$ {{$traslado->base_gravable}}
                         </td>
                     </tr>
                     <tr>
                         <td>
                             Diferencia omitida:
                         </td>
-                        <td>$ {{$traslado->diferencia_omitida}}
+                        <td align="right">$ {{$traslado->diferencia_omitida}}
                         </td>
                     </tr>
                     <tr>
                         <td>
                             Porcentaje aplicarse:
                         </td>
-                        <td>$ {{$traslado->porcentaje_aplicarse}}
+                        <td align="right">$ {{$traslado->porcentaje_aplicarse}}
                         </td>
                     </tr>
                     <tr>
                         <td>
                             Impuesto enterar:
                         </td>
-                        <td>$ {{$traslado->impuesto_enterar}}
+                        <td align="right">$ {{$traslado->impuesto_enterar}}
                         </td>
                     </tr>
                     <tr>
                         <td>
                             Actualización:
                         </td>
-                        <td>$ {{$traslado->actualizacion}}
+                        <td align="right">$ {{$traslado->actualizacion}}
                         </td>
                     </tr>
                     <tr>
                         <td>
                             Recargos:
                         </td>
-                        <td>$ {{$traslado->recargos}}
+                        <td align="right">$ {{$traslado->recargos}}
                         </td>
                     </tr>
                     <tr>
                         <td>
                             Importe total:
                         </td>
-                        <td>$ {{$traslado->importe_total}}
+                        <td align="right">$ {{$traslado->importe_total}}
                         </td>
                     </tr>
 
@@ -328,21 +331,21 @@
                         <td>
                             Valor catastral:
                         </td>
-                        <td>$ {{ $traslado->valor_catastral}}
+                        <td align="right">$ {{ $traslado->valor_catastral}}
                         </td>
                     </tr>
                     <tr>
                         <td>
                             Valor de operación:
                         </td>
-                        <td>$ {{ $traslado->valor_operacion}}
+                        <td align="right">$ {{ $traslado->valor_operacion}}
                         </td>
                     </tr>
                     <tr>
                         <td>
                             Valor comercial del
                         </td>
-                        <td> $ {{ $traslado->valor_comercial }}
+                        <td align="right"> $ {{ $traslado->valor_comercial }}
                         </td>
                     </tr>
                     <tr>
@@ -370,24 +373,26 @@
     <table>
         <tr>
             <td align="center">
-                Se declara bajo protesta de decir verdad, que los datos que se proporcionan en<br>
-                Firma de los compradores o Fedatario Publico<br>
+                Se declara bajo protesta de decir verdad, que los datos que se proporcionan en
+                Firma de los compradores o Fedatario Publico
                 esta declaracion se apegan a la realidad.
 
                 <br><br><br><br><br>
             </td>
         </tr>
     </table>
-    <table>
+
+    <table style="border: none !important" width="150" align="right">
         <tr>
-            <td align="center">
-                <img src=".{{$seguimiento}}">
-                <br>
+            <td>
+            <img src=".{{$seguimiento}}">
+            </td>
+        </tr>
+        <tr><td align="center">
                 {{$traslado->seguimiento}}
             </td>
         </tr>
     </table>
-
 
 </div>
 
