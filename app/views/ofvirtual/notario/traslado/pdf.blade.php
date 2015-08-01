@@ -43,10 +43,10 @@
     <table width="100%" style="border: none !important">
         <tr>
             <td width="20%" align="center"><img src="css/images/main/main-logo.png"  height="70"></td>
-            <td width="60%" align="center" class="title"><strong>Subsecretaría de Ingresos<br>
+            <td width="60%" align="center" class="title"><h2>Subsecretaría de Ingresos<br>
                     Dirección General de Catastro<br>
                     Y Ejecución Fiscal<br>
-                    Dirección de Catastro</strong></td>
+                    Dirección de Catastro</h2></td>
             <td width="20%" align="right"><img src="css/images/main/logo-spf.png" height="70"></td>
         </tr>
     </table>
