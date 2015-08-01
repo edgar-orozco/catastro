@@ -207,9 +207,6 @@
                     Tipo de Predio: {{$registro->tipo_predio}}
                 </div>
 
-                <div class=" col-md-4">
-                    Volumen: {{$registro->volumen_freal_antecedente}}
-                </div>
 
                 <div style="clear:both">
                 <div class=" col-md-4">
@@ -227,17 +224,28 @@
 
 </div>
 
-
+        @if(!$registro->folio)
         {{ Form::model($registro, ['url' => array('ofvirtual/notario/registro/asignarFolio', $registro->id ), 'method'=>'GET' ]) }}
-        <div class="form-actions  col-md-4" style="clear:both; float: right;">
+        <div class="form-actions terminar  col-md-4" style="clear:both; float: right;">
             {{ Form::submit('Finalizar registro de escritura', array('class' => 'btn btn-primary')) }}
         </div>
         {{Form::close()}}
+        
 
         {{ Form::model($registro, ['url' => array('/ofvirtual/notario/registro-escrituras'), 'method'=>'GET' ]) }}
         <div class="form-actions  col-md-4" style="clear:both; float: right;">
             {{ Form::submit('Salir sin finalizar registro de escritura', array('class' => 'btn btn-warning')) }}
         </div>
         {{Form::close()}}
+        @endif
+        
+        @if($registro->folio)
+        {{ Form::model($registro, ['url' => array('/ofvirtual/notario/registro-escrituras'), 'method'=>'GET' ]) }}
+        <div class="form-actions  col-md-4" style="clear:both; float: right;">
+            {{ Form::submit('Regresar al listado', array('class' => 'btn btn-warning')) }}
+        </div>
+        {{Form::close()}}
+        @endif
+
     </div>
 @stop
