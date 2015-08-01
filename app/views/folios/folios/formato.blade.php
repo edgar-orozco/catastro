@@ -5,7 +5,7 @@
 		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 	</head>
 	<body>
-		<img src="css/images/folios/EncabezadoDC.jpg" WIDTH=500 HEIGHT=100 >
+		<img src="css/images/folios/EncabezadoDC.jpg" WIDTH=500 HEIGHT=99 >
 
 		<p align="right">SPF/SI/DGCyEF/DC/{{$folios_historial->no_oficio}}/{{'20'.$year}}
 		<br>

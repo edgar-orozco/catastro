@@ -7,7 +7,7 @@
 </style>
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-		<title>Reporte de Folios Por Perito</title>
+		<title>Reporte de folios Por Perito</title>
 	</head>
 	<body>
 
