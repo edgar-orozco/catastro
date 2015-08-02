@@ -19,7 +19,7 @@
                 <div class="panel-heading">
                     <div class="row">
                         <div class="col-xs-3">
-                            <i class="glyphicon glyphicon-th-list gi-5x"></i>
+                            <i class="glyphicon glyphicon-pencil gi-5x"></i>
                         </div>
                         <div class="col-xs-9 text-right">
                             <div class="huge"></div>
@@ -43,7 +43,7 @@
                 <div class="panel-heading">
                     <div class="row">
                         <div class="col-xs-3">
-                            <i class="glyphicon glyphicon-th-list gi-5x"></i>
+                            <i class="glyphicon glyphicon-sort gi-5x"></i>
                         </div>
                         <div class="col-xs-9 text-right">
                             <div class="huge"></div>
