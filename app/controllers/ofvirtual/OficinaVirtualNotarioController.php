@@ -103,8 +103,13 @@ class OficinaVirtualNotarioController extends \BaseController
         $datosEnajenante = Input::get('enajenante');
         $enajenanteRFC = $datosEnajenante['rfc'];
         $enajenanteCurp = $datosEnajenante['curp'];
-        if (!empty($enajenanteRFC)) $enajenanteExistente = personas::getPorCurpRFC($enajenanteRFC);
-        else $enajenanteExistente = personas::getPorCurpRFC($enajenanteCurp);
+        $enajenanteTipo = $datosEnajenante['id_tipo'];
+        if ($enajenanteTipo == 2) {
+            $enajenanteExistente = personas::findPorCurpRFC($enajenanteRFC);
+        }
+        else {
+            $enajenanteExistente = personas::findPorCurpRFC($enajenanteCurp);
+        }
 
         //si existe, update
         if (!empty($enajenanteExistente)) {
@@ -134,8 +139,14 @@ class OficinaVirtualNotarioController extends \BaseController
 
         $adquirienteRFC = $datosAdquiriente['rfc'];
         $adquirienteCurp = $datosAdquiriente['curp'];
-        if (!empty($adquirienteRFC)) $adquirienteExistente = personas::getPorCurpRFC($adquirienteRFC);
-        else $adquirienteExistente = personas::getPorCurpRFC($adquirienteCurp);
+        $adquirienteTipo = $datosAdquiriente['id_tipo'];
+        if ($adquirienteTipo == 2) {
+            $adquirienteExistente = personas::findPorCurpRFC($adquirienteRFC);
+        }
+        else{
+            $adquirienteExistente = personas::findPorCurpRFC($adquirienteCurp);
+        }
+
 
         //si existe, update
         if (!empty($adquirienteExistente)) {
@@ -373,12 +384,13 @@ class OficinaVirtualNotarioController extends \BaseController
 
         $enajenanteRFC = $datosEnajenante['rfc'];
         $enajenanteCurp = $datosEnajenante['curp'];
-
-
-        if (!empty($enajenanteRFC)){
-            $enajenanteExistente = personas::getPorCurpRFC($enajenanteRFC);
+        $enajenanteTipo = $datosEnajenante['id_tipo'];
+        if ($enajenanteTipo == 2) {
+            $enajenanteExistente = personas::findPorCurpRFC($enajenanteRFC);
         }
-        else $enajenanteExistente = personas::getPorCurpRFC($enajenanteCurp);
+        else{
+            $enajenanteExistente = personas::findPorCurpRFC($enajenanteCurp);
+        }
 
         //si existe, update
         if (!empty($enajenanteExistente)) {
@@ -408,8 +420,13 @@ class OficinaVirtualNotarioController extends \BaseController
 
         $adquirienteRFC = $datosAdquiriente['rfc'];
         $adquirienteCurp = $datosAdquiriente['curp'];
-        if (!empty($adquirienteRFC)) $adquirienteExistente = personas::getPorCurpRFC($adquirienteRFC);
-        else $adquirienteExistente = personas::getPorCurpRFC($adquirienteCurp);
+        $adquirienteTipo = $datosAdquiriente['id_tipo'];
+        if ($adquirienteTipo == 2) {
+            $adquirienteExistente = personas::findPorCurpRFC($adquirienteRFC);
+        }
+        else{
+            $adquirienteExistente = personas::findPorCurpRFC($adquirienteCurp);
+        }
 
         //si existe, update
         if (!empty($adquirienteExistente)) {
