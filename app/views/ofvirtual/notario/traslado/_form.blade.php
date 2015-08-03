@@ -63,12 +63,12 @@
             <h3> Adquiriente </h3>
 
             <div class="">
-                {{Form::label('tipo_persona','Tipo de persona', ['class'=>''])}}
+                {{Form::label('tipo_persona','Tipo de persona')}}
                 <br>
-                {{Form::label('tipo_persona','Física', ['class'=>''])}}
-                {{ Form::radio('adquiriente[id_tipo]', '1', null, ['class'=>'adquiriente-radio-persona']) }}
-                {{Form::label('tipo_persona','Moral', ['class'=>''])}}
-                {{ Form::radio('adquiriente[id_tipo]', '2', null, ['class'=>'adquiriente-radio-persona']) }}
+                {{Form::label('tipo_persona','Física')}}
+                {{ Form::radio('adquiriente[id_tipo]', '1', null, ['class'=>'adquiriente-radio-persona', 'id'=>'adquirientePersonaFisica']) }}
+                {{Form::label('tipo_persona','Moral')}}
+                {{ Form::radio('adquiriente[id_tipo]', '2', null, ['class'=>'adquiriente-radio-persona',  'id'=>'adquirientePersonaMoral']) }}
 
             </div>
 
@@ -102,12 +102,12 @@
             <h3> Enajenante </h3>
 
             <div>
-                {{Form::label('tipo_persona','Tipo de persona', ['class'=>''])}}
+                {{Form::label('tipo_persona','Tipo de persona')}}
                 <br>
-                {{Form::label('tipo_persona','Física', ['class'=>''])}}
-                {{ Form::radio('enajenante[id_tipo]', '1', null, ['id'=>'enajenante-radio-persona-f','class'=>'enajenante-radio-persona']) }}
-                {{Form::label('tipo_persona','Moral', ['class'=>''])}}
-                {{ Form::radio('enajenante[id_tipo]', '2', null, ['id'=>'enajenante-radio-persona-m','class'=>'enajenante-radio-persona']) }}
+                {{Form::label('tipo_persona','Física')}}
+                {{ Form::radio('enajenante[id_tipo]', '1', null, ['id'=>'enajenantePersonaFisica','class'=>'enajenante-radio-persona']) }}
+                {{Form::label('tipo_persona','Moral')}}
+                {{ Form::radio('enajenante[id_tipo]', '2', null, ['id'=>'enajenantePersonaMoral','class'=>'enajenante-radio-persona']) }}
 
             </div>
 
@@ -427,6 +427,11 @@
     {{ HTML::style('js/jquery/jquery-ui.css') }}
 
     <script>
+        $("#enajenantePersonaFisica").prop("checked", true);
+        $('#enajenantePersonaFisica').trigger( "click" );
+
+        $('#adquirientePersonaFisica').prop("checked", true);
+        $('#adquirientePersonaFisica').trigger( "click" );
 
         $("#notario_antecedente_id").select2({
             language: "es",
