@@ -294,7 +294,7 @@
         <div class="form-group col-md-4">
             {{Form::label(null,'Valuador con registro estatal')}}
             <select select-two="select2" placeholder="Peritos" class="select2-select" selection="valuador_num_ant"
-                    ng-model="valuador_num_ant" id="valuador_num_ant" name="traslado[valuador_num_ant]">
+                    ng-model="valuador_num_ant" id="valuador_num_ant" name="traslado[valuador_num_ant]" style="max-width: 350px">
                 @foreach(Perito::all() as $perito)
                     <option value="{{ $perito->corevat}}"> ({{ $perito->corevat }}) {{ $perito->nombre }} </option>
                 @endforeach
@@ -435,24 +435,25 @@
 
         $("#notario_antecedente_id").select2({
             language: "es",
-            placeholder: "Seleccione una notaría"
+            placeholder: "Seleccione una notaría",
+            width: 'resolve'
         });
 
         $("#valuador_num_ant").select2({
             language: "es",
-            placeholder: "Seleccione un perito"
+            placeholder: "Seleccione un perito",
+            width: 'resolve'
         });
 
         $("#valuador_num").select2({
             language: "es",
-            placeholder: "Seleccione un perito"
+            placeholder: "Seleccione un perito",
+            width: 'resolve'
         });
 
         $(".fecha").each(function (index) {
 
             if ($(this).val()) {
-                // console.log( index + ": " + $( this ).val() );
-                // $(this).parents('p').addClass('warning');
                 var dateAr = $(this).val().split('-');
                 var newDate = dateAr[2] + '/' + dateAr[1] + '/' + dateAr[0];
 
@@ -466,7 +467,8 @@
             clearBtn: true,
             language: "es",
             toggleActive: true,
-            autoclose: true
+            autoclose: true,
+            endDate: '0d'
         });
         {{--/datepicker--}}
 
