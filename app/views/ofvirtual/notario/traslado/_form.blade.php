@@ -423,8 +423,7 @@
     {{ HTML::script('js/bootstrap-datepicker.es.js') }}
     {{ HTML::style('css/datepicker3.css') }}
 
-
-    {{ HTML::script('js/jquery/jquery-ui.js') }}
+    {{ HTML::script('js/jquery/jquery-ui-autocomplete.min.js') }}
     {{ HTML::style('js/jquery/jquery-ui.css') }}
 
     <script>
