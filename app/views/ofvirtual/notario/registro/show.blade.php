@@ -1,3 +1,5 @@
+<?php setlocale(LC_MONETARY, 'es_MX');
+setlocale(LC_ALL,"es_ES") ?>
 {{--ToDo: Corregir estilos--}}
 @extends('layouts.default')
 
@@ -92,13 +94,13 @@
                     Superficie construcción: {{$predio->superficie_construccion}} m2
                 </div>
                 <div class=" col-md-6">
-                    Volumen: {{$registro->escritura_volumen }}
+                    Volumen: {{$registro->volumen }}
                 </div>
                 <div class=" col-md-6">
-                   Niveles: {{$registro->escritura_fecha}}
+                   Niveles: {{$registro->niveles}}
                 </div>
                 <div class=" col-md-6">
-                    Estado de conservación: {{$registro->escritura_fecha}}
+                    Estado de conservación: {{$registro->estado_conserv}}
                 </div>
 
 
@@ -143,8 +145,8 @@
                     </div>
                     {{--/enajenante --}}
                 </div>
-                <div class="col-md-6"><h3>Fecha del Instrumento</h3> </div>
-                <div class="col-md-6"><h3>Fecha de Firma</h3></div>
+                <div class="col-md-6"><h3>Fecha del Instrumento</h3> <?php $fecha_instrumento= strtotime ( $registro->fecha_instrumento ) ; $dia=utf8_encode(strftime("%A %d de %B del %Y",$fecha_instrumento)); echo $dia; ?></div>
+                <div class="col-md-6"><h3>Fecha de Firma</h3> <?php $fecha_firma= strtotime ( $registro->fecha_firma ) ; $dias=utf8_encode(strftime("%A %d de %B del %Y",$fecha_firma)); echo $dias; ?> </div>
             </div>
         </div>
 

@@ -112,9 +112,11 @@
             <tr>
                 <td >
                 Fecha del Instrumento: 
+                {{$registro->fecha_instrumento}}
             </td>
             <td>
                Fecha de la Firma: 
+               {{$registro->fecha_firma}}
             </td>
             </tr>
             {{--/enajenante --}}
@@ -184,10 +186,10 @@
         </tr>
         <tr>
             <td >
-               Niveles: {{$registro->escritura_fecha}}
+               Niveles: {{$registro->niveles}}
             </td>
             <td>
-                Estado de conservación: {{$registro->escritura_fecha}}
+                Estado de conservación: {{$registro->estado_conserv}}
             </td>
             <td>  </td>
         </tr>

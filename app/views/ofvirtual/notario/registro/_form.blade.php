@@ -110,8 +110,8 @@
 
     <div class="row-fluid panel-body">
         <div class="col-md-12">
-            {{Form::label('ubicacion_inmu','Ubicacion del Inmueble:')}}
-            {{Form::text('ubicacion_inmu', $predio->ubicacionFiscal->ubicacion, ['class' => 'form-control requerido'] )}}
+            {{Form::label('ubicacionFiscal','Ubicacion del Inmueble:')}}
+            {{Form::text('ubicacionFiscal', $predio->ubicacionFiscal->ubicacion, ['class' => 'form-control requerido'] )}}
         </div>
         <div class="col-md-6">
             {{Form::label('superficie_construc','Superficie de construccion:')}}
@@ -163,7 +163,7 @@
  <div class="row-fluid panel-body">
 
         <div class="col-md-12">
-            {{Form::propiedad('propiedad')}}
+            {{Form::propiedad('antecendentes')}}
         </div>
 </div>
 </div>
