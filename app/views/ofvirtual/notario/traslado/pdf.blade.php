@@ -396,7 +396,7 @@
                 Firma de los compradores o Fedatario Publico
                 esta declaracion se apegan a la realidad.
 
-                <br><br><br><br><br><br><br><br><br><br><br>
+                <br><br><br><br><br><br><br><br>
             </td>
         </tr>
     </table>
