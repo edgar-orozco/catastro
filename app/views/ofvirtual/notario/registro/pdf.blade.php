@@ -11,7 +11,7 @@
         background-repeat: no-repeat;
         background-position: center;
         font-family: Verdana, Arial, Helvetica, sans-serif;
-        font-size: 11px;
+        font-size: 9px;
         color: #000000;
         width: 100%;
         height: 97%;
@@ -40,11 +40,14 @@
 <body>
 
 <div id="contenedor">
-    <table width="100%">
+    <table width="100%" style="border: none !important">
         <tr>
-            <td width="20%" align="right"><img src="css/images/main/main-logo.png" height="70"></td>
-            <td width="60%" align="center" class="title"><strong>REGISTRO DE ESCRITURAS</strong></td>
-            <td width="20%" align="center"></td>
+            <td width="20%" align="center"><img src="css/images/main/main-logo.png"  height="70"></td>
+            <td width="60%" align="center" class="title"><h2>Subsecretaría de Ingresos<br>
+                    Dirección General de Catastro<br>
+                    Y Ejecución Fiscal<br>
+                    Dirección de Catastro</h2></td>
+            <td width="20%" align="right"><img src="css/images/main/logo-spf.png" height="70"></td>
         </tr>
     </table>
 
@@ -282,14 +285,17 @@
     {{--/antecedentes de la propiedad--}}
 
  <table>
-        <tr>
-            <td align="center">
-                <img src=".{{$seguimiento}}">
-                <br>
-                {{$registro->seguimiento}}
-            </td>
-        </tr>
-    </table>
+                    <tr><th>Clave de Seguimiento</th></tr>
+                    <tr>
+                        <td align="center">
+                            <img src=".{{$seguimiento}}">
+                        </td>
+                    </tr>
+                    <tr><td align="center">
+                            {{$registro->seguimiento}}
+                        </td>
+                    </tr>
+                </table>
 
 
 
