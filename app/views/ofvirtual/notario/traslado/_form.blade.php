@@ -500,7 +500,6 @@
                 source: "/ofvirtual/notario/traslado/adquiriente", //Ruta al controlador que provee los resultados de la busqueda
                 minLength: 8, //Empezamos a mandar los teclazos si han tecleado 8 caracteres
                 select: function (event, ui) {
-                    console.log(ui);
                     //Al seleccionar un valor de los desplegados rellenamos los campos
                     $('#adquiriente-curp').val(ui.item.curp);
                     $('#adquiriente-rfc').val(ui.item.rfc);
@@ -512,14 +511,12 @@
             };
             //Se crea autocompleter de CURP
             $("#adquiriente-curp").autocomplete(autoCompleteOptsAdquiriente).autocomplete("instance")._renderItem = function (ul, item) {
-                console.log('aqui');
                 return $("<li>")
                         .append("<a>" + item.curp + "<br>" + "<span class='nombre-coincidencia'><i class='glyphicon glyphicon-user'></i><small> " + item.nombrec + "</small><span></a>")
                         .appendTo(ul);
             };
             //Se crea autocompleter de RFC
             $("#adquiriente-rfc").autocomplete(autoCompleteOptsAdquiriente).autocomplete("instance")._renderItem = function (ul, item) {
-                console.log('aqui');
                 return $("<li>")
                         .append("<a>" + item.rfc + "<br>" + "<span class='nombre-coincidencia'><i class='glyphicon glyphicon-user'></i> <small>" + item.nombrec + "</small><span></a>")
                         .appendTo(ul);
@@ -558,7 +555,6 @@
                 source: "/ofvirtual/notario/traslado/enajenante", //Ruta al controlador que provee los resultados de la busqueda
                 minLength: 8, //Empezamos a mandar los teclazos si han tecleado 8 caracteres
                 select: function (event, ui) {
-                    console.log(ui);
                     //Al seleccionar un valor de los desplegados rellenamos los campos
                     $('#enajenante-curp').val(ui.item.curp);
                     $('#enajenante-rfc').val(ui.item.rfc);
@@ -570,14 +566,12 @@
             };
             //Se crea autocompleter de CURP
             $("#enajenante-curp").autocomplete(autoCompleteOptsEnajenante).autocomplete("instance")._renderItem = function (ul, item) {
-                console.log('aqui');
                 return $("<li>")
                         .append("<a>" + item.curp + "<br>" + "<span class='nombre-coincidencia'><i class='glyphicon glyphicon-user'></i><small> " + item.nombrec + "</small><span></a>")
                         .appendTo(ul);
             };
             //Se crea autocompleter de RFC
             $("#enajenante-rfc").autocomplete(autoCompleteOptsEnajenante).autocomplete("instance")._renderItem = function (ul, item) {
-                console.log('aqui');
                 return $("<li>")
                         .append("<a>" + item.rfc + "<br>" + "<span class='nombre-coincidencia'><i class='glyphicon glyphicon-user'></i> <small>" + item.nombrec + "</small><span></a>")
                         .appendTo(ul);
