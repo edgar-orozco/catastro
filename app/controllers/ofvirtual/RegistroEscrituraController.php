@@ -452,7 +452,7 @@ $registro->save();
         $colindancias->delete();
 
         $registro = RegistroEscritura::find($id);
-       
+        $registro->delete();
 
         $enajenante = personas::find($registro->enajenante_id);
         $enajenante->delete();
@@ -460,13 +460,13 @@ $registro->save();
         $adquiriente = personas::find($registro->adquiriente_id);
         $adquiriente->delete();
 
-        $domicilioE = Domicilio::findfind($registro->dir_enajenante_id);
+        $domicilioE = Domicilio::find($registro->dir_enajenante_id);
         $domicilioE->delete();
 
         $domicilioA = Domicilio::find($registro->dir_adquiriente_id);
         $domicilioA->delete();
         
-        $registro->delete();
+        
 
         return Redirect::to('/ofvirtual/notario/registro-escrituras')->with('success', '¡Se ha eliminado correctamente el registro!');
 
