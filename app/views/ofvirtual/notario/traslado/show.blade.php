@@ -277,7 +277,6 @@
         </div>
 
 
-        {{$traslado->folio}}
         @if(!is_null($traslado->folio))
             {{ Form::model($traslado, ['url' => array('ofvirtual/notario/traslado'), 'method'=>'GET' ]) }}
             <div class="form-actions  col-md-4" style="clear:both; float: right;">
