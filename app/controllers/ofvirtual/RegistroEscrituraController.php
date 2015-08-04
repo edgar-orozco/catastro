@@ -69,7 +69,10 @@ protected $padron;
 
         $identificador = Request::get('clave');
 
-        $identificador = strtoupper($identificador);
+
+
+        $identificador = strtoupper($identificador); 
+        //dd($identificador);
 
         $predio = $this->padron->getByClaveOCuenta($identificador);
 
@@ -173,6 +176,10 @@ $colindancias->fill(Input::get('colindancia'))->save();
 //clave unica de seguimineto con cosigo de barras
  //traemos el codigo del seguimiento
   $seguimiento=SolicitudGestion::cadenaSeguimientoUnica();
+$antecendentes=Input::get('antecendentes');
+
+//print_r($antecendentes);
+//dd($antecendentes);
   //generamos el codigo de barra
   $path_imagen = DNS1D::getBarcodePNGPath($seguimiento, "C128");
 
@@ -290,14 +297,21 @@ $registro->save();
 		//
         $registro = RegistroEscritura::find($id);
 
+        $propiedad =(object) $arrayName = array('antecedente_num' =>  $registro['antecedente_num'],'valor_registro' =>$registro['valor_registro'] ,'folio_avaluo' => $registro['folio_avaluo'],'valor_comercial' =>$registro['valor_comercial'] );
 
-        $predio = $this->padron->getByClaveOCuenta($registro->clave);
+        //$registro->antecendentes->$propiedad;
+       //print_r($propiedad);
+       //dd($propiedad);
+        $identificador = strtoupper($registro['cuenta']);
+      // dd($identificador);
+       $predio = $this->padron->getByClaveOCuenta($identificador);
+       // $predio = $this->padron->getByClaveOCuenta($identificador);
 
 
-        $predio->ubicacionFiscal->ubicacion = $registro->ubicacion;
-        $predio->superficie_terreno = $registro->superficie_terreno;
-        $predio->superficie_construccion = $registro->superficie_construccion;
-
+        //$predio->ubicacionFiscal->ubicacion = $registro->ubicacion;
+        //$predio->superficie_terreno = $registro->superficie_terreno;
+        //$predio->superficie_construccion = $registro->superficie_construccion;
+        //dd($predio);
         //enajenante
         $enajenante = personas::find($registro->enajenante_id);
         $registro->enajenante->fill($enajenante->toArray());
@@ -338,9 +352,10 @@ $registro->save();
         //Se pasan las colindancias para el macro de colindancias como objeto JSON
         $JsonColindancias = $registro->colindancia->toJson();
 
+
         // Show the page
         //return View:: make('ofvirtual.notario.traslado.edit', compact('title', 'traslado', 'predio', 'JsonColindancias'));
-        return View:: make('ofvirtual.notario.registro.edit', compact('title', 'registro', 'predio', 'notarioEscritura','notariaEscritura','notaria','municipio','notaria','vialidad','asentamiento','entidad','JsonColindancias'));
+        return View:: make('ofvirtual.notario.registro.edit', compact('propiedad','title', 'registro', 'predio', 'notarioEscritura','notariaEscritura','notaria','municipio','notaria','vialidad','asentamiento','entidad','JsonColindancias'));
 	}
 
 
@@ -352,7 +367,126 @@ $registro->save();
 	 */
 	public function update($id)
 	{
-		//
+		
+        //Buscamos el traslado original relacionado con el id
+        $registro = RegistroEscritura::find($id);
+        //
+        //
+        $registro['dir_enajenante_id'];
+        
+        $denajenante = Domicilio::find($registro['dir_enajenante_id']);
+        
+        $denajenante->fill(Input::get('enajenanteDomicilio'))->save();
+
+        $dadquiriente = Domicilio::find($registro['dir_adquiriente_id']);
+        $dadquiriente->fill(Input::get('adquirienteDomicilio'))->save();
+
+        //Busca Enajenante
+        $datosEnajenante = Input::get('enajenante');
+
+        //print_r($datosEnajenante);
+       // dd($datosEnajenante);
+        $enajenanteRFC = $datosEnajenante['rfc'];
+        $enajenanteCurp = $datosEnajenante['curp'];
+        $enajenanteTipo = $datosEnajenante['id_tipo'];
+        //
+        if ($enajenanteTipo == 2) {
+            $enajenanteExistente = personas::findPorCurpRFC($enajenanteRFC);
+        }
+        else{
+            $enajenanteExistente = personas::findPorCurpRFC($enajenanteCurp);
+        }
+        //dd($enajenanteExistente);
+
+        //si existe, update
+        if (!empty($enajenanteExistente)) {
+            $enajenante = personas::find($enajenanteExistente['id_p']);
+            $datosEnajenante = Input::get('enajenante');
+            $enajenante->fill($datosEnajenante);
+
+
+            if (!$enajenante->save()) {
+                return Redirect::back()->with('error', 'Error en datos del enajenante.');
+            }
+        } //si no existe, insert
+        else {
+            $enajenante = new personas();
+
+            $enajenante->fill($datosEnajenante);
+
+            if (!$enajenante->save()) {
+                return Redirect::back()->with('error', 'Error en datos del enajenante.');
+            }
+        }
+        //
+
+
+        //Busca Adquiriente
+        $datosAdquiriente = Input::get('adquiriente');
+
+        $adquirienteRFC = $datosAdquiriente['rfc'];
+        $adquirienteCurp = $datosAdquiriente['curp'];
+        $adquirienteTipo = $datosAdquiriente['id_tipo'];
+        if ($adquirienteTipo == 2) {
+            $adquirienteExistente = personas::findPorCurpRFC($adquirienteRFC);
+        }
+        else{
+            $adquirienteExistente = personas::findPorCurpRFC($adquirienteCurp);
+        }
+
+        //si existe, update
+        if (!empty($adquirienteExistente)) {
+            $adquiriente = personas::find($adquirienteExistente['id_p']);
+            $datosAdquiriente = Input::get('adquiriente');
+            $adquiriente->fill($datosAdquiriente);
+
+
+            if (!$adquiriente->save()) {
+                return Redirect::back()->with('error', 'Error en datos del adquiriente.');
+            }
+        } //si no existe, insert
+        else {
+            $adquiriente = new personas();
+
+            $adquiriente->fill($datosAdquiriente);
+
+            if (!$adquiriente->save()) {
+                return Redirect::back()->with('error', 'Error en datos del adquiriente.');
+            }
+        }
+        //
+$antecendentes=Input::get('antecendentes');
+
+$registro->tipo_escritura=Input::get('tipo_escritura');
+$registro->cuenta=Input::get('cuenta');
+$registro->clave=Input::get('clave');
+$registro->tipo_predio=Input::get('tipo_predio');
+$registro->notaria_id=Input::get('notaria_id');
+$registro->volumen=Input::get('volumen');
+$registro->valor_catastral=Input::get('valor_catastral');
+$registro->importe_operacion=Input::get('importe_operacion');
+$registro->antecedente_num=Input::get('antecedente_num');
+$registro->valor_registro=Input::get('valor_registro');
+$registro->folio_avaluo=Input::get('folio_avaluo');
+$registro->valor_comercial=Input::get('valor_comercial');
+$registro->usuario_id=Auth::user()->id;
+$registro->enajenante_id=$enajenante->id_p;
+$registro->adquiriente_id= $adquiriente->id_p;
+
+$registro->fecha_instrumento=Input::get('fecha_instrumento');
+$registro->fecha_firma=Input::get('fecha_firma');
+$registro->naturaleza_contrato=Input::get('naturaleza_contrato');
+$registro->niveles=Input::get('niveles');
+$registro->estado_conserv=Input::get('estado_conserv');
+
+
+        if (!$registro->save()) {
+            return Redirect::back()->withInput()->withErrors($registro->errors());
+        }
+
+        //Dado que fue exitosa la actualización mostramos la salida al usuario.
+        return Redirect::to('ofvirtual/notario/registro/show/' . $registro->id)->with('success', '¡Se ha editado correctamente el registro de dominio para la cuenta ' . $registro->cuenta . '!');
+    
 	}
 
 
@@ -415,7 +549,8 @@ $registro->save();
         $municipio=Municipio::where('municipio',$registro->municipio_id)->pluck('nombre_municipio');
 
          $JsonColindancias = $registro->colindancia->toJson();
-
+//print_r($registro);
+        //dd($registro);
         // Show the page
         return View:: make('ofvirtual.notario.registro.show', compact('title', 'registro', 'predio','notaria','municipio','JsonColindancias'));
 
@@ -454,17 +589,19 @@ $registro->save();
         $registro = RegistroEscritura::find($id);
         $registro->delete();
 
+        $domicilioE = Domicilio::find($registro->dir_enajenante_id);
+        $domicilioE->delete();
+
+        $domicilioA = Domicilio::find($registro->dir_adquiriente_id);
+        $domicilioA->delete();
+
         $enajenante = personas::find($registro->enajenante_id);
         $enajenante->delete();
 
         $adquiriente = personas::find($registro->adquiriente_id);
         $adquiriente->delete();
 
-        $domicilioE = Domicilio::find($registro->dir_enajenante_id);
-        $domicilioE->delete();
-
-        $domicilioA = Domicilio::find($registro->dir_adquiriente_id);
-        $domicilioA->delete();
+        
         
         
 
@@ -518,7 +655,7 @@ $registro->save();
         // Show the page
         $vista =  View:: make('ofvirtual.notario.registro.pdf', compact('title', 'registro', 'predio','seguimiento','colindancias','notaria','notario','JsonColindancias'));
         //devuelvo los datos en PDF
-        $pdf      = PDF::load($vista)->show();
+        $pdf      = PDF::load($vista)->show("Copia-CartaInvitacion");
         $response = Response::make($pdf, 200);
         $response->header('Content-Type', 'application/pdf');
         return $response;

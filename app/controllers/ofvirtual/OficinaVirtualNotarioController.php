@@ -113,7 +113,7 @@ class OficinaVirtualNotarioController extends \BaseController
 
         //si existe, update
         if (!empty($enajenanteExistente)) {
-            $enajenante = personas::find($enajenanteExistente[0]->id_p);
+            $enajenante = personas::find($enajenanteExistente->id_p);
             $datosEnajenante = Input::get('enajenante');
             $enajenante->fill($datosEnajenante);
 
@@ -150,7 +150,7 @@ class OficinaVirtualNotarioController extends \BaseController
 
         //si existe, update
         if (!empty($adquirienteExistente)) {
-            $adquiriente = personas::find($adquirienteExistente[0]->id_p);
+            $adquiriente = personas::find($adquirienteExistente->id_p);
             $datosAdquiriente = Input::get('adquiriente');
             $adquiriente->fill($datosAdquiriente);
 
@@ -394,7 +394,7 @@ class OficinaVirtualNotarioController extends \BaseController
 
         //si existe, update
         if (!empty($enajenanteExistente)) {
-            $enajenante = personas::find($enajenanteExistente[0]->id_p);
+            $enajenante = personas::find($enajenanteExistente->id_p);
             $datosEnajenante = Input::get('enajenante');
             $enajenante->fill($datosEnajenante);
 
@@ -430,7 +430,7 @@ class OficinaVirtualNotarioController extends \BaseController
 
         //si existe, update
         if (!empty($adquirienteExistente)) {
-            $adquiriente = personas::find($adquirienteExistente[0]->id_p);
+            $adquiriente = personas::find($adquirienteExistente->id_p);
             $datosAdquiriente = Input::get('adquiriente');
             $adquiriente->fill($datosAdquiriente);
 

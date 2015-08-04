@@ -74,8 +74,14 @@ $('#formpersonas').bind('submit',function ()
   <fieldset>
   <legend>Datos personales</legend>
   <div class="row">
-        {{Form::personas('persona')}}
-  </div><!-- /.row --></fieldset>
+        {{--Form::personas('persona')--}}
+  </div>
+
+  <div class="row">
+        {{Form::domicilio('persona')}}
+  </div>
+
+  <!-- /.row --></fieldset>
 </br></br>
 
   {{ Form::submit('Guardar datos', array('class' => 'btn btn-primary', 'name' => 'boton','id' => 'boton')) }}
