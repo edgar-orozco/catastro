@@ -1,5 +1,5 @@
 <?php
-Form::macro('propiedad', function($llave)
+Form::macro('propiedad', function()
 {
   $predios='
    <div class="row">
