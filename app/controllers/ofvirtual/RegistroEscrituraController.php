@@ -194,10 +194,10 @@ $registro->notaria_id=Input::get('notaria_id');
 $registro->volumen=Input::get('volumen');
 $registro->valor_catastral=Input::get('valor_catastral');
 $registro->importe_operacion=Input::get('importe_operacion');
-$registro->antecedente_num=$antecendentes['antecedente_num'];
-$registro->valor_registro=$antecendentes['valor_registro'];
-$registro->folio_avaluo=$antecendentes['folio_avaluo'];
-$registro->valor_comercial=$antecendentes['valor_comercial'];
+$registro->antecedente_num=Input::get('antecedente_num');
+$registro->valor_registro=Input::get('valor_registro');
+$registro->folio_avaluo=Input::get('folio_avaluo');
+$registro->valor_comercial=Input::get('valor_comercial');
 $registro->seguimiento=$seguimiento;
 $registro->usuario_id=Auth::user()->id;
 $registro->enajenante_id=$enajenante_id;
@@ -297,7 +297,11 @@ $registro->save();
 		//
         $registro = RegistroEscritura::find($id);
 
-       
+        $propiedad =(object) $arrayName = array('antecedente_num' =>  $registro['antecedente_num'],'valor_registro' =>$registro['valor_registro'] ,'folio_avaluo' => $registro['folio_avaluo'],'valor_comercial' =>$registro['valor_comercial'] );
+
+        //$registro->antecendentes->$propiedad;
+       //print_r($propiedad);
+       //dd($propiedad);
         $identificador = strtoupper($registro['cuenta']);
       // dd($identificador);
        $predio = $this->padron->getByClaveOCuenta($identificador);
@@ -351,7 +355,7 @@ $registro->save();
 
         // Show the page
         //return View:: make('ofvirtual.notario.traslado.edit', compact('title', 'traslado', 'predio', 'JsonColindancias'));
-        return View:: make('ofvirtual.notario.registro.edit', compact('title', 'registro', 'predio', 'notarioEscritura','notariaEscritura','notaria','municipio','notaria','vialidad','asentamiento','entidad','JsonColindancias'));
+        return View:: make('ofvirtual.notario.registro.edit', compact('propiedad','title', 'registro', 'predio', 'notarioEscritura','notariaEscritura','notaria','municipio','notaria','vialidad','asentamiento','entidad','JsonColindancias'));
 	}
 
 
@@ -461,10 +465,10 @@ $registro->notaria_id=Input::get('notaria_id');
 $registro->volumen=Input::get('volumen');
 $registro->valor_catastral=Input::get('valor_catastral');
 $registro->importe_operacion=Input::get('importe_operacion');
-$registro->antecedente_num=$antecendentes['antecedente_num'];
-$registro->valor_registro=$antecendentes['valor_registro'];
-$registro->folio_avaluo=$antecendentes['folio_avaluo'];
-$registro->valor_comercial=$antecendentes['valor_comercial'];
+$registro->antecedente_num=Input::get('antecedente_num');
+$registro->valor_registro=Input::get('valor_registro');
+$registro->folio_avaluo=Input::get('folio_avaluo');
+$registro->valor_comercial=Input::get('valor_comercial');
 $registro->usuario_id=Auth::user()->id;
 $registro->enajenante_id=$enajenante->id_p;
 $registro->adquiriente_id= $adquiriente->id_p;
@@ -585,17 +589,19 @@ $registro->estado_conserv=Input::get('estado_conserv');
         $registro = RegistroEscritura::find($id);
         $registro->delete();
 
+        $domicilioE = Domicilio::find($registro->dir_enajenante_id);
+        $domicilioE->delete();
+
+        $domicilioA = Domicilio::find($registro->dir_adquiriente_id);
+        $domicilioA->delete();
+
         $enajenante = personas::find($registro->enajenante_id);
         $enajenante->delete();
 
         $adquiriente = personas::find($registro->adquiriente_id);
         $adquiriente->delete();
 
-        $domicilioE = Domicilio::find($registro->dir_enajenante_id);
-        $domicilioE->delete();
-
-        $domicilioA = Domicilio::find($registro->dir_adquiriente_id);
-        $domicilioA->delete();
+        
         
         
 

@@ -41,7 +41,7 @@
 </div>
 <div class="col-md-3">
     {{Form::label('cuenta','No. de cuenta:')}}
-    {{Form::text('cuenta', null, ['class' => 'form-control numeros'] )}}
+    {{Form::text('cuenta', null, ['class' => 'form-control '] )}}
 </div>
 <div class="col-md-3">
     {{Form::label('tipo_predio','Tipo de predio:')}}
@@ -163,7 +163,7 @@
  <div class="row-fluid panel-body">
 
         <div class="col-md-12">
-            {{Form::propiedad('antecendentes')}}
+            {{Form::propiedad()}}
         </div>
 </div>
 </div>
