@@ -548,8 +548,9 @@ $registro->estado_conserv=Input::get('estado_conserv');
         $municipio=Municipio::where('municipio',$registro->municipio_id)->pluck('nombre_municipio');
 
          $JsonColindancias = $registro->colindancia->toJson();
-//print_r($registro);
-        //dd($registro);
+         
+        // print_r($domicilioC);
+        //dd($domicilioC);
         // Show the page
         return View:: make('ofvirtual.notario.registro.show', compact('title', 'registro', 'predio','notaria','municipio','JsonColindancias'));
 
@@ -650,9 +651,14 @@ $registro->estado_conserv=Input::get('estado_conserv');
 
           //barcodes
         $seguimiento = DNS1D::getBarcodePNGPath($registro->seguimiento, "C128");
+        $domicilioE = Domicilio::domicilioCompleto($registro->dir_enajenante_id);
+        $domicilioA = Domicilio::domicilioCompleto($registro->dir_adquiriente_id);
+
+       
 
         // Show the page
-        $vista =  View:: make('ofvirtual.notario.registro.pdf', compact('title', 'registro', 'predio','seguimiento','colindancias','notaria','notario','JsonColindancias'));
+        $vista =  View:: make('ofvirtual.notario.registro.pdf', compact('domicilioE', 'domicilioA', 'title', 'registro', 'predio','seguimiento','colindancias','notaria','notario','JsonColindancias'));
+        
         //devuelvo los datos en PDF
         $pdf      = PDF::load($vista)->show("Registro-Escritura");
         $response = Response::make($pdf, 200);

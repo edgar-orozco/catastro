@@ -89,7 +89,7 @@
             </tr>
             <tr>
              <td nowrap>
-                Domicilio:
+                Domicilio: {{$domicilioA}}
             </td>
             </tr>
 
@@ -106,7 +106,7 @@
             </tr>
             <tr>
              <td nowrap>
-                Domicilio:
+                Domicilio: {{$domicilioE}}
             </td>
             </tr>
             <tr>
