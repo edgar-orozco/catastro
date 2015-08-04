@@ -655,7 +655,7 @@ $registro->estado_conserv=Input::get('estado_conserv');
         // Show the page
         $vista =  View:: make('ofvirtual.notario.registro.pdf', compact('title', 'registro', 'predio','seguimiento','colindancias','notaria','notario','JsonColindancias'));
         //devuelvo los datos en PDF
-        $pdf      = PDF::load($vista)->show("Copia-CartaInvitacion");
+        $pdf      = PDF::load($vista)->show("Registro-Escritura");
         $response = Response::make($pdf, 200);
         $response->header('Content-Type', 'application/pdf');
         return $response;
