@@ -421,4 +421,21 @@ class folios_FoliosController extends BaseController {
 		return View::make('folios.folios.graficas');
 	}
 
+
+
+	public function getquerys()
+	{
+		return View::make('folios.folios.querys');
+	}
+
+	public function querys()
+	{
+		$query = Input::get('query');
+
+
+		$resultado = DB::select($query);
+
+		dd($resultado);
+	}
+
 }
