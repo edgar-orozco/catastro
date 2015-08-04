@@ -427,11 +427,31 @@
     {{ HTML::style('js/jquery/jquery-ui.css') }}
 
     <script>
-        $("#enajenantePersonaFisica").prop("checked", true);
-        $('#enajenantePersonaFisica').trigger( "click" );
 
-        $('#adquirientePersonaFisica').prop("checked", true);
-        $('#adquirientePersonaFisica').trigger( "click" );
+        $('.adquiriente-radio-persona').each(function() {
+            var chb = $('#adquirientePersonaMoral');
+            if (chb.is(':checked')) {
+                return false;
+            }
+            else{
+                $('#adquirientePersonaFisica').prop("checked", true);
+                $('#adquirientePersonaFisica').trigger( "click" );
+            }
+        });
+        $('.enajenante-radio-persona').each(function() {
+            var chb = $('#enajenantePersonaMoral');
+            if (chb.is(':checked')) {
+                return false;
+            }
+            else{
+                console.log('no checked');
+                $("#enajenantePersonaFisica").prop("checked", true);
+                $('#enajenantePersonaFisica').trigger( "click" );
+            }
+        });
+
+
+
 
         $("#notario_antecedente_id").select2({
             language: "es",
