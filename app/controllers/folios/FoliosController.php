@@ -435,7 +435,17 @@ class folios_FoliosController extends BaseController {
 
 		$resultado = DB::select($query);
 
-		dd($resultado);
+		$fields = [];
+
+
+		foreach ($resultado[0] as $res => $value) 
+		{
+			$fields[]=$res;
+		}
+
+
+
+		return View::make('folios.folios.listquery', compact('resultado', 'fields'));
 	}
 
 }
