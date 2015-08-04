@@ -350,7 +350,7 @@
             {{$errors->first('traslado[diferencia_omitida]', '<span class=text-danger>:message</span>')}}
 
             {{Form::label('traslado[porcentaje_aplicarse]','Porcentaje aplicarse 2%')}}
-            {{Form::number('traslado[porcentaje_aplicarse]', 2, ['id'=>'porcentajeAplicarse', 'class'=>'form-control', 'step'=>'any', 'min'=>2, 'max'=>100, 'required'=>true] )}}
+            {{Form::number('traslado[porcentaje_aplicarse]', null, ['id'=>'porcentajeAplicarse', 'class'=>'form-control', 'step'=>'any', 'min'=>2, 'max'=>100, 'required'=>true] )}}
             {{$errors->first('traslado[porcentaje_aplicarse]', '<span class=text-danger>:message</span>')}}
 
             {{Form::label('traslado[impuesto_enterar]','Impuesto enterar')}}

@@ -276,16 +276,36 @@
             </div>
         </div>
 
-        {{ Form::model($traslado, ['url' => array('ofvirtual/notario/traslado/asignarFolio', $traslado->id ), 'method'=>'GET' ]) }}
-        <div class="form-actions  col-md-4" style="clear:both; float: right;">
-            {{ Form::submit('Finalizar traslado de dominio', array('class' => 'btn btn-primary')) }}
-        </div>
-        {{Form::close()}}
 
-        {{ Form::model($traslado, ['url' => array('ofvirtual/notario/traslado'), 'method'=>'GET' ]) }}
-        <div class="form-actions  col-md-4" style="clear:both; float: right;">
-            {{ Form::submit('Salir sin finalizar traslado de dominio', array('class' => 'btn btn-warning')) }}
-        </div>
-        {{Form::close()}}
+        {{$traslado->folio}}
+        @if(!is_null($traslado->folio))
+            {{ Form::model($traslado, ['url' => array('ofvirtual/notario/traslado'), 'method'=>'GET' ]) }}
+            <div class="form-actions  col-md-4" style="clear:both; float: right;">
+                {{ Form::submit('Regresar', array('class' => 'btn btn-warning')) }}
+            </div>
+
+            <div class="form-actions  col-md-4" style="clear:both; float: right;">
+            <a href="{{ action('OficinaVirtualNotarioController@imprimir', ['id' => $traslado->id]) }}"
+               class="print btn btn-info" target="_blank">Imprimir
+                <span class="glyphicon glyphicon-print"></span>
+            </a>
+            </div>
+
+            {{Form::close()}}
+        @else
+
+            {{ Form::model($traslado, ['url' => array('ofvirtual/notario/traslado/asignarFolio', $traslado->id ), 'method'=>'GET' ]) }}
+            <div class="form-actions  col-md-4" style="clear:both; float: right;">
+                {{ Form::submit('Finalizar traslado de dominio', array('class' => 'btn btn-primary')) }}
+            </div>
+            {{Form::close()}}
+
+            {{ Form::model($traslado, ['url' => array('ofvirtual/notario/traslado'), 'method'=>'GET' ]) }}
+            <div class="form-actions  col-md-4" style="clear:both; float: right;">
+                {{ Form::submit('Salir sin finalizar traslado de dominio', array('class' => 'btn btn-warning')) }}
+            </div>
+        @endif
+
+
     </div>
 @stop
