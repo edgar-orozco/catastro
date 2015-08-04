@@ -1,9 +1,45 @@
 <!DOCTYPE html>
 <html>
 <style type="text/css">
-	tbody td{
-		font-size: 70%;
+	
+
+	/* Tables */
+	.Table-Normal {
+	    position: relative;
+	    margin: 10px auto;
+	    padding: 0;
+	    width: 100%;
+	    height: auto;
+	    border-collapse: collapse;
+	    text-align: center;
 	}
+
+	.Table-Normal thead tr {
+	    background-color: #E74C3C;
+	    font-weight: bold;
+	}
+
+	.Table-Normal tbody tr {
+	    margin: 0;
+	    padding: 0;
+	    border: 0;
+	    border: 1px solid #999;
+	    width: 100%;
+	}
+
+	.Table-Normal tbody tr td {
+	    margin: 0;
+	    padding: 4px 8px;
+	    border: 0;
+	    border: 1px solid #999;
+	}
+
+	.Table-Normal tbody tr:nth-child(2) {
+	    background-color: #EEE;
+	}
+	/* Tables */
+
+
 </style>
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
@@ -42,7 +78,7 @@
 
 		<h4>Reporte de entrega de folios hasta {{date("d") . " de " .$mes[date('m')]." del ". date("Y");}}</h4>
 
-			<table border="1">
+			<table border="1" align="center" class="Table-Normal">
 				<thead>
 					<tr>
 						<th rowspan="2">Perito</th>
@@ -61,7 +97,7 @@
 					@foreach ($peritos as $perito)
 						<tr>
 							
-							<td align="left">{{$perito->nombre}}</td>
+							<td align="left">{{$perito->corevat}}</td>
 							<td align="center">{{$perito->sumFoliosE('U')->autorizado}}</td>
 							<td align="center">{{$perito->sumFoliosE('R')->autorizado}}</td>
 							<td align="center">{{$perito->sumFoliosE('U')->entregado}}</td>
@@ -70,7 +106,22 @@
 						</tr>
 					@endforeach
 				</tbody>
-		</table>
+				<tfoot>
+					<tr>
+						<td rowspan="2">Total</td>
+						<td>{{$perito->sumFoliosE('U', 'total')->autorizado}}</td>
+						<td>{{$perito->sumFoliosE('R', 'total')->autorizado}}</td>
+						<td>{{$perito->sumFoliosE('U', 'total')->entregado}}</td>
+						<td>{{$perito->sumFoliosE('R', 'total')->entregado}}</td>
+						<td rowspan="2"></td>
+					</tr>
+
+					<tr>
+						<td colspan="2">{{$perito->sumFoliosE('U', 'total')->autorizado+$perito->sumFoliosE('R', 'total')->autorizado}}</td>
+						<td colspan="2">{{$perito->sumFoliosE('U', 'total')->entregado+$perito->sumFoliosE('R', 'total')->entregado}}</td>
+					</tr>
+				</tfoot>
+		</table>																
 		<br>
 		<br>
 
@@ -80,4 +131,5 @@
 		<div class="row" align="center">__________________________________</div>
 		<div class="row" align="center">Alfredo Lopez Carrasco</div>
 	</body>
+
 </html>
