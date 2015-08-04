@@ -214,7 +214,7 @@ $(function () {
                 minLength: 8, //Empezamos a mandar los teclazos si han tecleado 8 caracteres
                 select: function (event, ui) {
                     //Al seleccionar un valor de los desplegados rellenamos los campos
-                var res = "adquiriente[response]";
+                var res = "adquiriente[id_p]";
                 $('#' + res.replace( /(:|\.|\[|\]|,)/g, "\\$1" )).val(ui.item.id_p);
                 var nombres = "adquiriente[nombres]";
                 $('#' + nombres.replace( /(:|\.|\[|\]|,)/g, "\\$1" )).val(ui.item.nombres);
@@ -254,7 +254,7 @@ $(function () {
                 minLength: 8, //Empezamos a mandar los teclazos si han tecleado 8 caracteres
                 select: function (event, ui) {
                     //Al seleccionar un valor de los desplegados rellenamos los campos
-                var res = "enajenante[response]";
+                var res = "enajenante[id_p]";
                 $('#' + res.replace( /(:|\.|\[|\]|,)/g, "\\$1" )).val(ui.item.id_p);
                 var nombres = "enajenante[nombres]";
                 $('#' + nombres.replace( /(:|\.|\[|\]|,)/g, "\\$1" )).val(ui.item.nombres);

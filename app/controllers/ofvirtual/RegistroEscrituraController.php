@@ -133,9 +133,9 @@ protected $padron;
 
 
 $enajenanteR=Input::get('enajenante');
-if($enajenanteR['response'])
+if($enajenanteR['id_p'])
 {
-   $enajenante_id=$enajenanteR['response'];
+   $enajenante_id=$enajenanteR['id_p'];
 }else
 {
     $enajenante = new personas();
@@ -151,9 +151,9 @@ $denajenante->fill(Input::get('enajenanteDomicilio'))->save();
 
 
 $enajenanteA=Input::get('adquiriente');
-if($enajenanteA['response'])
+if($enajenanteA['id_p'])
 {
-    $adquiriente_id=$enajenanteA['response'];
+    $adquiriente_id=$enajenanteA['id_p'];
 }else
 {
     $adquiriente = new personas();
