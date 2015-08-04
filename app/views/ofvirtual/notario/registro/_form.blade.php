@@ -206,5 +206,85 @@ $(function () {
 $("#fecha").datepicker();
 });
 
+$(function () {
+
+            //Estas son las opciones con las que se construye el autocomplete, como son comunes a los dos inputs rfc y curp se sacan para reutlizar
+            var autoCompleteOptsAdquiriente = {
+                source: "/ofvirtual/notario/registro/adquiriente", //Ruta al controlador que provee los resultados de la busqueda
+                minLength: 8, //Empezamos a mandar los teclazos si han tecleado 8 caracteres
+                select: function (event, ui) {
+                    //Al seleccionar un valor de los desplegados rellenamos los campos
+                var res = "adquiriente[response]";
+                $('#' + res.replace( /(:|\.|\[|\]|,)/g, "\\$1" )).val(ui.item.id_p);
+                var nombres = "adquiriente[nombres]";
+                $('#' + nombres.replace( /(:|\.|\[|\]|,)/g, "\\$1" )).val(ui.item.nombres);
+                var apellido_paterno = "adquiriente[apellido_paterno]";
+                $('#' + apellido_paterno.replace( /(:|\.|\[|\]|,)/g, "\\$1" )).val(ui.item.apellido_paterno);
+                var apellido_materno = "adquiriente[apellido_materno]";
+                $('#' + apellido_materno.replace( /(:|\.|\[|\]|,)/g, "\\$1" )).val(ui.item.apellido_materno);
+                var rfc = "adquiriente[rfc]";
+                $('#' + rfc.replace( /(:|\.|\[|\]|,)/g, "\\$1" )).val(ui.item.rfc);
+                  var curpa = "adquiriente[curp]";
+            $('#' + curpa.replace( /(:|\.|\[|\]|,)/g, "\\$1" )).val(ui.item.curp);
+                    return false;
+                }
+            };
+            //Se crea autocompleter de CURP
+             var curpa = "adquiriente[curp]";
+            $('#' + curpa.replace( /(:|\.|\[|\]|,)/g, "\\$1" )).autocomplete(autoCompleteOptsAdquiriente).autocomplete("instance")._renderItem = function (ul, item) {
+                return $("<li>")
+                        .append("<a>" + item.curp + "<br>" + "<span class='nombre-coincidencia'><i class='glyphicon glyphicon-user'></i><small> " + item.nombrec + "</small><span></a>")
+                        .appendTo(ul);
+            };
+            //Se crea autocompleter de RFC
+            var rfc = "adquiriente[rfc]";
+            $('#' + rfc.replace( /(:|\.|\[|\]|,)/g, "\\$1" )).autocomplete(autoCompleteOptsAdquiriente).autocomplete("instance")._renderItem = function (ul, item) {
+                return $("<li>")
+                        .append("<a>" + item.rfc + "<br>" + "<span class='nombre-coincidencia'><i class='glyphicon glyphicon-user'></i> <small>" + item.nombrec + "</small><span></a>")
+                        .appendTo(ul);
+            };
+            //por default es persona física por lo que el autocomplete lo deshabilitamos
+            $('#' + rfc.replace( /(:|\.|\[|\]|,)/g, "\\$1" )).autocomplete("disable");
+
+            
+
+            //Estas son las opciones con las que se construye el autocomplete, como son comunes a los dos inputs rfc y curp se sacan para reutlizar
+            var autoCompleteOptsEnajenante = {
+                source: "/ofvirtual/notario/registro/enajenante", //Ruta al controlador que provee los resultados de la busqueda
+                minLength: 8, //Empezamos a mandar los teclazos si han tecleado 8 caracteres
+                select: function (event, ui) {
+                    //Al seleccionar un valor de los desplegados rellenamos los campos
+                var res = "enajenante[response]";
+                $('#' + res.replace( /(:|\.|\[|\]|,)/g, "\\$1" )).val(ui.item.id_p);
+                var nombres = "enajenante[nombres]";
+                $('#' + nombres.replace( /(:|\.|\[|\]|,)/g, "\\$1" )).val(ui.item.nombres);
+                var apellido_paterno = "enajenante[apellido_paterno]";
+                $('#' + apellido_paterno.replace( /(:|\.|\[|\]|,)/g, "\\$1" )).val(ui.item.apellido_paterno);
+                var apellido_materno = "enajenante[apellido_materno]";
+                $('#' + apellido_materno.replace( /(:|\.|\[|\]|,)/g, "\\$1" )).val(ui.item.apellido_materno);
+                var rfc = "enajenante[rfc]";
+                $('#' + rfc.replace( /(:|\.|\[|\]|,)/g, "\\$1" )).val(ui.item.rfc);
+                 var curpa = "enajenante[curp]";
+            $('#' + curpa.replace( /(:|\.|\[|\]|,)/g, "\\$1" )).val(ui.item.curp);
+                    return false;
+                }
+            };
+            //Se crea autocompleter de CURP
+            var curpa = "enajenante[curp]";
+            $('#' + curpa.replace( /(:|\.|\[|\]|,)/g, "\\$1" )).autocomplete(autoCompleteOptsEnajenante).autocomplete("instance")._renderItem = function (ul, item) {
+                return $("<li>")
+                        .append("<a>" + item.curp + "<br>" + "<span class='nombre-coincidencia'><i class='glyphicon glyphicon-user'></i><small> " + item.nombrec + "</small><span></a>")
+                        .appendTo(ul);
+            };
+            //Se crea autocompleter de RFC
+            var rfc = "enajenante[rfc]";
+            $('#' + rfc.replace( /(:|\.|\[|\]|,)/g, "\\$1" )).autocomplete(autoCompleteOptsEnajenante).autocomplete("instance")._renderItem = function (ul, item) {
+                return $("<li>")
+                        .append("<a>" + item.rfc + "<br>" + "<span class='nombre-coincidencia'><i class='glyphicon glyphicon-user'></i> <small>" + item.nombrec + "</small><span></a>")
+                        .appendTo(ul);
+            };
+            //por default es persona física por lo que el autocomplete lo deshabilitamos
+            $('#' + rfc.replace( /(:|\.|\[|\]|,)/g, "\\$1" )).autocomplete("disable");
+        });
 
 </script>

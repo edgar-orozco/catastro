@@ -35,6 +35,9 @@ Route::get('ofvirtual/notario/registro/edit/{id}', 'ofvirtual_RegistroEscrituraC
 //update
 Route::get('ofvirtual/notario/registro/update/{id}', 'ofvirtual_RegistroEscrituraController@update');
 
+Route::get('ofvirtual/notario/registro/enajenante', 'ofvirtual_RegistroEscrituraController@getEnajenante');
+Route::get('ofvirtual/notario/registro/adquiriente', 'ofvirtual_RegistroEscrituraController@getAdquiriente');
+
 
 /*function()
           {

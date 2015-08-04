@@ -176,7 +176,7 @@ $colindancias->fill(Input::get('colindancia'))->save();
 //clave unica de seguimineto con cosigo de barras
  //traemos el codigo del seguimiento
   $seguimiento=SolicitudGestion::cadenaSeguimientoUnica();
-$antecendentes=Input::get('antecendentes');
+$antecendentes=Input::get('valor_catastral');
 
 //print_r($antecendentes);
 //dd($antecendentes);
@@ -192,7 +192,6 @@ $registro->clave=Input::get('clave');
 $registro->tipo_predio=Input::get('tipo_predio');
 $registro->notaria_id=Input::get('notaria_id');
 $registro->volumen=Input::get('volumen');
-$registro->valor_catastral=Input::get('valor_catastral');
 $registro->importe_operacion=Input::get('importe_operacion');
 $registro->antecedente_num=Input::get('antecedente_num');
 $registro->valor_registro=Input::get('valor_registro');
@@ -659,6 +658,25 @@ $registro->estado_conserv=Input::get('estado_conserv');
         $response = Response::make($pdf, 200);
         $response->header('Content-Type', 'application/pdf');
         return $response;
+    }
+
+        public
+    function getEnajenante()
+    {
+        $q = Input::get('term');
+        if (Request::ajax()) {
+            return personas::getPorCurpRFC($q);
+        }
+    }
+
+
+    public
+    function getAdquiriente()
+    {
+        $q = Input::get('term');
+        if (Request::ajax()) {
+            return personas::getPorCurpRFC($q);
+        }
     }
 
 

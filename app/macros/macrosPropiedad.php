@@ -13,12 +13,12 @@ Form::macro('propiedad', function()
     Form::text('valor_registro', null, ['class' => 'form-control'] ). 
    '</div>'.
     '<div class="col-md-6">'.
-    Form::label('folio_avaluo]', 'no. De Folio de Avaluó:') .
+    Form::label('folio_avaluo]', 'No. De Folio de Avaluó:').
     Form::text('folio_avaluo', null, ['class' => 'form-control'] ). 
    '</div>'.
     '<div class="col-md-6">'.
-    Form::label('valor_comercial', 'alor Comercial del Inmueble:') .
-    Form::text('valor_comercial]', null, ['class' => 'form-control'] ).
+    Form::label('valor_comercial', 'Valor Comercial del Inmueble:') .
+    Form::text('valor_comercial', null, ['class' => 'form-control'] ).
     '</div>
     </div>';
     return $predios;

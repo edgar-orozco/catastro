@@ -16,9 +16,14 @@ $(document).ready(function()
             $('.'+id).hide();
             //oculta input de apellido_paterno
             var curp = id+"[rfc]";
-            alert(curp);
+
             $( "#" + curp.replace( /(:|\.|\[|\]|,)/g, "\\$1" )).removeAttr('required');
             $("#" + curp.replace( /(:|\.|\[|\]|,)/g, "\\$1" )).attr('pattern', '([A-Za-z]{3})([0-9]{6})([A-Za-z0-9]{3})');
+
+             //Habilitamos el autocomplete del curp
+                    $( "#" + curp.replace( /(:|\.|\[|\]|,)/g, "\\$1" )).autocomplete("disable");
+                    //Deshabilitamos el autocomplete del rfc
+                    $( "#" + curp.replace( /(:|\.|\[|\]|,)/g, "\\$1" )).autocomplete("enable");
         }
 
 
@@ -32,6 +37,13 @@ $(document).ready(function()
           var curp = id+"[rfc]";
           //$( "#" + curp.replace( /(:|\.|\[|\]|,)/g, "\\$1" )).removeAttr('required');
           $("#" + curp.replace( /(:|\.|\[|\]|,)/g, "\\$1" )).attr('pattern', '([A-Za-z]{4})([0-9]{6})([A-Za-z0-9]{3})');
+
+           //Habilitamos el autocomplete del curp
+                    $("#" + curp.replace( /(:|\.|\[|\]|,)/g, "\\$1" )).autocomplete("enable");
+                    //Deshabilitamos el autocomplete del rfc
+                    $("#" + curp.replace( /(:|\.|\[|\]|,)/g, "\\$1" )).autocomplete("disable");
+
+
         }
 
 }
@@ -50,6 +62,11 @@ $(document).ready(function()
           var curp = id+"[rfc]";
           //$( "#" + curp.replace( /(:|\.|\[|\]|,)/g, "\\$1" )).removeAttr('required');
            $("#" + curp.replace( /(:|\.|\[|\]|,)/g, "\\$1" )).attr('pattern', '([A-Za-z]{3})([0-9]{6})([A-Za-z0-9]{3})');
+
+            //Habilitamos el autocomplete del curp
+                    $( "#" + curp.replace( /(:|\.|\[|\]|,)/g, "\\$1" )).autocomplete("disable");
+                    //Deshabilitamos el autocomplete del rfc
+                    $( "#" + curp.replace( /(:|\.|\[|\]|,)/g, "\\$1" )).autocomplete("enable");
         }
 
 
@@ -63,16 +80,22 @@ $(document).ready(function()
           var curp = id+"[rfc]";
          //$( "#" + curp.replace( /(:|\.|\[|\]|,)/g, "\\$1" )).attr("required", "true");
          $("#" + curp.replace( /(:|\.|\[|\]|,)/g, "\\$1" )).attr('pattern', '([A-Za-z]{4})([0-9]{6})([A-Za-z0-9]{3})');
+
+         //Habilitamos el autocomplete del curp
+                    $("#" + curp.replace( /(:|\.|\[|\]|,)/g, "\\$1" )).autocomplete("enable");
+                    //Deshabilitamos el autocomplete del rfc
+                    $("#" + curp.replace( /(:|\.|\[|\]|,)/g, "\\$1" )).autocomplete("disable");
+
         }
 
 }
 
-
+});
     });
 
 
  //autocompletar enajenante
-  $(function () {
+/*  $(function () {
       var curpe = "enajenante[curp]";
         $('#' + curpe.replace( /(:|\.|\[|\]|,)/g, "\\$1" )).autocomplete({
             source: "/registro/autocomplete",
@@ -112,8 +135,5 @@ $(document).ready(function()
                 $('#' + rfc.replace( /(:|\.|\[|\]|,)/g, "\\$1" )).val(ui.item.rfc);
             }
         });
-    });
+    });*/
 
-
-
-});
