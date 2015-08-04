@@ -61,14 +61,14 @@ class Perito extends Eloquent {
 
 		$date = FoliosComprados::where('perito_id', $this->id);
 
-		$validacion = $date->first()['fecha_entrega_e'];
+		$date->select(
+			DB::raw('EXTRACT(YEAR FROM MAX(fecha_entrega_e)) as anio'),
+			DB::raw('EXTRACT(MONTH FROM MAX(fecha_entrega_e)) as mes'),
+			DB::raw('EXTRACT(DAY FROM MAX(fecha_entrega_e)) as dia'));
 
-		if($validacion)
+		if($date->get()[0]->anio)
 		{
-			$date->select(
-			DB::raw('EXTRACT(YEAR FROM fecha_entrega_e) as anio'),
-			DB::raw('EXTRACT(MONTH FROM fecha_entrega_e) as mes'),
-			DB::raw('EXTRACT(DAY FROM fecha_entrega_e) as dia'));
+			
 			$date = $date->get()[0]->dia.' de '.$mes[ $date->get()[0]->mes].' del '.$date->get()[0]->anio;
 		}
 		else

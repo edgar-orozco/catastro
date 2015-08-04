@@ -15,7 +15,7 @@
 	}
 
 	.Table-Normal thead tr {
-	    background-color: #E74C3C;
+
 	    font-weight: bold;
 	}
 
@@ -34,9 +34,6 @@
 	    border: 1px solid #999;
 	}
 
-	.Table-Normal tbody tr:nth-child(2) {
-	    background-color: #EEE;
-	}
 	/* Tables */
 
 
