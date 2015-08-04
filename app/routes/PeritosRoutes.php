@@ -62,6 +62,9 @@ Route::group(array('before'=>'Folios'),  function (){
             Route::get('/reporte/municipio', 'folios_reportes_MunicipioController@index');
             Route::get('/reporte/municipio/{id}', 'folios_reportes_MunicipioController@municipio_detalles');
 
+            //Consultas
+            Route::get('/consultas/db/query', 'folios_FoliosController@getquerys');
+            Route::post('/consultas/db/query', 'folios_FoliosController@querys');
 
 });
  Route::filter('Folios', function () {
