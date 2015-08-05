@@ -20,16 +20,18 @@ class Perito extends Eloquent {
 	public function sumFoliosE($tipo = null, $total = null)
 		{
 			$entregaU = FoliosComprados::selectRaw('Sum(entrega_estatal) AS entregado, COUNT(entrega_estatal) as autorizado');
+
+
 				
 			if(!strtolower($total) == 'total')
 			{
 				$entregaU->where('perito_id', $this->id);
 			}
+
 			if(strtolower($tipo) == 'u' || strtolower($tipo) == 'r' )
 			{
 				$entregaU->where('tipo_folio', $tipo);
 			}
-
 
 				
 			return $entregaU->get()[0];
