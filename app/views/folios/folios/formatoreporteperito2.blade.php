@@ -95,10 +95,10 @@
 						<tr>
 							
 							<td align="left">{{$perito->corevat}}</td>
-							<td align="center">{{$perito->sumFoliosE('U')->autorizado}}</td>
-							<td align="center">{{$perito->sumFoliosE('R')->autorizado}}</td>
-							<td align="center">{{$perito->sumFoliosE('U')->entregado}}</td>
-							<td align="center">{{$perito->sumFoliosE('R')->entregado}}</td>
+							<td align="center">{{$perito->sumFoliosE('historial')->urbanos}}</td>
+							<td align="center">{{$perito->sumFoliosE('historial')->rusticos}}</td>
+							<td align="center">{{$perito->sumFoliosE('comprados', 'U')->entregado}}</td>
+							<td align="center">{{$perito->sumFoliosE('comprados','R')->entregado}}</td>
 							<td align="center">{{$perito->ultimaFechaE()}}</td>
 						</tr>
 					@endforeach
@@ -106,16 +106,16 @@
 				<tfoot>
 					<tr>
 						<td rowspan="2">Total</td>
-						<td>{{$perito->sumFoliosE('U', 'total')->autorizado}}</td>
-						<td>{{$perito->sumFoliosE('R', 'total')->autorizado}}</td>
-						<td>{{$perito->sumFoliosE('U', 'total')->entregado}}</td>
-						<td>{{$perito->sumFoliosE('R', 'total')->entregado}}</td>
+						<td>{{$perito->sumFoliosE('historial', null, 'total')->urbanos}}</td>
+						<td>{{$perito->sumFoliosE('historial', null, 'total')->rusticos}}</td>
+						<td>{{$perito->sumFoliosE('comprados', 'U', 'total')->entregado}}</td>
+						<td>{{$perito->sumFoliosE('comprados', 'R', 'total')->entregado}}</td>
 						<td rowspan="2"></td>
 					</tr>
 
 					<tr>
-						<td colspan="2">{{$perito->sumFoliosE('U', 'total')->autorizado+$perito->sumFoliosE('R', 'total')->autorizado}}</td>
-						<td colspan="2">{{$perito->sumFoliosE('U', 'total')->entregado+$perito->sumFoliosE('R', 'total')->entregado}}</td>
+						<td colspan="2">{{$perito->sumFoliosE('historial', null, 'total')->urbanos+$perito->sumFoliosE('historial', null, 'total')->rusticos}}</td>
+						<td colspan="2">{{$perito->sumFoliosE('comprados', 'U', 'total')->entregado+$perito->sumFoliosE('comprados', 'R', 'total')->entregado}}</td>
 					</tr>
 				</tfoot>
 		</table>																
