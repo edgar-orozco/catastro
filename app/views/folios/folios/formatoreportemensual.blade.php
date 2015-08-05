@@ -95,12 +95,12 @@
 			<tfoot>
 				<tr>
 					<td rowspan="2">Total</td>
-					<td>{{perito::All()[0]->sumFoliosE('U','total')->autorizado}}</td>
-					<td>{{perito::All()[0]->sumFoliosE('R','total')->autorizado}}</td>
+					<td>{{Perito::All()[0]->sumFoliosE('U','total')->autorizado}}</td>
+					<td>{{Perito::All()[0]->sumFoliosE('R','total')->autorizado}}</td>
 					<td colspan="2" rowspan="2"></td>
 				</tr>
 				<tr>
-					<td colspan="2">{{perito::All()[0]->sumFoliosE()->autorizado}}</td>
+					<td colspan="2">{{Perito::All()[0]->sumFoliosE()->autorizado}}</td>
 				</tr>
 			</tfoot>
 		</table>

@@ -359,6 +359,7 @@ class folios_FoliosController extends BaseController {
 		$totalF=$totalF['total'];
 		$vista = View::make('folios.folios.formatoreportemensual', compact('totalF'))->withFolios_historial($folios_historial);
 		$pdf = PDF::load($vista)->show();
+		
 		//load(variable, tamaño de hoja, orientacion landscape)
 		$response = Response::make($pdf, 200);
 		$response->header('Content-Type', 'application/pdf');
