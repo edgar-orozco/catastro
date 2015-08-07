@@ -2,11 +2,12 @@
 <hr>
 {{Form::model($row, ['route' => array('updateAvaluoInmueble', $idavaluo), 'class'=>'horizontal', 'method'=>'post', 'id'=>'formAvaluoInmueble', 'enctype'=>'multipart/form-data' ]) }}
 {{Form::hidden('idavaluoinmueble', $row->idavaluoinmueble, ['id'=>'idavaluoinmueble'])}}
+<div id="inmueblesCoverat">
 <div class="row">
 	<div class="col-md-12"><h4>Subir imagenes</h4></div>
 	<div class="col-md-6">
 		<hr>
-		<div class="input-group">
+		<div class="input-group addImage">
 			<span class="input-group-addon">{{Form::label('croquis', 'Croquis')}}</span>
 		{{Form::file('croquis',['class='=>'input-group']) }}	
 		@if ( $croquis != '' )
@@ -383,6 +384,7 @@
 </div>
 <div id="divDialogConfirm" style="display: none;">
 	<div class="alert alert-danger text-center"><h3>¿Realmente desea eliminar el registro?</h3></div>
+</div>
 </div>
 {{ HTML::style('/css/fileinput.min.css') }}
 @section('javascript')

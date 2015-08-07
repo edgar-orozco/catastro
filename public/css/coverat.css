@@ -101,3 +101,9 @@ h4{
     margin-left: 0px;
     left: 0;
 }
+
+
+#inmueblesCoverat .addImage input{
+    border-radius: 0;
+}
+}
