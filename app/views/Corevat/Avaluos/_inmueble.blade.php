@@ -5,6 +5,7 @@
 <div class="row">
 	<div class="col-md-12"><h4>Subir imagenes</h4></div>
 	<div class="col-md-6">
+		<hr>
 		<div class="input-group">
 			<span class="input-group-addon">{{Form::label('croquis', 'Croquis')}}</span>
 		{{Form::file('croquis',['class='=>'input-group']) }}	
@@ -12,6 +13,7 @@
 			<span class="input-group-btn"><a class="btn btn-success" type="button" target='_blank' href="{{$croquis}}">Ver Croquis</a></span>
 		@endif
 		</div>
+		<hr>
 	</div>
 	
 	<div class="col-md-6">
@@ -23,7 +25,6 @@
 			<span class="input-group-btn"><a class="btn btn-success" type="button" target='_blank' href="{{$fachada}}">Ver Fachada</a></span>
 		@endif
 		</div>
-		<hr>
 		<hr>
 	</div>
 
