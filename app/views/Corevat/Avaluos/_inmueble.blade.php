@@ -19,7 +19,7 @@
 	
 	<div class="col-md-6">
 		<hr>
-		<div class="input-group">
+		<div class="input-group addImage">
 			<span class="input-group-addon" id="basic-addon1">{{Form::label('fachada', 'Fachada')}}</span>
 		{{Form::file('fachada',['class='=>'input-group']) }}	
 		@if ( $fachada != '' )
