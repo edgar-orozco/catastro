@@ -28,10 +28,15 @@
 		<hr>
 	</div>
 
-	<div class="col-md-11"><h3>Medidas y Colindancias</h3></div>
-	<div class="col-md-1"><a class="btn nuevo" id="btnNew" title="Nuevo Avaluo">Nuevo</a></div>
 
-	<div class="col-md-12"><h4>Detalles de Medidas y Colindancias</h4></div>
+
+	<div class="col-md-12"><h3>Medidas y Colindancias</h3></div>
+	<div class="col-md-10"><h4>Detalles de Medidas y Colindancias</h4></div>
+    <div class="col-md-2">
+        <a class="btn nuevo" id="btnNew" title="Nuevo Avaluo">
+            <span class="glyphicon glyphicon-plus-sign"></span>Nuevo
+        </a>
+    </div>
 	<div class="col-md-12">
 		<table cellpadding="0" cellspacing="0" border="0" class="table datatable table-striped corevatDataTable" id="ai_medidas_colindanciase-table">
 			<thead>
