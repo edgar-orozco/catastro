@@ -102,8 +102,9 @@ h4{
     left: 0;
 }
 
-
+#inmueblesCoverat .input-group.addImage {
+    width: 100%;
+}
 #inmueblesCoverat .addImage input{
     border-radius: 0;
-}
 }
