@@ -226,6 +226,28 @@ $(function () {
                 $('#' + rfc.replace( /(:|\.|\[|\]|,)/g, "\\$1" )).val(ui.item.rfc);
                   var curpa = "adquiriente[curp]";
             $('#' + curpa.replace( /(:|\.|\[|\]|,)/g, "\\$1" )).val(ui.item.curp);
+
+            //datos domicilio
+             var tip_v = "adquirienteDomicilio[tipo_vialidad_id]";
+            $('#' + tip_v.replace( /(:|\.|\[|\]|,)/g, "\\$1" )).val(ui.item[0].tipo_vialidad_id);
+             var tip_v = "adquirienteDomicilio[vialidad]";
+            $('#' + tip_v.replace( /(:|\.|\[|\]|,)/g, "\\$1" )).val(ui.item[0].vialidad);
+             var tip_v = "adquirienteDomicilio[num_ext]";
+            $('#' + tip_v.replace( /(:|\.|\[|\]|,)/g, "\\$1" )).val(ui.item[0].num_ext);
+             var tip_v = "adquirienteDomicilio[num_int]";
+            $('#' + tip_v.replace( /(:|\.|\[|\]|,)/g, "\\$1" )).val(ui.item[0].num_int);
+             var tip_v = "adquirienteDomicilio[asentamiento]";
+            $('#' + tip_v.replace( /(:|\.|\[|\]|,)/g, "\\$1" )).val(ui.item[0].asentamiento);
+             var tip_v = "adquirienteDomicilio[cp]";
+            $('#' + tip_v.replace( /(:|\.|\[|\]|,)/g, "\\$1" )).val(ui.item[0].cp);
+             var tip_v = "adquirienteDomicilio[localidad]";
+            $('#' + tip_v.replace( /(:|\.|\[|\]|,)/g, "\\$1" )).val(ui.item[0].localidad);
+             var tip_v = "adquirienteDomicilio[municipio]";
+            $('#' + tip_v.replace( /(:|\.|\[|\]|,)/g, "\\$1" )).val(ui.item[0].municipio);
+             var tip_v = "adquirienteDomicilio[entidad]";
+            $('#' + tip_v.replace( /(:|\.|\[|\]|,)/g, "\\$1" )).val(ui.item[0].entidad);
+             var tip_v = "adquirienteDomicilio[referencia]";
+            $('#' + tip_v.replace( /(:|\.|\[|\]|,)/g, "\\$1" )).val(ui.item[0].referencia);
                     return false;
                 }
             };
@@ -266,14 +288,36 @@ $(function () {
                 $('#' + rfc.replace( /(:|\.|\[|\]|,)/g, "\\$1" )).val(ui.item.rfc);
                  var curpa = "enajenante[curp]";
             $('#' + curpa.replace( /(:|\.|\[|\]|,)/g, "\\$1" )).val(ui.item.curp);
+            //datos domicilio
+             var tip_v = "enajenanteDomicilio[tipo_vialidad_id]";
+            $('#' + tip_v.replace( /(:|\.|\[|\]|,)/g, "\\$1" )).val(ui.item[0].tipo_vialidad_id);
+             var tip_v = "enajenanteDomicilio[vialidad]";
+            $('#' + tip_v.replace( /(:|\.|\[|\]|,)/g, "\\$1" )).val(ui.item[0].vialidad);
+             var tip_v = "enajenanteDomicilio[num_ext]";
+            $('#' + tip_v.replace( /(:|\.|\[|\]|,)/g, "\\$1" )).val(ui.item[0].num_ext);
+             var tip_v = "enajenanteDomicilio[num_int]";
+            $('#' + tip_v.replace( /(:|\.|\[|\]|,)/g, "\\$1" )).val(ui.item[0].num_int);
+             var tip_v = "enajenanteDomicilio[asentamiento]";
+            $('#' + tip_v.replace( /(:|\.|\[|\]|,)/g, "\\$1" )).val(ui.item[0].asentamiento);
+             var tip_v = "enajenanteDomicilio[cp]";
+            $('#' + tip_v.replace( /(:|\.|\[|\]|,)/g, "\\$1" )).val(ui.item[0].cp);
+             var tip_v = "enajenanteDomicilio[localidad]";
+            $('#' + tip_v.replace( /(:|\.|\[|\]|,)/g, "\\$1" )).val(ui.item[0].localidad);
+             var tip_v = "enajenanteDomicilio[municipio]";
+            $('#' + tip_v.replace( /(:|\.|\[|\]|,)/g, "\\$1" )).val(ui.item[0].municipio);
+             var tip_v = "enajenanteDomicilio[entidad]";
+            $('#' + tip_v.replace( /(:|\.|\[|\]|,)/g, "\\$1" )).val(ui.item[0].entidad);
+             var tip_v = "enajenanteDomicilio[referencia]";
+            $('#' + tip_v.replace( /(:|\.|\[|\]|,)/g, "\\$1" )).val(ui.item[0].referencia);
+
                     return false;
                 }
             };
             //Se crea autocompleter de CURP
             var curpa = "enajenante[curp]";
-            $('#' + curpa.replace( /(:|\.|\[|\]|,)/g, "\\$1" )).autocomplete(autoCompleteOptsEnajenante).autocomplete("instance")._renderItem = function (ul, ui) {
+            $('#' + curpa.replace( /(:|\.|\[|\]|,)/g, "\\$1" )).autocomplete(autoCompleteOptsEnajenante).autocomplete("instance")._renderItem = function (ul, item) {
                 return $("<li>")
-                        .append("<a>" + ui.curp + "<br>" + "<span class='nombre-coincidencia'><i class='glyphicon glyphicon-user'></i><small> " + ui.nombrec + "</small><span></a>")
+                        .append("<a>" + item.curp + "<br>" + "<span class='nombre-coincidencia'><i class='glyphicon glyphicon-user'></i><small> " + item.nombrec + "</small><span></a>")
                         .appendTo(ul);
             };
             //Se crea autocompleter de RFC
