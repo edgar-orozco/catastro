@@ -666,17 +666,30 @@ $registro->estado_conserv=Input::get('estado_conserv');
         return $response;
     }
 
-        public
+  public
     function getEnajenante()
     {
         $q = Input::get('term');
         if (Request::ajax()) {
-            $datos=personas::getPorCurpRFC($q);
-            $idp=$datos[0]['id_p'];
+            $persona=personas::getPorCurpRFC($q);
+
+            $idp=$persona[0]['id_p'];
             $dir= RegistroEscritura::where('enajenante_id', $idp)->orWhere('adquiriente_id',$idp)->pluck('dir_enajenante_id');
-            $dom = Domicilio::where('id',$dir)->get();
-            $datos->domicilio = $dom;
-            return $datos;
+            $domicilio = Domicilio::where('id',$dir)->get();
+           
+
+            //$persona->domicilio->$domicilio; dd($persona);
+        $persona=json_decode($persona,true);
+        $domicilio=json_decode($domicilio,true);
+
+foreach ($domicilio as $clave=>$valor)
+        {
+         $persona[0][$clave]=$valor;
+        }
+// dd($domicilio);
+//dd($persona);
+  return json_encode($persona);
+
         }
     }
 
@@ -686,7 +699,23 @@ $registro->estado_conserv=Input::get('estado_conserv');
     {
         $q = Input::get('term');
         if (Request::ajax()) {
-            return personas::getPorCurpRFC($q);
+            $persona = personas::getPorCurpRFC($q);
+
+             $idp=$persona[0]['id_p'];
+            $dir= RegistroEscritura::where('enajenante_id', $idp)->orWhere('adquiriente_id',$idp)->pluck('dir_enajenante_id');
+            $domicilio = Domicilio::where('id',$dir)->get();
+
+            //$persona->domicilio->$domicilio; dd($persona);
+        $persona=json_decode($persona,true);
+        $domicilio=json_decode($domicilio,true);
+
+foreach ($domicilio as $clave=>$valor)
+        {
+         $persona[0][$clave]=$valor;
+        }
+
+//dd($persona);
+  return json_encode($persona);
         }
     }
 
