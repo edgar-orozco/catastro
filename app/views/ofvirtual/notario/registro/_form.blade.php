@@ -246,13 +246,13 @@ $(function () {
             //por default es persona física por lo que el autocomplete lo deshabilitamos
             $('#' + rfc.replace( /(:|\.|\[|\]|,)/g, "\\$1" )).autocomplete("disable");
 
-            
 
             //Estas son las opciones con las que se construye el autocomplete, como son comunes a los dos inputs rfc y curp se sacan para reutlizar
             var autoCompleteOptsEnajenante = {
                 source: "/ofvirtual/notario/registro/enajenante", //Ruta al controlador que provee los resultados de la busqueda
                 minLength: 8, //Empezamos a mandar los teclazos si han tecleado 8 caracteres
                 select: function (event, ui) {
+                    console.log(ui.item)
                     //Al seleccionar un valor de los desplegados rellenamos los campos
                 var res = "enajenante[id_p]";
                 $('#' + res.replace( /(:|\.|\[|\]|,)/g, "\\$1" )).val(ui.item.id_p);
@@ -271,9 +271,9 @@ $(function () {
             };
             //Se crea autocompleter de CURP
             var curpa = "enajenante[curp]";
-            $('#' + curpa.replace( /(:|\.|\[|\]|,)/g, "\\$1" )).autocomplete(autoCompleteOptsEnajenante).autocomplete("instance")._renderItem = function (ul, item) {
+            $('#' + curpa.replace( /(:|\.|\[|\]|,)/g, "\\$1" )).autocomplete(autoCompleteOptsEnajenante).autocomplete("instance")._renderItem = function (ul, ui) {
                 return $("<li>")
-                        .append("<a>" + item.curp + "<br>" + "<span class='nombre-coincidencia'><i class='glyphicon glyphicon-user'></i><small> " + item.nombrec + "</small><span></a>")
+                        .append("<a>" + ui.curp + "<br>" + "<span class='nombre-coincidencia'><i class='glyphicon glyphicon-user'></i><small> " + ui.nombrec + "</small><span></a>")
                         .appendTo(ul);
             };
             //Se crea autocompleter de RFC

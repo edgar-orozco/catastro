@@ -3,7 +3,7 @@
 
 
         <div class="alert alert-success" id="dominio-eliminado" style="display: none;">
-            <h4><span class="glyphicon glyphicon-ok"></span> Se eliminó correctamente el traslado de dominio.</h4>
+            <h4><span class="glyphicon glyphicon-ok"></span> Se eliminó correctamente el registro de escritura.</h4>
         </div>
 
         @if(count($registros) == 0)

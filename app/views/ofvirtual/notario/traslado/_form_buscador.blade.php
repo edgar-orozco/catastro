@@ -1,4 +1,4 @@
-{{ Form::open(array('url' => 'ofvirtual/notario/traslado/buscar', 'method' => 'POST', 'name' => 'forma-buscador', 'id'=>'forma-buscador')) }}
+{{ Form::open(array('url' => 'ofvirtual/notario/registro/buscar', 'method' => 'POST', 'name' => 'forma-buscador', 'id'=>'forma-buscador')) }}
 
     <div class="input-group">
                 <span class="input-group-addon">

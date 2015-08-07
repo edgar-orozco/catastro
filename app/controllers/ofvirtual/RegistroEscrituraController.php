@@ -49,7 +49,7 @@ protected $padron;
 
 		$municipio = Municipio::orderBy('nombre_municipio', 'ASC')->lists('nombre_municipio', 'municipio');
 
-        return View:: make('ofvirtual.notario.registro.index', compact('title', 'title_section', 'subtitle_section', 'traslados', 'municipios','registros','municipio','notaria'));
+        return View:: make('ofvirtual.notario.registro.index', compact('title', 'title_section', 'subtitle_section', 'municipios','registros','municipio','notaria'));
 
 	}
 
@@ -225,7 +225,7 @@ $registro->save();
         $registro->colindancia()->saveMany($Colindancias);
 
         //Dado que fue exitosa la creacion del traslado,  mostramos la salida al usuario.
-        return Redirect::to('ofvirtual/notario/registro/show/' . $registro->id)->with('success', '¡Se ha creado correctamente el traslado de dominio para la cuenta ' . $registro->cuenta . '!');
+        return Redirect::to('ofvirtual/notario/registro/show/' . $registro->id)->with('success', '¡Se ha creado correctamente el registro de escritura para la cuenta ' . $registro->cuenta . '!');
 
 	}
 
@@ -238,50 +238,50 @@ $registro->save();
 	 */
 	public function buscar()
 	{
-		$q = Input::get('q');
-        $tipo = Input::get('tipo');
+		echo 'q'.$q = Input::get('q');
+        echo 'tipo'.$tipo = Input::get('tipo');
 
-        $traslados = new RegistroEscritura();
+        $registros = new RegistroEscritura();
 
         if ($tipo == 'Folio') {
-            $traslados = RegistroEscritura::whereFolio($q)->paginate($this->numPags);
+            $registros = RegistroEscritura::whereFolio($q)->paginate($this->numPags);
         }
         if ($tipo == 'Enajenante') {
-            $traslados = RegistroEscritura::enajenanteNombreCompleto(strtoupper($q))->paginate($this->numPags);
+            $registros = RegistroEscritura::enajenanteNombreCompleto(strtoupper($q))->paginate($this->numPags);
         }
         if ($tipo == 'Adquiriente') {
-            $traslados = RegistroEscritura::adquirienteNombreCompleto(strtoupper($q))->paginate($this->numPags);
+            $registros = RegistroEscritura::adquirienteNombreCompleto(strtoupper($q))->paginate($this->numPags);
         }
         if ($tipo == 'Ubicación de la propiedad') {
 
             $ubicaciones = RegistroEscritura::ubicacion(strtoupper(trim($q)))->paginate($this->numPags);
 
-            $trasladosArr = array();
+            $registrosArr = array();
             foreach ($ubicaciones as $ubicacion) {
                 try {
-                    $trasladosArr[] = RegistroEscritura::find($ubicacion->id);
+                    $registrosArr[] = RegistroEscritura::find($ubicacion->id);
                 } catch (Exception $e) {
                 }
 
             }
-            $traslados = $trasladosArr;
+            $registros = $registrosArr;
 
             //
         }
         if ($tipo == 'Clave') {
-            $traslados = RegistroEscritura::whereClave($q)->paginate($this->numPags);
+            $registros = RegistroEscritura::whereClave($q)->paginate($this->numPags);
         }
         if ($tipo == 'Cuenta') {
-            $traslados = RegistroEscritura::whereCuenta($q)->paginate($this->numPags);
+            $registros = RegistroEscritura::whereCuenta($q)->paginate($this->numPags);
         }
         if ($tipo == 'Seguimiento') {
-            $traslados = RegistroEscritura::whereSeguimiento($q)->paginate($this->numPags);
+            $registros = RegistroEscritura::whereSeguimiento($q)->paginate($this->numPags);
     }
         if (Request::ajax()) {
-            return View:: make('ofvirtual.notario.traslado._list', compact(['traslados']));
+            return View:: make('ofvirtual.notario.registro._list', compact(['registros']));
         }
 
-        return $traslados;
+        return $registros;
 	}
 
 
@@ -671,7 +671,12 @@ $registro->estado_conserv=Input::get('estado_conserv');
     {
         $q = Input::get('term');
         if (Request::ajax()) {
-            return personas::getPorCurpRFC($q);
+            $datos=personas::getPorCurpRFC($q);
+            $idp=$datos[0]['id_p'];
+            $dir= RegistroEscritura::where('enajenante_id', $idp)->orWhere('adquiriente_id',$idp)->pluck('dir_enajenante_id');
+            $dom = Domicilio::where('id',$dir)->get();
+            $datos->domicilio = $dom;
+            return $datos;
         }
     }
 
