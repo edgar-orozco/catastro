@@ -120,3 +120,6 @@ h4{
     color: white;
     width: 100%;
 }
+#inmueblesCoverat .btn-beside-title a span{
+    padding-right: 10px;
+}

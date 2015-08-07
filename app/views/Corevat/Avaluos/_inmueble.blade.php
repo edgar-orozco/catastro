@@ -34,7 +34,7 @@
 	<div class="col-md-10"><h4>Detalles de Medidas y Colindancias</h4></div>
     <div class="col-md-2 btn-beside-title">
         <a class="btn nuevo" id="btnNew" title="Nuevo Avaluo">
-            <span class="glyphicon glyphicon-plus-sign"></span>Nuevo
+            <span class="glyphicon glyphicon-plus-sign"></span> Nuevo
         </a>
     </div>
 	<div class="col-md-12">
