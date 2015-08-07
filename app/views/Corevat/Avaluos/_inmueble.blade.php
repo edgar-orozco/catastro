@@ -1,5 +1,4 @@
 <h3 class="header">{{$title}}</h3>
-<hr>
 {{Form::model($row, ['route' => array('updateAvaluoInmueble', $idavaluo), 'class'=>'horizontal', 'method'=>'post', 'id'=>'formAvaluoInmueble', 'enctype'=>'multipart/form-data' ]) }}
 {{Form::hidden('idavaluoinmueble', $row->idavaluoinmueble, ['id'=>'idavaluoinmueble'])}}
 <div id="inmueblesCoverat">
