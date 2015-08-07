@@ -3,7 +3,7 @@
 {{Form::model($row, ['route' => array('updateAvaluoInmueble', $idavaluo), 'class'=>'horizontal', 'method'=>'post', 'id'=>'formAvaluoInmueble', 'enctype'=>'multipart/form-data' ]) }}
 {{Form::hidden('idavaluoinmueble', $row->idavaluoinmueble, ['id'=>'idavaluoinmueble'])}}
 <div class="row">
-	<div class="col-md-12 bg-primary"><h4>Subir imagenes</h4></div>
+	<div class="col-md-12"><h4>Subir imagenes</h4></div>
 	<div class="col-md-6">
 		<hr>
 		<div class="input-group">
@@ -30,7 +30,7 @@
 	</div>
 
 	<div class="col-md-11"><h3>Medidas y Colindancias</h3></div>
-	<div class="col-md-1"><a class="btn btn-primary nuevo" id="btnNew" title="Nuevo Avaluo">Nuevo</a></div>
+	<div class="col-md-1"><a class="btn nuevo" id="btnNew" title="Nuevo Avaluo">Nuevo</a></div>
 
 	<div class="col-md-12 bg-primary"><h4>Detalles de Medidas y Colindancias</h4></div>
 	<div class="col-md-12">
@@ -58,7 +58,7 @@
 	<div class="col-md-12">&nbsp;</div>
 	<hr>
 
-	<div class="col-md-12 bg-primary"><h4>Características de la Construcción</h4></div>
+	<div class="col-md-12"><h4>Características de la Construcción</h4></div>
 
 	<div class="col-md-12">&nbsp;</div>
 	<div class="col-md-12">
@@ -127,7 +127,7 @@
 	</div>
 	<div class="col-md-12">&nbsp;</div>
 
-	<div class="col-md-12 bg-primary">
+	<div class="col-md-12">
 		<h4>Acabados</h4>
 	</div>
 	<div class="col-md-12">&nbsp;</div>
@@ -244,7 +244,7 @@
 	</div>
 	<div class="col-md-12">&nbsp;</div>
 
-	<div class="col-md-12 bg-primary">
+	<div class="col-md-12">
 		<h4>Otros datos</h4>
 	</div>
 	<div class="col-md-12">&nbsp;</div>
@@ -273,7 +273,7 @@
 	</div>
 	<div class="col-md-12">&nbsp;</div>
 
-	<div class="col-md-12 bg-primary">
+	<div class="col-md-12">
 		<h4>Superficies </h4>
 	</div>
 	<div class="col-md-12">&nbsp;</div>
