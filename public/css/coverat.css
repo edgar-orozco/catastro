@@ -111,7 +111,7 @@ h4{
 
 #inmueblesCoverat .btn-beside-title{
     margin-top: 10px;
-    background: #9E9E9E;
+    margin-left: -15px;
 }
 #inmueblesCoverat .btn-beside-title a {
     height: 58px;
@@ -119,6 +119,10 @@ h4{
     text-align: center;
     color: white;
     width: 100%;
+    background: #9E9E9E;
+}
+#inmueblesCoverat .btn-beside-title a:hover{
+    background: #CAC9C9;
 }
 #inmueblesCoverat .btn-beside-title a span{
     padding-right: 10px;
