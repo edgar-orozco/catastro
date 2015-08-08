@@ -141,3 +141,6 @@ h4{
 .ui-widget-content{
     border-radius: 10px;
 }
+.ui-widget-content .ui-widget-header{
+    background: none;
+}
