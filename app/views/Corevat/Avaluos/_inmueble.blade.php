@@ -31,8 +31,8 @@
 
 
 	<div class="col-md-12"><h3>Medidas y Colindancias</h3></div>
-	<div class="col-md-10"><h4>Detalles de Medidas y Colindancias</h4></div>
-    <div class="col-md-2 btn-beside-title">
+	<div class="col-md-10 col-sm-10"><h4>Detalles de Medidas y Colindancias</h4></div>
+    <div class="col-md-2 col-sm-2 btn-beside-title">
         <a class="btn nuevo" id="btnNew" title="Nuevo Avaluo">
             <span class="glyphicon glyphicon-plus-sign"></span> Nuevo
         </a>
