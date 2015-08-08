@@ -32,6 +32,7 @@
                 Nuevo Avalúo
             </a>
         </div>
+        <div class="clearfix"></div>
     </div>
     <br/>
     <br/>
