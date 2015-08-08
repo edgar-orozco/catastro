@@ -132,3 +132,12 @@ h4{
 #inmueblesCoverat .dataTables_length{
     padding: 32px 0;
 }
+
+
+
+
+/* Alerts */
+
+.ui-widget-content{
+    border-radius: 10px;
+}
