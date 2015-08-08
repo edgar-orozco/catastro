@@ -129,9 +129,15 @@ h4{
 .btn-beside-title a span{
     padding-right: 10px;
 }
+#listAvaluos .btn-beside-title{
+    margin-top: 0;
+}
 #inmueblesCoverat .dataTables_length{
     padding: 32px 0;
 }
+
+
+
 
 
 
