@@ -116,6 +116,7 @@ h4{
 }
 .btn-beside-title a {
     height: 58px;
+    border: none;
     line-height: 47px;
     text-align: center;
     color: white;
