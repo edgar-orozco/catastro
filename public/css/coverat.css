@@ -109,12 +109,12 @@ h4{
     border-radius: 0;
 }
 
-#inmueblesCoverat .btn-beside-title{
+.btn-beside-title{
     margin-top: 10px;
     margin-left: -15px;
     padding: 0;
 }
-#inmueblesCoverat .btn-beside-title a {
+.btn-beside-title a {
     height: 58px;
     line-height: 47px;
     text-align: center;
@@ -123,10 +123,10 @@ h4{
     border-radius: 0;
     background: #9E9E9E;
 }
-#inmueblesCoverat .btn-beside-title a:hover{
+.btn-beside-title a:hover{
     background: #CAC9C9;
 }
-#inmueblesCoverat .btn-beside-title a span{
+.btn-beside-title a span{
     padding-right: 10px;
 }
 #inmueblesCoverat .dataTables_length{

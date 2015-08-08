@@ -19,12 +19,12 @@
     <div class="col-md-6 col-sm-6 col-xs-6">
         <h4 class="panel-title">Tabla de Avalúos</h4>
     </div>
-    <div class="col-md-3 col-sm-3 col-xs-3">
+    <div class="col-md-3 col-sm-3 col-xs-3 btn-beside-title">
         <a href="{{action('printAvaluosByValuador')}}" class="btn btn-primary nuevo" title="Avalúos por Valuador">
             Avalúos por Valuador
         </a>
     </div>
-    <div class="col-md-3 col-sm-3 col-xs-3">
+    <div class="col-md-3 col-sm-3 col-xs-3 btn-beside-title">
         <a href="{{action('corevat_AvaluosController@create')}}" class="btn btn-primary nuevo" title="Nuevo Avalúo">
             Nuevo Avalúo
         </a>
