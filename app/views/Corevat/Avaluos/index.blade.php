@@ -33,6 +33,8 @@
             </a>
         </div>
     </div>
+    <br/>
+    <br/>
     <div class="panel-body">
         <table cellpadding="0" cellspacing="0" border="0" class="table datatable  table-striped" id="avaluos-table">
             <thead>
