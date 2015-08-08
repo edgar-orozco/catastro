@@ -3,13 +3,33 @@
 {{ HTML::style('/css/bootstrap.min.css') }}
 {{ HTML::style('/css/dataTables.bootstrap.css') }}
 {{ HTML::style('/js/jquery/jquery-ui.css') }}
+{{ HTML::style('/css/coverat.css') }}
 <div class="row">
-	<div class="col-md-8"><h1>Avalúos</h1></div>
-	<div class="col-md-2"><h3><a href="{{action('printAvaluosByValuador')}}" class="btn btn-primary nuevo" title="Avalúos por Valuador">Avalúos por Valuador</a></h3></div>
-	<div class="col-md-2"><h3><a href="{{action('corevat_AvaluosController@create')}}" class="btn btn-primary nuevo" title="Nuevo Avalúo">Nuevo Avalúo</a></h3></div>
-	<hr>
+	<div class="col-md-8">
+        <h3>
+            Avalúos
+        </h3></div>
+	<div class="col-md-2">
+        <h3>
+
+        </h3>
+    </div>
 </div>
-<div class="panel-heading"><h4 class="panel-title">Tabla de Avalúos</h4></div>
+<div class="panel-heading">
+    <div class="col-md-6 col-sm-6 col-xs-6">
+        <h4 class="panel-title">Tabla de Avalúos</h4>
+    </div>
+    <div class="col-md-3 col-sm-3 col-xs-3">
+        <a href="{{action('printAvaluosByValuador')}}" class="btn btn-primary nuevo" title="Avalúos por Valuador">
+            Avalúos por Valuador
+        </a>
+    </div>
+    <div class="col-md-3 col-sm-3 col-xs-3">
+        <a href="{{action('corevat_AvaluosController@create')}}" class="btn btn-primary nuevo" title="Nuevo Avalúo">
+            Nuevo Avalúo
+        </a>
+    </div>
+</div>
 <div class="panel-body">
 	<table cellpadding="0" cellspacing="0" border="0" class="table datatable  table-striped" id="avaluos-table">
 		<thead>
