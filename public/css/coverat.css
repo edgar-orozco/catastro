@@ -142,5 +142,12 @@ h4{
     border-radius: 10px;
 }
 .ui-widget-content .ui-widget-header{
+    border: none;
     background: none;
+}
+.ui-widget-content .ui-dialog .ui-dialog-buttonpane{
+    border: none;
+}
+.ui-widget-content .ui-dialog .ui-dialog-content h3{
+    font-size: 18px;
 }
