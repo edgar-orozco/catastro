@@ -130,6 +130,17 @@ h4{
 .btn-beside-title a span{
     padding-right: 10px;
 }
+
+table td, table th{
+    font-size: 12px !important;
+}
+
+table th{
+    background: #808080;
+    border: 1px solid #808080;
+}
+
+
 #listAvaluos .btn-beside-title{
     margin-top: 0;
 }
