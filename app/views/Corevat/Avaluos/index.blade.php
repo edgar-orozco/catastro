@@ -26,7 +26,7 @@
                 Avalúos por Valuador
             </a>
         </div>
-        <div class="col-md-2 col-sm-2 col-xs-2 btn-beside-title">
+        <div class="col-md-2 col-sm-2 col-xs-2 btn-beside-title" style="border-left:1px solid gray;">
             <a href="{{action('corevat_AvaluosController@create')}}" class="btn btn-primary nuevo" title="Nuevo Avalúo">
                 <span class="glyphicon glyphicon-plus-sign"></span>
                 Nuevo Avalúo
