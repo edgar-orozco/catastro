@@ -132,7 +132,7 @@ h4{
 }
 
 table td, table th{
-    padding: 0;
+    padding: 0 !important;
     vertical-align: middle !important;
     font-size: 12px !important;
     text-align: center !important;
