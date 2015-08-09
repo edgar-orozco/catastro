@@ -55,7 +55,7 @@
             <tbody>
             @foreach ($rows as $row)
                 <tr>
-                    <td><a href="{{ action('corevat_AvaluosController@editGeneral', ['id'=>$row->idavaluo] )}}" class="btn btn-xs btn-info" title="Editar">{{$row->idavaluo}}</a></td>
+                    <td class="idEdit"><a href="{{ action('corevat_AvaluosController@editGeneral', ['id'=>$row->idavaluo] )}}" class="btn btn-xs btn-info" title="Editar">{{$row->idavaluo}}</a></td>
                     <td>{{$row->foliocoretemp}}</td>
                     <td>{{$row->fecha_avaluo}}</td>
                     <td>{{$row->nombre_solicitante}}</td>
