@@ -16,7 +16,7 @@
             </h3>
         </div>
     </div>
-    <div class="panel-heading">
+    <div class="panel-heading" style="padding: 0;">
         <div class="col-md-7 col-sm-7 col-xs-7">
             <h4 class="panel-title">Tabla de Avalúos</h4>
         </div>
