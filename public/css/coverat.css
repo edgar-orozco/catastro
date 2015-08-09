@@ -139,6 +139,7 @@ table td, table th{
 }
 
 table th{
+    padding: 10px 0 !important;
     background: #808080;
     border: 1px solid #CACACA !important;
     color: white;
