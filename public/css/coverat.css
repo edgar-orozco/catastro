@@ -134,13 +134,13 @@ h4{
 table td, table th{
     vertical-align: middle !important;
     font-size: 12px !important;
+    text-align: center !important;
 }
 
 table th{
     background: #808080;
     border: 1px solid #CACACA !important;
     color: white;
-    text-align: center;
     font-weight: 300;
 }
 
