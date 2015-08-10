@@ -1,9 +1,28 @@
 @extends('layouts.default')
 @section('content')
 {{ HTML::style('/css/bootstrap.min.css') }}
-{{ HTML::style('/css/dataTables.bootstrap.css') }}
-{{ HTML::style('/css/coverat.css') }}
+{{ HTML::style('/css/dataTables/dataTables.css') }}
 {{ HTML::style('/js/jquery/jquery-ui.css') }}
+{{ HTML::style('/css/coverat.css') }}
+
+<div class="modal fade" id="corevatConfirm" role="dialog" tabindex="-1">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+				<h4 class="modal-title">[COREVAT] Mensaje de confirmación</h4>
+			</div>
+			<div class="modal-body" style="min-height: 200px; text-align: center;">
+				<h3 id="corevatConfirmContainer"></h3>
+				<div class="alert" role="alert" id="corevatConfirmMessage"></div>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+				<button type="button" class="btn btn-primary" id="corevatConfirmButton" ctrl="" idTable="">Aceptar</button>
+			</div>
+		</div>
+	</div>
+</div>
 	<h1>Avalúos</h1>
 	<hr>
 	<div id="menuAvaluosSections">
