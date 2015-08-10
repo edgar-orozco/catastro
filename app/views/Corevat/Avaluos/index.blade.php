@@ -70,6 +70,19 @@
                         <a href="/corevat/AvaluoPrint/{{$row->idavaluo}}" target="_blank" class="print btn btn-xs btn-info" title="Imprimir"><i class="glyphicon glyphicon-print"></i></a>
                     </td>
                 </tr>
+                <tr>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
             @endforeach
             </tbody>
         </table>
