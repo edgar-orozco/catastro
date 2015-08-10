@@ -44,6 +44,7 @@
 	<div class="col-md-12"><hr></div>
 
 	<div class="col-md-12"><h4>DE LA CONSTRUCCIÓN</h4></div>
+    <div class="clearfix"></div>
     <br/>
     <br/>
 	<div class="col-md-3">
