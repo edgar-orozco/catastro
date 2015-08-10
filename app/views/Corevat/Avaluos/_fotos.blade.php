@@ -6,6 +6,9 @@
 	<div class="col-md-12">
         <h4>Fotos</h4>
     </div>
+    <div class="clearfix"></div>
+    <br/>
+    <br/>
 	<div class="col-md-5">
 		<div class="input-group">
 			<span class="input-group-addon">{{Form::label('foto0', 'Fotos')}}</span>
@@ -41,7 +44,6 @@
 
 <div class="row">
 	<div class="col-md-5">
-		<hr>
 		<div class="input-group">
 			<span class="input-group-addon">{{Form::label('foto2', 'Fotos')}}</span>
 		{{Form::file('foto2', ['id'=>'foto2', 'class'=>'filesCorevat']) }}	
@@ -52,7 +54,6 @@
 	</div>
 	<div class="col-md-2">&nbsp;</div>
 	<div class="col-md-5">
-		<hr>
 		<div class="input-group">
 			<span class="input-group-addon">{{Form::label('foto3', 'Fotos')}}</span>
 		{{Form::file('foto3', ['id'=>'foto3', 'class'=>'filesCorevat']) }}	
