@@ -7,7 +7,6 @@
         <h4>Fotos</h4>
     </div>
 	<div class="col-md-5">
-		<hr>
 		<div class="input-group">
 			<span class="input-group-addon">{{Form::label('foto0', 'Fotos')}}</span>
 		{{Form::file('foto0', ['id'=>'foto0', 'class'=>'filesCorevat']) }}	
@@ -15,11 +14,9 @@
 			<span class="input-group-btn"><a class="btn btn-success" type="button" target='_blank' href="{{$foto0}}">Ver Foto 1</a></span>
 		@endif
 		</div>
-		<hr>
 	</div>
 	<div class="col-md-2">&nbsp;</div>
 	<div class="col-md-5">
-		<hr>
 		<div class="input-group">
 			<span class="input-group-addon">{{Form::label('foto1', 'Fotos')}}</span>
 		{{Form::file('foto1', ['id'=>'foto1', 'class'=>'filesCorevat']) }}	
@@ -27,7 +24,6 @@
 			<span class="input-group-btn"><a class="btn btn-success" type="button" target='_blank' href="{{$foto1}}">Ver Foto 2</a></span>
 		@endif
 		</div>
-		<hr>
 	</div>
 </div>
 <div class="row" style="margin-top: 10px;">
@@ -53,7 +49,6 @@
 			<span class="input-group-btn"><a class="btn btn-success" type="button" target='_blank' href="{{$foto2}}">Ver Foto 3</a></span>
 		@endif
 		</div>
-		<hr>
 	</div>
 	<div class="col-md-2">&nbsp;</div>
 	<div class="col-md-5">
@@ -65,7 +60,6 @@
 			<span class="input-group-btn"><a class="btn btn-success" type="button" target='_blank' href="{{$foto3}}">Ver Foto 4</a></span>
 		@endif
 		</div>
-		<hr>
 	</div>
 </div>
 <div class="row" style="margin-top: 10px;">
@@ -83,7 +77,7 @@
 
 <div class="row">
 	<div class="col-md-5">
-		<hr>
+
 		<div class="input-group">
 			<span class="input-group-addon">{{Form::label('foto4', 'Fotos')}}</span>
 		{{Form::file('foto4', ['id'=>'foto4', 'class'=>'filesCorevat']) }}	
@@ -91,11 +85,10 @@
 			<span class="input-group-btn"><a class="btn btn-success" type="button" target='_blank' href="{{$foto4}}">Ver Foto 5</a></span>
 		@endif
 		</div>
-		<hr>
 	</div>
 	<div class="col-md-2">&nbsp;</div>
 	<div class="col-md-5">
-		<hr>
+
 		<div class="input-group">
 			<span class="input-group-addon">{{Form::label('foto5', 'Fotos')}}</span>
 		{{Form::file('foto5', ['id'=>'foto5', 'class'=>'filesCorevat']) }}	
@@ -103,7 +96,7 @@
 			<span class="input-group-btn"><a class="btn btn-success" type="button" target='_blank' href="{{$foto5}}">Ver Foto 6</a></span>
 		@endif
 		</div>
-		<hr>
+
 	</div>
 </div>
 <div class="row" style="margin-top: 10px;">
@@ -117,8 +110,6 @@
 		{{Form::text('ftitulo5', $row->ftitulo5, ['class'=>'form-control', 'maxlength'=>'200'] )}}
 	</div>
 </div>
-<hr>
-
 <div class="row">
 	<div class="col-md-12"><h4>Plano</h4></div>
 	<div class="col-md-5">
