@@ -33,10 +33,10 @@
 			</tbody>
 			<tfoot>
 				<tr>
-					<td class="bg-primary" colspan="7">&nbsp;</td>
-					<td class="bg-primary" colspan="3" style="text-align: right;">Valor del Terreno:</td>
+					<td class="bg-default" colspan="7">&nbsp;</td>
+					<td class="bg-default" colspan="3" style="text-align: right;">Valor del Terreno:</td>
 					<td class="bg-info" colspan="3" style="text-align: right;" id="valor_terreno">{{number_format($row->valor_terreno, 2, ".", ",")}}</td>
-					<td class="bg-primary"></td>
+					<td class="bg-default"></td>
 				</tr>
 			</tfoot>
 		</table>
@@ -112,12 +112,13 @@
 			</tbody>
 			<tfoot>
 				<tr>
-					<td class="bg-primary" colspan="4" style="text-align: right;">Total Metros Construcción</td>
+					<td class="bg-default" colspan="4" style="text-align: right;">Total Metros Construcción</td>
 					<td class="bg-info" style="text-align: right;" id="total_metros_construccion">{{number_format($row->total_metros_construccion, 2, ".", ",")}}</td>
-					<td class="bg-primary" colspan="2"></td>
-					<td class="bg-primary" colspan="3" style="text-align: right;">Valor del Terreno</td>
+					<td class="bg-default" colspan="2"></td>
+					<td class="bg-default" colspan="3" style="text-align: right;">Valor del Terreno</td>
 					<td class="bg-info" style="text-align: right;" id="valor_construccion">{{number_format($row->valor_construccion, 2, ".", ",")}}</td>
-					<td class="bg-primary"></td>
+					<td class="bg-default"></td>
+                </tr>
 			</tfoot>
 		</table>
 	</div>
@@ -149,10 +150,10 @@
 			</tbody>
 			<tfoot>
 				<tr>
-					<td class="bg-primary" colspan="8" style="text-align: right;">Valor del Área</td>
+					<td class="bg-default" colspan="8" style="text-align: right;">Valor del Área</td>
 					<td class="bg-info" colspan="2" style="text-align: right;" id="subtotal_area_condominio">{{number_format($row->subtotal_area_condominio, 2, ".", ",")}}</td>
-					<td class="bg-primary" colspan="2"></td>
-					<td class="bg-primary" colspan="2"></td>
+					<td class="bg-default" colspan="2"></td>
+					<td class="bg-default" colspan="2"></td>
 				</tr>
 			</tfoot>
 		</table>
@@ -186,10 +187,10 @@
 			</tbody>
 			<tfoot>
 				<tr>
-					<td class="bg-primary" colspan="8" style="text-align: right;">Valor del Área</td>
+					<td class="bg-default" colspan="8" style="text-align: right;">Valor del Área</td>
 					<td class="bg-info" colspan="2" style="text-align: right;" id="subtotal_instalaciones_especiales">{{number_format($row->subtotal_instalaciones_especiales, 2, ".", ",")}}</td>
-					<td class="bg-primary" colspan="2"></td>
-					<td class="bg-primary" colspan="2"></td>
+					<td class="bg-default" colspan="2"></td>
+					<td class="bg-default" colspan="2"></td>
 				</tr>
 			</tfoot>
 		</table>
