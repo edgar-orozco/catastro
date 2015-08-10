@@ -3,7 +3,9 @@
 {{ Form::model($row, ['route' => array('updateAvaluoFotos', $row->idavaluo), 'method'=>'post', 'id'=>'formAvaluoFotos', 'enctype'=>'multipart/form-data' ]) }}
 {{Form::hidden('idavaluofotosplano', $row->idavaluofotosplano)}}
 <div class="row">
-	<div class="col-md-12"><h3>Fotos</h3></div>
+	<div class="col-md-12">
+        <h4>Fotos</h4>
+    </div>
 	<div class="col-md-5">
 		<hr>
 		<div class="input-group">
@@ -118,7 +120,7 @@
 <hr>
 
 <div class="row">
-	<div class="col-md-12"><h3>Plano</h3></div>
+	<div class="col-md-12"><h4>Plano</h4></div>
 	<div class="col-md-5">
 		<hr>
 		<div class="input-group">
