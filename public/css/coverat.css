@@ -157,7 +157,9 @@ table th{
 }
 
 
-
+.dataTables_length{
+    padding: 20px 0;
+}
 
 
 
