@@ -140,7 +140,7 @@
 	</div>
 	<div class="col-md-12">&nbsp;</div>
 
-	<div class="col-md-12"><h3>Análisis por Homologación de Mercado</h3></div>
+	<div class="col-md-12"><h4>Análisis por Homologación de Mercado</h4></div>
 	<div class="col-md-12">
 		<table cellpadding="0" cellspacing="0" border="0" class="table datatable table-striped" id="aemAnalisisDataTable">
 			<thead>
