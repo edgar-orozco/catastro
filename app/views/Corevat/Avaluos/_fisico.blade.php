@@ -43,7 +43,7 @@
 	</div>
 	<div class="col-md-12"><hr></div>
 
-	<div class="col-md-11"><h4>DE LA CONSTRUCCIÓN</h3></div>
+	<div class="col-md-12"><h4>DE LA CONSTRUCCIÓN</h4></div>
 	<div class="col-md-3">
 		{{Form::label('idclasegeneralinmueble', 'Clase General')}}
 		{{Form::select('idclasegeneralinmueble', $cat_clase_general_inmueble, $row->idclasegeneral, ['id' => 'idclasegeneralinmueble', 'class'=>'form-control'])}}
