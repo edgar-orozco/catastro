@@ -261,6 +261,10 @@ class AvaluosInmueble extends \Eloquent {
 		$row->modi_por = Auth::id();
 		$row->modi_el = date('Y-m-d H:i:s');
 		$row->save();
+		
+		// ACTUALIZAR aem_comp_terrenos, aem_homologacion
+		AemHomologacion::updAemHomologacionCascade($idavaluo);
+		
 		AvaluosInmueble::avaluosInmuebleAfterUpdate($idavaluo, $row);
 	}
 

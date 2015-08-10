@@ -8,7 +8,7 @@
 		<hr>
 		<div class="input-group addImage">
 			<span class="input-group-addon">{{Form::label('croquis', 'Croquis')}}</span>
-		{{Form::file('croquis',['class='=>'input-group']) }}	
+		{{Form::file('croquis',['class='=>'input-group']) }}
 		@if ( $croquis != '' )
 			<span class="input-group-btn"><a class="btn btn-success" type="button" target='_blank' href="{{$croquis}}">Ver Croquis</a></span>
 		@endif
@@ -28,8 +28,6 @@
 		<hr>
 	</div>
 
-
-
 	<div class="col-md-12"><h3>Medidas y Colindancias</h3></div>
 	<div class="col-md-10 col-sm-10 col-xs-10"><h4>Detalles de Medidas y Colindancias</h4></div>
     <div class="col-md-2 col-sm-2 col-xs-2 btn-beside-title">
@@ -38,7 +36,7 @@
         </a>
     </div>
 	<div class="col-md-12">
-		<table cellpadding="0" cellspacing="0" border="0" class="table datatable table-striped corevatDataTable" id="ai_medidas_colindanciase-table">
+		<table cellpadding="0" cellspacing="0" border="0" class="table table-striped corevatDataTable" id="aiMedidasColindanciasDataTable">
 			<thead>
 				<tr>
 					<th colspan="7"></th>
@@ -340,71 +338,81 @@
 		</table>
 		<div class="col-md-12">&nbsp;</div>
 		<hr>
+		<div class="col-md-6 form-actions">
+			{{Form::submit('Guardar', ['class'=>'btn btn-coveratSecondary'])}}
+		</div>
         <div class="col-md-6 form-actions">
-            <a href="{{URL::route('indexAvaluos')}}" class="btn btn-coveratSecondary" role="button"><i class="glyphicon glyphicon-arrow-left"></i> Regresar</a>
-        </div>
-        <div class="col-md-6 form-actions">
-            {{Form::submit('Guardar', ['class'=>'btn btn-coveratPrincipal'])}}
+            <a href="{{URL::route('indexAvaluos')}}" class="btn btn-coveratPrincipal" role="button"><i class="glyphicon glyphicon-arrow-left"></i> Regresar</a>
         </div>
 	</div>
 </div>
 {{Form::close()}}
-<div id="divDialogForm" style="display: none;">
-	{{Form::model($row, ['route' => array('setAiMedidasColindancias'), 'id'=>'formAiMedidasColindancias', 'method'=>'post' ]) }}
-	<input type="hidden" name="ctrl" id="ctrl" value="" />
-	<input type="hidden" name="idavaluoinmueble2" id="idavaluoinmueble2" value="{{$row->idavaluoinmueble}}" />
-	<input type="hidden" name="idaimedidacolindancia" id="idaimedidacolindancia" value="0" />
-	<div class="row">
-		<div class="col-md-4">
-			{{Form::label('idorientacion', 'Orientación')}}
-			{{Form::select('idorientacion', $cat_orientaciones, 1, ['id' => 'idorientacion', 'class'=>'form-control'])}}
-			<hr>
-		</div>
 
-		<div class="col-md-4">
-			{{Form::label('medidas', 'Medidas')}}
-			{{Form::number('medidas', $row->medidas, ['id'=>'medidas', 'class'=>'form-control clsNumeric', 'required' => 'required', 'step'=>'0.0001', 'min' => '0.0001', 'max' => '9999999999.9999'])}}
-			<hr>
-		</div>
+<div class="modal fade bs-example-modal-lg" id="modalFormAiMedidasColindancias" role="dialog" tabindex="-1">
+	<div class="modal-dialog modal-lg">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h4 class="modal-title" id="modalFormAiMedidasColindanciasTitle"></h4>
+			</div>
+			{{Form::model($row, ['route' => array('setAiMedidasColindancias'), 'id'=>'formAiMedidasColindancias', 'method'=>'post' ]) }}
+			<input type="hidden" name="ctrl" id="ctrl" value="" />
+			<input type="hidden" name="idavaluoinmueble2" id="idavaluoinmueble2" value="{{$row->idavaluoinmueble}}" />
+			<input type="hidden" name="idaimedidacolindancia" id="idaimedidacolindancia" value="0" />
+			<div class="modal-body">
+				<div class="row">
+					<div class="col-md-4">
+						{{Form::label('idorientacion', 'Orientación')}}
+						{{Form::select('idorientacion', $cat_orientaciones, 1, ['id' => 'idorientacion', 'class'=>'form-control'])}}
+						<hr>
+					</div>
 
-		<div class="col-md-4">
-			{{Form::label('medida', 'Medidas (Anterior)')}}
-			{{Form::text('medida', $row->medida, ['id'=>'medida', 'class'=>'form-control', 'disabled'=>'disabled'])}}
-			<hr>
-		</div>
+					<div class="col-md-4">
+						{{Form::label('medidas', 'Medidas')}}
+						{{Form::number('medidas', $row->medidas, ['id'=>'medidas', 'class'=>'form-control clsNumeric', 'required' => 'required', 'step'=>'0.0001', 'min' => '0.0001', 'max' => '9999999999.9999'])}}
+						<hr>
+					</div>
 
-		<div class="col-md-4">
-			{{Form::label('unidad_medida', 'Unidad de Medida')}}
-			{{Form::select('unidad_medida', $arrMedCol, $row->unidad_medida, ['id' => 'unidad_medida', 'class'=>'form-control'])}}
-			<hr>
-		</div>
+					<div class="col-md-4">
+						{{Form::label('medida', 'Medidas (Anterior)')}}
+						{{Form::text('medida', $row->medida, ['id'=>'medida', 'class'=>'form-control', 'disabled'=>'disabled'])}}
+						<hr>
+					</div>
 
-		<div class="col-md-8">
-			{{Form::label('colindancia', 'Colindancias')}}
-			{{Form::text('colindancia', '', ['id'=>'colindancia', 'class'=>'form-control', 'required' => 'required', 'maxlength'=>'100'] )}}
-			<hr>
+					<div class="col-md-4">
+						{{Form::label('unidad_medida', 'Unidad de Medida')}}
+						{{Form::select('unidad_medida', $arrMedCol, $row->unidad_medida, ['id' => 'unidad_medida', 'class'=>'form-control'])}}
+						<hr>
+					</div>
+
+					<div class="col-md-8">
+						{{Form::label('colindancia', 'Colindancias')}}
+						{{Form::text('colindancia', '', ['id'=>'colindancia', 'class'=>'form-control', 'required' => 'required', 'maxlength'=>'100'] )}}
+						<hr>
+					</div>
+				</div>
+				
+				<div style="text-align: center;" id="messagesDialogForm"></div>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+				<button type="submit" class="btn btn-primary">Aceptar</button>
+			</div>
+			{{Form::close()}}
 		</div>
 	</div>
-		<div style="text-align: center;" id="messagesDialogForm"></div>
-	{{Form::close()}}
 </div>
-<div id="divDialogConfirm" style="display: none;">
-	<div class="alert alert-danger text-center"><h3>¿Realmente desea eliminar el registro?</h3></div>
-</div>
+
 </div>
 {{ HTML::style('/css/fileinput.min.css') }}
 @section('javascript')
 {{ HTML::script('/js/jquery/jquery.min.js') }}
 {{ HTML::script('/js/jquery/jquery.mask.min.js') }}
 {{ HTML::script('/js/jquery/jquery-ui.js') }}
+{{ HTML::script('/js/bootstrap.min.js') }}
 {{ HTML::script('/js/jquery/jquery.dataTables.min.js') }}
 {{ HTML::script('/js/jquery/dataTables.bootstrap.js') }}
-{{ HTML::script('/js/jquery.corevat.js') }}
 {{ HTML::script('/js/fileinput.min.js') }}
 {{ HTML::script('/js/fileinput_locale_es.js') }}
+{{ HTML::script('/js/jquery.corevat.js') }}
 {{ HTML::script('/js/jquery.corevat.inmueble.js') }}
-<script>
-	$(document).ready(function () {
-	});
-</script>
 @stop

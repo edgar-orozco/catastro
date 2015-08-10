@@ -273,173 +273,6 @@ class corevat_AvaluosController extends \BaseController {
 	}
 
 	/**
-	 * Show the form for editing the specified resource.
-	 *
-	 * @param  int  $id
-	 * @return Response
-	 */
-	public function editZona($id) {
-		$idavaluo = $id;
-		$opt = 'zona';
-		$rowA = Avaluos::find($id);
-		$title = 'Características de la Zona: ' . $rowA['foliocoretemp'];
-		$row = Avaluos::find($id)->AvaluosZona;
-		if (count($row) <= 0) {
-			AvaluosZona::insAvaluoZona($id);
-			$row = Avaluos::find($id)->AvaluosZona;
-		}
-		$cat_clasificacion_zona = CatClasificacionZona::comboList();
-		$cat_proximidad_urbana = CatProximidadUrbana::comboList();
-
-		return View::make('Corevat.Avaluos.avaluos', compact('opt', 'idavaluo', 'idavaluozona', 'title', 'row', 'cat_clasificacion_zona', 'cat_proximidad_urbana'));
-	}
-
-	/**
-	 * Update the specified resource in storage.
-	 *
-	 * @param  int  $id
-	 * @return Response
-	 */
-	public function updateZona($id) {
-		$inputs = Input::All();
-		$rules = array(
-			'nivel_equipamiento' => 'integer|min:0|max:100',
-		);
-		$messages = array(
-			'nivel_equipamiento.integer' => '¡El campo "Nivel de Equipamiento" debe ser un entero positivo!',
-			'nivel_equipamiento.min' => '¡El valor mínimo del campo "Nivel de Equipamiento" debe ser 0%!',
-			'nivel_equipamiento.max' => '¡El valor máximo del campo "Nivel de Equipamiento" debe ser 100%!',
-		);
-		$validate = Validator::make($inputs, $rules, $messages);
-		if ($validate->fails()) {
-			return Redirect::back()->withInput()->withErrors($validate);
-		} else {
-			AvaluosZona::updAvaluosZona($id, $inputs);
-			return Redirect::to('/corevat/AvaluoZona/' . $id)->with('success', '¡El registro fue modificado satisfactoriamente!');
-		}
-	}
-
-	/**
-	 * Show the form for editing the specified resource.
-	 *
-	 * @param  int  $id
-	 * @return Response
-	 */
-	public function editInmueble($id) {
-		$idavaluo = $id;
-		$opt = 'inmueble';
-		$row = Avaluos::find($id);
-		$title = 'Características del Inmueble: ' . $row['foliocoretemp'];
-		$row = Avaluos::find($id)->AvaluosInmueble;
-		if (count($row) <= 0) {
-			AvaluosInmueble::insAvaluoInmueble($id);
-			$row = Avaluos::find($id)->AvaluosInmueble;
-		}
-		$cat_cimentaciones = CatCimentaciones::comboList();
-		$cat_estructuras = CatEstructuras::comboList();
-		$cat_muros = CatMuros::comboList();
-		$cat_entrepisos = CatEntrepisos::comboList();
-		$cat_techos = CatTechos::comboList();
-		$cat_bardas = CatBardas::comboList();
-		$cat_usos_suelos = CatUsosSuelos::comboList();
-		$cat_niveles = CatNiveles::comboList();
-		
-		$cat_pisos = CatPisos::comboList();
-		$cat_aplanados = CatAplanados::comboList();
-		$cat_plafones = CatPlafones::comboList();
-		$cat_orientaciones = CatOrientaciones::comboList();
-		
-		$croquis = $row->croquis != '' ? '/corevat/files/' . $row->croquis : '';
-		$fachada = $row->fachada != '' ? '/corevat/files/' . $row->fachada : '';
-
-		$arrMedCol = array('Metros'=>'Metros','Metros Cuadrados'=>'Metros Cuadrados','Metros Cúbicos'=>'Metros Cúbicos','Metros Lineales'=>'Metros Lineales','Kilometros'=>'Kilometros','Kilometros Cuadrados'=>'Kilometros Cuadrados','Hectareas'=>'Hectareas','Hectareas Cuadradas'=>'Hectareas Cuadradas');
-
-		return View::make('Corevat.Avaluos.avaluos', compact('opt', 'idavaluo', 'title', 'row', 'cat_cimentaciones', 'cat_estructuras', 'cat_muros', 'cat_entrepisos', 'cat_techos', 'cat_bardas', 'cat_usos_suelos', 'cat_niveles', 'cat_pisos', 'cat_aplanados', 'cat_plafones', 'cat_orientaciones', 'arrMedCol', 'croquis','fachada'));
-	}
-
-	/**
-	 * Update the specified resource in storage.
-	 *achada
-	 * @param  int  $id
-	 * @return Response
-	 **/
-	public function updateInmueble($id) {
-		$inputs = Input::All();
-		$rules = array(
-			'unidades_rentables_escritura' => 'integer|min:0|max:9999',
-			'superficie_total_terreno' => 'numeric|min:0.0001|max:9999999999.9999',
-			'indiviso_terreno' => 'numeric|min:0|max:100.0000',
-			'superficie_terreno' => 'numeric|min:0.0001|max:9999999999.9999',
-			'indiviso_areas_comunes' => 'numeric|min:0|max:100.0000',
-			'superficie_construccion' => 'numeric|min:0|max:9999999999.9999',
-			'indiviso_accesoria' => 'numeric|min:0|max:9999999999.9999',
-			'superficie_escritura' => 'numeric|min:0|max:9999999999.9999',
-			'superficie_vendible' => 'numeric|min:0|max:9999999999.9999',
-		);
-		$messages = array(
-			'unidades_rentables_escritura.integer' => '¡El campo "Unidades Rentables en la misma Estructura" debe ser un entero positivo!',
-			'unidades_rentables_escritura.min' => '¡El valor mínimo del campo "Unidades Rentables en la misma Estructura" debe ser cero!',
-			'unidades_rentables_escritura.max' => '¡El valor máximo del campo "Unidades Rentables en la misma Estructura" debe ser 9999!',
-			
-			'superficie_total_terreno.numeric' => '¡El campo "Superficie Total del Terreno" debe ser un número!',
-			'superficie_total_terreno.min' => '¡El valor mínimo del campo "Superficie Total del Terreno" debe ser mayor a cero!',
-			'superficie_total_terreno.max' => '¡El valor máximo del campo "Superficie Total del Terreno" debe ser 9999999999.9999!',
-			
-			'indiviso_terreno.numeric' => '¡El campo "Indiviso del Terreno (%)" debe ser un número!',
-			'indiviso_terreno.min' => '¡El valor mínimo del campo "Indiviso del Terreno (%)" debe ser mayor cero!',
-			'indiviso_terreno.max' => '¡El valor máximo del campo "Indiviso del Terreno (%)" debe ser 100.0000!',
-			
-			'superficie_terreno.numeric' => '¡El campo "Superfice del Terreno" debe ser un número!',
-			'superficie_terreno.min' => '¡El valor mínimo del campo "Superfice del Terreno" debe ser mayor cero!',
-			'superficie_terreno.max' => '¡El valor máximo del campo "Superfice del Terreno" debe ser 9999999999.9999!',
-			
-			'indiviso_areas_comunes.numeric' => '¡El campo "Indiviso de Áreas Comunes (%)" debe ser un número!',
-			'indiviso_areas_comunes.min' => '¡El valor mínimo del campo "Indiviso de Áreas Comunes (%)" debe ser mayor o igual a cero!',
-			'indiviso_areas_comunes.max' => '¡El valor máximo del campo "Indiviso de Áreas Comunes (%)" debe ser 100.0000!',
-			
-			'superficie_construccion.numeric' => '¡El campo "Superficie de Construcción" debe ser un número!',
-			'superficie_construccion.min' => '¡El valor mínimo del campo "Superficie de Construcción" debe ser mayor o igual cero!',
-			'superficie_construccion.max' => '¡El valor máximo del campo "Superficie de Construcción" debe ser 9999999999.9999!',
-			
-			'indiviso_accesoria.numeric' => '¡El campo "Edad de la Construcción (años)" debe ser un número!',
-			'indiviso_accesoria.min' => '¡El valor mínimo del campo "Edad de la Construcción (años)" debe ser mayor o igual cero!',
-			'indiviso_accesoria.max' => '¡El valor máximo del campo "Edad de la Construcción (años)" debe ser 9999999999.9999!',
-			
-			'superficie_escritura.numeric' => '¡El campo "Superficie Asentada en Escritura" debe ser un número!',
-			'superficie_escritura.min' => '¡El valor mínimo del campo "Superficie Asentada en Escritura" debe ser mayor o igual cero!',
-			'superficie_escritura.max' => '¡El valor máximo del campo "Superficie Asentada en Escritura" debe ser 9999999999.9999!',
-			
-			'superficie_vendible.numeric' => '¡El campo "Superficie Vendible" debe ser un número!',
-			'superficie_vendible.min' => '¡El valor mínimo del campo "Superficie Vendible" debe ser mayor o igual cero!',
-			'superficie_vendible.max' => '¡El valor máximo del campo "Superficie Vendible" debe ser 9999999999.9999!',
-			'superficie_vendible.regex' => '¡El formato del campo "Superficie Vendible" debe ser 9999999999.9999!',
-			
-		);
-		$validate = Validator::make($inputs, $rules, $messages);
-		if ($validate->fails()) {
-			return Redirect::back()->withInput()->withErrors($validate);
-		} else {
-			AvaluosInmueble::updAvaluosInmueble($id, $inputs);
-			$message = '¡El registro fue modificado satisfactoriamente!';
-			if (Input::hasFile('croquis') || Input::hasFile('fachada')) {
-				$row = Avaluos::find($id)->AvaluosInmueble;
-				if (Input::hasFile('croquis')) {
-					$row->croquis = 'croquis-' . $row->idavaluo . '.' . Input::file('croquis')->guessExtension();
-					Input::file('croquis')->move(public_path() . '/corevat/files/', $row->croquis);
-					$message .= '<br />¡El croquis fue actualizado satisfactoriamente!';
-				}
-				if (Input::hasFile('fachada')) {
-					$row->fachada = 'fachada-' . $row->idavaluo  . '.' .  Input::file('fachada')->guessExtension();
-					Input::file('fachada')->move(public_path() . '/corevat/files/', $row->fachada);
-					$message .= '<br />¡La imagen de la fachada fue actualizada satisfactoriamente!';
-				}
-				$row->save();
-			}
-			return Redirect::to('/corevat/AvaluoInmueble/' . $id)->with('success', $message);
-		}
-	}
-
-	/**
 	 * Retorna los registros de la tabla ai_medidas_colindancias para cargar el dataTablY
 	 *
 	 * @param  int  $id [idavaluoinmueble]
@@ -465,12 +298,15 @@ class corevat_AvaluosController extends \BaseController {
 			AvaluosMercado::insAvaluoMercado($id);
 			$row = Avaluos::find($id)->AvaluosMercado;
 		}
-		//$aem_comp_terrenos = AvaluosMercado::find($row->idavaluoenfoquemercado)->AemCompTerrenos;
-		//$aem_homologacion = AvaluosMercado::find($row->idavaluoenfoquemercado)->AemHomologacion;
-		//$aem_informacion = AvaluosMercado::find($row->idavaluoenfoquemercado)->AemInformacion;
-		//$aem_analisis = AvaluosMercado::find($row->idavaluoenfoquemercado)->AemAnalisis;
-		//return View::make('Corevat.Avaluos.avaluos', compact('opt', 'idavaluo', 'title', 'row', 'aem_comp_terrenos', 'aem_homologacion', 'aem_informacion', 'aem_analisis'));
-		return View::make('Corevat.Avaluos.avaluos', compact('opt', 'idavaluo', 'title', 'row'));
+		
+		$cat_factores_zonas = CatFactoresZonas::orderBy('valor_factor_zona')->get();
+		$cat_factores_ubicacion = CatFactoresUbicacion::orderBy('valor_factor_ubicacion')->get();
+		$cat_factores_frente = CatFactoresFrente::orderBy('valor_factor_frente')->get();
+		$cat_factores_forma = CatFactoresForma::orderBy('valor_factor_forma')->get();
+		$cat_factores_conservacion = CatFactoresConservacion::orderBy('valor_factor_conservacion')->get();
+		
+		return View::make('Corevat.Avaluos.avaluos', compact('opt', 'idavaluo', 'title', 'row', 'cat_factores_zonas', 'cat_factores_ubicacion',
+				'cat_factores_frente', 'cat_factores_forma', 'cat_factores_conservacion'));
 	}
 
 	/**
@@ -745,52 +581,55 @@ class corevat_AvaluosController extends \BaseController {
 		return Response::json($response);
 	}
 
-	/*
-	 * 
-	 */
-
-	private function setAemCompTerrenos($inputs) {
+	public function setAemCompTerrenos() {
+		$inputs = Input::All();
 		$idaemcompterreno = 0;
+		$inputs['precio'] = number_format( (float) $inputs['precio'], 2, '.', '' );
+		$inputs['superficie_terreno_aemcompterreno'] = number_format( (float) $inputs['superficie_terreno_aemcompterreno'], 2, '.', '' );
 		$rules = array(
-			'ubicacion' => 'required',
+			'ubicacion_aemcompterreno' => 'required',
 			'precio' => array('required', 'numeric', 'min:0.00', 'max:99999999.99', 'regex:/^[0-9]{1,8}(\.?)[0-9]{1,2}$/'),
-			'superficie_terreno' => array('required', 'numeric', 'min:0.00', 'max:99999999.99', 'regex:/^[0-9]{1,8}(\.?)[0-9]{1,2}$/'),
-			'observaciones' => 'required',
+			'superficie_terreno_aemcompterreno' => array('required', 'numeric', 'min:0.00', 'max:99999999.99', 'regex:/^[0-9]{1,8}(\.?)[0-9]{1,2}$/'),
+			'observaciones_aemcompterreno' => 'required',
 		);
 		$messages = array(
-			'ubicacion.required' => '¡El campo "Ubicación" es requerido!',
+			'ubicacion_aemcompterreno.required' => '¡El campo "Ubicación" es requerido!',
 			'precio.required' => '¡El campo "Precio" es requerido!',
 			'precio.numeric' => '¡El valor del campo "Precio" debe ser numérico!',
 			'precio.min' => '¡El valor mínimo del campo "Precio" debe ser cero!',
 			'precio.max' => '¡El valor máximo del campo "Precio" debe ser 99999999.99!',
 			'precio.regex' => '¡El formato del campo "Precio" debe ser 99999999.99!',
-			'superficie_terreno.required' => '¡El campo "Superficie del Terreno" es requerido!',
-			'superficie_terreno.numeric' => '¡El valor del campo "Superficie del Terreno" debe ser numérico!',
-			'superficie_terreno.min' => '¡El valor del campo "Superficie del Terreno" debe ser cero!',
-			'superficie_terreno.max' => '¡El valor del campo "Superficie del Terreno" debe ser 99999999.99!',
-			'superficie_terreno.regex' => '¡El formato del campo "Superficie del Terreno" debe ser 99999999.99!',
-			'observaciones.required' => '¡El campo "Observaciones" es requerido!',
+			'superficie_terreno_aemcompterreno.required' => '¡El campo "Superficie del Terreno" es requerido!',
+			'superficie_terreno_aemcompterreno.numeric' => '¡El valor del campo "Superficie del Terreno" debe ser numérico!',
+			'superficie_terreno_aemcompterreno.min' => '¡El valor del campo "Superficie del Terreno" debe ser cero!',
+			'superficie_terreno_aemcompterreno.max' => '¡El valor del campo "Superficie del Terreno" debe ser 99999999.99!',
+			'superficie_terreno_aemcompterreno.regex' => '¡El formato del campo "Superficie del Terreno" debe ser 99999999.99!',
+			'observaciones_aemcompterreno.required' => '¡El campo "Observaciones" es requerido!',
 		);
 		$validate = Validator::make($inputs, $rules, $messages);
 		if ($validate->fails()) {
 			$response = array('success' => false, 'errors' => $validate->getMessageBag()->toArray());
 		} else {
-			if ($inputs['ctrl'] == 'btnNewAemComp') {
-				AemCompTerrenos::insAemCompTerrenos($inputs, $idaemcompterreno);
-				$response = array('success' => true, 'message' => '¡El registro fue ingresado satisfactoriamente!', 'ctrl' => 'btnEditAemComp', 'idTable' => $idaemcompterreno);
+			if ($inputs['ctrlAemCompTerrenos'] == 'ins') {
+				AemCompTerrenos::insAemCompTerrenos($inputs);
+				$response = array('success' => true, 'message' => '¡El registro fue ingresado satisfactoriamente!');
 			} else {
 				AemCompTerrenos::updAemCompTerrenos($inputs);
-				$response = array('success' => true, 'message' => '¡El registro fue modificado satisfactoriamente!', 'ctrl' => 'btnEditAemComp', 'idTable' => $inputs["idTable"]);
+				$response = array('success' => true, 'message' => '¡El registro fue modificado satisfactoriamente!');
 			}
 		}
 		return $response;
 	}
 
-	/*
-	 * 
-	 */
+	public function setAemHomologacion() {
+		$inputs = Input::All();
 
-	private function setAemHomologacion($inputs) {
+		$inputs['zona_aemhomologacion'] = number_format( (float) $inputs['zona_aemhomologacion'], 2, '.', '' );
+		$inputs['ubicacion_aemhomologacion'] = number_format( (float) $inputs['ubicacion_aemhomologacion'], 2, '.', '' );
+		$inputs['frente'] = number_format( (float) $inputs['frente'], 2, '.', '' );
+		$inputs['forma'] = number_format( (float) $inputs['forma'], 2, '.', '' );
+		$inputs['valor_unitario_negociable'] = number_format( $inputs['valor_unitario_negociable'], 2, '.', '' );
+
 		$rules = array(
 			'valor_unitario_negociable' => array('required', 'numeric', 'min:0.00', 'max:0.99', 'regex:/^[0]{1}(\.?)[0-9]{1,2}$/'),
 		);
@@ -809,59 +648,55 @@ class corevat_AvaluosController extends \BaseController {
 			$response = array(
 				'success' => true, 
 				'message' => '¡El registro fue modificado satisfactoriamente!', 
-				'ctrl' => 'btnEditAemHom', 
-				'idTable' => $inputs["idTable"], 
 				'valor_unitario_promedio' => $valor_unitario_promedio,
 				'valor_aplicado_m2' => $valor_aplicado_m2);
 		}
 		return $response;
 	}
 
-	/*
-	 * 
-	 */
-
-	private function setAemInformacion($inputs) {
-		$idaeminformacion = 0;
+	public function setAemInformacion() {
+		$inputs = Input::All();
+		$inputs["edad"] = (int) $inputs["edad"];
 		$rules = array(
-			'ubicacion' => 'required',
 			'edad' => array('required', 'integer', 'min:0', 'max:99999999', 'regex:/^[0-9]{1,8}$/'),
-			'telefono' => array('required'),
-			'observaciones' => array('required'),
 		);
 		$messages = array(
-			'ubicacion.required' => '¡El campo "Ubicación" es requerido!',
 			'edad.required' => '¡El campo "Edad" es requerido!',
 			'edad.min' => '¡El valor mínimo del campo "Edad" debe ser cero!',
 			'edad.max' => '¡El valor máximo del campo "Edad" debe ser 99999999!',
 			'edad.regex' => '¡El formato del campo "Edad" debe ser 99999999!',
-			'telefono.required' => '¡El campo "Telefóno" es requerido!',
-			'observaciones.required' => '¡El campo "Observaciones" es requerido!',
 		);
 		$validate = Validator::make($inputs, $rules, $messages);
 		if ($validate->fails()) {
 			$response = array('success' => false, 'errors' => $validate->getMessageBag()->toArray());
 		} else {
-			if ($inputs['ctrl'] == 'btnNewAemInf') {
-				AemInformacion::insAemInformacion($inputs, $idaeminformacion);
-				$response = array('success' => true, 'message' => '¡El registro fue ingresado satisfactoriamente!', 'ctrl' => 'btnEditAemInf', 'idTable' => $idaeminformacion);
+			if ($inputs['ctrlAemInformacion'] == 'ins') {
+				AemInformacion::insAemInformacion($inputs);
+				$response = array('success' => true, 'message' => '¡El registro fue ingresado satisfactoriamente!');
 			} else {
 				AemInformacion::updInformacion($inputs);
-				$response = array('success' => true, 'message' => '¡El registro fue modificado satisfactoriamente!', 'ctrl' => 'btnEditAemInf', 'idTable' => $inputs["idTable"]);
+				$response = array('success' => true, 'message' => '¡El registro fue modificado satisfactoriamente!');
 			}
 		}
 		return $response;
 	}
 
-	/*
-	 * 
-	 */
-
-	private function setAemAnalisis($inputs) {
+	public function setAemAnalisis() {
+		$inputs = Input::All();
+		$inputs['precio_venta'] = number_format( (float) $inputs['precio_venta'], 2, '.', '' );
+		$inputs['superficie_terreno_aemanalisis'] = number_format( (float) $inputs['superficie_terreno_aemanalisis'], 2, '.', '' );
+		$inputs['superficie_construccion_aemanalisis'] = number_format( (float) $inputs['superficie_construccion_aemanalisis'], 2, '.', '' );
+		$inputs['factor_zona'] = number_format( (float) $inputs['factor_zona'], 2, '.', '' );
+		$inputs['factor_ubicacion'] = number_format( (float) $inputs['factor_ubicacion'], 2, '.', '' );
+		$inputs['factor_superficie'] = number_format( (float) $inputs['factor_superficie'], 2, '.', '' );
+		$inputs['factor_edad'] = number_format( (float) $inputs['factor_edad'], 2, '.', '' );
+		$inputs['factor_conservacion'] = number_format( (float) $inputs['factor_conservacion'], 2, '.', '' );
+		$inputs['factor_negociacion'] = number_format( (float) $inputs['factor_negociacion'], 2, '.', '' );
+		
 		$rules = array(
 			'precio_venta' => array('required', 'numeric', 'min:0.00', 'max:9999999999999.99', 'regex:/^[0-9]{1,13}(\.?)[0-9]{1,2}$/'),
-			'superficie_terreno' => array('required', 'numeric', 'min:0.00', 'max:9999999999999.99', 'regex:/^[0-9]{1,13}(\.?)[0-9]{1,2}$/'),
-			'superficie_construccion' => array('required', 'numeric', 'min:0.00', 'max:9999999999999.99', 'regex:/^[0-9]{1,13}(\.?)[0-9]{1,2}$/'),
+			'superficie_terreno_aemanalisis' => array('required', 'numeric', 'min:0.00', 'max:9999999999999.99', 'regex:/^[0-9]{1,13}(\.?)[0-9]{1,2}$/'),
+			'superficie_construccion_aemanalisis' => array('required', 'numeric', 'min:0.00', 'max:9999999999999.99', 'regex:/^[0-9]{1,13}(\.?)[0-9]{1,2}$/'),
 			'factor_superficie' => array('required', 'numeric', 'min:0.00', 'max:100.00', 'regex:/^[0-9]{1,3}(\.?)[0-9]{1,2}$/'),
 			'factor_edad' => array('required', 'numeric', 'min:0.00', 'max:99999999.99', 'regex:/^[0-9]{1,8}(\.?)[0-9]{1,2}$/'),
 			'factor_negociacion' => array('required', 'numeric', 'min:0.00', 'max:100.00', 'regex:/^[0-9]{1,3}(\.?)[0-9]{1,2}$/'),
@@ -872,26 +707,31 @@ class corevat_AvaluosController extends \BaseController {
 			'precio_venta.min' => '¡El valor del campo "Precio de Venta" debe ser cero!',
 			'precio_venta.max' => '¡El valor del campo "Precio de Venta" debe ser 9999999999999.99!',
 			'precio_venta.regex' => '¡El formato del campo "Precio de Venta" debe ser 9999999999999.99!',
-			'superficie_terreno.required' => '¡El campo "Superficie del Terreno" es requerido!',
-			'superficie_terreno.numeric' => '¡El valor del campo "Superficie del Terreno" debe ser numérico!',
-			'superficie_terreno.min' => '¡El valor del campo "Superficie del Terreno" debe ser cero!',
-			'superficie_terreno.max' => '¡El valor del campo "Superficie del Terreno" debe ser 9999999999999.99!',
-			'superficie_terreno.regex' => '¡El formato del campo "Superficie del Terreno" debe ser 9999999999999.99!',
-			'superficie_construccion.required' => '¡El campo "Superficie de la Construcción" es requerido!',
-			'superficie_construccion.numeric' => '¡El valor del campo "Superficie de la Construcción" debe ser numérico!',
-			'superficie_construccion.min' => '¡El valor del campo "Superficie de la Construcción" debe ser cero!',
-			'superficie_construccion.max' => '¡El valor del campo "Superficie de la Construcción" debe ser 9999999999999.99!',
-			'superficie_construccion.regex' => '¡El formato del campo "Superficie de la Construcción" debe ser 9999999999999.99!',
+			
+			'superficie_terreno_aemanalisis.required' => '¡El campo "Superficie del Terreno" es requerido!',
+			'superficie_terreno_aemanalisis.numeric' => '¡El valor del campo "Superficie del Terreno" debe ser numérico!',
+			'superficie_terreno_aemanalisis.min' => '¡El valor del campo "Superficie del Terreno" debe ser cero!',
+			'superficie_terreno_aemanalisis.max' => '¡El valor del campo "Superficie del Terreno" debe ser 9999999999999.99!',
+			'superficie_terreno_aemanalisis.regex' => '¡El formato del campo "Superficie del Terreno" debe ser 9999999999999.99!',
+			
+			'superficie_construccion_aemanalisis.required' => '¡El campo "Superficie de la Construcción" es requerido!',
+			'superficie_construccion_aemanalisis.numeric' => '¡El valor del campo "Superficie de la Construcción" debe ser numérico!',
+			'superficie_construccion_aemanalisis.min' => '¡El valor del campo "Superficie de la Construcción" debe ser cero!',
+			'superficie_construccion_aemanalisis.max' => '¡El valor del campo "Superficie de la Construcción" debe ser 9999999999999.99!',
+			'superficie_construccion_aemanalisis.regex' => '¡El formato del campo "Superficie de la Construcción" debe ser 9999999999999.99!',
+			
 			'factor_superficie.required' => '¡El campo "Factor Superficie" es requerido!',
 			'factor_superficie.numeric' => '¡El valor del campo "Factor Superficie" debe ser numérico!',
 			'factor_superficie.min' => '¡El valor del campo "Factor Superficie" debe ser cero!',
 			'factor_superficie.max' => '¡El valor del campo "Factor Superficie" debe ser 100.00!',
 			'factor_superficie.regex' => '¡El formato del campo "Factor Superficie" debe ser 100.00!',
+			
 			'factor_edad.required' => '¡El campo "Factor Edad" es requerido!',
 			'factor_edad.numeric' => '¡El valor del campo "Factor Edad" debe ser numérico!',
 			'factor_edad.min' => '¡El valor del campo "Factor Edad" debe ser cero!',
 			'factor_edad.max' => '¡El valor del campo "Factor Edad" debe ser 99999999.99!',
 			'factor_edad.regex' => '¡El formato del campo "Factor Edad" debe ser 99999999.99!',
+			
 			'factor_negociacion.required' => '¡El campo "Negociación" es requerido!',
 			'factor_negociacion.numeric' => '¡El valor del campo "Negociación" debe ser numérico!',
 			'factor_negociacion.min' => '¡El valor del campo "Negociación" debe ser cero!',
@@ -902,15 +742,18 @@ class corevat_AvaluosController extends \BaseController {
 		if ($validate->fails()) {
 			$response = array('success' => false, 'errors' => $validate->getMessageBag()->toArray());
 		} else {
-			AemAnalisis::updAemAnalisis($inputs, $promedio_analisis, $superficie_construida, $valor_comparativo_mercado);
+			AemAnalisis::updAemAnalisis($inputs, $promedio_analisis, $superficie_construida, $valor_comparativo_mercado, $factor_resultante, $valor_unitario_m2, $valor_unitario_resultante_m2);
 			$response = array(
 			'success' => true, 
-			'message' => '¡El registro fue modificado satisfactoriamente!', 
-			'ctrl' => 'btnEditAemHom', 
-			'idTable' => $inputs["idTable"],
-			'promedio_analisis' => $promedio_analisis,
-			'superficie_construida' => $superficie_construida,
-			'valor_comparativo_mercado' => $valor_comparativo_mercado);
+			'message' => '¡El registro fue modificado satisfactoriamente!',
+			'valor_unitario_m2' => $valor_unitario_m2,
+			'factor_resultante' => $factor_resultante,
+			'valor_unitario_resultante_m2' => $valor_unitario_resultante_m2,
+			'promedio_analisis' => number_format( $promedio_analisis, 2, '.', ',' ),
+			'superficie_construida' => number_format( $superficie_construida, 2, '.', ',' ),
+			'valor_comparativo_mercado' => number_format( $valor_comparativo_mercado, 2, '.', ',' ),
+			
+			);
 		}
 		return $response;
 	}
@@ -1188,14 +1031,6 @@ class corevat_AvaluosController extends \BaseController {
 	 */
 	public function getAemHomologacion($id) {
 		$row = AemHomologacion::find($id);
-		$row->idfactorzona = CatFactoresZonas::getIdByValue($row->zona);
-		$row->idfactorubicacion = CatFactoresUbicacion::getIdByValue($row->ubicacion);
-		$row->idfactorfrente = CatFactoresFrente::getIdByValue($row->frente);
-		$row->idfactorforma = CatFactoresForma::getIdByValue($row->forma);
-		$row->cat_factores_zonas = CatFactoresZonas::orderBy('valor_factor_zona')->get();
-		$row->cat_factores_ubicacion = CatFactoresUbicacion::orderBy('valor_factor_ubicacion')->get();
-		$row->cat_factores_frente = CatFactoresFrente::orderBy('valor_factor_frente')->get();
-		$row->cat_factores_forma = CatFactoresForma::orderBy('valor_factor_forma')->get();
 		return $row;
 	}
 
@@ -1206,8 +1041,6 @@ class corevat_AvaluosController extends \BaseController {
 	 * @return Response
 	 */
 	public function getAemInformacion($id){
-		// $row =  AemInformacion::find($id);
-		// $row->idfactorzona = CatFactoresZonas::getIdByValue($row->factor_zona);
 		return AemInformacion::find($id);
 
 	}
@@ -1219,15 +1052,7 @@ class corevat_AvaluosController extends \BaseController {
 	 * @return Response
 	 */
 	public function getAemAnalisis($id) {
-		$row = AemAnalisis::find($id);
-		$row->idfactorzona = CatFactoresZonas::getIdByValue($row->factor_zona);
-		$row->idfactorubicacion = CatFactoresUbicacion::getIdByValue($row->factor_ubicacion);
-		$row->idfactorconservacion = CatFactoresConservacion::getIdByValue($row->factor_conservacion);
-
-		$row->cat_factores_zonas = CatFactoresZonas::orderBy('valor_factor_zona')->get();
-		$row->cat_factores_ubicacion = CatFactoresUbicacion::orderBy('valor_factor_ubicacion')->get();
-		$row->cat_factores_conservacion = CatFactoresConservacion::orderBy('valor_factor_conservacion')->get();
-		return $row;
+		return AemAnalisis::find($id);
 	}
 
 	/**
@@ -1433,10 +1258,16 @@ class corevat_AvaluosController extends \BaseController {
 	 * @param  int  $id
 	 * @return Response
 	 */
-	private function delAemCompTerrenos($id) {
-		$response = array('success' => true, 'message' => '!El registro fue eliminado satisfactoriamente!');
+	public function delAemCompTerrenos($id) {
+		$row = AemCompTerrenos::find($id);
 		AemHomologacion::where('idaemcompterreno', '=', $id)->delete();
 		AemCompTerrenos::where('idaemcompterreno', '=', $id)->delete();
+		AvaluosMercado::updateAemValorUnitario($row->idavaluoenfoquemercado);
+		$rowAem = AvaluosMercado::find($row->idavaluoenfoquemercado);
+		$response = array('success' => true, 'message' => '!El registro fue eliminado satisfactoriamente!', 
+			'valor_unitario_promedio' => $rowAem->valor_unitario_promedio,
+			'valor_aplicado_m2' => $rowAem->valor_aplicado_m2);
+		
 		return $response;
 	}
 
@@ -1446,7 +1277,7 @@ class corevat_AvaluosController extends \BaseController {
 	 * @param  int  $id
 	 * @return Response
 	 */
-	private function delAemInformacion($id) {
+	public function delAemInformacion($id) {
 		// LOCALIZAMOS EL REGISTRO DE AemAnalisis
 		$rowAemAnalisis = AemInformacion::find($id)->AemAnalisis;
 		// GUARDAMOS LOS VALORES A TILIZAR EN EL TRIGGER

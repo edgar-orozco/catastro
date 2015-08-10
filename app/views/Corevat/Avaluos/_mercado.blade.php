@@ -6,16 +6,10 @@
 	<div class="col-md-12"><h2>Venta de Terrenos</h2></div>
 	<div class="col-md-12">&nbsp;</div>
 
-	<div class="col-md-10"><h4>Investigación de Terrenos Comparables</h4></div>
-    <div class="col-md-2 col-sm-2 col-xs-2 btn-beside-title">
-        <a class="btn nuevo" id="btnNewAemComp" title="Nuevo Registro">
-            <span class="glyphicon glyphicon-plus-sign"></span>
-            Nuevo
-        </a>
-    </div>
-    <br/>
+	<div class="col-md-11"><h3>Investigación de Terrenos Comparables</h3></div>
+	<div class="col-md-1"><a class="btn btn-primary nuevo" id="btnNewAemComp" title="Nuevo Registro">Nuevo</a></div>
 	<div class="col-md-12">
-		<table cellpadding="0" cellspacing="0" border="0" class="table datatable table-striped" id="aemCompTerrenosDataTable">
+		<table cellpadding="0" cellspacing="0" border="0" class="table datatable table-striped corevatDataTable" id="aemCompTerrenosDataTable">
 			<thead>
 				<tr>
 					<th colspan="7"></th>
@@ -37,24 +31,24 @@
 			</tbody>
 			<tfoot>
 				<tr>
-					<td class="bg-default">&nbsp;</td>
-					<td class="bg-default">&nbsp;</td>
-					<td class="bg-default">&nbsp;</td>
-					<td class="bg-default">&nbsp;</td>
-					<td class="bg-default">&nbsp;</td>
-					<td class="bg-default">&nbsp;</td>
-					<td class="bg-default">&nbsp;</td>
-					<td class="bg-default">&nbsp;</td>
-					<td class="bg-default">&nbsp;</td>
+					<td class="bg-primary">&nbsp;</td>
+					<td class="bg-primary">&nbsp;</td>
+					<td class="bg-primary">&nbsp;</td>
+					<td class="bg-primary">&nbsp;</td>
+					<td class="bg-primary">&nbsp;</td>
+					<td class="bg-primary">&nbsp;</td>
+					<td class="bg-primary">&nbsp;</td>
+					<td class="bg-primary">&nbsp;</td>
+					<td class="bg-primary">&nbsp;</td>
 				</tr>
 			</tfoot>
 		</table>
 	</div>
 	<div class="col-md-12">&nbsp;</div>
 
-	<div class="col-md-12"><h4>Homologación del Terreno en función del lote tipo o predominante en la zona...</h4></div>
+	<div class="col-md-12"><h3>Homologación del Terreno en función del lote tipo o predominante en la zona...</h3></div>
 	<div class="col-md-12">
-		<table cellpadding="0" cellspacing="0" border="0" class="table datatable table-striped" id="aemHomologacionDataTable">
+		<table cellpadding="0" cellspacing="0" border="0" class="table datatable table-striped corevatDataTable" id="aemHomologacionDataTable">
 			<thead>
 				<tr>
 					<th>#</th>
@@ -76,36 +70,28 @@
 			</tbody>
 			<tfoot>
 				<tr>
-					<td class="bg-default" colspan="6">&nbsp;</td>
-					<td class="bg-default" colspan="4" style="text-align: right;">Valor Unitario Promedio ($/m&sup2;)</td>
-					<td class="bg-info" colspan="2" id="valor_unitario_promedio">{{$row->valor_unitario_promedio}}</td>
-					<td class="bg-default">&nbsp;</td>
+					<td class="bg-primary" colspan="6">&nbsp;</td>
+					<td class="bg-primary" colspan="4" style="text-align: right;">Valor Unitario Promedio ($/m&sup2;)</td>
+					<td class="bg-info" colspan="2" id="valor_unitario_promedio" style="text-align: right;">{{number_format($row->valor_unitario_promedio, 2, '.', ',' )}}</td>
+					<td class="bg-primary">&nbsp;</td>
 				</tr>
 				<tr>
-					<td class="bg-default" colspan="6">&nbsp;</td>
-					<td class="bg-default" colspan="4" style="text-align: right;">Valor Aplicado por M&sup2;</td>
-					<td class="bg-info" colspan="2" id="valor_aplicado_m2">{{$row->valor_aplicado_m2}}</td>
-					<td class="bg-default">&nbsp;</td>
+					<td class="bg-primary" colspan="6">&nbsp;</td>
+					<td class="bg-primary" colspan="4" style="text-align: right;">Valor Aplicado por M&sup2;</td>
+					<td class="bg-info" colspan="2" id="valor_aplicado_m2" style="text-align: right;">{{number_format($row->valor_aplicado_m2, 2, '.', ',' )}}</td>
+					<td class="bg-primary">&nbsp;</td>
 				</tr>
 			</tfoot>
 		</table>
 	</div>
 	<div class="col-md-12">&nbsp;</div>
 
-    <div class="col-md-12"><hr></div>
-
 	<div class="col-md-12"><h2>Venta de Inmuebles</h2></div>
 	<div class="col-md-12">&nbsp;</div>
-	<div class="col-md-10">
-        <h4>Venta de inmuebles similares en uso al que se valua(sujeto)</h4></div>
-    <div class="col-md-2 col-sm-2 col-xs-2 btn-beside-title">
-        <a class="btn btn-primary nuevo" id="btnNewAemInf" title="Nuevo Registro">
-            <span class="glyphicon glyphicon-plus-sign"></span>
-            Nuevo
-        </a>
-    </div>
+	<div class="col-md-11"><h3>Venta de inmuebles similares en uso al que se valua(sujeto)</h3></div>
+	<div class="col-md-1"><a class="btn btn-primary nuevo" id="btnNewAemInf" title="Nuevo Registro">Nuevo</a></div>
 	<div class="col-md-12">
-		<table cellpadding="0" cellspacing="0" border="0" class="table datatable table-striped" id="aemInformacionDataTable">
+		<table cellpadding="0" cellspacing="0" border="0" class="table datatable table-striped corevatDataTable" id="aemInformacionDataTable">
 			<thead>
 				<tr>
 					<th colspan="6"></th>
@@ -126,23 +112,23 @@
 			</tbody>
 			<tfoot>
 				<tr>
-					<td class="bg-default">&nbsp;</td>
-					<td class="bg-default">&nbsp;</td>
-					<td class="bg-default">&nbsp;</td>
-					<td class="bg-default">&nbsp;</td>
-					<td class="bg-default">&nbsp;</td>
-					<td class="bg-default">&nbsp;</td>
-					<td class="bg-default">&nbsp;</td>
-					<td class="bg-default">&nbsp;</td>
+					<td class="bg-primary">&nbsp;</td>
+					<td class="bg-primary">&nbsp;</td>
+					<td class="bg-primary">&nbsp;</td>
+					<td class="bg-primary">&nbsp;</td>
+					<td class="bg-primary">&nbsp;</td>
+					<td class="bg-primary">&nbsp;</td>
+					<td class="bg-primary">&nbsp;</td>
+					<td class="bg-primary">&nbsp;</td>
 				</tr>
 			</tfoot>
 		</table>
 	</div>
 	<div class="col-md-12">&nbsp;</div>
 
-	<div class="col-md-12"><h4>Análisis por Homologación de Mercado</h4></div>
+	<div class="col-md-12"><h3>Análisis por Homologación de Mercado</h3></div>
 	<div class="col-md-12">
-		<table cellpadding="0" cellspacing="0" border="0" class="table datatable table-striped" id="aemAnalisisDataTable">
+		<table cellpadding="0" cellspacing="0" border="0" class="table datatable table-striped corevatDataTable" id="aemAnalisisDataTable">
 			<thead>
 				<tr>
 					<th>#</th>
@@ -165,828 +151,342 @@
 			</tbody>
 			<tfoot>
 				<tr>
-					<td class="bg-default" colspan="8">&nbsp;</td>
-					<td class="bg-default" colspan="5" style="text-align: right;">Promedio:</td>
-					<td class="bg-info" id="promedio_analisis">{{$row->promedio_analisis}}</td>
-					<td class="bg-default">&nbsp;</td>
+					<td class="bg-primary" colspan="8">&nbsp;</td>
+					<td class="bg-primary" colspan="5" style="text-align: right;">Promedio:</td>
+					<td class="bg-info" id="promedio_analisis" style="text-align: right;">{{number_format($row->promedio_analisis, 2, '.', ',' )}}</td>
+					<td class="bg-primary">&nbsp;</td>
 				</tr>
 				<tr>
-					<td class="bg-default" colspan="8">&nbsp;</td>
-					<td class="bg-default" colspan="5" style="text-align: right;">Superficie Construida del Sujeto:</td>
-					<td class="bg-info" id="superficie_construida">{{$row->superficie_construida}}</td>
-					<td class="bg-default">&nbsp;</td>
+					<td class="bg-primary" colspan="8">&nbsp;</td>
+					<td class="bg-primary" colspan="5" style="text-align: right;">Superficie Construida del Sujeto:</td>
+					<td class="bg-info" id="superficie_construida" style="text-align: right;">{{number_format($row->superficie_construida, 2, '.', ',' )}}</td>
+					<td class="bg-primary">&nbsp;</td>
 				</tr>
 				<tr>
-					<td class="bg-default" colspan="8">&nbsp;</td>
-					<td class="bg-default" colspan="5" style="text-align: right;">Valor comparativo de mercado:</td>
-					<td class="bg-info" id="valor_comparativo_mercado">{{$row->valor_comparativo_mercado}}</td>
-					<td class="bg-default">&nbsp;</td>
+					<td class="bg-primary" colspan="8">&nbsp;</td>
+					<td class="bg-primary" colspan="5" style="text-align: right;">Valor comparativo de mercado:</td>
+					<td class="bg-info" id="valor_comparativo_mercado" style="text-align: right;">{{number_format($row->valor_comparativo_mercado, 2, '.', ',' )}}</td>
+					<td class="bg-primary">&nbsp;</td>
 				</tr>
 			</tfoot>
 		</table>
 	</div>
 	<div class="col-md-12">&nbsp;</div>
-	<div class="col-md-6 form-actions">
-		<a href="{{URL::route('indexAvaluos')}}" class="btn btn-coveratSecondary" role="button">
-            <i class="glyphicon glyphicon-arrow-left"></i> Regresar
-        </a>
+	<div class="col-md-12 form-actions">
+		<a href="{{URL::route('indexAvaluos')}}" class="btn btn-primary" role="button"><i class="glyphicon glyphicon-arrow-left"></i> Regresar</a>
 	</div>
-	
+
 </div>
 {{Form::close()}}
-<div id="divDialogFormMercado" style="display: none;">
-	{{Form::model($row, ['route' => array('updateAvaluoEnfoqueMercado', $idavaluo), 'method'=>'post', 'id'=>'formDialogMercado' ]) }}
-		{{Form::hidden('ctrl', '', ['id'=>'ctrl'])}}
-		{{Form::hidden('idAem', $row->idavaluoenfoquemercado, ['id'=>'idAem'])}}
-		{{Form::hidden('idTable', '', ['id'=>'idTable'])}}
 
-		<div class="row" id="containerDialogForm" style="margin-top: 10px;"></div>
-		
-		<div style="text-align: center; margin-top: 10px;" id="messagesDialogForm"></div>
-		
-	{{Form::close()}}
+<div class="modal fade bs-example-modal-lg" id="modalFormAemCompTerrenos" role="dialog" tabindex="-1">
+	<div class="modal-dialog modal-lg">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h4 class="modal-title" id="modalFormAemCompTerrenosTitle"></h4>
+			</div>
+			{{Form::model($row, ['route' => array('setAemCompTerrenos'), 'id'=>'formAemCompTerrenos', 'method'=>'post' ]) }}
+			<input type="hidden" name="ctrlAemCompTerrenos" id="ctrlAemCompTerrenos" value="" />
+			<input type="hidden" name="idavaluoenfoquemercado1" id="idavaluoenfoquemercado1" value="{{$row->idavaluoenfoquemercado}}" />
+			<input type="hidden" name="idaemcompterreno" id="idaemcompterreno" value="0" />
+			<div class="modal-body">
+				<div class="row">
+					<div class="col-md-6">
+						<label for="ubicacion_aemcompterreno">Ubicación:</label>
+						<input type="text" class="form-control" name="ubicacion_aemcompterreno" id="ubicacion_aemcompterreno" maxlength="200" required />
+					</div>
+					<div class="col-md-6">
+						<label for="precio">Precio:</label>'
+						<input type="number" class="form-control clsNumeric" name="precio" id="precio" min="0.00" max="9999999999.99" step="0.01" value="" required />
+					</div>
+					<div class="col-md-6">
+						<label for="superficie_terreno_aemcompterreno">Superficie del Terreno:</label>
+						<input type="number" class="form-control clsNumeric" name="superficie_terreno_aemcompterreno" id="superficie_terreno_aemcompterreno" min="0.00" max="9999999999.99" step="0.01" value="" required />
+					</div>
+					<div class="col-md-6">
+						<label for="precio_unitario_m2_terreno">Precio Unitario M&sup2; Terreno:</label>
+						<input type="text" class="form-control" name="precio_unitario_m2_terreno" id="precio_unitario_m2_terreno" disabled />
+					</div>
+					<div class="col-md-6">
+						<label for="observaciones_aemcompterreno">Observaciones:</label>
+						<input type="text" class="form-control" name="observaciones_aemcompterreno" id="observaciones_aemcompterreno" maxlength="200" required />
+					</div>
+				</div>
+				<div style="text-align: center;" id="messagesModalFormAemCompTerrenos"></div>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+				<button type="reset" class="btn btn-default">Limpiar</button>
+				<button type="submit" class="btn btn-primary">Aceptar</button>
+			</div>
+			{{Form::close()}}
+		</div>
+	</div>
 </div>
-<div id="divDialogConfirm" style="display: none;">
-	{{Form::model($row, ['route' => array('delAvaluoEnfoqueMercado', $idavaluo), 'method'=>'post', 'id'=>'formDialogConfirm' ]) }}
-		{{Form::hidden('ctrlDel', '', ['id'=>'ctrlDel'])}}
-		{{Form::hidden('idAemDel', $row->idavaluoenfoquemercado, ['id'=>'idAemDel'])}}
-		{{Form::hidden('idTableDel', '', ['id'=>'idTableDel'])}}
 
-		<div class="alert alert-danger text-center"><h3>¿Realmente desea eliminar el registro?</h3></div>
-		
-	{{Form::close()}}
+<div class="modal fade bs-example-modal-lg" id="modalFormAemHomologacion" role="dialog" tabindex="-1">
+	<div class="modal-dialog modal-lg">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h4 class="modal-title" id="modalFormAemHomologacionTitle"></h4>
+			</div>
+			{{Form::model($row, ['route' => array('setAemHomologacion'), 'id'=>'formAemHomologacion', 'method'=>'post' ]) }}
+			<input type="hidden" name="ctrlAemHomologacion" id="ctrlAemHomologacion" value="" />
+			<input type="hidden" name="idavaluoenfoquemercado2" id="idavaluoenfoquemercado2" value="{{$row->idavaluoenfoquemercado}}" />
+			<input type="hidden" name="idaemhomologacion" id="idaemhomologacion" value="0" />
+			<div class="modal-body">
+				<div class="row">
+					<div class="col-md-4">
+						<label for="comparable">Comparable:</label>
+						<input type="text" class="form-control" name="comparable" id="comparable" disabled />
+					</div>
+					<div class="col-md-4">
+						<label for="superficie_terreno_aemhomologacion">Superficie del Terreno:</label>
+						<input type="text" class="form-control" name="superficie_terreno_aemhomologacion" id="superficie_terreno_aemhomologacion" disabled />
+					</div>
+					<div class="col-md-4">
+						<label for="valor_unitario">Valor Unitario:</label>
+						<input type="text" class="form-control" name="valor_unitario" id="valor_unitario"  disabled />
+					</div>
+
+					<div class="col-md-3">
+						<label for="idfactorzona_aemhomologacion">Zona:</label>
+						<select class="form-control" id="idfactorzona_aemhomologacion" name="idfactorzona_aemhomologacion" required >
+							@foreach ($cat_factores_zonas as $item)
+							<option value="{{$item->idfactorzona}}">{{$item->factor_zona}}</option>
+							@endforeach
+						</select>
+					</div>
+					<div class="col-md-3">
+						<label for="zona_aemhomologacion">&nbsp;</label>
+						<input type="number" class="form-control clsNumeric" name="zona_aemhomologacion" id="zona_aemhomologacion" min="0.00" max="9999999999.99" step="0.01" required />
+					</div>
+					<div class="col-md-3">
+						<label for="idfactorubicacion_aemhomologacion">Ubicación:</label>
+						<select class="form-control" id="idfactorubicacion_aemhomologacion" name="idfactorubicacion_aemhomologacion">
+							@foreach ($cat_factores_ubicacion as $item)
+							<option value="{{$item->idfactorubicacion}}">{{$item->factor_ubicacion}}</option>
+							@endforeach
+						</select>
+					</div>
+					<div class="col-md-3">
+						<label for="ubicacion_aemhomologacion">&nbsp;</label>
+						<input type="number" class="form-control clsNumeric" name="ubicacion_aemhomologacion" id="ubicacion_aemhomologacion" min="0.00" max="9999999999.99" step="0.01" required />
+					</div>
+
+					<div class="col-md-3">
+						<label for="idfactorfrente">Frente:</label>
+						<select class="form-control" id="idfactorfrente" name="idfactorfrente">
+							@foreach ($cat_factores_frente as $item)
+							<option value="{{$item->idfactorfrente}}">{{$item->factor_frente}}</option>
+							@endforeach
+						</select>
+					</div>
+					<div class="col-md-3">
+						<label for="frente">&nbsp;</label>
+						<input type="number" class="form-control" name="frente" id="frente" min="0.00" max="9999999999.99" step="0.01" required />
+					</div>
+					<div class="col-md-3">
+						<label for="idfactorforma">Forma:</label>
+						<select class="form-control" id="idfactorforma" name="idfactorforma">
+							@foreach ($cat_factores_forma as $item)
+							<option value="{{$item->idfactorforma}}">{{$item->factor_forma}}</option>
+							@endforeach
+						</select>
+					</div>
+					<div class="col-md-3">
+						<label for="forma">&nbsp;</label>
+						<input type="number" class="form-control clsNumeric" name="forma" id="forma" min="0.00" max="9999999999.99" step="0.01" required />
+					</div>
+
+					<div class="col-md-4">
+						<label for="superficie_aemhomologacion">Superficie:</label>
+						<input type="text" class="form-control" name="superficie_aemhomologacion" id="superficie_aemhomologacion" disabled />
+					</div>
+					<div class="col-md-6">
+						<label for="valor_unitario_negociable">Negociación:</label>
+						<input type="number" class="form-control clsNumeric" name="valor_unitario_negociable" id="valor_unitario_negociable" min="0.00" max="0.99" step="0.01" required />
+					</div>
+
+					<div class="col-md-6">
+						<label for="valor_unitario_resultante_m2_aemhomologacion">Resultante ($/m&sup2;):</label>
+						<input type="text"class="form-control" name="valor_unitario_resultante_m2_aemhomologacion" id="valor_unitario_resultante_m2_aemhomologacion" disabled />
+					</div>
+					<div class="col-md-6">
+						<label for="in_promedio_aemhomologacion">Interviene en el Promedio:</label>
+						<input type="checkbox" class="form-control" name="in_promedio_aemhomologacion" id="in_promedio_aemhomologacion" />
+					</div>
+					
+				</div>
+				<div style="text-align: center;" id="messagesModalFormAemHomologacion"></div>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+				<button type="reset" class="btn btn-default">Limpiar</button>
+				<button type="submit" class="btn btn-primary">Aceptar</button>
+			</div>
+			{{Form::close()}}
+		</div>
+	</div>
 </div>
+
+<div class="modal fade bs-example-modal-lg" id="modalFormAemInformacion" role="dialog" tabindex="-1">
+	<div class="modal-dialog modal-lg">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h4 class="modal-title" id="modalFormAemInformacionTitle"></h4>
+			</div>
+			{{Form::model($row, ['route' => array('setAemInformacion'), 'id'=>'formAemInformacion', 'method'=>'post' ]) }}
+			<input type="hidden" name="ctrlAemInformacion" id="ctrlAemInformacion" value="" />
+			<input type="hidden" name="idavaluoenfoquemercado3" id="idavaluoenfoquemercado3" value="{{$row->idavaluoenfoquemercado}}" />
+			<input type="hidden" name="idaeminformacion" id="idaeminformacion" value="0" />
+			<div class="modal-body">
+				<div class="row">
+					<div class="col-md-12">
+						<label for="ubicacion_aeminformacion">Ubicacion:</label>
+						<input type="text" class="form-control" name="ubicacion_aeminformacion" id="ubicacion_aeminformacion" maxlength="200" required />
+					</div>
+					<div class="col-md-6">
+						<label for="edad">Edad:</label>
+						<input type="number" class="form-control clsNumeric" name="edad" id="edad" min="0" max="99" step="1" required />
+					</div>
+					<div class="col-md-6">
+						<label for="telefono">Teléfono:</label>
+						<input type="text"class="form-control" name="telefono" id="telefono" maxlength="100" required />
+					</div>
+					<div class="col-md-12">
+						<label for="observaciones_aeminformacion">Observaciones:</label>
+						<input type="text"class="form-control" name="observaciones_aeminformacion" id="observaciones_aeminformacion" maxlength="100" required />
+					</div>
+				</div>
+				<div style="text-align: center;" id="messagesModalFormAemInformacion"></div>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+				<button type="reset" class="btn btn-default">Limpiar</button>
+				<button type="submit" class="btn btn-primary">Aceptar</button>
+			</div>
+			{{Form::close()}}
+		</div>
+	</div>
+</div>
+
+<div class="modal fade bs-example-modal-lg" id="modalFormAemAnalisis" role="dialog" tabindex="-1">
+	<div class="modal-dialog modal-lg">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h4 class="modal-title" id="modalFormAemAnalisisTitle"></h4>
+			</div>
+			{{Form::model($row, ['route' => array('setAemAnalisis'), 'id'=>'formAemAnalisis', 'method'=>'post' ]) }}
+			<input type="hidden" name="ctrlAemAnalisis" id="ctrlAemAnalisis" value="" />
+			<input type="hidden" name="idavaluoenfoquemercado4" id="idavaluoenfoquemercado4" value="{{$row->idavaluoenfoquemercado}}" />
+			<input type="hidden" name="idaemanalisis" id="idaemanalisis" value="0" />
+			<div class="modal-body">
+				<div class="row">
+					<div class="col-md-6">
+						<label for="precio_venta">Precio de Venta:</label>
+						<input type="number" class="form-control clsNumeric" name="precio_venta" id="precio_venta" min="0.00" max="999999999999999.99" step="0.01" required />
+					</div>
+					<div class="col-md-6">
+						<label for="superficie_terreno_aemanalisis">Superficie del Terreno:</label>
+						<input type="number" class="form-control clsNumeric" name="superficie_terreno_aemanalisis" id="superficie_terreno_aemanalisis" min="0.00" max="999999999999999.99" step="0.01" required />
+					</div>
+					
+					<div class="col-md-6">
+						<label for="superficie_construccion_aemanalisis">Superficie de la Construcción:</label>
+						<input type="number" class="form-control clsNumeric" name="superficie_construccion_aemanalisis" id="superficie_construccion_aemanalisis" min="0.00" max="999999999999999.99" step="0.01" required />
+					</div>
+					<div class="col-md-6">
+						<label for="valor_unitario_m2_aemanalisis">Valor Unitario ($/m&sup2;):</label>
+						<input type="text" class="form-control" name="valor_unitario_m2_aemanalisis" id="valor_unitario_m2_aemanalisis" disabled />
+					</div>
+					
+					<div class="col-md-3">
+						<label for="idfactorzona_aemanalisis">Zona:</label>
+						<select class="form-control" name="idfactorzona_aemanalisis" id="idfactorzona_aemanalisis">
+							@foreach ($cat_factores_zonas as $item)
+							<option value="{{$item->idfactorzona}}">{{$item->factor_zona}}</option>
+							@endforeach
+						</select>
+					</div>
+					<div class="col-md-3">
+						<label for="factor_zona">&nbsp;</label>
+						<input type="number" class="form-control clsNumeric" name="factor_zona" id="factor_zona" min="0.00" max="9999999999.99" step="0.01" required />
+					</div>
+					<div class="col-md-3">
+						<label for="idfactorubicacion_aemanalisis">Ubicación:</label>
+						<select class="form-control" id="idfactorubicacion_aemanalisis" name="idfactorubicacion_aemanalisis">
+							@foreach ($cat_factores_ubicacion as $item)
+							<option value="{{$item->idfactorubicacion}}">{{$item->factor_ubicacion}}</option>
+							@endforeach
+						</select>
+					</div>
+					<div class="col-md-3">
+						<label for="factor_ubicacion">&nbsp;</label>
+						<input type="number" class="form-control clsNumeric" name="factor_ubicacion" id="factor_ubicacion" min="0.00" max="9999999999.99" step="0.01" required />
+					</div>
+
+					<div class="col-md-6">
+						<label for="factor_superficie">Factor Superficie:</label>
+						<input type="number" class="form-control clsNumeric" name="factor_superficie" id="factor_superficie" min="0.00" max="9999999999.99" step="0.01" required />
+					</div>
+					<div class="col-md-6">
+						<label for="factor_edad">Factor Edad:</label>
+						<input type="number" class="form-control integer3" name="factor_edad" id="factor_edad" min="0.00" max="9999999999.99" step="0.01" required />
+					</div>
+
+					<div class="col-md-3">
+						<label for="idfactorconservacion">Conservación:</label>
+						<select class="form-control" name="idfactorconservacion" id="idfactorconservacion">
+							@foreach ($cat_factores_conservacion as $item)
+							<option value="{{$item->idfactorconservacion}}">{{$item->factor_conservacion}}</option>
+							@endforeach
+						</select>
+					</div>
+					<div class="col-md-3">
+						<label for="factor_conservacion">&nbsp;</label>
+						<input type="number" class="form-control clsNumeric" name="factor_conservacion" id="factor_conservacion" min="0.00" max="9999999999.99" step="0.01" required />
+					</div>
+					<div class="col-md-6">
+						<label for="factor_negociacion">Negociación:</label>
+						<input type="number" class="form-control clsNumeric" name="factor_negociacion" id="factor_negociacion" min="0.00" max="9999999999.99" step="0.01" required />
+					</div>
+
+					<div class="col-md-6">
+						<label for="factor_resultante">Factor Resultante:</label>
+						<input type="number" class="form-control" name="factor_resultante" id="factor_resultante" disabled />
+					</div>
+					<div class="col-md-6">
+						<label for="valor_unitario_resultante_m2_aemanalisis">Resultante ($/m&sup2;):</label>
+						<input type="number" class="form-control" name="valor_unitario_resultante_m2_aemanalisis" id="valor_unitario_resultante_m2_aemanalisis" disabled />
+					</div>
+
+					<div class="col-md-12">
+						<label for="in_promedio_aemanalisis">Interviene en el Promedio:</label>
+						<input type="checkbox" class="form-control" name="in_promedio_aemanalisis" id="in_promedio_aemanalisis" />
+					</div>
+				</div>
+				<div style="text-align: center;" id="messagesModalFormAemAnalisis"></div>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+				<button type="reset" class="btn btn-default">Limpiar</button>
+				<button type="submit" class="btn btn-primary">Aceptar</button>
+			</div>
+			{{Form::close()}}
+		</div>
+	</div>
+</div>
+
 @section('javascript')
+{{ HTML::script('/js/jquery/jquery.min.js') }}
+{{ HTML::script('/js/jquery/jquery.mask.min.js') }}
 {{ HTML::script('/js/jquery/jquery-ui.js') }}
+{{ HTML::script('/js/bootstrap.min.js') }}
 {{ HTML::script('/js/jquery/jquery.dataTables.min.js') }}
 {{ HTML::script('/js/jquery/dataTables.bootstrap.js') }}
+{{ HTML::script('/js/fileinput.min.js') }}
+{{ HTML::script('/js/fileinput_locale_es.js') }}
 {{ HTML::script('/js/jquery.corevat.js') }}
 {{ HTML::script('/js/jquery.corevat.mercado.js') }}
-<script>
-    $(document).ready(function () {
-	/*++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-	 * 
-	 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
-	$('#btn3EnfoqueMercado').removeClass("btn-info").addClass("btn-primary");
-
-	/*++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-	*  
-	++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
-	var aemCompTerrenosDataTable = $('#aemCompTerrenosDataTable').DataTable({
-		language: {
-			lengthMenu: "Mostrar _MENU_ Registros por página",
-			zeroRecords: "No se encontraron registros",
-			info: "Mostrando pagina _PAGE_ de _PAGES_",
-			infoEmpty: "No hay registros", "search": "Filter records:",
-			search: "Buscar: ", "infoFiltered": "(Filtrado en _MAX_ total de registros)",
-			oPaginate: {
-				sPrevious: "Anterior",
-				sNext: "Siguiente"
-			}
-		},
-		ordering: true,
-		searching: false,
-		lengthMenu: [10, 20, 30]
-	});
-	aemCompTerrenosDataTable.ajax.url( '/corevat/AemCompTerrenosGetAjax/' + $("#idavaluoenfoquemercado").val() ).load();
-
-	/*++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-	*  
-	++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
-	var aemHomologacionDataTable = $('#aemHomologacionDataTable').DataTable({
-		language: {
-			lengthMenu: "Mostrar _MENU_ Registros por página",
-			zeroRecords: "No se encontraron registros",
-			info: "Mostrando pagina _PAGE_ de _PAGES_",
-			infoEmpty: "No hay registros", "search": "Filter records:",
-			search: "Buscar: ", "infoFiltered": "(Filtrado en _MAX_ total de registros)",
-			oPaginate: {
-				sPrevious: "Anterior",
-				sNext: "Siguiente"
-			}
-		},
-		ordering: true,
-		searching: false,
-		lengthMenu: [10, 20, 30]
-	});
-	aemHomologacionDataTable.ajax.url( '/corevat/AemHomologacionGetAjax/' + $("#idavaluoenfoquemercado").val() ).load();
-
-	/*++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-	*  
-	++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
-	var aemInformacionDataTable = $('#aemInformacionDataTable').DataTable({
-		language: {
-			lengthMenu: "Mostrar _MENU_ Registros por página",
-			zeroRecords: "No se encontraron registros",
-			info: "Mostrando pagina _PAGE_ de _PAGES_",
-			infoEmpty: "No hay registros", "search": "Filter records:",
-			search: "Buscar: ", "infoFiltered": "(Filtrado en _MAX_ total de registros)",
-			oPaginate: {
-				sPrevious: "Anterior",
-				sNext: "Siguiente"
-			}
-		},
-		ordering: true,
-		searching: false,
-		lengthMenu: [10, 20, 30]
-	});
-	aemInformacionDataTable.ajax.url( '/corevat/AemInformacionGetAjax/' + $("#idavaluoenfoquemercado").val() ).load();
-
-	/*++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-	*  
-	++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
-	var aemAnalisisDataTable = $('#aemAnalisisDataTable').DataTable({
-		language: {
-			lengthMenu: "Mostrar _MENU_ Registros por página",
-			zeroRecords: "No se encontraron registros",
-			info: "Mostrando pagina _PAGE_ de _PAGES_",
-			infoEmpty: "No hay registros", "search": "Filter records:",
-			search: "Buscar: ", "infoFiltered": "(Filtrado en _MAX_ total de registros)",
-			oPaginate: {
-				sPrevious: "Anterior",
-				sNext: "Siguiente"
-			}
-		},
-		ordering: true,
-		searching: false,
-		lengthMenu: [10, 20, 30]
-	});
-	aemAnalisisDataTable.ajax.url( '/corevat/AemAnalisisGetAjax/' + $("#idavaluoenfoquemercado").val() ).load();
-
-	/*++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-	 * 
-	 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
-	$('#btnNewAemComp').click(function () {
-		$('#messagesDialogForm').empty().removeClass();
-		$('#ctrl').val('btnNewAemComp');
-		$('#idTable').val( '0' );
-		$('#containerDialogForm').empty();
-		$.createFormAemCompTerrenos();
-		$('#divDialogFormMercado').dialog({title: 'Nuevo Registro Comparable'}).dialog('open');
-	});
-	/*++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-	 * 
-	 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
-	$('#btnNewAemInf').click(function () {
-		$('#messagesDialogForm').empty().removeClass();
-		$('#ctrl').val('btnNewAemInf');
-		$('#idTable').val( '0' );
-		$('#containerDialogForm').empty();
-		$.createFormAemInformacion();
-		$('#divDialogFormMercado').dialog({title: 'Nuevo Registro Comparable Mercado'}).dialog('open');
-	});
-
-	/*++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-	 * 
-	 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
-	$.editAemCompTerrenos = function(id) {
-		$('#messagesDialogForm').empty().removeClass();
-		$('#ctrl').val('btnEditAemComp');
-		$('#idTable').val( id );
-		$('#containerDialogForm').empty();
-		$.createFormAemCompTerrenos();
-		$.loadFormAemCompTerrenos(id);
-		$('#divDialogFormMercado').dialog({title: 'Modificar Registro Comparable: ' + id }).dialog('open');
-	};
-
-	/*++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-	 * 
-	 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
-	$.editAemHomologacion = function(id) {
-		$('#messagesDialogForm').empty().removeClass();
-		$('#ctrl').val('btnEditAemHom');
-		$('#idTable').val( id );
-		$('#containerDialogForm').empty();
-		$.createFormAemHomologacion();
-		$.loadFormAemHomologacion(id);
-		$('#divDialogFormMercado').dialog({title: 'Homologable: ' + id }).dialog('open');
-	};
-
-	/*++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-	 * 
-	 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
-	$.editAemInformacion = function(id) {
-		$('#messagesDialogForm').empty().removeClass();
-		$('#ctrl').val('btnEditAemInf');
-		$('#idTable').val( id );
-		$('#containerDialogForm').empty();
-		$.createFormAemInformacion();
-		$.loadFormAemInformacion(id);
-		$('#divDialogFormMercado').dialog({title: 'Modificar Registro Comparable Mercado: ' + id }).dialog('open');
-	};
-
-	/*++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-	 * 
-	 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
-	$.editAemAnalisis = function(id) {
-		$('#messagesDialogForm').empty().removeClass();
-		$('#ctrl').val('btnEditAemAna');
-		$('#idTable').val( id );
-		$('#containerDialogForm').empty();
-		$.createFormAemAnalisis();
-		$.loadFormAemAnalisis(id);
-		$('#divDialogFormMercado').dialog({title: 'Homologable: ' + id }).dialog('open');
-	};
-
-		/*++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-		 * 
-		 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
-		$.delAemCompTerrenos = function(id) {
-			$('#ctrlDel').val('btnDelAemComp');
-			$('#idTableDel').val( id );
-			$('#divDialogConfirm').dialog({title: 'Eliminar registro'}).dialog('open');
-		}
-		/*++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-		 * 
-		 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
-		$.delAemInformacion = function(id) {
-			$('#ctrlDel').val('btnDelAemInf');
-			$('#idTableDel').val( id );
-			$('#divDialogConfirm').dialog({title: 'Eliminar registro'}).dialog('open');
-		}
-
-		/*++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-		 * 
-		$('.btnEditAemComp').click(function () {
-			$('#messagesDialogForm').empty().removeClass();
-			$('#ctrl').val('btnEditAemComp');
-			$('#idTable').val( $(this).attr('idTable') );
-			$('#containerDialogForm').empty();
-			$.createFormAemCompTerrenos();
-			$.loadFormAemCompTerrenos();
-			$('#divDialogFormMercado').dialog({title: 'Modificar Registro Comparable: ' + $(this).attr('idTable') }).dialog('open');
-		});
-		 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
-		/*++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-		 * 
-		$('.btnDelAemComp').click(function () {
-			$('#ctrlDel').val('btnDelAemComp');
-			$('#idTableDel').val( $(this).attr('idTable') );
-			$('#divDialogConfirm').dialog({title: 'Eliminar registro'}).dialog('open');
-		});
-		 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
-		/*++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-		 * 
-		$('.btnEditAemHom').click(function () {
-			$('#messagesDialogForm').empty().removeClass();
-			$('#ctrl').val('btnEditAemHom');
-			$('#idTable').val( $(this).attr('idTable') );
-			$('#containerDialogForm').empty();
-			$.createFormAemHomologacion();
-			$.loadFormAemHomologacion();
-			$('#divDialogFormMercado').dialog({title: 'Homologable: ' + $(this).attr('idTable') }).dialog('open');
-		});
-		 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
-
-		/*++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-		 * 
-		$('.btnEditAemInf').click(function () {
-			$('#messagesDialogForm').empty().removeClass();
-			$('#ctrl').val('btnEditAemInf');
-			$('#idTable').val( $(this).attr('idTable') );
-			$('#containerDialogForm').empty();
-			$.createFormAemInformacion();
-			$.loadFormAemInformacion();
-			// $.loadFormAemAnaInformacion();
-			$('#divDialogFormMercado').dialog({title: 'Modificar Registro Comparable Mercado: ' + $(this).attr('idTable') }).dialog('open');
-		});
-		 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
-		/*++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-		 * 
-		$('.btnDelAemInf').click(function () {
-			$('#ctrlDel').val('btnDelAemInf');
-			$('#idTableDel').val( $(this).attr('idTable') );
-			$('#divDialogConfirm').dialog({title: 'Eliminar registro'}).dialog('open');
-		});
-		 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
-		/*++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-		 * 
-        $('.btnEditAemAna').click(function () {
-			$('#messagesDialogForm').empty().removeClass();
-			$('#ctrl').val('btnEditAemAna');
-			$('#idTable').val( $(this).attr('idTable') );
-			$('#containerDialogForm').empty();
-			$.createFormAemAnalisis();
-			$.loadFormAemAnalisis();
-			$('#divDialogFormMercado').dialog({title: 'Homologable: ' + $(this).attr('idTable') }).dialog('open');
-		});
-		 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
-
-		/*++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-		 * 
-		 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
-		$('#divDialogFormMercado').dialog({
-			modal: true,
-			resizable: false,
-			draggable: false,
-			autoOpen: false,
-			closeOnEscape: true,
-			width: 900,
-			height: 600,
-			buttons: {
-				Guardar: function () {
-					$("#formDialogMercado").submit();
-				},
-				Cerrar: function () {
-					$(this).dialog('close');
-				}
-			},
-			close: function() {
-				if ( $('#messagesDialogForm').attr('class') == 'alert alert-success' ) {
-					//window.location.href = '/corevat/AvaluoEnfoqueMercado/<?php echo $row->idavaluo ?>';
-				}
-			}
-		});
-
-		/*++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-		 * 
-		 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
-		$("#formDialogMercado").submit(function () {
-			$('#messagesDialogForm').empty().removeClass();
-			$.ajax({
-				global: false,
-				cache: false,
-				dataType: 'json',
-				url: $(this).attr("action"),
-				type: $(this).attr("method"),
-				data: $(this).serialize(),
-				success: function (data) {
-					datos = eval(data);
-					if (datos.success) {
-						$('#messagesDialogForm').removeClass().addClass('alert').addClass('alert-success').append(datos.message);
-						//$('#idTable').val( datos.idTable );
-						//$('#ctrl').val( datos.ctrl );
-						if (  $('#ctrl').val() === 'btnNewAemComp' ) {
-							$('#containerDialogForm').empty();
-							$.createFormAemCompTerrenos();
-						}
-						if ( $('#ctrl').val() === 'btnNewAemInf' ) {
-							$('#containerDialogForm').empty();
-							$.createFormAemInformacion();
-						}
-						if ( $('#ctrl').val() === 'btnNewAemComp' || $('#ctrl').val() === 'btnEditAemComp' ) {
-							aemCompTerrenosDataTable.ajax.reload();
-							aemHomologacionDataTable.ajax.reload();
-
-						} else if ( $('#ctrl').val() === 'btnEditAemHom' ) {
-							aemHomologacionDataTable.ajax.reload();
-							$('#valor_unitario_promedio').empty().append(datos.valor_unitario_promedio);
-							$('#valor_aplicado_m2').empty().append(datos.valor_aplicado_m2);
-
-						} else if ( $('#ctrl').val() === 'btnNewAemInf' || $('#ctrl').val() === 'btnEditAemInf' ) {
-							aemInformacionDataTable.ajax.reload();
-							aemAnalisisDataTable.ajax.reload();
-
-						} else if ( $('#ctrl').val() === 'btnEditAemAna' ) {
-							aemAnalisisDataTable.ajax.reload();
-							$('#promedio_analisis').empty().append(datos.promedio_analisis);
-							$('#superficie_construida').empty().append(datos.superficie_construida);
-							$('#valor_comparativo_mercado').empty().append(datos.valor_comparativo_mercado);
-
-						}
-					} else {
-						var errores = '';
-						for(datos in data.errors) {
-							errores += '<p>' + data.errors[datos] + '</p>';
-						}
-						$('#messagesDialogForm').removeClass().addClass('alert').addClass('alert-danger').append(errores);
-					}
-				}
-			});
-			return false;
-        });
-
-        /*++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-         * 
-         ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
-		$('#divDialogConfirm').dialog({
-            modal: true,
-            resizable: false,
-            draggable: false,
-            autoOpen: false,
-            closeOnEscape: true,
-            width: 600,
-            height: 400,
-			buttons: {
-				Aceptar: function() {
-					$("#formDialogConfirm").submit();
-				},
-				Cancelar: function() {$(this).dialog('close');}
-			}
-		});
-		//
-		/*++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-		 * 
-		 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
-		$("#formDialogConfirm").submit(function () {
-			$.ajax({
-				global: false,
-				cache: false,
-				dataType: 'json',
-				url: $(this).attr("action"),
-				type: $(this).attr("method"),
-				data: $(this).serialize(),
-				success: function (data) {
-					datos = eval(data);
-					alert( datos.message );
-					if (datos.success === true) {
-						if ( $('#ctrlDel').val() === 'btnDelAemComp') {
-							aemCompTerrenosDataTable.ajax.reload();
-							aemHomologacionDataTable.ajax.reload();
-						} else if ( $('#ctrlDel').val() === 'btnDelAemInf' ) {
-							aemInformacionDataTable.ajax.reload();
-							aemAnalisisDataTable.ajax.reload();
-						}
-					}
-				}
-			});
-			return false;
-        });
-
-
-    /*++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-     * 
-     ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
-    $.createFormAemCompTerrenos = function () {
-        div = $('<div />');
-        div.addClass('col-md-12');
-        $('<label for="ubicacion">Ubicación:</label>').appendTo(div);
-        $('<input type="text" name="ubicacion" id="ubicacion" value="" maxlength="200"/>').attr('required', 'true').addClass('form-control').appendTo(div);
-        div.appendTo('#containerDialogForm');
-
-        div = $('<div />');
-        div.addClass('col-md-12');
-        $('<label for="precio">Precio:</label>').appendTo(div);
-        $('<input type="number" name="precio" id="precio" value="0.00" min="0.00" max="99999999.99" step="0.01" size="11" pattern="[0-9]{8}[.]{1}[0-9]{2}" style="width:200px;" />').attr('required', 'true').addClass('form-control').appendTo(div);
-        div.appendTo('#containerDialogForm');
-
-        div = $('<div />');
-        div.addClass('col-md-12');
-        $('<label for="superficie_terreno">Superficie del Terreno:</label>').appendTo(div);
-        $('<input type="number" name="superficie_terreno" id="superficie_terreno" value="0.00" min="0.00" max="9999999.99" step="0.01" size="11" pattern="[0-9]{8}[.]{1}[0-9]{2}" style="width:200px;" />').attr('required', 'true').addClass('form-control').appendTo(div);
-        div.appendTo('#containerDialogForm');
-
-        div = $('<div />');
-        div.addClass('col-md-12');
-        $('<label for="precio_unitario_m2_terreno">Precio Unitario M&sup2; Terreno:</label>').appendTo(div);
-        $('<input type="text" name="precio_unitario_m2_terreno" id="precio_unitario_m2_terreno" size="11" style="width:200px;" />').attr('disabled', 'true').addClass('form-control').appendTo(div);
-        div.appendTo('#containerDialogForm');
-
-        div = $('<div />');
-        div.addClass('col-md-12');
-        $('<label for="observaciones">Observaciones:</label>').appendTo(div);
-        $('<input type="text" name="observaciones" id="observaciones" value="" maxlength="100"/>').attr('required', 'true').addClass('form-control').appendTo(div);
-        div.appendTo('#containerDialogForm');
-
-        $("input[type=number]").keydown(function (e) {
-            if ($.inArray(e.keyCode, [46, 8, 9, 27, 13, 110, 190]) !== -1 ||
-                (e.keyCode == 65 && e.ctrlKey === true) ||
-                (e.keyCode == 67 && e.ctrlKey === true) ||
-                (e.keyCode == 88 && e.ctrlKey === true) ||
-                (e.keyCode >= 35 && e.keyCode <= 39)) {
-                 return;
-            }
-            if ((e.shiftKey || (e.keyCode < 48 || e.keyCode > 57)) && (e.keyCode < 96 || e.keyCode > 105)) {
-                e.preventDefault();
-            }
-        });
-
-
-    };
-
-    /*++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-     * 
-     ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
-    $.createFormAemHomologacion = function () {
-        div = $('<div />');
-        div.addClass('col-md-6');
-        $('<label for="comparable">Comparable:</label>').appendTo(div);
-        $('<input type="text" name="comparable" id="comparable"/>').attr('disabled', 'true').addClass('form-control').appendTo(div);
-        div.appendTo('#containerDialogForm');
-
-        div = $('<div />');
-        div.addClass('col-md-6');
-        $('<label for="superficie_terreno">Superficie del Terreno:</label>').appendTo(div);
-        $('<input type="text" name="superficie_terreno" id="superficie_terreno"/>').attr('disabled', 'true').addClass('form-control').appendTo(div);
-        div.appendTo('#containerDialogForm');
-
-        div = $('<div />');
-        div.addClass('col-md-6');
-        $('<label for="valor_unitario">Valor Unitario:</label>').appendTo(div);
-        $('<input type="text" name="valor_unitario" id="valor_unitario"/>').attr('disabled', 'true').addClass('form-control').appendTo(div);
-        div.appendTo('#containerDialogForm');
-
-        div = $('<div />');
-        div.addClass('col-md-6');
-        $('<label for="idfactorzona">Zona:</label>').appendTo(div);
-		$('<select id="idfactorzona" name="idfactorzona"><//select>').addClass('form-control').appendTo(div);
-        div.appendTo('#containerDialogForm');
-
-        div = $('<div />');
-        div.addClass('col-md-6');
-        $('<label for="idfactorubicacion">Ubicación:</label>').appendTo(div);
-		$('<select id="idfactorubicacion" name="idfactorubicacion"><//select>').addClass('form-control').appendTo(div);
-        div.appendTo('#containerDialogForm');
-
-        div = $('<div />');
-        div.addClass('col-md-6');
-        $('<label for="idfactorfrente">Frente:</label>').appendTo(div);
-		$('<select id="idfactorfrente" name="idfactorfrente"><//select>').addClass('form-control').appendTo(div);
-        div.appendTo('#containerDialogForm');
-
-        div = $('<div />');
-        div.addClass('col-md-6');
-        $('<label for="idfactorforma">Forma:</label>').appendTo(div);
-		$('<select id="idfactorforma" name="idfactorforma"><//select>').addClass('form-control').appendTo(div);
-        div.appendTo('#containerDialogForm');
-
-        div = $('<div />');
-        div.addClass('col-md-6');
-        $('<label for="superficie">Superficie:</label>').appendTo(div);
-        $('<input type="text" name="superficie" id="superficie"/>').attr('readonly', 'true').addClass('form-control').appendTo(div);
-        div.appendTo('#containerDialogForm');
-
-        div = $('<div />');
-        div.addClass('col-md-6');
-        $('<label for="valor_unitario_negociable">Negociación:</label>').appendTo(div);
-        $('<input type="number" name="valor_unitario_negociable" id="valor_unitario_negociable" value="0.00" min="0.00" max="0.99º" step="0.01" regex="[0]{1}[.]{1}[0-9]{2}"/>').attr('required', 'true').addClass('form-control').appendTo(div);
-        div.appendTo('#containerDialogForm');
-
-        div = $('<div />');
-        div.addClass('col-md-6');
-        $('<label for="valor_unitario_resultante_m2">Resultante ($/m&sup2;):</label>').appendTo(div);
-        $('<input type="text" name="valor_unitario_resultante_m2" id="valor_unitario_resultante_m2"/>').attr('readonly', 'true').addClass('form-control').appendTo(div);
-        div.appendTo('#containerDialogForm');
-
-        div = $('<div />');
-        div.addClass('col-md-6');
-        $('<label for="in_promedio">Interviene en el Promedio:</label>').appendTo(div);
-        $('<input type="checkbox" name="in_promedio" id="in_promedio" />').appendTo(div);
-        div.appendTo('#containerDialogForm');
-
-    };
-
-    /*++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-     * 
-     ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
-    $.createFormAemInformacion = function () {
-        div = $('<div />');
-        div.addClass('col-md-12');
-        $('<label for="ubicacion">Ubicacion:</label>').appendTo(div);
-        $('<input type="text" name="ubicacion" id="ubicacion" value="" maxlength="200"/>').attr('required', 'true').addClass('form-control').appendTo(div);
-        div.appendTo('#containerDialogForm');
-
-        div = $('<div />');
-        div.addClass('col-md-12');
-        $('<label for="edad">Edad:</label>').appendTo(div);
-        $('<input type="number" name="edad" id="edad" value="0" min="0" max="9999999" step="1" pattern="[0-9]{1,3}"/>').attr('required', 'true').addClass('form-control').appendTo(div);
-        div.appendTo('#containerDialogForm');
-
-        div = $('<div />');
-        div.addClass('col-md-12');
-        $('<label for="telefono">Teléfono:</label>').appendTo(div);
-        $('<input type="text" name="telefono" id="telefono" value="" maxlength="100"/>').attr('required', 'true').addClass('form-control').appendTo(div);
-        div.appendTo('#containerDialogForm');
-
-        div = $('<div />');
-        div.addClass('col-md-12');
-        $('<label for="observaciones">Observaciones:</label>').appendTo(div);
-        $('<input type="text" name="observaciones" id="observaciones" value="" maxlength="100"/>').attr('required', 'true').addClass('form-control').appendTo(div);
-        div.appendTo('#containerDialogForm');
-
-        $("input[type=number]").keydown(function (e) {
-            if ($.inArray(e.keyCode, [46, 8, 9, 27, 13, 110, 190]) !== -1 ||
-                (e.keyCode == 65 && e.ctrlKey === true) ||
-                (e.keyCode == 67 && e.ctrlKey === true) ||
-                (e.keyCode == 88 && e.ctrlKey === true) ||
-                (e.keyCode >= 35 && e.keyCode <= 39)) {
-                 return;
-            }
-            if ((e.shiftKey || (e.keyCode < 48 || e.keyCode > 57)) && (e.keyCode < 96 || e.keyCode > 105)) {
-                e.preventDefault();
-            }
-        });
-
-
-    };
-
-    /*++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-     * 
-     ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
-    $.createFormAemAnalisis = function () {
-        div = $('<div />');
-        div.addClass('col-md-12');
-        $('<label for="precio_venta">Precio de Venta:</label>').appendTo(div);
-        $('<input type="number" name="precio_venta" id="precio_venta" value="0.00" min="0.00" max="9999999999999.99" step="0.01" pattern="[0-9]{1,13}[.]{1}[0-9]{2}"/>').attr('required', 'true').addClass('form-control').appendTo(div);
-        div.appendTo('#containerDialogForm');
-
-        div = $('<div />');
-        div.addClass('col-md-12');
-        $('<label for="superficie_terreno">Superficie del Terreno:</label>').appendTo(div);
-        $('<input type="number" name="superficie_terreno" id="superficie_terreno" value="0.00" min="0.00" max="9999999999999.99" step="0.01" pattern="[0-9]{1,13}[.]{1}[0-9]{2}"/>').attr('required', 'true').addClass('form-control').appendTo(div);
-        div.appendTo('#containerDialogForm');
-
-        div = $('<div />');
-        div.addClass('col-md-12');
-        $('<label for="superficie_construccion">Superficie de la Construcción:</label>').appendTo(div);
-        $('<input type="number" name="superficie_construccion" id="superficie_construccion" value="0.00" min="0.00" max="9999999999999.99" step="0.01" pattern="[0-9]{1,13}[.]{1}[0-9]{2}"/>').attr('required', 'true').addClass('form-control').appendTo(div);
-        div.appendTo('#containerDialogForm');
-
-        div = $('<div />');
-        div.addClass('col-md-12');
-        $('<label for="valor_unitario_m2">Valor Unitario ($/m&sup2;):</label>').appendTo(div);
-        $('<input type="text" name="valor_unitario_m2" id="valor_unitario_m2"/>').attr('disabled', 'true').addClass('form-control').appendTo(div);
-        div.appendTo('#containerDialogForm');
-
-        div = $('<div />');
-        div.addClass('col-md-12');
-        $('<label for="idfactorzona">Zona:</label>').appendTo(div);
-        $('<select name="idfactorzona" id="idfactorzona"/>').appendTo(div);
-        div.appendTo('#containerDialogForm');
-
-        div = $('<div />');
-        div.addClass('col-md-12');
-        $('<label for="idfactorubicacion">Ubicación:</label>').appendTo(div);
-        $('<select name="idfactorubicacion" id="idfactorubicacion"/>').appendTo(div);
-        div.appendTo('#containerDialogForm');
-
-        div = $('<div />');
-        div.addClass('col-md-12');
-        $('<label for="factor_superficie">Factor Superficie:</label>').appendTo(div);
-        $('<input type="number" name="factor_superficie" id="factor_superficie" value="0.00" min="0.00" max="100.00" step="0.01" pattern="[0-9]{1,3}[.]{1}[0-9]{2}"/>').attr('required', 'true').addClass('form-control').appendTo(div);
-        div.appendTo('#containerDialogForm');
-
-        div = $('<div />');
-        div.addClass('col-md-12');
-        $('<label for="factor_edad">Factor Edad:</label>').appendTo(div);
-        $('<input type="number" name="factor_edad" id="factor_edad" value="0.00" min="0.00" max="99999999.99" step="0.01" pattern="[0-9]{1,8}[.]{1}[0-9]{2}"/>').attr('required', 'true').addClass('form-control').appendTo(div);
-        div.appendTo('#containerDialogForm');
-
-        div = $('<div />');
-        div.addClass('col-md-12');
-        $('<label for="idfactorconservacion">Conservación:</label>').appendTo(div);
-        $('<select name="idfactorconservacion" id="idfactorconservacion"/>').appendTo(div);
-        div.appendTo('#containerDialogForm');
-
-        div = $('<div />');
-        div.addClass('col-md-12');
-        $('<label for="factor_negociacion">Negociación:</label>').appendTo(div);
-        $('<input type="number" name="factor_negociacion" id="factor_negociacion" value="0.00" min="0.00" max="100.00º" step="0.01" pattern="[0-9]{1,3}[.]{1}[0-9]{2}"/>').attr('required', 'true').addClass('form-control').appendTo(div);
-        div.appendTo('#containerDialogForm');
-
-        div = $('<div />');
-        div.addClass('col-md-12');
-        $('<label for="factor_resultante">Factor Resultante:</label>').appendTo(div);
-        $('<input type="text" name="factor_resultante" id="factor_resultante"/>').attr('disabled', 'true').addClass('form-control').appendTo(div);
-        div.appendTo('#containerDialogForm');
-
-        div = $('<div />');
-        div.addClass('col-md-12');
-        $('<label for="valor_unitario_resultante_m2">Resultante ($/m&sup2;):</label>').appendTo(div);
-        $('<input type="text" name="valor_unitario_resultante_m2" id="valor_unitario_resultante_m2"/>').attr('disabled', 'true').addClass('form-control').appendTo(div);
-        div.appendTo('#containerDialogForm');
-
-        div = $('<div />');
-        div.addClass('col-md-12');
-        $('<label for="in_promedio">Interviene en el Promedio:</label>').appendTo(div);
-        $('<input type="checkbox" name="in_promedio" id="in_promedio" />').appendTo(div);
-        div.appendTo('#containerDialogForm');
-
-    };
-
-    /*++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-     * 
-     ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
-    $.loadFormAemCompTerrenos = function (id) {
-        $.ajax({
-            global: false,
-            cache: false,
-            dataType: 'json',
-            url: '/corevat/AemCompTerrenosGet/' + id,
-            type: 'get',
-            success: function (data) {
-                datos = eval(data);
-                $('#ubicacion').val(datos.ubicacion);
-                $('#precio').val(datos.precio);
-                $('#superficie_terreno').val(datos.superficie_terreno);
-                $('#precio_unitario_m2_terreno').val(datos.precio_unitario_m2_terreno);
-                $('#observaciones').val(datos.observaciones);
-            }
-        });
-
-    };
-
-    /*++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-     * 
-     ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
-    $.loadFormAemHomologacion = function (id) {
-        $.ajax({
-            global: false,
-            cache: false,
-            dataType: 'json',
-            url: '/corevat/AemHomologacionGet/' + id,
-            type: 'get',
-            success: function (data) {
-                datos = eval(data);
-                $('#comparable').val(datos.comparable);
-                $('#superficie_terreno').val(datos.superficie_terreno);
-                $('#valor_unitario').val(datos.valor_unitario);
-				
-				for (var i = 0; i < datos.cat_factores_zonas.length; i++) {
-					$('<option value="' + datos.cat_factores_zonas[i].idfactorzona + '">('+ datos.cat_factores_zonas[i].valor_factor_zona  + ') ' + datos.cat_factores_zonas[i].factor_zona + '</option>').appendTo('#idfactorzona');
-				}
-                $("#idfactorzona option[value=" + datos.idfactorzona + "]").attr("selected", true);
-				
-				for (var i = 0; i < datos.cat_factores_ubicacion.length; i++) {
-					$('<option value="' + datos.cat_factores_ubicacion[i].idfactorubicacion + '">('+ datos.cat_factores_ubicacion[i].valor_factor_ubicacion  + ') ' + datos.cat_factores_ubicacion[i].factor_ubicacion + '</option>').appendTo('#idfactorubicacion');
-				}
-                $("#idfactorubicacion option[value=" + datos.idfactorubicacion + "]").attr("selected", true);
-				
-				for (var i = 0; i < datos.cat_factores_frente.length; i++) {
-					$('<option value="' + datos.cat_factores_frente[i].idfactorfrente + '">('+ datos.cat_factores_frente[i].valor_factor_frente  + ') ' + datos.cat_factores_frente[i].factor_frente + '</option>').appendTo('#idfactorfrente');
-				}
-                $("#idfactorfrente option[value=" + datos.idfactorfrente + "]").attr("selected", true);
-				
-				for (var i = 0; i < datos.cat_factores_forma.length; i++) {
-					$('<option value="' + datos.cat_factores_forma[i].idfactorforma + '">('+ datos.cat_factores_forma[i].valor_factor_forma  + ') ' + datos.cat_factores_forma[i].factor_forma + '</option>').appendTo('#idfactorforma');
-				}
-                $("#idfactorforma option[value=" + datos.idfactorforma + "]").attr("selected", true);
-				
-                $('#superficie').val(datos.superficie);
-                $('#valor_unitario_negociable').val(datos.valor_unitario_negociable);
-                $('#valor_unitario_resultante_m2').val(datos.valor_unitario_resultante_m2);
-				$('#in_promedio').prop('checked',  (datos.in_promedio === 1 ? true:false) );
-            }
-        });
-    };
-
-    /*++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-     * 
-     ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
-    $.loadFormAemInformacion = function (id) {
-        $.ajax({
-            global: false,
-            cache: false,
-            dataType: 'json',
-            url: '/corevat/AemInformacionGet/' + id,
-            type: 'get',
-            success: function (data) {
-                datos = eval(data);
-                $('#ubicacion').val(datos.ubicacion);
-                $('#edad').val(datos.edad);
-                $('#telefono').val(datos.telefono);
-                $('#observaciones').val(datos.observaciones);
-
-            }
-        });
-    };
-
-    /*++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-     * 
-     ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
-    $.loadFormAemAnalisis = function (id) {
-        $.ajax({
-            global: false,
-            cache: false,
-            dataType: 'json',
-            url: '/corevat/AemAnalisisGet/' + id,
-            type: 'get',
-            success: function (data) {
-                datos = eval(data);
-                $('#precio_venta').val(datos.precio_venta);
-                $('#superficie_terreno').val(datos.superficie_terreno);
-                $('#superficie_construccion').val(datos.superficie_construccion);
-                $('#valor_unitario_m2').val(datos.valor_unitario_m2);
-				
-				for (var i = 0; i < datos.cat_factores_zonas.length; i++) {
-					$('<option value="' + datos.cat_factores_zonas[i].idfactorzona + '">('+ datos.cat_factores_zonas[i].valor_factor_zona  + ') ' + datos.cat_factores_zonas[i].factor_zona + '</option>').appendTo('#idfactorzona');
-				}
-                $("#idfactorzona option[value=" + datos.idfactorzona + "]").attr("selected", true);
-				
-				for (var i = 0; i < datos.cat_factores_ubicacion.length; i++) {
-					$('<option value="' + datos.cat_factores_ubicacion[i].idfactorubicacion + '">('+ datos.cat_factores_ubicacion[i].valor_factor_ubicacion  + ') ' + datos.cat_factores_ubicacion[i].factor_ubicacion + '</option>').appendTo('#idfactorubicacion');
-				}
-                $("#idfactorubicacion option[value=" + datos.idfactorubicacion + "]").attr("selected", true);
-				
-                $('#factor_superficie').val(datos.factor_superficie);
-                $('#factor_edad').val(datos.factor_edad);
-				
-				for (var i = 0; i < datos.cat_factores_conservacion.length; i++) {
-					$('<option value="' + datos.cat_factores_conservacion[i].idfactorconservacion + '">('+ datos.cat_factores_conservacion[i].valor_factor_conservacion  + ') ' + datos.cat_factores_conservacion[i].factor_conservacion + '</option>').appendTo('#idfactorconservacion');
-				}
-                $("#idfactorconservacion option[value=" + datos.idfactorconservacion + "]").attr("selected", true);
-				
-                $('#factor_negociacion').val(datos.factor_negociacion);
-                $('#factor_resultante').val(datos.factor_resultante);
-                $('#valor_unitario_resultante_m2').val(datos.valor_unitario_resultante_m2);
-				$('#in_promedio').prop('checked',  (datos.in_promedio === 1 ? true:false) );
-            }
-        });
-    };
-
-    
-
-
-    });
-</script>
 @stop

@@ -51,43 +51,42 @@ class AemInformacion extends \Eloquent {
 	 * @param  int  $id
 	 * @return Response
 	 */
-	public static function insAemInformacion($inputs, &$idaeminformacion) {
+	public static function insAemInformacion($inputs) {
 		$rowAemInformacion = new AemInformacion();
-		$rowAemInformacion->idavaluoenfoquemercado = $inputs['idAem'];
-		$rowAemInformacion->ubicacion = $inputs['ubicacion'];
+		$rowAemInformacion->idavaluoenfoquemercado = $inputs['idavaluoenfoquemercado3'];
+		$rowAemInformacion->ubicacion = $inputs['ubicacion_aeminformacion'];
 		$rowAemInformacion->edad = $inputs['edad'];
 		$rowAemInformacion->telefono = $inputs['telefono'];
-		$rowAemInformacion->observaciones = $inputs['observaciones'];
+		$rowAemInformacion->observaciones = $inputs['observaciones_aeminformacion'];
 		$rowAemInformacion->idemp = 1;
 		$rowAemInformacion->ip = $_SERVER['REMOTE_ADDR'];
 		$rowAemInformacion->host = isset($_SERVER['HTTP_CLIENT_IP']) ? $_SERVER['HTTP_CLIENT_IP'] : '';
-		$rowAemInformacion->creado_por = 1;
+		$rowAemInformacion->creado_por = Auth::id();
 		$rowAemInformacion->creado_el = date('Y-m-d H:i:s');
 		$rowAemInformacion->save();
 		
 		$rowAemAnalisis = new AemAnalisis();
 		$rowAemAnalisis->idavaluoenfoquemercado = $rowAemInformacion->idavaluoenfoquemercado;
 		$rowAemAnalisis->idaeminformacion = $rowAemInformacion->idaeminformacion;
-		$idaeminformacion = $rowAemInformacion->idaeminformacion;
 		$rowAemAnalisis->save();
 	}
 
 	/**
 	 * Show the form for editing the specified resource.
 	 *
-	 * @param  int  $id
+	 * @param  int  $inputs
 	 * @return Response
 	 */
 	public static function updInformacion($inputs) {
-		$rowAemInformacion = AemInformacion::find($inputs['idTable']);
-		$rowAemInformacion->ubicacion = $inputs['ubicacion'];
+		$rowAemInformacion = AemInformacion::find($inputs['idaeminformacion']);
+		$rowAemInformacion->ubicacion = $inputs['ubicacion_aeminformacion'];
 		$rowAemInformacion->edad = $inputs['edad'];
 		$rowAemInformacion->telefono = $inputs['telefono'];
-		$rowAemInformacion->observaciones = $inputs['observaciones'];
+		$rowAemInformacion->observaciones = $inputs['observaciones_aeminformacion'];
 		$rowAemInformacion->idemp = 1;
 		$rowAemInformacion->ip = $_SERVER['REMOTE_ADDR'];
 		$rowAemInformacion->host = isset($_SERVER['HTTP_CLIENT_IP']) ? $_SERVER['HTTP_CLIENT_IP'] : '';
-		$rowAemInformacion->modi_por = 1;
+		$rowAemInformacion->modi_por = Auth::id();
 		$rowAemInformacion->modi_el = date('Y-m-d H:i:s');
 		$rowAemInformacion->save();
 	}
