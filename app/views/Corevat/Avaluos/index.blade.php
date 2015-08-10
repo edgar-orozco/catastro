@@ -49,6 +49,7 @@
                 <th>Cons.</th>
                 <th>Catastral</th>
                 <th>Concluido</th>
+                <th>Opciones</th>
             </tr>
             </thead>
             <tbody>
@@ -64,16 +65,7 @@
                     <td>{{$row->superficie_construccion}}</td>
                     <td>{{$row->cuenta_catastral}}</td>
                     <td>{{$row->valor_concluido}}</td>
-                </tr>
-                <tr>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td colspan="3">
+                    <td>
                         <a href="/corevat/AvaluoDel/{{$row->idavaluo}}" class="eliminar btn btn-xs btn-danger" title="Eliminar"><i class="glyphicon glyphicon-remove"></i></a>
                         <a href="/corevat/AvaluoPrint/{{$row->idavaluo}}" target="_blank" class="print btn btn-xs btn-info" title="Imprimir"><i class="glyphicon glyphicon-print"></i></a>
                     </td>
