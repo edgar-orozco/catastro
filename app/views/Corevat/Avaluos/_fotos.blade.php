@@ -10,21 +10,21 @@
     <br/>
     <br/>
 	<div class="col-md-5">
-		<div class="input-group">
-			<span class="input-group-addon">{{Form::label('foto0', 'Fotos')}}</span>
+		<div class="input-group addImage">
+			<span class="input-group addImage-addon">{{Form::label('foto0', 'Fotos')}}</span>
 		{{Form::file('foto0', ['id'=>'foto0', 'class'=>'filesCorevat']) }}	
 		@if ( $foto0 != '' )
-			<span class="input-group-btn"><a class="btn btn-success" type="button" target='_blank' href="{{$foto0}}">Ver Foto 1</a></span>
+			<span class="input-group addImage-btn"><a class="btn btn-success" type="button" target='_blank' href="{{$foto0}}">Ver Foto 1</a></span>
 		@endif
 		</div>
 	</div>
 	<div class="col-md-2">&nbsp;</div>
 	<div class="col-md-5">
-		<div class="input-group">
-			<span class="input-group-addon">{{Form::label('foto1', 'Fotos')}}</span>
+		<div class="input-group addImage">
+			<span class="input-group addImage-addon">{{Form::label('foto1', 'Fotos')}}</span>
 		{{Form::file('foto1', ['id'=>'foto1', 'class'=>'filesCorevat']) }}	
 		@if ( $foto1 != '' )
-			<span class="input-group-btn"><a class="btn btn-success" type="button" target='_blank' href="{{$foto1}}">Ver Foto 2</a></span>
+			<span class="input-group addImage-btn"><a class="btn btn-success" type="button" target='_blank' href="{{$foto1}}">Ver Foto 2</a></span>
 		@endif
 		</div>
 	</div>
@@ -44,21 +44,21 @@
 
 <div class="row">
 	<div class="col-md-5">
-		<div class="input-group">
-			<span class="input-group-addon">{{Form::label('foto2', 'Fotos')}}</span>
+		<div class="input-group addImage">
+			<span class="input-group addImage-addon">{{Form::label('foto2', 'Fotos')}}</span>
 		{{Form::file('foto2', ['id'=>'foto2', 'class'=>'filesCorevat']) }}	
 		@if ( $foto2 != '' )
-			<span class="input-group-btn"><a class="btn btn-success" type="button" target='_blank' href="{{$foto2}}">Ver Foto 3</a></span>
+			<span class="input-group addImage-btn"><a class="btn btn-success" type="button" target='_blank' href="{{$foto2}}">Ver Foto 3</a></span>
 		@endif
 		</div>
 	</div>
 	<div class="col-md-2">&nbsp;</div>
 	<div class="col-md-5">
-		<div class="input-group">
-			<span class="input-group-addon">{{Form::label('foto3', 'Fotos')}}</span>
+		<div class="input-group addImage">
+			<span class="input-group addImage-addon">{{Form::label('foto3', 'Fotos')}}</span>
 		{{Form::file('foto3', ['id'=>'foto3', 'class'=>'filesCorevat']) }}	
 		@if ( $foto3 != '' )
-			<span class="input-group-btn"><a class="btn btn-success" type="button" target='_blank' href="{{$foto3}}">Ver Foto 4</a></span>
+			<span class="input-group addImage-btn"><a class="btn btn-success" type="button" target='_blank' href="{{$foto3}}">Ver Foto 4</a></span>
 		@endif
 		</div>
 	</div>
@@ -79,22 +79,22 @@
 <div class="row">
 	<div class="col-md-5">
 
-		<div class="input-group">
-			<span class="input-group-addon">{{Form::label('foto4', 'Fotos')}}</span>
+		<div class="input-group addImage">
+			<span class="input-group addImage-addon">{{Form::label('foto4', 'Fotos')}}</span>
 		{{Form::file('foto4', ['id'=>'foto4', 'class'=>'filesCorevat']) }}	
 		@if ( $foto4 != '' )
-			<span class="input-group-btn"><a class="btn btn-success" type="button" target='_blank' href="{{$foto4}}">Ver Foto 5</a></span>
+			<span class="input-group addImage-btn"><a class="btn btn-success" type="button" target='_blank' href="{{$foto4}}">Ver Foto 5</a></span>
 		@endif
 		</div>
 	</div>
 	<div class="col-md-2">&nbsp;</div>
 	<div class="col-md-5">
 
-		<div class="input-group">
-			<span class="input-group-addon">{{Form::label('foto5', 'Fotos')}}</span>
+		<div class="input-group addImage">
+			<span class="input-group addImage-addon">{{Form::label('foto5', 'Fotos')}}</span>
 		{{Form::file('foto5', ['id'=>'foto5', 'class'=>'filesCorevat']) }}	
 		@if ( $foto5 != '' )
-			<span class="input-group-btn"><a class="btn btn-success" type="button" target='_blank' href="{{$foto5}}">Ver Foto 6</a></span>
+			<span class="input-group addImage-btn"><a class="btn btn-success" type="button" target='_blank' href="{{$foto5}}">Ver Foto 6</a></span>
 		@endif
 		</div>
 
@@ -115,11 +115,11 @@
 	<div class="col-md-12"><h4>Plano</h4></div>
 	<div class="col-md-5">
 		<hr>
-		<div class="input-group">
-			<span class="input-group-addon">{{Form::label('plano0', 'Fotos')}}</span>
+		<div class="input-group addImage">
+			<span class="input-group addImage-addon">{{Form::label('plano0', 'Fotos')}}</span>
 		{{Form::file('plano0', ['id'=>'plano0', 'class'=>'filesCorevat']) }}	
 		@if ( $plano0 != '' )
-			<span class="input-group-btn"><a class="btn btn-success" type="button" target='_blank' href="{{$plano0}}">Ver Plano</a></span>
+			<span class="input-group addImage-btn"><a class="btn btn-success" type="button" target='_blank' href="{{$plano0}}">Ver Plano</a></span>
 		@endif
 		</div>
 		<hr>
