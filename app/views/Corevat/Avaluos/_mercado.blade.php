@@ -99,7 +99,9 @@
 	<div class="col-md-10">
         <h4>Venta de inmuebles similares en uso al que se valua(sujeto)</h4></div>
     <div class="col-md-2 col-sm-2 col-xs-2 btn-beside-title">
-        <a class="btn btn-primary nuevo" id="btnNewAemInf" title="Nuevo Registro">Nuevo
+        <a class="btn btn-primary nuevo" id="btnNewAemInf" title="Nuevo Registro">
+            <span class="glyphicon glyphicon-plus-sign"></span>
+            Nuevo
         </a>
     </div>
 	<div class="col-md-12">
