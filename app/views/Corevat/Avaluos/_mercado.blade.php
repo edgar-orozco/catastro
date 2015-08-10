@@ -186,8 +186,8 @@
 		</table>
 	</div>
 	<div class="col-md-12">&nbsp;</div>
-	<div class="col-md-12 form-actions">
-		<a href="{{URL::route('indexAvaluos')}}" class="btn btn-coveratPrincipal" role="button">
+	<div class="col-md-6 form-actions">
+		<a href="{{URL::route('indexAvaluos')}}" class="btn btn-coveratSecondary" role="button">
             <i class="glyphicon glyphicon-arrow-left"></i> Regresar
         </a>
 	</div>
