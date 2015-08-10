@@ -43,7 +43,7 @@
 	</div>
 	<div class="col-md-12"><hr></div>
 
-	<div class="col-md-11"><h3>DE LA CONSTRUCCIÓN</h3></div>
+	<div class="col-md-11"><h4>DE LA CONSTRUCCIÓN</h3></div>
 	<div class="col-md-3">
 		{{Form::label('idclasegeneralinmueble', 'Clase General')}}
 		{{Form::select('idclasegeneralinmueble', $cat_clase_general_inmueble, $row->idclasegeneral, ['id' => 'idclasegeneralinmueble', 'class'=>'form-control'])}}
@@ -83,8 +83,13 @@
 	</div>
 	<div class="col-md-12"><hr></div>
 	
-	<div class="col-md-11"><h3>Datos de la Construcción</h3></div>
-	<div class="col-md-1"><a class="btn btn-primary nuevo" id="btnNewAefCons" title="Nuevo Registro">Nuevo</a></div>
+	<div class="col-md-10 col-sm-10 col-xs-10"><h4>Datos de la Construcción</h4></div>
+    <div class="col-md-2 col-sm-2 col-xs-2 btn-beside-title">
+        <a class="btn btn-primary nuevo" id="btnNewAefCons" title="Nuevo Registro">
+            <span class="glyphicon glyphicon-plus-sign"></span>
+            Nuevo
+        </a>
+    </div>
 	<div class="col-md-12">
 		<table cellpadding="0" cellspacing="0" border="0" class="table datatable table-striped" id="aefConstruccionesDataTable">
 			<thead>
