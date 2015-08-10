@@ -52,7 +52,7 @@
 	</div>
 	<div class="col-md-12">&nbsp;</div>
 
-    <hr>
+    <div class="col-md-12"><hr></div>
 
 	<div class="col-md-12"><h4>Homologación del Terreno en función del lote tipo o predominante en la zona...</h4></div>
 	<div class="col-md-12">
@@ -96,8 +96,12 @@
 
 	<div class="col-md-12"><h2>Venta de Inmuebles</h2></div>
 	<div class="col-md-12">&nbsp;</div>
-	<div class="col-md-11"><h3>Venta de inmuebles similares en uso al que se valua(sujeto)</h3></div>
-	<div class="col-md-1"><a class="btn btn-primary nuevo" id="btnNewAemInf" title="Nuevo Registro">Nuevo</a></div>
+	<div class="col-md-10">
+        <h4>Venta de inmuebles similares en uso al que se valua(sujeto)</h4></div>
+    <div class="col-md-2 col-sm-2 col-xs-2 btn-beside-title">
+        <a class="btn btn-primary nuevo" id="btnNewAemInf" title="Nuevo Registro">Nuevo
+        </a>
+    </div>
 	<div class="col-md-12">
 		<table cellpadding="0" cellspacing="0" border="0" class="table datatable table-striped" id="aemInformacionDataTable">
 			<thead>
