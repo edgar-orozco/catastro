@@ -80,8 +80,8 @@
 					<tr>
 						<th rowspan="2">Perito</th>
 						<th colspan="2">Folios Autorizados</th>
-						<th colspan="2">Folios Entregados</th>
-						<th rowspan="2">Ultima Entrega</th>
+						<th colspan="2">Folios Informados</th>
+						<th rowspan="2">Ultimo Reportado</th>
 					</tr>
 					<tr>
 						<th>U</th>
@@ -118,7 +118,8 @@
 						<td colspan="2">{{$perito->sumFoliosE('comprados', 'U', 'total')->entregado+$perito->sumFoliosE('comprados', 'R', 'total')->entregado}}</td>
 					</tr>
 				</tfoot>
-		</table>																
+		</table>
+		<h4>Fecha de impresión: {{date("d") . " de " .$mes[date('m')]." del ". date("Y");}}</h4>															
 		<br>
 		<br>
 
