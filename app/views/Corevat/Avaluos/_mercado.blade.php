@@ -31,15 +31,15 @@
 			</tbody>
 			<tfoot>
 				<tr>
-					<td class="bg-primary">&nbsp;</td>
-					<td class="bg-primary">&nbsp;</td>
-					<td class="bg-primary">&nbsp;</td>
-					<td class="bg-primary">&nbsp;</td>
-					<td class="bg-primary">&nbsp;</td>
-					<td class="bg-primary">&nbsp;</td>
-					<td class="bg-primary">&nbsp;</td>
-					<td class="bg-primary">&nbsp;</td>
-					<td class="bg-primary">&nbsp;</td>
+					<td class="bg-default">&nbsp;</td>
+					<td class="bg-default">&nbsp;</td>
+					<td class="bg-default">&nbsp;</td>
+					<td class="bg-default">&nbsp;</td>
+					<td class="bg-default">&nbsp;</td>
+					<td class="bg-default">&nbsp;</td>
+					<td class="bg-default">&nbsp;</td>
+					<td class="bg-default">&nbsp;</td>
+					<td class="bg-default">&nbsp;</td>
 				</tr>
 			</tfoot>
 		</table>
@@ -70,16 +70,16 @@
 			</tbody>
 			<tfoot>
 				<tr>
-					<td class="bg-primary" colspan="6">&nbsp;</td>
-					<td class="bg-primary" colspan="4" style="text-align: right;">Valor Unitario Promedio ($/m&sup2;)</td>
+					<td class="bg-default" colspan="6">&nbsp;</td>
+					<td class="bg-default" colspan="4" style="text-align: right;">Valor Unitario Promedio ($/m&sup2;)</td>
 					<td class="bg-info" colspan="2" id="valor_unitario_promedio">{{$row->valor_unitario_promedio}}</td>
-					<td class="bg-primary">&nbsp;</td>
+					<td class="bg-default">&nbsp;</td>
 				</tr>
 				<tr>
-					<td class="bg-primary" colspan="6">&nbsp;</td>
-					<td class="bg-primary" colspan="4" style="text-align: right;">Valor Aplicado por M&sup2;</td>
+					<td class="bg-default" colspan="6">&nbsp;</td>
+					<td class="bg-default" colspan="4" style="text-align: right;">Valor Aplicado por M&sup2;</td>
 					<td class="bg-info" colspan="2" id="valor_aplicado_m2">{{$row->valor_aplicado_m2}}</td>
-					<td class="bg-primary">&nbsp;</td>
+					<td class="bg-default">&nbsp;</td>
 				</tr>
 			</tfoot>
 		</table>
@@ -112,14 +112,14 @@
 			</tbody>
 			<tfoot>
 				<tr>
-					<td class="bg-primary">&nbsp;</td>
-					<td class="bg-primary">&nbsp;</td>
-					<td class="bg-primary">&nbsp;</td>
-					<td class="bg-primary">&nbsp;</td>
-					<td class="bg-primary">&nbsp;</td>
-					<td class="bg-primary">&nbsp;</td>
-					<td class="bg-primary">&nbsp;</td>
-					<td class="bg-primary">&nbsp;</td>
+					<td class="bg-default">&nbsp;</td>
+					<td class="bg-default">&nbsp;</td>
+					<td class="bg-default">&nbsp;</td>
+					<td class="bg-default">&nbsp;</td>
+					<td class="bg-default">&nbsp;</td>
+					<td class="bg-default">&nbsp;</td>
+					<td class="bg-default">&nbsp;</td>
+					<td class="bg-default">&nbsp;</td>
 				</tr>
 			</tfoot>
 		</table>
@@ -151,22 +151,22 @@
 			</tbody>
 			<tfoot>
 				<tr>
-					<td class="bg-primary" colspan="8">&nbsp;</td>
-					<td class="bg-primary" colspan="5" style="text-align: right;">Promedio:</td>
+					<td class="bg-default" colspan="8">&nbsp;</td>
+					<td class="bg-default" colspan="5" style="text-align: right;">Promedio:</td>
 					<td class="bg-info" id="promedio_analisis">{{$row->promedio_analisis}}</td>
-					<td class="bg-primary">&nbsp;</td>
+					<td class="bg-default">&nbsp;</td>
 				</tr>
 				<tr>
-					<td class="bg-primary" colspan="8">&nbsp;</td>
-					<td class="bg-primary" colspan="5" style="text-align: right;">Superficie Construida del Sujeto:</td>
+					<td class="bg-default" colspan="8">&nbsp;</td>
+					<td class="bg-default" colspan="5" style="text-align: right;">Superficie Construida del Sujeto:</td>
 					<td class="bg-info" id="superficie_construida">{{$row->superficie_construida}}</td>
-					<td class="bg-primary">&nbsp;</td>
+					<td class="bg-default">&nbsp;</td>
 				</tr>
 				<tr>
-					<td class="bg-primary" colspan="8">&nbsp;</td>
-					<td class="bg-primary" colspan="5" style="text-align: right;">Valor comparativo de mercado:</td>
+					<td class="bg-default" colspan="8">&nbsp;</td>
+					<td class="bg-default" colspan="5" style="text-align: right;">Valor comparativo de mercado:</td>
 					<td class="bg-info" id="valor_comparativo_mercado">{{$row->valor_comparativo_mercado}}</td>
-					<td class="bg-primary">&nbsp;</td>
+					<td class="bg-default">&nbsp;</td>
 				</tr>
 			</tfoot>
 		</table>
