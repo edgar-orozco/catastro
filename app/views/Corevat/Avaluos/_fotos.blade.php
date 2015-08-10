@@ -111,10 +111,15 @@
 		{{Form::text('ftitulo5', $row->ftitulo5, ['class'=>'form-control', 'maxlength'=>'200'] )}}
 	</div>
 </div>
+<br/>
+<br/>
 <div class="row">
 	<div class="col-md-12"><h4>Plano</h4></div>
+    <div class="clearfix"></div>
+    <br/>
+    <br/>
 	<div class="col-md-5">
-		<hr>
+
 		<div class="input-group addImage">
 			<span class="input-group-addon">{{Form::label('plano0', 'Fotos')}}</span>
 		{{Form::file('plano0', ['id'=>'plano0', 'class'=>'filesCorevat']) }}	
@@ -122,7 +127,6 @@
 			<span class="input-group-btn"><a class="btn btn-success" type="button" target='_blank' href="{{$plano0}}">Ver Plano</a></span>
 		@endif
 		</div>
-		<hr>
 	</div>
 	<div class="col-md-2">&nbsp;</div>
 	<div class="col-md-5">&nbsp;</div>
