@@ -226,6 +226,28 @@ $(function () {
                 $('#' + rfc.replace( /(:|\.|\[|\]|,)/g, "\\$1" )).val(ui.item.rfc);
                   var curpa = "adquiriente[curp]";
             $('#' + curpa.replace( /(:|\.|\[|\]|,)/g, "\\$1" )).val(ui.item.curp);
+
+            //datos domicilio
+             var tip_v = "adquirienteDomicilio[tipo_vialidad_id]";
+            $('#' + tip_v.replace( /(:|\.|\[|\]|,)/g, "\\$1" )).val(ui.item[0].tipo_vialidad_id);
+             var tip_v = "adquirienteDomicilio[vialidad]";
+            $('#' + tip_v.replace( /(:|\.|\[|\]|,)/g, "\\$1" )).val(ui.item[0].vialidad);
+             var tip_v = "adquirienteDomicilio[num_ext]";
+            $('#' + tip_v.replace( /(:|\.|\[|\]|,)/g, "\\$1" )).val(ui.item[0].num_ext);
+             var tip_v = "adquirienteDomicilio[num_int]";
+            $('#' + tip_v.replace( /(:|\.|\[|\]|,)/g, "\\$1" )).val(ui.item[0].num_int);
+             var tip_v = "adquirienteDomicilio[asentamiento]";
+            $('#' + tip_v.replace( /(:|\.|\[|\]|,)/g, "\\$1" )).val(ui.item[0].asentamiento);
+             var tip_v = "adquirienteDomicilio[cp]";
+            $('#' + tip_v.replace( /(:|\.|\[|\]|,)/g, "\\$1" )).val(ui.item[0].cp);
+             var tip_v = "adquirienteDomicilio[localidad]";
+            $('#' + tip_v.replace( /(:|\.|\[|\]|,)/g, "\\$1" )).val(ui.item[0].localidad);
+             var tip_v = "adquirienteDomicilio[municipio]";
+            $('#' + tip_v.replace( /(:|\.|\[|\]|,)/g, "\\$1" )).val(ui.item[0].municipio);
+             var tip_v = "adquirienteDomicilio[entidad]";
+            $('#' + tip_v.replace( /(:|\.|\[|\]|,)/g, "\\$1" )).val(ui.item[0].entidad);
+             var tip_v = "adquirienteDomicilio[referencia]";
+            $('#' + tip_v.replace( /(:|\.|\[|\]|,)/g, "\\$1" )).val(ui.item[0].referencia);
                     return false;
                 }
             };
@@ -246,13 +268,13 @@ $(function () {
             //por default es persona física por lo que el autocomplete lo deshabilitamos
             $('#' + rfc.replace( /(:|\.|\[|\]|,)/g, "\\$1" )).autocomplete("disable");
 
-            
 
             //Estas son las opciones con las que se construye el autocomplete, como son comunes a los dos inputs rfc y curp se sacan para reutlizar
             var autoCompleteOptsEnajenante = {
                 source: "/ofvirtual/notario/registro/enajenante", //Ruta al controlador que provee los resultados de la busqueda
                 minLength: 8, //Empezamos a mandar los teclazos si han tecleado 8 caracteres
                 select: function (event, ui) {
+                    console.log(ui.item)
                     //Al seleccionar un valor de los desplegados rellenamos los campos
                 var res = "enajenante[id_p]";
                 $('#' + res.replace( /(:|\.|\[|\]|,)/g, "\\$1" )).val(ui.item.id_p);
@@ -266,6 +288,28 @@ $(function () {
                 $('#' + rfc.replace( /(:|\.|\[|\]|,)/g, "\\$1" )).val(ui.item.rfc);
                  var curpa = "enajenante[curp]";
             $('#' + curpa.replace( /(:|\.|\[|\]|,)/g, "\\$1" )).val(ui.item.curp);
+            //datos domicilio
+             var tip_v = "enajenanteDomicilio[tipo_vialidad_id]";
+            $('#' + tip_v.replace( /(:|\.|\[|\]|,)/g, "\\$1" )).val(ui.item[0].tipo_vialidad_id);
+             var tip_v = "enajenanteDomicilio[vialidad]";
+            $('#' + tip_v.replace( /(:|\.|\[|\]|,)/g, "\\$1" )).val(ui.item[0].vialidad);
+             var tip_v = "enajenanteDomicilio[num_ext]";
+            $('#' + tip_v.replace( /(:|\.|\[|\]|,)/g, "\\$1" )).val(ui.item[0].num_ext);
+             var tip_v = "enajenanteDomicilio[num_int]";
+            $('#' + tip_v.replace( /(:|\.|\[|\]|,)/g, "\\$1" )).val(ui.item[0].num_int);
+             var tip_v = "enajenanteDomicilio[asentamiento]";
+            $('#' + tip_v.replace( /(:|\.|\[|\]|,)/g, "\\$1" )).val(ui.item[0].asentamiento);
+             var tip_v = "enajenanteDomicilio[cp]";
+            $('#' + tip_v.replace( /(:|\.|\[|\]|,)/g, "\\$1" )).val(ui.item[0].cp);
+             var tip_v = "enajenanteDomicilio[localidad]";
+            $('#' + tip_v.replace( /(:|\.|\[|\]|,)/g, "\\$1" )).val(ui.item[0].localidad);
+             var tip_v = "enajenanteDomicilio[municipio]";
+            $('#' + tip_v.replace( /(:|\.|\[|\]|,)/g, "\\$1" )).val(ui.item[0].municipio);
+             var tip_v = "enajenanteDomicilio[entidad]";
+            $('#' + tip_v.replace( /(:|\.|\[|\]|,)/g, "\\$1" )).val(ui.item[0].entidad);
+             var tip_v = "enajenanteDomicilio[referencia]";
+            $('#' + tip_v.replace( /(:|\.|\[|\]|,)/g, "\\$1" )).val(ui.item[0].referencia);
+
                     return false;
                 }
             };

@@ -317,7 +317,7 @@ class folios_FoliosController extends BaseController {
 
 	public function formatoreporteperito2()
 	{
-		$peritos = Perito::All();
+		$peritos = Perito::orderBy('corevat', 'ASC')->get();
 
 		$vista= View::make('folios.folios.formatoreporteperito2')->withPeritos($peritos);	
 

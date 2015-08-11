@@ -13,25 +13,36 @@ class Perito extends Eloquent {
 	/**
      * Función para obtener la suma de folios entregados y autoriados por perito o el total, ya sea Urbanos, Rusticos o ambos.
      *
-     * @param $tipo = 'U' o 'R'
+     * @param $tabla = 'historial' o 'comprados'
+     * @param $tipo = 'U', 'R' o null
+     * @param $total = 'total' o null
      * @return object
      */
 
-	public function sumFoliosE($tipo = null, $total = null)
+	public function sumFoliosE($tabla, $tipo = null, $total = null)
 		{
-			$entregaU = FoliosComprados::selectRaw('Sum(entrega_estatal) AS entregado, COUNT(entrega_estatal) as autorizado');
+			if($tabla == 'comprados')
+			{
+				$entregaU = FoliosComprados::selectRaw('Sum(entrega_estatal) AS entregado');
 
+				if(strtolower($tipo) == 'u' || strtolower($tipo) == 'r' )
+				{
+					$entregaU->where('tipo_folio', $tipo);
+				}
+			}
+			else if($tabla == 'historial')
+			{
+				$entregaU = FoliosHistorial::selectRaw('Sum(cantidad_urbanos) AS urbanos, Sum(cantidad_rusticos) AS rusticos');
+			}
 
-				
-			if(!strtolower($total) == 'total')
+			
+
+			if(!strtolower(strtolower($total)) == 'total')
 			{
 				$entregaU->where('perito_id', $this->id);
 			}
 
-			if(strtolower($tipo) == 'u' || strtolower($tipo) == 'r' )
-			{
-				$entregaU->where('tipo_folio', $tipo);
-			}
+			
 
 				
 			return $entregaU->get()[0];

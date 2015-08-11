@@ -20,7 +20,7 @@
                 <button type="submit" id="lock-screen-submit" class="btn btn-primary btn-block">
                     Desbloquear
                 </button>
-                <img id="lock-screen-loader" src="/mapper/images/indicator.gif" alt="cargando ...">
+                <img id="lock-screen-loader" src="/css/fancybox_loading.gif" alt="cargando ...">
             </form>
         </div>
         <div class="change-user">

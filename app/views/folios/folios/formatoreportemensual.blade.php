@@ -43,7 +43,14 @@
 	<title>Reporte Mensual de Folios</title>
 </head>
 <body>
-<center><img src="css/images/folios/Encabezado SPF 2014.png" WIDTH=400 HEIGHT=80 ></
+
+	<img src="css/images/folios/EncabezadoDC.jpg" WIDTH=560 HEIGHT=100 >
+
+
+	<br>
+
+	<h2 align="center">Dirección de catastro</h2>
+
 	<?php
 		$fecha = array();
 		$fecha['1'] = "Enero";
@@ -61,7 +68,7 @@
 	
 	?>
 
-<h1>Reporte de Folios mensual</h1>
+<h4>Reporte de Folios mensual</h4>
 
 <div class="panel panel-primary">
 
@@ -95,12 +102,12 @@
 			<tfoot>
 				<tr>
 					<td rowspan="2">Total</td>
-					<td>{{Perito::All()[0]->sumFoliosE('U','total')->autorizado}}</td>
-					<td>{{Perito::All()[0]->sumFoliosE('R','total')->autorizado}}</td>
+					<td>{{Perito::All()[0]->sumFoliosE('historial', null, 'total')->urbanos}}</td>
+					<td>{{Perito::All()[0]->sumFoliosE('historial', null, 'total')->rusticos}}</td>
 					<td colspan="2" rowspan="2"></td>
 				</tr>
 				<tr>
-					<td colspan="2">{{Perito::All()[0]->sumFoliosE()->autorizado}}</td>
+					<td colspan="2">{{Perito::All()[0]->sumFoliosE('historial', null, 'total')->urbanos+Perito::All()[0]->sumFoliosE('historial', null, 'total')->rusticos}}</td>
 				</tr>
 			</tfoot>
 		</table>
@@ -109,5 +116,14 @@
 	
 	</div>
 </div>
+
+<br>
+		<br>
+
+		<div class="row" align="center">Revisado por</div>
+		<br>
+		<br>
+		<div class="row" align="center">__________________________________</div>
+		<div class="row" align="center">Alfredo Lopez Carrasco</div>
 </body>
 </html>

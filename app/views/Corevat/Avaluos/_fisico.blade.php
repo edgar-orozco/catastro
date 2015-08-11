@@ -3,8 +3,12 @@
 {{Form::model($row, ['route' => array('updateAvaluoEnfoqueFisico', $row->idavaluo), 'method'=>'post', 'id'=>'formAvaluoFisico' ]) }}
 {{Form::hidden('idavaluoenfoquefisico', $row->idavaluoenfoquefisico, ['id'=>'idavaluoenfoquefisico'])}}
 <div class="row">
-	<div class="col-md-11"><h3>Terreno</h3></div>
-	<div class="col-md-1"><a class="btn btn-primary nuevo" id="btnNewAefTerr" title="Nuevo Registro">Nuevo</a></div>
+	<div class="col-md-10 col-sm-10 col-xs-10"><h4>Terreno</h4></div>
+    <div class="col-md-2 col-sm-2 col-xs-2 btn-beside-title">
+        <a class="btn btn-primary nuevo" id="btnNewAefTerr" title="Nuevo Registro">
+            <span class="glyphicon glyphicon-plus-sign"></span>
+            Nuevo</a>
+    </div>
 	<div class="col-md-12">
 		<table cellpadding="0" cellspacing="0" border="0" class="table datatable table-striped" id="aefTerrenosDataTable">
 			<thead>
@@ -29,17 +33,20 @@
 			</tbody>
 			<tfoot>
 				<tr>
-					<td class="bg-primary" colspan="7">&nbsp;</td>
-					<td class="bg-primary" colspan="3" style="text-align: right;">Valor del Terreno:</td>
+					<td class="bg-default" colspan="7">&nbsp;</td>
+					<td class="bg-default" colspan="3" style="text-align: right;">Valor del Terreno:</td>
 					<td class="bg-info" colspan="3" style="text-align: right;" id="valor_terreno">{{number_format($row->valor_terreno, 2, ".", ",")}}</td>
-					<td class="bg-primary"></td>
+					<td class="bg-default"></td>
 				</tr>
 			</tfoot>
 		</table>
 	</div>
 	<div class="col-md-12"><hr></div>
 
-	<div class="col-md-11"><h3>DE LA CONSTRUCCIÓN</h3></div>
+	<div class="col-md-12"><h4>DE LA CONSTRUCCIÓN</h4></div>
+    <div class="clearfix"></div>
+    <br/>
+    <br/>
 	<div class="col-md-3">
 		{{Form::label('idclasegeneralinmueble', 'Clase General')}}
 		{{Form::select('idclasegeneralinmueble', $cat_clase_general_inmueble, $row->idclasegeneral, ['id' => 'idclasegeneralinmueble', 'class'=>'form-control'])}}
@@ -79,8 +86,13 @@
 	</div>
 	<div class="col-md-12"><hr></div>
 	
-	<div class="col-md-11"><h3>Datos de la Construcción</h3></div>
-	<div class="col-md-1"><a class="btn btn-primary nuevo" id="btnNewAefCons" title="Nuevo Registro">Nuevo</a></div>
+	<div class="col-md-10 col-sm-10 col-xs-10"><h4>Datos de la Construcción</h4></div>
+    <div class="col-md-2 col-sm-2 col-xs-2 btn-beside-title">
+        <a class="btn btn-primary nuevo" id="btnNewAefCons" title="Nuevo Registro">
+            <span class="glyphicon glyphicon-plus-sign"></span>
+            Nuevo
+        </a>
+    </div>
 	<div class="col-md-12">
 		<table cellpadding="0" cellspacing="0" border="0" class="table datatable table-striped" id="aefConstruccionesDataTable">
 			<thead>
@@ -103,19 +115,25 @@
 			</tbody>
 			<tfoot>
 				<tr>
-					<td class="bg-primary" colspan="4" style="text-align: right;">Total Metros Construcción</td>
+					<td class="bg-default" colspan="4" style="text-align: right;">Total Metros Construcción</td>
 					<td class="bg-info" style="text-align: right;" id="total_metros_construccion">{{number_format($row->total_metros_construccion, 2, ".", ",")}}</td>
-					<td class="bg-primary" colspan="2"></td>
-					<td class="bg-primary" colspan="3" style="text-align: right;">Valor del Terreno</td>
+					<td class="bg-default" colspan="2"></td>
+					<td class="bg-default" colspan="3" style="text-align: right;">Valor del Terreno</td>
 					<td class="bg-info" style="text-align: right;" id="valor_construccion">{{number_format($row->valor_construccion, 2, ".", ",")}}</td>
-					<td class="bg-primary"></td>
+					<td class="bg-default"></td>
+                </tr>
 			</tfoot>
 		</table>
 	</div>
 	<div class="col-md-12"><hr></div>
 
-	<div class="col-md-11"><h3>Áreas y Elementos adicionales comunes (solo en Condominios)</h3></div>
-	<div class="col-md-1"><a class="btn btn-primary nuevo" id="btnNewAefCon" title="Nuevo Registro">Nuevo</a></div>
+	<div class="col-md-10 col-sm-10 col-xs-10"><h4>Áreas y Elementos adicionales comunes (solo en Condominios)</h4></div>
+    <div class="col-md-2 col-sm-2 col-xs-2 btn-beside-title">
+        <a class="btn btn-primary nuevo" id="btnNewAefCon" title="Nuevo Registro">
+            <span class="glyphicon glyphicon-plus-sign"></span>
+            Nuevo
+        </a>
+    </div>
 	<div class="col-md-12">
 		<table cellpadding="0" cellspacing="0" border="0" class="table datatable table-striped" id="aefCondominiosDataTable">
 			<thead>
@@ -140,10 +158,10 @@
 			</tbody>
 			<tfoot>
 				<tr>
-					<td class="bg-primary" colspan="8" style="text-align: right;">Valor del Área</td>
+					<td class="bg-default" colspan="8" style="text-align: right;">Valor del Área</td>
 					<td class="bg-info" colspan="2" style="text-align: right;" id="subtotal_area_condominio">{{number_format($row->subtotal_area_condominio, 2, ".", ",")}}</td>
-					<td class="bg-primary" colspan="2"></td>
-					<td class="bg-primary" colspan="2"></td>
+					<td class="bg-default" colspan="2"></td>
+					<td class="bg-default" colspan="2"></td>
 				</tr>
 			</tfoot>
 		</table>
@@ -151,8 +169,13 @@
 	<div class="col-md-12">&nbsp;</div>
 	<div class="col-md-12"><hr style="border-width: 6px;"></div>
 
-	<div class="col-md-11"><h3>Instalaciones Especiales, Elementos, Accesorios y Obras Complementarias</h3></div>
-	<div class="col-md-1"><a class="btn btn-primary nuevo" id="btnNewAefIns" title="Nuevo Registro">Nuevo</a></div>
+	<div class="col-md-10 col-sm-10 col-xs-10"><h4>Instalaciones Especiales, Elementos, Accesorios y Obras Complementarias</h4></div>
+    <div class="col-md-2 col-sm-2 col-xs-2 btn-beside-title">
+        <a class="btn btn-primary nuevo" id="btnNewAefIns" title="Nuevo Registro">
+            <span class="glyphicon glyphicon-plus-sign"></span>
+            Nuevo
+        </a>
+    </div>
 	<div class="col-md-12">
 		<table cellpadding="0" cellspacing="0" border="0" class="table datatable table-striped" id="aefInstalacionesDataTable">
 			<thead>
@@ -177,10 +200,10 @@
 			</tbody>
 			<tfoot>
 				<tr>
-					<td class="bg-primary" colspan="8" style="text-align: right;">Valor del Área</td>
+					<td class="bg-default" colspan="8" style="text-align: right;">Valor del Área</td>
 					<td class="bg-info" colspan="2" style="text-align: right;" id="subtotal_instalaciones_especiales">{{number_format($row->subtotal_instalaciones_especiales, 2, ".", ",")}}</td>
-					<td class="bg-primary" colspan="2"></td>
-					<td class="bg-primary" colspan="2"></td>
+					<td class="bg-default" colspan="2"></td>
+					<td class="bg-default" colspan="2"></td>
 				</tr>
 			</tfoot>
 		</table>
@@ -196,9 +219,11 @@
 	<div class="col-md-12">&nbsp;</div>
 
 	<div class="col-md-12">&nbsp;</div>
-	<div class="col-md-12 form-actions">
-		{{Form::submit('Guardar', ['class'=>'btn btn-primary'])}}
-		<a href="{{URL::route('indexAvaluos')}}" class="btn btn-primary" role="button"><i class="glyphicon glyphicon-arrow-left"></i> Regresar</a>
+    <div class="col-md-6 form-actions">
+        <a href="{{URL::route('indexAvaluos')}}" class="btn btn-coveratSecondary" role="button"><i class="glyphicon glyphicon-arrow-left"></i> Regresar</a>
+    </div>
+    <div class="col-md-6 form-actions">
+		{{Form::submit('Guardar', ['class'=>'btn btn-coveratPrincipal'])}}
 	</div>
 
 </div>
