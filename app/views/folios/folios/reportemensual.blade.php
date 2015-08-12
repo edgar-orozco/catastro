@@ -58,4 +58,7 @@
 	
 	</div>
 </div>
+<div>
+@include('folios.reportes.mensual.grafica')
+</div>
 	@stop

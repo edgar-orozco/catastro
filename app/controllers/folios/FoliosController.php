@@ -329,44 +329,7 @@ class folios_FoliosController extends BaseController {
 		
 	}
 		
-	public function reportemensual(){
-		$folios_historial=FoliosHistorial::select(
-								DB::raw('EXTRACT(MONTH FROM fecha_oficio) as mes'),
-								DB::raw('Sum(cantidad_urbanos) as urbano'),
-								DB::raw('Sum(cantidad_rusticos) as rustico'),
-								DB::raw('Sum(total_urbano) as total_urbano'),
-								DB::raw('Sum(total_rustico) as total_rustico'),
-								DB::raw('Sum(total) as total'))
-								->groupBy('mes')
-								->orderBy('mes', 'ASC')
-								->get();	
-
-		return View::make('folios.folios.reportemensual')->withFolios_historial($folios_historial);;
-	}
-
-	public function formatoreportemensual(){
-		$folios_historial=FoliosHistorial::select(
-								DB::raw('EXTRACT(MONTH FROM fecha_oficio) as mes'),
-								DB::raw('Sum(cantidad_urbanos) as urbano'),
-								DB::raw('Sum(cantidad_rusticos) as rustico'),
-								DB::raw('Sum(total_urbano) as total_urbano'),
-								DB::raw('Sum(total_rustico) as total_rustico'),
-								DB::raw('Sum(total) as total'))
-								->groupBy('mes')
-								->orderBy('mes', 'ASC')
-								->get();
-		$totalF=FoliosHistorial::select(db::raw('Sum(total) as total'))->first()->toArray();
-		$totalF=$totalF['total'];
-		$vista = View::make('folios.folios.formatoreportemensual', compact('totalF'))->withFolios_historial($folios_historial);
-		$pdf = PDF::load($vista)->show();
-		
-		//load(variable, tamaño de hoja, orientacion landscape)
-		$response = Response::make($pdf, 200);
-		$response->header('Content-Type', 'application/pdf');
-		return $response;
-
-	}
-
+	
 	public function reportetotal(){
 		$folios_historial=FoliosHistorial::select(
 											DB::raw('MAX(fecha_oficio) as fecha_oficio'),

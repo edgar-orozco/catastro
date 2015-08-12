@@ -19,16 +19,27 @@ Route::group(array('before'=>'Folios'),  function (){
 			Route::get('/entregafoliose/rusticos/{id}', 'folios_EntregaFoliosController@get_rusticose');
 			Route::post('/entregafoliose/urbanos/{id}', 'folios_EntregaFoliosController@post_foliose');
 			Route::post('/entregafoliose/rusticos/{xid}', 'folios_EntregaFoliosController@post_foliose');
-			
+
+			//REPORTE PERITO
 			Route::get('/reporteperito', 'folios_FoliosController@reporteperito');			
 			Route::get('/formatoreporteperito', 'folios_FoliosController@formatoreporteperito');
 			Route::get('/formatoreporteperito2', 'folios_FoliosController@formatoreporteperito2');
-			Route::get('/reportemensual', 'folios_FoliosController@reportemensual');
-			Route::get('/formatoreportemensual', 'folios_FoliosController@formatoreportemensual');
+
+			//REPORTE MENSUAL
+			Route::get('/reportemensual', 'folios_reportes_MensualController@reportemensual');
+			Route::get('/formatoreportemensual', 'folios_reportes_MensualController@formatoreportemensual');
+			Route::get('/formatoreportemensual/grafica', 'folios_reportes_MensualController@grafica');
+
+			//REPORTE TOTAL
 			Route::get('/reportetotal', 'folios_FoliosController@reportetotal');
 			Route::get('/formatoreportetotal', 'folios_FoliosController@formatoreportetotal');
-			Route::get('/graficareportes', 'folios_FoliosController@grafica_reportes');
-		
+
+			//REPORTE MUNICIPIO
+            Route::get('/reporte/municipio', 'folios_reportes_MunicipioController@index');
+            Route::get('/reporte/municipio/{id}', 'folios_reportes_MunicipioController@municipio_detalles');
+            Route::get('/grafica', 'folios_reportes_MunicipioController@municipio_grafica');
+
+					
                         /* -- FILTRO DE USUARIO SECRETARIA, NO PODRÁ ACCEDER A ESTAS RUTAS -- */
 		
 			Route::get('/configuraciones', 'folios_ConfController@index');
@@ -57,10 +68,6 @@ Route::group(array('before'=>'Folios'),  function (){
             //Deshabilitar entrega Estatal
             Route::get('/entregafoliose/rusticos/habilitare/{id}', 'folios_EntregaFoliosController@desestador');
             Route::get('/entregafoliose/urbanos/habilitare/{id}', 'folios_EntregaFoliosController@desestadou');
-
-            //Reportes
-            Route::get('/reporte/municipio', 'folios_reportes_MunicipioController@index');
-            Route::get('/reporte/municipio/{id}', 'folios_reportes_MunicipioController@municipio_detalles');
 
             //Consultas
             Route::get('/consultas/db/query', 'folios_FoliosController@getquerys');
