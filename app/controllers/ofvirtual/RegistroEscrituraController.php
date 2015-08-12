@@ -146,9 +146,15 @@ if($enajenanteR['id_p'])
 
 
 //
+$domicilioE=Input::get('enajenanteDomicilio');
+if($domicilioE['id'])
+{
+    $denajenante=$domicilioE['id'];
+}else{
 $denajenante = new Domicilio();
 $denajenante->fill(Input::get('enajenanteDomicilio'))->save();
-
+$denajenante=$denajenante->id;
+}
 
 $enajenanteA=Input::get('adquiriente');
 if($enajenanteA['id_p'])
@@ -163,9 +169,15 @@ if($enajenanteA['id_p'])
 }
 
 //
+$domicilioA=Input::get('adquirienteDomicilio');
+if($domicilioA['id'])
+{
+    $dadquiriente=$domicilioA['id'];
+}else{
 $dadquiriente = new Domicilio();
 $dadquiriente->fill(Input::get('adquirienteDomicilio'))->save();
-
+$dadquiriente=$dadquiriente->id;
+}
 
 /*$colindancias = new Colindancias();
 $colindancias->fill(Input::get('colindancia'))->save();
@@ -200,9 +212,9 @@ $registro->valor_comercial=Input::get('valor_comercial');
 $registro->seguimiento=$seguimiento;
 $registro->usuario_id=Auth::user()->id;
 $registro->enajenante_id=$enajenante_id;
-$registro->dir_enajenante_id=$denajenante->id;
+$registro->dir_enajenante_id=$denajenante;
 $registro->adquiriente_id=$adquiriente_id;
-$registro->dir_adquiriente_id=$dadquiriente->id;
+$registro->dir_adquiriente_id=$dadquiriente;
 $registro->fecha_instrumento=Input::get('fecha_instrumento');
 $registro->fecha_firma=Input::get('fecha_firma');
 $registro->naturaleza_contrato=Input::get('naturaleza_contrato');
@@ -324,8 +336,8 @@ $registro->save();
         $registro->adquiriente->fill($adquiriente->toArray());
 
         //enajenante
-        $dirEnajenante = Domicilio::find($registro->dir_enajenante_id);
-        $registro->adquirienteDomicilio->fill($dirEnajenante->toArray());
+        $dirAdquiriente = Domicilio::find($registro->dir_adquiriente_id);
+        $registro->adquirienteDomicilio->fill($dirAdquiriente->toArray());
 
         $registro->registro = $registro;
 
@@ -366,19 +378,22 @@ $registro->save();
 	 */
 	public function update($id)
 	{
-		
+
         //Buscamos el traslado original relacionado con el id
         $registro = RegistroEscritura::find($id);
         //
         //
         $registro['dir_enajenante_id'];
-        
+
         $denajenante = Domicilio::find($registro['dir_enajenante_id']);
-        
+
         $denajenante->fill(Input::get('enajenanteDomicilio'))->save();
 
         $dadquiriente = Domicilio::find($registro['dir_adquiriente_id']);
+
         $dadquiriente->fill(Input::get('adquirienteDomicilio'))->save();
+
+      //  dd($dadquiriente);
 
         //Busca Enajenante
         $datosEnajenante = Input::get('enajenante');

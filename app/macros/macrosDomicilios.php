@@ -6,6 +6,7 @@ $domicilio = '
                 <div class="col-md-6">'.
             Form::label($llave.'[tipo_vialidad_id]','Tipo de vialidad', ['class'=>'']).
             Form::select($llave.'[tipo_vialidad_id]',$vialidad, null ,['class' => 'form-control focus']).
+            Form::hidden($llave.'[id]', null, ['id' =>$llave.'[id]', 'class' => 'form-control'] ).
             '</div>'.
             '<div class="col-md-6">'.
             Form::label($llave.'[vialidad]','Vialidad', ['class'=>'']).
