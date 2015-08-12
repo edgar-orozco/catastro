@@ -146,7 +146,7 @@ if($enajenanteR['id_p'])
 
 
 //
-$domiclioE=Input::get('enajenanteDomicilio');
+$domicilioE=Input::get('enajenanteDomicilio');
 if($domicilioE['id'])
 {
     $denajenante=$domicilioE['id'];
@@ -336,8 +336,8 @@ $registro->save();
         $registro->adquiriente->fill($adquiriente->toArray());
 
         //enajenante
-        $dirEnajenante = Domicilio::find($registro->dir_enajenante_id);
-        $registro->adquirienteDomicilio->fill($dirEnajenante->toArray());
+        $dirAdquiriente = Domicilio::find($registro->dir_adquiriente_id);
+        $registro->adquirienteDomicilio->fill($dirAdquiriente->toArray());
 
         $registro->registro = $registro;
 
@@ -378,19 +378,22 @@ $registro->save();
 	 */
 	public function update($id)
 	{
-		
+
         //Buscamos el traslado original relacionado con el id
         $registro = RegistroEscritura::find($id);
         //
         //
         $registro['dir_enajenante_id'];
-        
+
         $denajenante = Domicilio::find($registro['dir_enajenante_id']);
-        
+
         $denajenante->fill(Input::get('enajenanteDomicilio'))->save();
 
         $dadquiriente = Domicilio::find($registro['dir_adquiriente_id']);
+
         $dadquiriente->fill(Input::get('adquirienteDomicilio'))->save();
+
+      //  dd($dadquiriente);
 
         //Busca Enajenante
         $datosEnajenante = Input::get('enajenante');
