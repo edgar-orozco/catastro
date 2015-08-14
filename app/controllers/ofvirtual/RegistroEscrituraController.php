@@ -557,6 +557,9 @@ $registro->estado_conserv=Input::get('estado_conserv');
          $notario = Notaria::where('id_notario', $notaria->id_notario)->first();
         $registro->notarioEscritura = $notario->notario->nombres.' ' .$notario->notario->apellido_paterno. ' '.$notario->notario->apellido_materno;
 
+         $domicilioE = Domicilio::domicilioCompleto($registro->dir_enajenante_id);
+        $domicilioA = Domicilio::domicilioCompleto($registro->dir_adquiriente_id);
+
         // Title
         $title = 'Editar registro de escritura';
 
@@ -568,7 +571,7 @@ $registro->estado_conserv=Input::get('estado_conserv');
         // print_r($domicilioC);
         //dd($domicilioC);
         // Show the page
-        return View:: make('ofvirtual.notario.registro.show', compact('title', 'registro', 'predio','notaria','municipio','JsonColindancias'));
+        return View:: make('ofvirtual.notario.registro.show', compact('title', 'registro', 'predio','notaria','municipio','JsonColindancias','domicilioE','domicilioA'));
 
         //print_r($registro);
     }

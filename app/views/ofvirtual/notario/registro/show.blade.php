@@ -37,7 +37,7 @@ setlocale(LC_ALL,"es_ES") ?>
                     Tipo de escritura: {{$registro->tipo_escritura}}
                 </div>
                 <div class="col-md-6">
-            Naturaleza del Contrato: {{$registro->naturaleza_acto}}
+            Naturaleza del Contrato: {{$registro->naturaleza_contrato}}
             </div>
                 <div class=" col-md-6">
                         Nombre del Notario:{{$registro->notarioEscritura}}
@@ -126,6 +126,10 @@ setlocale(LC_ALL,"es_ES") ?>
                         CURP/RFC: {{$registro->adquiriente->curp}} / {{$registro->adquiriente->rfc}}
                     </div>
 
+                    <div>
+                       Dirección: {{$domicilioA}} 
+                    </div>
+
                 </div>
                 {{--/adquiriente --}}
 
@@ -142,6 +146,10 @@ setlocale(LC_ALL,"es_ES") ?>
 
                     <div>
                         CURP/RFC: {{$registro->enajenante->curp}} / {{$registro->enajenante->rfc}}
+                    </div>
+
+                    <div>
+                       Dirección: {{$domicilioE}} 
                     </div>
                     {{--/enajenante --}}
                 </div>
