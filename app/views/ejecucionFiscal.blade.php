@@ -29,7 +29,7 @@
                         </div>
                     </div>
                 </div>
-                <a href="{{URL::to('ejecuciones')}}">
+                <a href="{{URL::to('ejecucion/inicio')}}">
                     <div class="panel-footer">
                         <span class="pull-left">Carta Invitación</span>
                         <span class="pull-right"><i class="glyphicon glyphicon-circle-arrow-right"></i></span>
@@ -117,17 +117,17 @@
                 <div class="panel-heading">
                     <div class="row">
                         <div class="col-xs-3">
-                            <i class="glyphicon glyphicon-list-alt gi-5x"></i>
+                            <i class="glyphicon glyphicon-usd gi-5x"></i>
                         </div>
                         <div class="col-xs-9 text-right">
                             
-                            <div>Personal Ejecución</div>
+                            <div>Salario Mínimo</div>
                         </div>
                     </div>
                 </div>
                 <a href="{{URL::to('catalogos/salario')}}">
                     <div class="panel-footer">
-                        <span class="pull-left">Personal Ejecución</span>
+                        <span class="pull-left">Salario Mínimo</span>
                         <span class="pull-right"><i class="glyphicon glyphicon-circle-arrow-right"></i></span>
 
                         <div class="clearfix"></div>
@@ -141,7 +141,7 @@
                 <div class="panel-heading">
                     <div class="row">
                         <div class="col-xs-3">
-                            <i class="glyphicon glyphicon-list-alt gi-5x"></i>
+                            <i class="glyphicon glyphicon-tags gi-5x"></i>
                         </div>
                         <div class="col-xs-9 text-right">
                             
@@ -165,7 +165,7 @@
                 <div class="panel-heading">
                     <div class="row">
                         <div class="col-xs-3">
-                            <i class="glyphicon glyphicon-list-alt gi-5x"></i>
+                            <i class="glyphicon glyphicon-ok gi-5x"></i>
                         </div>
                         <div class="col-xs-9 text-right">
                             
@@ -189,7 +189,7 @@
                 <div class="panel-heading">
                     <div class="row">
                         <div class="col-xs-3">
-                            <i class="glyphicon glyphicon-list-alt gi-5x"></i>
+                            <i class="glyphicon glyphicon-cog gi-5x"></i>
                         </div>
                         <div class="col-xs-9 text-right">
                             
