@@ -1,10 +1,17 @@
-{{HTML::script('js/macros.js')}}
+
 {{ HTML::style('js/jquery/jquery-ui.css') }}
-{{ HTML::script('js/jquery/jquery-ui.js') }}
-{{HTML::script('http://jqueryvalidation.org/files/dist/jquery.validate.min.js')}}
-{{HTML::script('http://jqueryvalidation.org/files/dist/additional-methods.min.js')}}
-{{HTML::script('js/registro_escritura/validacion.js')}}
-{{HTML::script('js/registro_escritura/validacion_esp.js')}}
+
+
+
+    {{--ver el componente de selección de fechas aún cuando no esté usando chrome--}}
+    
+   
+
+    {{ HTML::style('css/select2.min.css') }}
+    {{ HTML::style('css/datepicker3.css') }}
+
+
+
 
 {{Form::hidden('registro[clave]', $predio->clave, ['class'=>'form-control'])}}
 {{$errors->first('registro[clave]', '<span class=text-danger>:message</span>')}}
@@ -37,7 +44,7 @@
 
 <div class="col-md-3">
       {{Form::label('volumen','Volumen:')}}
-      {{Form::text('volumen', null, ['class' => 'form-control numeros'] )}}
+      {{Form::text('volumen', null, ['class' => 'form-control'] )}}
 </div>
 <div class="col-md-3">
     {{Form::label('cuenta','No. de cuenta:')}}
@@ -49,10 +56,10 @@
 </div>
 <div class="col-md-6">
     {{Form::label('clave','Clave Catastral:')}}
-    {{Form::text('clave', null, ['class' => 'form-control clave_cata'] )}}
+    {{Form::text('clave', null, ['class' => 'form-control'] )}}
 </div>
 <div class="col-md-6">
-    {{Form::label('naturaleza_contrato','Naturaleza del Contrato::')}}
+    {{Form::label('naturaleza_contrato','Naturaleza del Contrato:')}}
     {{Form::text('naturaleza_contrato', null, ['class' => 'form-control'] )}}
 </div>
 
@@ -111,19 +118,19 @@
     <div class="row-fluid panel-body">
         <div class="col-md-12">
             {{Form::label('ubicacionFiscal','Ubicacion del Inmueble:')}}
-            {{Form::text('ubicacionFiscal', $predio->ubicacionFiscal->ubicacion, ['class' => 'form-control requerido'] )}}
+            {{Form::text('ubicacionFiscal', $predio->ubicacionFiscal->ubicacion, ['class' => 'form-control ', 'readonly' => 'readonly'] )}}
         </div>
         <div class="col-md-6">
             {{Form::label('superficie_construc','Superficie de construccion:')}}
-            {{Form::number('superficie_construc', $predio->superficie_construccion, ['class' => 'form-control numeros'] )}}
+            {{Form::number('superficie_construc', $predio->superficie_construccion, ['class' => 'form-control ', 'readonly' => 'readonly'] )}}
         </div>
         <div class="col-md-6">
             {{Form::label('superficie_terreno','Superficie del terrreno:')}}
-            {{Form::number('superficie_terreno', $predio->superficie_terreno, ['class' => 'form-control numeros'] )}}
+            {{Form::number('superficie_terreno', $predio->superficie_terreno, ['class' => 'form-control ', 'readonly' => 'readonly'] )}}
         </div>
          <div class="col-md-6">
             {{Form::label('niveles','Niveles:')}}
-            {{Form::number('niveles', null, ['class' => 'form-control numeros'] )}}
+            {{Form::number('niveles', null, ['class' => 'form-control '] )}}
         </div>
          <div class="col-md-6">
             {{Form::label('estado_conserv','Estado de conservacion:')}}
@@ -172,14 +179,53 @@
 
 
 
+@section('javascript')
 
-
-
+{{HTML::script('http://jqueryvalidation.org/files/dist/jquery.validate.min.js')}}
+{{HTML::script('http://jqueryvalidation.org/files/dist/additional-methods.min.js')}}
+{{HTML::script('js/macros.js')}}
+    {{ HTML::script('js/select2/select2.min.js') }}
+    {{ HTML::script('js/select2/i18n/es.js') }}
+    {{ HTML::script('js/bootstrap-datepicker.js') }}
+    {{ HTML::script('js/bootstrap-datepicker.es.js') }}
+{{ HTML::script('js/jquery/jquery-ui.js') }}
+    {{ HTML::script('js/jquery/jquery-ui-autocomplete.min.js') }}
 
 <script>
 
+$('.adquiriente-radio-persona').each(function() {
+            var chb = $('#adquirienteMoral');
+            if (chb.is(':checked')) {
+                return false;
+            }
+            else{
+                $('#adquirienteFisica').prop("checked", true);
+                $('#adquirienteFisica').trigger( "click" );
+            }
+        });
+        $('.enajenante-radio-persona').each(function() {
+            var chb = $('#enajenanteMoral');
+            if (chb.is(':checked')) {
+                return false;
+            }
+            else{
+                console.log('no checked');
+                $("#enajenanteFisica").prop("checked", true);
+                $('#enajenanteFisica').trigger( "click" );
+            }
+        });
+
+
+
+        
+
+
+
+
    //Calendario
 $(function() {
+
+   //Calendario
     $( ".fecha" ).datepicker();
   });
 //Cambiar a español el calendario
@@ -194,7 +240,7 @@ $(function() {
  dayNamesShort: ['Dom','Lun','Mar','Mié','Juv','Vie','Sáb'],
  dayNamesMin: ['Do','Lu','Ma','Mi','Ju','Vi','Sá'],
  weekHeader: 'Sm',
- dateFormat: 'yy-mm-dd',
+ dateFormat: 'dd-mm-yy',
  firstDay: 1,
  isRTL: false,
  showMonthAfterYear: false,
@@ -202,12 +248,11 @@ $(function() {
  beforeShowDay: $.datepicker.noWeekends
  };
  $.datepicker.setDefaults($.datepicker.regional['es']);
-$(function () {
+ $(function () {
 $("#fecha").datepicker();
 });
 
 $(function () {
-
             //Estas son las opciones con las que se construye el autocomplete, como son comunes a los dos inputs rfc y curp se sacan para reutlizar
             var autoCompleteOptsAdquiriente = {
                 source: "/ofvirtual/notario/registro/adquiriente", //Ruta al controlador que provee los resultados de la busqueda
@@ -226,7 +271,6 @@ $(function () {
                 $('#' + rfc.replace( /(:|\.|\[|\]|,)/g, "\\$1" )).val(ui.item.rfc);
                   var curpa = "adquiriente[curp]";
             $('#' + curpa.replace( /(:|\.|\[|\]|,)/g, "\\$1" )).val(ui.item.curp);
-
             //datos domicilio
              var tip_v = "adquirienteDomicilio[tipo_vialidad_id]";
             $('#' + tip_v.replace( /(:|\.|\[|\]|,)/g, "\\$1" )).val(ui.item[0].tipo_vialidad_id);
@@ -267,8 +311,6 @@ $(function () {
             };
             //por default es persona física por lo que el autocomplete lo deshabilitamos
             $('#' + rfc.replace( /(:|\.|\[|\]|,)/g, "\\$1" )).autocomplete("disable");
-
-
             //Estas son las opciones con las que se construye el autocomplete, como son comunes a los dos inputs rfc y curp se sacan para reutlizar
             var autoCompleteOptsEnajenante = {
                 source: "/ofvirtual/notario/registro/enajenante", //Ruta al controlador que provee los resultados de la busqueda
@@ -309,7 +351,6 @@ $(function () {
             $('#' + tip_v.replace( /(:|\.|\[|\]|,)/g, "\\$1" )).val(ui.item[0].entidad);
              var tip_v = "enajenanteDomicilio[referencia]";
             $('#' + tip_v.replace( /(:|\.|\[|\]|,)/g, "\\$1" )).val(ui.item[0].referencia);
-
                     return false;
                 }
             };
@@ -330,5 +371,5 @@ $(function () {
             //por default es persona física por lo que el autocomplete lo deshabilitamos
             $('#' + rfc.replace( /(:|\.|\[|\]|,)/g, "\\$1" )).autocomplete("disable");
         });
-
 </script>
+@stop
