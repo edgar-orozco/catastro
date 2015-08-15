@@ -20,10 +20,8 @@ class AemHomologacion extends \Eloquent {
 
 		if ($rowAvaluoInmueble->superficie_total_terreno > 0) {
 			$row->superficie = round(pow($row->superficie_terreno / $rowAvaluoInmueble->superficie_total_terreno, 0.166666666666667), 2);
-			$row->valor_unitario_resultante_m2 = $row->valor_unitario * $row->zona * $row->ubicacion * $row->frente * $row->superficie * $row->valor_unitario_negociable;
 		} else {
 			$row->superficie = 0;
-			$row->valor_unitario_resultante_m2 = 0;
 		}
 	}
 
@@ -41,6 +39,8 @@ class AemHomologacion extends \Eloquent {
 		$row->superficie_terreno = $superficie_terreno;
 		$row->superficie_construccion = $row->zona = $row->ubicacion = $row->frente = $row->forma = $row->valor_unitario_negociable = 0.00;
 		$row->valor_unitario = $precio_unitario_m2_terreno;
+		$row->valor_unitario_resultante_m2 = 0.00;
+		
 		$row->in_promedio = 0;
 		$row->idemp = 1;
 		$row->ip = $_SERVER['REMOTE_ADDR'];
@@ -52,7 +52,7 @@ class AemHomologacion extends \Eloquent {
 
 		$row->save();
 
-		AvaluosMercado::updateAemValorUnitario($idavaluoenfoquemercado);
+		//AvaluosMercado::updateAemValorUnitario($idavaluoenfoquemercado);
 	}
 
 	/**
@@ -61,7 +61,7 @@ class AemHomologacion extends \Eloquent {
 	 * @param  int  $id
 	 * @return Response
 	 */
-	public static function aemHomologacionBeforeUpdate(&$superficie, $row, $inputs) {
+	public static function aemHomologacionBeforeUpdate(&$superficie, $row) {
 		$rowAvaluoEnfoqueMercado = AvaluosMercado::find($row->idavaluoenfoquemercado);
 		$rowAvaluoInmueble = Avaluos::find($rowAvaluoEnfoqueMercado->idavaluo)->AvaluosInmueble;
 
@@ -70,6 +70,7 @@ class AemHomologacion extends \Eloquent {
 		} else {
 			$superficie = 0;
 		}
+
 	}
 
 	/**
@@ -107,8 +108,10 @@ class AemHomologacion extends \Eloquent {
 	 * @return Response
 	 */
 	public static function updAemHomologacion($inputs, &$valor_unitario_promedio, &$valor_aplicado_m2) {
+		$superficie = 0;
 		$row = AemHomologacion::find($inputs["idaemhomologacion"]);
 		AemHomologacion::aemHomologacionBeforeUpdate($superficie, $row, $inputs);
+		
 		$row->zona = $inputs["zona_aemhomologacion"];
 		$row->ubicacion = $inputs["ubicacion_aemhomologacion"];
 		$row->frente = $inputs["frente"];
@@ -116,10 +119,8 @@ class AemHomologacion extends \Eloquent {
 		$row->valor_unitario_negociable = $inputs["valor_unitario_negociable"];
 		$row->in_promedio = isset($inputs["in_promedio_aemhomologacion"]) ? 1 : 0;
 		$row->superficie = $superficie;
-		$row->valor_unitario_resultante_m2 = $row->valor_unitario *
-				$row->zona * $row->ubicacion *
-				$row->frente * $row->forma *
-				$row->superficie * $row->valor_unitario_negociable;
+		$row->valor_unitario_resultante_m2 = $row->zona * $row->ubicacion *	$row->frente * $row->forma *
+				$row->superficie * $row->valor_unitario_negociable * $row->valor_unitario;
 		$row->fk_zona = $inputs["idfactorzona_aemhomologacion"];
 		$row->fk_ubicacion = $inputs["idfactorubicacion_aemhomologacion"];
 		$row->fk_frente = $inputs["idfactorfrente"];
@@ -128,21 +129,10 @@ class AemHomologacion extends \Eloquent {
 		$row->modi_por = Auth::Id();
 		$row->modi_el = date('Y-m-d H:i:s');
 		$row->save();
-		AemHomologacion::aemHomologacionAfterUpdate($row->idavaluoenfoquemercado);
-
+		AvaluosMercado::updateAemValorUnitario($row->idavaluoenfoquemercado);
 		$rowAem = AvaluosMercado::find($row->idavaluoenfoquemercado);
-		$valor_unitario_promedio = $rowAem->valor_unitario_promedio;
-		$valor_aplicado_m2 = $rowAem->valor_aplicado_m2;
-	}
-
-	/**
-	 * Show the form for editing the specified resource.
-	 *
-	 * @param  int  $idavaluoenfoquemercado
-	 * @return Response
-	 */
-	public static function aemHomologacionAfterUpdate($idavaluoenfoquemercado) {
-		AvaluosMercado::updateAemValorUnitario($idavaluoenfoquemercado);
+		$valor_unitario_promedio = number_format($rowAem->valor_unitario_promedio, 2, '.', ',' );
+		$valor_aplicado_m2 = number_format($rowAem->valor_aplicado_m2, 2, '.', ',' );
 	}
 
 	/**

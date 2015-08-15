@@ -196,12 +196,12 @@
 						<input type="text" class="form-control" name="ubicacion_aemcompterreno" id="ubicacion_aemcompterreno" maxlength="200" required />
 					</div>
 					<div class="col-md-6">
-						<label for="precio">Precio:</label>'
-						<input type="number" class="form-control clsNumeric" name="precio" id="precio" min="0.00" max="9999999999.99" step="0.01" value="" required />
+						<label for="precio">Precio de oferta:</label>'
+						<input type="number" class="form-control clsNumeric" name="precio" id="precio" min="0.00" max="9999999999.99" step="0.01" value="0.00" required />
 					</div>
 					<div class="col-md-6">
 						<label for="superficie_terreno_aemcompterreno">Superficie del Terreno:</label>
-						<input type="number" class="form-control clsNumeric" name="superficie_terreno_aemcompterreno" id="superficie_terreno_aemcompterreno" min="0.00" max="9999999999.99" step="0.01" value="" required />
+						<input type="number" class="form-control clsNumeric" name="superficie_terreno_aemcompterreno" id="superficie_terreno_aemcompterreno" min="0.00" max="9999999999.99" step="0.01" value="0.00" required />
 					</div>
 					<div class="col-md-6">
 						<label for="precio_unitario_m2_terreno">Precio Unitario M&sup2; Terreno:</label>

@@ -48,25 +48,34 @@ class AemCompTerrenos extends \Eloquent {
 		$rowAemCompTerrenos->creado_por = Auth::Id();
 		$rowAemCompTerrenos->creado_el = date('Y-m-d H:i:s');
 		$rowAemCompTerrenos->save();
-		AemHomologacion::insAemHomologacion($rowAemCompTerrenos->idavaluoenfoquemercado, $rowAemCompTerrenos->idaemcompterreno, $rowAemCompTerrenos->ubicacion, $rowAemCompTerrenos->superficie_terreno, $rowAemCompTerrenos->precio_unitario_m2_terreno);
+		
+		//AemHomologacion::insAemHomologacion($rowAemCompTerrenos->idavaluoenfoquemercado, $rowAemCompTerrenos->idaemcompterreno, $rowAemCompTerrenos->ubicacion, $rowAemCompTerrenos->superficie_terreno, $rowAemCompTerrenos->precio_unitario_m2_terreno);
 	}
 	
 	public static function updAemCompTerrenos($inputs) {
 		$rowAemCompTerrenos = AemCompTerrenos::find($inputs['idaemcompterreno']);
 		$rowAemCompTerrenos->ubicacion = $inputs['ubicacion_aemcompterreno'];
+		// PRECIO DE OFERTA
 		$rowAemCompTerrenos->precio = $inputs['precio'];
+		// SUPERFICIE DEL TERRENO
 		$rowAemCompTerrenos->superficie_terreno = $inputs['superficie_terreno_aemcompterreno'];
 		$rowAemCompTerrenos->observaciones = $inputs['observaciones_aemcompterreno'];
 		$rowAemCompTerrenos->precio_unitario_m2_terreno = ( $rowAemCompTerrenos->superficie_terreno <= 0 ? 0.00 : ( round($rowAemCompTerrenos->precio / $rowAemCompTerrenos->superficie_terreno, 2) ) );
+
 		$rowAemCompTerrenos->ip = $_SERVER['REMOTE_ADDR'];
 		$rowAemCompTerrenos->host = isset($_SERVER['HTTP_CLIENT_IP']) ? $_SERVER['HTTP_CLIENT_IP'] : '';
 		$rowAemCompTerrenos->modi_por = Auth::Id();
 		$rowAemCompTerrenos->modi_el = date('Y-m-d H:i:s');
 		$rowAemCompTerrenos->save();
 		
+		
+		
+		
 		$rowAemHomologacion = AemCompTerrenos::find($inputs['idaemcompterreno'])->AemHomologacion;
 		$rowAemHomologacion->valor_unitario = $rowAemCompTerrenos->precio_unitario_m2_terreno;
 		$rowAemHomologacion->superficie_terreno = $rowAemCompTerrenos->superficie_terreno;
+		// aqui hay que volver a calcular aem_homologacion.valor_unitario_resultante_m2
+		// avaluo_enfoque_mercado.valor_unitario_promedio Y avaluo_enfoque_mercado.valor_aplicado_m2
 		
 		$rowAvaluoEnfoqueMercado = AvaluosMercado::find($rowAemCompTerrenos->idavaluoenfoquemercado);
 		$rowAvaluoInmueble = Avaluos::find($rowAvaluoEnfoqueMercado->idavaluo)->AvaluosInmueble;

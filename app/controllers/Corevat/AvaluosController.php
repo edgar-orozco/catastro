@@ -305,6 +305,9 @@ class corevat_AvaluosController extends \BaseController {
 		$cat_factores_forma = CatFactoresForma::orderBy('valor_factor_forma')->get();
 		$cat_factores_conservacion = CatFactoresConservacion::orderBy('valor_factor_conservacion')->get();
 		
+		//die($row->valor_unitario_promedio);
+		
+		
 		return View::make('Corevat.Avaluos.avaluos', compact('opt', 'idavaluo', 'title', 'row', 'cat_factores_zonas', 'cat_factores_ubicacion',
 				'cat_factores_frente', 'cat_factores_forma', 'cat_factores_conservacion'));
 	}

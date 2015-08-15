@@ -87,34 +87,22 @@ class AvaluosMercado extends \Eloquent {
 	 * @return Response
 	 */
 	public static function updateAemValorUnitario($idavaluoenfoquemercado) {
-		$y = 0;
-		//$rowAemHomologacion = AemHomologacion::select(DB::raw('avg(valor_unitario_resultante_m2) AS avg'))->groupBy('idavaluoenfoquemercado')->where('idavaluoenfoquemercado', '=', $idavaluoenfoquemercado)->where('in_promedio', '=', 0)->first();
-		//$z = isset($rowAemHomologacion->avg) ? $rowAemHomologacion->avg : 0;
 
-		$rowAemHomologacion = AemHomologacion::select(DB::raw('avg(valor_unitario_resultante_m2) AS avg'))->groupBy('idavaluoenfoquemercado')->where('idavaluoenfoquemercado', '=', $idavaluoenfoquemercado)->where('in_promedio', '=', 1)->first();
-		$x = isset($rowAemHomologacion->avg) ? $rowAemHomologacion->avg : 0;
+		$rowAemHomologacion1 = AemHomologacion::select(DB::raw('avg(valor_unitario_resultante_m2) AS avg'))->groupBy('idavaluoenfoquemercado')->where('idavaluoenfoquemercado', '=', $idavaluoenfoquemercado)->first();
+		//$valor_unitario_promedio = $rowAemHomologacion1->avg;
 
-		if ($x >= 0 && $x <= 9) {
-			$y = 0;
-		} else if ($x >= 10 && $x <= 99) {
-			$y = -1;
-		} else if ($x >= 100 && $x <= 999) {
-			$y = -2;
-		} else if ($x >= 1000 && $x <= 9999) {
-			$y = 0;
-		} else if ($x >= 10000 && $x <= 99999) {
-			$y = -1;
-		} else {
-			$y = 0;
-		}
-
-		//$PRD = AemAnalisis::select(DB::raw('avg(valor_unitario_m2) AS avg'))->where('idavaluoenfoquemercado', '=', $idavaluoenfoquemercado)->where('in_promedio', '=', 1)->first();
-		//$PRDMin = AemAnalisis::select(DB::raw('min(valor_unitario_m2) AS min'))->where('idavaluoenfoquemercado', '=', $idavaluoenfoquemercado)->where('in_promedio', '=', 1)->first();
-		//$PRDMax = AemAnalisis::select(DB::raw('max(valor_unitario_m2) AS max'))->where('idavaluoenfoquemercado', '=', $idavaluoenfoquemercado)->where('in_promedio', '=', 1)->first();
-
+		$rowAemHomologacion2 = AemHomologacion::select(DB::raw('min(valor_unitario_resultante_m2) AS min'))->groupBy('idavaluoenfoquemercado')->where('idavaluoenfoquemercado', '=', $idavaluoenfoquemercado)->first();
+		//$min = $rowAemHomologacion2->min;
+		
+		$rowAemHomologacion3 = AemHomologacion::select(DB::raw('max(valor_unitario_resultante_m2) AS max'))->groupBy('idavaluoenfoquemercado')->where('idavaluoenfoquemercado', '=', $idavaluoenfoquemercado)->first();
+		//$max = $rowAemHomologacion3->max;
+		
+		//$valor_aplicado_m2 = round(($min+$max)/2, 2);
+		
 		$rowAem = AvaluosMercado::find($idavaluoenfoquemercado);
-		$rowAem->valor_unitario_promedio = $x;
-		$rowAem->valor_aplicado_m2 = round($x, $y, 2);
+		$rowAem->valor_unitario_promedio = $rowAemHomologacion1->avg;
+		$rowAem->valor_aplicado_m2 = ($rowAemHomologacion2->min+$rowAemHomologacion3->max)/2;
+		//superficie_construida
 		$rowAem->save();
 		
 		$rowAvaluosConclusiones = Avaluos::find($rowAem->idavaluo)->AvaluosConclusiones;
