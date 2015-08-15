@@ -30,3 +30,4 @@ class CorevatAlterTableAefTerrenosDos extends Migration {
 	}
 
 }
+
