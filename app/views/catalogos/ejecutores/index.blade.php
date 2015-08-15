@@ -8,7 +8,7 @@
 {{ Form:: open(array('url'=>'catalogos/ejecutores')) }}
 <div class="row">
     <a class="btn btn-info" href="{{action('catalogos_ejecutoresController@create')}}" role="button">
-        <span class="glyphicon glyphicon-plus"></span> Crear ejecución 
+        <span class="glyphicon glyphicon-plus"></span> Crear Nuevo Personal de Ejecución Fiscal
     </a>
 </div>
 <br>

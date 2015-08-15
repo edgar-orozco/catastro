@@ -33,41 +33,79 @@ class Domicilio extends Eloquent {
     {
         //array para juntar todas la partes
         $partes= array();
+         $asent= array();
+         $cps= array();
+         $localidad= array();$direccion= array();
         //consulta del domicilio
         $datos = self::where('id',$value)->get()[0];
-
-        if($localidad =  $datos['localidad'])
+        //tipo vialidad
+        if($tvialidad =  $datos->tipoVialidad->descripcion)
         {
-             $partes[]=$localidad;
+
+      //  $consulta = TipoVialidad::where('id',$tvialidad)->pluck('descripcion');
+
+             $partes[]= $tvialidad;
+        }
+        //vialidad
+         if($vialidad =  $datos['vialidad'])
+        {
+             $partes[]=$vialidad;
         }
 
         if($ext= $datos['num_ext'])
         {
-             $partes[]=$ext;
+             $partes[]='No.Ext. '.$ext;
         }
 
-        if($int= $datos['num_int']);
+        if($int= $datos['num_int'])
         {
-             $partes[]=$int;
+             $partes[]='No.Int. '.$int;
+        }
+
+        //tipo asentamiento
+        if($tasentamiento =  $datos->TipoAsentamiento->descripcion)
+        {
+
+      //  $consulta = TipoAsentamiento::where('id',$tasentamiento)->pluck('descripcion');
+
+             $asent[]= $tasentamiento;
+        }
+
+         if($asentamiento= $datos['asentamiento'])
+        {
+             $asent[]=$asentamiento;
         }
 
          if($cp= $datos['cp'])
         {
-             $partes[]=$cp;
+             $cps[]='CP '.$cp;
         }
+
+        if($localidad =  $datos['localidad'])
+        {
+
+             $localidad[]=$localidad;
+        }
+
 
          if($municipio = $datos->mpio->nombre_municipio)
         {
-             $partes[]=$municipio;
+             $localidad[]=$municipio;
         }
 
         if($entidad = $datos->edo->nom_ent)
         {
-             $partes[]=$entidad;
+             $localidad[]=$entidad;
         }
-
-        $direccion = implode(", ", $partes);
-return $direccion;
+        $vialida = implode(" ", $partes);
+        
+        $asent=implode(" ", $asent);
+        $localidad=implode(", ", $localidad);
+        $direccion[]=$vialida;
+        $direccion[]=$asent;
+        $direccion[]=$localidad;
+        $domicilio=implode(", ", $direccion);
+return $domicilio;
 
         /**
          * Avenida Cinco de Mayo 123 int 4, Colonia La patriota, CP: 87000, Huimanguillo, Tabasco
