@@ -265,6 +265,9 @@ class AvaluosInmueble extends \Eloquent {
 		// ACTUALIZAR aem_comp_terrenos, aem_homologacion
 		AemHomologacion::updAemHomologacionCascade($idavaluo);
 		
+		// ACTUALIZAR aef_terrenos Y aef_construcciones
+		
+		
 		AvaluosInmueble::avaluosInmuebleAfterUpdate($idavaluo, $row);
 	}
 

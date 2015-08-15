@@ -173,4 +173,8 @@ class AvaluosFisico extends \Eloquent {
 		$rowAvaluosConclusiones->valor_fisico = $total_valor_fisico;
 		$rowAvaluosConclusiones->save();
 	}
+
+	
+	
+	
 }

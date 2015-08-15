@@ -96,7 +96,7 @@ $(document).ready(function () {
 			url = '/corevat/AefCondominiosDel/' + $(this).attr('idTable');
 			datatable = aefCondominios;
 
-		} else if (ctrl === 'delAefInstalacioness') {
+		} else if (ctrl === 'delAefInstalaciones') {
 			url = '/corevat/AefInstalacionesDel/' + $(this).attr('idTable');
 			datatable = aefInstalaciones;
 

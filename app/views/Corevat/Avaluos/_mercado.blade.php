@@ -9,7 +9,7 @@
 	<div class="col-md-11"><h3>Investigación de Terrenos Comparables</h3></div>
 	<div class="col-md-1"><a class="btn btn-primary nuevo" id="btnNewAemComp" title="Nuevo Registro">Nuevo</a></div>
 	<div class="col-md-12">
-		<table cellpadding="0" cellspacing="0" border="0" class="table datatable table-striped corevatDataTable" id="aemCompTerrenosDataTable">
+		<table cellpadding="0" cellspacing="0" border="0" class="table datatable table-striped" id="aemCompTerrenosDataTable">
 			<thead>
 				<tr>
 					<th colspan="7"></th>
@@ -48,7 +48,7 @@
 
 	<div class="col-md-12"><h3>Homologación del Terreno en función del lote tipo o predominante en la zona...</h3></div>
 	<div class="col-md-12">
-		<table cellpadding="0" cellspacing="0" border="0" class="table datatable table-striped corevatDataTable" id="aemHomologacionDataTable">
+		<table cellpadding="0" cellspacing="0" border="0" class="table datatable table-striped" id="aemHomologacionDataTable">
 			<thead>
 				<tr>
 					<th>#</th>
@@ -91,7 +91,7 @@
 	<div class="col-md-11"><h3>Venta de inmuebles similares en uso al que se valua(sujeto)</h3></div>
 	<div class="col-md-1"><a class="btn btn-primary nuevo" id="btnNewAemInf" title="Nuevo Registro">Nuevo</a></div>
 	<div class="col-md-12">
-		<table cellpadding="0" cellspacing="0" border="0" class="table datatable table-striped corevatDataTable" id="aemInformacionDataTable">
+		<table cellpadding="0" cellspacing="0" border="0" class="table datatable table-striped" id="aemInformacionDataTable">
 			<thead>
 				<tr>
 					<th colspan="6"></th>
@@ -128,7 +128,7 @@
 
 	<div class="col-md-12"><h3>Análisis por Homologación de Mercado</h3></div>
 	<div class="col-md-12">
-		<table cellpadding="0" cellspacing="0" border="0" class="table datatable table-striped corevatDataTable" id="aemAnalisisDataTable">
+		<table cellpadding="0" cellspacing="0" border="0" class="table datatable table-striped" id="aemAnalisisDataTable">
 			<thead>
 				<tr>
 					<th>#</th>

@@ -336,7 +336,7 @@ class corevat_AvaluosController extends \BaseController {
 	 * @param  int  $id
 	 * @return Response
 	 */
-	public function editFisico($id) {
+	public function editEnfoqueFisico($id) {
 		$idavaluo = $id;
 		$opt = 'fisico';
 		$rowAvaluos = Avaluos::find($id);
@@ -371,7 +371,7 @@ class corevat_AvaluosController extends \BaseController {
 	 * @param  int  $id
 	 * @return Response
 	 */
-	public function updateFisico($id) {
+	public function updateEbfoqueFisico($id) {
 		$inputs = Input::All();
 		if (isset($inputs['idclasegeneralinmueble'])) {
 			$rules = array(
@@ -1309,7 +1309,7 @@ class corevat_AvaluosController extends \BaseController {
 		} else if ($inputs['ctrlDel'] == 'btnDelAefCondominios') {
 			$response = $this->delAefCondominios($inputs['idTableDel']);
 		} else if ($inputs['ctrlDel'] == 'btnDelAefCompConstrucciones') {
-			$response = $this->delAefCompConstrucciones($inputs['idTableDel']);
+			//$response = $this->delAefCompConstrucciones($inputs['idTableDel']);
 		}
 
 		return $response;
