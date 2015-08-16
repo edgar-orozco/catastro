@@ -44,7 +44,7 @@
                 var radio = $(this);
                  if(radio.is(':checked')){
                 if (radio.val() == 1) {
-                      alert('a1');
+                     // alert('a1');
                     var id = radio.data('tipo');
                     $("."+id).show();
                     $("#id_tipo").val('1');
@@ -54,7 +54,7 @@
 
                 }
                 else if (radio.val() == 2) {
-                    alert('a2');
+                    //alert('a2');
                     var id = radio.data('tipo');
                     $("."+id).hide();
                     $("#id_tipo").val('2');
@@ -71,7 +71,7 @@
                 var select = $(this);
                 if(select.is(':checked')){
                 if (select.val() == 1) {
-               alert('e1');
+               //alert('e1');
                     var id = select.data('tipo');
                     $("."+id).show();
                     $("#id_tipo").val('1');
@@ -81,7 +81,7 @@
 
                 }
                 else if (select.val() == 2) {
-                      alert('e2');
+                 //     alert('e2');
                     var id = select.data('tipo');
                     $("."+id).hide();
                     $("#id_tipo").val('2');
@@ -95,7 +95,7 @@
 
 
 });
-   
+
 });
 </script>
 @append
