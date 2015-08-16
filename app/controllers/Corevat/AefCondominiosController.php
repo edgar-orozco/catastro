@@ -29,8 +29,10 @@ class corevat_AefCondominiosController extends \BaseController {
 		if ($validate->fails()) {
 			$response = array('success' => false, 'errors' => $validate->getMessageBag()->toArray());
 		} else {
-			AefCondominios::insAefCondominios($inputs);
-			$response = array('success' => true, 'message' => '¡El registro fue ingresado satisfactoriamente!');
+			AefCondominios::insAefCondominios($inputs, $subtotal_area_condominio, $total_valor_fisico);
+			$response = array('success' => true, 'message' => '¡El registro fue ingresado satisfactoriamente!',
+				'subtotal_area_condominio' => number_format($subtotal_area_condominio, 2, ".", ","), 
+				'total_valor_fisico' => number_format($total_valor_fisico, 2, ".", ","));
 		}
 		return $response;
 	}
@@ -60,8 +62,10 @@ class corevat_AefCondominiosController extends \BaseController {
 		if ($validate->fails()) {
 			$response = array('success' => false, 'errors' => $validate->getMessageBag()->toArray());
 		} else {
-			AefCondominios::updAefCondominios($inputs);
-			$response = array('success' => true, 'message' => '¡El registro fue modificado satisfactoriamente!');
+			AefCondominios::updAefCondominios($inputs, $subtotal_area_condominio, $total_valor_fisico);
+			$response = array('success' => true, 'message' => '¡El registro fue modificado satisfactoriamente!',
+				'subtotal_area_condominio' => number_format($subtotal_area_condominio, 2, ".", ","), 
+				'total_valor_fisico' => number_format($total_valor_fisico, 2, ".", ","));
 		}
 		return $response;
 	}
@@ -86,7 +90,9 @@ class corevat_AefCondominiosController extends \BaseController {
 			$rowEnfoqueFisico->total_valor_fisico = AvaluosFisico::updBeforeAvaluoEnfoqueFisico($rowEnfoqueFisico);
 			$rowEnfoqueFisico->save();
 			AvaluosFisico::updAfterAvaluoEnfoqueFisico($rowEnfoqueFisico->idavaluo, $rowEnfoqueFisico->total_valor_fisico);
-			return Response::json(array('success' => true, 'message' => '!El registro fue eliminado satisfactoriamente!'));
+			return Response::json(array('success' => true, 'message' => '!El registro fue eliminado satisfactoriamente!',
+				'subtotal_area_condominio' => number_format($rowEnfoqueFisico->subtotal_area_condominio, 2, ".", ","),
+				'total_valor_fisico' => number_format($rowEnfoqueFisico->total_valor_fisico, 2, ".", ",")));
 		} else {
 			return Response::json(array('success' => false, 'message' => '!El registro no existe!'));
 		}
@@ -101,54 +107,44 @@ class corevat_AefCondominiosController extends \BaseController {
 		$inputs["indiviso_condominios"] = number_format( (float) $inputs["indiviso_condominios"], 2, ".", "");
 
 		$rules = array(
-			'descripcion' => 'required',
-			'unidad' => 'required',
-			'cantidad_condominios' => array('required', 'numeric', 'min:0.00', 'max:99999999.99', 'regex:/^[0-9]{1,8}(\.?)[0-9]{1,2}$/'),
-			'valor_nuevo_condominios' => array('required', 'numeric', 'min:0.00', 'max:99999999.99', 'regex:/^[0-9]{1,8}(\.?)[0-9]{1,2}$/'),
-			'vida_remanente' => array('required', 'numeric', 'min:0.00', 'max:99999999.99', 'regex:/^[0-9]{1,8}(\.?)[0-9]{1,2}$/'),
-			'edad_condominios' => array('required', 'numeric', 'min:0.00', 'max:99999999.99', 'regex:/^[0-9]{1,8}(\.?)[0-9]{1,2}$/'),
-			'factor_conservacion_condominios' => array('required', 'numeric', 'min:0.00', 'max:99999999.99', 'regex:/^[0-9]{1,8}(\.?)[0-9]{1,2}$/'),
-			'indiviso_condominios' => array('required', 'numeric', 'min:0.00', 'max:99999999.99', 'regex:/^[0-9]{1,8}(\.?)[0-9]{1,2}$/'),
+			'cantidad_condominios' => array('required', 'numeric', 'min:0.00', 'max:99999999.99'),
+			'valor_nuevo_condominios' => array('required', 'numeric', 'min:0.00', 'max:99999999.99'),
+			'vida_remanente' => array('required', 'numeric', 'min:0.00', 'max:99999999.99'),
+			'edad_condominios' => array('required', 'numeric', 'min:0.00', 'max:99999999.99'),
+			'factor_conservacion_condominios' => array('required', 'numeric', 'min:0.00', 'max:99999999.99'),
+			'indiviso_condominios' => array('required', 'numeric', 'min:0.00', 'max:99999999.99'),
 		);
 		$messages = array(
-			'descripcion.required' => '¡El campo "Descripción" es requerido!',
-			'unidad.required' => '¡El campo "Unidad" es requerido!',
-			
 			'cantidad_condominios.required' => '¡El campo "Cantidad" es requerido!',
 			'cantidad_condominios.numeric' => '¡El valor del campo "Cantidad" debe ser numérico!',
 			'cantidad_condominios.min' => '¡El valor mínimo del campo "Cantidad" debe ser cero!',
 			'cantidad_condominios.max' => '¡El valor máximo del campo "Cantidad" debe ser 99999999.99!',
-			'cantidad_condominios.regex' => '¡El formato del campo "Cantidad" debe ser 99999999.99!',
 			
 			'valor_nuevo_condominios.required' => '¡El campo "V.R. Nuevo" es requerido!',
 			'valor_nuevo_condominios.numeric' => '¡El valor del campo "V.R. Nuevo" debe ser numérico!',
 			'valor_nuevo_condominios.min' => '¡El valor mínimo del campo "V.R. Nuevo" debe ser cero!',
 			'valor_nuevo_condominios.max' => '¡El valor máximo del campo "V.R. Nuevo" debe ser 99999999.99!',
-			'valor_nuevo_condominios.regex' => '¡El formato del campo "V.R. Nuevo" debe ser 99999999.99!',
 			
 			'vida_remanente.required' => '¡El campo "Vida Remanente" es requerido!',
 			'vida_remanente.numeric' => '¡El valor del campo "Vida Remanente" debe ser numérico!',
 			'vida_remanente.min' => '¡El valor mínimo del campo "Vida Remanente" debe ser cero!',
 			'vida_remanente.max' => '¡El valor máximo del campo "Vida Remanente" debe ser 99999999.99!',
-			'vida_remanente.regex' => '¡El formato del campo "Vida Remanente" debe ser 99999999.99!',
 			
 			'edad_condominios.required' => '¡El campo "Edad" es requerido!',
 			'edad_condominios.numeric' => '¡El valor del campo "Edad" debe ser numérico!',
 			'edad_condominios.min' => '¡El valor mínimo del campo "Edad" debe ser cero!',
 			'edad_condominios.max' => '¡El valor máximo del campo "Edad" debe ser 99999999.99!',
-			'edad_condominios.regex' => '¡El formato del campo "Edad" debe ser 99999999.99!',
 			
 			'factor_conservacion_condominios.required' => '¡El campo "Factor Conservación" es requerido!',
 			'factor_conservacion_condominios.numeric' => '¡El valor del campo "Factor Conservación" debe ser numérico!',
 			'factor_conservacion_condominios.min' => '¡El valor mínimo del campo "Factor Conservación" debe ser cero!',
 			'factor_conservacion_condominios.max' => '¡El valor máximo del campo "Factor Conservación" debe ser 99999999.99!',
-			'factor_conservacion_condominios.regex' => '¡El formato del campo "Factor Conservación" debe ser 99999999.99!',
 			
 			'indiviso.required' => '¡El campo "Indiviso (%)" es requerido!',
 			'indiviso.numeric' => '¡El valor del campo "Indiviso (%)" debe ser numérico!',
 			'indiviso.min' => '¡El valor mínimo del campo "Indiviso (%)" debe ser cero!',
 			'indiviso.max' => '¡El valor máximo del campo "Indiviso (%)" debe ser 100.00!',
-			'indiviso.regex' => '¡El formato del campo "Indiviso (%)" debe ser 100.00!',
+
 		);
 		return Validator::make($inputs, $rules, $messages);
 	}

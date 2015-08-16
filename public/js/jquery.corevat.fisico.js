@@ -179,7 +179,7 @@ $(document).ready(function () {
 				$('#irregular').val(datos.irregular);
 
 				$("#idfactortop option[value=" + datos.fk_top + "]").attr("selected", true);
-				$('#top').val(datos.top);
+				$('#top_terrenos').val(datos.top);
 
 				$("#idfactorfrente option[value=" + datos.fk_frente + "]").attr("selected", true);
 				$('#frente').val(datos.frente);
@@ -192,8 +192,8 @@ $(document).ready(function () {
 
 				$('#factor_resultante').val(datos.factor_resultante);
 				$('#valor_unitario_neto').val(datos.valor_unitario_neto);
-				$('#indiviso').val(datos.indiviso);
-				$('#valor_parcial').val(datos.valor_parcial);
+				$('#indiviso_terrenos').val(datos.indiviso);
+				$('#valor_parcial_terrenos').val(datos.valor_parcial);
 
 			}
 		});
@@ -213,14 +213,14 @@ $(document).ready(function () {
 				datos = eval(data);
 				$("#idtipo option[value=" + datos.idtipo + "]").attr("selected", true);
 				$('#edad_construcciones').val(datos.edad);
-				$('#superficie_m2').val(datos.superficie_m2);
+				$('#superficie_m2_construcciones').val(datos.superficie_m2);
 				$('#valor_nuevo_construcciones').val(datos.valor_nuevo);
-				$('#factor_edad_condominios').val(datos.factor_edad);
+				$('#factor_edad_construcciones').val(datos.factor_edad);
 				$("#idfactorconservacion option[value=" + datos.fk_conservacion + "]").attr("selected", true);
-				$('#factor_conservacion_condominios').val(datos.factor_conservacion);
-				$('#factor_resultante_condominios').val(datos.factor_resultante);
+				$('#factor_conservacion_construcciones').val(datos.factor_conservacion);
+				$('#factor_resultante_construcciones').val(datos.factor_resultante);
 				$('#valor_neto_construccion').val(datos.valor_neto);
-				$('#valor_parcial_construccion').val(datos.factor_edad);
+				$('#valor_parcial_construccion').val(datos.valor_parcial_construccion);
 
 			}
 		});
@@ -241,7 +241,7 @@ $(document).ready(function () {
 				$('#descripcion').val(datos.descripcion);
 				$('#unidad').val(datos.unidad);
 				$('#cantidad_condominios').val(datos.cantidad);
-				$('#valor_nuevo_condiminios').val(datos.valor_nuevo);
+				$('#valor_nuevo_condominios').val(datos.valor_nuevo);
 				$('#vida_remanente').val(datos.vida_remanente);
 				$('#edad_condominios').val(datos.edad);
 				$('#factor_edad_condominios').val(datos.factor_edad);
@@ -300,6 +300,8 @@ $(document).ready(function () {
 					if ($('#ctrlAefTerrenos').val() === 'ins') {
 						$('#formAefTerrenos :reset').click();
 					}
+					$('#valor_terreno').empty().append(datos.valor_terreno);
+					$('#total_valor_fisico').empty().append(datos.total_valor_fisico);
 					aefTerrenos.ajax.reload();
 				} else {
 					var errores = '';
@@ -332,7 +334,9 @@ $(document).ready(function () {
 					if ($('#ctrlAefConstrucciones').val() === 'ins') {
 						$('#formAefConstrucciones :reset').click();
 					}
-					$('#valor_terreno').empty().append(datos.valor_terreno);
+					$('#total_metros_construccion').empty().append(datos.total_metros_construccion);
+					$('#valor_construccion').empty().append(datos.valor_construccion);
+					$('#total_valor_fisico').empty().append(datos.total_valor_fisico);
 					aefConstrucciones.ajax.reload();
 				} else {
 					var errores = '';
@@ -365,6 +369,8 @@ $(document).ready(function () {
 					if ($('#ctrlAefCondominios').val() === 'ins') {
 						$('#formAefCondominios :reset').click();
 					}
+					$('#subtotal_area_condominio').empty().append(datos.subtotal_area_condominio);
+					$('#total_valor_fisico').empty().append(datos.total_valor_fisico);
 					aefCondominios.ajax.reload();
 				} else {
 					var errores = '';
@@ -397,6 +403,8 @@ $(document).ready(function () {
 					if ($('#ctrlAefInstalaciones').val() === 'ins') {
 						$('#formAefInstalaciones :reset').click();
 					}
+					$('#subtotal_instalaciones_especiales').empty().append(datos.subtotal_instalaciones_especiales);
+					$('#total_valor_fisico').empty().append(datos.total_valor_fisico);
 					aefInstalaciones.ajax.reload();
 				} else {
 					var errores = '';

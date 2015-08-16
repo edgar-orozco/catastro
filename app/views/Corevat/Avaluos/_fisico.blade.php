@@ -118,7 +118,7 @@
 					<td class="bg-default" colspan="4" style="text-align: right;">Total Metros Construcción</td>
 					<td class="bg-info" style="text-align: right;" id="total_metros_construccion">{{number_format($row->total_metros_construccion, 2, ".", ",")}}</td>
 					<td class="bg-default" colspan="2"></td>
-					<td class="bg-default" colspan="3" style="text-align: right;">Valor del Terreno</td>
+					<td class="bg-default" colspan="3" style="text-align: right;">Valor de la Construcción</td>
 					<td class="bg-info" style="text-align: right;" id="valor_construccion">{{number_format($row->valor_construccion, 2, ".", ",")}}</td>
 					<td class="bg-default"></td>
                 </tr>
@@ -158,7 +158,7 @@
 			</tbody>
 			<tfoot>
 				<tr>
-					<td class="bg-default" colspan="8" style="text-align: right;">Valor del Área</td>
+					<td class="bg-default" colspan="8" style="text-align: right;">Subtotal</td>
 					<td class="bg-info" colspan="2" style="text-align: right;" id="subtotal_area_condominio">{{number_format($row->subtotal_area_condominio, 2, ".", ",")}}</td>
 					<td class="bg-default" colspan="2"></td>
 					<td class="bg-default" colspan="2"></td>
@@ -200,7 +200,7 @@
 			</tbody>
 			<tfoot>
 				<tr>
-					<td class="bg-default" colspan="8" style="text-align: right;">Valor del Área</td>
+					<td class="bg-default" colspan="8" style="text-align: right;">Subtotal</td>
 					<td class="bg-info" colspan="2" style="text-align: right;" id="subtotal_instalaciones_especiales">{{number_format($row->subtotal_instalaciones_especiales, 2, ".", ",")}}</td>
 					<td class="bg-default" colspan="2"></td>
 					<td class="bg-default" colspan="2"></td>
@@ -263,8 +263,8 @@
 						</select>
 					</div>
 					<div class="col-md-3">
-						<label for="top">&nbsp;</label>
-						<input type="number" class="form-control clsNumeric" name="top" id="top" min="0.00" max="9999999999.99" step="0.01" value="0.00" required />
+						<label for="top_terrenos">&nbsp;</label>
+						<input type="number" class="form-control clsNumeric" name="top_terrenos" id="top_terrenos" min="0.00" max="9999999999.99" step="0.01" value="0.00" required />
 					</div>
 					<div class="col-md-3">
 						<label for="idfactorfrente">Frente:</label>
@@ -318,8 +318,8 @@
 						<input type="number" class="form-control clsNumeric" name="indiviso_terrenos" id="indiviso_terrenos" min="0.00" max="999.99" step="0.01" value="0.00" required />
 					</div>
 					<div class="col-md-6">
-						<label for="valor_parcial">Valor Parcial:</label>
-						<input type="text" class="form-control" name="valor_parcial" id="valor_parcial" disabled />
+						<label for="valor_parcial_terrenos">Valor Parcial:</label>
+						<input type="text" class="form-control" name="valor_parcial_terrenos" id="valor_parcial_terrenos" disabled />
 					</div>
 				</div>
 				<hr>
@@ -360,8 +360,8 @@
 						<input type="text" class="form-control clsNumeric edad" name="edad_construcciones" id="edad_construcciones" required />
 					</div>
 					<div class="col-md-4">
-						<label for="superficie_m2">Superficie M&sup2:</label>
-						<input type="text" class="form-control" name="superficie_m2" id="superficie_m2" disabled />
+						<label for="superficie_m2_construcciones">Superficie M&sup2:</label>
+						<input type="text" class="form-control" name="superficie_m2_construcciones" id="superficie_m2_construcciones" disabled />
 					</div>
 
 					<div class="col-md-6">
@@ -369,8 +369,8 @@
 						<input type="number" class="form-control clsNumeric" name="valor_nuevo_construcciones" id="valor_nuevo_construcciones" min="0.00" max="9999999999.99" step="0.01" value="0.00" required />
 					</div>
 					<div class="col-md-6">
-						<label for="factor_edad">Factor Edad:</label>
-						<input type="text" class="form-control" name="factor_edad" id="factor_edad" disabled />
+						<label for="factor_edad_construcciones">Factor Edad:</label>
+						<input type="number" class="form-control clsNumeric" name="factor_edad_construcciones" id="factor_edad_construcciones" min="0.00" max="1.00" step="0.01" value="0.00" required />
 					</div>
 
 					<div class="col-md-6">
@@ -382,16 +382,16 @@
 						</select>
 					</div>
 					<div class="col-md-6">
-						<label for="factor_conservacion">&nbsp;</label>
-						<input type="number" class="form-control clsNumeric" name="factor_conservacion" id="factor_conservacion" min="0.00" max="9999999999.99" step="0.01" value="0.00" required />
+						<label for="factor_conservacion_construcciones">&nbsp;</label>
+						<input type="number" class="form-control clsNumeric" name="factor_conservacion_construcciones" id="factor_conservacion_construcciones" min="0.00" max="1.00" step="0.01" value="0.00" required />
 					</div>
 
 					<div class="col-md-4">
-						<label for="factor_resultante">Factor Resultante:</label>
-						<input type="text" class="form-control" name="factor_resultante" id="factor_resultante" disabled />
+						<label for="factor_resultante_construcciones">Factor Resultante:</label>
+						<input type="text" class="form-control" name="factor_resultante_construcciones" id="factor_resultante_construcciones" disabled />
 					</div>
 					<div class="col-md-4">
-						<label for="valor_neto_construccion">Valor Neto:</label>
+						<label for="valor_neto_construccion">Valor Resultante Neto:</label>
 						<input type="text" class="form-control" name="valor_neto_construccion" id="valor_neto_construccion" disabled />
 					</div>
 					<div class="col-md-4">
@@ -438,7 +438,7 @@
 					</div>
 
 					<div class="col-md-4">
-						<label for="valor_nuevo_condiminios">V. R. Nuevo:</label>
+						<label for="valor_nuevo_condominios">V. R. Nuevo:</label>
 						<input type="number" class="form-control clsNumeric" name="valor_nuevo_condominios" id="valor_nuevo_condominios" min="0.00" max="9999999999.99" step="0.01" value="0.00" required />
 					</div>
 					<div class="col-md-4">
@@ -523,7 +523,7 @@
 					</div>
 					<div class="col-md-4">
 						<label for="edad_instalaciones">Edad:</label>
-						<input type="text" class="form-control clsNumeric edad" name="edad_instalaciones" id="edad_instalaciones" disabled />
+						<input type="text" class="form-control clsNumeric edad" name="edad_instalaciones" id="edad_instalaciones" min="0.00" max="9999999999.99" step="0.01" value="0.00" required />
 					</div>
 
 					<div class="col-md-4">

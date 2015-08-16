@@ -38,7 +38,7 @@ class AefInstalaciones extends \Eloquent {
 					( 
 					($fe_v1 * $inputs["vida_util_instalaciones"] ) + 
 					($fe_v2 * $inputs["vida_util_instalaciones"] ) - 
-					$inputs["edad_condominios"]
+					$inputs["edad_instalaciones"]
 				) / $inputs["vida_util_instalaciones"]
 			);
 		}
@@ -58,7 +58,7 @@ class AefInstalaciones extends \Eloquent {
 	 * @param  int  $id
 	 * @return Response
 	 */
-	public static function insAefInstalaciones($inputs) {
+	public static function insAefInstalaciones($inputs, &$subtotal_instalaciones_especiales, &$total_valor_fisico) {
 		$rowAefInstalaciones = new AefInstalaciones();
 		$rowAefInstalaciones->idavaluoenfoquefisico = $inputs["idavaluoenfoquefisico4"];
 		$rowAefInstalaciones->idobracomplementaria = $inputs["idobracomplementaria"];
@@ -77,7 +77,7 @@ class AefInstalaciones extends \Eloquent {
 		$rowAefInstalaciones->creado_por = Auth::Id();
 		$rowAefInstalaciones->creado_el = date('Y-m-d H:i:s');
 		$rowAefInstalaciones->save();
-		AefInstalaciones::insAfterAefInstalaciones($inputs["idavaluoenfoquefisico4"]);
+		AefInstalaciones::insAfterAefInstalaciones($inputs["idavaluoenfoquefisico4"], $subtotal_instalaciones_especiales, $total_valor_fisico);
 	}
 
 	/**
@@ -86,12 +86,14 @@ class AefInstalaciones extends \Eloquent {
 	 * @param  int  $id
 	 * @return Response
 	 */
-	public static function insAfterAefInstalaciones($idavaluoenfoquefisico) {
+	public static function insAfterAefInstalaciones($idavaluoenfoquefisico, &$subtotal_instalaciones_especiales, &$total_valor_fisico) {
 		$Total = AefInstalaciones::select(DB::raw('sum(valor_parcial) AS nsuma'))->where('idavaluoenfoquefisico', '=', $idavaluoenfoquefisico)->first();
 		$rowEnfoqueFisico = AvaluosFisico::find($idavaluoenfoquefisico);
 		$rowEnfoqueFisico->subtotal_instalaciones_especiales = $Total->nsuma;
 		$rowEnfoqueFisico->total_valor_fisico = AvaluosFisico::updBeforeAvaluoEnfoqueFisico($rowEnfoqueFisico);
 		$rowEnfoqueFisico->save();
+		$subtotal_instalaciones_especiales = $rowEnfoqueFisico->subtotal_instalaciones_especiales;
+		$total_valor_fisico = $rowEnfoqueFisico->total_valor_fisico;
 		AvaluosFisico::updAfterAvaluoEnfoqueFisico($rowEnfoqueFisico->idavaluo, $rowEnfoqueFisico->total_valor_fisico);
 	}
 
@@ -111,7 +113,7 @@ class AefInstalaciones extends \Eloquent {
 					( 
 					($fe_v1 * $inputs["vida_util_instalaciones"] ) + 
 					($fe_v2 * $inputs["vida_util_instalaciones"] ) - 
-					$inputs["edad_condominios"]
+					$inputs["edad_instalaciones"]
 				) / $inputs["vida_util_instalaciones"]
 			);
 		}
@@ -131,7 +133,7 @@ class AefInstalaciones extends \Eloquent {
 	 * @param  int  $id
 	 * @return Response
 	 */
-	public static function updAefInstalaciones($inputs) {
+	public static function updAefInstalaciones($inputs, &$subtotal_instalaciones_especiales, &$total_valor_fisico) {
 		$rowAefInstalaciones = AefInstalaciones::find($inputs["idaefinstalacion"]);
 		
 		//$rowAefInstalaciones->idavaluoenfoquefisico = $inputs["idavaluoenfoquefisico4"];
@@ -151,7 +153,7 @@ class AefInstalaciones extends \Eloquent {
 		$rowAefInstalaciones->modi_por = Auth::Id();
 		$rowAefInstalaciones->modi_el = date('Y-m-d H:i:s');
 		$rowAefInstalaciones->save();
-		AefInstalaciones::updAfterAefInstalaciones($inputs["idavaluoenfoquefisico4"]);
+		AefInstalaciones::updAfterAefInstalaciones($inputs["idavaluoenfoquefisico4"], $subtotal_instalaciones_especiales, $total_valor_fisico);
 	}
 
 	/**
@@ -160,12 +162,14 @@ class AefInstalaciones extends \Eloquent {
 	 * @param  int  $id
 	 * @return Response
 	 */
-	public static function updAfterAefInstalaciones($idavaluoenfoquefisico) {
+	public static function updAfterAefInstalaciones($idavaluoenfoquefisico, &$subtotal_instalaciones_especiales, &$total_valor_fisico) {
 		$Total = AefInstalaciones::select(DB::raw('sum(valor_parcial) AS nsuma'))->where('idavaluoenfoquefisico', '=', $idavaluoenfoquefisico)->first();
 		$rowEnfoqueFisico = AvaluosFisico::find($idavaluoenfoquefisico);
 		$rowEnfoqueFisico->subtotal_instalaciones_especiales = $Total->nsuma;
 		$rowEnfoqueFisico->total_valor_fisico = AvaluosFisico::updBeforeAvaluoEnfoqueFisico($rowEnfoqueFisico);
 		$rowEnfoqueFisico->save();
+		$subtotal_instalaciones_especiales = $rowEnfoqueFisico->subtotal_instalaciones_especiales;
+		$total_valor_fisico = $rowEnfoqueFisico->total_valor_fisico;
 		AvaluosFisico::updAfterAvaluoEnfoqueFisico($rowEnfoqueFisico->idavaluo, $rowEnfoqueFisico->total_valor_fisico);
 	}
 

@@ -52,7 +52,7 @@ class AefCondominios extends \Eloquent {
 	 * @param  int  $id
 	 * @return Response
 	 */
-	public static function insAefCondominios($inputs) {
+	public static function insAefCondominios($inputs, &$subtotal_area_condominio, &$total_valor_fisico) {
 		$rowAefCondominios = new AefCondominios();
 		AefCondominios::insBeforoAefCondominios($inputs, $rowAefCondominios);
 		$rowAefCondominios->idavaluoenfoquefisico = $inputs["idavaluoenfoquefisico3"];
@@ -72,7 +72,7 @@ class AefCondominios extends \Eloquent {
 		$rowAefCondominios->creado_por = Auth::Id();
 		$rowAefCondominios->creado_el = date('Y-m-d H:i:s');
 		$rowAefCondominios->save();
-		AefCondominios::insAfterAefCondominios($inputs["idavaluoenfoquefisico3"]);
+		AefCondominios::insAfterAefCondominios($inputs["idavaluoenfoquefisico3"], $subtotal_area_condominio, $total_valor_fisico);
 	}
 
 	/**
@@ -81,12 +81,14 @@ class AefCondominios extends \Eloquent {
 	 * @param  int  $id
 	 * @return Response
 	 */
-	public static function insAfterAefCondominios($idavaluoenfoquefisico) {
+	public static function insAfterAefCondominios($idavaluoenfoquefisico, &$subtotal_area_condominio, &$total_valor_fisico) {
 		$Total = AefCondominios::select(DB::raw('sum(valor_parcial) AS nsuma'))->where('idavaluoenfoquefisico', '=', $idavaluoenfoquefisico)->first();
 		$rowEnfoqueFisico = AvaluosFisico::find($idavaluoenfoquefisico);
 		$rowEnfoqueFisico->subtotal_area_condominio = $Total->nsuma;
 		$rowEnfoqueFisico->total_valor_fisico = AvaluosFisico::updBeforeAvaluoEnfoqueFisico($rowEnfoqueFisico);
 		$rowEnfoqueFisico->save();
+		$subtotal_area_condominio = $rowEnfoqueFisico->subtotal_area_condominio;
+		$total_valor_fisico = $rowEnfoqueFisico->total_valor_fisico;
 		AvaluosFisico::updAfterAvaluoEnfoqueFisico($rowEnfoqueFisico->idavaluo, $rowEnfoqueFisico->total_valor_fisico);
 	}
 
@@ -121,7 +123,7 @@ class AefCondominios extends \Eloquent {
 	 * @param  int  $inputs
 	 * @return Response
 	 */
-	public static function updAefCondominios($inputs) {
+	public static function updAefCondominios($inputs, &$subtotal_area_condominio, &$total_valor_fisico) {
 		$rowAefCondominios = AefCondominios::find($inputs["idaefcondominio"]);
 		AefCondominios::updBeforeAefCondominios($inputs, $rowAefCondominios);
 		
@@ -140,7 +142,7 @@ class AefCondominios extends \Eloquent {
 		$rowAefCondominios->modi_por = Auth::Id();
 		$rowAefCondominios->modi_el = date('Y-m-d H:i:s');
 		$rowAefCondominios->save();
-		AefCondominios::updAfterAefCondominios($inputs["idavaluoenfoquefisico3"]);
+		AefCondominios::updAfterAefCondominios($inputs["idavaluoenfoquefisico3"], $subtotal_area_condominio, $total_valor_fisico);
 	}
 
 	/**
@@ -149,12 +151,14 @@ class AefCondominios extends \Eloquent {
 	 * @param  int  $id
 	 * @return Response
 	 */
-	public static function updAfterAefCondominios($idavaluoenfoquefisico) {
+	public static function updAfterAefCondominios($idavaluoenfoquefisico, &$subtotal_area_condominio, &$total_valor_fisico) {
 		$Total = AefCondominios::select(DB::raw('sum(valor_parcial) AS nsuma'))->where('idavaluoenfoquefisico', '=', $idavaluoenfoquefisico)->first();
 		$rowEnfoqueFisico = AvaluosFisico::find($idavaluoenfoquefisico);
 		$rowEnfoqueFisico->subtotal_area_condominio = $Total->nsuma;
 		$rowEnfoqueFisico->total_valor_fisico = AvaluosFisico::updBeforeAvaluoEnfoqueFisico($rowEnfoqueFisico);
 		$rowEnfoqueFisico->save();
+		$subtotal_area_condominio = $rowEnfoqueFisico->subtotal_area_condominio;
+		$total_valor_fisico = $rowEnfoqueFisico->total_valor_fisico;
 		AvaluosFisico::updAfterAvaluoEnfoqueFisico($rowEnfoqueFisico->idavaluo, $rowEnfoqueFisico->total_valor_fisico);
 	}
 
