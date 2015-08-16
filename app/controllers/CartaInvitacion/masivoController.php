@@ -6,24 +6,23 @@ class CartaInvitacion_masivoController extends BaseController {
 
 public function get_pdf($clave=null)
     {
+
     	$vale=explode(',', $clave);
-//print_r($vale);
+
     	$fecha=date('Y/m/d');
  		$total = count($vale);
-    	for ($i=0; $i <= $total ; $i++) { 
- 
 
-              for ($i=0; $i <count($vale) ; $i++) 
-                  {
+    foreach ($vale as $key ) {
 
-                      $claves=$vale[$i];
+
+                      $claves=$key;
                       $verificacion = ejecucion::where('clave',$claves)->pluck('clave');
                       //echo $resul=$verificacion;
                       if($verificacion=='')
                           {
                               //insert a la tabla ejecucion_fiscal
                               $ejecucion = new ejecucion;
-                              $ejecucion->clave =$vale[$i];
+                              $ejecucion->clave =$key;
                               $ejecucion->cve_status ='CI';
                               $ejecucion->usuario = Auth::user()->id;
                               $ejecucion->f_alta = date('Y-m-d');
@@ -45,7 +44,7 @@ public function get_pdf($clave=null)
                               $requerimiento->save();
                           }
                   }
-        }
+
 
 	if(count($vale) > 0)
 		{

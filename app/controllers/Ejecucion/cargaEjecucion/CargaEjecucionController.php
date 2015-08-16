@@ -8,10 +8,10 @@ class ejecucion_cargaEjecucion_CargaEjecucionController extends \BaseController 
 	 * @return Response
 	 */
 
-	
+
 
 	public function index()
-	{      
+	{
         $title = 'Carta invitación masiva';
         //Título de sección:
         $title_section = "Carta invitación masiva";
@@ -20,7 +20,7 @@ class ejecucion_cargaEjecucion_CargaEjecucionController extends \BaseController 
 
         $catalogo = ejecutores::All();
 
-		return View::make('ejecucion.cargaEjecucion.index', 
+		return View::make('ejecucion.cargaEjecucion.index',
 			compact('title', 'title_section', 'subtitle_section', 'catalogo'));
 	}
 
@@ -32,7 +32,7 @@ class ejecucion_cargaEjecucion_CargaEjecucionController extends \BaseController 
 	 */
 	public function create()
 	{
-		
+
 	}
 	/**
 	 * Store a newly created resource in storage.
@@ -53,11 +53,11 @@ class ejecucion_cargaEjecucion_CargaEjecucionController extends \BaseController 
 				$predios=array();
 				$numNE=0;
 
-				foreach(file($file) as $line) 
+				foreach(file($file) as $line)
 				{
 	    			$num = $num+1;
 	    			$digitos = explode("-", $line);
-	    			
+
 					$validator = Validator::make
 					(
 	    				array
@@ -92,7 +92,7 @@ class ejecucion_cargaEjecucion_CargaEjecucionController extends \BaseController 
 	    			else
 	    			{
 	    				$consulta2=PadronFiscal::where('clave','=',trim($line))->count();
-	    				
+
 	    					if ($consulta2 > 0)
 	    					{
 	    						$fallaR[]='Se encontro el registro '.$line;
@@ -100,8 +100,8 @@ class ejecucion_cargaEjecucion_CargaEjecucionController extends \BaseController 
 	    						$numNE=$numNE+1;
 	    						$id_propietarios    =propietarios::where('clave',trim($line))->pluck('id_propietarios');
 	    						$nombre    =personas::where('id_p',$id_propietarios)->pluck('nombrec');
-	    						$vale[] = array('0' => trim($line), '1' => $nombre );
-	    						
+	    						$vale[] = array('0' => trim($line) );
+
 
 	    					}
 	    					else
@@ -113,9 +113,9 @@ class ejecucion_cargaEjecucion_CargaEjecucionController extends \BaseController 
 
                                 }
 				}
-				
+
 					 //generamos el pdf
-			
+
 				return Response::json(array(
 							'vale' => $vale,
 	            'predios' =>    $predios,
@@ -126,7 +126,7 @@ class ejecucion_cargaEjecucion_CargaEjecucionController extends \BaseController 
 	            'totalNE' =>	$numNE,
 	            'descarga'=> 	""));
 			}//si la validación falla redirigimos al formulario de registro con los errores
-   		}	
+   		}
 	}
 
 	/**
@@ -176,7 +176,7 @@ class ejecucion_cargaEjecucion_CargaEjecucionController extends \BaseController 
 		//
 	}
 
-	
+
 
 
 }
