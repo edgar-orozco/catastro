@@ -12,7 +12,7 @@
         </h2>
     </div>
 
-    <div class="row">
+    <div class="row adminHome">
 
         <div class="col-lg-3 col-md-6">
             <a href="{{URL::to('admin/user')}}" class="panel panel-info">
