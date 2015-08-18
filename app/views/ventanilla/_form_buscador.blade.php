@@ -8,7 +8,7 @@
 
 
 {{ Form::open(array('url' => 'tramites/buscar', 'method' => 'POST', 'name' => 'forma-buscador', 'id'=>'forma-buscador')) }}
-<div class="col-sm-6">
+<div class="col-sm-6 paddin-null">
     <div class="input-group">
                 <span class="input-group-addon">
                     <span class="glyphicon glyphicon-search boton-buscador"></span>
