@@ -58,11 +58,11 @@
                         @if(Auth::user()->hasRoleId($tramite->role_id))
 
                                 @if($tramite->estatus->pasado == 'Finalizado' || $tramite->estatus->pasado == 'Finalizado observado')
-                                    <a href="{{ action('TramitesController@proceso', ['id' => $tramite->id]) }}" class="btn btn-info" title="Revisar">
+                                    <a href="{{ action('TramitesController@proceso', ['id' => $tramite->id]) }}" class="btn btn-info btn-actionForm01" title="Revisar">
                                         <span class="glyphicon glyphicon-eye-open"></span>
                                     </a>
                                     @else
-                                    <a href="{{ action('TramitesController@proceso', ['id' => $tramite->id]) }}" class="btn btn-success" title="Atender">
+                                    <a href="{{ action('TramitesController@proceso', ['id' => $tramite->id]) }}" class="btn btn-success btn-actionForm01" title="Atender">
                                         <span class="glyphicon glyphicon-pencil"></span>
                                     </a>
                                 @endif
