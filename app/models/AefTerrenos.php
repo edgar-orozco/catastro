@@ -44,7 +44,7 @@ class AefTerrenos extends \Eloquent {
 		$rowAefTerrenos->fraccion = $inputs["fraccion"];
 		$rowAefTerrenos->irregular = $inputs["irregular"];
 		$rowAefTerrenos->fk_top = $inputs["idfactortop"];
-		$rowAefTerrenos->top = $inputs["top"];
+		$rowAefTerrenos->top = $inputs["top_terrenos"];
 		$rowAefTerrenos->fk_frente = $inputs["idfactorfrente"];
 		$rowAefTerrenos->frente = $inputs["frente"];
 		$rowAefTerrenos->fk_forma = $inputs["idfactorforma"];
@@ -79,21 +79,23 @@ class AefTerrenos extends \Eloquent {
 		$rowEnfoqueFisico->total_valor_fisico = AvaluosFisico::updBeforeAvaluoEnfoqueFisico($rowEnfoqueFisico);
 		$rowEnfoqueFisico->save();
 		$total_valor_fisico = $rowEnfoqueFisico->total_valor_fisico;
-		$valor_terreno = $rowAefTerrenos->valorpar;
+		$valor_terreno = $rowEnfoqueFisico->valor_terreno;
 		//AvaluosFisico::updAfterAvaluoEnfoqueFisico($rowEnfoqueFisico->idavaluo, $rowEnfoqueFisico->total_valor_fisico);
 	}
 
 	/**
 	 * Show the form for editing the specified resource.
-	 * Add Top Factor
+	 * 
 	 * @param  int  $id 
 	 * @return Response
 	 */
 	public static function updBeforeAefTerrenos($inputs, &$rowAefTerrenos) {
 		$rowAvaluosFisico = AvaluosFisico::select('idavaluo')->where('idavaluoenfoquefisico', '=', $inputs["idavaluoenfoquefisico1"])->first();
 		$rowAvaluosInmbueble = AvaluosInmueble::select('*')->where('idavaluo', '=', $rowAvaluosFisico->idavaluo)->first();
+		$rowAvaluosMercado = AvaluosMercado::select('*')->where('idavaluo', '=', $rowAvaluosFisico->idavaluo)->first();
+		
 		$rowAefTerrenos->superficie = $rowAvaluosInmbueble->superficie_total_terreno;
-		$rowAefTerrenos->valor_unitario_neto = $rowAvaluosFisico->valor_aplicado_m2 * $rowAefTerrenos->factor_resultante;
+		$rowAefTerrenos->valor_unitario_neto = $rowAvaluosMercado->valor_aplicado_m2 * $rowAefTerrenos->factor_resultante;
 		$rowAefTerrenos->valor_parcial = $rowAvaluosInmbueble->superficie_total_terreno * $rowAefTerrenos->valor_unitario_neto * ($rowAefTerrenos->indiviso/100);
 	}
 
@@ -109,7 +111,7 @@ class AefTerrenos extends \Eloquent {
 		$rowAefTerrenos->fraccion = $inputs["fraccion"];
 		$rowAefTerrenos->irregular = $inputs["irregular"];
 		$rowAefTerrenos->fk_top = $inputs["idfactortop"];
-		$rowAefTerrenos->top = $inputs["top"];
+		$rowAefTerrenos->top = $inputs["top_terrenos"];
 		$rowAefTerrenos->fk_frente = $inputs["idfactorfrente"];
 		$rowAefTerrenos->frente = $inputs["frente"];
 		$rowAefTerrenos->fk_forma = $inputs["idfactorforma"];

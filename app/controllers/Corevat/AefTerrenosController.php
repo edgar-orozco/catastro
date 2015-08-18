@@ -101,9 +101,10 @@ class corevat_AefTerrenosController extends \BaseController {
 			$rowEnfoqueFisico->valor_terreno = ( is_null($Val->valorpar) ? 0 : $Val->valorpar);
 			$rowEnfoqueFisico->total_valor_fisico = AvaluosFisico::updBeforeAvaluoEnfoqueFisico($rowEnfoqueFisico);
 			$rowEnfoqueFisico->save();
+			$total_valor_fisico = number_format($rowEnfoqueFisico->total_valor_fisico, 2, ".", ",");
 			AvaluosFisico::updAfterAvaluoEnfoqueFisico($rowEnfoqueFisico->idavaluo, $rowEnfoqueFisico->total_valor_fisico);
-			$valor_terreno = $rowEnfoqueFisico->valor_terreno;
-			return Response::json(array('success' => true, 'message' => '!El registro fue eliminado satisfactoriamente!', 'valor_terreno' => $valor_terreno));
+			$valor_terreno = number_format($rowEnfoqueFisico->valor_terreno, 2, ".", ",");
+			return Response::json(array('success' => true, 'message' => '!El registro fue eliminado satisfactoriamente!', 'valor_terreno' => $valor_terreno, 'total_valor_fisico' => $total_valor_fisico));
 		} else {
 			return Response::json(array('success' => false, 'message' => '!El registro no existe!'));
 		}
@@ -111,7 +112,7 @@ class corevat_AefTerrenosController extends \BaseController {
 
 	private function validate(&$inputs) {
 		$inputs["irregular"] = number_format((float) $inputs["irregular"], 2, ".", "");
-		$inputs["top"] = number_format((float) $inputs["top"], 2, ".", "");
+		$inputs["top_terrenos"] = number_format((float) $inputs["top_terrenos"], 2, ".", "");
 		$inputs["frente"] = number_format((float) $inputs["frente"], 2, ".", "");
 		$inputs["forma"] = number_format((float) $inputs["forma"], 2, ".", "");
 		$inputs["otros"] = number_format((float) $inputs["otros"], 2, ".", "");
@@ -119,7 +120,7 @@ class corevat_AefTerrenosController extends \BaseController {
 		
 		$rules = array(
 			'irregular' => array('required', 'numeric', 'min:0.00', 'max:9999999999.99', 'regex:/^[0-9]{1,10}(\.?){1}[0-9]{1,2}$/'),
-			'top' => array('required', 'numeric', 'min:0.00', 'max:9999999999.99', 'regex:/^[0-9]{1,10}(\.?){1}[0-9]{1,2}$/'),
+			'top_terrenos' => array('required', 'numeric', 'min:0.00', 'max:9999999999.99', 'regex:/^[0-9]{1,10}(\.?){1}[0-9]{1,2}$/'),
 			'frente' => array('required', 'numeric', 'min:0.00', 'max:9999999999.99', 'regex:/^[0-9]{1,10}(\.?){1}[0-9]{1,2}$/'),
 			'forma' => array('required', 'numeric', 'min:0.00', 'max:9999999999.99', 'regex:/^[0-9]{1,10}(\.?){1}[0-9]{1,2}$/'),
 			'otros' => array('required', 'numeric', 'min:0.00', 'max:9999999999.99', 'regex:/^[0-9]{1,10}(\.?){1}[0-9]{1,2}$/'),
@@ -132,11 +133,11 @@ class corevat_AefTerrenosController extends \BaseController {
 			'irregular.max' => '¡El valor máximo del campo "Irregular" debe ser 9999999999.99!',
 			'irregular.regex' => '¡El formato del campo "Irregular" debe ser 9999999999.99!',
 			
-			'top.required' => '¡El campo "Top" es requerido!',
-			'top.numeric' => '¡El valor del campo "Top" debe ser numérico!',
-			'top.min' => '¡El valor mínimo del campo "Top" debe ser cero!',
-			'top.max' => '¡El valor máximo del campo "Top" debe ser 9999999999.99!',
-			'top.regex' => '¡El formato del campo "Top" debe ser 9999999999.99!',
+			'top_terrenos.required' => '¡El campo "Top" es requerido!',
+			'top_terrenos.numeric' => '¡El valor del campo "Top" debe ser numérico!',
+			'top_terrenos.min' => '¡El valor mínimo del campo "Top" debe ser cero!',
+			'top_terrenos.max' => '¡El valor máximo del campo "Top" debe ser 9999999999.99!',
+			'top_terrenos.regex' => '¡El formato del campo "Top" debe ser 9999999999.99!',
 			
 			'frente.required' => '¡El campo "Frente" es requerido!',
 			'frente.numeric' => '¡El valor del campo "Frente" debe ser numérico!',

@@ -25,20 +25,20 @@ class corevat_AefInstalacionesController extends \BaseController {
 	 */
 	public function store() {
 		$total_metros_construccion = 0;
-		$valor_construccion = 0;
+		$subtotal_instalaciones_especiales = 0;
 		$total_valor_fisico = 0;
 		$inputs = Input::All();
 		$validate = $this->validate($inputs);
 		if ($validate->fails()) {
 			$response = array('success' => false, 'errors' => $validate->getMessageBag()->toArray());
 		} else {
-			AefInstalaciones::insAefInstalaciones($inputs, $total_metros_construccion, $valor_construccion, $total_valor_fisico);
+			AefInstalaciones::insAefInstalaciones($inputs, $total_metros_construccion, $subtotal_instalaciones_especiales, $total_valor_fisico);
 			$total_metros_construccion = number_format($total_metros_construccion, 2, ".", ",");
-			$valor_construccion = number_format($valor_construccion, 2, ".", ",");
-			$total_valor_fisico = number_format($total_valor_fisico, 2, ".", ",");
 			$response = array(
 				'success' => true,
-				'message' => '¡El registro fue ingresado satisfactoriamente!'
+				'message' => '¡El registro fue ingresado satisfactoriamente!',
+				'subtotal_instalaciones_especiales' => number_format($subtotal_instalaciones_especiales, 2, ".", ","),
+				'total_valor_fisico' => number_format($total_valor_fisico, 2, ".", ",")
 			);
 		}
 		return $response;
@@ -64,19 +64,19 @@ class corevat_AefInstalacionesController extends \BaseController {
 	 * @return Response
 	 */
 	public function update($id) {
-		$valor_terreno = 0;
+		$subtotal_instalaciones_especiales = 0;
 		$total_valor_fisico = 0;
 		$inputs = Input::All();
 		$validate = $this->validate($inputs);
 		if ($validate->fails()) {
 			$response = array('success' => false, 'errors' => $validate->getMessageBag()->toArray());
 		} else {
-			AefInstalaciones::updAefInstalaciones($inputs, $valor_terreno, $total_valor_fisico);
-			$valor_terreno = number_format($valor_terreno, 2, ".", ",");
-			$total_valor_fisico = number_format($total_valor_fisico, 2, ".", ",");
+			AefInstalaciones::updAefInstalaciones($inputs, $subtotal_instalaciones_especiales, $total_valor_fisico);
 			$response = array(
 				'success' => true,
 				'message' => '¡El registro fue modificado satisfactoriamente!',
+				'subtotal_instalaciones_especiales' => number_format($subtotal_instalaciones_especiales, 2, ".", ","),
+				'total_valor_fisico' => number_format($total_valor_fisico, 2, ".", ",")
 			);
 		}
 		return $response;
@@ -96,11 +96,14 @@ class corevat_AefInstalacionesController extends \BaseController {
 			$row->delete($id);
 			$Total = AefInstalaciones::select(DB::raw('sum(valor_parcial) AS nsuma'))->where('idavaluoenfoquefisico', '=', $idavaluoenfoquefisico)->first();
 			$rowEnfoqueFisico = AvaluosFisico::find($idavaluoenfoquefisico);
-			$rowEnfoqueFisico->valor_construccion = ( is_null($Total->nsuma) ? 0 : $Total->nsuma);
+			$rowEnfoqueFisico->subtotal_instalaciones_especiales = ( is_null($Total->nsuma) ? 0 : $Total->nsuma);
 			$rowEnfoqueFisico->total_valor_fisico = AvaluosFisico::updBeforeAvaluoEnfoqueFisico($rowEnfoqueFisico);
 			$rowEnfoqueFisico->save();
 			AvaluosFisico::updAfterAvaluoEnfoqueFisico($rowEnfoqueFisico->idavaluo, $rowEnfoqueFisico->total_valor_fisico);
-			return Response::json(array('success' => true, 'message' => '!El registro fue eliminado satisfactoriamente!'));
+			return Response::json(array('success' => true, 'message' => '!El registro fue eliminado satisfactoriamente!',
+				'subtotal_instalaciones_especiales' => number_format($rowEnfoqueFisico->subtotal_instalaciones_especiales, 2, ".", ","),
+				'total_valor_fisico' => number_format($rowEnfoqueFisico->total_valor_fisico, 2, ".", ",")
+				));
 		} else {
 			return Response::json(array('success' => false, 'message' => '!El registro no existe!'));
 		}
@@ -110,14 +113,14 @@ class corevat_AefInstalacionesController extends \BaseController {
 		$inputs["cantidad_instalaciones"] = number_format(  (float) $inputs["cantidad_instalaciones"], 2, ".", "");
 		$inputs["valor_nuevo_instalaciones"] = number_format( (float) $inputs["valor_nuevo_instalaciones"], 2, ".", "");
 		$inputs["vida_util_instalaciones"] = number_format( (float) $inputs["vida_util_instalaciones"], 2, ".", "");
-		$inputs["edad_instalaciones"] = (int) $inputs["factor_conservacion_instalaciones"];
+		$inputs["edad_instalaciones"] = (int) $inputs["edad_instalaciones"];
 		$inputs["factor_conservacion_instalaciones"] = number_format( (float) $inputs["factor_conservacion_instalaciones"], 2, ".", "");
 		
 		$rules = array(
 			'cantidad_instalaciones' => array('required', 'numeric', 'min:0.00', 'max:99999999.99'),
 			'valor_nuevo_instalaciones' => array('required', 'numeric', 'min:0.00', 'max:99999999.99'),
 			'vida_util_instalaciones' => array('required', 'numeric', 'min:0.00', 'max:99999999.99'),
-			'factor_conservacion_instalaciones' => array('required', 'numeric', 'min:0.00', 'max:99999999.99'),
+			'edad_instalaciones' => array('required', 'numeric', 'min:0.00', 'max:99999999.99'),
 			'factor_conservacion_instalaciones' => array('required', 'numeric', 'min:0.00', 'max:99999999.99'),
 		);
 		$messages = array(

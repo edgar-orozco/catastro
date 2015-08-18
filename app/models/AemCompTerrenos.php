@@ -68,12 +68,11 @@ class AemCompTerrenos extends \Eloquent {
 		$rowAemCompTerrenos->modi_el = date('Y-m-d H:i:s');
 		$rowAemCompTerrenos->save();
 		
-		
-		
-		
 		$rowAemHomologacion = AemCompTerrenos::find($inputs['idaemcompterreno'])->AemHomologacion;
 		$rowAemHomologacion->valor_unitario = $rowAemCompTerrenos->precio_unitario_m2_terreno;
 		$rowAemHomologacion->superficie_terreno = $rowAemCompTerrenos->superficie_terreno;
+		
+
 		// aqui hay que volver a calcular aem_homologacion.valor_unitario_resultante_m2
 		// avaluo_enfoque_mercado.valor_unitario_promedio Y avaluo_enfoque_mercado.valor_aplicado_m2
 		

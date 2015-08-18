@@ -117,6 +117,19 @@ $(document).ready(function () {
 						$('#valor_aplicado_m2').empty().append(datos.valor_aplicado_m2);
 					} else if (ctrl === 'delAemInformacion') {
 						aemAnalisis.ajax.reload();
+					} else if (ctrl === 'delAefTerrenos') {
+						$('#valor_terreno').empty().append(datos.valor_aplicado_m2);
+						$('#total_valor_fisico').empty().append(datos.total_valor_fisico);
+					} else if (ctrl === 'delAefConstrucciones') {
+						$('#total_metros_construccion').empty().append(datos.total_metros_construccion);
+						$('#valor_construccion').empty().append(datos.valor_construccion);
+						$('#total_valor_fisico').empty().append(datos.total_valor_fisico);
+					} else if (ctrl === 'delAefCondominios') {
+						$('#subtotal_area_condominio').empty().append(datos.subtotal_area_condominio);
+						$('#total_valor_fisico').empty().append(datos.total_valor_fisico);
+					} else if (ctrl === 'delAefInstalaciones') {
+						$('#subtotal_instalaciones_especiales').empty().append(datos.subtotal_instalaciones_especiales);
+						$('#total_valor_fisico').empty().append(datos.total_valor_fisico);
 					}
 					$('#corevatConfirmMessage').empty().append('¡El registro fue eliminado!').addClass('alert-success');
 					$('#corevatConfirmButton').hide();
