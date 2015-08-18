@@ -4,11 +4,12 @@
 .page-header h3 ,.page-header h4{
     background: none;
     font-size: 40px;
-    padding: 20px;
+    padding: 20px 0 0 0;
     font-weight: 300;
     margin: 0 0 20px 0;
     color: #5c5c5c;
 }
 .page-header h4{
+    padding: 0 0 20px 0;
     font-size: 20px;
 }
