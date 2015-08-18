@@ -37,7 +37,7 @@
         </div>
 
         <div class="col-lg-3 col-md-6">
-            <div class="panel panel-info">
+            <a href="{{URL::to('admin/permission')}}" class="panel panel-info">
                 <div class="panel-heading">
                     <div class="row">
                         <div class="col-xs-3">
@@ -49,19 +49,17 @@
                         </div>
                     </div>
                 </div>
-                <a href="{{URL::to('admin/permission')}}">
                     <div class="panel-footer">
                         <span class="pull-left">Administrar permisos</span>
                         <span class="pull-right"><i class="glyphicon glyphicon-circle-arrow-right"></i></span>
 
                         <div class="clearfix"></div>
                     </div>
-                </a>
-            </div>
+            </a>
         </div>
 
         <div class="col-lg-3 col-md-6">
-            <div class="panel panel-info">
+            <a href="{{URL::to('admin/role')}}" class="panel panel-info">
                 <div class="panel-heading">
                     <div class="row">
                         <div class="col-xs-3">
@@ -73,19 +71,19 @@
                         </div>
                     </div>
                 </div>
-                <a href="{{URL::to('admin/role')}}">
+
                     <div class="panel-footer">
                         <span class="pull-left">Administrar roles</span>
                         <span class="pull-right"><i class="glyphicon glyphicon-circle-arrow-right"></i></span>
 
                         <div class="clearfix"></div>
                     </div>
-                </a>
-            </div>
+
+            </a>
         </div>
 
         <div class="col-lg-3 col-md-6">
-            <div class="panel panel-info">
+            <a href="{{URL::to('admin/tipotramites')}}" class="panel panel-info">
                 <div class="panel-heading">
                     <div class="row">
                         <div class="col-xs-3">
@@ -97,19 +95,17 @@
                         </div>
                     </div>
                 </div>
-                <a href="{{URL::to('admin/tipotramites')}}">
                     <div class="panel-footer">
                         <span class="pull-left">Administrar Tipo de trámites</span>
                         <span class="pull-right"><i class="glyphicon glyphicon-circle-arrow-right"></i></span>
 
                         <div class="clearfix"></div>
                     </div>
-                </a>
-            </div>
+            </a>
         </div>
 
         <div class="col-lg-3 col-md-6">
-            <div class="panel panel-info">
+            <a href="{{URL::to('cartografia/consultas')}}" class="panel panel-info">
                 <div class="panel-heading">
                     <div class="row">
                         <div class="col-xs-3">
@@ -117,14 +113,13 @@
                         </div>
                     </div>
                 </div>
-                <a href="{{URL::to('cartografia/consultas')}}">
                     <div class="panel-footer">
                         <span class="pull-left">Consulta Cartográfica</span>
                         <span class="pull-right"><i class="glyphicon glyphicon-circle-arrow-right"></i></span>
                         <div class="clearfix"></div>
                     </div>
                 </a>
-            </div>
+            </a>
         </div>
 
     </div>
