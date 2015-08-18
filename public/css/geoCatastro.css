@@ -13,3 +13,9 @@
     padding: 0 0 20px 0;
     font-size: 20px;
 }
+.btn-actionForm01{
+    display: block !important;
+    width: 100% !important;
+    border-radius: 0 !important;
+    background: #808080;
+}

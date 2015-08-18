@@ -14,15 +14,11 @@
     <div class="row">
 
         <div class="col-sm-4">
-
-            <div class="col-lg-2 col-md-4">
-                <a class="btn btn-primary" href="{{URL::to('ventanilla/primera-atencion')}}" role="button">
-                    <span class="glyphicon glyphicon-plus"></span> Iniciar trámite
-                </a>
-            </div>
-
+            <a class="btn btn-primary btn-actionForm01" href="{{URL::to('ventanilla/primera-atencion')}}" role="button">
+                <span class="glyphicon glyphicon-plus"></span> Iniciar trámite
+            </a>
         </div>
-        <div class="col-sm-8">
+        <div class="col-sm-4">
             @include('ventanilla._form_buscador', [
                 'por_atender' => count(Tramite::porAtender(Auth::user()->roleIdArray())->get())
             ])
