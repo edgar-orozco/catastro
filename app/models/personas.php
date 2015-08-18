@@ -134,6 +134,7 @@ public function adquiriente(){
     public static function getPorCurpRFC($dato){
         return self::where('curp', 'ilike', $dato.'%')
             ->orWhere('rfc','ilike', $dato.'%')->get();
+
     }
     /**
      * Retorna un registro de solicitante si se ha consultado ya sea por curp o por rfc, Si no existe regresa null

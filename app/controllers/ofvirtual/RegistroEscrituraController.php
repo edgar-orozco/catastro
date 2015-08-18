@@ -691,22 +691,36 @@ $registro->estado_conserv=Input::get('estado_conserv');
         $q = Input::get('term');
         if (Request::ajax()) {
             $persona=personas::getPorCurpRFC($q);
+          //  
 
-            $idp=$persona[0]['id_p'];
+            foreach($persona as $key)
+            {
+
+           $idp=$key['id_p'];
             $dir= RegistroEscritura::where('enajenante_id', $idp)->orWhere('adquiriente_id',$idp)->pluck('dir_enajenante_id');
             $domicilio = Domicilio::where('id',$dir)->get();
-           
-
+            $domicilio=json_decode($domicilio,true);
+//
             //$persona->domicilio->$domicilio; dd($persona);
+if($domicilio)
+{
+//dd($domicilio);
         $persona=json_decode($persona,true);
-        $domicilio=json_decode($domicilio,true);
-
+        //$domicilio=json_decode($domicilio,true);
 foreach ($domicilio as $clave=>$valor)
         {
          $persona[0][$clave]=$valor;
+         $persona[0]['control']='lleno';
         }
-// dd($domicilio);
-//dd($persona);
+}else{
+    $i=0;
+    foreach ($persona as $key ) {
+    $persona[$i]['control']='vacio';
+    $i++;
+}
+}
+}
+//dd(json_encode($persona));
   return json_encode($persona);
 
         }
@@ -725,6 +739,7 @@ foreach ($domicilio as $clave=>$valor)
             $domicilio = Domicilio::where('id',$dir)->get();
 
             //$persona->domicilio->$domicilio; dd($persona);
+
         $persona=json_decode($persona,true);
         $domicilio=json_decode($domicilio,true);
 
@@ -735,8 +750,7 @@ foreach ($domicilio as $clave=>$valor)
 
 //dd($persona);
   return json_encode($persona);
-        }
     }
-
+}
 
 }

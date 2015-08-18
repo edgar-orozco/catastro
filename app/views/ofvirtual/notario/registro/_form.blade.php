@@ -181,8 +181,6 @@
 
 @section('javascript')
 
-{{HTML::script('http://jqueryvalidation.org/files/dist/jquery.validate.min.js')}}
-{{HTML::script('http://jqueryvalidation.org/files/dist/additional-methods.min.js')}}
 {{HTML::script('js/macros.js')}}
     {{ HTML::script('js/select2/select2.min.js') }}
     {{ HTML::script('js/select2/i18n/es.js') }}
@@ -190,6 +188,7 @@
     {{ HTML::script('js/bootstrap-datepicker.es.js') }}
 {{ HTML::script('js/jquery/jquery-ui.js') }}
     {{ HTML::script('js/jquery/jquery-ui-autocomplete.min.js') }}
+    {{ HTML::style('js/jquery/jquery-ui.css') }}
 
 <script>
 
@@ -272,6 +271,11 @@ $(function () {
                   var curpa = "adquiriente[curp]";
             $('#' + curpa.replace( /(:|\.|\[|\]|,)/g, "\\$1" )).val(ui.item.curp);
             //datos domicilio
+            if(ui.item.control=='vacio')
+            {
+                console.log(ui.item.control);
+            
+            }if(ui.item.control=='lleno')
              var tip_v = "adquirienteDomicilio[tipo_vialidad_id]";
             $('#' + tip_v.replace( /(:|\.|\[|\]|,)/g, "\\$1" )).val(ui.item[0].tipo_vialidad_id);
              var tip_v = "adquirienteDomicilio[vialidad]";
@@ -292,6 +296,7 @@ $(function () {
             $('#' + tip_v.replace( /(:|\.|\[|\]|,)/g, "\\$1" )).val(ui.item[0].entidad);
              var tip_v = "adquirienteDomicilio[referencia]";
             $('#' + tip_v.replace( /(:|\.|\[|\]|,)/g, "\\$1" )).val(ui.item[0].referencia);
+        }
                     return false;
                 }
             };
@@ -331,6 +336,11 @@ $(function () {
                  var curpa = "enajenante[curp]";
             $('#' + curpa.replace( /(:|\.|\[|\]|,)/g, "\\$1" )).val(ui.item.curp);
             //datos domicilio
+            if(ui.item.control=='vacio')
+            {
+                console.log(ui.item.control);
+            
+            }if(ui.item.control=='lleno'){
              var tip_v = "enajenanteDomicilio[tipo_vialidad_id]";
             $('#' + tip_v.replace( /(:|\.|\[|\]|,)/g, "\\$1" )).val(ui.item[0].tipo_vialidad_id);
              var tip_v = "enajenanteDomicilio[vialidad]";
@@ -351,6 +361,7 @@ $(function () {
             $('#' + tip_v.replace( /(:|\.|\[|\]|,)/g, "\\$1" )).val(ui.item[0].entidad);
              var tip_v = "enajenanteDomicilio[referencia]";
             $('#' + tip_v.replace( /(:|\.|\[|\]|,)/g, "\\$1" )).val(ui.item[0].referencia);
+             }
                     return false;
                 }
             };
