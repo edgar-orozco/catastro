@@ -25,7 +25,7 @@
             <tbody>
             @foreach($tramites as $key=>$tramite)
                 <tr class="<?php
-                    if (($key % 2) == 0){
+                    if ($key % 2 === 0){
                         echo "background-gray"
                     }
                         ?>">
