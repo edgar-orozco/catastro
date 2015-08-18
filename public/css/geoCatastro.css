@@ -45,6 +45,10 @@
     background-color: #808080;
 }
 
+.pagination{
+    float:right !important;
+}
+
 .pagination > .active > a, .pagination > .active > span, .pagination > .active > a:hover, .pagination > .active > span:hover, .pagination > .active > a:focus, .pagination > .active > span:focus{
     color: #fff;
     background: #808080;
