@@ -20,3 +20,10 @@
     border-radius: 0 !important;
     background: #808080;
 }
+
+.btn-actionForm01:hover{
+    background: #eee;
+}
+.btn-actionForm01 .badge-num{
+    color: #808080;
+}
