@@ -26,7 +26,7 @@
             @foreach($tramites as $key=>$tramite)
                 <tr class="<?php
                     if ($key % 2){
-                        echo "background-gray";
+                        echo "bg-gray01";
                     }
                         ?>">
                     <td >

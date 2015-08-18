@@ -39,6 +39,12 @@
     padding: 0 !important;
 }
 
+.bg-gray01{
+ background-color: #eee;
+}
+.bg-gray02{
+    background-color: #808080;
+}
 /* Tables */
 table tr td{
     vertical-align: middle !important;
