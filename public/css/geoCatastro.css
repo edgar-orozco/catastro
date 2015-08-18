@@ -27,3 +27,7 @@
 .btn-actionForm01 .badge-num{
     color: #808080;
 }
+
+.paddin-null{
+    padding: 0 !important;
+}

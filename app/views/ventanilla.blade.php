@@ -13,12 +13,12 @@
 
     <div class="row">
 
-        <div class="col-md-4">
+        <div class="col-md-4 paddin-null">
             <a class="btn btn-primary btn-actionForm01" href="{{URL::to('ventanilla/primera-atencion')}}" role="button">
                 <span class="glyphicon glyphicon-plus"></span> Iniciar trámite
             </a>
         </div>
-        <div class="col-md-8">
+        <div class="col-md-8 paddin-null">
             @include('ventanilla._form_buscador', [
                 'por_atender' => count(Tramite::porAtender(Auth::user()->roleIdArray())->get())
             ])
