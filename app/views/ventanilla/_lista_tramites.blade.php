@@ -23,7 +23,7 @@
             </tr>
             </thead>
             <tbody>
-            @foreach($tramites as $tramite)
+            @foreach($tramites as $key=>$tramite)
                 <tr>
                     <td >
                         {{$tramite->tipotramite->nombre}}
