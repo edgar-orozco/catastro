@@ -11,7 +11,7 @@
         <h4>{{Auth::user()->nombreCompleto()}}</h4>
     </div>
 
-    <div class="row">
+    <div class="row margin-null">
 
         <div class="col-md-4 paddin-null">
             <a class="btn btn-primary btn-actionForm01" href="{{URL::to('ventanilla/primera-atencion')}}" role="button">
