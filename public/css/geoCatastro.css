@@ -67,8 +67,10 @@
 .table > thead > tr > th{
     background: #3f3f3f;
     color: white;
+    text-align: center;
 }
 
 table tr td{
     vertical-align: middle !important;
+    border: 1px solid #808080;
 }
