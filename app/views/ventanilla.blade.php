@@ -7,9 +7,8 @@
 @section('content')
 
     <div class="page-header">
-        <h2>Bienvenid@
-            <small>{{Auth::user()->nombreCompleto()}}</small>
-        </h2>
+        <h3>Bienvenid@</h3>
+        <h4>{{Auth::user()->nombreCompleto()}}</h4>
     </div>
 
     <div class="row">

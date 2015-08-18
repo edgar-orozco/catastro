@@ -1,3 +1,10 @@
-.adminHome .panel-info{
-    display: block;
+/* gris-claro = #eee */
+/* gris-oscuro = #808080 */
+
+h3{
+    background: none;
+    font-size: 40px;
+    padding: 20px;
+    font-weight: 300;
+    margin: 0 0 20px 0;
 }
