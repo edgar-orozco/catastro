@@ -140,10 +140,12 @@
 
     @if(isset($title_section))
         <div class="page-header">
-            <h2>{{$title_section}}
-                @if(isset($subtitle_section))
-                    <small>{{$subtitle_section}}</small> @endif
-            </h2>
+            <h3>
+                {{$title_section}}
+            </h3>
+            @if(isset($subtitle_section))
+                <h4>{{$subtitle_section}}</h4>
+            @endif
         </div>
     @endif
 
