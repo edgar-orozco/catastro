@@ -27,9 +27,9 @@
 }
 
 .btn-actionForm01:hover{
-    background: #eee;
+    background: #3f3f3f;
     color: #808080;
-    border: none;
+    border: 1px solid #3f3f3f;
 }
 .btn-actionForm01 .badge-num{
     color: #808080;
