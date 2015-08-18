@@ -25,10 +25,10 @@ class catalogos_ejecutoresController extends \BaseController {
         $title = 'Administración de catálogo del personal de ejecuci&oacute;n fiscal';
 
         //Titulo de seccion:
-        $title_section = "Administración del personal de ejecuci&oacute;n fiscal";
+        $title_section = "Personal de Ejecución Fiscal.";
 
         //Subtitulo de seccion:
-        $subtitle_section = "";
+        $subtitle_section = "Buscar, crear y modificar usuarios.";
 
         //Todos los ejecutores creados actulmente
         $ejecutoress = $this->ejecutores->join('personas', 'personas.id_p', '=', 'ejecutores.id_p')

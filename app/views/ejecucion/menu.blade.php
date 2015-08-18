@@ -31,7 +31,7 @@
              <li class="@if(Request::is('catalogo')) active @endif">
                 <a href="{{URL::to('catalogos/ejecutores')}}">
                 <i class="glyphicon glyphicon-user"></i>&nbsp;
-                    Personal Ejecución
+                    Personal de Ejecución Fiscal
                 </a>
             </li>
             
