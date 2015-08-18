@@ -27,7 +27,7 @@
     border: 1px solid #eee;
 }
 
-.btn-actionForm01:hover{
+.btn-actionForm01:hover, .btn-actionForm01:focus{
     background: #3f3f3f;
     border: 1px solid #3f3f3f;
 }
