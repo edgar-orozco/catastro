@@ -4,22 +4,10 @@
     margin: 0 auto;
     color: gray;
 }
-.page-header{
-    border: none;
-    text-align: center;
-}
-.page-header h2{
-    padding-bottom: 14px;
-    border: none;
-}
+
 .row{
     margin: 0;
 }
-.page-header h2 small {
-    display: block;
-    color: #F27007;
-}
-
 
 .btn{
     display: block;
