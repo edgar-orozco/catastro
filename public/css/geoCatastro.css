@@ -63,6 +63,12 @@
 
 
 /* Tables */
+
+.table > thead > tr > th{
+    background: #3f3f3f;
+    color: white;
+}
+
 table tr td{
     vertical-align: middle !important;
 }
