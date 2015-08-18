@@ -33,10 +33,10 @@ class IndicadoresController extends BaseController {
             'Zona4' => 'G'
         );
         $arrayindicador = array(
-            'Indicador1' => '215837',
-            'Indicador2' => '215838',
-            'Indicador3' => '215839',
-            'Indicador4' => '215840'
+            'Indicador1' => '215838',
+            'Indicador2' => '215839',
+            'Indicador3' => '215840',
+            'Indicador4' => '215837'
         );
         $count = count($arrayindicador);
 
