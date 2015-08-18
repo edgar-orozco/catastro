@@ -3,6 +3,7 @@
 
 .page-header{
     border: none;
+    text-align: left;
 }
 .page-header h3 ,.page-header h4{
     background: none;
