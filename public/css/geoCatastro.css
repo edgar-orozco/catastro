@@ -1,6 +1,9 @@
 /* gris-claro = #eee */
 /* gris-oscuro = #808080 */
 
+.page-header{
+    border: none;
+}
 .page-header h3 ,.page-header h4{
     background: none;
     font-size: 40px;
@@ -33,4 +36,9 @@
 
 .paddin-null{
     padding: 0 !important;
+}
+
+/* Tables */
+table tr td{
+    vertical-align: middle;
 }
