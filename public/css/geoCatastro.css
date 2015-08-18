@@ -19,6 +19,8 @@
     width: 100% !important;
     border-radius: 0 !important;
     background: #808080;
+    padding: 10px 0;
+    border-left: 1px solid #eee;
 }
 
 .btn-actionForm01:hover{

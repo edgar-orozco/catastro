@@ -1,4 +1,4 @@
-<div class="col-sm-6">
+<div class="col-sm-6 paddin-null">
     <a class="btn btn-success btn-poratender btn-actionForm01" href="javascript:void(0);" role="button" >
        Por atender &nbsp;
         <span class="badge badge-num">{{$por_atender}}</span>
