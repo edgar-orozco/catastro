@@ -72,5 +72,6 @@
 
 table tr td{
     vertical-align: middle !important;
-    border: 1px solid #808080;
+    border: 1px solid #E6E6E6;
+    text-align: center;
 }
