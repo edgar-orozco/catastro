@@ -30,7 +30,7 @@ body, html{
     padding: 0 0 20px 0;
     font-size: 20px;
 }
-.btn-actionForm01{
+.btn-actionForm01, .btn{
     border: none;
     display: block !important;
     width: 100% !important;
