@@ -36,7 +36,7 @@
         </div>
         
         <div class="col-lg-3 col-md-6">
-            <div class="panel panel-info">
+            <a href="{{URL::to('/foliosemitidos')}}" class="panel panel-info">
                 <div class="panel-heading">
                     <div class="row">
                         <div class="col-xs-3">
@@ -48,15 +48,13 @@
                         </div>
                     </div>
                 </div>
-                <a href="{{URL::to('/foliosemitidos')}}">
-                    <div class="panel-footer">
-                        <span class="pull-left">Folios Emitidos</span>
-                        <span class="pull-right"><i class="glyphicon glyphicon-circle-arrow-right"></i></span>
+                <div class="panel-footer">
+                    <span class="pull-left">Folios Emitidos</span>
+                    <span class="pull-right"><i class="glyphicon glyphicon-circle-arrow-right"></i></span>
 
-                        <div class="clearfix"></div>
-                    </div>
-                </a>
-            </div>
+                    <div class="clearfix"></div>
+                </div>
+            </a>
         </div>
 
         <div class="col-lg-3 col-md-6">
