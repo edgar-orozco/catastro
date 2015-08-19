@@ -38,7 +38,7 @@ $(document).ready(function()
               	var encodedString = btoa(data.fallasV+" "+data.fallasR);
                 $('.load_ajax').html("El total de registros: "+data.totalR+"<br> Error de sintaxis: "+data.totalFV+
                 	"<br> Claves sin registro: "+data.totalNE+
-                	' <br> <a class="btn btn-info" title="Editar Predio" href="data:application/octet-stream;charset=utf-8;base64, '+encodedString+'" download="error.txt" >  <span class="glyphicon glyphicon-save"> Descargar Errores </span> </a>')
+                	' <br> <a class="btn btn-info" title="Editar Predio" href="data:application/octet-stream;charset=utf-8;base64, '+encodedString+'" download="error.txt" >  <span class="glyphicon glyphicon-save"> Descargar Errores </span> </a><br>')
                 $('.preload_users').html('');
                 if (data.vale.length > 0) {
                 $('.carta').html('<a class="btn btn-info" href="cartainv/'+data.vale+'"target=_blank> <span class="glyphicon glyphicon-save">Descargar Carta Invitación</span></a>');
