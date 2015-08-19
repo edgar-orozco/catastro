@@ -69,10 +69,12 @@
 }
 #lista-tipotramites .panel-info > .panel-heading a{
     background: #eee;
+    color: #808080;
 }
 
 #lista-tipotramites .panel-info > .panel-heading a:hover{
     background: #808080;
+    color: #eee;
 }
 
 #lista-tipotramites .panel-info > .collapse.in{
