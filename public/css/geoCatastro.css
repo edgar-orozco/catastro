@@ -37,6 +37,8 @@ body, html{
     border-radius: 0 !important;
     padding: 10px 0;
     border: 1px solid #eee;
+    text-align: center;
+    margin-bottom: 15px;
 }
 .btn-actionForm01 .badge-num{
     color: #808080;
