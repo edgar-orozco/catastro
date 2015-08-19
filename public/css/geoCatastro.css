@@ -35,7 +35,6 @@ body, html{
     display: block !important;
     width: 100% !important;
     border-radius: 0 !important;
-    padding: 10px 0;
     border: 1px solid #eee;
     margin-bottom: 15px;
 }
