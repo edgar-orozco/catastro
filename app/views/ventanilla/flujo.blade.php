@@ -175,15 +175,15 @@
 
                     <div class="tab-pane" id="panel-solicitante">
                         <br/>
-                        <h4 class="color:#333;">Nombre: <span style="color: #808080;">{{$tramite->solicitante->nombres}}</span></h4>
+                        <h4><span style="color:#333; width: 150px;">Nombre:</span> <span style="color: #808080;">{{$tramite->solicitante->nombres}}</span></h4>
                         @if($tramite->tipo_solicitante == 'FISICA')
-                            <h4 class="color:#333;">Apellido Paterno:  <span style="color: #808080;">{{$tramite->solicitante->apellido_paterno}} </span></h4>
-                            <h4 class="color:#333;">Apellido Materno:  <span style="color: #808080;">{{$tramite->solicitante->apellido_materno}} </span></h4>
-                            <h4 class="color:#333;">CURP: <span style="color: #808080;">{{$tramite->solicitante->curp}}</span>  </h4>
+                            <h4><span style="color:#333; width: 150px;">Apellido Paterno:</span>  <span style="color: #808080;">{{$tramite->solicitante->apellido_paterno}} </span></h4>
+                            <h4><span style="color:#333; width: 150px;">Apellido Materno:</span>  <span style="color: #808080;">{{$tramite->solicitante->apellido_materno}} </span></h4>
+                            <h4><span style="color:#333; width: 150px;">CURP:</span> <span style="color: #808080;">{{$tramite->solicitante->curp}}</span>  </h4>
                         @endif
-                        <h4>RFC: <span style="color: #808080;">{{$tramite->solicitante->rfc}} </span></h4>
+                        <h4><span style="color:#333; width: 150px;">RFC:</span> <span style="color: #808080;">{{$tramite->solicitante->rfc}} </span></h4>
                     @if($tramite->notaria)
-                            <h4 class="color:#333;">Notaría: <span style="color: #808080;">{{$tramite->notaria->nombre}} @if($tramite->notaria->mpio) de {{$tramite->notaria->mpio->nombre_municipio}} @endif </span></h4>
+                            <h4><span style="color:#333; width: 150px;">Notaría:</span> <span style="color: #808080;">{{$tramite->notaria->nombre}} @if($tramite->notaria->mpio) de {{$tramite->notaria->mpio->nombre_municipio}} @endif </span></h4>
                         @endif
                     </div>
 
