@@ -14,7 +14,7 @@
 
     <div class="row">
         <div class="col-lg-3 col-md-6">
-            <a href="{{URL::to('/nfolios')}}" class="panel panel-info">
+            <a href="{{URL::to('/nfolios')}}" class="panel panel-info" style="display:inline-block;">
                 <div class="panel-heading">
                     <div class="row">
                         <div class="col-xs-3">
@@ -36,7 +36,7 @@
         </div>
         
         <div class="col-lg-3 col-md-6">
-            <a href="{{URL::to('/foliosemitidos')}}" class="panel panel-info">
+            <a href="{{URL::to('/foliosemitidos')}}" class="panel panel-info" style="display:inline-block;">
                 <div class="panel-heading">
                     <div class="row">
                         <div class="col-xs-3">
@@ -58,7 +58,7 @@
         </div>
 
         <div class="col-lg-3 col-md-6">
-            <a href="{{URL::to('/entregafoliosmunicipal')}}" class="panel panel-info">
+            <a href="{{URL::to('/entregafoliosmunicipal')}}" class="panel panel-info" style="display:inline-block;">
                 <div class="panel-heading">
                     <div class="row">
                         <div class="col-xs-3">
@@ -80,7 +80,7 @@
         </div>
 
         <div class="col-lg-3 col-md-6">
-            <a href="{{URL::to('/entregafoliosestatal')}}" class="panel panel-info">
+            <a href="{{URL::to('/entregafoliosestatal')}}" class="panel panel-info" style="display:inline-block;">
                 <div class="panel-heading">
                     <div class="row">
                         <div class="col-xs-3">
@@ -102,7 +102,7 @@
         </div>
 
         <div class="col-lg-3 col-md-6">
-            <a href="{{URL::to('catalogos/peritos/tablaperitos')}}" class="panel panel-info">
+            <a href="{{URL::to('catalogos/peritos/tablaperitos')}}" class="panel panel-info" style="display:inline-block;">
                 <div class="panel-heading">
                     <div class="row">
                         <div class="col-xs-3">
