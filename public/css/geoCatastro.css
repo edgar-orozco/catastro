@@ -1,6 +1,13 @@
 /* gris-claro = #eee */
 /* gris-oscuro = #808080 */
 
+body, html{
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    color: #808080;
+    font-weight: 300;
+    font-weight: 13px;
+}
+
 .container{
     width: 100%;
     max-width: inherit;
