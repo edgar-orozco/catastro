@@ -68,7 +68,7 @@
 
 <div class="panel panel-default">
     <div class="panel-heading">
-        <h3 class="panel-title">Datos Personas</h3>
+        <h3 class="panel-title">Contratantes</h3>
     </div>
 <div class="panel-body">
         <!--<div class="row">-->
@@ -117,11 +117,11 @@
 
     <div class="row-fluid panel-body">
         <div class="col-md-12">
-            {{Form::label('ubicacionFiscal','Ubicacion del Inmueble:')}}
+            {{Form::label('ubicacionFiscal','Ubicación del Inmueble:')}}
             {{Form::text('ubicacionFiscal', $predio->ubicacionFiscal->ubicacion, ['class' => 'form-control ', 'readonly' => 'readonly'] )}}
         </div>
         <div class="col-md-6">
-            {{Form::label('superficie_construc','Superficie de construccion:')}}
+            {{Form::label('superficie_construc','Superficie de construcción:')}}
             {{Form::number('superficie_construc', $predio->superficie_construccion, ['class' => 'form-control ', 'readonly' => 'readonly'] )}}
         </div>
         <div class="col-md-6">
@@ -133,7 +133,7 @@
             {{Form::number('niveles', null, ['class' => 'form-control '] )}}
         </div>
          <div class="col-md-6">
-            {{Form::label('estado_conserv','Estado de conservacion:')}}
+            {{Form::label('estado_conserv','Estado de conservación:')}}
             {{Form::text('estado_conserv', null, ['class' => 'form-control requerido'] )}}
         </div>
         <div class="form-group col-md-6">

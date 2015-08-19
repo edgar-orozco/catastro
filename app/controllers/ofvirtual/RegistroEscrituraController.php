@@ -26,7 +26,7 @@ protected $padron;
         $title = 'Listas de Registro de Escritura';
 
         //Título de sección:
-        $title_section = "Listado de de Registros de Escritura. ";
+        $title_section = "Listado de Registros de Escritura. ";
 
         //Subtítulo de sección:
         $subtitle_section = "Crear, modificar, buscar, imprimir.";

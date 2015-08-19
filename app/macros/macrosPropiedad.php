@@ -4,7 +4,7 @@ Form::macro('propiedad', function()
   $predios='
    <div class="row">
     <div class="col-md-6">'.
-    Form::label('antecedente_num', 'Bajo el numero:') .
+    Form::label('antecedente_num', 'Bajo el número:') .
     Form::text('antecedente_num', null, ['class' => 'form-control'] ).
     '</div>'.
     
@@ -13,7 +13,7 @@ Form::macro('propiedad', function()
     Form::text('valor_registro', null, ['class' => 'form-control'] ). 
    '</div>'.
     '<div class="col-md-6">'.
-    Form::label('folio_avaluo]', 'No. De Folio de Avaluó:').
+    Form::label('folio_avaluo]', 'No. De Folio de Avalúo:').
     Form::text('folio_avaluo', null, ['class' => 'form-control'] ). 
    '</div>'.
     '<div class="col-md-6">'.

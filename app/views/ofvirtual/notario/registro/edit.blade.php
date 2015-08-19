@@ -17,7 +17,7 @@
                 @include('ofvirtual.notario.registro._form', compact('registro'))
 
                 <div class="form-actions form-group col-md-4" style="clear:both; float: right;">
-                  {{ Form::submit('Guardar cambios en registro de dominio', array('class' => 'btn btn-primary')) }}
+                  {{ Form::submit('Guardar cambios en registro de escritura', array('class' => 'btn btn-primary')) }}
                 </div>
             {{Form::close()}}
 

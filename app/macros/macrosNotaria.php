@@ -1,7 +1,9 @@
 <?php
 Form::macro('notaria', function($id_notaria)
 {
-    $datos_notaria = Notaria::join('municipios', 'notarias.municipio', '=', 'municipios.municipio' )
+    $datos_notaria = Notaria::
+
+    join('municipios', 'notarias.municipio', '=', 'municipios.municipio' )
     ->join('entidades', 'notarias.entidad', '=', 'entidades.entidad' )
     ->join('personas', 'notarias.id_notario', '=', 'personas.id_p' )
     ->select('entidades.nom_ent', 'municipios.nombre_municipio', 'notarias.nombre','notarias.correo', 'notarias.domicilio', 'notarias.telefono','personas.nombres','personas.apellido_paterno','personas.apellido_materno')
@@ -23,13 +25,13 @@ Form::macro('notaria', function($id_notaria)
      Form::label($id_notaria . '[notaria]', 'Nombre Notario: '.$nombre_n ) .
     '</div>'.
     '<div class="col-md-12">'.
-    Form::label($id_notaria . '[notaria]', 'Dirección de la notaría : '.$domicilio) .
+    Form::label($id_notaria . '[notaria]', 'Dirección de la notaría: '.$domicilio) .
     '</div>'.
     '<div class="col-md-6">'.
-    Form::label($id_notaria . '[notaria]', 'Num telefónico : '.$telefono) .
+    Form::label($id_notaria . '[notaria]', 'Número telefónico: '.$telefono) .
     '</div>'.
     '<div class="col-md-6">'.
-    Form::label($id_notaria . '[notaria]', 'Email : '.$correo) .
+    Form::label($id_notaria . '[notaria]', 'Email: '.$correo) .
     '</div>
     </div>';
    // var_dump($datos_notaria);

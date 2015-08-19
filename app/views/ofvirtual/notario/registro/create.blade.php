@@ -6,7 +6,7 @@
 
 @section('content')
 
-    <h1>Regitro de Escrituras</h1>
+    <h1>Registro de Escrituras</h1>
 
     {{--{{ HTML::style('css/forms.css') }} --}}
 
@@ -17,7 +17,7 @@
                 @include('ofvirtual.notario.registro._form', compact('registro','notaria','vialidad','entidad','asentamiento','municipio','JsonColindancias'))
 
             <div class="form-actions form-group col-md-6" style="clear:both; ">
-                  {{ Form::submit('Crear nuevo traslado de dominio', array('class' => 'btn btn-primary')) }}
+                  {{ Form::submit('Crear nuevo registro de escritura', array('class' => 'btn btn-primary')) }}
                   {{ Form::reset('Limpiar formato', ['class' => 'btn btn-warning']) }}
                 </div>
 
