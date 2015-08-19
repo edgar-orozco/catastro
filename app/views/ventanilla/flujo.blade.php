@@ -60,6 +60,7 @@
                     <i class="glyphicon glyphicon-arrow-right"></i>
                     Continuar trámite
                 </button>
+                <br/>
                 {{ Form::reset('Limpiar formato', ['class' => 'btn btn-warning', 'id'=>'btn-reset']) }}
             </div>
 
