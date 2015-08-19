@@ -175,15 +175,15 @@
 
                     <div class="tab-pane" id="panel-solicitante">
                         <br/>
-                        <h4><small>Nombre:</small> {{$tramite->solicitante->nombres}} </h4>
+                        <h4>Nombre: <span style="color: #808080;">{{$tramite->solicitante->nombres}}</span></h4>
                         @if($tramite->tipo_solicitante == 'FISICA')
-                            <h4><small>Apellido Paterno:</small> {{$tramite->solicitante->apellido_paterno}} </h4>
-                            <h4><small>Apellido Materno:</small> {{$tramite->solicitante->apellido_materno}} </h4>
-                            <h4><small>CURP:</small> {{$tramite->solicitante->curp}} </h4>
+                            <h4>Apellido Paterno:  <span style="color: #808080;">{{$tramite->solicitante->apellido_paterno}} </span></h4>
+                            <h4>Apellido Materno:  <span style="color: #808080;">{{$tramite->solicitante->apellido_materno}} </span></h4>
+                            <h4>CURP: <span style="color: #808080;">{{$tramite->solicitante->curp}}</span>  </h4>
                         @endif
-                        <h4><small>RFC:</small> {{$tramite->solicitante->rfc}} </h4>
+                        <h4>RFC: <span style="color: #808080;">{{$tramite->solicitante->rfc}} </span></h4>
                     @if($tramite->notaria)
-                            <h4><small>Notaría:</small> {{$tramite->notaria->nombre}} @if($tramite->notaria->mpio) de {{$tramite->notaria->mpio->nombre_municipio}} @endif</h4>
+                            <h4>Notaría: <span style="color: #808080;">{{$tramite->notaria->nombre}} @if($tramite->notaria->mpio) de {{$tramite->notaria->mpio->nombre_municipio}} @endif </span></h4>
                         @endif
                     </div>
 
