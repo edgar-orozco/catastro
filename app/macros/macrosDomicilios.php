@@ -13,15 +13,15 @@ $domicilio = '
             Form::text($llave.'[vialidad]', null, ['class' => 'form-control']).
             '</div>'.
             '<div class="col-md-6">'.
-            Form::label($llave.'[num_ext]','Numero Externo', ['class'=>'']).
+            Form::label($llave.'[num_ext]','Número Externo', ['class'=>'']).
             Form::text($llave.'[num_ext]', null, ['class' => 'form-control']).
             '</div>'.
             '<div class="col-md-6">'.
-            Form::label($llave.'[num_int]','Numero Interno', ['class'=>'']).
+            Form::label($llave.'[num_int]','Número Interno', ['class'=>'']).
             Form::text($llave.'[num_int]', null, ['class' => 'form-control']).
             '</div>'.
             '<div class="col-md-6">'.
-            Form::label($llave.'[tipo_asentamiento_id]','Tipo de asentamientoasentamiento', ['class'=>'']).
+            Form::label($llave.'[tipo_asentamiento_id]','Tipo de asentamiento', ['class'=>'']).
             Form::select($llave.'[tipo_asentamiento_id]', $asentamiento, null, ['class' => 'form-control focus']).
             '</div>'.
             '<div class="col-md-6">'.
@@ -29,7 +29,7 @@ $domicilio = '
             Form::text($llave.'[asentamiento]', null, ['class' => 'form-control']).
             '</div>'.
             '<div class="col-md-6">'.
-            Form::label($llave.'[cp]','Codigo Postal', ['class'=>'']).
+            Form::label($llave.'[cp]','Código Postal', ['class'=>'']).
             Form::text($llave.'[cp]', null, ['class' => 'form-control']).
             '</div>'.
             '<div class="col-md-6">'.
