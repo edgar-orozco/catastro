@@ -25,7 +25,10 @@
             <tbody>
 
 
-            @foreach($tramites as $tramite)
+            @foreach($tramites as $key=>$tramite)
+                <tr class="<?php if($key % 2){
+                    echo "bg-gray01";
+                } ?>">
                     <td >
                         {{$tramite->tipotramite->nombre}}
                     </td>
