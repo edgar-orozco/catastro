@@ -30,12 +30,14 @@ body, html{
     padding: 0 0 20px 0;
     font-size: 20px;
 }
-.btn-actionForm01, .btn{
+.btn-actionForm01, button.btn{
     border: none;
     display: block !important;
     width: 100% !important;
     border-radius: 0 !important;
     border: 1px solid #eee;
+    padding: 15px;
+    font-size: 19px;
     margin-bottom: 15px;
 }
 .btn-actionForm01 .badge-num{
