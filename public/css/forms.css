@@ -67,9 +67,12 @@
     font-size: 2em;
     top: 16px;
 }
+#lista-tipotramites .panel-info > .panel-heading a{
+    background: #eee;
+}
 
 #lista-tipotramites .panel-info > .panel-heading a:hover{
-    background: #eee;
+    background: #808080;
 }
 
 #lista-tipotramites .panel-info > .collapse.in{
