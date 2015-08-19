@@ -8,44 +8,53 @@ class UsuarioValuadorSeeder extends Seeder {
     {
         DB::transaction(function()
         {
-            $cve= "COREVAT-001";
-            $usr = str_replace("-","",strtolower($cve));
+            $peritos = Perito::orderBy('corevat')->get();
+            $cid = 2;
 
-            //Creamos al usuario de notaría
-            $id = DB::table('users')->insertGetId(
-              array(
-                    'id'=>'1',
+            $rol_id = Role::where(['name'=>'Perito Valuador'])->first()->id;
+
+            foreach($peritos as $perito) {
+                $cid++;
+
+                if (User::find($cid)) {
+                    continue;
+                }
+
+                $cve = $perito->corevat;
+
+                $usr = str_replace("-", "", strtolower($cve));
+                $email = explode(" ", $perito->correo);
+
+                //Creamos al usuario de perito
+                $id = DB::table('users')->insertGetId(
+                  array(
+                    'id' => $cid,
                     'username' => $usr,
                     'password' => App::make('hash')->make($usr),
-                    'email' => 'corevat1@test.sicaret.com',
-                    'nombre' => 'Usuario',
-                    'apepat' => 'Valuador',
-                    'apemat' => 'Test',
+                    'email' => $email[0],
+                    'nombre' =>  \ForceUTF8\Encoding::fixUTF8($perito->nombre, ""),
+                    'apepat' => ' ',
+                    'apemat' => '',
                     'confirmed' => true,
                     'created_at' => date("Y-m-d H:i:s"),
                     'updated_at' => date("Y-m-d H:i:s")
-               )
-            );
+                  )
+                );
 
-            //Asociamos el rol
-            $rol_id = Role::where(['name'=>'Perito Valuador'])->first()->id;
-            DB::table('assigned_roles')->insert(array(
-                'user_id' => $id, 'role_id' => $rol_id
-            ));
+                //Asociamos el rol
+                DB::table('assigned_roles')->insert(array(
+                  'user_id' => $id,
+                  'role_id' => $rol_id
+                ));
 
-            //Asociamos el usuario con la notaría
-            //notaria 1
-            $id_perito = Perito::firstOrCreate([
-              'nombre'=>'Serj Adam Tankian',
-              'corevat'=> $cve,
-              'direccion'=>'Enrique Segoviano',
-              'telefono'=>'12-34-56-78',
-              'correo'=>'serj.tanian@gmail.com',
-              'Estado'=>1,
-            ])->id;
+                $id_perito = $perito->id;
 
-            PeritoUsuario::create(['user_id' => $id, 'perito_id'=>$id_perito]);
+                PeritoUsuario::create([
+                  'user_id' => $id,
+                  'perito_id' => $id_perito
+                ]);
+
+            }
         });
     }
-
 }
