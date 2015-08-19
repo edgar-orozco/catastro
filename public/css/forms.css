@@ -70,6 +70,7 @@
 #lista-tipotramites .panel-info > .panel-heading a{
     background: #eee;
     color: #808080;
+    font-weight: 300;
 }
 
 #lista-tipotramites .panel-info > .panel-heading a:hover{
