@@ -75,6 +75,7 @@
 #lista-tipotramites .panel-info > .panel-heading a:hover{
     background: #808080;
     color: #eee;
+    text-decoration: none;
 }
 
 #lista-tipotramites .panel-info > .collapse.in{
