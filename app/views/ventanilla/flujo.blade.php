@@ -89,6 +89,7 @@
                     </div>
                 @endif
             </div>
+            <br/>
 
             <div class="tabbable" id="tabs">
 
