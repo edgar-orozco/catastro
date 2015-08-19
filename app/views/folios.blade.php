@@ -58,7 +58,7 @@
         </div>
 
         <div class="col-lg-3 col-md-6">
-            <div class="panel panel-info">
+            <a href="{{URL::to('/entregafoliosmunicipal')}}" class="panel panel-info">
                 <div class="panel-heading">
                     <div class="row">
                         <div class="col-xs-3">
@@ -70,18 +70,17 @@
                         </div>
                     </div>
                 </div>
-                <a href="{{URL::to('/entregafoliosmunicipal')}}">
-                    <div class="panel-footer">
-                        <span class="pull-left">Folios Autorizados</span>
-                        <span class="pull-right"><i class="glyphicon glyphicon-circle-arrow-right"></i></span>
-                        <div class="clearfix"></div>
-                    </div>
-                </a>
-            </div>
+                <div class="panel-footer">
+                    <span class="pull-left">Folios Autorizados</span>
+                    <span class="pull-right"><i class="glyphicon glyphicon-circle-arrow-right"></i></span>
+                    <div class="clearfix"></div>
+                </div>
+
+            </a>
         </div>
 
         <div class="col-lg-3 col-md-6">
-            <div class="panel panel-info">
+            <a href="{{URL::to('/entregafoliosestatal')}}" class="panel panel-info">
                 <div class="panel-heading">
                     <div class="row">
                         <div class="col-xs-3">
@@ -93,19 +92,17 @@
                         </div>
                     </div>
                 </div>
-                <a href="{{URL::to('/entregafoliosestatal')}}">
-                    <div class="panel-footer">
-                        <span class="pull-left">Entrega Folios Estatal</span>
-                        <span class="pull-right"><i class="glyphicon glyphicon-circle-arrow-right"></i></span>
+                <div class="panel-footer">
+                    <span class="pull-left">Entrega Folios Estatal</span>
+                    <span class="pull-right"><i class="glyphicon glyphicon-circle-arrow-right"></i></span>
 
-                        <div class="clearfix"></div>
-                    </div>
-                </a>
-            </div>
+                    <div class="clearfix"></div>
+                </div>
+            </a>
         </div>
 
         <div class="col-lg-3 col-md-6">
-            <div class="panel panel-info">
+            <a href="{{URL::to('catalogos/peritos/tablaperitos')}}" class="panel panel-info">
                 <div class="panel-heading">
                     <div class="row">
                         <div class="col-xs-3">
@@ -117,15 +114,13 @@
                         </div>
                     </div>
                 </div>
-                <a href="{{URL::to('catalogos/peritos/tablaperitos')}}">
-                    <div class="panel-footer">
-                        <span class="pull-left">Peritos</span>
-                        <span class="pull-right"><i class="glyphicon glyphicon-circle-arrow-right"></i></span>
+                <div class="panel-footer">
+                    <span class="pull-left">Peritos</span>
+                    <span class="pull-right"><i class="glyphicon glyphicon-circle-arrow-right"></i></span>
 
-                        <div class="clearfix"></div>
-                    </div>
-                </a>
-            </div>
+                    <div class="clearfix"></div>
+                </div>
+            </a>
         </div>
     </div>
 @stop
