@@ -1,6 +1,12 @@
 /* gris-claro = #eee */
 /* gris-oscuro = #808080 */
 
+.container{
+    width: 100%;
+    max-width: inherit;
+    padding:40px 20px;
+}
+
 .page-header{
     border: none;
     text-align: left;
