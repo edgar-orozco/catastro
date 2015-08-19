@@ -74,7 +74,7 @@
         @else
         <div class="col-md-8 column">
         @endif
-            <div style="padding: 10px 0">
+            <div class="clearfix">
                 @if($folio)
                     <div class="col-md-4" style="border: 1px solid darkgray">
                         <h4>Folio: {{$anio}}/{{$municipio}}/{{sprintf("%06d",$folio)}}</h4>
