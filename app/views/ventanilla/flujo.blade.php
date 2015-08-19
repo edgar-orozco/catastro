@@ -85,8 +85,8 @@
                         <h4>Consumidos: {{$tiempo_transcurrido}} de {{$tiempo_tramite}} días</h4>
                     </div>
 
-                    <div class="col-md-4"  style="border: 1px solid darkgray">
-                        <h4>Estado: <span class="alert alert-success" style=" padding: 6px 10px; display: inline-block; margin: -5px 0 0 0; float: right;">{{$tramite->estatus->pasado}}</span></h4>
+                    <div class="col-md-4"  style="border: 1px solid darkgray"  class="alert-success">
+                        <h4>Estado: <span style=" padding: 6px 10px; display: inline-block; margin: -5px 0 0 0; float: right;">{{$tramite->estatus->pasado}}</span></h4>
                     </div>
                 @endif
             </div>
