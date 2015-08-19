@@ -9,25 +9,28 @@
     {{ HTML::style('css/select2.min.css') }}
     {{ HTML::style('css/tramites/timeline.css') }}
 
-    <div class="row clearfix">
-        @if($folio)
-            <div class="col-md-2 col-md-offset-4" style="border: 1px solid darkgray">
-                <h4>Folio: {{$anio}}/{{$municipio}}/{{sprintf("%06d",$folio)}}</h4>
-            </div>
-
-            <div class="col-md-3 "  style="border: 1px solid darkgray">
-                <h4>Consumidos: {{$tiempo_transcurrido}} de {{$tiempo_tramite}} días</h4>
-            </div>
-
-            <div class="col-md-3"  style="border: 1px solid darkgray">
-                <h4>Estado: <span class="alert alert-success" style="padding: 5px 43px;">{{$tramite->estatus->pasado}}</span></h4>
-            </div>
-        @endif
-    </div>
-
     <br/>
 
     <div class="row clearfix">
+
+        <div>
+            @if($folio)
+                <div class="col-md-4" style="border: 1px solid darkgray">
+                    <h4>Folio: {{$anio}}/{{$municipio}}/{{sprintf("%06d",$folio)}}</h4>
+                </div>
+
+                <div class="col-md-4 "  style="border: 1px solid darkgray">
+                    <h4>Consumidos: {{$tiempo_transcurrido}} de {{$tiempo_tramite}} días</h4>
+                </div>
+
+                <div class="col-md-4"  style="border: 1px solid darkgray">
+                    <h4>Estado: <span class="alert alert-success" style="padding: 5px 43px;">{{$tramite->estatus->pasado}}</span></h4>
+                </div>
+            @endif
+        </div>
+
+
+
         <?php $nocontrol = false;?>
         @if(($tramite->estatus->pasado != 'Finalizado' && $tramite->estatus->pasado != 'Finalizado observado' ) && $esResponsable != null)
 
