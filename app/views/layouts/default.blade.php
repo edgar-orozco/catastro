@@ -21,7 +21,7 @@
     <!-- CSS del  Lock Screen -->
     {{ HTML::style('css/lockscreen.css') }}
 
-
+    {{ HTML::style('css/geoCatastro.css') }}
 
     <style>
         @yield('styles')
