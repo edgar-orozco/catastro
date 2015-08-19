@@ -1,9 +1,4 @@
-.container{
-    max-width: 950px;
-    padding: 40px 0;
-    margin: 0 auto;
-    color: gray;
-}
+
 
 .row{
     margin: 0;
@@ -72,9 +67,16 @@
     font-size: 2em;
     top: 16px;
 }
+#lista-tipotramites .panel-info > .panel-heading a{
+    background: #eee;
+    color: #808080;
+    font-weight: 300;
+}
 
-#lista-tipotramites .panel-info > .panel-heading a:hover{
-    background: orange;
+#lista-tipotramites .panel-info > .panel-heading a:hover , #lista-tipotramites .panel-info > .panel-heading a[aria-expanded="true"]{
+    background: #808080;
+    color: #eee;
+    text-decoration: none;
 }
 
 #lista-tipotramites .panel-info > .collapse.in{
@@ -87,7 +89,7 @@
     border-bottom-right-radius: 5px;
     padding: 30px 10px;
     background: #eeeded;
-    border: 4px solid #69B1C9;
+    border: 4px solid #808080;
 }
 .panel-group .panel-footer{
     background: #0072ab;

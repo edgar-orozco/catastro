@@ -9,25 +9,10 @@
     {{ HTML::style('css/select2.min.css') }}
     {{ HTML::style('css/tramites/timeline.css') }}
 
-    <div class="row clearfix">
-        @if($folio)
-            <div class="col-md-2 col-md-offset-4">
-                <h4>Folio: {{$anio}}/{{$municipio}}/{{sprintf("%06d",$folio)}}</h4>
-            </div>
-
-            <div class="col-md-3 ">
-                <h4>Consumidos: {{$tiempo_transcurrido}} de {{$tiempo_tramite}} días</h4>
-            </div>
-
-            <div class="col-md-3">
-                <h4>Estado: <span class="alert alert-success">{{$tramite->estatus->pasado}}</span></h4>
-            </div>
-        @endif
-    </div>
-
     <br/>
 
     <div class="row clearfix">
+
         <?php $nocontrol = false;?>
         @if(($tramite->estatus->pasado != 'Finalizado' && $tramite->estatus->pasado != 'Finalizado observado' ) && $esResponsable != null)
 
@@ -75,6 +60,7 @@
                     <i class="glyphicon glyphicon-arrow-right"></i>
                     Continuar trámite
                 </button>
+                <br/>
                 {{ Form::reset('Limpiar formato', ['class' => 'btn btn-warning', 'id'=>'btn-reset']) }}
             </div>
 
@@ -89,8 +75,23 @@
         @else
         <div class="col-md-8 column">
         @endif
+            <div class="clearfix">
+                @if($folio)
+                    <div class="col-md-4" style="border: 1px solid darkgray">
+                        <h4>Folio: {{$anio}}/{{$municipio}}/{{sprintf("%06d",$folio)}}</h4>
+                    </div>
 
+                    <div class="col-md-4 "  style="border: 1px solid darkgray">
+                        <h4>Consumidos: {{$tiempo_transcurrido}} de {{$tiempo_tramite}} días</h4>
+                    </div>
 
+                    <div class="col-md-4 alert-success"  style="border: 1px solid darkgray">
+                        <h4>Estado: <span style=" padding: 6px 10px; display: inline-block; margin: -5px 0 0 0; float: right;">{{$tramite->estatus->pasado}}</span></h4>
+                    </div>
+                @endif
+            </div>
+            <br/>
+            <br/>
             <div class="tabbable" id="tabs">
 
                 <ul class="nav nav-tabs">
@@ -174,15 +175,15 @@
 
                     <div class="tab-pane" id="panel-solicitante">
                         <br/>
-                        <h4><small>Nombre:</small> {{$tramite->solicitante->nombres}} </h4>
+                        <h4><span style="color: #333; width: 160px; display: inline-block; text-align: right;">Nombre:</span> <span style="color: #808080;">{{$tramite->solicitante->nombres}}</span></h4>
                         @if($tramite->tipo_solicitante == 'FISICA')
-                            <h4><small>Apellido Paterno:</small> {{$tramite->solicitante->apellido_paterno}} </h4>
-                            <h4><small>Apellido Materno:</small> {{$tramite->solicitante->apellido_materno}} </h4>
-                            <h4><small>CURP:</small> {{$tramite->solicitante->curp}} </h4>
+                            <h4><span style="color: #333; width: 160px; display: inline-block; text-align: right;">Apellido Paterno:</span>  <span style="color: #808080;">{{$tramite->solicitante->apellido_paterno}} </span></h4>
+                            <h4><span style="color: #333; width: 160px; display: inline-block; text-align: right;">Apellido Materno:</span>  <span style="color: #808080;">{{$tramite->solicitante->apellido_materno}} </span></h4>
+                            <h4><span style="color: #333; width: 160px; display: inline-block; text-align: right;">CURP:</span> <span style="color: #808080;">{{$tramite->solicitante->curp}}</span>  </h4>
                         @endif
-                        <h4><small>RFC:</small> {{$tramite->solicitante->rfc}} </h4>
+                        <h4><span style="color: #333; width: 160px; display: inline-block; text-align: right;">RFC:</span> <span style="color: #808080;">{{$tramite->solicitante->rfc}} </span></h4>
                     @if($tramite->notaria)
-                            <h4><small>Notaría:</small> {{$tramite->notaria->nombre}} @if($tramite->notaria->mpio) de {{$tramite->notaria->mpio->nombre_municipio}} @endif</h4>
+                            <h4><span style="color: #333; width: 160px; display: inline-block; text-align: right;">Notaría:</span> <span style="color: #808080;">{{$tramite->notaria->nombre}} @if($tramite->notaria->mpio) de {{$tramite->notaria->mpio->nombre_municipio}} @endif </span></h4>
                         @endif
                     </div>
 
