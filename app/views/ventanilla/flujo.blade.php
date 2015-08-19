@@ -175,15 +175,15 @@
 
                     <div class="tab-pane" id="panel-solicitante">
                         <br/>
-                        <h4><span style="color: #333; width: 146px; display: inline-block; text-align: right;">Nombre:</span> <span style="color: #808080;">{{$tramite->solicitante->nombres}}</span></h4>
+                        <h4><span style="color: #333; width: 160px; display: inline-block; text-align: right;">Nombre:</span> <span style="color: #808080;">{{$tramite->solicitante->nombres}}</span></h4>
                         @if($tramite->tipo_solicitante == 'FISICA')
-                            <h4><span style="color: #333; width: 146px; display: inline-block; text-align: right;">Apellido Paterno:</span>  <span style="color: #808080;">{{$tramite->solicitante->apellido_paterno}} </span></h4>
-                            <h4><span style="color: #333; width: 146px; display: inline-block; text-align: right;">Apellido Materno:</span>  <span style="color: #808080;">{{$tramite->solicitante->apellido_materno}} </span></h4>
-                            <h4><span style="color: #333; width: 146px; display: inline-block; text-align: right;">CURP:</span> <span style="color: #808080;">{{$tramite->solicitante->curp}}</span>  </h4>
+                            <h4><span style="color: #333; width: 160px; display: inline-block; text-align: right;">Apellido Paterno:</span>  <span style="color: #808080;">{{$tramite->solicitante->apellido_paterno}} </span></h4>
+                            <h4><span style="color: #333; width: 160px; display: inline-block; text-align: right;">Apellido Materno:</span>  <span style="color: #808080;">{{$tramite->solicitante->apellido_materno}} </span></h4>
+                            <h4><span style="color: #333; width: 160px; display: inline-block; text-align: right;">CURP:</span> <span style="color: #808080;">{{$tramite->solicitante->curp}}</span>  </h4>
                         @endif
-                        <h4><span style="color: #333; width: 146px; display: inline-block; text-align: right;">RFC:</span> <span style="color: #808080;">{{$tramite->solicitante->rfc}} </span></h4>
+                        <h4><span style="color: #333; width: 160px; display: inline-block; text-align: right;">RFC:</span> <span style="color: #808080;">{{$tramite->solicitante->rfc}} </span></h4>
                     @if($tramite->notaria)
-                            <h4><span style="color: #333; width: 146px; display: inline-block; text-align: right;">Notaría:</span> <span style="color: #808080;">{{$tramite->notaria->nombre}} @if($tramite->notaria->mpio) de {{$tramite->notaria->mpio->nombre_municipio}} @endif </span></h4>
+                            <h4><span style="color: #333; width: 160px; display: inline-block; text-align: right;">Notaría:</span> <span style="color: #808080;">{{$tramite->notaria->nombre}} @if($tramite->notaria->mpio) de {{$tramite->notaria->mpio->nombre_municipio}} @endif </span></h4>
                         @endif
                     </div>
 
