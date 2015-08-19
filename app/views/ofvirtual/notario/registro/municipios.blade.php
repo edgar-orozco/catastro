@@ -5,7 +5,7 @@
                                             {{Form::claveCuenta()}}
                                         </div>
                                         <span class="input-group-btn">
-                                            <button class="btn btn-success" type="submit">Crear Regisro de Escritura
+                                            <button class="btn btn-success" type="submit">Crear Registro de Escritura
                                                 <span class="glyphicon glyphicon-plus boton-buscador" aria-hidden="true"></span>
                                             </button>
                                         </span>

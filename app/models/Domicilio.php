@@ -81,10 +81,10 @@ class Domicilio extends Eloquent {
              $cps[]='CP '.$cp;
         }
 
-        if($localidad =  $datos['localidad'])
+        if($localidadD =  $datos['localidad'])
         {
 
-             $localidad[]=$localidad;
+             $localidad[]=$localidadD;
         }
 
 
