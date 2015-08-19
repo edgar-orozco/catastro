@@ -168,7 +168,21 @@
         <h3 class="panel-title">ANTECEDENTES DE LA PROPIEDAD</h3>
     </div>
  <div class="row-fluid panel-body">
-
+    <div class="col-md-12">
+     {{Form::label(null,'Pasada ante la fe del notario')}}
+        <select select-two="select2" placeholder="Notarias" class="select2-select" selection="notarias"
+                ng-model="notarias" id="notario_antecedente_id" name="notario_antecedente_id">
+            @foreach(Notaria::all() as $notaria)
+                <option value="{{ $notaria->id_notario }}"> {{ $notaria->nombre }}
+                    ( {{ $notaria->mpio['nombre_municipio'] }}, {{ $notaria->estado['nom_ent'] }})
+                    ({{ $notaria->notario->nombres }} {{ $notaria->notario->apellido_paterno }} {{ $notaria->notario->apellido_materno }}
+                    )
+                </option>
+            @endforeach
+        </select>
+        {{$errors->first('municipios[]', '<span class=text-danger>:message</span>')}}
+</div>
+        
         <div class="col-md-12">
             {{Form::propiedad()}}
         </div>
@@ -215,6 +229,11 @@ $('.adquiriente-radio-persona').each(function() {
         });
 
 
+$("#notario_antecedente_id").select2({
+            language: "es",
+            placeholder: "Seleccione una notaría",
+            width: 'resolve'
+        });
 
         
 
@@ -275,7 +294,7 @@ $(function () {
             {
                 console.log(ui.item.control);
             
-            }if(ui.item.control=='lleno')
+            }if(ui.item.control=='lleno'){
              var tip_v = "adquirienteDomicilio[tipo_vialidad_id]";
             $('#' + tip_v.replace( /(:|\.|\[|\]|,)/g, "\\$1" )).val(ui.item[0].tipo_vialidad_id);
              var tip_v = "adquirienteDomicilio[vialidad]";
@@ -339,7 +358,7 @@ $(function () {
             if(ui.item.control=='vacio')
             {
                 console.log(ui.item.control);
-            
+
             }if(ui.item.control=='lleno'){
              var tip_v = "enajenanteDomicilio[tipo_vialidad_id]";
             $('#' + tip_v.replace( /(:|\.|\[|\]|,)/g, "\\$1" )).val(ui.item[0].tipo_vialidad_id);

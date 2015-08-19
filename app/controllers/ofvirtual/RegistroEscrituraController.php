@@ -210,6 +210,7 @@ $registro->antecedente_num=Input::get('antecedente_num');
 $registro->valor_registro=Input::get('valor_registro');
 $registro->folio_avaluo=Input::get('folio_avaluo');
 $registro->valor_comercial=Input::get('valor_comercial');
+$registro->notario_antecedente_id=Input::get('notario_antecedente_id');
 $registro->seguimiento=$seguimiento;
 $registro->usuario_id=Auth::user()->id;
 $registro->enajenante_id=$enajenante_id;
@@ -308,7 +309,7 @@ $registro->save();
 	{
 		//
         $registro = RegistroEscritura::find($id);
-
+       // dd($registro);
         $propiedad =(object) $arrayName = array('antecedente_num' =>  $registro['antecedente_num'],'valor_registro' =>$registro['valor_registro'] ,'folio_avaluo' => $registro['folio_avaluo'],'valor_comercial' =>$registro['valor_comercial'] );
 
         //$registro->antecendentes->$propiedad;
@@ -484,6 +485,8 @@ $registro->antecedente_num=Input::get('antecedente_num');
 $registro->valor_registro=Input::get('valor_registro');
 $registro->folio_avaluo=Input::get('folio_avaluo');
 $registro->valor_comercial=Input::get('valor_comercial');
+$registro->notario_antecedente_id=Input::get('notario_antecedente_id');
+//dd(Input::get('notario_antecedente_id'));
 $registro->usuario_id=Auth::user()->id;
 $registro->enajenante_id=$enajenante->id_p;
 $registro->adquiriente_id= $adquiriente->id_p;

@@ -37,6 +37,7 @@
 
 @section('javascript')
 <script >
+$("#notario_antecedente_id").select2("val",  {{ $registro->notario_antecedente_id }});
     $(document).ready(function(){
         $(".adquiriente-radio-persona").each(function () {
 
