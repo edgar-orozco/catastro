@@ -86,7 +86,7 @@
                     </div>
 
                     <div class="col-md-4"  style="border: 1px solid darkgray">
-                        <h4>Estado: <span class="alert alert-success" style=" padding: 6px 89px; display: inline-block; margin: -5px 0 0 0; float: right;">{{$tramite->estatus->pasado}}</span></h4>
+                        <h4>Estado: <span class="alert alert-success" style=" padding: 6px 10px; display: inline-block; margin: -5px 0 0 0; float: right;">{{$tramite->estatus->pasado}}</span></h4>
                     </div>
                 @endif
             </div>
