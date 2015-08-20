@@ -56,7 +56,7 @@
 						@if($u->entrega_estatal == 0)
 							{{Form::checkbox('urbanos[]', $u->numero_folio, '', ['class'=>'checkbox'])}}
 						@else
-							<i class="glyphicon glyphicon-ok"></i>
+							<i class="glyphicon glyphicon-ok"> Entregado</i>
 						@endif
 					</td>
 					<?php
