@@ -66,11 +66,13 @@
 					</td>
 					<td align="center">
 					@if($u->entrega_estatal == 1 && $u->perito_id > 0)
-						{{$u->usuario->username}}
+						
 					@endif
 					</td>
 					<td align="center">
-						
+						@if($u->entrega_estatal == 1)
+							{{$u->fecha_entrega_e}}
+						@endif
 					</td>
 					<td align="center">
 					@if($u->entrega_municipal == 1)
