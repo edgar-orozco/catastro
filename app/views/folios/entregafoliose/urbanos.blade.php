@@ -54,7 +54,9 @@
 				<tr>
 					<td align="center">
 						@if($u->entrega_estatal == 0)
-						{{Form::checkbox('urbanos[]', $u->numero_folio, '', ['class'=>'checkbox'])}}
+							{{Form::checkbox('urbanos[]', $u->numero_folio, '', ['class'=>'checkbox'])}}
+						@else
+							<i class="glyphicon glyphicon-ok"></i>
 						@endif
 					</td>
 					<?php
