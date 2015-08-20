@@ -35,7 +35,9 @@ class Domicilio extends Eloquent {
         $partes= array();
          $asent= array();
          $cps= array();
-         $localidad= array();$direccion= array();
+         $localidad= array();
+         $entidades=array();
+         $direccion= array();
         //consulta del domicilio
         $datos = self::where('id',$value)->get()[0];
         //tipo vialidad
@@ -78,6 +80,7 @@ class Domicilio extends Eloquent {
 
          if($cp= $datos['cp'])
         {
+
              $cps[]='CP '.$cp;
         }
 
@@ -90,20 +93,26 @@ class Domicilio extends Eloquent {
 
          if($municipio = $datos->mpio->nombre_municipio)
         {
-             $localidad[]=$municipio;
+             $entidades[]=$municipio;
         }
 
         if($entidad = $datos->edo->nom_ent)
         {
-             $localidad[]=$entidad;
+             $entidades[]=$entidad;
         }
         $vialida = implode(" ", $partes);
         
         $asent=implode(" ", $asent);
         $localidad=implode(", ", $localidad);
+        $cps=implode(" ",$cps);
+        $entidades=implode(",",$entidades);
         $direccion[]=$vialida;
         $direccion[]=$asent;
+        
         $direccion[]=$localidad;
+        $direccion[]=$cps;
+        $direccion[]=$entidades;
+        
         $domicilio=implode(", ", $direccion);
 return $domicilio;
 

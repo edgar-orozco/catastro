@@ -30,7 +30,7 @@ $domicilio = '
             '</div>'.
             '<div class="col-md-6">'.
             Form::label($llave.'[cp]','Código Postal', ['class'=>'']).
-            Form::text($llave.'[cp]', null, ['class' => 'form-control']).
+            Form::text($llave.'[cp]', null, ['class' => 'form-control '.$llave.'-codgio','maxlength'=>'5','title' => 'El Código Postal ingresado no tiene el formato esperado, verifique nuevamente el Código Postal ingresado']).
             '</div>'.
             '<div class="col-md-6">'.
             Form::label($llave.'[localidad]','Localidad', ['class'=>'']).
