@@ -21,7 +21,12 @@
     "require-dev": {
         "way/generators": "2.6.1",
         "fzaninotto/faker": "1.3.*@dev",
-        "phpunit/phpunit": "3.7.*"
+        "phpunit/phpunit": "3.7.*",
+        "behat/behat": "~3.0",
+        "behat/mink": "*",
+        "behat/mink-extension": "~2.0",
+        "behat/mink-selenium2-driver": "*",
+        "phpspec/phpspec": "~2.0"
     },
 	"autoload": {
 		"classmap": [
