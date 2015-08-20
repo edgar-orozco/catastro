@@ -52,6 +52,8 @@
 					<td align="center"> 
 						@if($u->entrega_municipal == 0)
 							{{Form::checkbox('urbanos[]', $u->numero_folio, '', ['class'=>'checkbox'])}}
+						@else
+							<i class="glyphicon glyphicon-ok"></i>
 						@endif
 					</td>
 					<?php
@@ -61,7 +63,7 @@
 					<td align="center"> {{$perito->corevat."-".$input.$u->tipo_folio."-15"}}</td>
 					<td align="center"> 
 					@if($u->entrega_municipal == 1)
-						{{$u->municipio->nombre_municipio}}
+						{{$u->municipio->nombres_municipio}}
 					@endif
 					</td>
 					<td align="center">

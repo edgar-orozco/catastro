@@ -49,6 +49,8 @@
 						<td align="center"> 
 							@if($r->entrega_municipal == 0)
 								{{Form::checkbox('rusticos[]', $r->numero_folio, '', ['class'=>'checkbox'])}}
+							@else
+								<i class="glyphicon glyphicon-ok"></i>
 							@endif
 						</td>
 
