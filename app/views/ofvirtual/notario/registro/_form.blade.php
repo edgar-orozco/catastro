@@ -44,19 +44,29 @@
 
 <div class="col-md-3">
       {{Form::label('volumen','Volumen:')}}
-      {{Form::text('volumen', null, ['class' => 'form-control'] )}}
+      {{Form::text('volumen', $predio->superficie_terreno, ['class' => 'form-control', 'readonly' => 'readonly'] )}}
 </div>
 <div class="col-md-3">
     {{Form::label('cuenta','No. de cuenta:')}}
-    {{Form::text('cuenta', null, ['class' => 'form-control '] )}}
+    {{Form::text('cuenta', $predio->cuenta, ['class' => 'form-control ', 'readonly' => 'readonly'] )}}
 </div>
 <div class="col-md-3">
+    <?php 
+                        if($predio->tipo_predio=='U'){
+                            $tipo_p='Urbano';
+                        }
+                        if($predio->tipo_predio=='R'){
+                            $tipo_p='Rustico';
+                        }
+                        ?>
     {{Form::label('tipo_predio','Tipo de predio:')}}
-    {{Form::select('tipo_predio', ['Urbano' => 'Urbano','Rustico' => 'Rustico'], null, ['class' => 'form-control focus'])}}
+    {{Form::text('tipo_predios', $tipo_p, ['class' => 'form-control focus', 'readonly' => 'readonly'])}}
+    {{Form::hidden('tipo_predio', $predio->tipo_predio, ['class'=>'form-control'])}}
+
 </div>
 <div class="col-md-6">
     {{Form::label('clave','Clave Catastral:')}}
-    {{Form::text('clave', null, ['class' => 'form-control'] )}}
+    {{Form::text('clave', $predio->clave, ['class' => 'form-control', 'readonly' => 'readonly'] )}}
 </div>
 <div class="col-md-6">
     {{Form::label('naturaleza_contrato','Naturaleza del Contrato:')}}

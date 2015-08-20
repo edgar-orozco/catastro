@@ -65,7 +65,15 @@ setlocale(LC_ALL,"es_ES") ?>
                         Clave Catastral:{{$registro->clave}}
                     </div>
                     <div class=" col-md-4">
-                        Tipo de predio:{{$registro->tipo_predio}}
+                        <?php 
+                        if($registro->tipo_predio=='U'){
+                            $tipo_p='Urbano';
+                        }
+                        if($registro->tipo_predio=='R'){
+                            $tipo_p='Rustico';
+                        }
+                        ?>
+                        Tipo de predio:{{$tipo_p}}
                     </div>
 
             </div>

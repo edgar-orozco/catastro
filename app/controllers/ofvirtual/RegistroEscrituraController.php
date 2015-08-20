@@ -75,6 +75,7 @@ protected $padron;
         //dd($identificador);
 
         $predio = $this->padron->getByClaveOCuenta($identificador);
+      //  dd($predio);
       //  dd(Auth::user()->notaria);
 
         $notarioEscritura = Auth::user()->notaria->notario->nombres.' ' .Auth::user()->notaria->notario->apellido_paterno. ' '.Auth::user()->notaria->notario->apellido_materno;
