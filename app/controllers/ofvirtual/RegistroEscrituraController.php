@@ -384,6 +384,7 @@ $registro->save();
 
         //Buscamos el traslado original relacionado con el id
         $registro = RegistroEscritura::find($id);
+      
         //
         //
         $registro['dir_enajenante_id'];
@@ -502,6 +503,22 @@ $registro->estado_conserv=Input::get('estado_conserv');
         if (!$registro->save()) {
             return Redirect::back()->withInput()->withErrors($registro->errors());
         }
+            $registroCol=RegistroColindancias::where('registro_id',$registro->id);
+            $registroCol->delete();
+        foreach(Input::get('colindancia') as $colindancia) {
+          //hasta aqui funiona correctamente
+          
+           $colindancia['registro_id'] = $registro->id;
+           //aqui ya no funciona no se si tenga que ver con el modelo
+            $Colindancias[] = new RegistroColindancias($colindancia);
+          //
+        }
+       //
+     //   print_r($datos);
+       // dd($datos);
+        //aqui la varianble $Colindancias llega vacia
+        
+        $registro->colindancia()->saveMany($Colindancias);
 
         //Dado que fue exitosa la actualización mostramos la salida al usuario.
         return Redirect::to('ofvirtual/notario/registro/show/' . $registro->id)->with('success', '¡Se ha editado correctamente el registro de dominio para la cuenta ' . $registro->cuenta . '!');
