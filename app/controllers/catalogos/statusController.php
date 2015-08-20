@@ -76,6 +76,8 @@ class catalogos_statusController extends \BaseController
         $notificacion=Input::get('notificacion');
         $this->status->cve_status   =   Input::get('cve_status');
         $this->status->descrip      =   Input::get('descrip');
+        $this->status->fecha_alta   =   date('Y-m-d');
+        $this->status->usuario_alta =   Auth::user()->id;
         $this->status->dias_vigencia =  Input::get('dias_vigencia');       
         $this->status->notificacion =   Input::get('notificacion');
         $this->status->dias_habiles =   Input::get('dias_habiles');
