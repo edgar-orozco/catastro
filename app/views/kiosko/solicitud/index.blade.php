@@ -15,6 +15,7 @@
         {{Form::text('clave', null, ['id'=>'id','placeholder'=>'Clave de Seguimiento'] )}}
         <a id="buscar" class="btn btn-warning" title="Editar"><span class="glyphicon glyphicon-search"></span></a>
     </div>
+        
 </div>
 <div class="col-sm-12 col-md-12 col-lg-12" id="mainForm">
     {{Form::open(array('id'=>'form','url'=>'kiosko/solicitud','method'=>'POST'))}}
@@ -50,7 +51,15 @@
   $(document).ready(function(){
       //para buscar los datos con la referencia
       $('#buscar').on('click',function(){
-         window.location.assign('/kiosko/solicitud/edit/'+$('#id').val())
+         $clave = $('#id').val();
+         //verificamos si trae algo el compo de busqueda
+         if(!$clave){
+             //si no trae nada mandamos un mensaje de error
+             alert("¡Ingrese una clave de seguimiento!");
+         }else{
+             //si trae algo mandamos a buscar los datos
+             window.location.assign('/kiosko/solicitud/edit/'+$('#id').val())
+            }
       });
       //para tener el pdf en un modal cuando guarda
       var form = $('#form');
