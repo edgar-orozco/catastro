@@ -63,7 +63,7 @@
 						
 						<td>{{$perito->corevat."-".$input.$r->tipo_folio."-15"}}</td>
 						<td align="center">
-							@if($r->entrega_estatal == 1 && $r->usuario_id > 0)
+							@if($r->entrega_estatal == 1 && $r->usuario)
 								{{$r->usuario->username}}
 							@endif
 						</td>
