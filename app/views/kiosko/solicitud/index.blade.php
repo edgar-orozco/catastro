@@ -57,7 +57,7 @@
              //si no trae nada mandamos un mensaje de error
              alert("¡Ingrese una clave de seguimiento!");
          }else{
-             //si trae algo mandamos a buscar los datos
+             //si trae algun dato
              window.location.assign('/kiosko/solicitud/edit/'+$('#id').val())
             }
       });
