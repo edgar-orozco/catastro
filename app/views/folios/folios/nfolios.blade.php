@@ -23,6 +23,7 @@
     {{Form::open(['id'=>'form'])}}
 
     <div class="row">
+        <br/>
         <div class="col-md-6">
             <div class="form-group">
 
