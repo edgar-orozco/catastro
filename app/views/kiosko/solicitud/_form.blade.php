@@ -19,6 +19,8 @@
         </div>
     </div>
 </div>
+<br/>
+<br/>
 <div class="panel panel-default">
     <div class="panel-heading">DATOS DEL SOLICITANTE</div>
     <div class="panel-body">
