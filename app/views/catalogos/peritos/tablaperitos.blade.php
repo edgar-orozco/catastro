@@ -10,28 +10,24 @@
 @section('content')
 
 
-<div class="page-header">
-    <h3>Catalogo de Peritos</h3>
-</div>
-<div class="row" style="background: #ECECEC;">
-    <div class="btn-beside-title col-md-2 col-md-offset-10">
-        <a href="/catalogos/peritos/nuevoPerito" class="btn btn-primary nuevo"   title="Nuevo Perito">
-            <span class="glyphicon glyphicon-plus-sign"></span>
-            Nuevo Perito
-        </a>
+    <div class="page-header">
+        <h3>Informe de Folios Emitidos</h3>
     </div>
-</div>
-<br/>
-<br/>
 
+<a href="/catalogos/peritos/nuevoPerito" class="btn btn-primary nuevo"  title="Nuevo Perito">Nuevo Perito</a>
+<hr>
 
-<div class="panel panel-default">
+<div class="panel panel-primary">
+
 	<div class="panel-heading">
+
 		<h4 class="panel-title">Tabla de Peritos</h4>
+
 	</div>
+
 	<div class="panel-body">
-        <br/>
-		<table cellpadding="0" cellspacing="0" border="0" class="table datatable example table-striped" id="example">
+
+		<table cellpadding="0" cellspacing="0" border="0" class="table datatable example" id="example">
 			<thead>
 				<tr>
 					<th>Corevat</th>
@@ -41,29 +37,27 @@
 				</tr>
 			</thead>
 			<tbody>
-				@foreach ($variableperito as $key=>$datosperitos)
-				<tr <?php
-                        if($key%2){
-                            echo "class=''";
-                        }
-                        ?>>
+				@foreach ($variableperito as $datosperitos)
+				<tr>
 					<td>{{$datosperitos->corevat}}</td>
 					<td>{{$datosperitos->nombre}}</td>
 					<td>{{$datosperitos->direccion}} </td>
 					<td>
-						<a href="actPerito/{{$datosperitos->id}}" class="btn btn-actionForm01 btn-info nuevo" title="Editar"><i class="glyphicon glyphicon-pencil"></i></a>
+						<a href="actPerito/{{$datosperitos->id}}" class="btn btn-xs btn-info nuevo" title="Editar"><i class="glyphicon glyphicon-pencil"></i></a>
 						@if($datosperitos->Estado == "1" )
-							<a class="habilitar btn btn-actionForm01 btn-success" id="habilitar" href="estado/{{$datosperitos->id}}" title="Deshabilitar"><i class="glyphicon glyphicon-ok"></i></a>
+							<a class="habilitar btn btn-xs btn-success" id="habilitar" href="estado/{{$datosperitos->id}}" title="Deshabilitar"><i class="glyphicon glyphicon-ok"></i></a>
 						@else
-							<a class="deshabilitar btn btn-actionForm01 btn-danger" id="deshabilitar" href="estado/{{$datosperitos->id}}" title="Habilitar"><i class="glyphicon glyphicon-remove"></i></a>
+							<a class="deshabilitar btn btn-xs btn-danger" id="deshabilitar" href="estado/{{$datosperitos->id}}" title="Habilitar"><i class="glyphicon glyphicon-remove"></i></a>
 						@endif
 					</td>
 				</tr>
 				@endforeach
 			</tbody>
+
+
 		</table>
+
 	</div>
-</div>
 
 
 	<!-- Modal -->
