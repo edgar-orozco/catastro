@@ -11,7 +11,9 @@
 
 @section('content')
 
-<h1>Todos los peritos</h1>
+<div class="page-header">
+    <h3>Todos los peritos</h3>
+</div>
 
 <div class="panel panel-primary">
 
