@@ -90,6 +90,28 @@ body, html{
 }
 
 
+.btn-beside-title{
+    margin-top: 10px;
+    margin-left: -15px;
+    padding: 0;
+}
+.btn-beside-title a {
+    height: 58px;
+    border: none;
+    line-height: 47px;
+    text-align: center;
+    color: white;
+    width: 100%;
+    border-radius: 0;
+    background: #9E9E9E;
+}
+.btn-beside-title a:hover{
+    background: #CAC9C9;
+}
+.btn-beside-title a span{
+    padding-right: 10px;
+}
+
 
 
 

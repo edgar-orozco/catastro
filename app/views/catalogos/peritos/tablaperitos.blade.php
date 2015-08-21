@@ -14,7 +14,12 @@
     <h3>Catalogo de Peritos</h3>
 </div>
 <div class="row" style="background: #ECECEC;">
-    <a href="/catalogos/peritos/nuevoPerito" class="btn btn-primary nuevo"  title="Nuevo Perito">Nuevo Perito</a>
+    <div class="btn-beside-title col-md-2 col-sm-2 col-md-offset-10 col-sm-offset-10">
+        <a href="/catalogos/peritos/nuevoPerito" class="btn btn-primary nuevo"   title="Nuevo Perito">
+            <span class="glyphicon glyphicon-plus-sign"></span>
+            Nuevo Perito
+        </a>
+    </div>
 </div>
 
 
