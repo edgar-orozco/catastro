@@ -9,7 +9,10 @@
 
 <h1></h1>
 
-<div class="panel panel-primary">
+<div class="panel panel-default">
+    <div class="panel-title">
+        <h2>FOLIOS URBANOS AUTORIZADOS PARA</h2>
+    </div>
 
     <div class="panel-body">
         {{Form::open(['id' => 'foliosMU', 'method' => 'GET'])}}
@@ -83,12 +86,7 @@
             </div>
         </div>
     </div>
-
-	<div class="panel panel-default">
-
-		<h2 class="panel-title">FOLIOS URBANOS AUTORIZADOS PARA</h2>
-
-	</div>
+</div>
 
 	@stop
 
