@@ -11,7 +11,7 @@
 
 <div class="panel panel-primary">
 
-	<div class="panel-heading">
+	<div class="panel panel-default">
 
 		<h2 class="panel-title">FOLIOS URBANOS AUTORIZADOS PARA</h2>
 

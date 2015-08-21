@@ -1,8 +1,10 @@
 @extends('layouts.default')
 
 @section('content')
-<h1>Configuracion</h1>
-<div class="panel panel-primary">
+    <div class="page-header">
+        <h3>Configuracion</h3>
+    </div>
+<div class="panel panel-default">
 
 	<div class="panel-heading">
 
@@ -72,7 +74,6 @@
 		</div>
 		{{Form::close()}}
 	</div>
-
 </div>
 
 @stop

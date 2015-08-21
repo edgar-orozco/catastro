@@ -2,9 +2,12 @@
 
 @section('content')
 
-<h1>Detalles de Perito</h1>
 
-<div class="panel panel-primary">
+<div class="page-header">
+    <h3>Detalles de Perito</h3>
+</div>
+
+<div class="panel panel-default">
 
 	<div class="panel-heading">
 

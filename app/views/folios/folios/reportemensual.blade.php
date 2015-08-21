@@ -19,9 +19,11 @@
 	
 	?>
 
-<h1>Reporte de Folios</h1>
+<div class="page-header">
+    <h3>Reporte de Folios</h3>
+</div>
 
-<div class="panel panel-primary">
+<div class="panel panel-default">
 	<div class="panel-heading">
 
 		<h4 class="panel-title">Reporte de Folios mensual </h4>

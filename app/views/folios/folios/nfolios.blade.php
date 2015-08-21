@@ -13,7 +13,7 @@
     <h3>Generador de Folios</h3>
     <h4>Datos del Folio</h4>
 </div>
-<div class="panel-primary">
+<div class="panel panel-default">
     <div id="respuesta" hidden>
         <div class="alert alert-danger">
             <ul id="errores"></ul>

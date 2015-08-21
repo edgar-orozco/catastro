@@ -18,9 +18,12 @@
 	$mes['12'] = "Diciembre";
 ?>
 
-<h1>Reporte de Folios Hasta {{date("d") . " de " .$mes[date('m')]." del ". date("Y");}}</h1>
+<div class="page-header">
+    <h3>Reporte de Folios</h3>
+    <h4>Hasta {{date("d") . " de " .$mes[date('m')]." del ". date("Y");}}</h4>
+</div>
 
-<div class="panel panel-primary">
+<div class="panel panel-default">
 
 	<div class="panel-heading">
 
@@ -77,4 +80,5 @@
 			</tbody>
 		</table>
 	</div>
+</div>
 @stop

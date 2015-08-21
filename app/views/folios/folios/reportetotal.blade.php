@@ -22,9 +22,11 @@
 	//echo $fecha['day']. " de " . $mes[$fecha['month']] . " del " . $fecha['year'];
 ?>
 
-<h1>Reporte de Folios Anual	</h1>
+<div class="page-header">
+    <h3>Reporte de Folios Anual</h3>
+</div>
 
-<div class="panel panel-primary">
+<div class="panel panel-default">
 	<div class="panel-heading">
 
 		<h4 class="panel-title">Reporte Total de Folios </h4>
