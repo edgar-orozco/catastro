@@ -713,7 +713,7 @@ $registro->estado_conserv=Input::get('estado_conserv');
         if (Request::ajax()) {
             $persona=personas::getPorCurpRFC($q);
           //
-
+$persona=json_decode($persona,true);
             foreach($persona as $key)
             {
 
@@ -726,7 +726,7 @@ $registro->estado_conserv=Input::get('estado_conserv');
 if($domicilio)
 {
 //dd($domicilio);
-        $persona=json_decode($persona,true);
+        
         //$domicilio=json_decode($domicilio,true);
 foreach ($domicilio as $clave=>$valor)
         {
