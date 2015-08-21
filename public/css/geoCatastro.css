@@ -162,6 +162,8 @@ body, html{
     text-align: center;
     vertical-align: middle;
     border: 1px solid #808080;
+    font-size: 12px !important;
+    font-weight: 300;
 }
 
 table tr td{
@@ -169,4 +171,6 @@ table tr td{
     border: 1px solid #E6E6E6;
     text-align: center;
     border: 1px solid #808080;
+    font-size: 12px !important;
+    font-weight: 300;
 }
