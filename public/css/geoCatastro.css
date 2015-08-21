@@ -176,7 +176,7 @@ body, html{
 
 /* Tables */
 
-.table > thead > tr > th{
+table > thead > tr > th{
     background: #3f3f3f;
     color: white;
     text-align: center;
@@ -186,7 +186,7 @@ body, html{
     font-weight: 300;
 }
 
-table tr td{
+table tr td, table tr th{
     vertical-align: middle !important;
     border: 1px solid #E6E6E6;
     text-align: center;
