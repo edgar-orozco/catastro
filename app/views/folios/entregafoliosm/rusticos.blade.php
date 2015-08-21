@@ -82,7 +82,7 @@
 		</table>
         <div class="row">
             <div class="col-md-6 col-sm-6">
-                {{Form::submit('Guardar', ['class'=>'btn btn-success'])}}
+                {{Form::submit('Guardar', ['class'=>'btn btn-block btn-success'])}}
                 {{Form::close()}}
             </div>
         </div>
