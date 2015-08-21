@@ -84,6 +84,7 @@ body, html{
     text-align: right;
 }
 .search-header label{
+    font-weight: 500;
     width: inherit;
     display: inline-block;
     max-width: 391px;
@@ -99,6 +100,14 @@ body, html{
     margin: 0;
 }
 
+.search-header .form-group input {
+    height: 12%;
+    padding: 17px;
+    width: 254px;
+    border: none;
+    background: none;
+    color: white;
+}
 
 
 /* Tables */
