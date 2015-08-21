@@ -39,17 +39,18 @@
 
 	<table class="table">
 			<thead>
-			<tr>
-				<th>Total entrega folios estatal</th>
-				<th>{{$entrega_estatal}}</th>
-			</tr>
-				<tr>
-					<th>Corevat No.</th>
-					<th>Perito</th>
-					<th>Folios Urbanos</th>
-					<th>Folios Rusticos</th>
-					<th>Total de Ingresos</th>
-				</tr>
+                <tr>
+                    <th>Total entrega folios estatal</th>
+                    <th>{{$entrega_estatal}}</th>
+                    <th colspan="3"></th>
+                </tr>
+                <tr>
+                    <th>Corevat No.</th>
+                    <th>Perito</th>
+                    <th>Folios Urbanos</th>
+                    <th>Folios Rusticos</th>
+                    <th>Total de Ingresos</th>
+                </tr>
 			</thead>
 			<tbody>
 				@foreach ($folios_historial as $folios)
