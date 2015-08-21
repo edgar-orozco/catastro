@@ -10,7 +10,8 @@
 {{ HTML::style('js/jquery/jquery-ui.css') }}
 
 <div class="page-header">
-    <h2>Generador de Folios <small>Datos del Folio</small></h2>
+    <h3>Generador de Folios</h3>
+    <h4>Datos del Folio</h4>
 </div>
 <div class="panel-primary">
     <div id="respuesta" hidden>
