@@ -20,7 +20,6 @@
         {{Form::select('year', $selectYear, null,  ['id' => 'year', 'class' => 'form-control input-sm', 'aria-controls' => 'emitidos-table'])}}
         {{Form::close()}}
         <br/>
-        <br/>
         <table class="table datatable" id="emitidos-table" >
             <thead>
                 <tr>
