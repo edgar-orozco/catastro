@@ -1,10 +1,65 @@
 <?php
 
 class corevat_PrintDictamenAvaluoController extends \BaseController {
+
 	protected $avaluo;
 
 	public function __construct(Avaluos $avaluo) {
 		$this->avaluo = $avaluo;
+	}
+
+	private function printAvaluosHeader($pdf, $nFont, $perito, $municipio) {
+		$pdf->AddPage();
+		$pdf->Image(public_path() . "/css/images/corevat/crv-01.jpg", 5, 5, 139.57, 26.20);
+		$pdf->Ln(25);
+		$pdf->setX(5);
+		$pdf->SetTextColor(0, 0, 0);
+		$pdf->SetFont('Arial', '', 14);
+		$pdf->Cell(57, $nFont, utf8_decode("H. AYUNTAMIENTO DE: "), '', 0, 'L');
+		$pdf->SetFont('Arial', 'B', 14);
+		$pdf->Cell(70, $nFont, utf8_decode(strtoupper( $municipio )), '', 1, 'L');
+		$pdf->setX(5);
+		$pdf->SetFont('Arial', '', 14);
+		$pdf->Cell(57, $nFont, utf8_decode("DIRECCION DE FINANZAS"), '', 1, 'L');
+		$pdf->SetFont('Arial', 'B', 14);
+		$pdf->Ln(2.5);
+		$pdf->setX(5);
+		$pdf->SetFillColor(164, 164, 164);
+		if (!Auth::user()->hasRole("Perito Valuador")) {
+			$pdf->Cell(269, 8, utf8_decode('Listado General de Avaluos'), 'TLBR', 1, 'C', 1);
+		} else {
+			$pdf->Cell(269, 8, utf8_decode('Listado de los últimos avaluos de ' . $perito->nombre . ' ' . $perito->apepat . ' ' . $perito->apemat), 'TLBR', 1, 'C', 1);
+		}
+	}
+
+	private function printAvaluosHeaderColumns($pdf, $nFont) {
+		$pdf->SetFont('Arial', 'B', 12);
+		$pdf->SetFillColor(208, 208, 208);
+		$pdf->setX(5);
+		$pdf->SetFont('Arial', 'B', 8);
+		$pdf->Cell(35, $nFont, utf8_decode("FOLIO"), 'LB', 0, 'L', 1);
+		$pdf->Cell(20, $nFont, utf8_decode("FECHA"), 'LB', 0, 'C', 1);
+		$pdf->Cell(46, $nFont, utf8_decode("SOLICITANTE"), 'LB', 0, 'L', 1);
+		$pdf->Cell(66, $nFont, utf8_decode("UBICACIÓN"), 'LB', 0, 'L', 1);
+		$pdf->Cell(15, $nFont, utf8_decode("PREDIAL"), 'LB', 0, 'L', 1);
+		$pdf->Cell(20, $nFont, utf8_decode("TERRENO"), 'LB', 0, 'R', 1);
+		$pdf->Cell(20, $nFont, utf8_decode("CONSTRUC."), 'LB', 0, 'R', 1);
+		$pdf->Cell(22, $nFont, utf8_decode("CATASTRAL"), 'LB', 0, 'L', 1);
+		$pdf->Cell(25, $nFont, utf8_decode("V. CONCLUIDO"), 'LBR', 1, 'L', 1);
+	}
+
+	private function printAvaluosRow($pdf, $nFont, $row) {
+		$pdf->SetFont('Arial','',7);
+		$pdf->setX(5);
+		$pdf->Cell(35, $nFont, utf8_decode($row->foliocoretemp), 'LB', 0, 'L', 0);
+		$pdf->Cell(20, $nFont, utf8_decode($row->cfecha_avaluo), 'LB', 0, 'C', 0);
+		$pdf->Cell(46, $nFont, utf8_decode($row->nombre_solicitante), 'LB', 0, 'L', 0);
+		$pdf->Cell(66, $nFont, utf8_decode(substr(trim($row->ubicacion), 0, 50)), 'LB', 0, 'L', 0);
+		$pdf->Cell(15, $nFont, utf8_decode($row->cuenta_predial), 'LB', 0, 'L', 0);
+		$pdf->Cell(20, $nFont, number_format($row->superficie_terreno, 2, '.', ','), 'LB', 0, 'R', 0);
+		$pdf->Cell(20, $nFont, number_format($row->superficie_construccion, 2, '.', ','), 'LB', 0, 'R', 0);
+		$pdf->Cell(22, $nFont, utf8_decode($row->cuenta_catastral), 'LB', 0, 'L', 0);
+		$pdf->Cell(25, $nFont, number_format($row->valor_concluido, 2, '.', ','), 'LBR', 1, 'R', 0);
 	}
 
 	/**
@@ -14,7 +69,71 @@ class corevat_PrintDictamenAvaluoController extends \BaseController {
 	 * @return Response
 	 */
 	public function printAvaluosByValuador($id) {
+		$perito = User::find(Auth::Id());
+		// PARCHE: $pdf->nFont
+		$nFont = 6;
+
+		if (Auth::user()->hasRole("Perito Valuador")) {
+			$rows = Avaluos::select("avaluos.*", 'municipios.municipio', 'avaluo_inmueble.superficie_terreno', 'avaluo_inmueble.superficie_construccion', 'avaluo_conclusiones.valor_concluido', 'usuarios.nombres', 'usuarios.apellidos')
+					->leftJoin('municipios', 'avaluos.idmunicipio', '=', 'municipios.idmunicipio')
+					->leftJoin('avaluo_inmueble', 'avaluos.idavaluo', '=', 'avaluo_inmueble.idavaluo')
+					->leftJoin('avaluo_conclusiones', 'avaluos.idavaluo', '=', 'avaluo_conclusiones.idavaluo')
+					->leftJoin('usuarios', 'avaluos.iduser', '=', 'usuarios.iduser')
+					->orderBy('usuarios.nombres', 'asc')
+					->orderBy('usuarios.apellidos', 'asc')
+					->orderBy('avaluos.idmunicipio', 'asc')
+					->orderBy('avaluos.idavaluo', 'desc')
+					->where('avaluos.iduser', Auth::id())
+					->get();
+		} else {
+			$rows = Avaluos::select("avaluos.*", 'municipios.municipio', 'avaluo_inmueble.superficie_terreno', 'avaluo_inmueble.superficie_construccion', 'avaluo_conclusiones.valor_concluido', 'usuarios.nombres', 'usuarios.apellidos')
+					->leftJoin('municipios', 'avaluos.idmunicipio', '=', 'municipios.idmunicipio')
+					->leftJoin('avaluo_inmueble', 'avaluos.idavaluo', '=', 'avaluo_inmueble.idavaluo')
+					->leftJoin('avaluo_conclusiones', 'avaluos.idavaluo', '=', 'avaluo_conclusiones.idavaluo')
+					->leftJoin('usuarios', 'avaluos.iduser', '=', 'usuarios.iduser')
+					->orderBy('usuarios.nombres', 'asc')
+					->orderBy('usuarios.apellidos', 'asc')
+					->orderBy('avaluos.idmunicipio', 'asc')
+					->orderBy('avaluos.idavaluo', 'desc')
+					->get();
+		}
 		
+		$pdf = new Fpdf('L', 'mm', 'Letter');
+		$pdf->AliasNbPages();
+		$pdf->SetFillColor(64, 64, 64);
+
+		//$pdf->SetFont('Arial', '', 7);
+		$line = $countRow = 0;
+		$pagina = 0;
+		$idmunicipio = 0;
+		$idperito = 0;
+
+		foreach ($rows as $row) {
+			if ( $idmunicipio != $row->idmunicipio ) {
+				$idmunicipio = $row->idmunicipio;
+				$this->printAvaluosHeader($pdf, $nFont, $perito, $row->municipio);
+				$this->printAvaluosHeaderColumns($pdf, $nFont);
+				$line = 0;
+			} else if ( $line == 0 ) {
+				$this->printAvaluosHeader($pdf, $nFont, $perito, $row->municipio);
+				$this->printAvaluosHeaderColumns($pdf, $nFont);
+			}
+			$this->printAvaluosRow($pdf, $nFont, $row);
+			++$line;
+			++$countRow;
+
+			if ( $line == 20 ) {
+				$line = 0;
+			}
+		}
+		
+		$pdf->setX(5);
+		$pdf->Cell(244, $nFont, utf8_decode("TOTAL DE REGISTROS: "), 'LB', 0, 'R', 0);
+		$pdf->SetFont('Arial', 'B', 7);
+		$pdf->Cell(25, $nFont, $countRow, 'TLBR', 1, 'R', 1);
+
+		$pdf->Output();
+		exit;
 	}
 
 	/**
@@ -36,10 +155,10 @@ class corevat_PrintDictamenAvaluoController extends \BaseController {
 		$pdf->AddPage();
 		$pdf->Image(public_path() . "/css/images/corevat/crv-01.jpg", 5, 5, 139.57, 26.20);
 
-		if ( $rs->foto != "" ) {
+		if ($rs->foto != "") {
 			$userfoto = explode(".", $rs->foto);
 			$foto = public_path() . '/corevat/files/' . $userfoto[0] . '-big.' . $userfoto[1];
-			if ( !file_exists($foto) ) {
+			if (!file_exists($foto)) {
 				$foto = public_path() . "/css/images/corevat/user-big.jpg";
 			}
 		} else {
@@ -398,12 +517,12 @@ class corevat_PrintDictamenAvaluoController extends \BaseController {
 
 		if ($in->croquis != "") {
 			$fc = explode('.', $in->croquis);
-			$archivo = public_path() . '/corevat/files/' .  $in->croquis;
-			if ( file_exists($archivo) ) {
+			$archivo = public_path() . '/corevat/files/' . $in->croquis;
+			if (file_exists($archivo)) {
 				$pdf->Image($archivo, 5, 32, 89.0, 65.40);
 			} else {
-				$archivo = public_path() . '/corevat/files/' .  $in->croquis;
-				if ( file_exists($archivo) ) {
+				$archivo = public_path() . '/corevat/files/' . $in->croquis;
+				if (file_exists($archivo)) {
 					$pdf->Image($archivo, 5, 32, 89.0, 65.40);
 				} else {
 					$pdf->Image(public_path() . '/css/images/corevat/blank.gif', 5, 32, 89.0, 65.40);
@@ -416,12 +535,12 @@ class corevat_PrintDictamenAvaluoController extends \BaseController {
 		if ($in->fachada != "") {
 			$fc = explode('.', $in->fachada);
 			$archivo = public_path() . '/corevat/files/' . $in->fachada;
-			if ( file_exists($archivo) ) {
+			if (file_exists($archivo)) {
 				$pdf->Image($archivo, 122, 32, 89.0, 65.40);
 			} else {
 				// public_path() . 
 				$archivo = public_path() . '/corevat/files/' . $in->fachada;
-				if ( file_exists($archivo) ) {
+				if (file_exists($archivo)) {
 					$pdf->Image($archivo, 122, 32, 89.0, 65.40);
 				} else {
 					$pdf->Image(public_path() . '/css/images/corevat/blank.gif', 122, 32, 89.0, 65.40);
@@ -686,7 +805,7 @@ class corevat_PrintDictamenAvaluoController extends \BaseController {
 		$pdf->Cell(15, $nFont, utf8_decode('Sup. Const.'), 'BL', 0, 'L', 1);
 		$pdf->Cell(15, $nFont, utf8_decode('P. U./m2'), 'BL', 0, 'L', 1);
 		$pdf->Cell(45, $nFont, utf8_decode('Fuente/ Antecedente/ Teléfono'), 'BLR', 1, 'L', 1);
-		
+
 		$rst = AemCompTerrenos::getAemCompTerrenosByFk($fm->idavaluoenfoquemercado);
 		$lID = 0;
 		$pdf->SetFont('Arial', '', 6);
@@ -1082,7 +1201,7 @@ class corevat_PrintDictamenAvaluoController extends \BaseController {
 		$pdf->setX(171);
 		$pdf->Cell(15, $nFont, utf8_decode('Rep.'), 'BL', 0, 'C', 1);
 		$pdf->Cell(25, $nFont, utf8_decode('Elem. Adic.'), 'BLR', 1, 'C', 1);
-		
+
 		$rowsAefInstalaciones = AefInstalaciones::AefInstalacionesByFk($ff->idavaluoenfoquefisico);
 		$lID = 0;
 		foreach ($rowsAefInstalaciones as $fila) {
@@ -1214,15 +1333,15 @@ class corevat_PrintDictamenAvaluoController extends \BaseController {
 		$pdf->Ln(0);
 		$pdf->SetFont('Arial', '', 6);
 		$pdf->setX(5);
-		
+
 		if ($ft->foto0 != "") {
 			$fc = explode('.', $ft->foto0);
 			$archivo = public_path() . '/corevat/files/' . $fc[0] . '.' . $fc[1];
-			if ( file_exists($archivo) ) {
+			if (file_exists($archivo)) {
 				$pdf->Image($archivo, 5, 22, 50.0, 50);
 			} else {
 				$archivo = public_path() . '/corevat/files/' . $fc[0] . '-big.' . $fc[1];
-				if ( file_exists($archivo) ) {
+				if (file_exists($archivo)) {
 					$pdf->Image($archivo, 5, 22, 50.0, 50);
 				} else {
 					$pdf->Image(public_path() . '/css/images/corevat/blank.gif', 122, 32, 89.0, 65.40);
@@ -1235,11 +1354,11 @@ class corevat_PrintDictamenAvaluoController extends \BaseController {
 		if ($ft->foto1 != "") {
 			$fc = explode('.', $ft->foto1);
 			$archivo = public_path() . '/corevat/files/' . $fc[0] . '.' . $fc[1];
-			if ( file_exists($archivo) ) {
+			if (file_exists($archivo)) {
 				$pdf->Image($archivo, 83, 22, 50.0, 50);
 			} else {
 				$archivo = public_path() . '/corevat/files/' . $fc[0] . '.' . $fc[1];
-				if ( file_exists($archivo) ) {
+				if (file_exists($archivo)) {
 					$pdf->Image($archivo, 83, 22, 50.0, 50);
 				} else {
 					$pdf->Image(public_path() . '/css/images/corevat/blank.gif', 83, 22, 50.0, 50);
@@ -1252,11 +1371,11 @@ class corevat_PrintDictamenAvaluoController extends \BaseController {
 		if ($ft->foto2 != "") {
 			$fc = explode('.', $ft->foto2);
 			$archivo = public_path() . '/corevat/files/' . $fc[0] . '.' . $fc[1];
-			if ( file_exists($archivo) ) {
+			if (file_exists($archivo)) {
 				$pdf->Image($archivo, 161, 22, 50.0, 50);
 			} else {
 				$archivo = public_path() . '/corevat/files/' . $fc[0] . '-big.' . $fc[1];
-				if ( file_exists($archivo) ) {
+				if (file_exists($archivo)) {
 					$pdf->Image($archivo, 161, 22, 50.0, 50);
 				} else {
 					$pdf->Image(public_path() . '/css/images/corevat/blank.gif', 161, 22, 50.0, 50);
@@ -1282,11 +1401,11 @@ class corevat_PrintDictamenAvaluoController extends \BaseController {
 		if ($ft->foto3 != "") {
 			$fc = explode('.', $ft->foto3);
 			$archivo = public_path() . '/corevat/files/' . $fc[0] . '.' . $fc[1];
-			if ( file_exists($archivo) ) {
+			if (file_exists($archivo)) {
 				$pdf->Image($archivo, 5, 82, 50.0, 50);
 			} else {
 				$archivo = public_path() . '/corevat/files/' . $fc[0] . '-big.' . $fc[1];
-				if ( file_exists($archivo) ) {
+				if (file_exists($archivo)) {
 					$pdf->Image($archivo, 5, 82, 50.0, 50);
 				} else {
 					$pdf->Image(public_path() . '/css/images/corevat/blank.gif', 5, 82, 50.0, 50);
@@ -1299,11 +1418,11 @@ class corevat_PrintDictamenAvaluoController extends \BaseController {
 		if ($ft->foto4 != "") {
 			$fc = explode('.', $ft->foto4);
 			$archivo = public_path() . '/corevat/files/' . $fc[0] . '.' . $fc[1];
-			if ( file_exists($archivo) ) {
+			if (file_exists($archivo)) {
 				$pdf->Image($archivo, 83, 82, 50.0, 50);
 			} else {
 				$archivo = public_path() . '/corevat/files/' . $fc[0] . '-big.' . $fc[1];
-				if ( file_exists($archivo) ) {
+				if (file_exists($archivo)) {
 					$pdf->Image($archivo, 83, 82, 50.0, 50);
 				} else {
 					$pdf->Image(public_path() . '/css/images/corevat/blank.gif', 83, 82, 50.0, 50);
@@ -1316,11 +1435,11 @@ class corevat_PrintDictamenAvaluoController extends \BaseController {
 		if ($ft->foto5 != "") {
 			$fc = explode('.', $ft->foto5);
 			$archivo = public_path() . '/corevat/files/' . $fc[0] . '.' . $fc[1];
-			if ( file_exists($archivo) ) {
+			if (file_exists($archivo)) {
 				$pdf->Image($archivo, 161, 82, 50.0, 50);
 			} else {
 				$archivo = public_path() . '/corevat/files/' . $fc[0] . '-big.' . $fc[1];
-				if ( file_exists($archivo) ) {
+				if (file_exists($archivo)) {
 					$pdf->Image($archivo, 161, 82, 50.0, 50);
 				} else {
 					$pdf->Image(public_path() . '/css/images/corevat/blank.gif', 161, 82, 50.0, 50);
@@ -1349,11 +1468,11 @@ class corevat_PrintDictamenAvaluoController extends \BaseController {
 		if ($ft->plano0 != "") {
 			$fc = explode('.', $ft->plano0);
 			$archivo = public_path() . '/corevat/files/' . $fc[0] . '.' . $fc[1];
-			if ( file_exists($archivo) ) {
+			if (file_exists($archivo)) {
 				$pdf->Image($archivo, 5, 150, 206.0, 103);
 			} else {
 				$archivo = public_path() . '/corevat/files/' . $fc[0] . '-big.' . $fc[1];
-				if ( file_exists($archivo) ) {
+				if (file_exists($archivo)) {
 					$pdf->Image($archivo, 5, 150, 206.0, 103);
 				} else {
 					$pdf->Image(public_path() . '/css/images/corevat/blank.gif', 5, 150, 206.0, 103);
@@ -1373,10 +1492,5 @@ class corevat_PrintDictamenAvaluoController extends \BaseController {
 		$pdf->Output();
 		exit;
 	}
-
-
-
-
-
 
 }
