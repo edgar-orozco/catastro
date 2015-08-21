@@ -13,9 +13,11 @@
 <div class="page-header">
     <h3>Catalogo de Peritos</h3>
 </div>
+<div class="row" style="background: #ECECEC;">
+    <a href="/catalogos/peritos/nuevoPerito" class="btn btn-primary nuevo"  title="Nuevo Perito">Nuevo Perito</a>
+</div>
 
-<a href="/catalogos/peritos/nuevoPerito" class="btn btn-primary nuevo"  title="Nuevo Perito">Nuevo Perito</a>
-<hr>
+
 
 <div class="panel panel-default">
 	<div class="panel-heading">
