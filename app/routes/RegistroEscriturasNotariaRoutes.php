@@ -6,7 +6,7 @@ Route::get('ofvirtual/notario/registro/create', 'ofvirtual_RegistroEscrituraCont
 Route::post('ofvirtual/notario/registro/create', 'ofvirtual_RegistroEscrituraController@store');
 
 //Búsqueda de trámites
-Route::post('ofvirtual/notario/registro/buscar','ofvirtual_RegistroEscrituraController@buscar');
+//Route::post('ofvirtual/notario/registro/buscar','ofvirtual_RegistroEscrituraController@buscar');
 
 Route::get('/ofvirtual/notario/registro','ofvirtual_RegistroEscrituraController@create');
 

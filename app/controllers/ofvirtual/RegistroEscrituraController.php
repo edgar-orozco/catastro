@@ -71,7 +71,7 @@ protected $padron;
 
 
 
-        $identificador = strtoupper($identificador); 
+        $identificador = strtoupper($identificador);
         //dd($identificador);
 
         $predio = $this->padron->getByClaveOCuenta($identificador);
@@ -253,8 +253,8 @@ $registro->save();
 	 */
 	public function buscar()
 	{
-		echo 'q'.$q = Input::get('q');
-        echo 'tipo'.$tipo = Input::get('tipo');
+	$q = Input::get('q');
+    $tipo = Input::get('tipo');
 
         $registros = new RegistroEscritura();
 
@@ -262,10 +262,10 @@ $registro->save();
             $registros = RegistroEscritura::whereFolio($q)->paginate($this->numPags);
         }
         if ($tipo == 'Enajenante') {
-            $registros = RegistroEscritura::enajenanteNombreCompleto(strtoupper($q))->paginate($this->numPags);
+            $registros = RegistroEscritura::EnajenanteNombreCompleto(strtoupper($q))->paginate($this->numPags);
         }
         if ($tipo == 'Adquiriente') {
-            $registros = RegistroEscritura::adquirienteNombreCompleto(strtoupper($q))->paginate($this->numPags);
+            $registros = RegistroEscritura::AdquirienteNombreCompleto(strtoupper($q))->paginate($this->numPags);
         }
         if ($tipo == 'Ubicación de la propiedad') {
 
@@ -384,7 +384,7 @@ $registro->save();
 
         //Buscamos el traslado original relacionado con el id
         $registro = RegistroEscritura::find($id);
-      
+
         //
         //
         $registro['dir_enajenante_id'];
@@ -507,7 +507,7 @@ $registro->estado_conserv=Input::get('estado_conserv');
             $registroCol->delete();
         foreach(Input::get('colindancia') as $colindancia) {
           //hasta aqui funiona correctamente
-          
+
            $colindancia['registro_id'] = $registro->id;
            //aqui ya no funciona no se si tenga que ver con el modelo
             $Colindancias[] = new RegistroColindancias($colindancia);
@@ -517,12 +517,12 @@ $registro->estado_conserv=Input::get('estado_conserv');
      //   print_r($datos);
        // dd($datos);
         //aqui la varianble $Colindancias llega vacia
-        
+
         $registro->colindancia()->saveMany($Colindancias);
 
         //Dado que fue exitosa la actualización mostramos la salida al usuario.
         return Redirect::to('ofvirtual/notario/registro/show/' . $registro->id)->with('success', '¡Se ha editado correctamente el registro de dominio para la cuenta ' . $registro->cuenta . '!');
-    
+
 	}
 
 
@@ -561,7 +561,7 @@ $registro->estado_conserv=Input::get('estado_conserv');
         $registro = RegistroEscritura::find($id);
 
         $predio = $this->padron->getByClaveOCuenta($registro->clave);
-        
+
         //enajenante
         $enajenante = personas::find($registro->enajenante_id);
         $registro->enajenante->fill($enajenante->toArray());
@@ -588,7 +588,7 @@ $registro->estado_conserv=Input::get('estado_conserv');
         $municipio=Municipio::where('municipio',$registro->municipio_id)->pluck('nombre_municipio');
 
          $JsonColindancias = $registro->colindancia->toJson();
-         
+
         // print_r($domicilioC);
         //dd($domicilioC);
         // Show the page
@@ -641,9 +641,9 @@ $registro->estado_conserv=Input::get('estado_conserv');
         $adquiriente = personas::find($registro->adquiriente_id);
         $adquiriente->delete();
 
-        
-        
-        
+
+
+
 
         return Redirect::to('/ofvirtual/notario/registro-escrituras')->with('success', '¡Se ha eliminado correctamente el registro!');
 
@@ -694,11 +694,11 @@ $registro->estado_conserv=Input::get('estado_conserv');
         $domicilioE = Domicilio::domicilioCompleto($registro->dir_enajenante_id);
         $domicilioA = Domicilio::domicilioCompleto($registro->dir_adquiriente_id);
 
-       
+
 
         // Show the page
         $vista =  View:: make('ofvirtual.notario.registro.pdf', compact('domicilioE', 'domicilioA', 'title', 'registro', 'predio','seguimiento','colindancias','notaria','notario','JsonColindancias'));
-        
+
         //devuelvo los datos en PDF
         $pdf      = PDF::load($vista)->show("Registro-Escritura");
         $response = Response::make($pdf, 200);
@@ -712,7 +712,7 @@ $registro->estado_conserv=Input::get('estado_conserv');
         $q = Input::get('term');
         if (Request::ajax()) {
             $persona=personas::getPorCurpRFC($q);
-          //  
+          //
 
             foreach($persona as $key)
             {
