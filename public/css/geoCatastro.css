@@ -81,18 +81,22 @@ body, html{
     width: inherit;
     display: inline-block;
     background: #ECECEC;
+    text-align: right;
 }
 .search-header label{
     width: inherit;
     display: inline-block;
-    max-width: 302px;
+    max-width: 391px;
     color: #000000;
     font-size: 16px;
+    padding: 10px;
+    margin: 0;
 }
 .search-header .form-group{
     width: inherit;
     display: inline-block;
     max-width: 302px;
+    margin: 0;
 }
 
 
