@@ -15,8 +15,9 @@
         {{Form::text('clave', null, ['id'=>'id','placeholder'=>'Clave de Seguimiento'] )}}
         <a id="buscar" class="btn btn-warning" title="Editar"><span class="glyphicon glyphicon-search"></span></a>
     </div>
-        
+    <div class="clearfix"></div>
 </div>
+<br/>
 <div class="row" id="mainForm">
     {{Form::open(array('id'=>'form','url'=>'kiosko/solicitud','method'=>'POST'))}}
         @include('kiosko.solicitud._form')
