@@ -70,11 +70,16 @@
                 {{Form::text('no_recibo',null,['class'=>'form-control'])}}
             </div>
         </div>
-        <div class="col-md-12">
-            {{Form::submit('Guardar', ['class'=>'btn btn-warning form-control', 'data-toggle'=>'modal', 'data-target'=>'#myModal'])}}
-            {{Form::close()}}
-            <br>
-            {{Form::button('Limpiar Formulario', ['class'=>'btn btn-info form-control', 'id' => 'limpiar_form'])}}
+        <br/>
+        <div class="row">
+            <div class="col-md-6 col-sm-6">
+                {{Form::submit('Guardar', ['class'=>'btn btn-warning form-control', 'data-toggle'=>'modal', 'data-target'=>'#myModal'])}}
+                {{Form::close()}}
+            </div>
+            <div class="col-md-6 col-sm-6">
+
+                {{Form::button('Limpiar Formulario', ['class'=>'btn btn-info form-control', 'id' => 'limpiar_form'])}}
+            </div>
         </div>
     </div>
 </div>
