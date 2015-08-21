@@ -84,10 +84,12 @@ body, html{
 .search-header label{
     width: inherit;
     display: inline-block;
+    max-width: 302px;
 }
 .search-header .form-group{
     width: inherit;
     display: inline-block;
+    max-width: 302px;
 }
 
 
