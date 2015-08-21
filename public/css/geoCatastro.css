@@ -79,7 +79,6 @@ body, html{
 
 .panel.panel-default{
     border-radius: 0;
-    border: none;
     box-shadow:none;
 }
 
@@ -161,10 +160,17 @@ body, html{
     background: #3f3f3f;
     color: white;
     text-align: center;
+    vertical-align: middle;
+    border: 1px solid #808080;
+    font-size: 12px !important;
+    font-weight: 300;
 }
 
 table tr td{
     vertical-align: middle !important;
     border: 1px solid #E6E6E6;
     text-align: center;
+    border: 1px solid #808080;
+    font-size: 12px !important;
+    font-weight: 300;
 }

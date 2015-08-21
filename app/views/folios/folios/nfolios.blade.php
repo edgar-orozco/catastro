@@ -10,7 +10,8 @@
 {{ HTML::style('js/jquery/jquery-ui.css') }}
 
 <div class="page-header">
-    <h2>Generador de Folios <small>Datos del Folio</small></h2>
+    <h3>Generador de Folios</h3>
+    <h4>Datos del Folio</h4>
 </div>
 <div class="panel-primary">
     <div id="respuesta" hidden>
@@ -69,11 +70,15 @@
                 {{Form::text('no_recibo',null,['class'=>'form-control'])}}
             </div>
         </div>
-        <div class="col-md-12">
-            {{Form::submit('Guardar', ['class'=>'btn btn-warning form-control', 'data-toggle'=>'modal', 'data-target'=>'#myModal'])}}
-            {{Form::close()}}
-            <br>
-            {{Form::button('Limpiar Formulario', ['class'=>'btn btn-info form-control', 'id' => 'limpiar_form'])}}
+        <br/>
+        <div class="row">
+            <div class="col-md-6 col-sm-6">
+                {{Form::button('Limpiar Formulario', ['class'=>'btn btn-primary form-control', 'id' => 'limpiar_form'])}}
+            </div>
+            <div class="col-md-6 col-sm-6">
+                {{Form::submit('Guardar', ['class'=>'btn btn-warning form-control', 'data-toggle'=>'modal', 'data-target'=>'#myModal'])}}
+                {{Form::close()}}
+            </div>
         </div>
     </div>
 </div>
