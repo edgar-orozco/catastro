@@ -40,6 +40,7 @@
                 </select>
             </div>
         </div>
+        <br/>
         <div class="col-md-6">
             <div class="form-group">
                 {{Form::label('cantidad_urbanos','Folios Urbanos')}}
@@ -52,6 +53,7 @@
                 {{Form::text('cantidad_rusticos','',['class'=>'form-control', 'maxlength'=>'3'])}}
             </div>
         </div>
+        <br/>
         <div class="col-md-6">
             <div class="form-group">
                 {{Form::label('fecha_solicitud','Fecha de Solicitud')}}
@@ -64,6 +66,7 @@
                 {{Form::input('text', 'fecha_oficio', null, array('required', 'class'=>'fecha form-control dateFolios', 'readonly', 'style' => 'background:white;'))}}
             </div>
         </div>
+        <br/>
         <div class="col-md-12">
             <div class="form-group">
                 {{Form::label('no_recibo','Numero de Recibo')}}
@@ -80,6 +83,7 @@
                 {{Form::close()}}
             </div>
         </div>
+        <br/>
     </div>
 </div>
 
