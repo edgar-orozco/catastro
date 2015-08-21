@@ -81,4 +81,5 @@
            {{$errors->first('solicitante[direccion]', '<span class=text-danger>:message</span>')}}
         </div>
     </div>
+    <br/>
 </div>
