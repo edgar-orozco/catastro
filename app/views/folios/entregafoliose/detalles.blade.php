@@ -20,9 +20,9 @@
 	<div class="panel-body">
 
 	<table class="table">
-		<tr>
+        <tr style="background-color: #e3e3e3; color: #333;">
 			<th>Tipo de Folio</th>
-			<th colspan="2"  align="center">Cantidad Total de Folios Comprados</th>
+			<th colspan="3"  align="center">Cantidad Total de Folios Comprados</th>
 		</tr>
 		<tr>
 			<td>{{$perito->corevat}}</td>
@@ -53,9 +53,9 @@
 			<th>${{number_format(((($conf->salario_minimo*$conf->salario_folio_urbano)*$fu->numero_folio)+(($conf->salario_minimo*$conf->salario_folio_rustico)*$fr->numero_folio )),2)}}</th>
 		</tr>
 		@endif
-		<tr>
+		<tr style="background-color: #e3e3e3; color: #333;">
 			<th></th>
-			<th colspan="2"  align="center">Cantidad Total de Folios Reportados</th>		
+			<th colspan="3"  align="center">Cantidad Total de Folios Reportados</th>
 		</tr>
 		<tr>
 			<td></td>
