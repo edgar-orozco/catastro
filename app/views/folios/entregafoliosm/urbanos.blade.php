@@ -9,9 +9,9 @@
 
 <h1></h1>
 
-<div class="panel panel-default">
-    <div class="panel-title">
-        <h2>FOLIOS URBANOS AUTORIZADOS PARA</h2>
+<div class="panel panel-primary">
+    <div class="panel-heading">
+        <h4 class="panel-title">FOLIOS URBANOS AUTORIZADOS PARA</h4>
     </div>
 
     <div class="panel-body">
