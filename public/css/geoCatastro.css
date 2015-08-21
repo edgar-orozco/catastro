@@ -104,12 +104,31 @@ body, html{
 
 
 .search-header .form-group input {
-    height: 12%;
     padding: 17px;
     width: 254px;
     border: none;
     background: none;
     color: white;
+    font-size: 17px;
+}
+
+.search-header .form-group a.btn.btn-warning ,.search-header .form-group a.btn.btn-warning:hover{
+    height: 58px;
+    margin: 0;
+    vertical-align: top;
+    padding: 10px;
+    border-radius: 0;
+    line-height: 10px;
+    border: none;
+    background: #000000;
+}
+
+.search-header .form-group a.btn.btn-warning:hover {
+    background: #808080;
+}
+
+.search-header .form-group a.btn .glyphicon{
+    line-height: 32px;
 }
 
 .search-header .form-group input::-webkit-input-placeholder { color:#fff; }
