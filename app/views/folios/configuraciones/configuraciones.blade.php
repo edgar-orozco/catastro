@@ -67,10 +67,11 @@
 					{{Form::text('frase_anual',  $conf->frase_anual, ['class'=>'fecha form-control'])}}
 				</div>
 			</div>
-			<div class="col-md-12">
-				{{Form::submit('Guardar', ['class'=>'btn btn-success'])}}
-				
-			</div>
+            <div class="row">
+                <div class="col-md-6">
+                    {{Form::submit('Guardar', ['class'=>'btn btn-block btn-success'])}}
+                </div>
+            </div>
 		</div>
 		{{Form::close()}}
 	</div>
