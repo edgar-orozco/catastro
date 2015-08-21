@@ -181,7 +181,7 @@ body, html{
     color: white;
     text-align: center;
     vertical-align: middle;
-    border: 1px solid #808080;
+    border: 1px solid #ddd !important;
     font-size: 12px !important;
     font-weight: 300;
 }
@@ -192,4 +192,5 @@ table tr td{
     text-align: center;
     font-size: 12px !important;
     font-weight: 300;
+    border: 1px solid #ddd !important;
 }
