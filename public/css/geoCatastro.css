@@ -80,11 +80,14 @@ body, html{
     float: right;
     width: inherit;
     display: inline-block;
+    background: #ECECEC;
 }
 .search-header label{
     width: inherit;
     display: inline-block;
     max-width: 302px;
+    color: #000000;
+    font-size: 16px;
 }
 .search-header .form-group{
     width: inherit;
