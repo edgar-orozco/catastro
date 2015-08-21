@@ -100,7 +100,7 @@
 					<td>{{$h->no_recibo}}</td>
 					<td>{{$h->cantidad_urbanos}}</td>
 					<td>{{$h->cantidad_rusticos}}</td>
-					<td>${{number_format($h->total, 2, '.', '')}}</td>
+					<td style="text-align: left;">${{number_format($h->total, 2, '.', '')}}</td>
 					
 				</tr>
 				@endforeach
