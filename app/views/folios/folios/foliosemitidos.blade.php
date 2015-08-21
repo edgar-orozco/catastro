@@ -65,8 +65,10 @@
                     <td align="center">{{$folios->cantidad_urbanos}}</td>
                     <td align="center">{{$folios->cantidad_rusticos}}</td>
                     <td align="center">{{$folios->id_usuario}}</td>
-                    <td align="center"><a href="formato/{{$folios->id}}" target="_blank" class="btn btn-xs btn-info" title="Reimprimir"><i class="glyphicon glyphicon-print"></i></a>
-                    <a href="eliminarFolio/{{$folios->no_oficio}}" class="eliminar btn btn-xs btn-danger" title="Eliminar"><i class="glyphicon glyphicon-trash"></i></a></td>
+                    <td align="center">
+                        <a href="formato/{{$folios->id}}" target="_blank" class="btn btn-actionForm01 btn-info" title="Reimprimir"><i class="glyphicon glyphicon-print"></i></a>
+                        <a href="eliminarFolio/{{$folios->no_oficio}}" class="eliminar btn btn-actionForm01 btn-danger" title="Eliminar"><i class="glyphicon glyphicon-trash"></i></a>
+                    </td>
 
                 </tr>
                 @endforeach
