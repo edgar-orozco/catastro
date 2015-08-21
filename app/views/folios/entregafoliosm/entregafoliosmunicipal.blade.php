@@ -7,19 +7,21 @@
 
 @section('content')
 
-<h1>Todos los peritos</h1>
+    <div class="page-header">
+        <h3>Todos los peritos</h3>
+    </div>
 
-<div class="panel panel-primary">
+<div class="panel panel-default">
 
 	<div class="panel-heading">
 
 		<h4 class="panel-title">Tabla de Peritos</h4>
 
 	</div>
-
+    <br/>
 	<div class="panel-body">
 
-		<table class="table datatable" id="example">
+		<table class="table datatable table-striped" id="example">
 			<thead>
 				<tr>
 					<th>Corevat</th>

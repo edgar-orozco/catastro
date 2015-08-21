@@ -15,7 +15,7 @@
     <h3>Todos los peritos</h3>
 </div>
 
-<div class="panel panel-primary">
+<div class="panel panel-default">
 
 	<div class="panel-heading">
 
@@ -24,8 +24,8 @@
 	</div>
 
 	<div class="panel-body">
-
-		<table class="table datatable" id="example">
+        <br/>
+		<table class="table datatable table-striped" id="example">
 			<thead>
 				<tr>
 					<th>Corevat</th>
