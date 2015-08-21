@@ -80,10 +80,14 @@
 				@endforeach
 			</tbody>
 		</table>
-		{{Form::submit('Guardar', ['class'=>'btn btn-success'])}}
-		{{Form::close()}}
+        <div class="row">
+            <div class="col-md-6 col-sm-6">
+                {{Form::submit('Guardar', ['class'=>'btn btn-success'])}}
+                {{Form::close()}}
+            </div>
+        </div>
 	</div>
-
+</div>
 	@stop
 
 	@section('javascript')
