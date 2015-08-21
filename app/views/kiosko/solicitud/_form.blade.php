@@ -22,6 +22,7 @@
 <div class="panel panel-default">
     <div class="panel-heading">DATOS DEL SOLICITANTE</div>
     <div class="panel-body">
+
         <div class="row">
             <div class="col-xs-6">
                 {{Form::label('solicitante[curp]','CURP')}}
