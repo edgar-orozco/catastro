@@ -15,10 +15,12 @@
 		<h4 class="panel-title">Tabla de Folios Emitidos</h4>
 	</div>
 	<div class="panel-body">
-
+        <br/>
         {{Form::open(['id' => 'foliosE', 'method' => 'GET'])}}
         {{Form::select('year', $selectYear, null,  ['id' => 'year', 'class' => 'form-control input-sm', 'aria-controls' => 'emitidos-table'])}}
         {{Form::close()}}
+        <br/>
+        <br/>
         <table class="table datatable" id="emitidos-table" >
             <thead>
                 <tr>
