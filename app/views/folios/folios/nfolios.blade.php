@@ -73,12 +73,11 @@
         <br/>
         <div class="row">
             <div class="col-md-6 col-sm-6">
-                {{Form::submit('Guardar', ['class'=>'btn btn-warning form-control', 'data-toggle'=>'modal', 'data-target'=>'#myModal'])}}
-                {{Form::close()}}
+                {{Form::button('Limpiar Formulario', ['class'=>'btn btn-primary form-control', 'id' => 'limpiar_form'])}}
             </div>
             <div class="col-md-6 col-sm-6">
-
-                {{Form::button('Limpiar Formulario', ['class'=>'btn btn-info form-control', 'id' => 'limpiar_form'])}}
+                {{Form::submit('Guardar', ['class'=>'btn btn-warning form-control', 'data-toggle'=>'modal', 'data-target'=>'#myModal'])}}
+                {{Form::close()}}
             </div>
         </div>
     </div>
