@@ -47,7 +47,7 @@
 					<td>{{$datosperitos->nombre}}</td>
 					<td>{{$datosperitos->direccion}} </td>
 					<td>
-						<a href="actPerito/{{$datosperitos->id}}" class="btn btn-xs btn-info nuevo" title="Editar"><i class="glyphicon glyphicon-pencil"></i></a>
+						<a href="actPerito/{{$datosperitos->id}}" class="btn btn-actionForm01 btn-info nuevo" title="Editar"><i class="glyphicon glyphicon-pencil"></i></a>
 						@if($datosperitos->Estado == "1" )
 							<a class="habilitar btn btn-actionForm01 btn-success" id="habilitar" href="estado/{{$datosperitos->id}}" title="Deshabilitar"><i class="glyphicon glyphicon-ok"></i></a>
 						@else
