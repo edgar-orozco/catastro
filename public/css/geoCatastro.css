@@ -98,7 +98,10 @@ body, html{
     display: inline-block;
     max-width: 302px;
     margin: 0;
+    background: #CAC9C9;
 }
+
+
 
 .search-header .form-group input {
     height: 12%;
@@ -109,6 +112,10 @@ body, html{
     color: white;
 }
 
+.search-header .form-group input::-webkit-input-placeholder { color:#fff; }
+.search-header .form-group input::-moz-placeholder { color:#fff; } /* firefox 19+ */
+.search-header .form-group input:-ms-input-placeholder { color:#fff; } /* ie */
+.search-header .form-group input:-moz-placeholder { color:#fff; }
 
 /* Tables */
 
