@@ -10,22 +10,19 @@
 @section('content')
 
 
-
-<h1>Catalogo de Peritos</h1>
+<div class="page-header">
+    <h3>Catalogo de Peritos</h3>
+</div>
 
 <a href="/catalogos/peritos/nuevoPerito" class="btn btn-primary nuevo"  title="Nuevo Perito">Nuevo Perito</a>
 <hr>
 
-<div class="panel panel-primary">
-
+<div class="panel panel-default">
 	<div class="panel-heading">
-
 		<h4 class="panel-title">Tabla de Peritos</h4>
-		
 	</div>
-
 	<div class="panel-body">
-
+        <br/>
 		<table cellpadding="0" cellspacing="0" border="0" class="table datatable example" id="example">
 			<thead>
 				<tr>
@@ -52,11 +49,9 @@
 				</tr>
 				@endforeach
 			</tbody>
-
-
 		</table>
-		
 	</div>
+</div>
 
 
 	<!-- Modal -->
