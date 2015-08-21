@@ -43,7 +43,7 @@
 			</tbody>
 		</table>
 	</div>
-
+</div>
 @stop
 
 @section('javascript')
