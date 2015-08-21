@@ -31,7 +31,7 @@
 	</div>
 	<div class="panel-body">
         <br/>
-		<table cellpadding="0" cellspacing="0" border="0" class="table datatable example" id="example">
+		<table cellpadding="0" cellspacing="0" border="0" class="table datatable example table-striped" id="example">
 			<thead>
 				<tr>
 					<th>Corevat</th>
@@ -41,8 +41,12 @@
 				</tr>
 			</thead>
 			<tbody>
-				@foreach ($variableperito as $datosperitos)
-				<tr>
+				@foreach ($variableperito as $key=>$datosperitos)
+				<tr <?php
+                        if($key%2){
+                            echo "class=''";
+                        }
+                        ?>>
 					<td>{{$datosperitos->corevat}}</td>
 					<td>{{$datosperitos->nombre}}</td>
 					<td>{{$datosperitos->direccion}} </td>
