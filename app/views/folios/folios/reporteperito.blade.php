@@ -67,7 +67,7 @@
 
 
 						?>
-						<td align="center">$ {{number_format($totalingresos,'2')}}</td>
+						<td class="text-left">$ {{number_format($totalingresos,'2')}}</td>
 					</tr>
 				@endforeach
 				@foreach ($folios_totales as $totales)
