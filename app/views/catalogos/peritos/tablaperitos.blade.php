@@ -49,9 +49,9 @@
 					<td>
 						<a href="actPerito/{{$datosperitos->id}}" class="btn btn-xs btn-info nuevo" title="Editar"><i class="glyphicon glyphicon-pencil"></i></a>
 						@if($datosperitos->Estado == "1" )
-							<a class="habilitar btn btn-xs btn-success" id="habilitar" href="estado/{{$datosperitos->id}}" title="Deshabilitar"><i class="glyphicon glyphicon-ok"></i></a>
+							<a class="habilitar btn btn-actionForm01 btn-success" id="habilitar" href="estado/{{$datosperitos->id}}" title="Deshabilitar"><i class="glyphicon glyphicon-ok"></i></a>
 						@else
-							<a class="deshabilitar btn btn-xs btn-danger" id="deshabilitar" href="estado/{{$datosperitos->id}}" title="Habilitar"><i class="glyphicon glyphicon-remove"></i></a>
+							<a class="deshabilitar btn btn-actionForm01 btn-danger" id="deshabilitar" href="estado/{{$datosperitos->id}}" title="Habilitar"><i class="glyphicon glyphicon-remove"></i></a>
 						@endif
 					</td>
 				</tr>
