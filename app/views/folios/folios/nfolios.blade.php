@@ -44,13 +44,13 @@
         <br/>
         <div class="col-md-6">
             <div class="form-group">
-                {{Form::label('cantidad_urbanos','Folios Urbanos')}}
+                {{Form::label('cantidad_urbanos','Cantidad Folios Urbanos')}}
                 {{Form::text('cantidad_urbanos','', ['class'=>'form-control', 'maxlength'=>'3'])}}
             </div>
         </div>
         <div class="col-md-6">
             <div class="form-group">
-                {{Form::label('cantidad_rusticos','Folios Rústicos')}}
+                {{Form::label('cantidad_rusticos','Cantidad Folios Rústicos')}}
                 {{Form::text('cantidad_rusticos','',['class'=>'form-control', 'maxlength'=>'3'])}}
             </div>
         </div>
