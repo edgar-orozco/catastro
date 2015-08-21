@@ -8,6 +8,10 @@ body, html{
     font-size: 13px;
 }
 
+.row{
+    margin: 0;
+}
+
 .container{
     width: 100%;
     max-width: inherit;
@@ -71,6 +75,21 @@ body, html{
     border-color: gray;
     color: #808080;
 }
+/* Components */
+.search-header{
+    float: right;
+    width: inherit;
+    display: inline-block;
+}
+.search-header label{
+    width: inherit;
+    display: inline-block;
+}
+.search-header .form-group{
+    width: inherit;
+    display: inline-block;
+}
+
 
 
 /* Tables */

@@ -9,15 +9,15 @@
 @stop
 
 @section('content')
-<div class="col-md-4">
-{{Form::label('BUSCAR GESTIÓN CATASTRAL PARA EDITAR')}}
+<div class="search-header">
+    {{Form::label('BUSCAR GESTIÓN CATASTRAL PARA EDITAR')}}
     <div class="form-group">
         {{Form::text('clave', null, ['id'=>'id','placeholder'=>'Clave de Seguimiento'] )}}
         <a id="buscar" class="btn btn-warning" title="Editar"><span class="glyphicon glyphicon-search"></span></a>
     </div>
         
 </div>
-<div class="col-sm-12 col-md-12 col-lg-12" id="mainForm">
+<div class="row" id="mainForm">
     {{Form::open(array('id'=>'form','url'=>'kiosko/solicitud','method'=>'POST'))}}
         @include('kiosko.solicitud._form')
         <div class="form-actions form-group">
