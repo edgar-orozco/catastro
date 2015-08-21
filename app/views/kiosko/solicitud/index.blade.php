@@ -22,8 +22,8 @@
     {{Form::open(array('id'=>'form','url'=>'kiosko/solicitud','method'=>'POST'))}}
         @include('kiosko.solicitud._form')
         <div class="form-actions form-group">
-            {{Form::submit('Crear nueva solicitud',array('class' => 'btn btn-primary', 'tabindex'=>'13', 'data-toggle'=>'modal', 'data-target'=>'#myModal'))}}
-            {{Form::reset('Limpiar formato', ['class' => 'btn btn-warning','tabindex'=>'14'])}}
+            {{Form::submit('Crear nueva solicitud',array('class' => 'btn btn-block col-md-6 col-sm-6 btn-primary', 'tabindex'=>'13', 'data-toggle'=>'modal', 'data-target'=>'#myModal'))}}
+            {{Form::reset('Limpiar formato', ['class' => 'btn btn-warning btn-block col-md-6 col-sm-6','tabindex'=>'14'])}}
         </div>
     {{Form::close()}}
 </div>
