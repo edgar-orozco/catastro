@@ -29,7 +29,7 @@
 <div class="panel panel-default">
 	<div class="panel-heading">
 
-		<h4 class="panel-title">Reporte Total de Folios </h4>
+		<h4 class="panel-title" style="display: inline-block;">Reporte Total de Folios: </h4>
 		<a href="formatoreportetotal" target="_blank" class="btn btn-xs btn-warning" title="Reimprimir"><i class="glyphicon glyphicon-print"></i></a></p>
 
 
@@ -57,9 +57,9 @@
 						<td align="center">{{$folios->fecha_oficio}}</td>
 						<td align="center">{{$folios->folios_urbanos}}</td>
 						<td align="center">{{$folios->folios_rustico}}</td>
-						<td align="center">$ {{number_format($folios->total_urbano, '2')}}</td>
-						<td align="center">$ {{number_format($folios->total_rustico, '2')}}</td>
-						<td align="center">$ {{number_format($folios->total,'2')}}</td>
+						<td class="text-left">$ {{number_format($folios->total_urbano, '2')}}</td>
+						<td class="text-left">$ {{number_format($folios->total_rustico, '2')}}</td>
+						<td class="text-left">$ {{number_format($folios->total,'2')}}</td>
 					</tr>
 				@endforeach
 			</tbody>
