@@ -35,6 +35,7 @@
                 {{$errors->first('solicitante[rfc]', '<span class=text-danger>:message</span>')}}
             </div>
         </div>
+        <br/>
         <div class="row">
             <div class="col-md-4">
                 {{Form::label('solicitante[nombres]','Nombre')}}
@@ -52,6 +53,7 @@
                 {{$errors->first('solicitante[apellido_materno]', '<span class=text-danger>:message</span>')}}
             </div>
         </div>
+        <br/>
         <div class="row">
             <div class="col-md-4">
                 {{Form::label('solicitante[tipo_telefono]','Tipo Telefono')}}
@@ -69,6 +71,7 @@
                 {{$errors->first('solicitante[correo]', '<span class=text-danger>:message</span>')}}
             </div>
         </div>
+        <br/>
         <div class="col-md-12">
            {{Form::label('solicitante[direccion]','Dirección')}} 
            {{Form::text('solicitante[direccion]', null, ['id'=>'direccion','placeholder'=>'Dirección del Solicitante','tabindex'=>'12','class'=>'form-control', 'autofocus'=> 'autofocus', 'required' => 'required', 'ng-model' => 'solicitante.direccion', 'tb-focus' => 'focusForm', 'ng-blur' => 'focusForm = false'] )}}
