@@ -104,7 +104,7 @@ body, html{
 
 
 .search-header .form-group input {
-    padding: 17px;
+    padding: 12px;
     width: 254px;
     border: none;
     background: none;
@@ -113,7 +113,7 @@ body, html{
 }
 
 .search-header .form-group a.btn.btn-warning ,.search-header .form-group a.btn.btn-warning:hover{
-    height: 58px;
+    height: 48px;
     margin: 0;
     vertical-align: top;
     padding: 10px;
@@ -128,7 +128,7 @@ body, html{
 }
 
 .search-header .form-group a.btn .glyphicon{
-    line-height: 32px;
+    line-height: 29px;
 }
 
 .search-header .form-group input::-webkit-input-placeholder { color:#fff; }
