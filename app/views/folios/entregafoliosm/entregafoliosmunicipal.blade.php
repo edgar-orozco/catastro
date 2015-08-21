@@ -35,8 +35,8 @@
 					<td>{{$aliasperitos->corevat}}</td>
 					<td>{{$aliasperitos->nombre}}</td>
 					<td>
-						<a href="/entregafoliosm/urbanos/{{$aliasperitos->id}}" class="btn btn-xs btn-success" title="Folios Urbanos">U</a>
-						<a href="/entregafoliosm/rusticos/{{$aliasperitos->id}}" class="btn btn-xs btn-success" title="Folios Rústicos">R</a>
+						<a href="/entregafoliosm/urbanos/{{$aliasperitos->id}}" class="btn btn-actionForm01 btn-success" title="Folios Urbanos">U</a>
+						<a href="/entregafoliosm/rusticos/{{$aliasperitos->id}}" class="btn btn-actionForm01 btn-success" title="Folios Rústicos">R</a>
 					</td>
 				</tr>
 				@endforeach

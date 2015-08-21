@@ -40,9 +40,9 @@
 					<td>{{$aliasperitos->nombre}}</td>
 					<td>
 						
-						<a href="/entregafoliose/detalles/{{$aliasperitos->id}}" class="btn btn-xs btn-info" title="Detalles"><i class="glyphicon glyphicon-info-sign" ></i></a>
-						<a href="/entregafoliose/urbanos/{{$aliasperitos->id}}" class="btn btn-xs btn-success" title="Folios Urbanos">U</a>
-						<a href="/entregafoliose/rusticos/{{$aliasperitos->id}}" class="btn btn-xs btn-success" title="Folios Rústicos">R</a>
+						<a href="/entregafoliose/detalles/{{$aliasperitos->id}}" class="btn btn-actionForm01 btn-info" title="Detalles"><i class="glyphicon glyphicon-info-sign" ></i></a>
+						<a href="/entregafoliose/urbanos/{{$aliasperitos->id}}" class="btn btn-actionForm01 btn-success" title="Folios Urbanos">U</a>
+						<a href="/entregafoliose/rusticos/{{$aliasperitos->id}}" class="btn btn-actionForm01 btn-success" title="Folios Rústicos">R</a>
 					</td>
 				</tr>
 				@endforeach
