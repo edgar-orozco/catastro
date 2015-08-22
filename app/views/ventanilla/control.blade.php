@@ -219,18 +219,26 @@
                     $('.campos-fisica').show();
                     //Habilitamos el autocomplete del curp
                     $("#curp").autocomplete("enable");
+                    $("#curp").attr("required",true);
+
                     //Deshabilitamos el autocomplete del rfc
                     $("#rfc").autocomplete("disable");
+                    $("#rfc").attr("required",true);
+
                     $('#rfc').attr('pattern', '([A-Za-z]{4})([0-9]{6})([A-Za-z0-9]{3})');
                     $('.tipo_persona').val('F');
                 }
                 else if(radio.val() == 'M')
                 {
                     $('.campos-fisica').hide();
-                    //Habilitamos el autocomplete del curp
+                    //Deshabilitamos el autocomplete del curp
                     $("#curp").autocomplete("disable");
-                    //Deshabilitamos el autocomplete del rfc
+                    $("#curp").removeAttr("required");
+
+                    //Habilitamos el autocomplete del rfc
                     $("#rfc").autocomplete("enable");
+                    $("#rfc").attr("required",true);
+
                     $('#rfc').attr('pattern', '([A-Za-z]{3})([0-9]{6})([A-Za-z0-9]{3})');
                     $('.tipo_persona').val('M');
                 }
@@ -269,6 +277,8 @@
 
             //por default es persona física por lo que el autocomplete lo deshabilitamos
             $("#rfc").autocomplete("disable");
+            $("#rfc").attr('required', true);
+            $("#curp").attr('required', true);
 
         });
     </script>
