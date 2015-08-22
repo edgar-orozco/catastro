@@ -26,10 +26,10 @@ class OficinaVirtualNotarioController extends \BaseController
     public function index()
     {
         //
-        $title = 'Listas de traslados de dominio';
+        $title = 'Traslado de dominio';
 
         //Título de sección:
-        $title_section = "Listado de Traslados de Dominio. ";
+        $title_section = "Traslado de Dominio.";
 
         //Subtítulo de sección:
         $subtitle_section = "Crear, modificar, buscar, imprimir.";
