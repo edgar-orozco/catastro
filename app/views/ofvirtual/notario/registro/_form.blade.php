@@ -101,7 +101,7 @@
         <!--<div class="row">-->
         {{--adquiriente --}}
         <div class="form-group col-md-6">
-            <h3> Aquiriente </h3>
+            <h3> Adquiriente </h3>
 <div class=" form-group " >
 
     {{--Form::text('adquiriente', null, ['class' => 'form-control'] )--}}
