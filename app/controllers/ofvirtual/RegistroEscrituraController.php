@@ -23,10 +23,10 @@ protected $padron;
 	public function getIndex()
 	{
 		  //
-        $title = 'Listas de Registro de Escritura';
+        $title = 'Registro de Escrituras';
 
         //Título de sección:
-        $title_section = "Listado de Registros de Escritura. ";
+        $title_section = "Registro de Escrituras. ";
 
         //Subtítulo de sección:
         $subtitle_section = "Crear, modificar, buscar, imprimir.";
