@@ -40,8 +40,8 @@
             <li class="divider"></li>
 
 
-            <li class="@if(Request::is('catalogos/peritos/tablaperitos')) active @endif">
-                <a href="{{URL::to('catalogos/peritos/tablaperitos')}}">
+            <li class="@if(Request::is('catalogos/peritos/index')) active @endif">
+                <a href="{{URL::to('catalogos/peritos/index')}}">
                 <i class="glyphicon glyphicon-user"></i>&nbsp;
                     Peritos
                 </a>

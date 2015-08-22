@@ -47,6 +47,7 @@ Route::group(array('before'=>'Folios'),  function (){
 			Route::resource('catalogos/usuarios', 'folios_CatUsuariosController');
 			Route::get('catalogos/usuarios/status/{id}', 'folios_CatUsuariosController@status');
 	 		
+	 		Route::get('catalogos/peritos/index', 'folios_PeritosController@index');
 	 		Route::get('catalogos/peritos/tablaperitos', 'folios_PeritosController@tablaperitos');
 	 		Route::get('catalogos/peritos/estado/{id}', 'folios_PeritosController@DesPerito');
 	 		Route::get('catalogos/peritos/nuevoPerito', 'folios_PeritosController@get_nuevoPerito');

@@ -7,8 +7,7 @@ Actualización de Peritos
 
 
 @section('corevat')
-{{ Form::open(array('url' => 'catalogos/peritos/actPerito')) }}
-{{ Form::textarea('corevat', $variableperito->corevat, array('cols'=>'30', 'rows'=>'1'), ['class'=>'form-control'])}}
+{{ Form::textarea('corevat', $variableperito->corevat, array('cols'=>'60', 'rows'=>'1'), ['class'=>'form-control'])}}
 {{$errors->first("corevat")}}
 @stop
 
@@ -24,8 +23,6 @@ Actualización de Peritos
 
 @section('direccion')
 {{ Form::textarea('direccion', $variableperito->direccion, array('cols'=>'60', 'rows'=>'3'), ['class'=>'form-control'])}}
-<br>{{$errors->first("direccion")}}
-<br>
 @stop
 
 
@@ -43,5 +40,4 @@ Actualización de Peritos
 
 @section('boton')
 <input class="btn btn-primary" type="submit" value="Actualizar">
-{{ Form::close()}}
 @stop

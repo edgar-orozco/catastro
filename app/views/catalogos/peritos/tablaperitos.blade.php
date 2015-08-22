@@ -1,28 +1,3 @@
-@extends('layouts.default')
-
-   <!--Agrego para el datatable-->
-    {{ HTML::style('/css/bootstrap.min.css') }}
-    {{ HTML::style('/css/dataTables.bootstrap.css') }}
-
-
-
-
-@section('content')
-
-
-<div class="page-header">
-    <h3>Catalogo de Peritos</h3>
-</div>
-<div class="row" style="background: #ECECEC;">
-    <div class="btn-beside-title col-md-2 col-md-offset-10">
-        <a href="/catalogos/peritos/nuevoPerito" class="btn btn-primary nuevo"   title="Nuevo Perito">
-            <span class="glyphicon glyphicon-plus-sign"></span>
-            Nuevo Perito
-        </a>
-    </div>
-</div>
-<br/>
-<br/>
 
 
 <div class="panel panel-default">
@@ -51,7 +26,7 @@
 					<td>{{$datosperitos->nombre}}</td>
 					<td>{{$datosperitos->direccion}} </td>
 					<td>
-						<a href="actPerito/{{$datosperitos->id}}" class="btn btn-actionForm01 btn-info nuevo" title="Editar"><i class="glyphicon glyphicon-pencil"></i></a>
+						<a href="actPerito/{{$datosperitos->id}}" class="btn btn-actionForm01 btn-info editar" title="Editar"><i class="glyphicon glyphicon-pencil"></i></a>
 						@if($datosperitos->Estado == "1" )
 							<a class="habilitar btn btn-actionForm01 btn-success" id="habilitar" href="estado/{{$datosperitos->id}}" title="Deshabilitar"><i class="glyphicon glyphicon-ok"></i></a>
 						@else
@@ -81,69 +56,3 @@
     	</div>
   	</div>
 </div>
-
-
-
-@stop
-
-@section('javascript')
-
-{{ HTML::script('/js/jquery/jquery.dataTables.min.js') }}
-{{ HTML::script('/js/jquery/dataTables.bootstrap.js')}}
-
-
-<script type="text/javascript">
-
-
-
-	$(document).ready(function(){
-
-		$('#example').dataTable( {
-        "language": {
-            "lengthMenu": "Mostrar _MENU_ Registros por pagina",
-            "zeroRecords": "No se encontraron registros",
-            "info": "Mostrando pagina _PAGE_ de _PAGES_",
-            "infoEmpty": "No hay registros","search": "Filter records:",
-            "search": "Buscar:",
-            "infoFiltered": "(Filtrado en _MAX_ total de registros)",
-            "oPaginate": {
-		      "sPrevious": "Anterior",
-		      "sNext": "Siguiente"
-		    }
-        }
-    } );
-		
-
-	 $("body").delegate('.habilitar', 'click', function(){
-	    	if(!confirm("¿Seguro que quiere deshabilitar este perito?")){
-	    		return false;
-	    	}
-	    });
-	    $("body").delegate('.deshabilitar', 'click', function(){
-	    	if(!confirm("¿Seguro que quiere habilitar este perito?")){
-	    		return false;
-	    	}
-
-	});
-
-	  
-
-	     $("body").delegate('.nuevo', 'click', function(){
-
-	    	var href = $(this).attr('href');
-			
-			$('#modalBody').html(' <object data="'+href+'" type="application/pdf" width="100%" height="705"></object>')
-			$('#modal-footer').html('');
-			$('#myModal').modal('toggle');
-			
-
-			return false;
-
-	});
-
-
-
-});
-
-	</script>
-@stop

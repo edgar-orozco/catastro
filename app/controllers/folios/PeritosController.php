@@ -6,7 +6,25 @@ class folios_PeritosController extends BaseController {
 
 	protected $por_pagina = 10;
 
-	public function tablaperitos(){ //muestra todos los peritos
+	public function index()
+	{ //muestra todos los peritos
+
+		
+		$variableperito = Perito::all();
+
+		if(Auth::user()->tipo_id == 2){
+
+			$variableperito->where('Estado', 1);
+
+		}
+
+		
+
+		return View::make('catalogos.peritos.index', ['variableperito' => $variableperito]);
+	}
+
+	public function tablaperitos()
+	{ //muestra todos los peritos
 
 		
 		$variableperito = Perito::all();
@@ -94,7 +112,7 @@ class folios_PeritosController extends BaseController {
 		//En caso de que no pase la validacion se regresa a la pagina cargando los mensajes de validacion
 		if ($validar->fails())
 		{
-			return Redirect::back()->withErrors($validar);
+			return Redirect::to('/catalogos/peritos/index')->with('error',"No se pudo guardar el perito correctamente");
 		} 
 		else
 		{
@@ -112,7 +130,7 @@ class folios_PeritosController extends BaseController {
 				//Guarda
     			$perito->save();
 
-    			echo("Dato ctualizado correctamente ");
+    			return Redirect::to('/catalogos/peritos/index')->with('success',"Perito actualizado correctamente");
 			}
 			else
 			{
@@ -127,7 +145,7 @@ class folios_PeritosController extends BaseController {
 				//Guarda
 				$perito->save();
 
-				echo ("Dato Guardado correctamente");
+				return Redirect::to('/catalogos/peritos/index')->with('success',"Perito guardado correctamente");
 			}
 		}
 	}
