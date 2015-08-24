@@ -111,6 +111,7 @@
             "infoEmpty": "No hay registros","search": "Filter records:",
             "search": "Buscar:",
             "infoFiltered": "(Filtrado en _MAX_ total de registros)",
+            "searchPlaceholder": "Búsqueda General",
             "oPaginate": {
 		      "sPrevious": "Anterior",
 		      "sNext": "Siguiente"
