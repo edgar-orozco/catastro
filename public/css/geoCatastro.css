@@ -16,8 +16,10 @@ body, html{
 h2.title-module{
     display: block;
     text-align: center;
-    font-size: 28px;
+    font-size: 48px;
     font-weight: bold;
+    padding-bottom: 40px;
+    color: #3C3C3C;
 }
 
 .container{
