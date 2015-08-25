@@ -11,7 +11,7 @@
     <div class="panel-heading" style="padding: 0;">
         <div class="col-md-offset-7 col-md-3 col-sm-3 col-xs-3 btn-beside-title">
             <a href="{{action('printAvaluosByValuador')}}" class="btn btn-success nuevo" title="Avalúos por Valuador" target="_blank">
-                <span class="glyphicon glyphicon-user"></span>
+                <span class="glyphicon glyphicon-briefcase"></span>
                 Últimos Avalúos
             </a>
         </div>
