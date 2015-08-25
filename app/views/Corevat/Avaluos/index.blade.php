@@ -12,7 +12,7 @@
         <div class="col-md-offset-7 col-md-3 col-sm-3 col-xs-3 btn-beside-title">
             <a href="{{action('printAvaluosByValuador')}}" class="btn btn-success nuevo" title="Avalúos por Valuador" target="_blank">
                 <span class="glyphicon glyphicon-user"></span>
-                Avalúos por Valuador
+                Últimos Avalúos
             </a>
         </div>
         <div class="col-md-2 col-sm-2 col-xs-2 btn-beside-title" style="border-left:1px solid gray;">
