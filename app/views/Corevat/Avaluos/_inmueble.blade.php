@@ -30,13 +30,13 @@
 
 	<div class="col-md-12"><h3>Medidas y Colindancias</h3></div>
 	<div class="col-md-10 col-sm-10 col-xs-10"><h4>Detalles de Medidas y Colindancias</h4></div>
-    <br/>
+
     <div class="col-md-2 col-sm-2 col-xs-2 btn-beside-title">
         <a class="btn nuevo" id="btnNew" title="Nuevo Avaluo">
             <span class="glyphicon glyphicon-plus-sign"></span> Nuevo
         </a>
     </div>
-	
+    <br/>
 	<div class="col-md-12" style="margin-top: 10px;">
 		{{Form::label('segun', 'Según')}}
 		{{Form::text('segun', $row->segun, ['class'=>'form-control', 'required' => 'required', 'maxlength' => '150'])}}
