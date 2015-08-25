@@ -6,8 +6,12 @@
 	<div class="col-md-12"><h2>Venta de Terrenos</h2></div>
 	<div class="col-md-12">&nbsp;</div>
 
-	<div class="col-md-11"><h3>Investigación de Terrenos Comparables</h3></div>
-	<div class="col-md-1"><a class="btn btn-primary nuevo" id="btnNewAemComp" title="Nuevo Registro">Nuevo</a></div>
+    <div class="col-md-10 col-sm-10 col-xs-10"><h4>Investigación de Terrenos Comparables</h4></div>
+    <div class="col-md-2 col-sm-2 col-xs-2 btn-beside-title">
+        <a class="btn btn-primary nuevo" id="btnNewAemComp" title="Nuevo Registro">
+            <span class="glyphicon glyphicon-plus-sign"></span> Nuevo
+        </a>
+    </div>
 	<div class="col-md-12">
 		<table cellpadding="0" cellspacing="0" border="0" class="table datatable table-striped" id="aemCompTerrenosDataTable">
 			<thead>
