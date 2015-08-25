@@ -246,6 +246,7 @@ class AvaluosInmueble extends \Eloquent {
 		$row->electricas = $inputs["electricas"];
 		$row->carpinteria = $inputs["carpinteria"];
 		$row->herreria = $inputs["herreria"];
+		$row->segun = $inputs["segun"];
 
 		$row->superficie_total_terreno = $inputs["superficie_total_terreno"]=='' ? 0 : $inputs["superficie_total_terreno"];
 		$row->indiviso_terreno = $inputs["indiviso_terreno"]=='' ? 0 : $inputs["indiviso_terreno"];
