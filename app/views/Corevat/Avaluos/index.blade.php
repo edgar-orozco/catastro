@@ -10,7 +10,7 @@
     </h3>
     <div class="panel-heading" style="padding: 0;">
         <div class="col-md-offset-7 col-md-3 col-sm-3 col-xs-3 btn-beside-title">
-            <a href="{{action('printAvaluosByValuador')}}" class="btn btn-primary nuevo" title="Avalúos por Valuador" target="_blank">
+            <a href="{{action('printAvaluosByValuador')}}" class="btn btn-success nuevo" title="Avalúos por Valuador" target="_blank">
                 <span class="glyphicon glyphicon-user"></span>
                 Avalúos por Valuador
             </a>
