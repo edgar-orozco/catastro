@@ -31,12 +31,14 @@ h3{
     margin: 0 0 20px 0;
 }
 .coveratCont label{
-    color: #2E6DA4;
+    z-index: 10;
+    color: white;
     font-size: 18px;
-    font-weight: 500;
+    font-weight: 300;
     text-align: right;
-    background: rgba(42, 100, 150, 0.26);
-    padding: 0 5px 0 0 !important;
+    background: rgb(103, 144, 179);
+    padding: 4px 12px !important;
+    margin-right: -15px;
 }
 .coveratCont .hasDatepicker{
     cursor: pointer !important;
@@ -55,7 +57,7 @@ h3{
     border: none !important;
     width: 100% !important;
     background: #eee;
-    border-radius: 0;
+    border-radius: 0 !important;
 }
 
 .coveratCont .cords input{
