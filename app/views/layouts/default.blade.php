@@ -85,6 +85,9 @@
                                 <i class="glyphicon glyphicon-home"></i>
                                 Inicio
                             </a>
+                            &nbsp;
+                            |
+                            &nbsp;
                         </li>
 
                         @yield('menu', App::make('Menu'))
