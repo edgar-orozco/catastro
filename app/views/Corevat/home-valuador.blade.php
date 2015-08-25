@@ -44,12 +44,12 @@
                         </div>
                         <div class="col-xs-9 text-right">
                             <div class="huge"></div>
-                            <div>Listado de avalúos</div>
+                            <div style="text-align: right; font-size: 24px; padding-left: 3px;">Listado de avalúos</div>
                         </div>
                     </div>
                 </div>
                 <div class="panel-footer" style="background: #2e6da4; color:white;">
-                    <span class="pull-left" style="text-align: right; font-size: 24px; padding-left: 3px;">Listar Avalúos</span>
+                    <span class="pull-left">Listar Avalúos</span>
                     <span class="pull-right"><i class="glyphicon glyphicon-circle-arrow-right"></i></span>
 
                     <div class="clearfix"></div>
