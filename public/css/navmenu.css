@@ -37,7 +37,7 @@
 .navbar-custom .navbar-nav > .active > a:hover,
 .navbar-custom .navbar-nav > .active > a:focus {
     color: #bfbfbf;
-    background-color: black;
+    background-color: #F27007;
 }
 
 .navbar-custom .navbar-nav > .disabled > a,
