@@ -10,14 +10,15 @@ class ClavesCobro extends Migration {
      *
      * @return void
      */
-    public function up()
-        {
-        Schema::table('claves_cobros', function(Blueprint $table)
-        {
+    public function up() {
+        Schema::create('claves_cobros', function(Blueprint $table) {
             $table->increments('id_tipocobro');
-            $table->string('nombre_tramite');
+            $table->string('tipocobro');
+            $table->string('nombre');
             $table->string('referencia');
+            $table->string('observacion');
             $table->string('folio');
+            $table->string('no_licencia');
         });
     }
 
