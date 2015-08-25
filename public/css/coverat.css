@@ -115,7 +115,6 @@ h4{
 
 .btn-beside-title{
     margin-top: 10px;
-    margin-left: -15px;
     padding: 0;
 }
 .btn-beside-title a {
@@ -154,9 +153,6 @@ table th{
 }
 
 
-#listAvaluos .btn-beside-title{
-    margin-top: 0;
-}
 #inmueblesCoverat .dataTables_length{
     padding: 32px 0;
 }
@@ -166,7 +162,9 @@ table th{
     padding: 20px 0;
 }
 
-
+#listAvaluos .panel-body{
+    padding: 15px 0;
+}
 
 
 /* Alerts */
