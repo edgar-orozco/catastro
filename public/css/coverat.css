@@ -30,7 +30,7 @@ h3{
     font-weight: 300;
     margin: 0 0 20px 0;
 }
-.coveratCont label{
+label{
     z-index: 10;
     color: white;
     font-size: 18px;
@@ -52,7 +52,7 @@ h3{
 .coveratCont div[class^='col-md-'], .coveratCont div[class*=' col-md-']{
     margin-bottom: 5px;
 }
-input, select{
+input, select, textarea{
     box-shadow: none !important;
     border: none !important;
     width: 100% !important;
