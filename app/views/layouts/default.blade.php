@@ -81,13 +81,10 @@
                 <div id="navbarCollapse" class="collapse navbar-collapse">
                     <ul class="nav navbar-nav">
                         <li class="@if(Request::is('/')) active @endif">
-                            <a href="{{URL::to('/')}}">
+                            <a href="{{URL::to('/')}}" style="color: #337ab7;">
                                 <i class="glyphicon glyphicon-home"></i>
                                 Inicio
                             </a>
-                            &nbsp;
-                            |
-                            &nbsp;
                         </li>
 
                         @yield('menu', App::make('Menu'))
@@ -96,7 +93,7 @@
 
                     <ul class="nav navbar-nav navbar-right">
                         <li class="dropdown">
-                            <a data-toggle="dropdown" class="dropdown-toggle" href="#">
+                            <a data-toggle="dropdown" class="dropdown-toggle" href="#" style="color: #337ab7;">
                                 <i class="glyphicon glyphicon-user"></i>
                                 Opciones
                                 <b class="caret"></b>
@@ -107,7 +104,7 @@
                             </ul>
                         </li>
                         <li>
-                            <a href="#" data-toggle="modal" data-target="#confirm-logout" title="Salir del sistema">
+                            <a href="#" data-toggle="modal" data-target="#confirm-logout" style="color: #337ab7;" title="Salir del sistema">
                                 <i class="glyphicon glyphicon-log-out"></i>
                                 Cerrar Sesion
                             </a>
