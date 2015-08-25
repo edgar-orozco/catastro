@@ -12,6 +12,14 @@ body, html{
     margin: 0;
 }
 
+
+h2.title-module{
+    display: block;
+    text-align: center;
+    font-size: 28px;
+    font-weight: bold;
+}
+
 .container{
     width: 100%;
     max-width: inherit;

@@ -5,7 +5,7 @@
 @stop
 
 @section('content')
-
+    <h2 class="title-module">Módulo de Peritos</h2>
     <div class="page-header">
         <h2>Bienvenid@
             <small>{{Auth::user()->nombreCompleto()}}</small>
