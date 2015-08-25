@@ -83,6 +83,7 @@
                         <li class="@if(Request::is('/')) active @endif">
                             <a href="{{URL::to('/')}}">
                                 <i class="glyphicon glyphicon-home"></i>
+                                Inicio
                             </a>
                         </li>
 
@@ -94,6 +95,7 @@
                         <li class="dropdown">
                             <a data-toggle="dropdown" class="dropdown-toggle" href="#">
                                 <i class="glyphicon glyphicon-user"></i>
+                                Opciones
                                 <b class="caret"></b>
                             </a>
                             <ul role="menu" class="dropdown-menu">
@@ -104,6 +106,7 @@
                         <li>
                             <a href="#" data-toggle="modal" data-target="#confirm-logout" title="Salir del sistema">
                                 <i class="glyphicon glyphicon-log-out"></i>
+                                Cerrar Sesion
                             </a>
                         </li>
                     </ul>
