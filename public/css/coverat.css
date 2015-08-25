@@ -52,7 +52,7 @@ h3{
 .coveratCont div[class^='col-md-'], .coveratCont div[class*=' col-md-']{
     margin-bottom: 5px;
 }
-.coveratCont input, .coveratCont select{
+input, select{
     box-shadow: none !important;
     border: none !important;
     width: 100% !important;
