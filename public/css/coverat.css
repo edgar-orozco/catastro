@@ -31,11 +31,14 @@ h3{
     margin: 0 0 20px 0;
 }
 .coveratCont label{
-    color: #515152;
+    z-index: 10;
+    color: white;
     font-size: 18px;
-    font-weight: 500;
+    font-weight: 300;
     text-align: right;
-    padding: 0 5px 0 0 !important;
+    background: rgb(103, 144, 179);
+    padding: 4px 12px !important;
+    margin-right: -15px;
 }
 .coveratCont .hasDatepicker{
     cursor: pointer !important;
@@ -49,14 +52,12 @@ h3{
 .coveratCont div[class^='col-md-'], .coveratCont div[class*=' col-md-']{
     margin-bottom: 5px;
 }
-.coveratCont div.col-md-10, .coveratCont div.col-md-8{
-    background: #eee;
-}
 .coveratCont input, .coveratCont select{
     box-shadow: none !important;
-    background: none;
     border: none !important;
     width: 100% !important;
+    background: #eee;
+    border-radius: 0 !important;
 }
 
 .coveratCont .cords input{
