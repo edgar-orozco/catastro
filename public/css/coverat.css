@@ -39,6 +39,8 @@ label{
     background: rgb(103, 144, 179);
     padding: 4px 12px !important;
     margin-right: -15px;
+    display: block;
+    width: 100%;
 }
 .coveratCont .hasDatepicker{
     cursor: pointer !important;
@@ -56,7 +58,7 @@ input, select, textarea{
     box-shadow: none !important;
     border: none !important;
     width: 100% !important;
-    background: #eee;
+    background: #eee !important;
     border-radius: 0 !important;
 }
 
@@ -83,7 +85,7 @@ input, select, textarea{
     padding: 10px 15px;
 }
 h4{
-    background-color: #ECECEC;
+    background-color: #C3C3C3;
     padding: 20px;
     color: #131313;
     margin-bottom: 0;
