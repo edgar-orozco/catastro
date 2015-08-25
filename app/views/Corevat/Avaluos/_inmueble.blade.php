@@ -346,11 +346,13 @@
 		</table>
 		<div class="col-md-12">&nbsp;</div>
 		<hr>
-		<div class="col-md-6 form-actions">
-			{{Form::submit('Guardar', ['class'=>'btn btn-coveratSecondary'])}}
-		</div>
+
+
         <div class="col-md-6 form-actions">
-            <a href="{{URL::route('indexAvaluos')}}" class="btn btn-coveratPrincipal" role="button"><i class="glyphicon glyphicon-arrow-left"></i> Regresar</a>
+            <a href="{{URL::route('indexAvaluos')}}" class="btn btn-coveratSecondary" role="button"><i class="glyphicon glyphicon-arrow-left"></i> Regresar</a>
+        </div>
+        <div class="col-md-6 form-actions">
+			{{Form::submit('Guardar', ['class'=>'btn btn-coveratPrincipal'])}}
         </div>
 	</div>
 </div>
