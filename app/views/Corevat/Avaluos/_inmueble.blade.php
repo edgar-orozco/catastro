@@ -257,6 +257,7 @@
 	<div class="col-md-12">
 		<h4>Otros datos</h4>
 	</div>
+    <br/><br/>
 	<div class="col-md-12">&nbsp;</div>
 
 	<div class="col-md-12">

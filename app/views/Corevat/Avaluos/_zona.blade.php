@@ -107,7 +107,7 @@
     </div>
 
     <h4>Otros datos</h4>
-
+    <br/><br/>
 	<div class="col-md-12">
 		{{Form::label('cobertura', 'Cobertura')}}
 		{{Form::text('cobertura', $row->cobertura, ['class'=>'form-control', 'maxlength'=>'250'])}}
