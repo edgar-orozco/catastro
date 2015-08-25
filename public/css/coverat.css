@@ -41,6 +41,7 @@ label{
     margin-right: -15px;
     display: block;
     width: 100%;
+    margin-bottom: 0;
 }
 .coveratCont .hasDatepicker{
     cursor: pointer !important;
