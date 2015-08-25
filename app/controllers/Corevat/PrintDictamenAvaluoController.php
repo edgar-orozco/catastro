@@ -146,7 +146,7 @@ class corevat_PrintDictamenAvaluoController extends \BaseController {
 	public function printAvaluo($id) {
 		require 'NumberToLetterConverter.php';
 		$nFont = 6;
-
+		$pagina = 0;
 		$rs = Avaluos::getAvaluo($id);
 		$pdf = new Fpdf('P', 'mm', 'Letter');
 		$pdf->AliasNbPages();
@@ -552,11 +552,13 @@ class corevat_PrintDictamenAvaluoController extends \BaseController {
 
 		// Línea 1
 		$pdf->Ln(75);
-		$pdf->setX(5);
-		$pdf->Cell(206, $nFont, utf8_decode('Según: ' . $in->segun), 'TLBR', 1, 'L', 0);
 		
 		$pdf->setX(5);
 		$pdf->Cell(206, $nFont, utf8_decode('A) MEDIDAS Y COLINDANCIAS'), 'TLBR', 1, 'L', 0);
+		
+		$pdf->setX(5);
+		$pdf->Cell(206, $nFont, utf8_decode('Según: ' . $in->segun), 'TLBR', 1, 'L', 0);
+		
 		$pdf->setX(5);
 		$pdf->SetFont('Arial', 'B', 8);
 		$pdf->SetFont('Arial', '', 6);
