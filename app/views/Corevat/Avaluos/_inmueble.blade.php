@@ -36,6 +36,7 @@
             <span class="glyphicon glyphicon-plus-sign"></span> Nuevo
         </a>
     </div>
+    <div class="clearfix"></div>
     <br/>
 	<div class="col-md-12" style="margin-top: 10px;">
 		{{Form::label('segun', 'Según')}}
