@@ -223,7 +223,7 @@
                 event.preventDefault();
             }
 
-            if (event.keyCode == 46 || event.keyCode == 8 || event.keyCode == 189 || event.keyCode == 109 || event.keyCode==9) {
+            if (event.keyCode == 46 || event.keyCode == 8  || event.keyCode == 109 || event.keyCode==9) {
             }
             else {
                 if (event.keyCode < 95) {
@@ -246,7 +246,7 @@
                 event.preventDefault();
             }
 
-            if (event.keyCode == 46 || event.keyCode == 8 || event.keyCode == 189 || event.keyCode == 109 || event.keyCode==9) {
+            if (event.keyCode == 46 || event.keyCode == 8  || event.keyCode == 109 || event.keyCode==9) {
             }
             else {
                 if (event.keyCode < 95) {
