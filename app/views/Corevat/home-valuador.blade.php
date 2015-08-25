@@ -35,10 +35,9 @@
                 </div>
             </a>
         </div>
-
         <div class="col-lg-3 col-md-6">
             <a href="{{URL::to('corevat/Avaluos')}}" class="panel panel-info" style="border: none; display: inline-block;">
-                <div class="panel-heading">
+                <div class="panel-heading" style="background:#337ab7; color:white;">
                     <div class="row">
                         <div class="col-xs-3">
                             <i class="glyphicon glyphicon-eye-open gi-5x"></i>
@@ -49,7 +48,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="panel-footer">
+                <div class="panel-footer" style="background: #2e6da4; color:white;">
                     <span class="pull-left" style="text-align: right; font-size: 24px; padding-left: 3px;">Listar Avalúos</span>
                     <span class="pull-right"><i class="glyphicon glyphicon-circle-arrow-right"></i></span>
 
