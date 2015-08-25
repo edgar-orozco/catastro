@@ -3,7 +3,7 @@
 {{ HTML::style('/css/bootstrap.min.css') }}
 {{ HTML::style('/css/coverat.css') }}
 {{ HTML::style('/js/jquery/jquery-ui.css') }}
-<h3>Crear Nuevo Avalúo</h3>
+<h3 style="display: block; text-align: center;">Crear Nuevo Avalúo</h3>
     @if( $errors->all() )
         <div class="alert alert-danger">
 			@foreach($errors->all() as $error )
