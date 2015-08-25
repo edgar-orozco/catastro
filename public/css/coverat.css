@@ -49,7 +49,7 @@ h3{
 .coveratCont div[class^='col-md-'], .coveratCont div[class*=' col-md-']{
     margin-bottom: 5px;
 }
-.coveratCont div.col-md-10, .coveratCont div.col-md-8{
+.coveratCont input, .coveratCont select{
     background: #eee;
 }
 .coveratCont input, .coveratCont select{
