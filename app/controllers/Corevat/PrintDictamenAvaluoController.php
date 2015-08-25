@@ -146,7 +146,7 @@ class corevat_PrintDictamenAvaluoController extends \BaseController {
 	public function printAvaluo($id) {
 		require 'NumberToLetterConverter.php';
 		$nFont = 6;
-
+		$pagina = 0;
 		$rs = Avaluos::getAvaluo($id);
 		$pdf = new Fpdf('P', 'mm', 'Letter');
 		$pdf->AliasNbPages();
@@ -551,9 +551,14 @@ class corevat_PrintDictamenAvaluoController extends \BaseController {
 		}
 
 		// Línea 1
-		$pdf->Ln(80);
+		$pdf->Ln(75);
+		
 		$pdf->setX(5);
 		$pdf->Cell(206, $nFont, utf8_decode('A) MEDIDAS Y COLINDANCIAS'), 'TLBR', 1, 'L', 0);
+		
+		$pdf->setX(5);
+		$pdf->Cell(206, $nFont, utf8_decode('Según: ' . $in->segun), 'TLBR', 1, 'L', 0);
+		
 		$pdf->setX(5);
 		$pdf->SetFont('Arial', 'B', 8);
 		$pdf->SetFont('Arial', '', 6);
@@ -977,7 +982,7 @@ class corevat_PrintDictamenAvaluoController extends \BaseController {
 		$pdf->SetFont('Arial', 'B', 12);
 		$pdf->SetFillColor(164, 164, 164);
 		$pdf->setX(5);
-		$pdf->Cell(206, $nFont, utf8_decode('ENFOQUE DE FÍSICO'), 'TLBR', 1, 'C', 1);
+		$pdf->Cell(206, $nFont, utf8_decode('ANÁLISIS FÍSICO'), 'TLBR', 1, 'C', 1);
 		$pdf->setX(5);
 		$pdf->Cell(206, $nFont, utf8_decode('A) TERRENO'), 'BLR', 1, 'L', 0);
 		$pdf->setX(5);
@@ -987,7 +992,7 @@ class corevat_PrintDictamenAvaluoController extends \BaseController {
 		$pdf->Cell(29, $nFont * 2, utf8_decode('Fracción'), 'LB', 0, 'L', 1);
 		$pdf->Cell(29, $nFont * 2, utf8_decode('Superficie m²'), 'BL', 0, 'C', 1);
 		$pdf->Cell(84, $nFont, utf8_decode('Factores de Eficiencia'), 'BL', 0, 'C', 1);
-		$pdf->Cell(25, $nFont * 2, utf8_decode('V. U. Neto'), 'BL', 0, 'C', 1);
+		$pdf->Cell(25, $nFont * 2, utf8_decode('V. R. Neto'), 'BL', 0, 'C', 1);
 		$pdf->Cell(14, $nFont * 2, utf8_decode('Indiviso'), 'BL', 0, 'C', 1);
 		$pdf->Cell(25, $nFont, utf8_decode('Valor'), 'LR', 1, 'C', 1);
 		$pdf->setX(63);
@@ -1146,7 +1151,7 @@ class corevat_PrintDictamenAvaluoController extends \BaseController {
 		$pdf->Cell(14, $nFont, utf8_decode('Cons.'), 'BL', 0, 'C', 1);
 		$pdf->Cell(14, $nFont, utf8_decode('Res.'), 'BLR', 0, 'C', 1);
 		$pdf->setX(186);
-		$pdf->Cell(25, $nFont, utf8_decode('Comunes'), 'BLR', 1, 'C', 1);
+		$pdf->Cell(25, $nFont, utf8_decode('Áreas Comunes'), 'BLR', 1, 'C', 1);
 		$rowsAefCondominios = AefCondominios::AefCondominiosByFk($ff->idavaluoenfoquefisico);
 		$lID = 0;
 		foreach ($rowsAefCondominios as $fila) {

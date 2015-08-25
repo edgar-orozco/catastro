@@ -30,7 +30,7 @@
 		<a class="btn btn-info btn0" id="btn2Zona" href="{{ action('editAvaluoZona',['id'=>$idavaluo])}}" role="button">Zona</a>
 		<a class="btn btn-info btn0" id="btn3Inmueble" href="{{ action('editAvaluoInmueble',['id'=>$idavaluo])}}" role="button">Inmueble</a>
 		<a class="btn btn-info btn0" id="btn3EnfoqueMercado" href="{{ action('editAvaluoEnfoqueMercado',['id'=>$idavaluo])}}" role="button">Enfoque Mercado</a>
-		<a class="btn btn-info btn0" id="btn3EnfoqueFisico" href="{{ action('editAvaluoEnfoqueFisico',['id'=>$idavaluo])}}" role="button">Enfoque Físico</a>
+		<a class="btn btn-info btn0" id="btn3EnfoqueFisico" href="{{ action('editAvaluoEnfoqueFisico',['id'=>$idavaluo])}}" role="button">Análisis Físico</a>
 		<a class="btn btn-info btn0" id="btn3Conclusion" href="{{ action('editAvaluoConclusiones',['id'=>$idavaluo])}}" role="button">Conclusiones</a>
 		<a class="btn btn-info btn0" id="btn3FotoPlano" href="{{ action('editAvaluoFotos',['id'=>$idavaluo])}}" role="button">Fotos y Planos</a>
 		<a class="btn btn-info btn0" id="btn3PrintAvaluo" href="/corevat/AvaluoPrint/{{$row->idavaluo}}" target="_blank" role="button">Imprimir</a>

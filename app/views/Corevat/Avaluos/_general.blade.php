@@ -29,9 +29,9 @@
 	</div>
 	<div class="col-md-12">
 		<div class="form-group">
-			{{Form::label('serie', 'Serie : ', ['class'=>'col-md-2'])}}
+			{{Form::label('serie', 'Tipo de predio : ', ['class'=>'col-md-2'])}}
             <div class="col-md-10">
-			{{Form::select('serie', array('U'=>'Urbano', 'R'=>'Rural'), null, ['id' => 'serie', 'class'=>'form-control', 'tabindex'=>'3', 'style' => 'width:110px'])}}
+			{{Form::select('serie', array('U'=>'Urbano', 'R'=>'Rústico'), null, ['id' => 'serie', 'class'=>'form-control', 'tabindex'=>'3', 'style' => 'width:110px'])}}
             </div>
 		</div>
 	</div>

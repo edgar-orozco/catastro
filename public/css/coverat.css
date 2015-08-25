@@ -18,7 +18,11 @@
     background-color: #337ab7 !important;;
     border-color: #2e6da4 !important;;
 }
-
+.container{
+    width: 100%;
+    max-width: inherit;
+    padding:0 50px;
+}
 h3{
     background: none;
     font-size: 40px;
@@ -27,11 +31,15 @@ h3{
     margin: 0 0 20px 0;
 }
 .coveratCont label{
-    color: #515152;
+    z-index: 10;
+    color: white;
     font-size: 18px;
-    font-weight: 500;
+    font-weight: 300;
     text-align: right;
-    padding: 0 5px 0 0 !important;
+    background: rgb(103, 144, 179);
+    padding: 4px 12px !important;
+    margin-right: -15px;
+    margin-bottom: 0;
 }
 .coveratCont .hasDatepicker{
     cursor: pointer !important;
@@ -45,14 +53,12 @@ h3{
 .coveratCont div[class^='col-md-'], .coveratCont div[class*=' col-md-']{
     margin-bottom: 5px;
 }
-.coveratCont div.col-md-10, .coveratCont div.col-md-8{
-    background: #eee;
-}
-.coveratCont input, .coveratCont select{
+input, select, textarea{
     box-shadow: none !important;
-    background: none;
     border: none !important;
     width: 100% !important;
+    background: #eee !important;
+    border-radius: 0 !important;
 }
 
 .coveratCont .cords input{
@@ -78,7 +84,7 @@ h3{
     padding: 10px 15px;
 }
 h4{
-    background-color: #ECECEC;
+    background-color: #C3C3C3;
     padding: 20px;
     color: #131313;
     margin-bottom: 0;
@@ -111,7 +117,6 @@ h4{
 
 .btn-beside-title{
     margin-top: 10px;
-    margin-left: -15px;
     padding: 0;
 }
 .btn-beside-title a {
@@ -122,7 +127,6 @@ h4{
     color: white;
     width: 100%;
     border-radius: 0;
-    background: #9E9E9E;
 }
 .btn-beside-title a:hover{
     background: #CAC9C9;
@@ -150,9 +154,6 @@ table th{
 }
 
 
-#listAvaluos .btn-beside-title{
-    margin-top: 0;
-}
 #inmueblesCoverat .dataTables_length{
     padding: 32px 0;
 }
@@ -162,7 +163,9 @@ table th{
     padding: 20px 0;
 }
 
-
+#listAvaluos .panel-body{
+    padding: 15px 0;
+}
 
 
 /* Alerts */

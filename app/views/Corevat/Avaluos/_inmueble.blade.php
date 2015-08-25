@@ -30,11 +30,21 @@
 
 	<div class="col-md-12"><h3>Medidas y Colindancias</h3></div>
 	<div class="col-md-10 col-sm-10 col-xs-10"><h4>Detalles de Medidas y Colindancias</h4></div>
+
     <div class="col-md-2 col-sm-2 col-xs-2 btn-beside-title">
-        <a class="btn nuevo" id="btnNew" title="Nuevo Avaluo">
+        <a class="btn btn-primary nuevo" id="btnNew" title="Nuevo Avaluo">
             <span class="glyphicon glyphicon-plus-sign"></span> Nuevo
         </a>
     </div>
+    <div class="clearfix"></div>
+    <br/>
+	<div class="col-md-12" style="margin-top: 10px;">
+		{{Form::label('segun', 'Según')}}
+		{{Form::text('segun', $row->segun, ['class'=>'form-control', 'required' => 'required', 'maxlength' => '150'])}}
+		{{$errors->first('segun', '<span class=text-danger>:message</span>')}}
+		<hr>
+	</div>
+	
 	<div class="col-md-12">
 		<table cellpadding="0" cellspacing="0" border="0" class="table table-striped corevatDataTable" id="aiMedidasColindanciasDataTable">
 			<thead>
@@ -249,6 +259,7 @@
 	<div class="col-md-12">
 		<h4>Otros datos</h4>
 	</div>
+    <br/><br/>
 	<div class="col-md-12">&nbsp;</div>
 
 	<div class="col-md-12">
@@ -338,11 +349,13 @@
 		</table>
 		<div class="col-md-12">&nbsp;</div>
 		<hr>
-		<div class="col-md-6 form-actions">
-			{{Form::submit('Guardar', ['class'=>'btn btn-coveratSecondary'])}}
-		</div>
+
+
         <div class="col-md-6 form-actions">
-            <a href="{{URL::route('indexAvaluos')}}" class="btn btn-coveratPrincipal" role="button"><i class="glyphicon glyphicon-arrow-left"></i> Regresar</a>
+            <a href="{{URL::route('indexAvaluos')}}" class="btn btn-coveratSecondary" role="button"><i class="glyphicon glyphicon-arrow-left"></i> Regresar</a>
+        </div>
+        <div class="col-md-6 form-actions">
+			{{Form::submit('Guardar', ['class'=>'btn btn-coveratPrincipal'])}}
         </div>
 	</div>
 </div>

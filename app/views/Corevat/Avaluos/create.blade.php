@@ -3,7 +3,7 @@
 {{ HTML::style('/css/bootstrap.min.css') }}
 {{ HTML::style('/css/coverat.css') }}
 {{ HTML::style('/js/jquery/jquery-ui.css') }}
-<h3>Crear Nuevo Avalúo</h3>
+<h3 style="display: block; text-align: center;">Crear Nuevo Avalúo</h3>
     @if( $errors->all() )
         <div class="alert alert-danger">
 			@foreach($errors->all() as $error )
@@ -33,9 +33,9 @@
 	</div>
 	<div class="col-md-12">
 		<div class="form-group">
-			{{Form::label('serie', 'Serie : ',['class'=>'col-sm-2'])}}
+			{{Form::label('serie', 'Tipo de predio : ',['class'=>'col-sm-2'])}}
             <div class="col-md-10">
-            {{Form::select('serie', array('U'=>'Urbano', 'R'=>'Rural'), null, ['id' => 'serie', 'class'=>'form-control', 'tabindex'=>'3', 'style' => 'width:110px'])}}
+            {{Form::select('serie', array('U'=>'Urbano', 'R'=>'Rústico'), null, ['id' => 'serie', 'class'=>'form-control', 'tabindex'=>'3', 'style' => 'width:110px'])}}
             </div>
 		</div>
 	</div>

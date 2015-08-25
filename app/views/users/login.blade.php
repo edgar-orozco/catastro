@@ -45,7 +45,7 @@
                         <span class="input-group-addon">
                             <span class="glyphicon glyphicon-user"></span>
                         </span>
-                        {{ Form::text('username', null, array('class' => 'form-control focus', 'placeholder'=>'Nombre de usuario', 'autofocus'=> 'autofocus')) }}
+                        {{ Form::text('username', null, array('class' => 'form-control focus', 'placeholder'=>'Nombre de usuario')) }}
                     </div>
 
                     <br/>
