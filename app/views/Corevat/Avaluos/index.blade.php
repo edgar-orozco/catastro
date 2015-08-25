@@ -18,7 +18,7 @@
     </div>
     <div class="panel-heading" style="padding: 0;">
         <div class="col-md-7 col-sm-7 col-xs-7">
-            <h4 class="panel-title">Tabla de Avalúos</h4>
+            <h4 class="panel-title" style="display: block; text-align: center;">Tabla de Avalúos</h4>
         </div>
         <div class="col-md-3 col-sm-3 col-xs-3 btn-beside-title">
             <a href="{{action('printAvaluosByValuador')}}" class="btn btn-primary nuevo" title="Avalúos por Valuador" target="_blank>
