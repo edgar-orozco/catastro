@@ -8,7 +8,7 @@
 
         @if(count($registros) == 0)
             <div class="panel-body">
-            <p>No hay registros de escrituras dados de alta actualmente en el sistema.</p>
+            <div class="alert alert-warning" role="alert">No hay registros de escrituras dados de alta actualmente en el sistema.</div>
             </div>
         @endif
 
