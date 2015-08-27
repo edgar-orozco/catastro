@@ -49,7 +49,7 @@ class AemCompTerrenos extends \Eloquent {
 		$rowAemCompTerrenos->creado_el = date('Y-m-d H:i:s');
 		$rowAemCompTerrenos->save();
 		
-		//AemHomologacion::insAemHomologacion($rowAemCompTerrenos->idavaluoenfoquemercado, $rowAemCompTerrenos->idaemcompterreno, $rowAemCompTerrenos->ubicacion, $rowAemCompTerrenos->superficie_terreno, $rowAemCompTerrenos->precio_unitario_m2_terreno);
+		AemHomologacion::insAemHomologacion($rowAemCompTerrenos->idavaluoenfoquemercado, $rowAemCompTerrenos->idaemcompterreno, $rowAemCompTerrenos->ubicacion, $rowAemCompTerrenos->superficie_terreno, $rowAemCompTerrenos->precio_unitario_m2_terreno);
 	}
 	
 	public static function updAemCompTerrenos($inputs) {
