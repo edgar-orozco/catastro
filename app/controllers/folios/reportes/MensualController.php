@@ -36,8 +36,8 @@ class folios_reportes_MensualController extends BaseController
             foreach ($folios_historial as $folio) 
             {
                   $meses[] = $mes[$folio->mes];
-                  $urbanos[] = $folio->total_urbano;
-                  $rusticos[] = $folio->total_rustico;
+                  $urbanos[] = $folio->urbano;
+                  $rusticos[] = $folio->rustico;
             }
             $meses = json_encode($meses);
             $urbanos = json_encode($urbanos, JSON_NUMERIC_CHECK);
@@ -46,6 +46,20 @@ class folios_reportes_MensualController extends BaseController
       }
 
       public function formatoreportemensual(){
+
+            $mes = [];
+            $mes['1'] = "Enero";
+            $mes['2'] = "Febrero";
+            $mes['3'] = "Marzo";
+            $mes['4'] = "Abril";
+            $mes['5'] = "Mayo";
+            $mes['6'] = "Junio";
+            $mes['7'] = "Julio";
+            $mes['8'] = "Agosto";
+            $mes['9'] = "Septiembre";
+            $mes['10'] = "Octubre";
+            $mes['11'] = "Noviembre";
+            $mes['12'] = "Diciembre";
             $folios_historial=FoliosHistorial::select(
                                                 DB::raw('EXTRACT(MONTH FROM fecha_oficio) as mes'),
                                                 DB::raw('Sum(cantidad_urbanos) as urbano'),
@@ -58,7 +72,20 @@ class folios_reportes_MensualController extends BaseController
                                                 ->get();
             $totalF=FoliosHistorial::select(db::raw('Sum(total) as total'))->first()->toArray();
             $totalF=$totalF['total'];
-            $vista = View::make('folios.folios.formatoreportemensual', compact('totalF'))->withFolios_historial($folios_historial);
+            $meses = [];
+            $urbanos = [];
+            $rusticos = [];
+            foreach ($folios_historial as $folio) 
+            {
+                  $meses[] = $mes[$folio->mes];
+                  $urbanos[] = $folio->urbano;
+                  $rusticos[] = $folio->rustico;
+            }
+            $meses = json_encode($meses);
+            $urbanos = json_encode($urbanos, JSON_NUMERIC_CHECK);
+            $rusticos = json_encode($rusticos, JSON_NUMERIC_CHECK);
+            $vista = View::make('folios.folios.formatoreportemensual', compact('totalF', 'urbanos', 'meses', 'rusticos'))->withFolios_historial($folios_historial);
+            return $vista;
             $pdf = PDF::load($vista)->show();
             
             //load(variable, tamaño de hoja, orientacion landscape)

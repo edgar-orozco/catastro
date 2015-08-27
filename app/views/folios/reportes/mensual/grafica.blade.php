@@ -21,16 +21,16 @@
         yAxis: {
             min: 0,
             title: {
-                text: 'Pesos'
+                text: 'Cantidad de folios'
             }
         },
         tooltip: {
             headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
             pointFormat: '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +
-                '<td style="padding:0"><b>$ {point.y:,.2f} M.N.</b></td></tr>',
+                '<td style="padding:0"><b>{point.y:,.0f}</b></td></tr>',
             footerFormat: '</table>',
             shared: true,
-            useHTML: true 
+            useHTML: true
         },
         plotOptions: {
             column: {
