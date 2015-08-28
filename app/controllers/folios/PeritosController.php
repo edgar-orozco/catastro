@@ -123,7 +123,7 @@ class folios_PeritosController extends BaseController {
 				$perito = Perito::find($id);
 				//Asigna los datos de los inputs al campo de la tabla correspondiente
     			$perito->corevat = $inputs['corevat'];
-				$perito->nombre = $inputs['nombre'];
+				$perito->nombre = strtoupper($inputs['nombre']);
 				$perito->direccion = $inputs['direccion'];
 				$perito->telefono = $inputs['telefono'];
 				$perito->correo = $inputs['correo'];
@@ -138,7 +138,7 @@ class folios_PeritosController extends BaseController {
 				$perito = new Perito;
 				//Asigna los datos de los inputs al campo de la tabla correspondiente
 				$perito->corevat = $inputs['corevat'];
-				$perito->nombre = $inputs['nombre'];
+				$perito->nombre = strtoupper($inputs['nombre']);
 				$perito->direccion = $inputs['direccion'];
 				$perito->telefono = $inputs['telefono'];
 				$perito->correo = $inputs['correo'];
