@@ -27,7 +27,7 @@
     @include('reportes.memos._form_DatosFiscales')
   </div>
   <div id="tabs-4">
-    
+    @include('reportes.memos._form_DatosConstruccion')
   </div>
 </div>
 @stop

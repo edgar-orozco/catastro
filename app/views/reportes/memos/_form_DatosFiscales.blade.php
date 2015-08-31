@@ -1,6 +1,4 @@
-{{ HTML::style('js/jquery/jquery-ui.css') }}
- {{ HTML::style('css/datepicker3.css') }}
-  {{ HTML::style('css/select2.min.css') }}
+
 <div class="panel panel-default">
     <div class="panel-heading">
         <h3 class="panel-title">Datos Fiscales</h3>
