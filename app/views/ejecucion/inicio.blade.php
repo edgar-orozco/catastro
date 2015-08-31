@@ -376,7 +376,7 @@ setlocale(LC_MONETARY, 'es_MX');
                                 <!--Limpia el registro-->
                                 <?php $domicilio = str_replace('"', '',$key[3]); ?>
                                 <!-- domicilio -->
-                                {{domicilio;}}
+                                {{$domicilio}}
                             </td>
                             <td align="center">
                                 <!--Limpia el registro-->
@@ -391,7 +391,7 @@ setlocale(LC_MONETARY, 'es_MX');
                             <td align="right">
                                 <!--Convierte formato a moneda mexico-->
                                 <?php //$valorc1 = money_format('%i', $key[6]) . "\n"; ?>
-                                <?php $valorc = Number_format($key[5], 2, '.',',' ) ?>
+                                <?php $valorc =$key[5];  ?>
                                 <!-- Valor Catastral-->
                                 $ {{$valorc}}
                             </td>
