@@ -9,6 +9,8 @@ if(count($clave)==1)
 {
   $claves=$clave[0];
   $resultado = DB::select("select sp_get_datos_predio('$claves')");
+ //print_r($claves);
+           //dd($claves);
     foreach ($resultado as $key)
       {
         $vales = explode(',', $key->sp_get_datos_predio);
@@ -20,7 +22,7 @@ if(count($clave)==1)
 
         //array de fecha y nombre para el pdf
         $vale[] = array('0' =>str_replace('(', '',$vales[0]), '1' => $nombre, '2' => str_replace('"', '',$vales[8]), '3' => str_replace('"', '',$vales[9]));
-        $vista    = View::make('CartaInvitacion.carta', compact('vale','fecha'));
+        $vista    = View::make('CartaInvitacion.carta', compact('vale','fecha'));//return $vista;
         $pdf      = PDF::load($vista)->show("Copia-CartaInvitacion");
         $response = Response::make($pdf, 200);
         $response->header('Content-Type', 'application/pdf');
@@ -48,11 +50,11 @@ if(count($clave) > 1)
 
   }
 
- $vista    = View::make('CartaInvitacion.carta', compact('vale','fecha'));
+ $vista    = View::make('CartaInvitacion.carta', compact('vale','fecha')); 
                   $pdf      = PDF::load($vista)->show("Copia-CartaInvitacion");
                   $response = Response::make($pdf, 200);
                   $response->header('Content-Type', 'application/pdf');
-                  return $response;
+                 return $response;
   }
 
 }}
