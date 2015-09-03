@@ -3,13 +3,11 @@
         <div class="form-group">
             {{Form::label('tipo_persona','Tipo de persona:',[])}}
             {{Form::label($instancia.'PersonaFisica','Física')}}
+
             {{Form::radio($instancia.'[id_tipo]', '1', null, ['class'=>$instancia.'-radio-persona radio-persona', 'id'=>$instancia.'PersonaFisica', 'data-instancia'=>$instancia]) }}
             {{Form::label($instancia.'PersonaMoral','Moral')}}
             {{Form::radio($instancia.'[id_tipo]', '2', null, ['class'=>$instancia.'-radio-persona radio-persona',  'id'=>$instancia.'PersonaMoral', 'data-instancia'=>$instancia]) }}
-        </div>
-    </div>
-    <div class="form-inline">
-        <div class="form-group">
+
             {{Form::text($instancia.'[curp]', null, [
                 'class' => "form-control $instancia-campos-fisica",
                 'id'=>$instancia.'-curp',
@@ -21,6 +19,7 @@
                 'data-instancia'=>$instancia
                 ]
             )}}
+
             {{Form::text($instancia.'[rfc]', null, [
                 'class' => 'form-control',
                 'id'=>$instancia.'-rfc',
@@ -32,10 +31,7 @@
                 'data-instancia'=>$instancia
                 ]
             )}}
-        </div>
-    </div>
-    <div class="form-inline">
-        <div class="form-group">
+
             {{Form::text($instancia.'[nombres]', null, [
                 'class' => 'form-control',
                 'id'=>$instancia.'-nombres',
@@ -46,6 +42,7 @@
                 'data-instancia'=>$instancia
                 ]
             )}}
+
             <span class="{{$instancia}}-campos-fisica">
                 {{Form::text($instancia.'[apellido_paterno]', null, [
                     'class' => 'form-control',
