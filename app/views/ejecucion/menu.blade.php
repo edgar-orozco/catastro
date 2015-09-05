@@ -1,6 +1,6 @@
 @if(!Auth::guest() && (Auth::user()->hasRole("Administrador_ejecucion") || Auth::user()->can("ejecucion_fiscal")) )
 
-    <li class="dropdown @if(Request::is('Ejecucion')) active @endif">
+    <li class="dropdown @if(Request::is('ejecucion/*')) active @endif">
 
         <a data-toggle="dropdown" class="dropdown-toggle" href="#">Ejecución Fiscal <b class="caret"></b></a>
         <ul role="menu" class="dropdown-menu">
@@ -12,8 +12,8 @@
                 </a>
             </li>
 
-            <li class="@if(Request::is('Ejecucion/Seguimiento')) active @endif">
-                <a href="{{URL::to('seguimiento')}}">
+            <li class="@if(Request::is('ejecucion/Seguimiento')) active @endif">
+                <a href="{{URL::to('ejecucion/seguimiento')}}">
                 <i class="glyphicon glyphicon-lock"></i>&nbsp;
                     Seguimiento Ejecución
                 </a>

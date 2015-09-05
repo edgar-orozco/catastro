@@ -374,9 +374,9 @@ setlocale(LC_MONETARY, 'es_MX');
                             </td>
                             <td align="center">
                                 <!--Limpia el registro-->
-                                <?php $domicilio = str_replace('"', '',$key[3]); ?>
+                                <?php $domicilio = str_replace('"', '',$key[3]);  $domicilio= str_replace('&',',',$domicilio);?>
                                 <!-- domicilio -->
-                                {{domicilio;}}
+                                {{$domicilio}}
                             </td>
                             <td align="center">
                                 <!--Limpia el registro-->
@@ -391,7 +391,7 @@ setlocale(LC_MONETARY, 'es_MX');
                             <td align="right">
                                 <!--Convierte formato a moneda mexico-->
                                 <?php //$valorc1 = money_format('%i', $key[6]) . "\n"; ?>
-                                <?php $valorc = Number_format($key[5], 2, '.',',' ) ?>
+                                <?php $valorc =$key[5];  ?>
                                 <!-- Valor Catastral-->
                                 $ {{$valorc}}
                             </td>
@@ -405,14 +405,16 @@ setlocale(LC_MONETARY, 'es_MX');
                     @endforeach
                     </tbody>
                 </table>
-                {{ $pagination->appends(Request::except('page'))->links() }}
-            </div>
-            <div>
+                <div class='col-md-4'>
                 <?php $fecha= date("Y-m-d"); ?>
                 {{Form::text('mun',$mun=$key[2],array('hidden'))}}
                 {{Form::label('Fecha Emision Carta Invitacion: ') }}
-                {{Form::text('date', $fecha, ['id'=>'datepicker', 'class'=>'btn btn-default btn-sm dropdown-toggle','autofocus'=> 'autofocus', 'disabled'] )}}
+                {{Form::text('date', $fecha, ['id'=>'datepicker', 'class'=>'form-control fecha', 'disabled'] )}}
             </div>
+            <div class="col-me-12">
+                {{ $pagination->appends(Request::except('page'))->links() }}
+            </div></div>
+            
             {{ Form::submit('Generar Carta Invitacion', array('class' => 'btn btn-primary', 'name' => 'boton', 'disabled','id' => 'boton')) }}
             {{ Form::close() }}
         @endif

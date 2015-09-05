@@ -197,7 +197,7 @@ setlocale(LC_MONETARY, 'es_MX');
             </td>
             <td align="center" <?php echo $style ?>>
                 <!-- domicilio -->
-              {{$estatus=$key[4];}}
+              {{strtoupper($estatus=$key[4]);}}
             </td>
              <td align="center" <?php echo $style ?>>
                 <!-- periodo -->

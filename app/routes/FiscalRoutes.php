@@ -7,7 +7,7 @@
 
         Route::get("/ejecucion/", "Ejecucion_BuscarController@getIndex");
         //pantalla principal de seguimiento ejecucion
-        Route::get("/seguimiento", "Ejecucion_SeguimientoController@getIndex");
+        Route::get("/ejecucion/seguimiento", "Ejecucion_SeguimientoController@getIndex");
         Route::post("/busquedas", "Ejecucion_SeguimientobusController@getIndex");
         Route::get("/busquedas", "Ejecucion_SeguimientobusController@getIndex");
         //vista para capturar datos ejecucion fiscal
