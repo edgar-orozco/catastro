@@ -1,4 +1,4 @@
-<div class="domicilio">
+<div class="direccion-predio">
     <div class="form-inline">
         <div class="form-group">
             {{Form::label($instancia.'[tipo_vialidad_id]','Tipo de vialidad: ')}}
