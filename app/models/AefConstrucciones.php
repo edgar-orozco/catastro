@@ -28,103 +28,17 @@ class AefConstrucciones extends \Eloquent {
 	 * @param  int  $id
 	 * @return Response
 	 */
-	public static function insBeforoAefConstrucciones($inputs, &$rowAefConstrucciones) {
-		$rowAvaluosFisico = AvaluosFisico::select('*')->where('idavaluoenfoquefisico', '=', $inputs["idavaluoenfoquefisico2"])->first();
-		$rowAvaluosInmueble = AvaluosInmueble::select('*')->where('idavaluo', '=', $rowAvaluosFisico->idavaluo)->first();
-		if ( $rowAvaluosInmueble->superficie_construccion > 0 ) {
-			$rowAefConstrucciones->superficie_m2 = $rowAvaluosInmueble->superficie_construccion;
-			$rowAefConstrucciones->edad = $rowAvaluosInmueble->indiviso_accesoria;
-			$rowAefConstrucciones->fe_v1 = 0.9;
-			$rowAefConstrucciones->fe_v2 = 80;
-			$rowAefConstrucciones->fe_v3 = 0.1;
-			$Factor_Edad = ( ($rowAefConstrucciones->fe_v2*$rowAefConstrucciones->fe_v3) + $rowAefConstrucciones->fe_v1*($rowAefConstrucciones->fe_v2 - $inputs["edad_construcciones"]) ) / $rowAefConstrucciones->fe_v2;
-			$Factor_Resultante = $Factor_Edad * $rowAefConstrucciones->factor_conservacion;
-			$Valor_Neto = $rowAefConstrucciones->valor_nuevo * $rowAefConstrucciones->factor_conservacion * $Factor_Resultante;
-			$Valor_Parcial = $rowAefConstrucciones->superficie_m2 * $Valor_Neto;
-			$rowAefConstrucciones->factor_edad = $Factor_Edad;
-			$rowAefConstrucciones->factor_resultante = $Factor_Resultante;
-			$rowAefConstrucciones->valor_neto = $Valor_Neto;
-			$rowAefConstrucciones->valor_parcial_construccion = $Valor_Parcial;
-		}
-	}
-	
-	/**
-	 * Show the form for editing the specified resource.
-	 *
-	 * @param  int  $id
-	 * @return Response
-	 */
 	public static function insAefConstrucciones($inputs, &$total_metros_construccion, &$valor_construccion, &$total_valor_fisico) {
 		$rowAefConstrucciones = new AefConstrucciones();
-		//AefConstrucciones::insBeforoAefConstrucciones($inputs, $rowAefConstrucciones);
 		$rowAefConstrucciones->idavaluoenfoquefisico = $inputs["idavaluoenfoquefisico2"];
-		$rowAvaluosFisico = AvaluosFisico::select('*')->where('idavaluoenfoquefisico', '=', $inputs["idavaluoenfoquefisico2"])->first();
-		$rowAvaluosInmueble = AvaluosInmueble::select('*')->where('idavaluo', '=', $rowAvaluosFisico->idavaluo)->first();
-		$rowAefConstrucciones->superficie_m2 = $rowAvaluosInmueble->superficie_construccion;
-		$rowAefConstrucciones->idtipo = $inputs["idtipo"];
-		$rowAefConstrucciones->edad = $inputs["edad_construcciones"];
-		$rowAefConstrucciones->valor_nuevo = $inputs["valor_nuevo_construcciones"];
-		$rowAefConstrucciones->factor_edad = $inputs["factor_edad_construcciones"];
-		$rowAefConstrucciones->fk_conservacion = $inputs["idfactorconservacion"];
-		$rowAefConstrucciones->factor_conservacion = $inputs["factor_conservacion_construcciones"];
-		$rowAefConstrucciones->factor_resultante = $rowAefConstrucciones->factor_edad * $rowAefConstrucciones->factor_conservacion;
-		$rowAefConstrucciones->valor_neto = $rowAefConstrucciones->valor_nuevo * $rowAefConstrucciones->factor_resultante;
-		$rowAefConstrucciones->valor_parcial_construccion = $rowAefConstrucciones->superficie_m2 * $rowAefConstrucciones->valor_neto;
-		
-		$rowAefConstrucciones->idemp = 1;
-		$rowAefConstrucciones->ip = $_SERVER['REMOTE_ADDR'];
-		$rowAefConstrucciones->host = isset($_SERVER['HTTP_CLIENT_IP']) ? $_SERVER['HTTP_CLIENT_IP'] : '';
-		$rowAefConstrucciones->creado_por = Auth::Id();
-		$rowAefConstrucciones->creado_el = date('Y-m-d H:i:s');
+		$rowAefConstrucciones->created_at = $inputs["created_at"];
+
+		AefConstrucciones::setAefConstrucciones($rowAefConstrucciones, $inputs);
 		$rowAefConstrucciones->save();
-		AefConstrucciones::insAfterConstrucciones($rowAefConstrucciones->idavaluoenfoquefisico, $total_metros_construccion, $valor_construccion, $total_valor_fisico);
-	}
-	
-	/**
-	 * Show the form for editing the specified resource.
-	 *
-	 * @param  int  $id
-	 * @return Response
-	 */
-	public static function insAfterConstrucciones($idavaluoenfoquefisico, &$total_metros_construccion, &$valor_construccion, &$total_valor_fisico) {
-		$rowAefConstrucciones = AefConstrucciones::select(DB::raw('sum(valor_parcial_construccion) AS nsuma, sum(superficie_m2) AS msuma'))->where('idavaluoenfoquefisico', '=', $idavaluoenfoquefisico)->first();
-		$rowEnfoqueFisico = AvaluosFisico::find($idavaluoenfoquefisico);
-		$rowEnfoqueFisico->valor_construccion = $rowAefConstrucciones->nsuma;
-		$rowEnfoqueFisico->total_metros_construccion = $rowAefConstrucciones->msuma;
-		$rowEnfoqueFisico->total_valor_fisico = AvaluosFisico::updBeforeAvaluoEnfoqueFisico($rowEnfoqueFisico);
-		$rowEnfoqueFisico->save();
-		$total_metros_construccion = $rowAefConstrucciones->msuma;
-		$valor_construccion = $rowAefConstrucciones->nsuma;
-		$total_valor_fisico = $rowEnfoqueFisico->total_valor_fisico;
-		AvaluosFisico::updAfterAvaluoEnfoqueFisico($rowEnfoqueFisico->idavaluo, $rowEnfoqueFisico->total_valor_fisico);
-	}
-	
-	/**
-	 * Show the form for editing the specified resource.
-	 *
-	 * @param  int  $id
-	 * @return Response
-	 */
-	public static function updBeforeAefConstrucciones($inputs, &$rowAefConstrucciones) {
-		$rowAvaluosFisico = AvaluosFisico::select('*')->where('idavaluoenfoquefisico', '=', $inputs["idavaluoenfoquefisico2"])->first();
-		$rowAvaluosInmueble = AvaluosInmueble::select('*')->where('idavaluo', '=', $rowAvaluosFisico->idavaluo)->first();
-		if ( $rowAvaluosInmueble->superficie_construccion > 0 ) {
-			$rowAefConstrucciones->superficie_m2 = $rowAvaluosInmueble->superficie_construccion;
-			$rowAefConstrucciones->edad = $rowAvaluosInmueble->indiviso_accesoria;
-			$rowAefConstrucciones->fe_v1 = 0.9;
-			$rowAefConstrucciones->fe_v2 = 80;
-			$rowAefConstrucciones->fe_v3 = 0.1;
-			//$Factor_Edad = ( ($rowAefConstrucciones->fe_v2*$rowAefConstrucciones->fe_v3) + $rowAefConstrucciones->fe_v1*($rowAefConstrucciones->fe_v2 - $rowAefConstrucciones->edad) ) / $rowAefConstrucciones->fe_v2;
-			$Factor_Edad = ( ($rowAefConstrucciones->fe_v2*$rowAefConstrucciones->fe_v3) + $rowAefConstrucciones->fe_v1*($rowAefConstrucciones->fe_v2 - $inputs["edad_construcciones"]) ) / $rowAefConstrucciones->fe_v2;
-			//$Factor_Edad = $inputs["edad"];
-			$Factor_Resultante = $Factor_Edad * $rowAefConstrucciones->factor_conservacion;
-			$Valor_Neto = $rowAefConstrucciones->valor_nuevo * $rowAefConstrucciones->factor_conservacion * $Factor_Resultante;
-			$Valor_Parcial = $rowAefConstrucciones->superficie_m2 * $Valor_Neto;
-			$rowAefConstrucciones->factor_edad = $Factor_Edad;
-			$rowAefConstrucciones->factor_resultante = $Factor_Resultante;
-			$rowAefConstrucciones->valor_neto = $Valor_Neto;
-			$rowAefConstrucciones->valor_parcial_construccion = $Valor_Parcial;
-		}
+		$rowAef = AvaluosFisico::find($rowAefConstrucciones->idavaluoenfoquefisico);
+		$total_metros_construccion = $rowAef->total_metros_construccion;
+		$valor_construccion = $rowAef->valor_construccion;
+		$total_valor_fisico = $rowAef->total_valor_fisico;
 	}
 	
 	/**
@@ -135,48 +49,25 @@ class AefConstrucciones extends \Eloquent {
 	 */
 	public static function updAefConstrucciones($inputs, &$total_metros_construccion, &$valor_construccion, &$total_valor_fisico) {
 		$rowAefConstrucciones = AefConstrucciones::find($inputs["idaefconstruccion"]);
-
-		$rowAvaluosFisico = AvaluosFisico::select('*')->where('idavaluoenfoquefisico', '=', $inputs["idavaluoenfoquefisico2"])->first();
-		$rowAvaluosInmueble = AvaluosInmueble::select('*')->where('idavaluo', '=', $rowAvaluosFisico->idavaluo)->first();
-		$rowAefConstrucciones->superficie_m2 = $rowAvaluosInmueble->superficie_construccion;
+		$rowAefConstrucciones->updated_at = $inputs["updated_at"];
+		AefConstrucciones::setAefConstrucciones($rowAefConstrucciones, $inputs);
+		$rowAefConstrucciones->save();
+		$rowAef = AvaluosFisico::find($rowAefConstrucciones->idavaluoenfoquefisico);
+		$total_metros_construccion = $rowAef->total_metros_construccion;
+		$valor_construccion = $rowAef->valor_construccion;
+		$total_valor_fisico = $rowAef->total_valor_fisico;
+		
+	}
+	
+	public static function setAefConstrucciones(&$rowAefConstrucciones, $inputs) {
 		$rowAefConstrucciones->idtipo = $inputs["idtipo"];
 		$rowAefConstrucciones->edad = $inputs["edad_construcciones"];
 		$rowAefConstrucciones->valor_nuevo = $inputs["valor_nuevo_construcciones"];
 		$rowAefConstrucciones->factor_edad = $inputs["factor_edad_construcciones"];
 		$rowAefConstrucciones->fk_conservacion = $inputs["idfactorconservacion"];
 		$rowAefConstrucciones->factor_conservacion = $inputs["factor_conservacion_construcciones"];
-		$rowAefConstrucciones->factor_resultante = $rowAefConstrucciones->factor_edad * $rowAefConstrucciones->factor_conservacion;
-		$rowAefConstrucciones->valor_neto = $rowAefConstrucciones->valor_nuevo * $rowAefConstrucciones->factor_resultante;
-		$rowAefConstrucciones->valor_parcial_construccion = $rowAefConstrucciones->superficie_m2 * $rowAefConstrucciones->valor_neto;
+	}
 
-		//AefConstrucciones::updBeforeAefConstrucciones($inputs, $rowAefConstrucciones);
-		$rowAefConstrucciones->ip = $_SERVER['REMOTE_ADDR'];
-		$rowAefConstrucciones->host = isset($_SERVER['HTTP_CLIENT_IP']) ? $_SERVER['HTTP_CLIENT_IP'] : '';
-		$rowAefConstrucciones->modi_por = Auth::Id();
-		$rowAefConstrucciones->modi_el = date('Y-m-d H:i:s');
-		$rowAefConstrucciones->save();
-		AefConstrucciones::updAfterAefConstrucciones($inputs['idavaluoenfoquefisico2'], $total_metros_construccion, $valor_construccion, $total_valor_fisico);
-	}
-	
-	/**
-	 * Show the form for editing the specified resource.
-	 *
-	 * @param  int  $id
-	 * @return Response
-	 */
-	public static function updAfterAefConstrucciones($idavaluoenfoquefisico, &$total_metros_construccion, &$valor_construccion, &$total_valor_fisico) {
-		$rowAefConstrucciones = AefConstrucciones::select(DB::raw('sum(valor_parcial_construccion) AS nsuma, sum(superficie_m2) AS msuma'))->where('idavaluoenfoquefisico', '=', $idavaluoenfoquefisico)->first();
-		$rowEnfoqueFisico = AvaluosFisico::find($idavaluoenfoquefisico);
-		$rowEnfoqueFisico->valor_construccion = $rowAefConstrucciones->nsuma;
-		$rowEnfoqueFisico->total_metros_construccion = $rowAefConstrucciones->msuma;
-		$rowEnfoqueFisico->total_valor_fisico = AvaluosFisico::updBeforeAvaluoEnfoqueFisico($rowEnfoqueFisico);
-		$rowEnfoqueFisico->save();
-		$total_metros_construccion = $rowEnfoqueFisico->total_metros_construccion;
-		$valor_construccion = $rowEnfoqueFisico->valor_construccion;
-		$total_valor_fisico = $rowEnfoqueFisico->total_valor_fisico;
-		AvaluosFisico::updAfterAvaluoEnfoqueFisico($rowEnfoqueFisico->idavaluo, $rowEnfoqueFisico->total_valor_fisico);
-	}
-	
 	public static function getAjaxAefConstruccionesByFk($fk) {
 		$pato = array();
 		$rows = AefConstrucciones::select(

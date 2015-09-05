@@ -20,8 +20,6 @@ $(document).ready(function () {
 	/*++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 	 * 
 	 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
-	aiMedidasColindancias.column(1).visible(false);
-	aiMedidasColindancias.column(5).visible(false);
 	aiMedidasColindancias.ajax.url('/corevat/AiMedidasColindanciasGetAjax/' + $("#idavaluoinmueble").val()).load();
 
 	/*++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++

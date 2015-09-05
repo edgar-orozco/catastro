@@ -58,17 +58,8 @@ class AemInformacion extends \Eloquent {
 		$rowAemInformacion->edad = $inputs['edad'];
 		$rowAemInformacion->telefono = $inputs['telefono'];
 		$rowAemInformacion->observaciones = $inputs['observaciones_aeminformacion'];
-		$rowAemInformacion->idemp = 1;
-		$rowAemInformacion->ip = $_SERVER['REMOTE_ADDR'];
-		$rowAemInformacion->host = isset($_SERVER['HTTP_CLIENT_IP']) ? $_SERVER['HTTP_CLIENT_IP'] : '';
-		$rowAemInformacion->creado_por = Auth::id();
-		$rowAemInformacion->creado_el = date('Y-m-d H:i:s');
+		$rowAemInformacion->created_at = $inputs["created_at"];
 		$rowAemInformacion->save();
-		
-		$rowAemAnalisis = new AemAnalisis();
-		$rowAemAnalisis->idavaluoenfoquemercado = $rowAemInformacion->idavaluoenfoquemercado;
-		$rowAemAnalisis->idaeminformacion = $rowAemInformacion->idaeminformacion;
-		$rowAemAnalisis->save();
 	}
 
 	/**
@@ -83,11 +74,7 @@ class AemInformacion extends \Eloquent {
 		$rowAemInformacion->edad = $inputs['edad'];
 		$rowAemInformacion->telefono = $inputs['telefono'];
 		$rowAemInformacion->observaciones = $inputs['observaciones_aeminformacion'];
-		$rowAemInformacion->idemp = 1;
-		$rowAemInformacion->ip = $_SERVER['REMOTE_ADDR'];
-		$rowAemInformacion->host = isset($_SERVER['HTTP_CLIENT_IP']) ? $_SERVER['HTTP_CLIENT_IP'] : '';
-		$rowAemInformacion->modi_por = Auth::id();
-		$rowAemInformacion->modi_el = date('Y-m-d H:i:s');
+		$rowAemInformacion->updated_at = $inputs["updated_at"];
 		$rowAemInformacion->save();
 	}
 	

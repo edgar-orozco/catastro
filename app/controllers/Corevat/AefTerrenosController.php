@@ -1,4 +1,5 @@
 <?php
+use Carbon\Carbon;
 
 class corevat_AefTerrenosController extends \BaseController {
 
@@ -23,6 +24,7 @@ class corevat_AefTerrenosController extends \BaseController {
 		$af = AvaluosFisico::select('idavaluo')->where('idavaluoenfoquefisico', '=', $idaef)->first();
 		$ai = AvaluosInmueble::select('superficie_total_terreno')->where('idavaluo', '=', $af->idavaluo)->first();
 		$row->superficie = $ai->superficie_total_terreno;
+		$row->indiviso = $ai->indiviso_terreno;
 
 		return $row;
 	}
@@ -41,10 +43,9 @@ class corevat_AefTerrenosController extends \BaseController {
 		if ($validate->fails()) {
 			$response = array('success' => false, 'errors' => $validate->getMessageBag()->toArray());
 		} else {
+			$inputs["created_at"] = Carbon::now()->format('Y-m-d H:i:s');
 			AefTerrenos::insAefTerrenos($inputs, $valor_terreno, $total_valor_fisico);
-			$valor_terreno = number_format($valor_terreno, 2, ".", ",");
-			$total_valor_fisico = number_format($total_valor_fisico, 2, ".", ",");
-			$response = array('success' => true, 'message' => '¡El registro fue ingresado satisfactoriamente!', 'valor_terreno' => $valor_terreno, 'total_valor_fisico' => $total_valor_fisico);
+			$response = array('success' => true, 'message' => '¡El registro fue ingresado satisfactoriamente!', 'valor_terreno' => number_format($valor_terreno, 2, ".", ","), 'total_valor_fisico' => number_format($total_valor_fisico, 2, ".", ","));
 		}
 		return $response;
 	}
@@ -76,10 +77,9 @@ class corevat_AefTerrenosController extends \BaseController {
 		if ($validate->fails()) {
 			$response = array('success' => false, 'errors' => $validate->getMessageBag()->toArray());
 		} else {
+			$inputs["updated_at"] = Carbon::now()->format('Y-m-d H:i:s');
 			AefTerrenos::updAefTerrenos($inputs, $valor_terreno, $total_valor_fisico);
-			$valor_terreno = number_format($valor_terreno, 2, ".", ",");
-			$total_valor_fisico = number_format($total_valor_fisico, 2, ".", ",");
-			$response = array('success' => true, 'message' => '¡El registro fue modificado satisfactoriamente!', 'valor_terreno' => $valor_terreno, 'total_valor_fisico' => $total_valor_fisico);
+			$response = array('success' => true, 'message' => '¡El registro fue modificado satisfactoriamente!', 'valor_terreno' => number_format($valor_terreno, 2, ".", ","), 'total_valor_fisico' => number_format($total_valor_fisico, 2, ".", ","));
 		}
 		return $response;
 	}
@@ -94,17 +94,9 @@ class corevat_AefTerrenosController extends \BaseController {
 	public function destroy($id) {
 		$row = AefTerrenos::find($id);
 		if ($row) {
-			$idavaluoenfoquefisico = $row->idavaluoenfoquefisico;
 			$row->delete($id);
-			$Val = AefTerrenos::select(DB::raw('sum(valor_parcial) AS valorpar'))->where('idavaluoenfoquefisico', '=', $idavaluoenfoquefisico)->first();
-			$rowEnfoqueFisico = AvaluosFisico::find($idavaluoenfoquefisico);
-			$rowEnfoqueFisico->valor_terreno = ( is_null($Val->valorpar) ? 0 : $Val->valorpar);
-			$rowEnfoqueFisico->total_valor_fisico = AvaluosFisico::updBeforeAvaluoEnfoqueFisico($rowEnfoqueFisico);
-			$rowEnfoqueFisico->save();
-			$total_valor_fisico = number_format($rowEnfoqueFisico->total_valor_fisico, 2, ".", ",");
-			AvaluosFisico::updAfterAvaluoEnfoqueFisico($rowEnfoqueFisico->idavaluo, $rowEnfoqueFisico->total_valor_fisico);
-			$valor_terreno = number_format($rowEnfoqueFisico->valor_terreno, 2, ".", ",");
-			return Response::json(array('success' => true, 'message' => '!El registro fue eliminado satisfactoriamente!', 'valor_terreno' => $valor_terreno, 'total_valor_fisico' => $total_valor_fisico));
+			$rowAef = AvaluosFisico::find($row->idavaluoenfoquefisico);
+			return Response::json(array('success' => true, 'message' => '!El registro fue eliminado satisfactoriamente!', 'valor_terreno' => number_format($rowAef->valor_terreno, 2, ".", ","), 'total_valor_fisico' => number_format($rowAef->total_valor_fisico, 2, ".", ",")));
 		} else {
 			return Response::json(array('success' => false, 'message' => '!El registro no existe!'));
 		}
@@ -116,15 +108,13 @@ class corevat_AefTerrenosController extends \BaseController {
 		$inputs["frente"] = number_format((float) $inputs["frente"], 2, ".", "");
 		$inputs["forma"] = number_format((float) $inputs["forma"], 2, ".", "");
 		$inputs["otros"] = number_format((float) $inputs["otros"], 2, ".", "");
-		$inputs["indiviso_terrenos"] = number_format((float) $inputs["indiviso_terrenos"], 2, ".", "");
-		
+
 		$rules = array(
-			'irregular' => array('required', 'numeric', 'min:0.00', 'max:9999999999.99', 'regex:/^[0-9]{1,10}(\.?){1}[0-9]{1,2}$/'),
-			'top_terrenos' => array('required', 'numeric', 'min:0.00', 'max:9999999999.99', 'regex:/^[0-9]{1,10}(\.?){1}[0-9]{1,2}$/'),
-			'frente' => array('required', 'numeric', 'min:0.00', 'max:9999999999.99', 'regex:/^[0-9]{1,10}(\.?){1}[0-9]{1,2}$/'),
-			'forma' => array('required', 'numeric', 'min:0.00', 'max:9999999999.99', 'regex:/^[0-9]{1,10}(\.?){1}[0-9]{1,2}$/'),
-			'otros' => array('required', 'numeric', 'min:0.00', 'max:9999999999.99', 'regex:/^[0-9]{1,10}(\.?){1}[0-9]{1,2}$/'),
-			'indiviso_terrenos' => array('required', 'numeric', 'min:0.00', 'max:100.00', 'regex:/^[0-9]{1,3}(\.?)[0-9]{1,2}$/'),
+			'irregular' => array('required', 'numeric', 'min:0.00', 'max:99999999.99', 'regex:/^[0-9]{1,8}(\.?){1}[0-9]{1,2}$/'),
+			'top_terrenos' => array('required', 'numeric', 'min:0.00', 'max:99999999.99', 'regex:/^[0-9]{1,8}(\.?){1}[0-9]{1,2}$/'),
+			'frente' => array('required', 'numeric', 'min:0.00', 'max:99999999.99', 'regex:/^[0-9]{1,8}(\.?){1}[0-9]{1,2}$/'),
+			'forma' => array('required', 'numeric', 'min:0.00', 'max:99999999.99', 'regex:/^[0-9]{1,8}(\.?){1}[0-9]{1,2}$/'),
+			'otros' => array('required', 'numeric', 'min:0.00', 'max:99999999.99', 'regex:/^[0-9]{1,8}(\.?){1}[0-9]{1,2}$/'),
 		);
 		$messages = array(
 			'irregular.required' => '¡El campo "Irregular" es requerido!',
@@ -156,12 +146,6 @@ class corevat_AefTerrenosController extends \BaseController {
 			'otros.min' => '¡El valor mínimo del campo "Otros" debe ser cero!',
 			'otros.max' => '¡El valor máximo del campo "Otros" debe ser 9999999999.99!',
 			'otros.regex' => '¡El formato del campo "Otros" debe ser 9999999999.99!',
-			
-			'indiviso_terrenos.required' => '¡El campo "Indiviso (%)" es requerido!',
-			'indiviso_terrenos.numeric' => '¡El valor del campo "Indiviso (%)" debe ser numérico!',
-			'indiviso_terrenos.min' => '¡El valor mínimo del campo "Indiviso (%)" debe ser cero!',
-			'indiviso_terrenos.max' => '¡El valor máximo del campo "Indiviso (%)" debe ser 100.00!',
-			'indiviso_terrenos.regex' => '¡El formato del campo "Indiviso (%)" debe ser 999.99!',
 		);
 		return Validator::make($inputs, $rules, $messages);
 	}

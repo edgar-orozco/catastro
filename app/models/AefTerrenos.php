@@ -21,16 +21,6 @@ class AefTerrenos extends \Eloquent {
 						->get();
 	}
 
-	public static function insBeforeAefTerrenos($inputs, &$rowAefTerrenos) {
-		$rowAvaluosFisico = AvaluosFisico::select('idavaluo')->where('idavaluoenfoquefisico', '=', $inputs["idavaluoenfoquefisico1"])->first();
-		$rowAvaluosInmbueble = AvaluosInmueble::select('*')->where('idavaluo', '=', $rowAvaluosFisico->idavaluo)->first();
-		$rowAvaluosMercado = AvaluosMercado::select('*')->where('idavaluo', '=', $rowAvaluosFisico->idavaluo)->first();
-		
-		$rowAefTerrenos->superficie = $rowAvaluosInmbueble->superficie_total_terreno;
-		$rowAefTerrenos->valor_unitario_neto = $rowAvaluosMercado->valor_aplicado_m2 * $rowAefTerrenos->factor_resultante;
-		$rowAefTerrenos->valor_parcial = $rowAvaluosInmbueble->superficie_total_terreno * $rowAefTerrenos->valor_unitario_neto * ($rowAefTerrenos->indiviso/100);
-	}
-	
 	/**
 	 * Show the form for editing the specified resource.
 	 *
@@ -40,63 +30,12 @@ class AefTerrenos extends \Eloquent {
 	public static function insAefTerrenos($inputs, &$valor_terreno, &$total_valor_fisico) {
 		$rowAefTerrenos = new AefTerrenos();
 		$rowAefTerrenos->idavaluoenfoquefisico = $inputs["idavaluoenfoquefisico1"];
-
-		$rowAefTerrenos->fraccion = $inputs["fraccion"];
-		$rowAefTerrenos->irregular = $inputs["irregular"];
-		$rowAefTerrenos->fk_top = $inputs["idfactortop"];
-		$rowAefTerrenos->top = $inputs["top_terrenos"];
-		$rowAefTerrenos->fk_frente = $inputs["idfactorfrente"];
-		$rowAefTerrenos->frente = $inputs["frente"];
-		$rowAefTerrenos->fk_forma = $inputs["idfactorforma"];
-		$rowAefTerrenos->forma = $inputs["forma"];
-		$rowAefTerrenos->fk_otros = $inputs["idfactorotros"];
-		$rowAefTerrenos->otros = $inputs["otros"];
-		$rowAefTerrenos->indiviso = $inputs["indiviso_terrenos"];
-		$rowAefTerrenos->factor_resultante = $rowAefTerrenos->irregular * $rowAefTerrenos->top * $rowAefTerrenos->frente * $rowAefTerrenos->forma * $rowAefTerrenos->otros;
-
-		AefTerrenos::insBeforeAefTerrenos($inputs, $rowAefTerrenos);
-		
-		$rowAefTerrenos->idemp = 1;
-		$rowAefTerrenos->ip = $_SERVER['REMOTE_ADDR'];
-		$rowAefTerrenos->host = isset($_SERVER['HTTP_CLIENT_IP']) ? $_SERVER['HTTP_CLIENT_IP'] : '';
-		$rowAefTerrenos->creado_por = Auth::Id();
-		$rowAefTerrenos->creado_el = date('Y-m-d H:i:s');
+		$rowAefTerrenos->created_at = $inputs["created_at"];
+		AefTerrenos::setAefTerrenos($rowAefTerrenos, $inputs);
 		$rowAefTerrenos->save();
-		
-		AefTerrenos::insAfterAefTerrenos($inputs['idavaluoenfoquefisico1'], $valor_terreno, $total_valor_fisico);
-	}
-
-	/**
-	 * Show the form for editing the specified resource.
-	 *
-	 * @param  int  $id
-	 * @return Response
-	 */
-	public static function insAfterAefTerrenos($idavaluoenfoquefisico, &$valor_terreno, &$total_valor_fisico) {
-		$rowAefTerrenos = AefTerrenos::select(DB::raw('sum(valor_parcial) AS valorpar'))->where('idavaluoenfoquefisico', '=', $idavaluoenfoquefisico)->first();
-		$rowEnfoqueFisico = AvaluosFisico::find($idavaluoenfoquefisico);
-		$rowEnfoqueFisico->valor_terreno = $rowAefTerrenos->valorpar;
-		$rowEnfoqueFisico->total_valor_fisico = AvaluosFisico::updBeforeAvaluoEnfoqueFisico($rowEnfoqueFisico);
-		$rowEnfoqueFisico->save();
-		$total_valor_fisico = $rowEnfoqueFisico->total_valor_fisico;
-		$valor_terreno = $rowEnfoqueFisico->valor_terreno;
-		//AvaluosFisico::updAfterAvaluoEnfoqueFisico($rowEnfoqueFisico->idavaluo, $rowEnfoqueFisico->total_valor_fisico);
-	}
-
-	/**
-	 * Show the form for editing the specified resource.
-	 * 
-	 * @param  int  $id 
-	 * @return Response
-	 */
-	public static function updBeforeAefTerrenos($inputs, &$rowAefTerrenos) {
-		$rowAvaluosFisico = AvaluosFisico::select('idavaluo')->where('idavaluoenfoquefisico', '=', $inputs["idavaluoenfoquefisico1"])->first();
-		$rowAvaluosInmbueble = AvaluosInmueble::select('*')->where('idavaluo', '=', $rowAvaluosFisico->idavaluo)->first();
-		$rowAvaluosMercado = AvaluosMercado::select('*')->where('idavaluo', '=', $rowAvaluosFisico->idavaluo)->first();
-		
-		$rowAefTerrenos->superficie = $rowAvaluosInmbueble->superficie_total_terreno;
-		$rowAefTerrenos->valor_unitario_neto = $rowAvaluosMercado->valor_aplicado_m2 * $rowAefTerrenos->factor_resultante;
-		$rowAefTerrenos->valor_parcial = $rowAvaluosInmbueble->superficie_total_terreno * $rowAefTerrenos->valor_unitario_neto * ($rowAefTerrenos->indiviso/100);
+		$rowAef = AvaluosFisico::find($rowAefTerrenos->idavaluoenfoquefisico);
+		$valor_terreno = $rowAef->valor_terreno;
+		$total_valor_fisico = $rowAef->total_valor_fisico;
 	}
 
 	/**
@@ -107,7 +46,21 @@ class AefTerrenos extends \Eloquent {
 	 */
 	public static function updAefTerrenos($inputs, &$valor_terreno, &$total_valor_fisico) {
 		$rowAefTerrenos = AefTerrenos::find($inputs["idaefterreno"]);
-		
+		$rowAefTerrenos->updated_at = $inputs["updated_at"];
+		AefTerrenos::setAefTerrenos($rowAefTerrenos, $inputs);
+		$rowAefTerrenos->save();
+		$rowAef = AvaluosFisico::find($rowAefTerrenos->idavaluoenfoquefisico);
+		$valor_terreno = $rowAef->valor_terreno;
+		$total_valor_fisico = $rowAef->total_valor_fisico;
+	}
+
+	/**
+	 * Show the form for editing the specified resource.
+	 *
+	 * @param  int  $id
+	 * @return Response
+	 */
+	public static function setAefTerrenos($rowAefTerrenos, $inputs) {
 		$rowAefTerrenos->fraccion = $inputs["fraccion"];
 		$rowAefTerrenos->irregular = $inputs["irregular"];
 		$rowAefTerrenos->fk_top = $inputs["idfactortop"];
@@ -118,39 +71,6 @@ class AefTerrenos extends \Eloquent {
 		$rowAefTerrenos->forma = $inputs["forma"];
 		$rowAefTerrenos->fk_otros = $inputs["idfactorotros"];
 		$rowAefTerrenos->otros = $inputs["otros"];
-		$rowAefTerrenos->indiviso = $inputs["indiviso_terrenos"];
-		$rowAefTerrenos->factor_resultante = $rowAefTerrenos->irregular * $rowAefTerrenos->top * $rowAefTerrenos->frente * $rowAefTerrenos->forma * $rowAefTerrenos->otros;
-		
-		AefTerrenos::updBeforeAefTerrenos($inputs, $rowAefTerrenos);
-		
-		$rowAefTerrenos->ip = $_SERVER['REMOTE_ADDR'];
-		$rowAefTerrenos->host = isset($_SERVER['HTTP_CLIENT_IP']) ? $_SERVER['HTTP_CLIENT_IP'] : '';
-		$rowAefTerrenos->modi_por = Auth::Id();
-		$rowAefTerrenos->modi_el = date('Y-m-d H:i:s');
-		$rowAefTerrenos->save();
-		
-		AefTerrenos::updAfterAefTerrenos($inputs['idavaluoenfoquefisico1'], $valor_terreno, $total_valor_fisico);
-	}
-
-	/**
-	 * Show the form for editing the specified resource.
-	 *
-	 * @param  int  $id
-	 * @return Response
-	 */
-	public static function updAfterAefTerrenos($idavaluoenfoquefisico, &$valor_terreno, &$total_valor_fisico) {
-		$rowAefTerrenos = AefTerrenos::select(DB::raw('sum(valor_parcial) AS valorpar'))->where('idavaluoenfoquefisico', '=', $idavaluoenfoquefisico)->first();
-		$rowEnfoqueFisico = AvaluosFisico::find($idavaluoenfoquefisico);
-		$rowEnfoqueFisico->valor_terreno = $rowAefTerrenos->valorpar;
-		$rowEnfoqueFisico->total_valor_fisico = AvaluosFisico::updBeforeAvaluoEnfoqueFisico($rowEnfoqueFisico);
-		$rowEnfoqueFisico->save();
-		$valor_terreno = $rowEnfoqueFisico->valor_terreno;
-		$total_valor_fisico = $rowEnfoqueFisico->total_valor_fisico;
-		//AvaluosFisico::updAfterAvaluoEnfoqueFisico($rowEnfoqueFisico->idavaluo, $rowEnfoqueFisico->total_valor_fisico);
-	}
-
-	public static function setAefTerrenos($fk) {
-		
 	}
 
 	public static function getAjaxAefTerrenosByFk($fk) {

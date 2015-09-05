@@ -4,11 +4,11 @@
 <div class="row">
 	<div class="col-md-3">
 		{{Form::label('valor_fisico', 'Valor Físico:')}}
-		{{Form::text('valor_fisico', $row->valor_fisico, ['class'=>'form-control', 'disabled'=>'disabled'])}}
+		{{Form::text('valor_fisico', number_format($row->valor_fisico, 2, '.', ','), ['class'=>'form-control', 'disabled'=>'disabled'])}}
 	</div>
 	<div class="col-md-3">
 		{{Form::label('valor_mercado', 'Valor de Mercado:')}}
-		{{Form::text('valor_mercado', $row->valor_mercado, ['class'=>'form-control', 'disabled'=>'disabled'])}}
+		{{Form::text('valor_mercado', number_format($row->valor_mercado, 2, '.', ','), ['class'=>'form-control', 'disabled'=>'disabled'])}}
 	</div>
 	<div class="col-md-3">
 		{{Form::label('factor_seleccion_valor', 'Seleccione una valor de conclusión:')}}
@@ -16,7 +16,7 @@
 	</div>
 	<div class="col-md-3">
 		{{Form::label('valor_concluido', 'Valor Concluido:')}}
-		{{Form::text('valor_concluido', $row->valor_concluido, ['class'=>'form-control', 'disabled'=>'disabled'])}}
+		{{Form::text('valor_concluido', number_format($row->valor_concluido, 2, '.', ','), ['class'=>'form-control', 'disabled'=>'disabled'])}}
 	</div>
 	<div class="col-md-12">&nbsp;</div>
 	<div class="col-md-12"><hr></div>

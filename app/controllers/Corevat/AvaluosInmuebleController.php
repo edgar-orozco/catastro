@@ -1,43 +1,7 @@
 <?php
+use Carbon\Carbon;
 
 class corevat_AvaluosInmuebleController extends \BaseController {
-
-	/**
-	 * Display a listing of the resource.
-	 *
-	 * @return Response
-	 */
-	public function index() {
-		//
-	}
-
-	/**
-	 * Show the form for creating a new resource.
-	 *
-	 * @return Response
-	 */
-	public function create() {
-		//
-	}
-
-	/**
-	 * Store a newly created resource in storage.
-	 *
-	 * @return Response
-	 */
-	public function store() {
-		//
-	}
-
-	/**
-	 * Display the specified resource.
-	 *
-	 * @param  int  $id
-	 * @return Response
-	 */
-	public function show($id) {
-		//
-	}
 
 	/**
 	 * Show the form for editing the specified resource.
@@ -51,10 +15,6 @@ class corevat_AvaluosInmuebleController extends \BaseController {
 		$row = Avaluos::find($id);
 		$title = 'Características del Inmueble: ' . $row['foliocoretemp'];
 		$row = Avaluos::find($id)->AvaluosInmueble;
-		if (count($row) <= 0) {
-			AvaluosInmueble::insAvaluoInmueble($id);
-			$row = Avaluos::find($id)->AvaluosInmueble;
-		}
 		$cat_cimentaciones = CatCimentaciones::comboList();
 		$cat_estructuras = CatEstructuras::comboList();
 		$cat_muros = CatMuros::comboList();
@@ -139,6 +99,7 @@ class corevat_AvaluosInmuebleController extends \BaseController {
 		if ($validate->fails()) {
 			return Redirect::back()->withInput()->withErrors($validate);
 		} else {
+			$inputs["updated_at"] = Carbon::now()->format('Y-m-d H:i:s');
 			AvaluosInmueble::updAvaluosInmueble($id, $inputs);
 			$message = '¡El registro fue modificado satisfactoriamente!';
 			if (Input::hasFile('croquis') || Input::hasFile('fachada')) {

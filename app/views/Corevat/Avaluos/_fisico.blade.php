@@ -13,8 +13,15 @@
 		<table cellpadding="0" cellspacing="0" border="0" class="table datatable table-striped" id="aefTerrenosDataTable">
 			<thead>
 				<tr>
-					<th>ID</th>
-					<th>FRACC</th>
+					<th rowspan="2">ID</th>
+					<th rowspan="2">FRACC</th>
+					<th colspan="7">Factores de eficiencia</th>
+					<th rowspan="2">V.U. NETO</th>
+					<th rowspan="2">INDIVISO</th>
+					<th rowspan="2">V. PARCIAL</th>
+					<th colspan="2">Opciones</th>
+				</tr>
+				<tr>
 					<th>SUP.</th>
 					<th>IRRE.</th>
 					<th>TOP</th>
@@ -22,11 +29,8 @@
 					<th>FORMA</th>
 					<th>OTROS</th>
 					<th>F. R.</th>
-					<th>V.U. NETO</th>
-					<th>INDIVISO</th>
-					<th>V. PARCIAL</th>
-					<th>&nbsp;</th>
-					<th>&nbsp;</th>
+					<th></th>
+					<th></th>
 				</tr>
 			</thead>
 			<tbody>
@@ -97,16 +101,20 @@
 		<table cellpadding="0" cellspacing="0" border="0" class="table datatable table-striped" id="aefConstruccionesDataTable">
 			<thead>
 				<tr>
-					<th>ID</th>
-					<th>TIPO</th>
-					<th>EDAD</th>
-					<th>SUPERFICIE M&sup2;</th>
-					<th>V.R. NUEVO</th>
+					<th rowspan="2">ID</th>
+					<th rowspan="2">TIPO</th>
+					<th rowspan="2">EDAD</th>
+					<th rowspan="2">SUPERFICIE M&sup2;</th>
+					<th rowspan="2">V.R. NUEVO</th>
+					<th colspan="3">Factores</th>
+					<th rowspan="2">V.R. NETO</th>
+					<th rowspan="2">V. PARCIAL</th>
+					<th colspan="2">Opciones</th>
+				</tr>
+				<tr>
 					<th>F. EDAD</th>
 					<th>F. CONS.</th>
 					<th>F. RESUL.</th>
-					<th>V.R. NETO</th>
-					<th>V. PARCIAL</th>
 					<th>&nbsp;</th>
 					<th>&nbsp;</th>
 				</tr>
@@ -251,7 +259,7 @@
 					</div>
 					<div class="col-md-4">
 						<label for="irregular">Irregular:</label>
-						<input type="number" class="form-control clsNumeric" name="irregular" id="irregular" min="0.00" max="9999999999.99" step="0.01" value="0.00" required />
+						<input type="number" class="form-control clsNumeric" name="irregular" id="irregular" min="0.00" max="99999999.99" step="0.01" value="0.00" required />
 					</div>
 
 					<div class="col-md-3">
@@ -264,7 +272,7 @@
 					</div>
 					<div class="col-md-3">
 						<label for="top_terrenos">&nbsp;</label>
-						<input type="number" class="form-control clsNumeric" name="top_terrenos" id="top_terrenos" min="0.00" max="9999999999.99" step="0.01" value="0.00" required />
+						<input type="number" class="form-control clsNumeric" name="top_terrenos" id="top_terrenos" min="0.00" max="99999999.99" step="0.01" value="0.00" required />
 					</div>
 					<div class="col-md-3">
 						<label for="idfactorfrente">Frente:</label>
@@ -276,7 +284,7 @@
 					</div>
 					<div class="col-md-3">
 						<label for="frente">&nbsp;</label>
-						<input type="number" class="form-control clsNumeric" name="frente" id="frente" min="0.00" max="9999999999.99" step="0.01" value="0.00" required />
+						<input type="number" class="form-control clsNumeric" name="frente" id="frente" min="0.00" max="99999999.99" step="0.01" value="0.00" required />
 					</div>
 
 					<div class="col-md-3">
@@ -289,7 +297,7 @@
 					</div>
 					<div class="col-md-3">
 						<label for="forma">&nbsp;</label>
-						<input type="number" class="form-control clsNumeric" name="forma" id="forma" min="0.00" max="9999999999.99" step="0.01" value="0.00" required />
+						<input type="number" class="form-control clsNumeric" name="forma" id="forma" min="0.00" max="99999999.99" step="0.01" value="0.00" required />
 					</div>
 					<div class="col-md-3">
 						<label for="idfactorotros">Otros:</label>
@@ -301,7 +309,7 @@
 					</div>
 					<div class="col-md-3">
 						<label for="otros">&nbsp;</label>
-						<input type="number" class="form-control clsNumeric" name="otros" id="otros" min="0.00" max="9999999999.99" step="0.01" value="0.00" required />
+						<input type="number" class="form-control clsNumeric" name="otros" id="otros" min="0.00" max="99999999.99" step="0.01" value="0.00" required />
 					</div>
 
 					<div class="col-md-6">
@@ -315,7 +323,7 @@
 
 					<div class="col-md-6">
 						<label for="indiviso_terrenos">Indiviso (%):</label>
-						<input type="number" class="form-control clsNumeric" name="indiviso_terrenos" id="indiviso_terrenos" min="0.00" max="999.99" step="0.01" value="0.00" required />
+						<input type="text" class="form-control" name="indiviso_terrenos" id="indiviso_terrenos" value="{{$indiviso_terreno}}" disabled />
 					</div>
 					<div class="col-md-6">
 						<label for="valor_parcial_terrenos">Valor Parcial:</label>
@@ -434,16 +442,16 @@
 					</div>
 					<div class="col-md-4">
 						<label for="cantidad_condominios">Cantidad:</label>
-						<input type="number" class="form-control clsNumeric" name="cantidad_condominios" id="cantidad_condominios" min="0.00" max="9999999999.99" step="0.01" value="0.00" required />
+						<input type="number" class="form-control clsNumeric" name="cantidad_condominios" id="cantidad_condominios" min="0.00" max="99999999.99" step="0.01" value="0.00" required />
 					</div>
 
 					<div class="col-md-4">
 						<label for="valor_nuevo_condominios">V. R. Nuevo:</label>
-						<input type="number" class="form-control clsNumeric" name="valor_nuevo_condominios" id="valor_nuevo_condominios" min="0.00" max="9999999999.99" step="0.01" value="0.00" required />
+						<input type="number" class="form-control clsNumeric" name="valor_nuevo_condominios" id="valor_nuevo_condominios" min="0.00" max="99999999.99" step="0.01" value="0.00" required />
 					</div>
 					<div class="col-md-4">
 						<label for="vida_remanente">Vida Remanente:</label>
-						<input type="number" class="form-control clsNumeric" name="vida_remanente" id="vida_remanente" min="0.00" max="9999999999.99" step="0.01" value="0.00" required />
+						<input type="number" class="form-control clsNumeric" name="vida_remanente" id="vida_remanente" min="0.00" max="99999999.99" step="0.01" value="0.00" required />
 					</div>
 					<div class="col-md-4">
 						<label for="edad_condominios">Edad:</label>
@@ -452,11 +460,11 @@
 
 					<div class="col-md-4">
 						<label for="factor_edad_condominios">Factor Edad:</label>
-						<input type="text" class="form-control" name="factor_edad_condominios" id="factor_edad_condominios" disabled />
+						<input type="number" class="form-control" name="factor_edad_condominios" id="factor_edad_condominios"  min="0.00" max="99999999.99" step="0.01" value="0.00" required  />
 					</div>
 					<div class="col-md-4">
 						<label for="factor_conservacion_condominios">Factor Conservación:</label>
-						<input type="number" class="form-control clsNumeric" name="factor_conservacion_condominios" id="factor_conservacion_condominios" min="0.00" max="9999999999.99" step="0.01" value="0.00" required />
+						<input type="number" class="form-control clsNumeric" name="factor_conservacion_condominios" id="factor_conservacion_condominios" min="0.00" max="99999999.99" step="0.01" value="0.00" required />
 					</div>
 					<div class="col-md-4">
 						<label for="factor_resultante_condominios">Factor Resultante:</label>
@@ -465,7 +473,7 @@
 
 					<div class="col-md-6">
 						<label for="indiviso_condominios">Indiviso (%):</label>
-						<input type="number" class="form-control clsNumeric" name="indiviso_condominios" id="indiviso_condominios" min="0.00" max="9999999999.99" step="0.01" value="0.00" required />
+						<input type="text" class="form-control" name="indiviso_condominios" id="indiviso_condominios" disabled/>
 					</div>
 					<div class="col-md-6">
 						<label for="valor_parcial_condominios">Valor Parcial:</label>
@@ -528,7 +536,7 @@
 
 					<div class="col-md-4">
 						<label for="factor_edad_instalaciones">Factor Edad:</label>
-						<input type="text"class="form-control" name="factor_edad_instalaciones" id="factor_edad_instalaciones" value="" maxlength="10" required />
+						<input type="number"class="form-control" name="factor_edad_instalaciones" id="factor_edad_instalaciones"  min="0.00" max="9999999999.99" step="0.01" value="0.00" required />
 					</div>
 					<div class="col-md-4">
 						<label for="factor_conservacion_instalaciones">Factor Conservación:</label>

@@ -30,6 +30,7 @@ $(document).ready(function () {
 	 * 
 	 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
 	$('#btnNewAemComp').click(function () {
+		$('#formAemCompTerrenos').trigger('reset');
 		$('#messagesModalFormAemCompTerrenos').empty().removeClass();
 		$('#ctrlAemCompTerrenos').val('ins');
 		$('#idaemcompterreno').val('0');
@@ -61,6 +62,7 @@ $(document).ready(function () {
 	 * 
 	 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
 	$('#btnNewAemInf').click(function () {
+		$('#formAemInformacion').trigger('reset');
 		$('#messagesModalFormAemInformacion').empty().removeClass();
 		$('#ctrlAemInformacion').val('ins');
 		$('#idaeminformacion').val('0');
@@ -217,6 +219,7 @@ $(document).ready(function () {
 				$('#factor_negociacion').val(datos.factor_negociacion);
 				$('#factor_resultante').val(datos.factor_resultante);
 				$('#valor_unitario_resultante_m2_aemanalisis').val(datos.valor_unitario_resultante_m2);
+				
 				$('#in_promedio_aemanalisis').prop('checked', (datos.in_promedio === 1 ? true : false));
 				$('#modalFormAemAnalisisTitle').empty().append('[COREVAT] Homologable: ' + id);
 				$('#modalFormAemAnalisis').modal('show');
@@ -243,6 +246,8 @@ $(document).ready(function () {
 					if ($('#ctrlAemCompTerrenos').val() == 'ins') {
 						$('#formAemCompTerrenos :reset').click();
 					}
+					$('#valor_unitario_promedio').empty().append(datos.valor_unitario_promedio);
+					$('#valor_aplicado_m2').empty().append(datos.valor_aplicado_m2);
 					aemCompTerrenos.ajax.reload();
 					aemHomologacion.ajax.reload();
 				} else {
@@ -339,6 +344,7 @@ $(document).ready(function () {
 					$('#messagesModalFormAemAnalisis').addClass('alert').addClass('alert-success').append(datos.message);
 					
 					$('#valor_unitario_m2_aemanalisis').val(datos.valor_unitario_m2);
+					$('#factor_superficie').val(datos.factor_superficie);
 					$('#factor_resultante').val(datos.factor_resultante);
 					$('#valor_unitario_resultante_m2_aemanalisis').val(datos.valor_unitario_resultante_m2);
 					
@@ -358,12 +364,4 @@ $(document).ready(function () {
 		});
 		return false;
 	});
-
-	/*++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-	 *  
-	 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
-
-	/*++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-	 *  
-	 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
 });

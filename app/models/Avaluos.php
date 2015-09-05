@@ -150,19 +150,7 @@ class Avaluos extends \Eloquent {
 		$row = new Avaluos();
 		Avaluos::setAvaluo($row, $inputs);
 		$row->iduser = Auth::id();
-		$row->idemp = 1; //Auth::id()
-		$row->ip = $_SERVER['REMOTE_ADDR'];
-		$row->host = isset($_SERVER['HTTP_CLIENT_IP']) ? $_SERVER['HTTP_CLIENT_IP'] : '';
-		$row->creado_por = Auth::id(); // 1;
-		$row->creado_el = date('Y-m-d H:i:s');
-		$row->cuenta_catastral = strtoupper($inputs["cuenta_catastral"]);
 		$row->save();
-		AvaluosZona::insAvaluoZona($row->idavaluo);
-		AvaluosInmueble::insAvaluoInmueble($row->idavaluo);
-		AvaluosMercado::insAvaluoMercado($row->idavaluo);
-		AvaluosFisico::insAvaluoFisico($row->idavaluo);
-		AvaluosConclusiones::insAvaluoConclusiones($row->idavaluo);
-		AvaluosFotos::insAvaluoFotos($row->idavaluo);
 		$inputs["idavaluo"] = $row->idavaluo;
 	}
 
@@ -174,13 +162,10 @@ class Avaluos extends \Eloquent {
 	 */
 	public static function updAvaluo($id, $inputs) {
 		$row = Avaluos::find($id);
-		//$row->iduser = Auth::id();
 		Avaluos::setAvaluo($row, $inputs);
-		$row->modi_por = Auth::id();
-		$row->modi_el = date('Y-m-d H:i:s');
+		$row->updated_at = $inputs["updated_at"];
 		$row->save();
 	}
-
 
 	/**
 	 * Show the form for editing the specified resource.

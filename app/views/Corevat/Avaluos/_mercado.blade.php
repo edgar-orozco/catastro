@@ -76,13 +76,13 @@
 				<tr>
 					<td class="bg-primary" colspan="6">&nbsp;</td>
 					<td class="bg-primary" colspan="4" style="text-align: right;">Valor Unitario Promedio ($/m&sup2;)</td>
-					<td class="bg-info" colspan="2" id="valor_unitario_promedio" style="text-align: right;">{{number_format($row->valor_unitario_promedio, 2, '.', ',' )}}</td>
+					<td class="bg-info" colspan="2" id="valor_unitario_promedio" style="text-align: right; font-size: 18px; font-weight: bold;">{{number_format($row->valor_unitario_promedio, 2, '.', ',' )}}</td>
 					<td class="bg-primary">&nbsp;</td>
 				</tr>
 				<tr>
 					<td class="bg-primary" colspan="6">&nbsp;</td>
 					<td class="bg-primary" colspan="4" style="text-align: right;">Valor Aplicado por M&sup2;</td>
-					<td class="bg-info" colspan="2" id="valor_aplicado_m2" style="text-align: right;">{{number_format($row->valor_aplicado_m2, 2, '.', ',' )}}</td>
+					<td class="bg-info" colspan="2" id="valor_aplicado_m2" style="text-align: right; font-size: 2.5em; font-weight: bold;">{{number_format($row->valor_aplicado_m2, 2, '.', ',' )}}</td>
 					<td class="bg-primary">&nbsp;</td>
 				</tr>
 			</tfoot>
@@ -161,19 +161,19 @@
 				<tr>
 					<td class="bg-primary" colspan="8">&nbsp;</td>
 					<td class="bg-primary" colspan="5" style="text-align: right;">Promedio:</td>
-					<td class="bg-info" id="promedio_analisis" style="text-align: right;">{{number_format($row->promedio_analisis, 2, '.', ',' )}}</td>
+					<td class="bg-info" id="promedio_analisis" style="text-align: right; font-weight: bold;">{{number_format($row->promedio_analisis, 2, '.', ',' )}}</td>
 					<td class="bg-primary">&nbsp;</td>
 				</tr>
 				<tr>
 					<td class="bg-primary" colspan="8">&nbsp;</td>
 					<td class="bg-primary" colspan="5" style="text-align: right;">Superficie Construida del Sujeto:</td>
-					<td class="bg-info" id="superficie_construida" style="text-align: right;">{{number_format($row->superficie_construida, 2, '.', ',' )}}</td>
+					<td class="bg-info" id="superficie_construida" style="text-align: right; font-weight: bold;">{{number_format($row->superficie_construida, 2, '.', ',' )}}</td>
 					<td class="bg-primary">&nbsp;</td>
 				</tr>
 				<tr>
 					<td class="bg-primary" colspan="8">&nbsp;</td>
 					<td class="bg-primary" colspan="5" style="text-align: right;">Valor comparativo de mercado:</td>
-					<td class="bg-info" id="valor_comparativo_mercado" style="text-align: right;">{{number_format($row->valor_comparativo_mercado, 2, '.', ',' )}}</td>
+					<td class="bg-info" id="valor_comparativo_mercado" style="text-align: right; font-weight: bold;">{{number_format($row->valor_comparativo_mercado, 2, '.', ',' )}}</td>
 					<td class="bg-primary">&nbsp;</td>
 				</tr>
 			</tfoot>
@@ -436,7 +436,7 @@
 
 					<div class="col-md-6">
 						<label for="factor_superficie">Factor Superficie:</label>
-						<input type="number" class="form-control clsNumeric" name="factor_superficie" id="factor_superficie" min="0.00" max="9999999999.99" step="0.01" required />
+						<input type="text" class="form-control" name="factor_superficie" id="factor_superficie" disabled />
 					</div>
 					<div class="col-md-6">
 						<label for="factor_edad">Factor Edad:</label>
@@ -462,11 +462,11 @@
 
 					<div class="col-md-6">
 						<label for="factor_resultante">Factor Resultante:</label>
-						<input type="number" class="form-control" name="factor_resultante" id="factor_resultante" disabled />
+						<input type="text" class="form-control" name="factor_resultante" id="factor_resultante" disabled />
 					</div>
 					<div class="col-md-6">
 						<label for="valor_unitario_resultante_m2_aemanalisis">Resultante ($/m&sup2;):</label>
-						<input type="number" class="form-control" name="valor_unitario_resultante_m2_aemanalisis" id="valor_unitario_resultante_m2_aemanalisis" disabled />
+						<input type="text" class="form-control" name="valor_unitario_resultante_m2_aemanalisis" id="valor_unitario_resultante_m2_aemanalisis" disabled />
 					</div>
 
 					<div class="col-md-12">

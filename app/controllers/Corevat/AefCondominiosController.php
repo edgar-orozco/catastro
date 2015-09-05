@@ -1,4 +1,5 @@
 <?php
+use Carbon\Carbon;
 
 class corevat_AefCondominiosController extends \BaseController {
 
@@ -24,11 +25,13 @@ class corevat_AefCondominiosController extends \BaseController {
 	 * @return Response
 	 */
 	public function store() {
+		$subtotal_area_condominio = $total_valor_fisico = 0;
 		$inputs = Input::All();
 		$validate = $this->validate($inputs);
 		if ($validate->fails()) {
 			$response = array('success' => false, 'errors' => $validate->getMessageBag()->toArray());
 		} else {
+			$inputs["created_at"] = Carbon::now()->format('Y-m-d H:i:s');
 			AefCondominios::insAefCondominios($inputs, $subtotal_area_condominio, $total_valor_fisico);
 			$response = array('success' => true, 'message' => '¡El registro fue ingresado satisfactoriamente!',
 				'subtotal_area_condominio' => number_format($subtotal_area_condominio, 2, ".", ","), 
@@ -57,11 +60,13 @@ class corevat_AefCondominiosController extends \BaseController {
 	 * @return Response
 	 */
 	public function update($id) {
+		$subtotal_area_condominio = $total_valor_fisico = 0;
 		$inputs = Input::All();
 		$validate = $this->validate($inputs);
 		if ($validate->fails()) {
 			$response = array('success' => false, 'errors' => $validate->getMessageBag()->toArray());
 		} else {
+			$inputs["updated_at"] = Carbon::now()->format('Y-m-d H:i:s');
 			AefCondominios::updAefCondominios($inputs, $subtotal_area_condominio, $total_valor_fisico);
 			$response = array('success' => true, 'message' => '¡El registro fue modificado satisfactoriamente!',
 				'subtotal_area_condominio' => number_format($subtotal_area_condominio, 2, ".", ","), 
@@ -80,16 +85,8 @@ class corevat_AefCondominiosController extends \BaseController {
 	public function destroy($id) {
 		$row = AefCondominios::findOrFail($id);
 		if ($row) {
-			$idavaluoenfoquefisico = $row->idavaluoenfoquefisico;
 			$row->delete($id);
-
-			$Total = AefCondominios::select(DB::raw('sum(valor_parcial) AS nsuma'))->where('idavaluoenfoquefisico', '=', $idavaluoenfoquefisico)->first();
-
-			$rowEnfoqueFisico = AvaluosFisico::find($idavaluoenfoquefisico);
-			$rowEnfoqueFisico->subtotal_area_condominio = ( is_null($Total->nsuma) ? 0 : $Total->nsuma);
-			$rowEnfoqueFisico->total_valor_fisico = AvaluosFisico::updBeforeAvaluoEnfoqueFisico($rowEnfoqueFisico);
-			$rowEnfoqueFisico->save();
-			AvaluosFisico::updAfterAvaluoEnfoqueFisico($rowEnfoqueFisico->idavaluo, $rowEnfoqueFisico->total_valor_fisico);
+			$rowEnfoqueFisico = AvaluosFisico::find($row->idavaluoenfoquefisico);
 			return Response::json(array('success' => true, 'message' => '!El registro fue eliminado satisfactoriamente!',
 				'subtotal_area_condominio' => number_format($rowEnfoqueFisico->subtotal_area_condominio, 2, ".", ","),
 				'total_valor_fisico' => number_format($rowEnfoqueFisico->total_valor_fisico, 2, ".", ",")));
@@ -104,15 +101,14 @@ class corevat_AefCondominiosController extends \BaseController {
 		$inputs["vida_remanente"] = number_format( (float) $inputs["vida_remanente"], 2, ".", "");
 		$inputs["edad_condominios"] = number_format( (float) $inputs["edad_condominios"], 2, ".", "");
 		$inputs["factor_conservacion_condominios"] = number_format( (float) $inputs["factor_conservacion_condominios"], 2, ".", "");
-		$inputs["indiviso_condominios"] = number_format( (float) $inputs["indiviso_condominios"], 2, ".", "");
 
 		$rules = array(
 			'cantidad_condominios' => array('required', 'numeric', 'min:0.00', 'max:99999999.99'),
 			'valor_nuevo_condominios' => array('required', 'numeric', 'min:0.00', 'max:99999999.99'),
 			'vida_remanente' => array('required', 'numeric', 'min:0.00', 'max:99999999.99'),
 			'edad_condominios' => array('required', 'numeric', 'min:0.00', 'max:99999999.99'),
+			'factor_edad_condominios' => array('required', 'numeric', 'min:0.00', 'max:99999999.99'),
 			'factor_conservacion_condominios' => array('required', 'numeric', 'min:0.00', 'max:99999999.99'),
-			'indiviso_condominios' => array('required', 'numeric', 'min:0.00', 'max:99999999.99'),
 		);
 		$messages = array(
 			'cantidad_condominios.required' => '¡El campo "Cantidad" es requerido!',
@@ -140,11 +136,11 @@ class corevat_AefCondominiosController extends \BaseController {
 			'factor_conservacion_condominios.min' => '¡El valor mínimo del campo "Factor Conservación" debe ser cero!',
 			'factor_conservacion_condominios.max' => '¡El valor máximo del campo "Factor Conservación" debe ser 99999999.99!',
 			
-			'indiviso.required' => '¡El campo "Indiviso (%)" es requerido!',
-			'indiviso.numeric' => '¡El valor del campo "Indiviso (%)" debe ser numérico!',
-			'indiviso.min' => '¡El valor mínimo del campo "Indiviso (%)" debe ser cero!',
-			'indiviso.max' => '¡El valor máximo del campo "Indiviso (%)" debe ser 100.00!',
-
+			'factor_edad_condominios.required' => '¡El campo "Factor Edad" es requerido!',
+			'factor_edad_condominios.numeric' => '¡El valor del campo "Factor Edad" debe ser numérico!',
+			'factor_edad_condominios.min' => '¡El valor mínimo del campo "Factor Edad" debe ser cero!',
+			'factor_edad_condominios.max' => '¡El valor máximo del campo "Factor Edad" debe ser 99999999.99!',
+			
 		);
 		return Validator::make($inputs, $rules, $messages);
 	}
