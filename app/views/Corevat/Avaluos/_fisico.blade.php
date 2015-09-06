@@ -146,18 +146,24 @@
 		<table cellpadding="0" cellspacing="0" border="0" class="table datatable table-striped" id="aefCondominiosDataTable">
 			<thead>
 				<tr>
-					<th>ID</th>
-					<th>DESCRIPCIÓN</th>
-					<th>UNIDAD</th>
-					<th>CANTIDAD</th>
-					<th>V.R. NUEVO</th>
-					<th>VIDA UTIL</th>
-					<th>EDAD (años)</th>
+					<th rowspan="2">ID</th>
+					<th rowspan="2">DESCRIPCIÓN</th>
+					<th rowspan="2">UNIDAD</th>
+					<th rowspan="2">CANTIDAD</th>
+					<th rowspan="2">V.R. NUEVO</th>
+					<th rowspan="2">VIDA UTIL</th>
+					<th rowspan="2">EDAD (años)</th>
 					<th>F. EDAD</th>
 					<th>F. CONS.</th>
 					<th>F. RESUL.</th>
-					<th>INDIVISO</th>
-					<th>V. PARCIAL</th>
+					<th rowspan="2">INDIVISO</th>
+					<th rowspan="2">V. PARCIAL</th>
+					<th colspan="2">Opciones</th>
+				</tr>
+				<tr>
+					<th>F. EDAD</th>
+					<th>F. CONS.</th>
+					<th>F. RESUL.</th>
 					<th></th>
 					<th></th>
 				</tr>
