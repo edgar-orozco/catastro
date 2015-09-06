@@ -1,7 +1,5 @@
 <?php
 
-Carbon\Carbon;
-
 class corevat_AvaluosMercadoController extends \BaseController {
 
 	/**
