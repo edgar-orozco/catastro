@@ -153,9 +153,7 @@
 					<th rowspan="2">V.R. NUEVO</th>
 					<th rowspan="2">VIDA UTIL</th>
 					<th rowspan="2">EDAD (años)</th>
-					<th>F. EDAD</th>
-					<th>F. CONS.</th>
-					<th>F. RESUL.</th>
+					<th colspan="3">Factores</th>
 					<th rowspan="2">INDIVISO</th>
 					<th rowspan="2">V. PARCIAL</th>
 					<th colspan="2">Opciones</th>
