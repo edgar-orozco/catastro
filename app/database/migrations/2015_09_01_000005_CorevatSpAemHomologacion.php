@@ -56,9 +56,13 @@ CREATE FUNCTION aem_homologacion_after() RETURNS TRIGGER AS $$
 
 		SELECT avg(valor_unitario_resultante_m2) INTO vup FROM aem_homologacion WHERE idavaluoenfoquemercado = v_idaem;
 		SELECT avg(valor_unitario_resultante_m2) INTO vap FROM aem_homologacion WHERE idavaluoenfoquemercado = v_idaem AND in_promedio = 1;
+		IF (vup = NULL) THEN
+			vup := 0;
+		END IF;
 		IF (vap = NULL) THEN
 			vap := 0;
 		END IF;
+		
 		UPDATE avaluo_enfoque_mercado SET valor_unitario_promedio = vup, valor_aplicado_m2 = round( vap, 2) WHERE idavaluoenfoquemercado = v_idaem;
 		
 		RETURN NULL;
