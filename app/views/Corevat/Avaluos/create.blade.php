@@ -11,7 +11,7 @@
 			@endforeach
         </div>
     @endif
-{{ Form::open(array('id'=>'form','url' => 'corevat/Avaluos/', 'method' => 'POST')) }}
+{{ Form::open(array('id'=>'form','url' => 'corevat/AvaluosStore/', 'method' => 'POST')) }}
 <div class="row coveratCont">
 	<div class="col-md-12">
 		<div class="form-group">
@@ -151,7 +151,7 @@
 	<br />
 	<div class="col-md-6">
 		<div class="form-group">
-			{{Form::label('idregimenpropiedad', 'Regimen : ',['class'=>'col-sm-4'])}}
+			{{Form::label('idregimenpropiedad', 'Régimen de propiedad: ',['class'=>'col-sm-4'])}}
             <div class="col-md-8">
                 {{Form::select('idregimenpropiedad', $cat_regimen_propiedad, $row->idregimenpropiedad, ['id' => 'idregimenpropiedad', 'class'=>'form-control', 'tabindex'=>'20'])}}
             </div>
@@ -188,7 +188,7 @@
 		<div class="form-group">
 			{{Form::label('nombre_solicitante','Solicitante : ',['class'=>'col-sm-2'])}}
             <div class="col-md-10">
-			{{Form::text('nombre_solicitante','', ['class'=>'form-control', 'tabindex'=>'24', 'maxlength'=>'100'])}}
+			{{Form::text('nombre_solicitante','', ['class'=>'form-control', 'tabindex'=>'24', 'maxlength'=>'100', 'required'=>'required'])}}
             </div>
 		</div>
 	</div>

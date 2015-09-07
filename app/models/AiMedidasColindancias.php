@@ -25,18 +25,17 @@ class AiMedidasColindancias extends \Eloquent {
 		 foreach ($rows as $row) {
 			 $pato[] = array(
 				$row['idaimedidacolindancia'], 
-				$row['idorientacion'], 
 				$row['orientacion'], 
 				$row['unidad_medida'], 
 				$row['medidas'], 
-				$row['medida'], 
 				$row['colindancia'], 
-				'<a class="btn btn-xs btn-info btnEdit"  title="Editar" onclick="$.editAiMedidasColindancias('.$row['idaimedidacolindancia'].');"><i class="glyphicon glyphicon-pencil"></i></a>', 
-				'<a class="btn btn-xs btn-danger btnDel" title="Eliminar" onclick="$.delAiMedidasColindancias('.$row['idaimedidacolindancia'].');"><i class="glyphicon glyphicon-remove"></i></a>');
+				'<a class="btn btn-xs btn-info btnEdit"  title="Editar" onclick="$.editAiMedidasColindancias('.$row['idaimedidacolindancia'].');"><i class="glyphicon glyphicon-pencil"></i></a>'. 
+				'<a class="btn btn-xs btn-danger btnDel" title="Eliminar" onclick="$.delAiMedidasColindancias('.$row['idaimedidacolindancia'].');"><i class="glyphicon glyphicon-remove"></i></a>'
+			);
 		 }
 		$res = array(
 			"draw" => 1,
-			"recordsTotal" => $count,//DB::table('users')->count();
+			"recordsTotal" => $count,
 			"recordsFiltered" => $count,
 			"data" => $pato
 		);
@@ -50,7 +49,8 @@ class AiMedidasColindancias extends \Eloquent {
 	 * @return Response
 	 */
 	public static function getOrientacionFromMedCol($fk) {
-		$rows = AiMedidasColindancias::select('ai_medidas_colindancias.*', 'cat_orientaciones.orientacion')
+		$rows = AiMedidasColindancias::select('cat_orientaciones.orientacion', 'ai_medidas_colindancias.unidad_medida', 
+				'ai_medidas_colindancias.medidas', 'ai_medidas_colindancias.colindancia')
 						->leftJoin('cat_orientaciones', 'ai_medidas_colindancias.idorientacion', '=', 'cat_orientaciones.idorientacion')
 						->where('ai_medidas_colindancias.idavaluoinmueble', '=', $fk)
 						->orderBy('ai_medidas_colindancias.idaimedidacolindancia')
@@ -72,11 +72,7 @@ class AiMedidasColindancias extends \Eloquent {
 		$row->medidas = $inputs['medidas'];
 		$row->unidad_medida = $inputs['unidad_medida'];
 		$row->colindancia = $inputs['colindancia'];
-		$row->idemp = 1;
-		$row->ip = $_SERVER['REMOTE_ADDR'];
-		$row->host = isset($_SERVER['HTTP_CLIENT_IP']) ? $_SERVER['HTTP_CLIENT_IP'] : '';
-		$row->creado_por = Auth::Id();
-		$row->creado_el = date('Y-m-d H:i:s');
+		$row->created_at = $inputs["created_at"];
 		$row->save();
 	}
 
@@ -92,10 +88,7 @@ class AiMedidasColindancias extends \Eloquent {
 		$row->medidas = $inputs['medidas'];
 		$row->unidad_medida = $inputs['unidad_medida'];
 		$row->colindancia = $inputs['colindancia'];
-		$row->ip = $_SERVER['REMOTE_ADDR'];
-		$row->host = isset($_SERVER['HTTP_CLIENT_IP']) ? $_SERVER['HTTP_CLIENT_IP'] : '';
-		$row->modi_por = Auth::Id();
-		$row->modi_el = date('Y-m-d H:i:s');
+		$row->updated_at = $inputs["updated_at"];
 		$row->save();
 	}
 

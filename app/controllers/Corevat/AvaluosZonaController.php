@@ -1,43 +1,7 @@
 <?php
+use Carbon\Carbon;
 
 class corevat_AvaluosZonaController extends \BaseController {
-
-	/**
-	 * Display a listing of the resource.
-	 *
-	 * @return Response
-	 */
-	public function index() {
-		//
-	}
-
-	/**
-	 * Show the form for creating a new resource.
-	 *
-	 * @return Response
-	 */
-	public function create() {
-		//
-	}
-
-	/**
-	 * Store a newly created resource in storage.
-	 *
-	 * @return Response
-	 */
-	public function store() {
-		//
-	}
-
-	/**
-	 * Display the specified resource.
-	 *
-	 * @param  int  $id
-	 * @return Response
-	 */
-	public function show($id) {
-		//
-	}
 
 	/**
 	 * Show the form for editing the specified resource.
@@ -51,10 +15,6 @@ class corevat_AvaluosZonaController extends \BaseController {
 		$rowA = Avaluos::find($id);
 		$title = 'Características de la Zona: ' . $rowA['foliocoretemp'];
 		$row = Avaluos::find($id)->AvaluosZona;
-		if (count($row) <= 0) {
-			AvaluosZona::insAvaluoZona($id);
-			$row = Avaluos::find($id)->AvaluosZona;
-		}
 		$cat_clasificacion_zona = CatClasificacionZona::comboList();
 		$cat_proximidad_urbana = CatProximidadUrbana::comboList();
 
@@ -69,6 +29,7 @@ class corevat_AvaluosZonaController extends \BaseController {
 	 */
 	public function update($id) {
 		$inputs = Input::All();
+		$inputs["nivel_equipamiento"] = (int) $inputs["nivel_equipamiento"];
 		$rules = array(
 			'nivel_equipamiento' => 'integer|min:0|max:100',
 		);
@@ -81,19 +42,10 @@ class corevat_AvaluosZonaController extends \BaseController {
 		if ($validate->fails()) {
 			return Redirect::back()->withInput()->withErrors($validate);
 		} else {
+			$inputs["updated_at"] = Carbon::now()->format('Y-m-d H:i:s');
 			AvaluosZona::updAvaluosZona($id, $inputs);
 			return Redirect::to('/corevat/AvaluoZona/' . $id)->with('success', '¡El registro fue modificado satisfactoriamente!');
 		}
-	}
-
-	/**
-	 * Remove the specified resource from storage.
-	 *
-	 * @param  int  $id
-	 * @return Response
-	 */
-	public function destroy($id) {
-		//
 	}
 
 }

@@ -545,62 +545,57 @@ Route::group(array('before' => 'corevat'), function () {
 	 * AVALUOS
 	 * avaluos
 	 */
-	Route::get('/corevat/Avaluos.{format}', array('as' => 'indexAvaluos', 'uses' => 'corevat_AvaluosController@index'));
-	Route::post('/corevat/Avaluos.{format}', array('as' => 'storeAvaluos', 'uses' => 'corevat_AvaluosController@store'));
-	Route::get('/corevat/AvaluoDel/{id}', array('as' => 'delAvaluo', 'uses' => 'corevat_AvaluosController@delAvaluo'));
-	Route::put('/corevat/Avaluos/{id?}.{format}', array('as' => 'showAvaluos', 'uses' => 'corevat_AvaluosController@show'));
-	Route::get('/corevat/AvaluoPrint/{id}', array('as' => 'printAvaluo', 'uses' => 'corevat_PrintDictamenAvaluoController@printAvaluo'));
+	Route::get('/corevat/Avaluos',           array('uses' => 'corevat_AvaluosController@index',   'as' => 'indexAvaluos'));
+	Route::get('/corevat/AvaluosCreate',     array('uses' => 'corevat_AvaluosController@create',  'as' => 'createAvaluo'));
+	Route::post('/corevat/AvaluosStore',     array('uses' => 'corevat_AvaluosController@store',   'as' => 'storeAvaluo'));
+	Route::get('/corevat/AvaluoDel/{id}',    array('uses' => 'corevat_AvaluosController@destroy', 'as' => 'destroyAvaluo'));
+	
+	Route::get('/corevat/AvaluoGeneral/{id}',  array('uses' => 'corevat_AvaluosController@edit',    'as' => 'editAvaluoGeneral'));
+	Route::post('/corevat/AvaluosUpd/{id?}', array('uses' => 'corevat_AvaluosController@update',  'as' => 'updateAvaluoGeneral'));
+	
+	Route::get('/corevat/AvaluoPrint/{id}',  array('as' => 'printAvaluo',  'uses' => 'corevat_PrintDictamenAvaluoController@printAvaluo'));
+	
 	Route::get('/corevat/AvaluosValuadorPrint/{id}', array('as' => 'printAvaluosByValuador', 'uses' => 'corevat_PrintDictamenAvaluoController@printAvaluosByValuador'));
-
-	// AVALUOS GENERAL
-	Route::get('/corevat/AvaluoGeneral/{id}', array('as' => 'editAvaluoGeneral', 'uses' => 'corevat_AvaluosController@editGeneral'));
-	Route::post('/corevat/AvaluoGeneralUpd/{id?}', array('as' => 'updateAvaluoGeneral', 'uses' => 'corevat_AvaluosController@updateGeneral'));
 	
 	// AVALUOS ZONA
-	Route::get('/corevat/AvaluoZona/{id}', array('as' => 'editAvaluoZona', 'uses' => 'corevat_AvaluosZonaController@edit'));
-	Route::post('/corevat/AvaluoZonaUpd/{id?}', array('as' => 'updateAvaluoZona', 'uses' => 'corevat_AvaluosZonaController@update'));
+	Route::get('/corevat/AvaluoZona/{id}',      array('uses' => 'corevat_AvaluosZonaController@edit',   'as' => 'editAvaluoZona'));
+	Route::post('/corevat/AvaluoZonaUpd/{id?}', array('uses' => 'corevat_AvaluosZonaController@update', 'as' => 'updateAvaluoZona'));
 	
 	// AVALUOS INMUEBLES
-	Route::get('/corevat/AvaluoInmueble/{id}', array('as' => 'editAvaluoInmueble', 'uses' => 'corevat_AvaluosInmuebleController@edit'));
-	Route::post('/corevat/AvaluoInmuebleUpd/{id?}', array('as' => 'updateAvaluoInmueble', 'uses' => 'corevat_AvaluosInmuebleController@update'));
+	Route::get('/corevat/AvaluoInmueble/{id}',      array('uses' => 'corevat_AvaluosInmuebleController@edit',   'as' => 'editAvaluoInmueble'));
+	Route::post('/corevat/AvaluoInmuebleUpd/{id?}', array('uses' => 'corevat_AvaluosInmuebleController@update', 'as' => 'updateAvaluoInmueble'));
 	
 	// AVALUOS MEDIDAS COLINDANCIAS ==> PARA CAMBIAR EN MAC
-	Route::get('/corevat/AiMedidasColindanciasGet/{id}', array('uses' => 'corevat_AiMedidasController@getAiMedidasColindancias'));
-	Route::post('/corevat/AiMedidasColindanciasUpd/{id?}', array('as' => 'setAiMedidasColindancias', 'uses' => 'corevat_AiMedidasController@setAiMedidasColindancias'));
-	Route::get('/corevat/AiMedidasColindanciasDel/{id}', array('as' => 'destroyAiMedidasColindancias', 'uses' => 'corevat_AiMedidasController@destroy'));
-	Route::get('/corevat/AiMedidasColindanciasGetAjax/{id}', array('as' => 'getAjaxAiMedidasColindancias', 'uses' => 'corevat_AiMedidasController@getAjaxAiMedidasColindancias'));
-	
-	//Route::get('/corevat/AiMedidasColindanciasGet/{id}', array('uses' => 'corevat_AvaluosController@getAiMedidasColindancias'));
-	//Route::post('/corevat/AiMedidasColindanciasUpd/{id?}', array('as' => 'setAiMedidasColindancias', 'uses' => 'corevat_AvaluosController@setAiMedidasColindancias'));
-	//Route::get('/corevat/AiMedidasColindanciasDel/{id}', array('as' => 'destroyAiMedidasColindancias', 'uses' => 'corevat_AvaluosController@delAiMedidasColindancias'));
-	//Route::get('/corevat/AiMedidasColindanciasGetAjax/{id}', array('as' => 'getAjaxAiMedidasColindancias', 'uses' => 'corevat_AvaluosController@getAjaxAiMedidasColindancias'));
+	Route::get( '/corevat/AiMedidasColindanciasGet/{id}',     array('uses' => 'corevat_AiMedidasController@getAiMedidasColindancias'));
+	Route::post('/corevat/AiMedidasColindanciasUpd/{id?}',    array('as' => 'setAiMedidasColindancias',     'uses' => 'corevat_AiMedidasController@setAiMedidasColindancias'));
+	Route::get( '/corevat/AiMedidasColindanciasDel/{id}',     array('as' => 'destroyAiMedidasColindancias', 'uses' => 'corevat_AiMedidasController@destroy'));
+	Route::get( '/corevat/AiMedidasColindanciasGetAjax/{id}', array('as' => 'getAjaxAiMedidasColindancias', 'uses' => 'corevat_AiMedidasController@getAjaxAiMedidasColindancias'));
 	
 	// ENFOQUE MERCADO
-	Route::get('/corevat/AvaluoEnfoqueMercado/{id}', array('as' => 'editAvaluoEnfoqueMercado', 'uses' => 'corevat_AvaluosController@editMercado'));
-	Route::post('/corevat/AvaluoEnfoqueMercadoUpd/{id?}', array('as' => 'updateAvaluoEnfoqueMercado', 'uses' => 'corevat_AvaluosController@updateMercado'));
-	Route::post('/corevat/AvaluoEnfoqueMercadoDel/{id}', array('as' => 'delAvaluoEnfoqueMercado', 'uses' => 'corevat_AvaluosController@delAvaluoEnfoqueMercado'));
+	Route::get('/corevat/AvaluoEnfoqueMercado/{id}',      array('as' => 'editAvaluoEnfoqueMercado',   'uses' => 'corevat_AvaluosMercadoController@edit'));
+	Route::post('/corevat/AvaluoEnfoqueMercadoUpd/{id?}', array('as' => 'updateAvaluoEnfoqueMercado', 'uses' => 'corevat_AvaluosMercadoController@update'));
 
 	// ENFOQUE MERCADO [COMPARATIVO DE TERRENOS]
-	Route::get('/corevat/AemCompTerrenosGet/{id?}', array('as' => 'getAemCompTerrenos', 'uses' => 'corevat_AvaluosController@getAemCompTerrenos'));
-	Route::get('/corevat/AemCompTerrenosGetAjax/{id}', array('as' => 'getAemCompTerrenos', 'uses' => 'corevat_AvaluosController@getAjaxAemCompTerrenos'));
-	Route::post('/corevat/AemCompTerrenosSet/{id}', array('as' => 'setAemCompTerrenos', 'uses' => 'corevat_AvaluosController@setAemCompTerrenos'));
-	Route::get('/corevat/AemCompTerrenosDel/{id}', array('as' => 'delAemCompTerrenos', 'uses' => 'corevat_AvaluosController@delAemCompTerrenos'));
+	Route::get('/corevat/AemCompTerrenosGet/{id?}',    array('as' => 'getAemCompTerrenos',     'uses' => 'corevat_AemCompTerrenosController@getAemCompTerrenos'));
+	Route::get('/corevat/AemCompTerrenosGetAjax/{id}', array('as' => 'getAemCompTerrenosAjax', 'uses' => 'corevat_AemCompTerrenosController@getAjaxAemCompTerrenos'));
+	Route::post('/corevat/AemCompTerrenosSet/{id}',    array('as' => 'setAemCompTerrenos',     'uses' => 'corevat_AemCompTerrenosController@setAemCompTerrenos'));
+	Route::get('/corevat/AemCompTerrenosDel/{id}',     array('as' => 'delAemCompTerrenos',     'uses' => 'corevat_AemCompTerrenosController@destroy'));
 
 	// ENFOQUE MERCADO [HOMOLOGACION]
-	Route::get('/corevat/AemHomologacionGet/{id?}', array('as' => 'getAemHomologacion', 'uses' => 'corevat_AvaluosController@getAemHomologacion'));
-	Route::get('/corevat/AemHomologacionGetAjax/{id}', array('as' => 'getAjaxAemHomologacion', 'uses' => 'corevat_AvaluosController@getAjaxAemHomologacion'));
-	Route::post('/corevat/AemHomologacionSet/{id}', array('as' => 'setAemHomologacion', 'uses' => 'corevat_AvaluosController@setAemHomologacion'));
+	Route::get('/corevat/AemHomologacionGet/{id?}',    array('as' => 'getAemHomologacion',     'uses' => 'corevat_AemHomologacionController@getAemHomologacion'));
+	Route::get('/corevat/AemHomologacionGetAjax/{id}', array('as' => 'getAjaxAemHomologacion', 'uses' => 'corevat_AemHomologacionController@getAjaxAemHomologacion'));
+	Route::post('/corevat/AemHomologacionSet/{id}',    array('as' => 'setAemHomologacion',     'uses' => 'corevat_AemHomologacionController@setAemHomologacion'));
 
 	// ENFOQUE MERCADO [INFORMACION]
-	Route::get('/corevat/AemInformacionGet/{id?}', array('as' => 'getAemInformacion', 'uses' => 'corevat_AvaluosController@getAemInformacion'));
-	Route::get('/corevat/AemInformacionGetAjax/{id}', array('as' => 'getAjaxAemInformacion', 'uses' => 'corevat_AvaluosController@getAjaxAemInformacion'));
-	Route::post('/corevat/AemInformacionSet/{id}', array('as' => 'setAemInformacion', 'uses' => 'corevat_AvaluosController@setAemInformacion'));
-	Route::get('/corevat/AemInformacionDel/{id}', array('as' => 'delAemInformacion', 'uses' => 'corevat_AvaluosController@delAemInformacion'));
+	Route::get('/corevat/AemInformacionGet/{id?}',    array('as' => 'getAemInformacion',     'uses' => 'corevat_AemInformacionController@getAemInformacion'));
+	Route::get('/corevat/AemInformacionGetAjax/{id}', array('as' => 'getAjaxAemInformacion', 'uses' => 'corevat_AemInformacionController@getAjaxAemInformacion'));
+	Route::post('/corevat/AemInformacionSet/{id}',    array('as' => 'setAemInformacion',     'uses' => 'corevat_AemInformacionController@setAemInformacion'));
+	Route::get('/corevat/AemInformacionDel/{id}',     array('as' => 'delAemInformacion',     'uses' => 'corevat_AemInformacionController@destroy'));
 
 	// ENFOQUE MERCADO [ANALISIS]
-	Route::get('/corevat/AemAnalisisGet/{id?}',    array('as' => 'getAemAnalisis',     'uses' => 'corevat_AvaluosController@getAemAnalisis'));
-	Route::get('/corevat/AemAnalisisGetAjax/{id}', array('as' => 'getAjaxAemAnalisis', 'uses' => 'corevat_AvaluosController@getAjaxAemAnalisis'));
-	Route::post('/corevat/AemAnalisisSet/{id}',    array('as' => 'setAemAnalisis', 'uses' => 'corevat_AvaluosController@setAemAnalisis'));
+	Route::get('/corevat/AemAnalisisGet/{id?}',    array('as' => 'getAemAnalisis',     'uses' => 'corevat_AemAnalisisController@getAemAnalisis'));
+	Route::get('/corevat/AemAnalisisGetAjax/{id}', array('as' => 'getAjaxAemAnalisis', 'uses' => 'corevat_AemAnalisisController@getAjaxAemAnalisis'));
+	Route::post('/corevat/AemAnalisisSet/{id}',    array('as' => 'setAemAnalisis',     'uses' => 'corevat_AemAnalisisController@setAemAnalisis'));
 
 	// ENFOQUE FISICO
 	//corevat_AvaluosFisicoControlle
@@ -640,12 +635,12 @@ Route::group(array('before' => 'corevat'), function () {
 	Route::get( '/corevat/AefInstalacionesDel/{id}',     array('uses' => 'corevat_AefInstalacionesController@destroy', 'as' => 'delAefInstalaciones'));
 	
 	// CONCLUSIONES
-	Route::get('/corevat/AvaluoConclusiones/{id}', array('as' => 'editAvaluoConclusiones', 'uses' => 'corevat_AvaluosController@editConclusiones'));
-	Route::post('/corevat/AvaluoConclusionesUpd/{id?}', array('as' => 'updateAvaluoConclusiones', 'uses' => 'corevat_AvaluosController@updateConclusiones'));
+	Route::get('/corevat/AvaluoConclusiones/{id}', array('as' => 'editAvaluoConclusiones', 'uses' => 'corevat_AvaluosConclusionController@edit'));
+	Route::post('/corevat/AvaluoConclusionesUpd/{id?}', array('as' => 'updateAvaluoConclusiones', 'uses' => 'corevat_AvaluosConclusionController@update'));
 	
 	// FOTOS Y PLANO
-	Route::get('/corevat/AvaluoFotos/{id}', array('as' => 'editAvaluoFotos', 'uses' => 'corevat_AvaluosController@editFotos'));
-	Route::post('/corevat/AvaluoFotosUpd/{id?}', array('as' => 'updateAvaluoFotos', 'uses' => 'corevat_AvaluosController@updateFotos'));
+	Route::get('/corevat/AvaluoFotos/{id}', array('as' => 'editAvaluoFotos', 'uses' => 'corevat_AvaluosFotoController@edit'));
+	Route::post('/corevat/AvaluoFotosUpd/{id?}', array('as' => 'updateAvaluoFotos', 'uses' => 'corevat_AvaluosFotoController@update'));
 	
 	Route::resource('corevat/Avaluos', 'corevat_AvaluosController');
 

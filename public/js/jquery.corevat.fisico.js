@@ -32,7 +32,7 @@ $(document).ready(function () {
 	 * 
 	 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
 	$('#btnNewAefTerr').click(function () {
-		$('#formAefTerrenos').attr('action', '/corevat/AefTerrenosNew');
+		$('#formAefTerrenos').trigger('reset').attr('action', '/corevat/AefTerrenosNew');
 		$('#messagesModalFormAefTerrenos').empty().removeClass();
 		$('#ctrlAefTerrenos').val('ins');
 		$('#idaefterreno').val('0');
@@ -44,6 +44,7 @@ $(document).ready(function () {
 	 * 
 	 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
 	$('#btnNewAefCons').click(function () {
+		$('#formAefConstrucciones').trigger('reset').attr('action', '/corevat/AefConstruccionesNew');
 		$('#messagesModalFormAefConstrucciones').empty().removeClass();
 		$('#ctrlAefConstrucciones').val('ins');
 		$('#idaefconstruccion').val('0');
@@ -55,6 +56,7 @@ $(document).ready(function () {
 	 * 
 	 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
 	$('#btnNewAefCon').click(function () {
+		$('#formAefCondominios').trigger('reset').attr('action', '/corevat/AefCondominiosNew');
 		$('#messagesModalFormAefCondominios').empty().removeClass();
 		$('#ctrlAefCondominios').val('ins');
 		$('#idaefcondominio').val('0');
@@ -66,6 +68,7 @@ $(document).ready(function () {
 	 * 
 	 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
 	$('#btnNewAefIns').click(function () {
+		$('#formAefInstalaciones').trigger('reset').attr('action', '/corevat/AefInstalacionesNew');
 		$('#messagesModalFormAefInstalaciones').empty().removeClass();
 		$('#ctrlAefInstalaciones').val('ins');
 		$('#idaefinstalacion').val('0');
@@ -190,7 +193,7 @@ $(document).ready(function () {
 				$("#idfactorotros option[value=" + datos.fk_otros + "]").attr("selected", true);
 				$('#otros').val(datos.otros);
 
-				$('#factor_resultante').val(datos.factor_resultante);
+				$('#factor_resultante_terrenos').val(datos.factor_resultante);
 				$('#valor_unitario_neto').val(datos.valor_unitario_neto);
 				$('#indiviso_terrenos').val(datos.indiviso);
 				$('#valor_parcial_terrenos').val(datos.valor_parcial);
@@ -417,5 +420,9 @@ $(document).ready(function () {
 		});
 		return false;
 	});
+
+	/*++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+	 * 
+	 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
 
 });

@@ -1,4 +1,5 @@
 <?php
+use Carbon\Carbon;
 
 class corevat_AvaluosFisicoController extends \BaseController {
 
@@ -21,7 +22,8 @@ class corevat_AvaluosFisicoController extends \BaseController {
 		}
 
 		$AvaluoInmueble = AvaluosInmueble::where('idavaluo', '=', $idavaluo)->first();
-		$superficie_total_terreno = $AvaluoInmueble->superficie_total_terreno;
+		$superficie_total_terreno = number_format($AvaluoInmueble->superficie_total_terreno, 2, '.', ',');
+		$indiviso_terreno = number_format($AvaluoInmueble-> indiviso_terreno, 2, '.', ',');
 		
 		$cat_clase_general_inmueble = CatClaseGeneralInmueble::comboList();
 		$cat_tipo_inmueble = CatTipoInmueble::comboList();
@@ -38,7 +40,7 @@ class corevat_AvaluosFisicoController extends \BaseController {
 		return View::make('Corevat.Avaluos.avaluos', compact('opt', 'idavaluo', 'title', 'row', 'cat_clase_general_inmueble', 
 				'cat_tipo_inmueble', 'cat_estado_conservacion', 'cat_calidad_proyecto', 'cat_factores_frente', 
 				'cat_factores_forma', 'cat_factores_conservacion', 'cat_factores_top', 'cat_tipo', 'cat_obras_complementarias',
-				'superficie_total_terreno'));
+				'superficie_total_terreno', 'indiviso_terreno'));
 	}
 
 	/**
@@ -74,17 +76,6 @@ class corevat_AvaluosFisicoController extends \BaseController {
 			AvaluosFisico::updAvaluoFisico($id, $inputs);
 			return Redirect::to('/corevat/AvaluoEnfoqueFisico/' . $id)->with('success', '¡El registro fue modificado satisfactoriamente!');
 		}
-	}
-
-	/**
-	 * Remove the specified resource from storage.
-	 * DELETE /avaluosfisico/{id}
-	 *
-	 * @param  int  $id
-	 * @return Response
-	 */
-	public function destroy($id) {
-		//
 	}
 
 }

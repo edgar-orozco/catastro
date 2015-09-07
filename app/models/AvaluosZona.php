@@ -28,50 +28,6 @@ class AvaluosZona extends \Eloquent {
 	 * @param  int  $id
 	 * @return Response
 	 */
-	public static function insAvaluoZona($idavaluo) {
-		$row = new AvaluosZona();
-		$row->idavaluo = $idavaluo;
-		$row->is_agua_potable = 0;
-		$row->is_guarniciones = 0;
-		$row->is_drenaje = 0;
-		$row->is_banqueta = 0;
-		$row->is_electricidad = 0;
-		$row->is_telefono = 0;
-		$row->is_pavimentacion = 0;
-		$row->is_transporte_publico = 0;
-		$row->is_alumbrado_publico = 0;
-		$row->is_otro_servicio = 0;
-		$row->otro_servicio_municipal = '';
-		$row->is_escuela = 0;
-		$row->is_iglesia = 0;
-		$row->is_banco = 0;
-		$row->is_comercio = 0;
-		$row->is_hospital = 0;
-		$row->is_parque = 0;
-		$row->is_transporte = 0;
-		$row->is_gasolinera = 0;
-		$row->is_mercado = 0;
-		$row->is_otro_equipamiento = 0;
-		$row->cobertura = '';
-		$row->otro_equipamiento = '';
-		$row->nivel_equipamiento = 0;
-		$row->idclasificacionzona = 1;
-		$row->idproximidadurbana = 1;
-		$row->construc_predominante = '';
-		$row->vias_acceso_importante = '';
-		$row->ip = $_SERVER['REMOTE_ADDR'];
-		$row->host = isset($_SERVER['HTTP_CLIENT_IP']) ? $_SERVER['HTTP_CLIENT_IP'] : '';
-		$row->creado_por = Auth::id();
-		$row->creado_el = date('Y-m-d H:i:s');
-		$row->save();
-	}
-
-	/**
-	 * Show the form for editing the specified resource.
-	 *
-	 * @param  int  $id
-	 * @return Response
-	 */
 	public static function updAvaluosZona($idavaluo, $inputs) {
 		$row = Avaluos::find($idavaluo)->AvaluosZona;
 		$row->is_agua_potable = isset($inputs["is_agua_potable"]) ? 1 : 0;
@@ -102,10 +58,7 @@ class AvaluosZona extends \Eloquent {
 		$row->idproximidadurbana = $inputs["idproximidadurbana"];
 		$row->construc_predominante = $inputs["construc_predominante"];
 		$row->vias_acceso_importante = $inputs["vias_acceso_importante"];
-		$row->ip = $_SERVER['REMOTE_ADDR'];
-		$row->host = isset($_SERVER['HTTP_CLIENT_IP']) ? $_SERVER['HTTP_CLIENT_IP'] : '';
-		$row->modi_por = Auth::id();
-		$row->modi_el = date('Y-m-d H:i:s');
+		$row->updated_at = $inputs["updated_at"];
 		$row->save();
 	}
 

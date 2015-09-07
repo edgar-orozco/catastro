@@ -28,103 +28,15 @@ class AefInstalaciones extends \Eloquent {
 	 * @param  int  $id
 	 * @return Response
 	 */
-	public static function insBeforoAefInstalaciones($inputs, &$rowAefInstalaciones) {
-		$fe_v1 = 0.1;
-		$fe_v2 = 0.9;
-		$FE0 = 0;
-		// $Factor_Edad = $inputs["eaf_Instalacion_vida_util"] == 0 ? 0 : (($fe_v1 * $inputs["eaf_Instalacion_vida_util"] + $fe_v2 * ($inputs["eaf_Instalacion_vida_util"] - $inputs["edad"]))) / $inputs["eaf_Instalacion_vida_util"];
-		if ( $inputs["vida_util_instalaciones"] > 0 ) {
-			$FE0 = (
-					( 
-					($fe_v1 * $inputs["vida_util_instalaciones"] ) + 
-					($fe_v2 * $inputs["vida_util_instalaciones"] ) - 
-					$inputs["edad_instalaciones"]
-				) / $inputs["vida_util_instalaciones"]
-			);
-		}
-		$FE = $inputs["vida_util_instalaciones"] == 0 ? 0 : $FE0;
-		$Factor_Resultante = $FE * $inputs["factor_conservacion_instalaciones"];
-		$Valor_Neto = $Factor_Resultante * $inputs["valor_nuevo_instalaciones"];
-		$Valor_Parcial = $Valor_Neto * $inputs["cantidad_instalaciones"];
-		$rowAefInstalaciones->factor_edad = $FE;
-		$rowAefInstalaciones->factor_resultante = $Factor_Resultante;
-		$rowAefInstalaciones->valor_neto = $Valor_Neto;
-		$rowAefInstalaciones->valor_parcial = $Valor_Parcial;
-	}
-
-	/**
-	 * Show the form for editing the specified resource.
-	 *
-	 * @param  int  $id
-	 * @return Response
-	 */
 	public static function insAefInstalaciones($inputs, &$subtotal_instalaciones_especiales, &$total_valor_fisico) {
 		$rowAefInstalaciones = new AefInstalaciones();
 		$rowAefInstalaciones->idavaluoenfoquefisico = $inputs["idavaluoenfoquefisico4"];
-		$rowAefInstalaciones->idobracomplementaria = $inputs["idobracomplementaria"];
-		$rowAefInstalaciones->cantidad = $inputs["cantidad_instalaciones"];
-		$rowAefInstalaciones->unidad = $inputs["unidad_instalaciones"];
-		$rowAefInstalaciones->valor_nuevo = $inputs["valor_nuevo_instalaciones"];
-		$rowAefInstalaciones->vida_util = $inputs["vida_util_instalaciones"];
-		$rowAefInstalaciones->edad = $inputs["edad_instalaciones"];
-		$rowAefInstalaciones->factor_conservacion = $inputs["factor_conservacion_instalaciones"];
-
-		AefInstalaciones::insBeforoAefInstalaciones($inputs, $rowAefInstalaciones);
-
-		$rowAefInstalaciones->idemp = 1;
-		$rowAefInstalaciones->ip = $_SERVER['REMOTE_ADDR'];
-		$rowAefInstalaciones->host = isset($_SERVER['HTTP_CLIENT_IP']) ? $_SERVER['HTTP_CLIENT_IP'] : '';
-		$rowAefInstalaciones->creado_por = Auth::Id();
-		$rowAefInstalaciones->creado_el = date('Y-m-d H:i:s');
+		$rowAefInstalaciones->created_at = $inputs["created_at"];
+		AefInstalaciones::setAefInstalaciones($rowAefInstalaciones, $inputs);
 		$rowAefInstalaciones->save();
-		AefInstalaciones::insAfterAefInstalaciones($inputs["idavaluoenfoquefisico4"], $subtotal_instalaciones_especiales, $total_valor_fisico);
-	}
-
-	/**
-	 * Show the form for editing the specified resource.
-	 *
-	 * @param  int  $id
-	 * @return Response
-	 */
-	public static function insAfterAefInstalaciones($idavaluoenfoquefisico, &$subtotal_instalaciones_especiales, &$total_valor_fisico) {
-		$Total = AefInstalaciones::select(DB::raw('sum(valor_parcial) AS nsuma'))->where('idavaluoenfoquefisico', '=', $idavaluoenfoquefisico)->first();
-		$rowEnfoqueFisico = AvaluosFisico::find($idavaluoenfoquefisico);
-		$rowEnfoqueFisico->subtotal_instalaciones_especiales = $Total->nsuma;
-		$rowEnfoqueFisico->total_valor_fisico = AvaluosFisico::updBeforeAvaluoEnfoqueFisico($rowEnfoqueFisico);
-		$rowEnfoqueFisico->save();
-		$subtotal_instalaciones_especiales = $rowEnfoqueFisico->subtotal_instalaciones_especiales;
-		$total_valor_fisico = $rowEnfoqueFisico->total_valor_fisico;
-		AvaluosFisico::updAfterAvaluoEnfoqueFisico($rowEnfoqueFisico->idavaluo, $rowEnfoqueFisico->total_valor_fisico);
-	}
-
-	/**
-	 * Show the form for editing the specified resource.
-	 *
-	 * @param  int  $id
-	 * @return Response
-	 */
-	public static function updBeforeAefInstalaciones($inputs, &$rowAefInstalaciones) {
-		$fe_v1 = 0.1;
-		$fe_v2 = 0.9;
-		$FE0 = 0;
-		// $Factor_Edad = $inputs["eaf_Instalacion_vida_util"] == 0 ? 0 : (($fe_v1 * $inputs["eaf_Instalacion_vida_util"] + $fe_v2 * ($inputs["eaf_Instalacion_vida_util"] - $inputs["edad"]))) / $inputs["eaf_Instalacion_vida_util"];
-		if ( $inputs["vida_util_instalaciones"] > 0 ) {
-			$FE0 = (
-					( 
-					($fe_v1 * $inputs["vida_util_instalaciones"] ) + 
-					($fe_v2 * $inputs["vida_util_instalaciones"] ) - 
-					$inputs["edad_instalaciones"]
-				) / $inputs["vida_util_instalaciones"]
-			);
-		}
-		$FE = $inputs["vida_util_instalaciones"] == 0 ? 0 : $FE0;
-		$Factor_Resultante = $FE * $inputs["factor_conservacion_instalaciones"];
-		$Valor_Neto = $Factor_Resultante * $inputs["valor_nuevo_instalaciones"];
-		$Valor_Parcial = $Valor_Neto * $inputs["cantidad_instalaciones"];
-		$rowAefInstalaciones->factor_edad = $FE;
-		$rowAefInstalaciones->factor_resultante = $Factor_Resultante;
-		$rowAefInstalaciones->valor_neto = $Valor_Neto;
-		$rowAefInstalaciones->valor_parcial = $Valor_Parcial;
+		$rowAef = AvaluosFisico::find($rowAefInstalaciones->idavaluoenfoquefisico);
+		$subtotal_instalaciones_especiales = $rowAef->subtotal_instalaciones_especiales;
+		$total_valor_fisico = $rowAef->total_valor_fisico;
 	}
 
 	/**
@@ -135,25 +47,12 @@ class AefInstalaciones extends \Eloquent {
 	 */
 	public static function updAefInstalaciones($inputs, &$subtotal_instalaciones_especiales, &$total_valor_fisico) {
 		$rowAefInstalaciones = AefInstalaciones::find($inputs["idaefinstalacion"]);
-		
-		//$rowAefInstalaciones->idavaluoenfoquefisico = $inputs["idavaluoenfoquefisico4"];
-		$rowAefInstalaciones->idobracomplementaria = $inputs["idobracomplementaria"];
-		$rowAefInstalaciones->cantidad = $inputs["cantidad_instalaciones"];
-		$rowAefInstalaciones->unidad = $inputs["unidad_instalaciones"];
-		$rowAefInstalaciones->valor_nuevo = $inputs["valor_nuevo_instalaciones"];
-		$rowAefInstalaciones->vida_util = $inputs["vida_util_instalaciones"];
-		$rowAefInstalaciones->edad = $inputs["edad_instalaciones"];
-		$rowAefInstalaciones->factor_conservacion = $inputs["factor_conservacion_instalaciones"];
-		
-		AefInstalaciones::updBeforeAefInstalaciones($inputs, $rowAefInstalaciones);
-
-		$rowAefInstalaciones->idemp = 1;
-		$rowAefInstalaciones->ip = $_SERVER['REMOTE_ADDR'];
-		$rowAefInstalaciones->host = isset($_SERVER['HTTP_CLIENT_IP']) ? $_SERVER['HTTP_CLIENT_IP'] : '';
-		$rowAefInstalaciones->modi_por = Auth::Id();
-		$rowAefInstalaciones->modi_el = date('Y-m-d H:i:s');
+		$rowAefInstalaciones->updated_at = $inputs["updated_at"];
+		AefInstalaciones::setAefInstalaciones($rowAefInstalaciones, $inputs);
 		$rowAefInstalaciones->save();
-		AefInstalaciones::updAfterAefInstalaciones($inputs["idavaluoenfoquefisico4"], $subtotal_instalaciones_especiales, $total_valor_fisico);
+		$rowAef = AvaluosFisico::find($rowAefInstalaciones->idavaluoenfoquefisico);
+		$subtotal_instalaciones_especiales = $rowAef->subtotal_instalaciones_especiales;
+		$total_valor_fisico = $rowAef->total_valor_fisico;
 	}
 
 	/**
@@ -162,17 +61,23 @@ class AefInstalaciones extends \Eloquent {
 	 * @param  int  $id
 	 * @return Response
 	 */
-	public static function updAfterAefInstalaciones($idavaluoenfoquefisico, &$subtotal_instalaciones_especiales, &$total_valor_fisico) {
-		$Total = AefInstalaciones::select(DB::raw('sum(valor_parcial) AS nsuma'))->where('idavaluoenfoquefisico', '=', $idavaluoenfoquefisico)->first();
-		$rowEnfoqueFisico = AvaluosFisico::find($idavaluoenfoquefisico);
-		$rowEnfoqueFisico->subtotal_instalaciones_especiales = $Total->nsuma;
-		$rowEnfoqueFisico->total_valor_fisico = AvaluosFisico::updBeforeAvaluoEnfoqueFisico($rowEnfoqueFisico);
-		$rowEnfoqueFisico->save();
-		$subtotal_instalaciones_especiales = $rowEnfoqueFisico->subtotal_instalaciones_especiales;
-		$total_valor_fisico = $rowEnfoqueFisico->total_valor_fisico;
-		AvaluosFisico::updAfterAvaluoEnfoqueFisico($rowEnfoqueFisico->idavaluo, $rowEnfoqueFisico->total_valor_fisico);
+	public static function setAefInstalaciones(&$rowAefInstalaciones, $inputs) {
+		$rowAefInstalaciones->idobracomplementaria = $inputs["idobracomplementaria"];
+		$rowAefInstalaciones->cantidad = $inputs["cantidad_instalaciones"];
+		$rowAefInstalaciones->unidad = $inputs["unidad_instalaciones"];
+		$rowAefInstalaciones->valor_nuevo = $inputs["valor_nuevo_instalaciones"];
+		$rowAefInstalaciones->vida_util = $inputs["vida_util_instalaciones"];
+		$rowAefInstalaciones->edad = $inputs["edad_instalaciones"];
+		$rowAefInstalaciones->factor_edad = $inputs["factor_edad_instalaciones"];		
+		$rowAefInstalaciones->factor_conservacion = $inputs["factor_conservacion_instalaciones"];		
 	}
 
+	/**
+	 * Show the form for editing the specified resource.
+	 *
+	 * @param  int  $id
+	 * @return Response
+	 */
 	public static function getAjaxAefInstalacionesByFk($fk) {
 		$pato = array();
 		$rows = AefInstalaciones::select(

@@ -27,94 +27,15 @@ class AefCondominios extends \Eloquent {
 	 * @param  int  $id
 	 * @return Response
 	 */
-	public static function insBeforoAefCondominios($inputs, &$rowAefCondominios) {
-		$fe_v1 = 0.1;
-		$fe_v2 = 0.9;
-		$FE = 0;
-		if ( $inputs["vida_remanente"] > 0 ) {
-			$FE = (
-					( 
-						($fe_v1 * $inputs["vida_remanente"]) + 
-						( $fe_v2 * $inputs["vida_remanente"] - $inputs["edad_condominios"] ) 
-					) / $inputs["vida_remanente"]
-				);
-		}
-
-		$FR = $inputs["factor_conservacion_condominios"] * $FE;
-        $rowAefCondominios->factor_edad = $FE;
-        $rowAefCondominios->factor_resultante = $FR;
-        $rowAefCondominios->valor_parcial = $inputs["cantidad_condominios"] * $inputs["valor_nuevo_condominios"] * ($inputs["indiviso_condominios"]/100);
-	}
-
-	/**
-	 * Show the form for editing the specified resource.
-	 *
-	 * @param  int  $id
-	 * @return Response
-	 */
 	public static function insAefCondominios($inputs, &$subtotal_area_condominio, &$total_valor_fisico) {
 		$rowAefCondominios = new AefCondominios();
-		AefCondominios::insBeforoAefCondominios($inputs, $rowAefCondominios);
 		$rowAefCondominios->idavaluoenfoquefisico = $inputs["idavaluoenfoquefisico3"];
-
-		$rowAefCondominios->descripcion = $inputs["descripcion"];
-		$rowAefCondominios->unidad = $inputs["unidad"];
-		$rowAefCondominios->cantidad = $inputs["cantidad_condominios"];
-		$rowAefCondominios->valor_nuevo = $inputs["valor_nuevo_condominios"];
-		$rowAefCondominios->vida_remanente = $inputs["vida_remanente"];
-		$rowAefCondominios->edad = $inputs["edad_condominios"];
-		$rowAefCondominios->factor_conservacion = $inputs["factor_conservacion_condominios"];
-		$rowAefCondominios->indiviso = $inputs["indiviso_condominios"];
-		
-		$rowAefCondominios->idemp = 1;
-		$rowAefCondominios->ip = $_SERVER['REMOTE_ADDR'];
-		$rowAefCondominios->host = isset($_SERVER['HTTP_CLIENT_IP']) ? $_SERVER['HTTP_CLIENT_IP'] : '';
-		$rowAefCondominios->creado_por = Auth::Id();
-		$rowAefCondominios->creado_el = date('Y-m-d H:i:s');
+		$rowAefCondominios->created_at = $inputs["created_at"];
+		AefCondominios::setAefCondominios($rowAefCondominios, $inputs);		
 		$rowAefCondominios->save();
-		AefCondominios::insAfterAefCondominios($inputs["idavaluoenfoquefisico3"], $subtotal_area_condominio, $total_valor_fisico);
-	}
-
-	/**
-	 * Show the form for editing the specified resource.
-	 *
-	 * @param  int  $id
-	 * @return Response
-	 */
-	public static function insAfterAefCondominios($idavaluoenfoquefisico, &$subtotal_area_condominio, &$total_valor_fisico) {
-		$Total = AefCondominios::select(DB::raw('sum(valor_parcial) AS nsuma'))->where('idavaluoenfoquefisico', '=', $idavaluoenfoquefisico)->first();
-		$rowEnfoqueFisico = AvaluosFisico::find($idavaluoenfoquefisico);
-		$rowEnfoqueFisico->subtotal_area_condominio = $Total->nsuma;
-		$rowEnfoqueFisico->total_valor_fisico = AvaluosFisico::updBeforeAvaluoEnfoqueFisico($rowEnfoqueFisico);
-		$rowEnfoqueFisico->save();
-		$subtotal_area_condominio = $rowEnfoqueFisico->subtotal_area_condominio;
-		$total_valor_fisico = $rowEnfoqueFisico->total_valor_fisico;
-		AvaluosFisico::updAfterAvaluoEnfoqueFisico($rowEnfoqueFisico->idavaluo, $rowEnfoqueFisico->total_valor_fisico);
-	}
-
-	/**
-	 * Show the form for editing the specified resource.
-	 *
-	 * @param  int  $id
-	 * @return Response
-	 */
-	public static function updBeforeAefCondominios($inputs, &$rowAefCondominios) {
-		$fe_v1 = 0.1;
-		$fe_v2 = 0.9;
-		$FE = 0;
-		if ( $inputs["vida_remanente"] > 0 ) {
-			$FE = (
-					( 
-						($fe_v1 * $inputs["vida_remanente"]) + 
-						( $fe_v2 * $inputs["vida_remanente"] - $inputs["edad_condominios"] ) 
-					) / $inputs["vida_remanente"]
-				);
-		}
-
-		$FR = $inputs["factor_conservacion_condominios"] * $FE;
-        $rowAefCondominios->factor_edad = $FE;
-        $rowAefCondominios->factor_resultante = $FR;
-        $rowAefCondominios->valor_parcial = $inputs["cantidad_condominios"] * $inputs["valor_nuevo_condominios"] * ($inputs["indiviso_condominios"]/100);
+		$rowAef = AvaluosFisico::find($rowAefCondominios->idavaluoenfoquefisico);
+		$subtotal_area_condominio = $rowAef->subtotal_area_condominio;
+		$total_valor_fisico = $rowAef->total_valor_fisico;
 	}
 
 	/**
@@ -125,43 +46,37 @@ class AefCondominios extends \Eloquent {
 	 */
 	public static function updAefCondominios($inputs, &$subtotal_area_condominio, &$total_valor_fisico) {
 		$rowAefCondominios = AefCondominios::find($inputs["idaefcondominio"]);
-		AefCondominios::updBeforeAefCondominios($inputs, $rowAefCondominios);
-		
-		$rowAefCondominios->descripcion = $inputs["descripcion"];
-		$rowAefCondominios->unidad = $inputs["unidad"];
-		$rowAefCondominios->cantidad = $inputs["cantidad_condominios"];
-		$rowAefCondominios->valor_nuevo = $inputs["valor_nuevo_condominios"];
-		$rowAefCondominios->vida_remanente = $inputs["vida_remanente"];
-		$rowAefCondominios->edad = $inputs["edad_condominios"];
-		$rowAefCondominios->factor_conservacion = $inputs["factor_conservacion_condominios"];
-		$rowAefCondominios->indiviso = $inputs["indiviso_condominios"];
-		
-		$rowAefCondominios->idemp = 1;
-		$rowAefCondominios->ip = $_SERVER['REMOTE_ADDR'];
-		$rowAefCondominios->host = isset($_SERVER['HTTP_CLIENT_IP']) ? $_SERVER['HTTP_CLIENT_IP'] : '';
-		$rowAefCondominios->modi_por = Auth::Id();
-		$rowAefCondominios->modi_el = date('Y-m-d H:i:s');
+		$rowAefCondominios->updated_at = $inputs["updated_at"];
+		AefCondominios::setAefCondominios($rowAefCondominios, $inputs);
 		$rowAefCondominios->save();
-		AefCondominios::updAfterAefCondominios($inputs["idavaluoenfoquefisico3"], $subtotal_area_condominio, $total_valor_fisico);
+		$rowAef = AvaluosFisico::find($rowAefCondominios->idavaluoenfoquefisico);
+		$subtotal_area_condominio = $rowAef->subtotal_area_condominio;
+		$total_valor_fisico = $rowAef->total_valor_fisico;
 	}
 
 	/**
 	 * Show the form for editing the specified resource.
 	 *
-	 * @param  int  $id
+	 * @param  int  $inputs
 	 * @return Response
 	 */
-	public static function updAfterAefCondominios($idavaluoenfoquefisico, &$subtotal_area_condominio, &$total_valor_fisico) {
-		$Total = AefCondominios::select(DB::raw('sum(valor_parcial) AS nsuma'))->where('idavaluoenfoquefisico', '=', $idavaluoenfoquefisico)->first();
-		$rowEnfoqueFisico = AvaluosFisico::find($idavaluoenfoquefisico);
-		$rowEnfoqueFisico->subtotal_area_condominio = $Total->nsuma;
-		$rowEnfoqueFisico->total_valor_fisico = AvaluosFisico::updBeforeAvaluoEnfoqueFisico($rowEnfoqueFisico);
-		$rowEnfoqueFisico->save();
-		$subtotal_area_condominio = $rowEnfoqueFisico->subtotal_area_condominio;
-		$total_valor_fisico = $rowEnfoqueFisico->total_valor_fisico;
-		AvaluosFisico::updAfterAvaluoEnfoqueFisico($rowEnfoqueFisico->idavaluo, $rowEnfoqueFisico->total_valor_fisico);
+	public static function setAefCondominios(&$rowAefCondominios, $inputs) {
+		$rowAefCondominios->descripcion = $inputs["descripcion"];
+		$rowAefCondominios->unidad = $inputs["unidad"];
+		$rowAefCondominios->cantidad = $inputs["cantidad_condominios"];
+		$rowAefCondominios->valor_nuevo = $inputs["valor_nuevo_condominios"];
+		$rowAefCondominios->vida_remanente = $inputs["vida_remanente"];
+		$rowAefCondominios->factor_edad = $inputs["factor_edad_condominios"];
+		$rowAefCondominios->vida_remanente = $inputs["vida_remanente"];
+		$rowAefCondominios->factor_conservacion = $inputs["factor_conservacion_condominios"];
 	}
 
+	/**
+	 * Show the form for editing the specified resource.
+	 *
+	 * @param  int  $inputs
+	 * @return Response
+	 */
 	public static function getAjaxAefCondominiosByFk($fk) {
 		$pato = array();
 		$rows = AefCondominios::select(

@@ -1,4 +1,5 @@
 <?php
+use Carbon\Carbon;
 
 class corevat_AefConstruccionesController extends \BaseController {
 
@@ -32,16 +33,14 @@ class corevat_AefConstruccionesController extends \BaseController {
 		if ($validate->fails()) {
 			$response = array('success' => false, 'errors' => $validate->getMessageBag()->toArray());
 		} else {
+			$inputs["created_at"] = Carbon::now()->format('Y-m-d H:i:s');
 			AefConstrucciones::insAefConstrucciones($inputs, $total_metros_construccion, $valor_construccion, $total_valor_fisico);
-			$total_metros_construccion = number_format($total_metros_construccion, 2, ".", ",");
-			$valor_construccion = number_format($valor_construccion, 2, ".", ",");
-			$total_valor_fisico = number_format($total_valor_fisico, 2, ".", ",");
 			$response = array(
 				'success' => true,
 				'message' => '¡El registro fue ingresado satisfactoriamente!',
-				'total_metros_construccion' => $total_metros_construccion,
-				'valor_construccion' => $valor_construccion,
-				'total_valor_fisico' => $total_valor_fisico
+				'total_metros_construccion' => number_format($total_metros_construccion, 2, ".", ","),
+				'valor_construccion' => number_format($valor_construccion, 2, ".", ","),
+				'total_valor_fisico' => number_format($total_valor_fisico, 2, ".", ",")
 			);
 		}
 		return $response;
@@ -56,12 +55,6 @@ class corevat_AefConstruccionesController extends \BaseController {
 	 */
 	public function edit($id) {
 		$row = AefConstrucciones::find($id);
-		/*
-		$row->idfactorconservacion = CatFactoresConservacion::getIdByValue($row->factor_conservacion);
-		$row->cat_tipo = CatTipo::orderBy('tipo')->get();
-		$row->cat_factores_conservacion = CatFactoresConservacion::orderBy('valor_factor_conservacion')->get();
-		 * 
-		 */
 		return $row;
 	}
 
@@ -81,16 +74,14 @@ class corevat_AefConstruccionesController extends \BaseController {
 		if ($validate->fails()) {
 			$response = array('success' => false, 'errors' => $validate->getMessageBag()->toArray());
 		} else {
+			$inputs["updated_at"] = Carbon::now()->format('Y-m-d H:i:s');
 			AefConstrucciones::updAefConstrucciones($inputs, $total_metros_construccion, $valor_construccion, $total_valor_fisico);
-			$total_metros_construccion = number_format($total_metros_construccion, 2, ".", ",");
-			$valor_construccion = number_format($valor_construccion, 2, ".", ",");
-			$total_valor_fisico = number_format($total_valor_fisico, 2, ".", ",");
 			$response = array(
 				'success' => true,
 				'message' => '¡El registro fue modificado satisfactoriamente!',
-				'total_metros_construccion' => $total_metros_construccion,
-				'valor_construccion' => $valor_construccion,
-				'total_valor_fisico' => $total_valor_fisico
+				'total_metros_construccion' => number_format($total_metros_construccion, 2, ".", ","),
+				'valor_construccion' => number_format($valor_construccion, 2, ".", ","),
+				'total_valor_fisico' => number_format($total_valor_fisico, 2, ".", ",")
 			);
 		}
 		return $response;
@@ -106,22 +97,9 @@ class corevat_AefConstruccionesController extends \BaseController {
 	public function destroy($id) {
 		$row = AefConstrucciones::find($id);
 		if ($row) {
-			$idavaluoenfoquefisico = $row->idavaluoenfoquefisico;
 			$row->delete($id);
 
-			//Set @VPC = (Select sum(valor_parcial_construccion) as nsuma from aef_construcciones where idavaluoenfoquefisico = old.idavaluoenfoquefisico);
-			$VPC = AefConstrucciones::select(DB::raw('sum(valor_parcial_construccion) AS nsuma'))->where('idavaluoenfoquefisico', '=', $idavaluoenfoquefisico)->first();
-
-			// Set @TMC = (Select sum(superficie_m2) as msuma from aef_construcciones where idavaluoenfoquefisico = old.idavaluoenfoquefisico);
-			$TMC = AefConstrucciones::select(DB::raw('sum(superficie_m2) AS msuma'))->where('idavaluoenfoquefisico', '=', $idavaluoenfoquefisico)->first();
-
-			//update avaluo_enfoque_fisico set valor_construccion = @VPC, total_metros_construccion = @TMC where idavaluoenfoquefisico = old.idavaluoenfoquefisico;
-			$rowEnfoqueFisico = AvaluosFisico::find($idavaluoenfoquefisico);
-			$rowEnfoqueFisico->valor_construccion = ( is_null($VPC->nsuma) ? 0 : $VPC->nsuma);
-			$rowEnfoqueFisico->total_metros_construccion = ( is_null($TMC->msuma) ? 0 : $TMC->msuma);
-			$rowEnfoqueFisico->total_valor_fisico = AvaluosFisico::updBeforeAvaluoEnfoqueFisico($rowEnfoqueFisico);
-			$rowEnfoqueFisico->save();
-			AvaluosFisico::updAfterAvaluoEnfoqueFisico($rowEnfoqueFisico->idavaluo, $rowEnfoqueFisico->total_valor_fisico);
+			$rowEnfoqueFisico = AvaluosFisico::find($row->idavaluoenfoquefisico);
 			return Response::json(array('success' => true, 'message' => '!El registro fue eliminado satisfactoriamente!',
 				'valor_construccion' => number_format($rowEnfoqueFisico->valor_construccion, 2, ".", ","), 
 				'total_metros_construccion' => number_format($rowEnfoqueFisico->total_metros_construccion, 2, ".", ","), 

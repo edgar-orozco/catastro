@@ -1,5 +1,7 @@
 <?php
 
+use Carbon\Carbon;
+
 class corevat_AefInstalacionesController extends \BaseController {
 
 	public function getAjax($id) {
@@ -24,16 +26,14 @@ class corevat_AefInstalacionesController extends \BaseController {
 	 * @return Response
 	 */
 	public function store() {
-		$total_metros_construccion = 0;
-		$subtotal_instalaciones_especiales = 0;
-		$total_valor_fisico = 0;
+		$subtotal_instalaciones_especiales = $total_valor_fisico = 0;
 		$inputs = Input::All();
 		$validate = $this->validate($inputs);
 		if ($validate->fails()) {
 			$response = array('success' => false, 'errors' => $validate->getMessageBag()->toArray());
 		} else {
-			AefInstalaciones::insAefInstalaciones($inputs, $total_metros_construccion, $subtotal_instalaciones_especiales, $total_valor_fisico);
-			$total_metros_construccion = number_format($total_metros_construccion, 2, ".", ",");
+			$inputs["created_at"] = Carbon::now()->format('Y-m-d H:i:s');
+			AefInstalaciones::insAefInstalaciones($inputs, $subtotal_instalaciones_especiales, $total_valor_fisico);
 			$response = array(
 				'success' => true,
 				'message' => '¡El registro fue ingresado satisfactoriamente!',
@@ -64,13 +64,13 @@ class corevat_AefInstalacionesController extends \BaseController {
 	 * @return Response
 	 */
 	public function update($id) {
-		$subtotal_instalaciones_especiales = 0;
-		$total_valor_fisico = 0;
+		$subtotal_instalaciones_especiales = $total_valor_fisico = 0;
 		$inputs = Input::All();
 		$validate = $this->validate($inputs);
 		if ($validate->fails()) {
 			$response = array('success' => false, 'errors' => $validate->getMessageBag()->toArray());
 		} else {
+			$inputs["updated_at"] = Carbon::now()->format('Y-m-d H:i:s');
 			AefInstalaciones::updAefInstalaciones($inputs, $subtotal_instalaciones_especiales, $total_valor_fisico);
 			$response = array(
 				'success' => true,
@@ -92,14 +92,8 @@ class corevat_AefInstalacionesController extends \BaseController {
 	public function destroy($id) {
 		$row = AefInstalaciones::findOrFail($id);
 		if ($row) {
-			$idavaluoenfoquefisico = $row->idavaluoenfoquefisico;
 			$row->delete($id);
-			$Total = AefInstalaciones::select(DB::raw('sum(valor_parcial) AS nsuma'))->where('idavaluoenfoquefisico', '=', $idavaluoenfoquefisico)->first();
-			$rowEnfoqueFisico = AvaluosFisico::find($idavaluoenfoquefisico);
-			$rowEnfoqueFisico->subtotal_instalaciones_especiales = ( is_null($Total->nsuma) ? 0 : $Total->nsuma);
-			$rowEnfoqueFisico->total_valor_fisico = AvaluosFisico::updBeforeAvaluoEnfoqueFisico($rowEnfoqueFisico);
-			$rowEnfoqueFisico->save();
-			AvaluosFisico::updAfterAvaluoEnfoqueFisico($rowEnfoqueFisico->idavaluo, $rowEnfoqueFisico->total_valor_fisico);
+			$rowEnfoqueFisico = AvaluosFisico::find($row->idavaluoenfoquefisico);
 			return Response::json(array('success' => true, 'message' => '!El registro fue eliminado satisfactoriamente!',
 				'subtotal_instalaciones_especiales' => number_format($rowEnfoqueFisico->subtotal_instalaciones_especiales, 2, ".", ","),
 				'total_valor_fisico' => number_format($rowEnfoqueFisico->total_valor_fisico, 2, ".", ",")
@@ -114,6 +108,7 @@ class corevat_AefInstalacionesController extends \BaseController {
 		$inputs["valor_nuevo_instalaciones"] = number_format( (float) $inputs["valor_nuevo_instalaciones"], 2, ".", "");
 		$inputs["vida_util_instalaciones"] = number_format( (float) $inputs["vida_util_instalaciones"], 2, ".", "");
 		$inputs["edad_instalaciones"] = (int) $inputs["edad_instalaciones"];
+		$inputs["factor_edad_instalaciones"] = number_format( (float) $inputs["factor_edad_instalaciones"], 2, ".", "");
 		$inputs["factor_conservacion_instalaciones"] = number_format( (float) $inputs["factor_conservacion_instalaciones"], 2, ".", "");
 		
 		$rules = array(
@@ -121,6 +116,7 @@ class corevat_AefInstalacionesController extends \BaseController {
 			'valor_nuevo_instalaciones' => array('required', 'numeric', 'min:0.00', 'max:99999999.99'),
 			'vida_util_instalaciones' => array('required', 'numeric', 'min:0.00', 'max:99999999.99'),
 			'edad_instalaciones' => array('required', 'numeric', 'min:0.00', 'max:99999999.99'),
+			'factor_edad_instalaciones' => array('required', 'numeric', 'min:0.00', 'max:99999999.99'),
 			'factor_conservacion_instalaciones' => array('required', 'numeric', 'min:0.00', 'max:99999999.99'),
 		);
 		$messages = array(
@@ -145,6 +141,11 @@ class corevat_AefInstalacionesController extends \BaseController {
 			'edad_instalaciones.max' => '¡El valor máximo del campo "Edad" debe ser 99999999.99!',
 			'edad_instalaciones.regex' => '¡El formato del campo "Edad" debe ser 99999999.99!',
 
+			'factor_edad_instalaciones.required' => '¡El campo "Factor Edad" es requerido!',
+			'factor_edad_instalaciones.numeric' => '¡El valor del campo "Factor Edad" debe ser numérico!',
+			'factor_edad_instalaciones.min' => '¡El valor mínimo del campo "Factor Edad" debe ser cero!',
+			'factor_edad_instalaciones.max' => '¡El valor máximo del campo "Factor Edad" debe ser 99999999.99!',
+			
 			'factor_conservacion_instalaciones.required' => '¡El campo "Factor Conservación" es requerido!',
 			'factor_conservacion_instalaciones.numeric' => '¡El valor del campo "Factor Conservación" debe ser numérico!',
 			'factor_conservacion_instalaciones.min' => '¡El valor mínimo del campo "Factor Conservación" debe ser cero!',

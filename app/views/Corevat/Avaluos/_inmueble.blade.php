@@ -49,19 +49,12 @@
 		<table cellpadding="0" cellspacing="0" border="0" class="table table-striped corevatDataTable" id="aiMedidasColindanciasDataTable">
 			<thead>
 				<tr>
-					<th colspan="7"></th>
-					<th colspan="2">OPCIONES</th>
-				</tr>
-				<tr>
 					<th style="width:9%;">#</th>
-					<th style="width:1%;">IDORIENTACIÓN</th>
 					<th style="width:20%;">ORIENTACIÓN</th>
 					<th style="width:10%;">U.M.</th>
 					<th style="width:20%;">MEDIDAS</th>
-					<th style="width:20%;">MEDIDAS(ante)</th>
 					<th style="width:20%;">COLINDANCIAS</th>
-					<th style="width:5%;"></th>
-					<th style="width:5%;"></th>
+					<th style="width:5%;">OPCIONES</th>
 				</tr>
 			</thead>
 		</table>

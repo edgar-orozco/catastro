@@ -117,7 +117,7 @@
 
 	<div class="col-md-4">
 		{{Form::label('nivel_equipamiento', 'Nivel de Equipamiento %')}}
-		{{Form::text('nivel_equipamiento', $row->nivel_equipamiento, ['id' => 'nivel_equipamiento', 'class'=>'form-control', 'maxlength'=>'3', 'size'=>'4'])}}
+		{{Form::number('nivel_equipamiento', $row->nivel_equipamiento, ['id' => 'nivel_equipamiento', 'class'=>'form-control', 'maxlength'=>'3', 'size'=>'4', 'step'=>'1', 'min'=>'0', 'max'=>'100'])}}
 		{{$errors->first('nivel_equipamiento', '<span class=text-danger>:message</span>')}}
 		<hr>
 	</div>
