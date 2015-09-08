@@ -77,6 +77,12 @@
                         Movimientos usuarios
                     </a>
                 </li>
+                <li class="@if(Request::is('admin/laravel-log*')) active @endif">
+                    <a href="{{URL::to('admin/laravel-log')}}">
+                        <i class="glyphicon glyphicon-fire"></i>&nbsp;
+                        Audita bitácora de servidor
+                    </a>
+                </li>
             </ul>
         </li>
         @if(in_array(App::environment(), ['local','staging']))
@@ -89,16 +95,6 @@
             </a>
         </li>
         @endif
-        
-        <li class="divider"></li>
-
-        <li class="@if(Request::is('admin/laravel-log*')) active @endif">
-            <a href="{{URL::to('admin/laravel-log')}}">
-                <i class="glyphicon glyphicon-fire"></i>&nbsp;
-                Audita bitácora de servidor
-            </a>
-        </li>
-
     </ul>
 </li>
 
