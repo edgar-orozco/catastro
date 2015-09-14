@@ -95,7 +95,7 @@ class AemCompTerrenos extends \Eloquent {
 				$row['superficie_terreno'], 
 				$row['precio_unitario_m2_terreno'], 
 				$row['observaciones'], 
-				'<a class="btn btn-xs btn-info btnEdit"  title="Editar" onclick="$.editAemCompTerrenos('.$row['idaemcompterreno'].');"><i class="glyphicon glyphicon-pencil"></i></a>', 
+				'<a class="btn btn-xs btn-info btnEdit"  title="Editar" onclick="$.editAemCompTerrenos('.$row['idaemcompterreno'].');"><i class="glyphicon glyphicon-pencil"></i></a>&nbsp;'. 
 				'<a class="btn btn-xs btn-danger btnDel" title="Eliminar" onclick="$.delAemCompTerrenos('.$row['idaemcompterreno'].');"><i class="glyphicon glyphicon-remove"></i></a>');
 		 }
 		$res = array(

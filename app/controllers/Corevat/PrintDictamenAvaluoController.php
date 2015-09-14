@@ -1,5 +1,7 @@
 <?php
 
+use Carbon\Carbon;
+
 class corevat_PrintDictamenAvaluoController extends \BaseController {
 
 	protected $avaluo;
@@ -201,7 +203,7 @@ class corevat_PrintDictamenAvaluoController extends \BaseController {
 		$pdf->SetFont('Arial', 'B', 8);
 		$pdf->Cell(40, $nFont, utf8_decode("Fecha del Avalúo: "), 'LB', 0, 'R');
 		$pdf->SetFont('Arial', '', 8);
-		$pdf->Cell(40, $nFont, $rs->fecha_avaluo, 'LB', 0, 'L');
+		$pdf->Cell(40, $nFont, Carbon::parse($rs->fecha_avaluo)->formatLocalized("%d de %B de %Y"), 'LB', 0, 'L');
 		$pdf->SetFont('Arial', 'B', 8);
 		$pdf->Cell(86, $nFont, utf8_decode("Avalúo Número: "), 'B', 0, 'R');
 		$pdf->SetFont('Arial', '', 8);
@@ -219,7 +221,7 @@ class corevat_PrintDictamenAvaluoController extends \BaseController {
 		// Línea 3
 		$pdf->setX(5);
 		$pdf->SetFont('Arial', 'B', 8);
-		$pdf->Cell(40, $nFont, utf8_decode("Rgistro Estatal: "), 'LB', 0, 'R');
+		$pdf->Cell(40, $nFont, utf8_decode("Registro Estatal: "), 'LB', 0, 'R');
 		$pdf->SetFont('Arial', '', 8);
 		$pdf->Cell(40, $nFont, $rs->registro, 'LB', 0, 'L');
 		$pdf->SetFont('Arial', 'B', 8);
@@ -325,11 +327,11 @@ class corevat_PrintDictamenAvaluoController extends \BaseController {
 		$pdf->SetFont('Arial', 'B', 6);
 		$pdf->Cell(26, $nFont, utf8_decode("Nombre del Solicitante: "), 'LB', 0, 'R');
 		$pdf->SetFont('Arial', '', 6);
-		$pdf->Cell(53, $nFont, utf8_decode($rs->nombre_solicitante), 'LB', 0, 'L');
+		$pdf->Cell(53, $nFont, utf8_decode(trim($rs->titulo_solicitante) . " " . $rs->nombre_solicitante), 'LB', 0, 'L');
 		$pdf->SetFont('Arial', 'B', 6);
 		$pdf->Cell(20, $nFont, utf8_decode("Propietario: "), 'B', 0, 'R');
 		$pdf->SetFont('Arial', '', 6);
-		$pdf->Cell(107, $nFont, utf8_decode($rs->nombre_propietario), 'LBR', 1, 'L');
+		$pdf->Cell(107, $nFont, utf8_decode(trim($rs->titulo_propietario) . " " . $rs->nombre_propietario), 'LBR', 1, 'L');
 
 		// /* *********************************************************
 		// ** 3. CARACTERÍSTICAS  DE LA ZON7

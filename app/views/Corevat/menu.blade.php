@@ -94,8 +94,36 @@
             </li>
 
 
+
+
+
+            <li class="dropdown-submenu @if(Request::is('CorevatCatalogos/*') && Request::is('Corevat/*')) active @endif">
+                <a data-toggle="dropdown" class="dropdown-toggle" href="#">CATALOGOS</a>
+                <ul role="menu" class="dropdown-menu">
+                    <li class="@if(Request::is('corevat/Empresas')) active @endif">
+                        <a href="{{URL::to('corevat/Empresas')}}"><i class="glyphicon glyphicon-th-list"></i>&nbsp;Empresas</a>
+                    </li>
+                    <li class="@if(Request::is('corevat/Estados')) active @endif">
+                        <a href="{{URL::to('corevat/Estados')}}"><i class="glyphicon glyphicon-th-list"></i>&nbsp;Estados</a>
+                    </li>
+                    <li class="@if(Request::is('corevat/Municipios')) active @endif">
+                        <a href="{{URL::to('corevat/Municipios')}}"><i class="glyphicon glyphicon-th-list"></i>&nbsp;Municpios</a>
+                    </li>
+                    <li class="@if(Request::is('corevat/Usuarios')) active @endif">
+                        <a href="{{URL::to('corevat/Usuarios')}}"><i class="glyphicon glyphicon-th-list"></i>&nbsp;Usuarios</a>
+                    </li>
+					<hr>
+                    <li class="@if(Request::is('corevat/CatTituloPersona')) active @endif">
+                        <a href="{{URL::to('corevat/CatTituloPersona')}}"><i class="glyphicon glyphicon-th-list"></i>&nbsp;Título Persona</a>
+                    </li>
+                    <li class="@if(Request::is('corevat/CatFinalidad')) active @endif">
+                        <a href="{{URL::to('corevat/CatFinalidad')}}"><i class="glyphicon glyphicon-th-list"></i>&nbsp;Finalidad</a>
+                    </li>
+                </ul>
+            </li>
+
             <li class="dropdown-submenu @if(Request::is('CorevatCatalogos/*')) active @endif">
-                <a data-toggle="dropdown" class="dropdown-toggle" href="#">PARÁMETROS</a>
+                <a data-toggle="dropdown" class="dropdown-toggle" href="#">PARAMETROS</a>
                 <ul role="menu" class="dropdown-menu">
                     <li class="@if(Request::is('corevat/CatAplanados')) active @endif">
                         <a href="{{URL::to('corevat/CatAplanados')}}"><i class="glyphicon glyphicon-th-list"></i>&nbsp;Aplanados</a>
@@ -149,7 +177,7 @@
                         <a href="{{URL::to('corevat/CatProximidadUrbana')}}"><i class="glyphicon glyphicon-th-list"></i>&nbsp;Proximidad Urbana</a>
                     </li>
                     <li class="@if(Request::is('corevat/CatRegimenPropiedad')) active @endif">
-                        <a href="{{URL::to('corevat/CatRegimenPropiedad')}}"><i class="glyphicon glyphicon-th-list"></i>&nbsp;Régimen Propiedad</a>
+                        <a href="{{URL::to('corevat/CatRegimenPropiedad')}}"><i class="glyphicon glyphicon-th-list"></i>&nbsp;Regimen Prioridad</a>
                     </li>
                     <li class="@if(Request::is('corevat/CatTechos')) active @endif">
                         <a href="{{URL::to('corevat/CatTechos')}}"><i class="glyphicon glyphicon-th-list"></i>&nbsp;Techos</a>
@@ -165,7 +193,7 @@
                     </li>
                 </ul>
             </li>
-<!--
+
             <li class="dropdown-submenu @if(Request::is('CorevatCatalogos/*')) active @endif">
                 <a data-toggle="dropdown" class="dropdown-toggle" href="#">FACTORES</a>
                 <ul role="menu" class="dropdown-menu">
@@ -189,7 +217,6 @@
                     </li>
                 </ul>
             </li>
--->
         </ul>
     </li>
 @endif

@@ -530,6 +530,28 @@ Route::group(array('before' => 'admin'), function () {
 
 	Route::put('corevat/CatUsosSuelos/{id?}.{format}', array('as' => 'showCatUsosSuelos', 'uses' => 'corevat_CatUsosSuelosController@show'));
 
+	/*
+	 * CATALOGO DE TITULOS DE PERSONA
+	 * cat_titulo_persona
+	 */
+	Route::resource('corevat/CatTituloPersona', 'corevat_CatTituloPersonaController');
+	Route::post('corevat/CatTituloPersona.{format}', array('as' => 'storeCatTituloPersona', 'uses' => 'corevat_CatTituloPersonaController@store'));
+	Route::get('corevat/CatTituloPersona.{format}', array('as' => 'indexCatTituloPersona', 'uses' => 'corevat_CatTituloPersonaController@index'));
+	Route::put('corevat/CatTituloPersona/{id?}.{format}', array('as' => 'updateCatTituloPersona', 'uses' => 'corevat_CatTituloPersonaController@update'));
+	Route::get('corevat/CatTituloPersonaE/{id}', array('as' => 'destroyCatTituloPersona', 'uses' => 'corevat_CatTituloPersonaController@destroy'));
+	Route::put('corevat/CatTituloPersona/{id?}.{format}', array('as' => 'showCatTituloPersona', 'uses' => 'corevat_CatTituloPersonaController@show'));
+
+	/*
+	 * CATALOGO DE FINALIDAD
+	 * cat_finalidad
+	 */
+	Route::resource('corevat/CatFinalidad', 'corevat_CatFinalidadController');
+	Route::post('corevat/CatFinalidad.{format}',      array('as' => 'storeCatFinalidad',   'uses' => 'corevat_CatFinalidadController@store'));
+	Route::get('corevat/CatFinalidad.{format}',       array('as' => 'indexCatFinalidad',   'uses' => 'corevat_CatFinalidadController@index'));
+	Route::put('corevat/CatFinalidad/{id?}.{format}', array('as' => 'updateCatFinalidad',  'uses' => 'corevat_CatFinalidadController@update'));
+	Route::get('corevat/CatFinalidadE/{id}',          array('as' => 'destroyCatFinalidad', 'uses' => 'corevat_CatFinalidadController@destroy'));
+	Route::put('corevat/CatFinalidad/{id?}.{format}', array('as' => 'showCatFinalidad',    'uses' => 'corevat_CatFinalidadController@show'));
+
 });
 
 /**

@@ -42,13 +42,13 @@ class corevat_AemHomologacionController extends \BaseController {
 		$inputs['valor_unitario_negociable'] = number_format($inputs['valor_unitario_negociable'], 2, '.', '');
 
 		$rules = array(
-			'valor_unitario_negociable' => array('required', 'numeric', 'min:0.00', 'max:0.99', 'regex:/^[0]{1}(\.?)[0-9]{1,2}$/'),
+			'valor_unitario_negociable' => array('required', 'numeric', 'min:0.00', 'max:1.00', 'regex:/^[0-1]{1}(\.?)[0-9]{1,2}$/'),
 		);
 		$messages = array(
 			'valor_unitario_negociable.required' => '¡El campo "Negociable" es requerido!',
 			'valor_unitario_negociable.numeric' => '¡El valor del campo "Negociable" debe ser numérico!',
-			'valor_unitario_negociable.min' => '¡El valor del campo "Negociable" debe ser cero!',
-			'valor_unitario_negociable.max' => '¡El valor del campo "Negociable" debe ser 0.99!',
+			'valor_unitario_negociable.min' => '¡El valor mínimo del campo "Negociable" debe ser cero!',
+			'valor_unitario_negociable.max' => '¡El valor máximo del campo "Negociable" deber ser 1.00!',
 			'valor_unitario_negociable.regex' => '¡El formato del campo "Negociable" debe ser 0.99!',
 		);
 		$validate = Validator::make($inputs, $rules, $messages);
