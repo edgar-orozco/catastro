@@ -14,16 +14,24 @@ $(document).ready(function () {
 	/*++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 	 *  
 	 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
-	aemCompTerrenos = $('#aemCompTerrenosDataTable').DataTable();
+	aemCompTerrenos = $('#aemCompTerrenosDataTable').DataTable({
+		 ordering: false
+	});
 	aemCompTerrenos.ajax.url('/corevat/AemCompTerrenosGetAjax/' + $("#idavaluoenfoquemercado").val()).load();
 
-	aemHomologacion = $('#aemHomologacionDataTable').DataTable();
+	aemHomologacion = $('#aemHomologacionDataTable').DataTable({
+		 ordering: false
+	});
 	aemHomologacion.ajax.url('/corevat/AemHomologacionGetAjax/' + $("#idavaluoenfoquemercado").val()).load();
 
-	aemInformacion = $('#aemInformacionDataTable').DataTable();
+	aemInformacion = $('#aemInformacionDataTable').DataTable({
+		 ordering: false
+	});
 	aemInformacion.ajax.url('/corevat/AemInformacionGetAjax/' + $("#idavaluoenfoquemercado").val()).load();
 
-	aemAnalisis = $('#aemAnalisisDataTable').DataTable();
+	aemAnalisis = $('#aemAnalisisDataTable').DataTable({
+		 ordering: false
+	});
 	aemAnalisis.ajax.url('/corevat/AemAnalisisGetAjax/' + $("#idavaluoenfoquemercado").val()).load();
 
 	/*++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++

@@ -46,10 +46,10 @@
 	</div>
 	<div class="col-md-12">
 		<div class="form-group">
-			{{Form::label('finalidad', 'Finalidad : ', ['class'=>'col-md-2'])}}
+			{{Form::label('fk_finalidad', 'Finalidad : ',['class'=>'col-sm-2'])}}
             <div class="col-md-10">
-                {{Form::text('finalidad', $row->finalidad, ['class'=>'form-control', 'tabindex'=>'5', 'required' => 'required', 'maxlength' => '250'])}}
-			{{$errors->first('finalidad', '<span class=text-danger>:message</span>')}}
+			{{Form::select('fk_finalidad', $cat_finalidad, $row->fk_finalidad, ['id' => 'fk_finalidad', 'class'=>'form-control', 'tabindex'=>'5', 'required' => 'required'])}}
+			{{$errors->first('fk_finalidad', '<span class=text-danger>:message</span>')}}
             </div>
 		</div>
 	</div>
@@ -183,7 +183,10 @@
 	<div class="col-md-12">
 		<div class="form-group">
 			{{Form::label('nombre_solicitante','Solicitante : ',['class'=>'col-sm-2'])}}
-            <div class="col-md-10">
+            <div class="col-md-2">
+			{{Form::select('fk_titulo_solicitante', $cat_titulo_persona, $row->fk_titulo_solicitante, ['id' => 'fk_titulo_solicitante', 'class'=>'form-control', 'tabindex'=>'5', 'required' => 'required'])}}
+            </div>
+            <div class="col-md-8">
 			{{Form::text('nombre_solicitante', $row->nombre_solicitante, ['class'=>'form-control', 'tabindex'=>'24', 'maxlength'=>'100', 'required'=>'required'])}}
             </div>
 		</div>
@@ -191,7 +194,10 @@
 	<div class="col-md-12">
 		<div class="form-group">
 			{{Form::label('nombre_propietario','Propietario : ',['class'=>'col-sm-2'])}}
-            <div class="col-md-10">
+            <div class="col-md-2">
+			{{Form::select('fk_titulo_propietario', $cat_titulo_persona, $row->fk_titulo_propietario, ['id' => 'fk_titulo_propietario', 'class'=>'form-control', 'tabindex'=>'5', 'required' => 'required'])}}
+            </div>
+            <div class="col-md-8">
 			{{Form::text('nombre_propietario', $row->nombre_propietario, ['class'=>'form-control', 'tabindex'=>'25', 'maxlength'=>'100', 'required'=>'required'])}}
             </div>
 		</div>
