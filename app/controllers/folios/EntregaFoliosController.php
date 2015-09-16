@@ -218,6 +218,7 @@ class folios_EntregaFoliosController extends BaseController {
 		$fr = FoliosComprados::where('perito_id', $perito->id)
 		->where('tipo_folio', 'R')
 		->whereRaw("EXTRACT(YEAR FROM fecha_autorizacion) = ". $YEAR)
+		->where('entrega_municipal', '0')
 		->get();
 
 		return View::make('folios.entregafoliosm.rusticos', ['selectYear' => $selectYear])
@@ -225,7 +226,8 @@ class folios_EntregaFoliosController extends BaseController {
 		->withPerito($perito);
 	}
 
-	public function post_foliosm($id){ //marca los folios utilizados por los peritos
+	public function post_foliosm($id)
+	{ //marca los folios utilizados por los peritos
 
 		$inputs = Input::all();
 		$user_id = Auth::user()->id;

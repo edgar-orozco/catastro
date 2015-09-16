@@ -79,7 +79,8 @@ class Avaluos extends \Eloquent {
 				'usuarios.registro', 'usuarios.registro_colegio', 'usuarios.status_usuario', 
 				'estados.estado', 'municipios.municipio', 'cat_tipo_inmueble.tipo_inmueble', 'cat_regimen_propiedad.regimen_propiedad',
 				'avaluo_inmueble.superficie_construccion', 'avaluo_inmueble.superficie_terreno',
-				'avaluo_conclusiones.valor_fisico', 'avaluo_conclusiones.valor_mercado', 'avaluo_conclusiones.valor_concluido')
+				'avaluo_conclusiones.valor_fisico', 'avaluo_conclusiones.valor_mercado', 'avaluo_conclusiones.valor_concluido', 
+				'cat_finalidad.finalidad', 'a.titulo_persona AS titulo_solicitante', 'b.titulo_persona AS titulo_propietario')
 						->leftJoin('usuarios', 'avaluos.iduser', '=', 'usuarios.iduser')
 						->leftJoin('estados', 'avaluos.idestado', '=', 'estados.idestado')
 						->leftJoin('municipios', 'avaluos.idmunicipio', '=', 'municipios.idmunicipio')
@@ -87,6 +88,11 @@ class Avaluos extends \Eloquent {
 						->leftJoin('cat_regimen_propiedad', 'avaluos.idregimenpropiedad', '=', 'cat_regimen_propiedad.idregimenpropiedad')
 						->leftJoin('avaluo_inmueble', 'avaluos.idavaluo', '=', 'avaluo_inmueble.idavaluo')
 						->leftJoin('avaluo_conclusiones', 'avaluos.idavaluo', '=', 'avaluo_conclusiones.idavaluo')
+				
+						->leftJoin('cat_finalidad', 'avaluos.fk_finalidad', '=', 'cat_finalidad.idfinalidad')
+						->leftJoin('cat_titulo_persona AS a', 'avaluos.fk_titulo_solicitante', '=', 'a.idtitulopersona')
+						->leftJoin('cat_titulo_persona AS b', 'avaluos.fk_titulo_propietario', '=', 'b.idtitulopersona')
+				
 						->where('avaluos.idavaluo', '=', $idavaluo)
 						->orderBy('avaluos.idavaluo')
 						->first();
@@ -100,7 +106,9 @@ class Avaluos extends \Eloquent {
 	 */
 	private static function setAvaluo(&$row, $inputs) {
 		$row->proposito = $inputs["proposito"];
+		$row->fk_finalidad = $inputs["fk_finalidad"];
 		$row->finalidad = $inputs["finalidad"];
+		
 		$municipios = Municipios::where('clave', $inputs["idmunicipio"])->first();
 		$row->idmunicipio = $municipios->idmunicipio;
 		$row->idestado = $inputs["idestado"];
@@ -136,7 +144,9 @@ class Avaluos extends \Eloquent {
 			$row->cuenta_predial = $a[0]."-".$inputs["serie"]."-".$a[2];
 		}
 		
+		$row->fk_titulo_solicitante = $inputs["fk_titulo_solicitante"];
 		$row->nombre_solicitante = $inputs["nombre_solicitante"];
+		$row->fk_titulo_propietario = $inputs["fk_titulo_propietario"];
 		$row->nombre_propietario = $inputs["nombre_propietario"];
 	}
 

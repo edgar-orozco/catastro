@@ -15,7 +15,9 @@ $(document).ready(function () {
 	/*++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 	 *  
 	 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
-	aiMedidasColindancias = $('#aiMedidasColindanciasDataTable').DataTable();
+	aiMedidasColindancias = $('#aiMedidasColindanciasDataTable').DataTable({
+		 ordering: false
+	});
 
 	/*++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 	 * 

@@ -41,7 +41,7 @@ class UsersController extends Controller
             } elseif ($repo->existsButNotConfirmed($input)) {
                 $err_msg = Lang::get('confide::confide.alerts.not_confirmed');
             } elseif (!$repo->isActive($input)) {
-                $err_msg = 'El permiso de acceso de este usuario ya no es vigente';
+                $err_msg = 'Usuario o contraseña no válidos.';
             } else {
                 $err_msg = Lang::get('confide::confide.alerts.wrong_credentials');
             }

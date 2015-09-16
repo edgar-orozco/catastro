@@ -49,12 +49,12 @@
 		<table cellpadding="0" cellspacing="0" border="0" class="table table-striped corevatDataTable" id="aiMedidasColindanciasDataTable">
 			<thead>
 				<tr>
-					<th style="width:9%;">#</th>
+					<th style="width:5%;">#</th>
 					<th style="width:20%;">ORIENTACIÓN</th>
 					<th style="width:10%;">U.M.</th>
 					<th style="width:20%;">MEDIDAS</th>
-					<th style="width:20%;">COLINDANCIAS</th>
-					<th style="width:5%;">OPCIONES</th>
+					<th style="width:40%;">COLINDANCIAS</th>
+					<th style="width:3%;">OPCIONES</th>
 				</tr>
 			</thead>
 		</table>
@@ -110,7 +110,7 @@
 
 	<div class="col-md-12">
 		{{Form::label('servidumbre_restricciones', 'Servidumbres y Restricciones')}}
-		{{Form::textarea('servidumbre_restricciones', $row->servidumbre_restricciones, ['class'=>'form-control'] )}}
+		{{Form::textarea('servidumbre_restricciones', $row->servidumbre_restricciones, ['class'=>'form-control', 'rows' => '3'] )}}
 	</div>
 	<div class="col-md-12">&nbsp;</div>
 
@@ -288,7 +288,7 @@
 		<table cellpadding="0" cellspacing="0" border="0" class="table">
 			<tbody>
 				<tr>
-					<th class="bg-primary">{{Form::label('superficie_total_terreno', 'Superficie Total del Terreno')}}</th>
+					<th class="bg-primary">{{Form::label('superficie_total_terreno', 'Superficie Total del Terreno M&sup2;')}}</th>
 					<td>
 						{{Form::number('superficie_total_terreno', $row->superficie_total_terreno, ['class'=>'form-control clsNumeric', 'step'=>'0.0001', 'min'=>'0.0001', 'max'=>'9999999999.9999'])}}
 						{{$errors->first('superficie_total_terreno', '<span class=text-danger>:message</span>')}}
@@ -300,7 +300,7 @@
 					</td>
 				</tr>
 				<tr>
-					<th class="bg-primary">{{Form::label('superficie_terreno', 'Superficie del Terreno')}}</th>
+					<th class="bg-primary">{{Form::label('superficie_terreno', 'Superficie del Terreno M&sup2;')}}</th>
 					<td>
 						{{Form::number('superficie_terreno', $row->superficie_terreno, ['id'=>'superficie_terreno','class'=>'form-control clsNumeric', 'step'=>'0.0001', 'min'=>'0.0001', 'max'=>'9999999999.9999'] )}}
 						{{$errors->first('superficie_terreno', '<span class=text-danger>:message</span>')}}
@@ -313,7 +313,7 @@
 					</td>
 				</tr>
 				<tr>
-					<th class="bg-primary">{{Form::label('superficie_construccion', 'Superficie de Construcción')}}</th>
+					<th class="bg-primary">{{Form::label('superficie_construccion', 'Superficie de Construcción M&sup2;')}}</th>
 					<td>
 						{{Form::number('superficie_construccion', $row->superficie_construccion, ['id'=>'superficie_construccion','class'=>'form-control clsNumeric', 'step'=>'0.0001', 'min'=>'0.0000', 'max'=>'9999999999.9999'] )}}
 						{{$errors->first('superficie_construccion', '<span class=text-danger>:message</span>')}}
@@ -326,7 +326,7 @@
 					</td>
 				</tr>
 				<tr>
-					<th class="bg-primary">{{Form::label('superficie_escritura', 'Superficie Asentada en Escritura')}}</th>
+					<th class="bg-primary">{{Form::label('superficie_escritura', 'Superficie Asentada en Escritura M&sup2;')}}</th>
 					<td>
 						{{Form::number('superficie_escritura', $row->superficie_escritura, ['id'=>'superficie_escritura','class'=>'form-control clsNumeric', 'step'=>'0.0001', 'min'=>'0.0000', 'max'=>'9999999999.9999'])}}
 						{{$errors->first('superficie_escritura', '<span class=text-danger>:message</span>')}}

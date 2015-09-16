@@ -134,13 +134,13 @@
 
 	<div class="col-md-6">
 		{{Form::label('construc_predominante', 'Construcciones Predominante')}}
-		{{Form::textarea('construc_predominante', $row->construc_predominante, ['class'=>'form-control', 'maxlength'=>'500'] )}}
+		{{Form::textarea('construc_predominante', $row->construc_predominante, ['class'=>'form-control', 'maxlength'=>'500', 'rows' => '3'] )}}
 		<hr>
 	</div>
 
 	<div class="col-md-6">
 		{{Form::label('vias_acceso_importante', 'Vias de acceso e importancia')}}
-		{{Form::textarea('vias_acceso_importante', $row->vias_acceso_importante, ['class'=>'form-control', 'maxlength'=>'500'] )}}
+		{{Form::textarea('vias_acceso_importante', $row->vias_acceso_importante, ['class'=>'form-control', 'maxlength'=>'500', 'rows' => '3'] )}}
 		<hr>
 	</div>
 

@@ -11,7 +11,7 @@
 		{{Form::text('valor_mercado', number_format($row->valor_mercado, 2, '.', ','), ['class'=>'form-control', 'disabled'=>'disabled'])}}
 	</div>
 	<div class="col-md-3">
-		{{Form::label('factor_seleccion_valor', 'Seleccione una valor de conclusión:')}}
+		{{Form::label('factor_seleccion_valor', 'Seleccione un valor de conclusión:')}}
 		{{Form::select('factor_seleccion_valor', array('1'=>'Valor Físico', '2'=>'Valor Mercado'), $row->factor_seleccion_valor, ['id' => 'factor_seleccion_valor', 'class'=>'form-control'])}}
 	</div>
 	<div class="col-md-3">

@@ -65,7 +65,7 @@
 								{{$r->municipio->nombre_municipio}}
 							@endif	
 						<td align="center">
-							@if($r->entrega_municipal == 1)
+							@if($r->entrega_municipal == 1  && $r->fecha_entrega_m)
 								{{$r->fecha_entrega_m}}
 							@endif
 						</td>

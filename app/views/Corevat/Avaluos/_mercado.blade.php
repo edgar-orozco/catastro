@@ -16,10 +16,6 @@
 		<table cellpadding="0" cellspacing="0" border="0" class="table datatable table-striped" id="aemCompTerrenosDataTable">
 			<thead>
 				<tr>
-					<th colspan="7"></th>
-					<th colspan="2">OPCIONES</th>
-				</tr>
-				<tr>
 					<th>#</th>
 					<th>ID</th>
 					<th>UBICACIÓN</th>
@@ -27,15 +23,13 @@
 					<th>SUP. TERRENO</th>
 					<th>P.U. M&sup2;</th>
 					<th>OBSERVACIÓN</th>
-					<th style="width:5%;"></th>
-					<th style="width:5%;"></th>
+					<th style="width:5%;">OPCIONES</th>
 				</tr>
 			</thead>
 			<tbody>
 			</tbody>
 			<tfoot>
 				<tr>
-					<td class="bg-primary">&nbsp;</td>
 					<td class="bg-primary">&nbsp;</td>
 					<td class="bg-primary">&nbsp;</td>
 					<td class="bg-primary">&nbsp;</td>
@@ -55,19 +49,23 @@
 		<table cellpadding="0" cellspacing="0" border="0" class="table datatable table-striped" id="aemHomologacionDataTable">
 			<thead>
 				<tr>
-					<th>#</th>
-					<th>ID</th>
-					<th>COMPARABLE</th>
-					<th>SUP.</th>
-					<th>V. UNIT.</th>
-					<th>ZONA;</th>
+					<th rowspan="2" style="width: 5px;">#</th>
+					<th rowspan="2" style="width: 5px;">ID</th>
+					<th rowspan="2">COMPARABLE</th>
+					<th rowspan="2">SUP.</th>
+					<th rowspan="2">Valor Unitario</th>
+					<th colspan="5">Factores de homologación</th>
+					<th colspan="2">Valor unitario</th>
+					<th rowspan="2" style="width: 5px;">OPCIONES</th>
+				</tr>
+				<tr>
+					<th>ZONA</th>
 					<th>UBICACIÓN</th>
 					<th>FRENTE</th>
 					<th>FORMA</th>
 					<th>SUPERFICIE</th>
-					<th>NEGOCIACIÓN</th>
-					<th>RESULT. ($/m&sup2;)</th>
-					<th>OPCIONES</th>
+					<th>Negociación</th>
+					<th>Resultante ($/m&sup2;)</th>
 				</tr>
 			</thead>
 			<tbody>
@@ -216,7 +214,7 @@
 						<input type="text" class="form-control" name="precio_unitario_m2_terreno" id="precio_unitario_m2_terreno" disabled />
 					</div>
 					<div class="col-md-6">
-						<label for="observaciones_aemcompterreno">Observaciones:</label>
+						<label for="observaciones_aemcompterreno">Fuentes:</label>
 						<input type="text" class="form-control" name="observaciones_aemcompterreno" id="observaciones_aemcompterreno" maxlength="200" required />
 					</div>
 				</div>
@@ -313,18 +311,19 @@
 					</div>
 					<div class="col-md-6">
 						<label for="valor_unitario_negociable">Negociación:</label>
-						<input type="number" class="form-control clsNumeric" name="valor_unitario_negociable" id="valor_unitario_negociable" min="0.00" max="0.99" step="0.01" required />
+						<input type="number" class="form-control clsNumeric" name="valor_unitario_negociable" id="valor_unitario_negociable" min="0.00" max="1.00" step="0.01" required />
 					</div>
+				</div>
 
+				<div class="row">
 					<div class="col-md-6">
 						<label for="valor_unitario_resultante_m2_aemhomologacion">Resultante ($/m&sup2;):</label>
 						<input type="text"class="form-control" name="valor_unitario_resultante_m2_aemhomologacion" id="valor_unitario_resultante_m2_aemhomologacion" disabled />
 					</div>
-					<div class="col-md-6">
-						<label for="in_promedio_aemhomologacion">Interviene en el Promedio:</label>
-						<input type="checkbox" class="form-control" name="in_promedio_aemhomologacion" id="in_promedio_aemhomologacion" />
+					<div class="col-md-4 col-md-offset-2 checkbox-inline" style="padding-top: 2em;">
+						<input type="checkbox" name="in_promedio_aemhomologacion" id="in_promedio_aemhomologacion" />
+						<label for="in_promedio_aemhomologacion">Interviene en el Promedio</label>
 					</div>
-					
 				</div>
 				<div style="text-align: center;" id="messagesModalFormAemHomologacion"></div>
 			</div>
@@ -363,7 +362,7 @@
 						<input type="text"class="form-control" name="telefono" id="telefono" maxlength="100" required />
 					</div>
 					<div class="col-md-12">
-						<label for="observaciones_aeminformacion">Observaciones:</label>
+						<label for="observaciones_aeminformacion">Fuentes:</label>
 						<input type="text"class="form-control" name="observaciones_aeminformacion" id="observaciones_aeminformacion" maxlength="100" required />
 					</div>
 				</div>
@@ -468,10 +467,9 @@
 						<label for="valor_unitario_resultante_m2_aemanalisis">Resultante ($/m&sup2;):</label>
 						<input type="text" class="form-control" name="valor_unitario_resultante_m2_aemanalisis" id="valor_unitario_resultante_m2_aemanalisis" disabled />
 					</div>
-
-					<div class="col-md-12">
+					<div class="col-md-10 col-md-offset-1 checkbox-inline" style="margin-top: 1.5em;">
+						<input type="checkbox" name="in_promedio_aemanalisis" id="in_promedio_aemanalisis" />
 						<label for="in_promedio_aemanalisis">Interviene en el Promedio:</label>
-						<input type="checkbox" class="form-control" name="in_promedio_aemanalisis" id="in_promedio_aemanalisis" />
 					</div>
 				</div>
 				<div style="text-align: center;" id="messagesModalFormAemAnalisis"></div>

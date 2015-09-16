@@ -14,16 +14,24 @@ $(document).ready(function () {
 	/*++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 	 *  
 	 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
-	aefTerrenos = $('#aefTerrenosDataTable').DataTable();
+	aefTerrenos = $('#aefTerrenosDataTable').DataTable({
+		 ordering: false
+	});
 	aefTerrenos.ajax.url('/corevat/AefTerrenosGetAjax/' + $("#idavaluoenfoquefisico").val()).load();
 
-	aefConstrucciones = $('#aefConstruccionesDataTable').DataTable();
+	aefConstrucciones = $('#aefConstruccionesDataTable').DataTable({
+		 ordering: false
+	});
 	aefConstrucciones.ajax.url('/corevat/AefConstruccionesGetAjax/' + $("#idavaluoenfoquefisico").val()).load();
 
-	aefCondominios = $('#aefCondominiosDataTable').DataTable();
+	aefCondominios = $('#aefCondominiosDataTable').DataTable({
+		 ordering: false
+	});
 	aefCondominios.ajax.url('/corevat/AefCondominiosGetAjax/' + $("#idavaluoenfoquefisico").val()).load();
 
-	aefInstalaciones = $('#aefInstalacionesDataTable').DataTable();
+	aefInstalaciones = $('#aefInstalacionesDataTable').DataTable({
+		 ordering: false
+	});
 	aefInstalaciones.ajax.url('/corevat/AefInstalacionesGetAjax/' + $("#idavaluoenfoquefisico").val()).load();
 
 	$('.edad').mask('YYY', {placeholder: "___", translation: {Y: {pattern: /[0-9]/}}});
