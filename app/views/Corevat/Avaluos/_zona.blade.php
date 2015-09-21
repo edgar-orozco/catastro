@@ -1,6 +1,7 @@
 <h3 class="header">{{$title}}</h3>
 {{Form::model($row, ['route' => array('updateAvaluoZona', $idavaluo), 'method'=>'post', 'id'=>'formAvaluoZona' ]) }}
 {{Form::hidden('idavaluozona', $row->idavaluozona)}}
+{{Form::hidden('hidden_nivel_equipamiento', $row->nivel_equipamiento, ['id' => 'hidden_nivel_equipamiento'])}}
 <div id="zonaCoveratSecc">
     <div class="row">
         <div class="col-md-6">
@@ -44,11 +45,11 @@
                 </div>
                 <div class="checkbox">
                     {{Form::label('is_otro_servicio', 'Otros')}}
-                    {{Form::checkbox('is_otro_servicio', $row->is_otro_servicio, ['class'=>'form-control', 'id'=>'is_otro_servicio'])}}
+                    {{Form::checkbox('is_otro_servicio', 1, $row->is_otro_servicio, ['class'=>'nivel_equipamiento', 'id'=>'is_otro_servicio'])}}
                 </div>
                 <div class="checkbox"></div>
                 <div class="checkbox">
-                    {{Form::text('otro_servicio_municipal', $row->otro_servicio_municipal, ['class'=>'form-control nivel_equipamiento', 'id'=>'otro_servicio_municipal', 'maxlength'=>'300'])}}
+                    {{Form::text('otro_servicio_municipal', $row->otro_servicio_municipal, ['class'=>'form-control', 'id'=>'otro_servicio_municipal', 'maxlength'=>'300'])}}
                     {{$errors->first('otro_servicio_municipal', '<span class=text-danger>:message</span>')}}
                 </div>
             </div>
@@ -95,11 +96,11 @@
                 </div>
                 <div class="checkbox">
                     {{Form::label('is_otro_equipamiento', 'Otros')}}
-                    {{Form::checkbox('is_otro_equipamiento', $row->is_otro_equipamiento, ['class' => 'nivel_equipamiento'])}}
+                    {{Form::checkbox('is_otro_equipamiento', 1, $row->is_otro_equipamiento, ['class' => 'nivel_equipamiento', 'id' => 'is_otro_equipamiento'])}}
                 </div>
                 <div class="checkbox"></div>
                 <div class="checkbox">
-                    {{Form::text('otro_equipamiento', $row->otro_equipamiento, ['class'=>'form-control nivel_equipamiento', 'id'=>'otro_equipamiento', 'maxlength'=>'300'])}}
+                    {{Form::text('otro_equipamiento', $row->otro_equipamiento, ['class'=>'form-control', 'id'=>'otro_equipamiento', 'maxlength'=>'300'])}}
                     {{$errors->first('otro_equipamiento', '<span class=text-danger>:message</span>')}}
                 </div>
             </div>
@@ -110,13 +111,13 @@
     <br/><br/>
 	<div class="col-md-3">
 		{{Form::label('cobertura', 'Cobertura')}}
-		{{Form::text('cobertura', '1000', ['class'=>'form-control', 'maxlength'=>'250', 'disabled' => 'disabled'])}}
+		{{Form::text('cobertura', '1000.00', ['class'=>'form-control', 'maxlength'=>'250', 'disabled' => 'disabled'])}}
 		{{$errors->first('cobertura', '<span class=text-danger>:message</span>')}}
 		<hr>
 	</div>
 	<div class="col-md-3">
 		{{Form::label('nivel_equipamiento', 'Nivel de Equipamiento %')}}
-		{{Form::number('nivel_equipamiento', $row->nivel_equipamiento, ['id' => 'nivel_equipamiento', 'class'=>'form-control', 'maxlength'=>'3', 'size'=>'4', 'step'=>'1', 'min'=>'0', 'max'=>'100'])}}
+		{{Form::number('nivel_equipamiento', $row->nivel_equipamiento, ['id' => 'nivel_equipamiento', 'class'=>'form-control', 'maxlength'=>'3', 'size'=>'4', 'step'=>'1', 'min'=>'0', 'max'=>'100', 'disabled' => 'disabled'])}}
 		{{$errors->first('nivel_equipamiento', '<span class=text-danger>:message</span>')}}
 		<hr>
 	</div>
@@ -162,23 +163,38 @@
 	$(document).ready(function () {
 		$('#btn2Zona').removeClass("btn-info").addClass("btn-primary");
 
-		$('#nivel_equipamiento').mask('YYY', {placeholder: "___", translation: {Y: {pattern: /[0-9]/}}});
+		$("#otro_servicio_municipal").attr('disabled', ( $("#is_otro_servicio").is(':checked' ) ? false : true) )
+		$("#otro_equipamiento").attr('disabled', ( $("#is_otro_equipamiento").is(':checked' ) ? false : true) )
 		
-		// CLCULAMOS EL NIVEL DE EQUIPAMIENTO.
-		// otro_servicio_municipal
-		// otro_equipamiento
 		$(".nivel_equipamiento").click(function() {
 			var x = 0;
 			var y = 18;
+
+			if ( $(this).attr('id') === 'is_otro_servicio' ) {
+				if ( $(this).is(':checked' ) ) {
+					$("#otro_servicio_municipal").attr('disabled', false).attr('required', true);
+					y = ( $("#is_otro_equipamiento").is(':checked') ? 20 : 19);
+				} else {
+					$("#otro_servicio_municipal").attr('disabled', true).attr('required', false).val('');
+				}
+			}
+			
+			if ( $(this).attr('id') === 'is_otro_equipamiento' ) {
+				if ( $(this).is(':checked' ) ) {
+					$("#otro_equipamiento").attr('disabled', false).attr('required', true);
+					y = ( $("#is_otro_servicio").is(':checked') ? 20 : 19);
+				} else {
+					$("#otro_equipamiento").attr('disabled', true).attr('required', false).val('');
+				}
+			}
+
 			$('.nivel_equipamiento').each(function(key, element){
-				if ( this.checked ) {
-					
+				if ( element.checked ) {
 					x++;
 				}
 			});
-			alert(x);
-			// actualizar el campo
-			//$("#nivel_equipamiento")
+
+			$("#nivel_equipamiento, #hidden_nivel_equipamiento").val( ((x / y) * 100).toFixed(2) );
 		});
 
 	});

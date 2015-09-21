@@ -113,7 +113,14 @@
 		</div>
 	</div>
 
+
 	<br />
+
+	<div class="col-md-12">
+	</div>
+
+	<br />
+
 	<div class="col-md-6">
 		<div class="form-inline">
             {{Form::label('','Longitud : ',['class'=>'col-sm-4'])}}
