@@ -88,7 +88,7 @@ class ConsultaAlfaCorevatController extends \BaseController {
                             ->where('avaluos.idavaluo', '>', '0')
                             ->where('avaluos.cuenta_catastral', '!=', '')
                             ->orderBy('avaluo_conclusiones.valor_concluido','asc')
-                            ->limit(5)
+                            ->limit(10)
                             ->lists('cuenta_catastral');
 
                 break;
@@ -102,7 +102,7 @@ class ConsultaAlfaCorevatController extends \BaseController {
                             ->where('avaluos.cuenta_catastral', '!=', '')
                             ->where('municipios.clave', '=', $municipio)
                             ->orderBy('avaluo_conclusiones.valor_concluido','desc')
-                            ->limit(5)
+                            ->limit(10)
                             ->lists('cuenta_catastral');
 
                 break;
@@ -115,7 +115,7 @@ class ConsultaAlfaCorevatController extends \BaseController {
                             ->where('avaluos.idavaluo', '>', '0')
                             ->where('avaluos.cuenta_catastral', '!=', '')
                             ->orderBy('avaluo_conclusiones.valor_concluido','desc')
-                            ->limit(5)
+                            ->limit(10)
                             ->lists('cuenta_catastral');
 
                 break;
