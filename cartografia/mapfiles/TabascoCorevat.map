@@ -509,7 +509,7 @@ LAYER  NAME "predio_ubicado_1"
   
   CLASS
     Name 'PredioUbicado'
-    COLOR 255 0 0
+    COLOR 223 219 212
     OUTLINECOLOR 0 0 0
 
     LABEL

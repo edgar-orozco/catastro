@@ -1,11 +1,11 @@
 <?php
 
-Route::get('cartografia/pininos/', array(
+Route::get('cartografia/corevat/', array(
     'as' => 'CorevatConsultaCartograficaController',
     'uses' => 'CorevatConsultaCartografica@index'
 ));
 
-Route::group(array('before' => 'cartografia/pininos'), function () {
+Route::group(array('before' => 'cartografia/corevat'), function () {
 
     Route::get('getAvaluoCartCorevat34_AA', array(
         'as' => 'CorevatConsultaCartograficaController',
