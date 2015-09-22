@@ -12,7 +12,7 @@
         <ul role="menu" class="dropdown-menu">
 
             <li>
-                <a href="{{URL::to('cartografia/pininos/')}}">
+                <a href="{{URL::to('cartografia/corevat/')}}">
                     <i class="glyphicon glyphicon-globe"></i>&nbsp;
                     Consulta cartográfica Corevat
                 </a>
