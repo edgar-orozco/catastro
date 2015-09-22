@@ -162,11 +162,14 @@
         </div>
 
 
-<!--         @if ( isset($avaluo) )
+<!--
+
+         @if ( isset($avaluo) )
             {{"Si Existe"}} 
         @else
             {{"NO Existe"}} 
         @endif
+ 
  -->   
 
    </div>
