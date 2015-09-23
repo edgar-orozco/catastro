@@ -95,6 +95,7 @@ class ConsultaAlfaCorevatController extends \BaseController {
             
             case 2:
 
+
                 $arr0 = Avaluos::select('avaluos.cuenta_catastral')
                             ->leftJoin('avaluo_conclusiones', 'avaluos.idavaluo', '=', 'avaluo_conclusiones.idavaluo')
                             ->leftJoin('municipios', 'avaluos.idmunicipio', '=', 'municipios.idmunicipio')
@@ -102,7 +103,7 @@ class ConsultaAlfaCorevatController extends \BaseController {
                             ->where('avaluos.cuenta_catastral', '!=', '')
                             ->where('municipios.clave', '=', $municipio)
                             ->orderBy('avaluo_conclusiones.valor_concluido','desc')
-                            ->limit(5)
+                            ->limit(10)
                             ->lists('cuenta_catastral');
 
                 break;
