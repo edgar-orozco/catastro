@@ -186,10 +186,7 @@
               </form>
  -->
             <ul>
-                <li><a href="#" id="getT-0-000" class="getT">Top 10 mas Caros</a></li>
-                <li><a href="#" id="getT-1-000" class="getT">Top 10 mas Baratos</a></li>
-                <li><a href="#" id="getT-2-002" class="getT">Top 10 mas Caros de Cárdenas</a></li>
-                <li><a href="#" id="getT-2-008" class="getT">Top 10 mas Caros de Huimanguillo</a></li>
+                <li><a href="#" id="getT-2-008" class="getT">Predios con Avalúo en Huimanguillo (Alfa)</a></li>
             </ul>
 
 

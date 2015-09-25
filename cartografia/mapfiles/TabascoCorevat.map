@@ -493,7 +493,7 @@ LAYER  NAME "predio_ubicado_1"
   TYPE polygon
   STATUS ON
   CONNECTIONTYPE postgis
-  DATA "geom from predios"
+  DATA "geomes"
 
   TOLERANCE 3
   TOLERANCEUNITS pixels
@@ -502,14 +502,14 @@ LAYER  NAME "predio_ubicado_1"
     #"init=epsg:4326"
     "+proj=utm +zone=15 +datum=WGS84 +units=m +no_defs"
   END
-  #MINSCALEDENOM 250000
-  MAXSCALEDENOM 7000
+  #MINSCALEDENOM 2500
+  MAXSCALEDENOM 140000
   LABELITEM "clave_catas"
   LABELMAXSCALE 1000
   
   CLASS
     Name 'PredioUbicado'
-    COLOR 223 219 212
+    COLOR 255 0 0
     OUTLINECOLOR 0 0 0
 
     LABEL

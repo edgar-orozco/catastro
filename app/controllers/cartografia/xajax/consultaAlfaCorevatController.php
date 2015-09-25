@@ -3,7 +3,8 @@
 use \PMap;
 
 class ConsultaAlfaCorevatController extends \BaseController {
-	public function store(){
+	
+    public function store(){
 
         $tipoQuery = $_REQUEST["query"];
 
@@ -30,9 +31,9 @@ class ConsultaAlfaCorevatController extends \BaseController {
         $clave_catas = $_REQUEST["variables"][1];
 
         if ( intval($mun) <= 0 ){
-            $result = DB::select("select st_xmin(p.geom)-5 as xmin, st_ymin(p.geom)-5 as ymin, st_xmax(p.geom)+5 as xmax, st_ymax(p.geom)+5 as ymax  from predios p where p.clave_catas IN (".$arr1.") "  );
+            $result = DB::select("select  ST_AsGeoJSON(geom) AS geom, st_xmin(p.geom)-5 as xmin, st_ymin(p.geom)-5 as ymin, st_xmax(p.geom)+5 as xmax, st_ymax(p.geom)+5 as ymax, clave_catas  from predios p where p.clave_catas IN (".$arr1.") "  );
         }else{
-            $result = DB::select("select st_xmin(p.geom)-5 as xmin, st_ymin(p.geom)-5 as ymin, st_xmax(p.geom)+5 as xmax, st_ymax(p.geom)+5 as ymax  from predios p where p.municipio = '".$mun."' and p.clave_catas IN (".$arr1.") "  );
+            $result = DB::select("select  ST_AsGeoJSON(geom) AS geom, st_xmin(p.geom)-5 as xmin, st_ymin(p.geom)-5 as ymin, st_xmax(p.geom)+5 as xmax, st_ymax(p.geom)+5 as ymax, clave_catas  from predios p where p.municipio = '".$mun."' and p.clave_catas IN (".$arr1.") "  );
         }    
 
         if (count($result) == 0) {
@@ -41,9 +42,55 @@ class ConsultaAlfaCorevatController extends \BaseController {
             return;
         }
 
-        $row = $result[0];
-        $_REQUEST["extent"] = $row->xmin . "+" . $row->ymin . "+" . $row->xmax . "+" . $row->ymax;
+        if ( count($result) <= 0 ){
+            $strJS = '"msgError":"No se encontraron datos."';
+            echo "{\"sessionerror\":\"QueryError\"," . $strJS . "}";
+            return;
+        }        
 
+        foreach ($result as $k => $value) {
+
+            $row = $result[$k];
+            if ( $k == 0) {
+                $xmin = $row->xmin;
+                $ymin = $row->ymin;
+                $xmax = $row->xmax;
+                $ymax = $row->ymax;
+
+            }else{
+                $xmin = $row->xmin < $xmin ? $row->xmin : $xmin;
+                $ymin = $row->ymin < $ymin ? $row->ymin : $ymin;
+                $xmax = $row->xmax > $xmax ? $row->xmax : $xmax;
+                $ymax = $row->ymax > $ymax ? $row->ymax : $ymax;
+            }
+
+            $geom = json_decode($row->geom);
+            $layer = $map->getLayerByName('predio_ubicado_1');
+            $layer->setFilter("clave_catas = '".$row->clave_catas."'");
+            foreach($geom as $key=>$value){
+
+                if ( $key == "coordinates" ){
+                    $coord = $value;
+                    $polygon= ms_newShapeObj(MS_SHAPE_POLYGON);
+                    foreach($coord as $key=>$value){
+                        $coord2 = $value;
+                        foreach($coord2 as $key=>$value){    
+                            $coord3 = $value;
+                            $polyLine = ms_newLineObj();
+                            foreach($coord3 as $key=>$value){
+                                $coord4 = $value;
+                                $polyLine->addXY( $coord4[0], $coord4[1] );
+                            }
+                            $polygon->add($polyLine);
+                        }
+                    }
+                    $layer->addFeature($polygon);            
+                }
+            }
+        }
+
+        $_REQUEST["extent"] = ($xmin - 1.5) . "+" . ($ymin - 1.5) . "+" . ($xmax + 1.5) . "+" . ($ymax + 1.5);
+    
         $pmap = new PMAP($map); 
         $pmap->pmap_create();
 
@@ -68,15 +115,9 @@ class ConsultaAlfaCorevatController extends \BaseController {
         $strJS .= '"ydelta_geo":"' . $mapJS['ydelta_geo'] . '", ';
         $strJS .= '"refBoxStr":"' . $mapJS['refBoxStr'] . '" ';
 
-
-        // Serialize url_points
-        $urlPntStr = '';
-
-        // return JS object literals "{}" for XMLHTTP request
         echo "{\"sessionerror\":\"false\",  \"mapURL\":\"$mapURL\", \"scalebarURL\":\"$scalebarURL\", \"geo_scale\":\"$geo_scale\",".$strJS."}";
 
-
-    }
+}
 
     private function getQuery($type=0,$municipio="000"){
         switch ($type) {
@@ -102,8 +143,8 @@ class ConsultaAlfaCorevatController extends \BaseController {
                             ->where('avaluos.idavaluo', '>', '0')
                             ->where('avaluos.cuenta_catastral', '!=', '')
                             ->where('municipios.clave', '=', $municipio)
-                            ->orderBy('avaluo_conclusiones.valor_concluido','desc')
-                            ->limit(10)
+                            ->orderBy('avaluos.idavaluo','desc')
+                            ->limit(5)
                             ->lists('cuenta_catastral');
 
                 break;
