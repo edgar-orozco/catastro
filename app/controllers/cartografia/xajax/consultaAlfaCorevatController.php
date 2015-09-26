@@ -145,7 +145,7 @@ class ConsultaAlfaCorevatController extends \BaseController {
                             ->where('avaluos.cuenta_catastral', '!=', '')
                             ->where('municipios.clave', '=', $municipio)
                             ->orderBy('avaluos.idavaluo','desc')
-                            ->limit(5)
+                            ->limit(6)
                             ->lists('cuenta_catastral');
 
                 break;
