@@ -68,7 +68,6 @@ class ConsultaAlfaCorevatController extends \BaseController {
             $layer = $map->getLayerByName('predio_ubicado_1');
             $layer->setFilter("clave_catas = '".$row->clave_catas."'");
             foreach($geom as $key=>$value){
-
                 if ( $key == "coordinates" ){
                     $coord = $value;
                     $polygon= ms_newShapeObj(MS_SHAPE_POLYGON);
@@ -82,6 +81,8 @@ class ConsultaAlfaCorevatController extends \BaseController {
                                 $polyLine->addXY( $coord4[0], $coord4[1] );
                             }
                             $polygon->add($polyLine);
+                            $polygon->set("text",$row->clave_catas);
+
                         }
                     }
                     $layer->addFeature($polygon);            
@@ -144,7 +145,7 @@ class ConsultaAlfaCorevatController extends \BaseController {
                             ->where('avaluos.cuenta_catastral', '!=', '')
                             ->where('municipios.clave', '=', $municipio)
                             ->orderBy('avaluos.idavaluo','desc')
-                            ->limit(6)
+                            ->limit(5)
                             ->lists('cuenta_catastral');
 
                 break;

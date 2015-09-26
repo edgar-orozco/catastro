@@ -493,7 +493,7 @@ LAYER  NAME "predio_ubicado_1"
   TYPE polygon
   STATUS ON
   CONNECTIONTYPE postgis
-  DATA "geomes"
+  DATA "geom from predios using unique gid"
 
   TOLERANCE 3
   TOLERANCEUNITS pixels
@@ -505,24 +505,24 @@ LAYER  NAME "predio_ubicado_1"
   #MINSCALEDENOM 2500
   MAXSCALEDENOM 140000
   LABELITEM "clave_catas"
-  LABELMAXSCALE 1000
+  LABELMAXSCALE 7000
   
   CLASS
     Name 'PredioUbicado'
-    COLOR 255 0 0
+    COLOR 223 64 64
     OUTLINECOLOR 0 0 0
 
     LABEL
       POSITION Auto
-      COLOR 0 0 0 
-      OUTLINECOLOR 255 255 255
+      COLOR 255 255 255 
+      OUTLINECOLOR 64 64 64
       BUFFER 5
       TYPE truetype
       #ENCODING "UTF-8"
       FONT vera
-      SIZE 8
-      MAXSIZE 9
-      #SIZE small
+      SIZE 6
+      MAXSIZE 8
+      # SIZE small
     END #Label  
     
   END  # Class
