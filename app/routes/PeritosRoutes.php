@@ -52,10 +52,13 @@ Route::group(array('before'=>'Folios'),  function (){
 	 		Route::get('catalogos/peritos/estado/{id}', 'folios_PeritosController@DesPerito');
 	 		Route::get('catalogos/peritos/nuevoPerito', 'folios_PeritosController@get_nuevoPerito');
 	 		Route::post('catalogos/peritos/nuevoPerito', 'folios_PeritosController@post_nuevoPerito');
+	 		Route::get('catalogos/peritos/pdfPeritos', 'folios_PeritosController@createPdf');
 
 	 		Route::get('catalogos/peritos/actPerito/{id}', 'folios_PeritosController@get_actPerito');
 			Route::post('catalogos/peritos/actPerito', 'folios_PeritosController@post_nuevoPerito');
-                        
+
+			Route::get('/entregafoliosmunicipal/tablaAjax/buscar', 'folios_EntregaFoliosController@buscarFolio');
+ 			Route::get('/entregafoliosmunicipal/tablaAjax', 'folios_EntregaFoliosController@get_DatatablePaginate');           
             Route::get('/entregafoliosmunicipal', 'folios_EntregaFoliosController@entregafoliosmunicipal');
             Route::get('/entregafoliosm/urbanos/{id}', 'folios_EntregaFoliosController@get_urbanosm');
             Route::get('/entregafoliosm/rusticos/{id}', 'folios_EntregaFoliosController@get_rusticosm');
@@ -93,7 +96,7 @@ Route::group(array('before'=>'Folios usuario'),  function (){
 			Route::post('/nfolios', 'folios_FoliosController@nfolioscreate');
 			Route::get('nfolios/formato/{id}', 'folios_FoliosController@formato');
 			//Folios Emitidos
-                        Route::get('/foliosemitidos', 'folios_FoliosController@foliosemitidos');
+            Route::get('/foliosemitidos', 'folios_FoliosController@foliosemitidos');
 			Route::get('formato/{id}', 'folios_FoliosController@formato');
 			Route::get('eliminarFolio/{id}', 'folios_FoliosController@eliminarFolios');
                         //Entrega Folios Estatal
@@ -123,6 +126,8 @@ Route::group(array('before'=>'Folios usuario'),  function (){
 //Usuario municipio
  Route::group(array('before'=>'Folios municipio'),  function (){ 
                         //peritos
+ 		Route::get('/entregafoliosmunicipal/tablaAjax/buscar', 'folios_EntregaFoliosController@buscarFolio');
+ 		Route::get('/entregafoliosmunicipal/tablaAjax', 'folios_EntregaFoliosController@get_DatatablePaginate');
 	 	Route::get('/entregafoliosmunicipal', 'folios_EntregaFoliosController@entregafoliosmunicipal');
 		Route::get('/entregafoliosm/urbanos/{id}', 'folios_EntregaFoliosController@get_urbanosm');
 		Route::get('/entregafoliosm/rusticos/{id}', 'folios_EntregaFoliosController@get_rusticosm');

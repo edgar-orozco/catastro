@@ -201,6 +201,7 @@ class folios_EntregaFoliosController extends BaseController {
 
 	public function get_rusticosm($id){ //muestra todos los folios Rusticos del perito especificado
 
+		$paginate = Input::get('pagina', '15');
 		if(Input::get('year'))
 		{
 			$YEAR = Input::get('year');
@@ -215,24 +216,54 @@ class folios_EntregaFoliosController extends BaseController {
 
 		$perito = Perito::find($id);
 
-		$fr = FoliosComprados::where('perito_id', $perito->id)
-		->where('tipo_folio', 'R')
-		->whereRaw("EXTRACT(YEAR FROM fecha_autorizacion) = ". $YEAR)
-		->where('entrega_municipal', '0')
-		->get();
-
+		$fr = FoliosComprados::getEntregaM($id,'R',$YEAR,$paginate);
 		return View::make('folios.entregafoliosm.rusticos', ['selectYear' => $selectYear])
 		->withFr($fr)
 		->withPerito($perito);
 	}
 
+	public function get_datatablePaginate()
+    {
+        $id = Input::get('id');
+        $tipo_folio = Input::get('tipo_folio');
+        $perito = Perito::find($id);
+        $paginate = Input::get('pagina', '15');
+
+        $fr = FoliosComprados::getEntregaM($id, $tipo_folio, null, $paginate);
+
+
+        return View::make('folios.entregafoliosm.tablaAjax')
+        ->withFr($fr)
+        ->withPerito($perito)
+        ->render();
+
+    }
+
+	public function buscarFolio()
+	{
+		$paginate = Input::get('pagina', '15');
+		$corevat =  strtoupper(Input::get('buscar'));
+        $id_perito = Input::get('id');
+        $tipo_folio = Input::get('tipo_folio');
+
+        $fr = FoliosComprados::buscarCorevat($corevat, $id_perito, $tipo_folio)
+        ->orderBy('numero_folio', 'ASC')
+		->orderBy('fecha_autorizacion', 'DESC')
+        ->paginate($paginate);
+
+        return View::make('folios.entregafoliosm.tablaAjax')
+        ->withFr($fr);
+	}
+
 	public function post_foliosm($id)
 	{ //marca los folios utilizados por los peritos
-
+		$paginate = Input::get('pagina', '15');
+		$tipo_folio = Input::get('tipo_folio');
 		$inputs = Input::all();
 		$user_id = Auth::user()->id;
 		$mun_id = DB::select("select municipio_id from user_municipio where usuario_id = $user_id");
-		if(isset($inputs['urbanos'])){
+		if(isset($inputs['urbanos']))
+		{
 
 			for($a=0; $a<sizeof($inputs['urbanos']); $a++){
 
@@ -249,10 +280,10 @@ class folios_EntregaFoliosController extends BaseController {
 			}
 		}
 
-		if(isset($inputs['rusticos'])){
-
-			for($a=0; $a<sizeof($inputs['rusticos']); $a++){
-
+		if(isset($inputs['rusticos']))
+		{
+			for($a=0; $a<sizeof($inputs['rusticos']); $a++)
+			{
 				$folio = FoliosComprados::where('tipo_folio', 'R')
 				->where('numero_folio', $inputs['rusticos'][$a])
 				->where('perito_id', $id)
@@ -266,7 +297,13 @@ class folios_EntregaFoliosController extends BaseController {
 			}
 		}
 
-		return Redirect::to('/entregafoliosmunicipal');
+		$fr = FoliosComprados::getEntregaM($id, $tipo_folio, null, $paginate);
+
+
+        return View::make('folios.entregafoliosm.tablaAjax')
+        ->withFr($fr)
+        ->render();
+
 	}
 
 

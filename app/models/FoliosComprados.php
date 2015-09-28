@@ -8,18 +8,53 @@ class FoliosComprados extends Eloquent  {
 	protected $table = 'folios_comprados';			 
 
 
-		
-		public function municipio()
-		{
+	
+	public function municipio()
+	{
+		return $this->belongsto('Municipio');
+	}
 
-			return $this->belongsto('Municipio');
-		}
+	public function usuario()
+	{
+		return $this->belongsTo('User');
+	}
 
-		public function usuario()
-		{
+	public function corevat()
+	{
+		$corevat = Perito::find($this->perito_id)->corevat;
+		$input = str_pad($this->numero_folio, 4, "0", STR_PAD_LEFT);
+		$tipo_folio = $this->tipo_folio;
+		$anio = substr($this->fecha_autorizacion, 2, 2);
 
-			return $this->belongsTo('User');
-		}
+		return $corevat.'-'.$input.$tipo_folio.'-'.$anio;
+	}
+
+	static function buscarCorevat($corevat, $id_perito, $tipo_folio)
+	{
+		$busqueda = FoliosComprados::join('peritos', function($join) use ($corevat, $id_perito, $tipo_folio)
+        {
+            $join->on('folios_comprados.perito_id', '=', 'peritos.id')
+                ->where('folios_comprados.perito_id', '=', $id_perito)
+                ->where('folios_comprados.tipo_folio', '=', $tipo_folio);
+                if ($corevat)
+                {
+                	$join->where(DB::raw("peritos.corevat||'-'||to_char(folios_comprados.numero_folio, 'FM0999')||folios_comprados.tipo_folio||'-15'"), 'like', "%".ltrim($corevat)."%");
+                }
+        });
+
+        return $busqueda;
+	}
+
+	static function getEntregaM($perito_id, $tipo_folio, $year = null, $paginate = 15)
+	{
+		$year = ($year==null?date('Y'):$year);
+		return FoliosComprados::where('perito_id', $perito_id)
+		->where('tipo_folio', $tipo_folio)
+		->whereRaw("EXTRACT(YEAR FROM fecha_autorizacion) = ". $year)
+		->orderBy('numero_folio', 'ASC')
+		->orderBy('fecha_autorizacion', 'DESC')
+		->paginate($paginate);
+	}
 
 }
 

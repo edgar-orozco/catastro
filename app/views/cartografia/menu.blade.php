@@ -10,6 +10,14 @@
         <a data-toggle="dropdown" class="dropdown-toggle" href="#">Productos cartográficos <b class="caret"></b></a>
 
         <ul role="menu" class="dropdown-menu">
+
+            <li>
+                <a href="{{URL::to('cartografia/corevat/')}}">
+                    <i class="glyphicon glyphicon-globe"></i>&nbsp;
+                    Consulta cartográfica Corevat
+                </a>
+            </li>
+
             <li>
                 <a href="{{URL::to('cartografia/consultas')}}">
                     <i class="glyphicon glyphicon-globe"></i>&nbsp;

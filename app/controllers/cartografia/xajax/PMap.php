@@ -128,7 +128,7 @@ class PMap extends \BaseController
             //$this->layers = explode(",", $drawLayerStr);
             $this->layers = $_REQUEST["groups"];
         } else {
-            $this->layers = array("manzanas","predios","construcciones","entidades","municipios","localidades","carreteras","calles","rios","hipsografico");
+            $this->layers = array("manzanas","predios","construcciones","entidades","municipios","localidades","carreteras","calles","rios","hipsografico","predio_ubicado_1");
         }
     }
 

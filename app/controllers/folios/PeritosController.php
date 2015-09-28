@@ -29,7 +29,8 @@ class folios_PeritosController extends BaseController {
 		
 		$variableperito = Perito::all();
 
-		if(Auth::user()->tipo_id == 2){
+		if(Auth::user()->tipo_id == 2)
+		{
 
 			$variableperito->where('Estado', 1);
 
@@ -79,7 +80,8 @@ class folios_PeritosController extends BaseController {
 		return View::make('catalogos.peritos.nuevoPerito')->with('nuevoCorevat',$nuevoCorevat);
 	}
 
-	public function post_nuevoPerito(){//Se guarda los datos del perito
+	public function post_nuevoPerito()
+	{//Se guarda los datos del perito
 		//Obtengo el id del perito en caso de que exista
 		$id=Input::get('id');
 		$inputs=array
@@ -148,5 +150,24 @@ class folios_PeritosController extends BaseController {
 				return Redirect::to('/catalogos/peritos/index')->with('success',"Perito guardado correctamente");
 			}
 		}
+	}
+
+	public function createPdf()
+	{
+		$variableperito = Perito::all();
+
+		if(Auth::user()->tipo_id == 2)
+		{
+
+			$variableperito->where('Estado', 1);
+
+		}
+
+		$vista= View::make('folios.reportes.peritos.pdfPeritos', ['variableperito' => $variableperito]);
+		$pdf = PDF::load($vista)->show();
+		//load(variable, tamaño de hoja, orientacion landscape)
+		$response = Response::make($pdf, 200);
+		$response->header('Content-Type', 'application/pdf');
+		return $response;
 	}
 }
