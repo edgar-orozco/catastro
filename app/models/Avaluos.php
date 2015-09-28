@@ -111,6 +111,7 @@ class Avaluos extends \Eloquent {
 		
 		$municipios = Municipios::where('clave', $inputs["idmunicipio"])->first();
 		$row->idmunicipio = $municipios->idmunicipio;
+		//$row->idmunicipio = $inputs["idmunicipio"];
 		$row->idestado = $inputs["idestado"];
 		$row->fecha_reporte = $inputs["fecha_reporte"];
 		$row->fecha_avaluo = $inputs["fecha_avaluo"];
@@ -122,26 +123,37 @@ class Avaluos extends \Eloquent {
 		$row->conjunto = $inputs["conjunto"];
 		$row->colonia = $inputs["colonia"];
 		$row->cp = $inputs["cp"];
-		$row->latitud = $inputs["lat0"] . "°" . $inputs["lat1"] . "'" . $inputs["lat2"];
-		$row->lat0 = strlen($inputs["lat0"]) == 0 ? 0 : $inputs["lat0"];
-		$row->lat1 = strlen($inputs["lat1"]) == 0 ? 0 : $inputs["lat1"];
-		$row->lat2 = strlen($inputs["lat2"]) == 0 ? 0 : $inputs["lat2"];
-		$row->longitud = $inputs["lon0"] . "°" . $inputs["lon1"] . "'" . $inputs["lon2"];
-		$row->lon0 = strlen($inputs["lon0"]) == 0 ? 0 : $inputs["lon0"];
-		$row->lon1 = strlen($inputs["lon1"]) == 0 ? 0 : $inputs["lon1"];
-		$row->lon2 = strlen($inputs["lon2"]) == 0 ? 0 : $inputs["lon2"];
-		$row->altitud = $inputs["altitud"];
+		
+		$row->latitud = $inputs["latitud"];
+		$row->longitud = $inputs["longitud"];
+		$row->tp_coordenada = $inputs["tp_coordenada"];
+		$row->sistema_coordenadas = isset($inputs["sistema_coordenadas"]) ? $inputs["sistema_coordenadas"] : '';
+		$row->datum = isset($inputs["datum"]) ? $inputs["datum"] : '';
+		
+		$row->lat0 = 0;
+		$row->lat1 = 0;
+		$row->lat2 = 0;
+		$row->lon0 = 0;
+		$row->lon1 = 0;
+		$row->lon2 = 0;
+		$row->altitud = 0;
+		
 		$row->idregimenpropiedad = $inputs["idregimenpropiedad"];
 		
-		$row->cuenta_catastral = $inputs["cuenta_catastral"];
+		if (  $inputs["cuenta_catastral"] != '' ) {
+			$a = preg_split("/-/", $inputs["cuenta_catastral"]);
+			for ($b = strlen($inputs["clave_zona"]); $b<3; $b++) {$inputs["clave_zona"] = '0' . $inputs["clave_zona"];}
+			for ($b = strlen($inputs["clave_manzana"]); $b<4; $b++) {$inputs["clave_manzana"] = '0' . $inputs["clave_manzana"];}
+			for ($b = strlen($inputs["clave_predio"]); $b<6; $b++) {$inputs["clave_predio"] = '0' . $inputs["clave_predio"];}
+			$row->cuenta_catastral = $a[0] . "-" . $a[1] . "-" . $inputs["clave_zona"] . "-" . $inputs["clave_manzana"] . "-" . $inputs["clave_predio"];
+		}
 		
-		// DIVIDIMOS LA CUENTA CATASTRAL PARA POSTERIORMENTE INCORPORAR LA LETRA "U" O "R"
-		// QUE SON LOS POSIBLES VALORES DEL COMBO "Serie" DE LA UI.
-		if ( $inputs["cuenta_predial"] =='' )  {
+		if ( $inputs["cuenta_predial"] == '' )  {
 			$row->cuenta_predial = strtoupper($inputs["cuenta_predial"]);
 		} else {
 			$a = preg_split("/-/", $inputs["cuenta_predial"]);
-			$row->cuenta_predial = $a[0]."-".$inputs["serie"]."-".$a[2];
+			for ($b = strlen($inputs["numero_cuenta"]); $b<6; $b++) {$inputs["numero_cuenta"] = '0' . $inputs["numero_cuenta"];}
+			$row->cuenta_predial = $a[0] . "-" . $inputs["serie"] . "-" . $inputs["numero_cuenta"];
 		}
 		
 		$row->fk_titulo_solicitante = $inputs["fk_titulo_solicitante"];

@@ -46,12 +46,16 @@ class corevat_AvaluosController extends \BaseController {
 		$row['lon0'] = $row['lon1'] = $row['lat0'] = $row['lat1'] = 0;
 		$row['lon2'] = $row['lat2'] = '0.00';
 
-		$estados = Estados::orderBy('estado')->where('idestado', 1)->where('status', 1)->lists('estado', 'idestado');
-		$municipios = Municipios::orderBy('municipio')->where('idestado', 1)->where('status', 1)->lists('municipio', 'clave', 'idmunicipio');
+		$estados = Estados::select('idestado', 'clave', 'estado')->where('status', 1)->orderBy('estado')->get();
+
+		$municipios = Municipios::select('municipio', 'clave', 'idmunicipio')
+						->orderBy('municipio')
+						->where('idestado', 1)
+						->where('status', 1)->get();
 
 		$cat_tipo_inmueble = CatTipoInmueble::comboList();
 		$cat_regimen_propiedad = CatRegimenPropiedad::comboList();
-		
+
 		$cat_finalidad = CatFinalidad::comboList();
 		$cat_titulo_persona = CatTituloPersona::comboList();
 
@@ -69,23 +73,17 @@ class corevat_AvaluosController extends \BaseController {
 	 */
 	public function store() {
 		$inputs = Input::All();
+		//dd($inputs);
 		$inputs["cuenta_catastral"] = trim($inputs["cuenta_catastral"]);
 		$inputs["finalidad"] = '';
+		$inputs["clave_municipio"] = $inputs["idmunicipio"];
+		
 		$rules = array(
 			'fecha_reporte' => 'required|date_format:"d-m-Y"',
 			'fecha_avaluo' => 'required|date_format:"d-m-Y"|before:fecha_reporte',
 			'proposito' => 'required',
-			//'finalidad' => 'required',
-			'lon0' => 'integer|min:0|max:360',
-			'lon1' => 'integer|min:0|max:60',
-			'lon2' => 'numeric|min:0|max:60',
-			'lat0' => 'integer|min:0|max:360',
-			'lat1' => 'integer|min:0|max:60',
-			'lat2' => 'numeric|min:0|max:60',
-			
 			'cuenta_predial' => 'required:regex:/^[0-9]{2}-[URur]{1}-[0-9]{6}$/',
 			'cuenta_catastral' => 'required:regex:/^[0-9]{3}-[0-9]{4}-[0-9]{6}$/',
-			
 			'foliocoretemp' => 'required',
 		);
 		$messages = array(
@@ -95,34 +93,10 @@ class corevat_AvaluosController extends \BaseController {
 			'fecha_avaluo.date_format' => '¡El formato del campo "Fecha del Avalúo" es: dd-mm-aaaa!',
 			'fecha_avaluo.before' => '¡La "Fecha del Avalúo" debe ser menor a la "Fecha del reporte"!',
 			'proposito.required' => '!El campo "Propósito" es requerido!',
-			//'finalidad.required' => '!El campo "Finalidad" es requerido!',
-			
-			'lon0.integer' => '!El valor correspondiente a los grados de la longitud debe ser un número entero positivo!',
-			'lon0.min' => '!El valor mínimo correspondiente a los grados de la longitud debe ser cero!',
-			'lon0.max' => '!El valor máximo correspondiente a los grados de la longitud debe ser 360!',
-			'lon1.integer' => '¡El valor correspondiente a los minutos de la longitud debe ser un número entero positivo!',
-			'lon1.min' => '!El valor mínimo correspondiente a los minutos de la longitud debe ser cero!',
-			'lon1.max' => '!El valor máximo correspondiente a los minutos de la longitud debe ser 60!',
-			'lon2.numeric' => '¡El valor correspondiente a los segundos de la longitud debe ser un número entero positivo!',
-			'lon2.min' => '¡El valor mínimo correspondiente a los segundos de la longitud debe ser cero!',
-			'lon2.max' => '¡El valor máximo correspondiente a los segundos de la longitud debe ser 60!',
-			
-			'lat0.integer' => 'El valor correspondiente a los grados de la latitud debe ser un número entero positivo!',
-			'lat0.min' => 'El valor mínimo correspondiente a los grados de la latitud debe ser cero!',
-			'lat0.max' => 'El valor mínimo correspondiente a los grados de la latitud debe ser 360!',
-			'lat1.integer' => 'El valor correspondiente a los minutos de la latitud debe ser un número entero positivo!',
-			'lat1.min' => 'El valor mínimo correspondiente a los minutos de la latitud debe ser cero!',
-			'lat1.max' => 'El valor máximo correspondiente a los minutos de la latitud debe ser 60!',
-			'lat2.numeric' => '¡El valor correspondiente a los minutos de la latitud debe ser un número entero positivo!',
-			'lat2.min' => '¡El valor mínimo correspondiente a los segundos de la latitud debe ser cero!',
-			'lat2.max' => '¡El valor máximo correspondiente a los segundos de la latitud debe ser 60!',
-			
 			'cuenta_catastral.required' => '¡¡La "Clave Catastral" es requerida!!',
 			'cuenta_catastral.regex' => '¡El formato de la "Clave Catastral no es válido"!',
-			
 			'cuenta_predial.regex' => '¡El formato de la "Cuenta Predial no es válido"!',
 			'cuenta_catastral.required' => '¡¡La "Cuenta Predial" es requerida!!',
-
 			'foliocoretemp' => '¡El folio COREVAT es requerido!',
 		);
 		$validate = Validator::make($inputs, $rules, $messages);
@@ -130,6 +104,7 @@ class corevat_AvaluosController extends \BaseController {
 			return Redirect::back()->withInput()->withErrors($validate);
 		} else {
 			Avaluos::insAvaluo($inputs);
+			$inputs["idmunicipio"] = $inputs["clave_municipio"];
 			return Redirect::to('/corevat/AvaluoGeneral/' . $inputs["idavaluo"])->with('success', '¡El Avalúo fue creado satisfactoriamente!');
 		}
 	}
@@ -160,6 +135,7 @@ class corevat_AvaluosController extends \BaseController {
 		} else {
 			$id = (int) $id;
 			$row = Avaluos::find($id);
+			//dd($row);
 			if (is_null($row)) {
 				return Redirect::to('/corevat/index')->with('error', '¡El avalúo no existe!');
 				;
@@ -170,8 +146,15 @@ class corevat_AvaluosController extends \BaseController {
 				$row->is_otro_equipamiento = 0;
 				$title = 'Editando el registro: ' . $row['foliocoretemp'];
 				// $municipios = Municipios::comboList();
-				$estados = Estados::comboList();
-				$municipios = Municipios::orderBy('municipio')->where('idestado', $row->idestado)->where('status', 1)->lists('municipio', 'clave', 'idmunicipio');
+				//$estados = Estados::comboList();
+				$estados = Estados::select('idestado', 'clave', 'estado')->where('status', 1)->orderBy('estado')->get();
+
+				//$municipios = Municipios::orderBy('municipio')->where('idestado', $row->idestado)->where('status', 1)->lists('municipio', 'clave', 'idmunicipio');
+				$municipios = Municipios::select('municipio', 'clave', 'idmunicipio')
+								->orderBy('municipio')
+								->where('idestado', $row->idestado)
+								->where('status', 1)->get();
+
 				$cat_tipo_inmueble = CatTipoInmueble::comboList();
 				$cat_regimen_propiedad = CatRegimenPropiedad::comboList();
 
@@ -180,11 +163,9 @@ class corevat_AvaluosController extends \BaseController {
 
 				$cat_finalidad = CatFinalidad::comboList();
 				$cat_titulo_persona = CatTituloPersona::comboList();
-
 				return View::make('Corevat.Avaluos.avaluos', compact('opt', 'idavaluo', 'title', 'row', 'estados', 'municipios', 'cat_tipo_inmueble', 'cat_regimen_propiedad', 'lstCP', 'cat_finalidad', 'cat_titulo_persona'));
 			} else {
 				return Redirect::to('/corevat/index')->with('error', '¡Permiso denegado a este avalúo!');
-				;
 			}
 		}
 	}
@@ -197,23 +178,15 @@ class corevat_AvaluosController extends \BaseController {
 	 */
 	public function update($id) {
 		$inputs = Input::All();
+		//dd($inputs);
 		$inputs["cuenta_catastral"] = trim($inputs["cuenta_catastral"]);
 		$inputs["finalidad"] = '';
 		$rules = array(
 			'fecha_reporte' => 'required|date_format:"d-m-Y"',
 			'fecha_avaluo' => 'required|date_format:"d-m-Y"|before:fecha_reporte',
 			'proposito' => 'required',
-			//'finalidad' => 'required',
-			'lon0' => 'integer|min:0|max:360',
-			'lon1' => 'integer|min:0|max:60',
-			'lon2' => 'numeric|min:0|max:60',
-			'lat0' => 'integer|min:0|max:360',
-			'lat1' => 'integer|min:0|max:60',
-			'lat2' => 'numeric|min:0|max:60',
-			
 			'cuenta_predial' => 'required:regex:/^[0-9]{2}-[URur]{1}-[0-9]{6}$/',
 			'cuenta_catastral' => 'required:regex:/^[0-9]{3}-[0-9]{4}-[0-9]{6}$/',
-			
 			'foliocoretemp' => 'required',
 		);
 		$messages = array(
@@ -223,36 +196,11 @@ class corevat_AvaluosController extends \BaseController {
 			'fecha_avaluo.date_format' => '¡El formato del campo "Fecha del Avalúo" es: dd-mm-aaaa!',
 			'fecha_avaluo.before' => '¡La "Fecha del Avalúo" debe ser menor a la "Fecha del reporte"!',
 			'proposito.required' => '!El campo "Propósito" es requerido!',
-			//'finalidad.required' => '!El campo "Finalidad" es requerido!',
-			'lon0.integer' => '!El valor correspondiente a los grados de la longitud debe ser un número entero positivo!',
-			'lon0.min' => '!El valor mínimo correspondiente a los grados de la longitud debe ser cero!',
-			'lon0.max' => '!El valor máximo correspondiente a los grados de la longitud debe ser 360!',
-			'lon1.integer' => '¡El valor correspondiente a los minutos de la longitud debe ser un número entero positivo!',
-			'lon1.min' => '!El valor mínimo correspondiente a los minutos de la longitud debe ser cero!',
-			'lon1.max' => '!El valor máximo correspondiente a los minutos de la longitud debe ser 60!',
-			'lon2.numeric' => '¡El valor correspondiente a los segundos de la longitud debe ser un número entero positivo!',
-			'lon2.min' => '¡El valor mínimo correspondiente a los segundos de la longitud debe ser cero!',
-			'lon2.max' => '¡El valor máximo correspondiente a los segundos de la longitud debe ser 60!',
-			//'lon2.regex' => '¡El formato de los segundos no es válido!',
-			'lat0.integer' => 'El valor correspondiente a los grados de la latitud debe ser un número entero positivo!',
-			'lat0.min' => 'El valor mínimo correspondiente a los grados de la latitud debe ser cero!',
-			'lat0.max' => 'El valor mínimo correspondiente a los grados de la latitud debe ser 360!',
-			'lat1.integer' => 'El valor correspondiente a los minutos de la latitud debe ser un número entero positivo!',
-			'lat1.min' => 'El valor mínimo correspondiente a los minutos de la latitud debe ser cero!',
-			'lat1.max' => 'El valor máximo correspondiente a los minutos de la latitud debe ser 60!',
-			'lat2.numeric' => '¡El valor correspondiente a los minutos de la latitud debe ser un número entero positivo!',
-			'lat2.min' => '¡El valor mínimo correspondiente a los segundos de la latitud debe ser cero!',
-			'lat2.max' => '¡El valor máximo correspondiente a los segundos de la latitud debe ser 60!',
-			//'lat2.regex' => 'El formato de los segundos no es válido!',
-
 			'cuenta_catastral.required' => '¡¡La "Clave Catastral" es requerida!!',
 			'cuenta_catastral.regex' => '¡El formato de la "Clave Catastral no es válido"!',
-			
 			'cuenta_predial.regex' => '¡El formato de la "Cuenta Predial no es válido"!',
 			'cuenta_catastral.required' => '¡¡La "Cuenta Predial" es requerida!!',
-
 			'foliocoretemp' => '¡El folio COREVAT es requerido!',
-
 		);
 		$validate = Validator::make($inputs, $rules, $messages);
 		if ($validate->fails()) {
