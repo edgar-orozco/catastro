@@ -104,7 +104,7 @@ class corevat_AvaluosController extends \BaseController {
 			return Redirect::back()->withInput()->withErrors($validate);
 		} else {
 			Avaluos::insAvaluo($inputs);
-			$inputs["idmunicipio"] = $inputs["clave_municipio"];
+			//$inputs["idmunicipio"] = $inputs["clave_municipio"];
 			return Redirect::to('/corevat/AvaluoGeneral/' . $inputs["idavaluo"])->with('success', '¡El Avalúo fue creado satisfactoriamente!');
 		}
 	}
