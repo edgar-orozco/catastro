@@ -1,9 +1,6 @@
 @extends('layouts.default')
 
 
-
-
-
 @section('content')
 <!--(nombre campo, valor, arreglo[id,clase,])-->
 {{ HTML::style('css/forms.css') }}
@@ -136,6 +133,7 @@
             processData: false,
             contentType: false,
             url: '/nfolios',
+            async: false,
             beforeSend: function()
             {
                  $('.modal-body').html('Cargando PDF... <span class="glyphicon glyphicon-refresh spin"></span>');
@@ -147,9 +145,17 @@
             	$('#modalBody').html(' <object data="/nfolios/formato/'+data.id+'" type="application/pdf" width="100%" height="700"></object>')
                 document.getElementById("form").reset();
             },
-            error: function()
+            error: function(jqXHR, textStatus, errorThrown)
             {
-                $('.modal-body').html('<div class="alert alert-danger"><ul id="errores">Error al guardar, verifique los datos</ul></div>');
+                if (textStatus === 'aborted') 
+                {
+
+                    alert('Ajax request aborted.');
+
+                } else
+                {
+                    $('.modal-body').html('<div class="alert alert-danger"><ul id="errores">Error al guardar, verifique los datos. '+jqXHR+' '+textStatus+' '+errorThrown+' </ul></div>');
+                }
             }
         });
             return false;
