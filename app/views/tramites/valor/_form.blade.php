@@ -159,6 +159,7 @@
 
             $.fn.editable.defaults.mode = 'inline';
             $.fn.editable.defaults.emptytext = 'Editar';
+            $.fn.editable.defaults.showbuttons = false;
 
             //Cuando metemos un nuevo valor y damos aceptar o cerramos se ejecuta la funcion actualizar
             //La funcion actualizar se encarga de almacenar los valores en un objeto regitrosConstrucciones en memoria.
@@ -174,7 +175,7 @@
                     source: techos
                 });
                 $( "tbody.tcons > tr:last" ).find('.xselect.tiposConstruccion').editable({
-                    source: tiposConstruccion,
+                    source: tiposConstruccion
                 });
                 $( "tbody.tcons > tr:last" ).find('.xselect.pisos').editable({
                     source: pisos
@@ -309,7 +310,6 @@
 
             //Cuando el uso de suelo es baldío (id == 1) quiere decir que no hay tab de construcciones
             $(".select-usosuelo_id").on('change', function(){
-                console.log("ccaca %s",$(this).val());
                 if($(this).val() == 1){
                     $('#tab-valuar-construccion').hide();
                 }
