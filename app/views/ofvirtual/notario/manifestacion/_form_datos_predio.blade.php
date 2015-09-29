@@ -1,3 +1,8 @@
+<style>
+    .solo-rusticos{
+        display: none;
+    }
+</style>
 <div class="datos-predio">
     <div class="form-inline">
         <div class="form-group">
@@ -33,7 +38,7 @@
 
             <span class="solo-rusticos">
                 {{Form::label($instancia.'[vias_comunicacion_id]','Vías de comunicación')}}
-                {{Form::select($instancia.'[vias_comunicacion_id]', [null => '']+$viasComunicacion, null, ['class'=>'form-control select2'] )}}
+                {{Form::select($instancia.'[vias_comunicacion_id]', [null => '']+$viasComunicacion, null, ['class'=>'form-control select2 select-manifestacion-vias_comunicacion_id'] )}}
             </span>
         </div>
     </div>
@@ -68,13 +73,13 @@
             </span>
 
             {{Form::label($instancia.'[tenencia_tierra_id]','Tenencia de la tierra')}}
-            {{Form::select($instancia.'[tenencia_tierra_id]', [null => '']+$tenenciaTierra, null, ['class'=>'form-control select2'] )}}
+            {{Form::select($instancia.'[tenencia_tierra_id]', [null => '']+$tenenciaTierra, null, ['class'=>'form-control select2 select-manifestacion-tenencia_tierra_id'] )}}
 
             {{Form::label($instancia.'[uso_predio_id]','Uso del predio')}}
-            {{Form::select($instancia.'[uso_predio_id]', [null => '']+$usoPredio, null, ['class'=>'form-control select2'] )}}
+            {{Form::select($instancia.'[uso_predio_id]', [null => '']+$usoPredio, null, ['class'=>'form-control select2 select-manifestacion-uso_predio_id'] )}}
 
-            {{Form::label($instancia.'_servicios[servicio_id][]','Servicios públicos')}}
-            {{Form::select($instancia.'_servicios[servicio_id][]', $serviciosPublicos, null, ['class'=>'form-control select2-multiple', 'multiple'=>'multiple'] )}}
+            {{Form::label($instancia.'_servicios[]','Servicios públicos')}}
+            {{Form::select($instancia.'_servicios[]', $serviciosPublicos, null, ['class'=>'form-control select2-multiple select-manifestacion-servicios_id', 'multiple'=>'multiple'] )}}
 
             <h4>Características del suelo</h4>
             {{Form::label($instancia.'[suelo_inundable]','Inundable')}}

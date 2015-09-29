@@ -4,9 +4,9 @@
             {{Form::label('tipo_persona','Tipo de persona:',[])}}
             {{Form::label($instancia.'PersonaFisica','Física')}}
 
-            {{Form::radio($instancia.'[id_tipo]', '1', null, ['class'=>$instancia.'-radio-persona radio-persona', 'id'=>$instancia.'PersonaFisica', 'data-instancia'=>$instancia]) }}
+            {{Form::radio($instancia.'[id_tipo]', '1', null, ['class'=>$instancia.'-radio-persona-1 radio-persona', 'id'=>$instancia.'PersonaFisica', 'data-instancia'=>$instancia]) }}
             {{Form::label($instancia.'PersonaMoral','Moral')}}
-            {{Form::radio($instancia.'[id_tipo]', '2', null, ['class'=>$instancia.'-radio-persona radio-persona',  'id'=>$instancia.'PersonaMoral', 'data-instancia'=>$instancia]) }}
+            {{Form::radio($instancia.'[id_tipo]', '2', null, ['class'=>$instancia.'-radio-persona-2 radio-persona',  'id'=>$instancia.'PersonaMoral', 'data-instancia'=>$instancia]) }}
 
             {{Form::text($instancia.'[curp]', null, [
                 'class' => "form-control $instancia-campos-fisica",
@@ -67,3 +67,4 @@
         </div>
     </div>
 </div>
+

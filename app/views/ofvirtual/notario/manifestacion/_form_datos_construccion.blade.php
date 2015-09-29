@@ -172,13 +172,38 @@
         </tr>
         </tbody>
         <tfoot>
+            <tr>
+                <td>
+                    Sup. Albercas
+                </td>
+                <td >
+                    <a href="javascript:void(0);"
+                       class="editable sup-albercas"
+                       data-type="text"
+                       data-pk="sup-alberca"
+                       data-name="sup_albercas"
+                       data-title="Click para ingresar un valor"></a>
+                </td>
+
+                <td colspan="15">
+                <button class="btn btn-success pull-right agregar-construccion"><i class="glyphicon glyphicon-plus-sign"></i>&nbsp; Agregar bloque de construcción</button>
+            </td>
+            </tr>
         <tr>
-        <td colspan="17">
-            <button class="btn btn-success pull-right agregar-construccion"><i class="glyphicon glyphicon-plus-sign"></i>&nbsp; Agregar bloque de construcción</button>
-        </td>
+            <td>Total bloques cons.</td>
+            <td class="tot-bloques">1</td>
+        </tr>
+        <tr>
+            <td>
+                Total Sup. Cons.
+            </td>
+            <td id="total-sup-cons">
+                0
+            </td>
         </tr>
         </tfoot>
     </table>
 
+    <input type="hidden" id="construcciones" name="datos_construccion" value="">
 </div>
 

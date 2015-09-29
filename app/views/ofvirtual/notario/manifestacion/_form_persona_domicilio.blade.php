@@ -2,7 +2,7 @@
     <div class="form-inline">
         <div class="form-group">
             {{Form::label($instancia.'[tipo_vialidad_id]','Tipo de vialidad: ')}}
-            {{Form::select($instancia.'[tipo_vialidad_id]', [null => '']+$vialidades, null, ['class'=>'form-control select2'] )}}
+            {{Form::select($instancia.'[tipo_vialidad_id]', [null => '']+$vialidades, !($manifestacion) ?: 5, ['class'=>'form-control select2 select-'.$instancia.'-tipo_vialidad_id'] )}}
             {{$errors->first($instancia.'[tipo_vialidad_id]', '<span class=text-danger>:message</span>')}}
 
             {{Form::text($instancia.'[vialidad]', null, [
@@ -38,7 +38,7 @@
             )}}
 
             {{Form::label($instancia.'[tipo_asentamiento_id]','Tipo de asentamiento')}}
-            {{Form::select($instancia.'[tipo_asentamiento_id]', [null => '']+$asentamientos, null, ['class'=>'form-control select2'] )}}
+            {{Form::select($instancia.'[tipo_asentamiento_id]', [null => '']+$asentamientos, !($manifestacion) ?: 7, ['class'=>'form-control select2 select-'.$instancia.'-tipo_asentamiento_id'] )}}
             {{$errors->first($instancia.'[tipo_asentamiento_id]', '<span class=text-danger>:message</span>')}}
 
             {{Form::text($instancia.'[asentamiento]', null, [
@@ -57,11 +57,11 @@
     <div class="form-inline">
         <div class="form-group">
             {{Form::label($instancia.'[entidad]','Entidad: ')}}
-            {{Form::select($instancia.'[entidad]', [null => '']+$entidades, null, ['class'=>'form-control select2'] )}}
+            {{Form::select($instancia.'[entidad]', [null => '']+$entidades, !($manifestacion) ?: 27, ['class'=>'form-control select2 select-'.$instancia.'-entidad'] )}}
             {{$errors->first($instancia.'[entidad]', '<span class=text-danger>:message</span>')}}
 
             {{Form::label($instancia.'[municipio]','Municipio: ')}}
-            {{Form::select($instancia.'[municipio]', [null => '']+$municipios, null, ['class'=>'form-control select2'] )}}
+            {{Form::select($instancia.'[municipio]', [null => '']+$municipios, null, ['class'=>'form-control select2 select-'.$instancia.'-municipio'] )}}
             {{$errors->first($instancia.'[municipio]', '<span class=text-danger>:message</span>')}}
 
             {{Form::text($instancia.'[cp]', null, [
