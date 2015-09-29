@@ -69,7 +69,7 @@ class AefTerrenos extends \Eloquent {
 		$rowAefTerrenos->frente = $inputs["frente"];
 		$rowAefTerrenos->fk_forma = $inputs["idfactorforma"];
 		$rowAefTerrenos->forma = $inputs["forma"];
-		$rowAefTerrenos->fk_otros = $inputs["idfactorotros"];
+		// [103713434] $rowAefTerrenos->fk_otros = $inputs["idfactorotros"];
 		$rowAefTerrenos->otros = $inputs["otros"];
 	}
 

@@ -138,7 +138,8 @@ class corevat_CatTipoInmuebleController extends \BaseController {
 	        $row->delete($id);
 			return Redirect::to('corevat/CatTipoInmueble')->with('success', '¡La eliminación se efectuo correctamente!');
 		} catch (\Illuminate\Database\QueryException $ex) {
-			return Redirect::back()->with('error', $ex->getMessage());
+			//$ex->getMessage()
+			return Redirect::back()->with('error', '¡EL REGISTRO NO PUEDE SER ELIMINADO DEBIDO A QUE ESTA SIENDO UTILIZADO POR ALGUN AVALUO!');
 		}
         
 	}

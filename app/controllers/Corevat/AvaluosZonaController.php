@@ -29,23 +29,10 @@ class corevat_AvaluosZonaController extends \BaseController {
 	 */
 	public function update($id) {
 		$inputs = Input::All();
-		$inputs["nivel_equipamiento"] = (int) $inputs["nivel_equipamiento"];
-		$rules = array(
-			'nivel_equipamiento' => 'integer|min:0|max:100',
-		);
-		$messages = array(
-			'nivel_equipamiento.integer' => '¡El campo "Nivel de Equipamiento" debe ser un entero positivo!',
-			'nivel_equipamiento.min' => '¡El valor mínimo del campo "Nivel de Equipamiento" debe ser 0%!',
-			'nivel_equipamiento.max' => '¡El valor máximo del campo "Nivel de Equipamiento" debe ser 100%!',
-		);
-		$validate = Validator::make($inputs, $rules, $messages);
-		if ($validate->fails()) {
-			return Redirect::back()->withInput()->withErrors($validate);
-		} else {
-			$inputs["updated_at"] = Carbon::now()->format('Y-m-d H:i:s');
-			AvaluosZona::updAvaluosZona($id, $inputs);
-			return Redirect::to('/corevat/AvaluoZona/' . $id)->with('success', '¡El registro fue modificado satisfactoriamente!');
-		}
+		$inputs["hidden_nivel_equipamiento"] = number_format((float) $inputs['hidden_nivel_equipamiento'], 2, '.', '');
+		$inputs["updated_at"] = Carbon::now()->format('Y-m-d H:i:s');
+		AvaluosZona::updAvaluosZona($id, $inputs);
+		return Redirect::to('/corevat/AvaluoZona/' . $id)->with('success', '¡El registro fue modificado satisfactoriamente!');
 	}
 
 }

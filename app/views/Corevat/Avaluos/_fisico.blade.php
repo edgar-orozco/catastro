@@ -15,14 +15,14 @@
 				<tr>
 					<th rowspan="2">ID</th>
 					<th rowspan="2">FRACC</th>
-					<th colspan="7">Factores de eficiencia</th>
+					<th rowspan="2">SUP.</th>
+					<th colspan="6">Factores de eficiencia</th>
 					<th rowspan="2">V.U. NETO</th>
 					<th rowspan="2">INDIVISO</th>
 					<th rowspan="2">V. PARCIAL</th>
 					<th colspan="2">Opciones</th>
 				</tr>
 				<tr>
-					<th>SUP.</th>
 					<th>IRRE.</th>
 					<th>TOP</th>
 					<th>FRENTE</th>
@@ -45,6 +45,14 @@
 			</tfoot>
 		</table>
 	</div>
+
+	<div class="col-md-12"><hr></div>
+
+	<div class="col-md-12">
+		{{Form::label('justificacion_valor_aplicado', 'Justificación del valor aplicado en OTROS por:')}}
+		{{Form::textarea('justificacion_valor_aplicado', $row->justificacion_valor_aplicado, ['class'=>'form-control', 'maxlength'=>'500', 'rows' => '3'] )}}
+	</div>
+
 	<div class="col-md-12"><hr></div>
 
 	<div class="col-md-12"><h4>DE LA CONSTRUCCIÓN</h4></div>
@@ -80,13 +88,17 @@
 	</div>
 	<div class="col-md-3">
 		{{Form::label('numero_niveles', 'Número de Niveles')}}
-		{{Form::select('numero_niveles', array('1'=>'1', '2'=>'2', '3'=>'3'), $row->numero_niveles, ['id' => 'numero_niveles', 'class'=>'form-control'])}}
+		{{Form::number('numero_niveles', $row->numero_niveles, ['id'=>'numero_niveles','class'=>'form-control edad', 'min'=>'0', 'max' => '999'] )}}
+		<!--{{Form::select('numero_niveles', array('1'=>'1', '2'=>'2', '3'=>'3'), $row->numero_niveles, ['id' => 'numero_niveles', 'class'=>'form-control'])}}-->
 	</div>
 	<div class="col-md-3">
-		{{Form::label('nivel_edificio_condominio', 'Nivel en Edificio (condiminio)')}}
+		{{Form::label('nivel_edificio_condominio', 'Nivel en Edificio (condominio)')}}
+		{{Form::number('nivel_edificio_condominio', $row->nivel_edificio_condominio, ['id'=>'nivel_edificio_condominio','class'=>'form-control edad', 'min'=>'0', 'max' => '999'] )}}
+		<!--
 		{{Form::select('nivel_edificio_condominio', 
 					array('0'=>'N/A', '1'=>'1', '2'=>'2', '3'=>'3', '4'=>'4', '5'=>'5', '6'=>'6', '7'=>'7', '8'=>'8', '9'=>'9', '10'=>'10'), 
 					$row->nivel_edificio_condominio, ['id' => 'nivel_edificio_condominio', 'class'=>'form-control'])}}
+		-->
 	</div>
 	<div class="col-md-12"><hr></div>
 
@@ -275,7 +287,7 @@
 						</select>
 					</div>
 					<div class="col-md-3">
-						<label for="top_terrenos">&nbsp;</label>
+						<label for="top_terrenos">Factor Top:</label>
 						<input type="number" class="form-control clsNumeric" name="top_terrenos" id="top_terrenos" min="0.00" max="99999999.99" step="0.01" value="0.00" required />
 					</div>
 					<div class="col-md-3">
@@ -287,12 +299,12 @@
 						</select>
 					</div>
 					<div class="col-md-3">
-						<label for="frente">&nbsp;</label>
+						<label for="frente">Factor Frente:</label>
 						<input type="number" class="form-control clsNumeric" name="frente" id="frente" min="0.00" max="99999999.99" step="0.01" value="0.00" required />
 					</div>
 
 					<div class="col-md-3">
-						<label for="idfactorforma">Forma</label>
+						<label for="idfactorforma">Forma:</label>
 						<select class="form-control" id="idfactorforma" name="idfactorforma" >
 							@foreach ($cat_factores_forma as $item)
 							<option value="{{$item->idfactorforma}}">{{$item->factor_forma}}</option>
@@ -300,9 +312,10 @@
 						</select>
 					</div>
 					<div class="col-md-3">
-						<label for="forma">&nbsp;</label>
+						<label for="forma">Factor Forma:</label>
 						<input type="number" class="form-control clsNumeric" name="forma" id="forma" min="0.00" max="99999999.99" step="0.01" value="0.00" required />
 					</div>
+					<!--
 					<div class="col-md-3">
 						<label for="idfactorotros">Otros:</label>
 						<select class="form-control" id="idfactorotros" name="idfactorotros">
@@ -311,8 +324,9 @@
 							@endforeach
 						</select>
 					</div>
-					<div class="col-md-3">
-						<label for="otros">&nbsp;</label>
+					-->
+					<div class="col-md-6">
+						<label for="otros">Factor Otro:</label>
 						<input type="number" class="form-control clsNumeric" name="otros" id="otros" min="0.00" max="99999999.99" step="0.01" value="0.00" required />
 					</div>
 
@@ -454,11 +468,11 @@
 						<input type="number" class="form-control clsNumeric" name="valor_nuevo_condominios" id="valor_nuevo_condominios" min="0.00" max="99999999.99" step="0.01" value="0.00" required />
 					</div>
 					<div class="col-md-4">
-						<label for="vida_remanente">Vida Remanente:</label>
+						<label for="vida_remanente">Vida Útil:</label>
 						<input type="number" class="form-control clsNumeric" name="vida_remanente" id="vida_remanente" min="0.00" max="99999999.99" step="0.01" value="0.00" required />
 					</div>
 					<div class="col-md-4">
-						<label for="edad_condominios">Edad:</label>
+						<label for="edad_condominios">Edad Efectiva de la Construcción:</label>
 						<input type="text" class="form-control clsNumeric edad" name="edad_condominios" id="edad_condominios" required />
 					</div>
 
@@ -477,7 +491,7 @@
 
 					<div class="col-md-6">
 						<label for="indiviso_condominios">Indiviso (%):</label>
-						<input type="text" class="form-control" name="indiviso_condominios" id="indiviso_condominios" disabled/>
+						<input type="number" class="form-control" name="indiviso_condominios" id="indiviso_condominios" min="0.00" max="99999999.99" step="0.01" value="0.00" required />
 					</div>
 					<div class="col-md-6">
 						<label for="valor_parcial_condominios">Valor Parcial:</label>

@@ -169,6 +169,9 @@ $(document).ready(function () {
 				$('#in_promedio_aemhomologacion').prop('checked', (datos.in_promedio === 1 ? true : false));
 				$('#modalFormAemHomologacionTitle').empty().append('[COREVAT] Homologable: ' + id);
 				$('#modalFormAemHomologacion').modal('show');
+				
+				$("#zona_aemhomologacion").attr('min', $("#idfactorzona_aemhomologacion").find('option:selected').attr('min') ).attr('max', $("#idfactorzona_aemhomologacion").find('option:selected').attr('max') );
+				
 			}
 		});
 	};
@@ -231,6 +234,9 @@ $(document).ready(function () {
 				$('#in_promedio_aemanalisis').prop('checked', (datos.in_promedio === 1 ? true : false));
 				$('#modalFormAemAnalisisTitle').empty().append('[COREVAT] Homologable: ' + id);
 				$('#modalFormAemAnalisis').modal('show');
+				
+				$("#factor_zona").attr('min', $("#idfactorzona_aemanalisis").find('option:selected').attr('min') ).attr('max', $("#idfactorzona_aemanalisis").find('option:selected').attr('max') );
+				
 			}
 		});
 	};
@@ -372,4 +378,23 @@ $(document).ready(function () {
 		});
 		return false;
 	});
+	
+	/*++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+	 * 
+	 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
+	$('#idfactorzona_aemhomologacion').on("change", function () {
+		$("#zona_aemhomologacion").attr('min', $(this).find('option:selected').attr('min')).attr('max', $(this).find('option:selected').attr('max'));
+	});
+	
+	/*++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+	 * 
+	 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
+	$('#idfactorzona_aemanalisis').on("change", function () {
+		$("#factor_zona").attr('min', $(this).find('option:selected').attr('min')).attr('max', $(this).find('option:selected').attr('max'));
+	});
+	
+	/*++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+	 * 
+	 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
+	
 });

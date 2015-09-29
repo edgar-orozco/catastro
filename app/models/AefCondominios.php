@@ -69,6 +69,7 @@ class AefCondominios extends \Eloquent {
 		$rowAefCondominios->factor_edad = $inputs["factor_edad_condominios"];
 		$rowAefCondominios->vida_remanente = $inputs["vida_remanente"];
 		$rowAefCondominios->factor_conservacion = $inputs["factor_conservacion_condominios"];
+		$rowAefCondominios->indiviso = $inputs["indiviso_condominios"];
 	}
 
 	/**

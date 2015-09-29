@@ -55,7 +55,7 @@ class corevat_PrintDictamenAvaluoController extends \BaseController {
 		$pdf->setX(5);
 		$pdf->Cell(35, $nFont, utf8_decode($row->foliocoretemp), 'LB', 0, 'L', 0);
 		$pdf->Cell(20, $nFont, utf8_decode($row->cfecha_avaluo), 'LB', 0, 'C', 0);
-		$pdf->Cell(46, $nFont, utf8_decode($row->nombre_solicitante), 'LB', 0, 'L', 0);
+		$pdf->Cell(46, $nFont, utf8_decode( trim($row->titulo_solicitante) . " " . $row->nombre_solicitante), 'LB', 0, 'L', 0);
 		$pdf->Cell(66, $nFont, utf8_decode(substr(trim($row->ubicacion), 0, 50)), 'LB', 0, 'L', 0);
 		$pdf->Cell(15, $nFont, utf8_decode($row->cuenta_predial), 'LB', 0, 'L', 0);
 		$pdf->Cell(20, $nFont, number_format($row->superficie_terreno, 2, '.', ','), 'LB', 0, 'R', 0);
@@ -176,12 +176,12 @@ class corevat_PrintDictamenAvaluoController extends \BaseController {
 		//*********************************************************
 		$pdf->SetTextColor(0, 0, 0);
 		$pdf->SetFont('Arial', '', 14);
-		$pdf->Cell(57, $nFont, utf8_decode("H. AYUNTAMIENTO DE: "), '', 0, 'L');
+		//$pdf->Cell(57, $nFont, utf8_decode("H. AYUNTAMIENTO DE: "), '', 0, 'L');
 		$pdf->SetFont('Arial', 'B', 14);
-		$pdf->Cell(70, $nFont, utf8_decode(strtoupper($rs->municipio)), '', 1, 'L');
+		//$pdf->Cell(70, $nFont, utf8_decode(strtoupper($rs->municipio)), '', 1, 'L');
 		$pdf->setX(5);
 		$pdf->SetFont('Arial', '', 14);
-		$pdf->Cell(57, $nFont, utf8_decode("DIRECCION DE FINANZAS"), '', 1, 'L');
+		//$pdf->Cell(57, $nFont, utf8_decode("DIRECCION DE FINANZAS"), '', 1, 'L');
 		$pdf->SetFont('Arial', 'B', 14);
 		$pdf->Ln(2.5);
 		$pdf->setX(5);

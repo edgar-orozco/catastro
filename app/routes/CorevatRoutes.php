@@ -84,7 +84,7 @@ Route::group(array('before' => 'admin'), function () {
 
 	Route::put('corevat/CatBardas/{id?}.{format}', array('as' => 'updateCatBardas', 'uses' => 'corevat_CatBardasController@update'));
 
-	Route::get('corevat/CatBardas/{id}', array('as' => 'destroyCatBardas', 'uses' => 'corevat_CatBardasController@destroy'));
+	Route::get('corevat/CatBardasE/{id}', array('as' => 'destroyCatBardas', 'uses' => 'corevat_CatBardasController@destroy'));
 
 	Route::put('corevat/CatBardas/{id?}.{format}', array('as' => 'showCatBardas', 'uses' => 'corevat_CatBardasController@show'));
 
@@ -577,7 +577,11 @@ Route::group(array('before' => 'corevat'), function () {
 	
 	Route::get('/corevat/AvaluoPrint/{id}',  array('as' => 'printAvaluo',  'uses' => 'corevat_PrintDictamenAvaluoController@printAvaluo'));
 	
+	// IMPRIMIR EL AVALUO
 	Route::get('/corevat/AvaluosValuadorPrint/{id}', array('as' => 'printAvaluosByValuador', 'uses' => 'corevat_PrintDictamenAvaluoController@printAvaluosByValuador'));
+	
+	// CLONAR EL AVALUO
+	Route::post('/corevat/AvaluoClonar', array('uses' => 'corevat_AvaluosController@clonar',  'as' => 'clonarAvaluo'));
 	
 	// AVALUOS ZONA
 	Route::get('/corevat/AvaluoZona/{id}',      array('uses' => 'corevat_AvaluosZonaController@edit',   'as' => 'editAvaluoZona'));

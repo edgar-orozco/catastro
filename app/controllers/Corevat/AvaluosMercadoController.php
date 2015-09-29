@@ -20,11 +20,11 @@ class corevat_AvaluosMercadoController extends \BaseController {
 			$row = Avaluos::find($id)->AvaluosMercado;
 		}
 
-		$cat_factores_zonas = CatFactoresZonas::orderBy('valor_factor_zona')->get();
-		$cat_factores_ubicacion = CatFactoresUbicacion::orderBy('valor_factor_ubicacion')->get();
-		$cat_factores_frente = CatFactoresFrente::orderBy('valor_factor_frente')->get();
-		$cat_factores_forma = CatFactoresForma::orderBy('valor_factor_forma')->get();
-		$cat_factores_conservacion = CatFactoresConservacion::orderBy('valor_factor_conservacion')->get();
+		$cat_factores_zonas = CatFactoresZonas::orderBy('valor_minimo')->where('status_factor_zona', '=', '1')->get();
+		$cat_factores_ubicacion = CatFactoresUbicacion::orderBy('valor_factor_ubicacion')->where('status_factor_ubicacion', '=', '1')->get();
+		$cat_factores_frente = CatFactoresFrente::orderBy('valor_factor_frente')->where('status_factor_frente', '=', '1')->get();
+		$cat_factores_forma = CatFactoresForma::orderBy('valor_factor_forma')->where('status_factor_forma', '=', '1')->get();
+		$cat_factores_conservacion = CatFactoresConservacion::orderBy('valor_factor_conservacion')->where('status_factor_conservacion', '=', '1')->get();
 		return View::make('Corevat.Avaluos.avaluos', compact('opt', 'idavaluo', 'title', 'row', 'cat_factores_zonas', 'cat_factores_ubicacion', 'cat_factores_frente', 'cat_factores_forma', 'cat_factores_conservacion'));
 	}
 

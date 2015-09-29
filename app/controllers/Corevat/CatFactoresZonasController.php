@@ -49,12 +49,15 @@ class corevat_CatFactoresZonasController extends \BaseController {
 	public function store($format = 'html') {
 		$id=Input::get('id');
 		$inputs = Input::All();
+		$inputs['valor_minimo'] = number_format((float) $inputs['valor_minimo'], 2, '.', '');
+		$inputs['valor_maximo'] = number_format((float) $inputs['valor_maximo'], 2, '.', '');
 		$rules = array(
-			'factor_zona' => 'required',
-			'valor_factor_zona' => 'required',
+			'valor_minimo' => array('before:valor_maximo'),
+			'valor_maximo' => array('after:valor_maximo'),
 		);
 		$messages = array(
-			'required' => 'El campo es requerido',
+			'valor_minimo.before' => '¡El "Valor mínimo" debe ser menor al "Valor Máximo!',
+			'valor_maximo.after' => '¡El "Valor mínimo" debe ser menor al "Valor Máximo!',
 		);
 		$validate = Validator::make($inputs, $rules, $messages);
 		if ($validate->fails()) {
@@ -62,7 +65,8 @@ class corevat_CatFactoresZonasController extends \BaseController {
 		}  else {
 			$row = new CatFactoresZonas;
 			$row->factor_zona = $inputs["factor_zona"];
-			$row->valor_factor_zona = $inputs["valor_factor_zona"];
+			$row->valor_minimo = $inputs["valor_minimo"];
+			$row->valor_maximo = $inputs["valor_maximo"];
 			$row->status_factor_zona = isset($inputs["status_factor_zona"]) ? $inputs["status_factor_zona"] : 0;
 			$row->idemp = 1;
 			$row->ip = $_SERVER['REMOTE_ADDR'];
@@ -108,20 +112,22 @@ class corevat_CatFactoresZonasController extends \BaseController {
 	 */
 	public function update($id, $format = 'html') {
 		$inputs = Input::All();
+		$inputs['valor_minimo'] = number_format((float) $inputs['valor_minimo'], 2, '.', '');
+		$inputs['valor_maximo'] = number_format((float) $inputs['valor_maximo'], 2, '.', '');
 		$row = CatFactoresZonas::find($id);
 		$rules = array(
-			'factor_zona' => 'required',
-			'valor_factor_zona' => 'required',
+			'valor_minimo' => array('before:valor_maximo'),
 		);
 		$messages = array(
-			'required' => 'El campo es requerido',
+			'valor_minimo.before' => '¡El "Valor mínimo" debe ser menor al "Valor Máximo!',
 		);
 		$validate = Validator::make($inputs, $rules, $messages);
 		if ($validate->fails()) {
 			return Redirect::back()->withInput()->withErrors($validate);
 		} else {
 			$row->factor_zona = $inputs["factor_zona"];
-			$row->valor_factor_zona = $inputs["valor_factor_zona"];
+			$row->valor_minimo = $inputs["valor_minimo"];
+			$row->valor_maximo = $inputs["valor_maximo"];
 			$row->status_factor_zona = isset($inputs["status_factor_zona"]) ? $inputs["status_factor_zona"] : 0;
 			$row->modi_por = 1;
 			$row->modi_el = date('Y-m-d H:i:s');
@@ -137,12 +143,18 @@ class corevat_CatFactoresZonasController extends \BaseController {
 	 * @return Response
 	 */
 	public function destroy($id = null) {
-        $row = CatFactoresZonas::findOrFail($id);
-		try {
-	        $row->delete($id);
-			return Redirect::to('corevat/CatFactoresZonas')->with('success', '¡La eliminación se efectuo correctamente!');
-		} catch (\Illuminate\Database\QueryException $ex) {
-			return Redirect::back()->with('error', $ex->getMessage());
+        //$row = CatFactoresZonas::findOrFail($id);
+		//$rowsAemHomologacion = AemHomologacion::where('fk_zona', '=', $id)->count();
+		//$rowsAemAnalisis = AemAnalisis::where('fk_zona', '=', $id)->count();
+		if ( AemHomologacion::where('fk_zona', '=', $id)->count() || AemAnalisis::where('fk_zona', '=', $id)->count() ) {
+			return Redirect::back()->with('error', '¡EL REGISTRO NO PUEDE SER ELIMINADO DEBIDO A QUE ESTA SIENDO UTILIZADO POR ALGUN AVALUO!');
+		} else {
+			try {
+		        $row->delete($id);
+				return Redirect::to('corevat/CatFactoresZonas')->with('success', '¡La eliminación se efectuo correctamente!');
+			} catch (\Illuminate\Database\QueryException $ex) {
+				return Redirect::back()->with('error', '¡EL REGISTRO NO PUEDE SER ELIMINADO DEBIDO A QUE ESTA SIENDO UTILIZADO POR ALGUN AVALUO!');
+			}
 		}
         
 	}

@@ -10,11 +10,15 @@
     <div class="list-group">
         <table class="table">
             <thead>
+				<tr>
+                    <th rowspan="2">Descripción</th>
+                    <th colspan="2">Rango</th>
+                    <th rowspan="2">Estatus</th>
+                    <th rowspan="2">Acciones</th>
+				</tr>
                 <tr>
-                    <th>Descripción</th>
-                    <th>Valor</th>
-                    <th>Estatus</th>
-                    <th>Acciones</th>
+                    <th>Mínimo</th>
+                    <th>Máximo</th>
                 </tr>
             </thead>
             <tbody>
@@ -24,7 +28,10 @@
                         {{$row->factor_zona}}
                     </td>
                     <td>
-                        {{$row->valor_factor_zona}}
+                        {{$row->valor_minimo}}
+                    </td>
+                    <td>
+                        {{$row->valor_maximo}}
                     </td>
                     <td>
                         {{ ($row->status_factor_zona==1 ? 'Activo' : 'Inactivo') }}

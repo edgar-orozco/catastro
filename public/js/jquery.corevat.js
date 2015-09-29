@@ -143,4 +143,9 @@ $(document).ready(function () {
 		$('#corevatConfirmMessage').empty().removeClass('alert-success');
 	});
 	
+
+
+
+
+
 });
