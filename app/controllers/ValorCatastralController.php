@@ -109,9 +109,9 @@ $usoSueloList = [];
 
 
         $edosConstruccion = [
-          '1'=>'Bueno',
-          '2'=>'Regular',
-          '3'=>'Malo',
+          '1'=>'BUENO',
+          '2'=>'REGULAR',
+          '3'=>'MALO',
         ];
 
         $t = array();
