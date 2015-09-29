@@ -314,6 +314,7 @@
 
             $.fn.editable.defaults.mode = 'inline';
             $.fn.editable.defaults.emptytext = 'Editar';
+            $.fn.editable.defaults.showbuttons = false;
 
             //Cuando metemos un nuevo valor y damos aceptar o cerramos se ejecuta la funcion actualizar
             //La funcion actualizar se encarga de almacenar los valores en un objeto regitrosConstrucciones en memoria.
