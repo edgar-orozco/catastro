@@ -3,7 +3,7 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 
-class CreateManifestacionTable extends Migration {
+class CreateManifestacionesTable extends Migration {
 
 	/**
 	 * Run the migrations.
@@ -12,6 +12,16 @@ class CreateManifestacionTable extends Migration {
 	 */
 	public function up()
     {
+
+        //Creamos los pk en las tablas de domicilio_rural y domicilio_urbano
+        Schema::table('domicilios_urbanos',function(Blueprint $table){
+            $table->primary('id_du');
+        });
+
+        Schema::table('domicilios_rusticos',function(Blueprint $table){
+            $table->primary('id_dr');
+        });
+
         Schema::create('manifestaciones',
           function (Blueprint $table) {
               $table->increments('id');
@@ -37,7 +47,7 @@ class CreateManifestacionTable extends Migration {
               $table->string('clave_predio', 6)->nullable();
 
               //Cuenta afectada esta compuesta de 6digitos del predio y 1 del tipo de predio (U o R)
-              $table->string('cuenta_afectada', 6)->nullable();
+              $table->string('cuenta_afectada', 8)->nullable();
 
               //Memorandum num:
               $table->string('memo_num')->nullable();
@@ -68,8 +78,8 @@ class CreateManifestacionTable extends Migration {
               //Datos predio -------------------------------------------
 
               //Superficie del terreno
-              $table->decimal('sup_terreno', 18, 2)->nullable();
-              $table->decimal('sup_construccion', 18, 2)->nullable();
+              $table->decimal('sup_terreno', 18, 2)->default(0)->nullable();
+              $table->decimal('sup_construccion', 18, 2)->default(0)->nullable();
 
               //Las vías de comunicación
               $table->integer('vias_comunicacion_id')->nullable();
@@ -78,7 +88,7 @@ class CreateManifestacionTable extends Migration {
               $table->string('poblacion_proxima')->nullable();
 
               //Distancia a poblración próxima en kilometros
-              $table->decimal('distancia_poblacion')->nullable();
+              $table->decimal('distancia_poblacion')->default(0)->nullable();
 
               //Tenencia de la tierra
               $table->integer('tenencia_tierra_id')->nullable();
@@ -87,23 +97,23 @@ class CreateManifestacionTable extends Migration {
               $table->integer('uso_predio_id')->nullable();
 
               //Características del suelo
-              $table->decimal('suelo_inundable', 5, 2)->nullable();
-              $table->decimal('suelo_popal', 5, 2)->nullable();
-              $table->decimal('suelo_cultivable', 5, 2)->nullable();
-              $table->decimal('suelo_desnivel', 5, 2)->nullable();
-              $table->decimal('suelo_incultivable', 5, 2)->nullable();
-              $table->decimal('suelo_otros', 5, 2)->nullable();
+              $table->decimal('suelo_inundable', 5, 2)->default(0)->nullable();
+              $table->decimal('suelo_popal', 5, 2)->default(0)->nullable();
+              $table->decimal('suelo_cultivable', 5, 2)->default(0)->nullable();
+              $table->decimal('suelo_desnivel', 5, 2)->default(0)->nullable();
+              $table->decimal('suelo_incultivable', 5, 2)->default(0)->nullable();
+              $table->decimal('suelo_otros', 5, 2)->default(0)->nullable();
               $table->string('suelo_otros_texto')->nullable();
 
               //Datos de la construccion -------------------------------------
 
               //Superficie de la construcción de albercas
-              $table->decimal('sup_cons_albercas', 18, 2)->nullable();
+              $table->decimal('sup_cons_albercas', 18, 2)->default(0)->nullable();
 
               //Total bloques de construccion
               $table->integer('bloques_construccion')->nullable();
               //Total superficie de construccion
-              $table->decimal('total_sup_construccion', 18, 2)->nullable();
+              $table->decimal('total_sup_construccion', 18, 2)->default(0)->nullable();
 
               //Datos reg publico ----------------------------------------------
 
@@ -155,12 +165,12 @@ class CreateManifestacionTable extends Migration {
               $table->integer('semestre_alta')->nullable();
 
               //Valor del terreno
-              $table->decimal('valor_terreno', 18, 2);
+              $table->decimal('valor_terreno', 18, 2)->default(0)->nullable();
               //Valor de la construccion
-              $table->decimal('valor_construccion', 18, 2);
+              $table->decimal('valor_construccion', 18, 2)->default(0)->nullable();
 
               //? no se que es c. cat. total
-              $table->decimal('cat_total', 18, 2)->nullable();
+              $table->decimal('cat_total', 18, 2)->default(0)->nullable();
 
               //Información adicional
               $table->text('informacion_adicional')->nullable();
@@ -256,10 +266,10 @@ class CreateManifestacionTable extends Migration {
 	 */
 	public function down()
 	{
-		Schema::dropIfExists('manifestaciones');
-		Schema::dropIfExists('manifestaciones_colindancias');
-		Schema::dropIfExists('manifestaciones_servicios');
-		Schema::dropIfExists('manifestaciones_construcciones');
+        Schema::dropIfExists('manifestaciones_colindancias');
+        Schema::dropIfExists('manifestaciones_servicios');
+        Schema::dropIfExists('manifestaciones_construcciones');
+        Schema::dropIfExists('manifestaciones');
 	}
 
 }

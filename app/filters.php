@@ -112,3 +112,15 @@ Route::filter('corevat', function () {
         return Redirect::to('/');
     }
 });
+
+
+/**
+ * No cacheo para post submits
+ */
+Route::filter('no-cache',function($route, $request, $response){
+
+    $response->header("Cache-Control","no-cache,no-store, must-revalidate");
+    $response->header("Pragma", "no-cache"); //HTTP 1.0
+    $response->header("Expires"," Sat, 26 Jul 1997 05:00:00 GMT");
+
+});
