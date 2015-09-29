@@ -151,6 +151,8 @@ class AvaluosFisico extends \Eloquent {
 		$rowEnfoqueFisico->vida_util = $inputs["vida_util"];
 		$rowEnfoqueFisico->numero_niveles = $inputs["numero_niveles"];
 		$rowEnfoqueFisico->nivel_edificio_condominio = $inputs["nivel_edificio_condominio"];
+		// [104240730]
+		$rowEnfoqueFisico->justificacion_valor_aplicado = $inputs["justificacion_valor_aplicado"];
 		
 		$rowEnfoqueFisico->ip = $_SERVER['REMOTE_ADDR'];
 		$rowEnfoqueFisico->host = isset($_SERVER['HTTP_CLIENT_IP']) ? $_SERVER['HTTP_CLIENT_IP'] : '';

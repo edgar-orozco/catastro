@@ -176,12 +176,12 @@ class corevat_PrintDictamenAvaluoController extends \BaseController {
 		//*********************************************************
 		$pdf->SetTextColor(0, 0, 0);
 		$pdf->SetFont('Arial', '', 14);
-		$pdf->Cell(57, $nFont, utf8_decode("H. AYUNTAMIENTO DE: "), '', 0, 'L');
+		//$pdf->Cell(57, $nFont, utf8_decode("H. AYUNTAMIENTO DE: "), '', 0, 'L');
 		$pdf->SetFont('Arial', 'B', 14);
-		$pdf->Cell(70, $nFont, utf8_decode(strtoupper($rs->municipio)), '', 1, 'L');
+		//$pdf->Cell(70, $nFont, utf8_decode(strtoupper($rs->municipio)), '', 1, 'L');
 		$pdf->setX(5);
 		$pdf->SetFont('Arial', '', 14);
-		$pdf->Cell(57, $nFont, utf8_decode("DIRECCION DE FINANZAS"), '', 1, 'L');
+		//$pdf->Cell(57, $nFont, utf8_decode("DIRECCION DE FINANZAS"), '', 1, 'L');
 		$pdf->SetFont('Arial', 'B', 14);
 		$pdf->Ln(2.5);
 		$pdf->setX(5);

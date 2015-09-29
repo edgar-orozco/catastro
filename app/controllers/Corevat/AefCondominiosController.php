@@ -101,6 +101,7 @@ class corevat_AefCondominiosController extends \BaseController {
 		$inputs["vida_remanente"] = number_format( (float) $inputs["vida_remanente"], 2, ".", "");
 		$inputs["edad_condominios"] = number_format( (float) $inputs["edad_condominios"], 2, ".", "");
 		$inputs["factor_conservacion_condominios"] = number_format( (float) $inputs["factor_conservacion_condominios"], 2, ".", "");
+		$inputs["indiviso_condominios"] = number_format((float) $inputs["indiviso_condominios"], 2, ".", "");
 
 		$rules = array(
 			'cantidad_condominios' => array('required', 'numeric', 'min:0.00', 'max:99999999.99'),

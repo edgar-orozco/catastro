@@ -8,11 +8,13 @@
 		<hr>
 		<div class="input-group addImage">
 			<span class="input-group-addon">{{Form::label('croquis', 'Croquis')}}</span>
-		{{Form::file('croquis',['class='=>'input-group']) }}
-		@if ( $croquis != '' )
-			<span class="input-group-btn"><a class="btn btn-success" type="button" target='_blank' href="{{$croquis}}">Ver Croquis</a></span>
-		@endif
+			{{Form::file('croquis',['class='=>'input-group']) }}
+			@if ( $croquis != '' )
+				<span class="input-group-btn"><a class="btn btn-success" type="button" target='_blank' href="{{$croquis}}">Ver Croquis</a></span>
+			@endif
 		</div>
+		<br />
+		<p>Tamaño máximo de 2 MB. Formato de imagenes: png y jpg</p>
 		<hr>
 	</div>
 	
@@ -20,11 +22,13 @@
 		<hr>
 		<div class="input-group addImage">
 			<span class="input-group-addon" id="basic-addon1">{{Form::label('fachada', 'Fachada')}}</span>
-		{{Form::file('fachada',['class='=>'input-group']) }}	
-		@if ( $fachada != '' )
+			{{Form::file('fachada',['class='=>'input-group']) }}	
+			@if ( $fachada != '' )
 			<span class="input-group-btn"><a class="btn btn-success" type="button" target='_blank' href="{{$fachada}}">Ver Fachada</a></span>
-		@endif
+			@endif
 		</div>
+		<br />
+		<p>Tamaño máximo de 2 MB. Formato de imagenes: png y jpg</p>
 		<hr>
 	</div>
 

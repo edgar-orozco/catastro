@@ -259,12 +259,12 @@
 						<label for="idfactorzona_aemhomologacion">Zona:</label>
 						<select class="form-control" id="idfactorzona_aemhomologacion" name="idfactorzona_aemhomologacion" required >
 							@foreach ($cat_factores_zonas as $item)
-							<option value="{{$item->idfactorzona}}">{{$item->factor_zona}}</option>
+							<option value="{{$item->idfactorzona}}" min="{{$item->valor_minimo}}" max="{{$item->valor_maximo}}">{{$item->factor_zona .' ['.$item->valor_minimo.'-'.$item->valor_maximo.']'}}</option>
 							@endforeach
 						</select>
 					</div>
 					<div class="col-md-3">
-						<label for="zona_aemhomologacion">&nbsp;</label>
+						<label for="zona_aemhomologacion">Factor Zona:</label>
 						<input type="number" class="form-control clsNumeric" name="zona_aemhomologacion" id="zona_aemhomologacion" min="0.00" max="9999999999.99" step="0.01" required />
 					</div>
 					<div class="col-md-3">
@@ -276,7 +276,7 @@
 						</select>
 					</div>
 					<div class="col-md-3">
-						<label for="ubicacion_aemhomologacion">&nbsp;</label>
+						<label for="ubicacion_aemhomologacion">Factor Ubicación:</label>
 						<input type="number" class="form-control clsNumeric" name="ubicacion_aemhomologacion" id="ubicacion_aemhomologacion" min="0.00" max="9999999999.99" step="0.01" required />
 					</div>
 
@@ -289,7 +289,7 @@
 						</select>
 					</div>
 					<div class="col-md-3">
-						<label for="frente">&nbsp;</label>
+						<label for="frente">Factor Frente:</label>
 						<input type="number" class="form-control" name="frente" id="frente" min="0.00" max="9999999999.99" step="0.01" required />
 					</div>
 					<div class="col-md-3">
@@ -301,7 +301,7 @@
 						</select>
 					</div>
 					<div class="col-md-3">
-						<label for="forma">&nbsp;</label>
+						<label for="forma">Factor Forma:</label>
 						<input type="number" class="form-control clsNumeric" name="forma" id="forma" min="0.00" max="9999999999.99" step="0.01" required />
 					</div>
 
@@ -412,12 +412,12 @@
 						<label for="idfactorzona_aemanalisis">Zona:</label>
 						<select class="form-control" name="idfactorzona_aemanalisis" id="idfactorzona_aemanalisis">
 							@foreach ($cat_factores_zonas as $item)
-							<option value="{{$item->idfactorzona}}">{{$item->factor_zona}}</option>
+							<option value="{{$item->idfactorzona}}" min="{{$item->valor_minimo}}" max="{{$item->valor_maximo}}">{{$item->factor_zona .' ['.$item->valor_minimo.'-'.$item->valor_maximo.']'}}</option>
 							@endforeach
 						</select>
 					</div>
 					<div class="col-md-3">
-						<label for="factor_zona">&nbsp;</label>
+						<label for="factor_zona">Factor Zona:</label>
 						<input type="number" class="form-control clsNumeric" name="factor_zona" id="factor_zona" min="0.00" max="9999999999.99" step="0.01" required />
 					</div>
 					<div class="col-md-3">
@@ -429,7 +429,7 @@
 						</select>
 					</div>
 					<div class="col-md-3">
-						<label for="factor_ubicacion">&nbsp;</label>
+						<label for="factor_ubicacion">Factor Ubicación</label>
 						<input type="number" class="form-control clsNumeric" name="factor_ubicacion" id="factor_ubicacion" min="0.00" max="9999999999.99" step="0.01" required />
 					</div>
 
@@ -451,7 +451,7 @@
 						</select>
 					</div>
 					<div class="col-md-3">
-						<label for="factor_conservacion">&nbsp;</label>
+						<label for="factor_conservacion">Factor Conservación:</label>
 						<input type="number" class="form-control clsNumeric" name="factor_conservacion" id="factor_conservacion" min="0.00" max="9999999999.99" step="0.01" required />
 					</div>
 					<div class="col-md-6">

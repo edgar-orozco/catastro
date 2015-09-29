@@ -211,7 +211,7 @@
 				{{Form::text('cta_predial', null, ['class'=>'form-control', 'id' => 'cta_predial', 'disabled' => 'disabled'])}}
 			</div>
             <div class="col-md-2">
-				{{Form::number('numero_cuenta', null, ['id'=>'numero_cuenta','class'=>'form-control clsNumeric', 'step'=>'1', 'min'=>'0', 'max'=>'999999', 'maxlength' => '6'])}}
+				{{Form::number('numero_cuenta', $row->numero_cuenta, ['id'=>'numero_cuenta','class'=>'form-control clsNumeric', 'step'=>'1', 'min'=>'0', 'max'=>'999999', 'maxlength' => '6'])}}
 				{{$errors->first('numero_cuenta', '<span class=text-danger>:message</span>')}}
 			</div>
 		</div>
@@ -227,19 +227,19 @@
 			
 			{{Form::label('clave_zona', 'Clave Zona : ',['class'=>'col-sm-2'])}}
             <div class="col-md-1">
-				{{Form::number('clave_zona', null, ['id'=>'clave_zona', 'class'=>'form-control clsNumeric', 'step'=>'1', 'min'=>'0', 'max'=>'999', 'maxlength' => '3'])}}
+				{{Form::number('clave_zona', $row->clave_zona, ['id'=>'clave_zona', 'class'=>'form-control clsNumeric', 'step'=>'1', 'min'=>'0', 'max'=>'999', 'maxlength' => '3'])}}
 				{{$errors->first('clave_zona', '<span class=text-danger>:message</span>')}}
 			</div>
 			
 			{{Form::label('clave_manzana', 'Clave Manzana : ',['class'=>'col-sm-2'])}}
             <div class="col-md-1">
-				{{Form::number('clave_manzana', null, ['id'=>'clave_manzana', 'class'=>'form-control clsNumeric', 'step'=>'1', 'min'=>'0', 'max'=>'9999', 'maxlength' => '4'])}}
+				{{Form::number('clave_manzana', $row->clave_manzana, ['id'=>'clave_manzana', 'class'=>'form-control clsNumeric', 'step'=>'1', 'min'=>'0', 'max'=>'9999', 'maxlength' => '4'])}}
 				{{$errors->first('clave_manzana', '<span class=text-danger>:message</span>')}}
 			</div>
 
 			{{Form::label('clave_predio', 'Clave Predio : ',['class'=>'col-sm-2'])}}
             <div class="col-md-1">
-				{{Form::number('clave_predio', null, ['id'=>'clave_predio', 'class'=>'form-control clsNumeric', 'step'=>'1', 'min'=>'0', 'max'=>'999999', 'maxlength' => '6'])}}
+				{{Form::number('clave_predio', $row->clave_predio, ['id'=>'clave_predio', 'class'=>'form-control clsNumeric', 'step'=>'1', 'min'=>'0', 'max'=>'999999', 'maxlength' => '6'])}}
 				{{$errors->first('clave_predio', '<span class=text-danger>:message</span>')}}
 			</div>
 
@@ -307,17 +307,29 @@
 		$('#clave_manzana').mask('0000');
 		
 		$("#cta_predial").val( $("#idmunicipio").find('option:selected').attr('clave') + '-' + $("#serie").find('option:selected').val() + '-' );
-		$("#numero_cuenta").val( '0' );
+		//$("#numero_cuenta").val( '0' );
+		_numero_cuenta = $("#numero_cuenta").val();
+		$("#cuenta_predial").val( $("#cta_predial").val() + ("000000").substring(0, ("000000").length - _numero_cuenta.length ) + parseInt($("#numero_cuenta").val()) );
+		
 
 		$("#clv_catastral").val( $("#idestado").find('option:selected').attr('clave') + '-' + $("#idmunicipio").find('option:selected').attr('clave') + '-' );
-		$("#clave_zona").val( '0' );
-		$("#clave_manzana").val( '0' );
-		$("#clave_predio").val( '0' );
+		//$("#clave_zona").val( '0' );
+		//$("#clave_manzana").val( '0' );
+		//$("#clave_predio").val( '0' );
+		
+		_clave_zona = $("#clave_zona").val();
+		_clave_manzana = $("#clave_manzana").val();
+		_clave_predio = $("#clave_predio").val();
+		$("#cuenta_catastral").val( $("#clv_catastral").val() 
+				+ ("000").substring(0, ("000").length - _clave_zona.length ) + $("#clave_zona").val() + '-' +
+				+ ("0000").substring(0, ("0000").length - _clave_manzana.length ) + $("#clave_manzana").val() + '-' +
+				+ ("000000").substring(0, ("000000").length - _clave_predio.length ) + $("#clave_predio").val() );
+		
 		
 		$("#serie").change(function() {
 			_numero_cuenta = $("#numero_cuenta").val();
 			$("#cta_predial").val( $("#idmunicipio").find('option:selected').attr('clave') + '-' + $("#serie").find('option:selected').val() + '-' );
-			$("#cuenta_predial").val( $("#cta_predial").val() + ("000000").substring(0, ("000000").length - _numero_cuenta.length ) + parseInt($("#numero_cuenta").val()) );			
+			$("#cuenta_predial").val( $("#cta_predial").val() + ("000000").substring(0, ("000000").length - _numero_cuenta.length ) + parseInt($("#numero_cuenta").val()) );
 		});
 
 		$('#idestado').on("change", function () {

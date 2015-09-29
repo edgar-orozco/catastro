@@ -577,7 +577,11 @@ Route::group(array('before' => 'corevat'), function () {
 	
 	Route::get('/corevat/AvaluoPrint/{id}',  array('as' => 'printAvaluo',  'uses' => 'corevat_PrintDictamenAvaluoController@printAvaluo'));
 	
+	// IMPRIMIR EL AVALUO
 	Route::get('/corevat/AvaluosValuadorPrint/{id}', array('as' => 'printAvaluosByValuador', 'uses' => 'corevat_PrintDictamenAvaluoController@printAvaluosByValuador'));
+	
+	// CLONAR EL AVALUO
+	Route::post('/corevat/AvaluoClonar', array('uses' => 'corevat_AvaluosController@clonar',  'as' => 'clonarAvaluo'));
 	
 	// AVALUOS ZONA
 	Route::get('/corevat/AvaluoZona/{id}',      array('uses' => 'corevat_AvaluosZonaController@edit',   'as' => 'editAvaluoZona'));

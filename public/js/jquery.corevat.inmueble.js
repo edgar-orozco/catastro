@@ -16,7 +16,10 @@ $(document).ready(function () {
 	 *  
 	 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
 	aiMedidasColindancias = $('#aiMedidasColindanciasDataTable').DataTable({
-		 ordering: false
+		 ordering: false,
+		 columnDefs: [
+			 {"visible": false, "targets": 0 }
+		 ]
 	});
 
 	/*++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
@@ -68,7 +71,7 @@ $(document).ready(function () {
 	 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
 	$.delAiMedidasColindancias = function (id) {
 		$('#corevatConfirmButton').attr('ctrl', 'delAiMedidasColindancias').attr('idTable', id);
-		$('#corevatConfirmContainer').empty().append('<h2>¿Realmente dese eliminar el registro?<h2>');
+		$('#corevatConfirmContainer').empty().append('<h2>¿Realmente dese eliminar el registro?</h2>');
 		$('#corevatConfirm').modal('show');
 	};
 

@@ -4,10 +4,31 @@
 {{ HTML::style('/css/dataTables.bootstrap.css') }}
 {{ HTML::style('/js/jquery/jquery-ui.css') }}
 {{ HTML::style('/css/coverat.css') }}
+
+<div class="modal fade" id="clonarConfirm" role="dialog" tabindex="-1">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+				<h4 class="modal-title">[COREVAT] Mensaje de confirmación</h4>
+			</div>
+{{Form::model($row, ['route' => array('clonarAvaluo'), 'class'=>'horizontal', 'method'=>'post', 'id'=>'formAvaluoClonar' ]) }}
+{{Form::hidden('idavaluo_clonar', null, ['id'=>'idavaluo_clonar'])}}
+			<div class="modal-body" style="min-height: 200px; text-align: center;" >
+				<h3 id="corevatConfirmContainer"><h2>¿Realmente desea clonar el avalúo?</h2></h3>
+				<h2 id="corevatConfirmMessage"></h2>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+				<button type="submit" class="btn btn-primary" id="clonarConfirmButton">Aceptar</button>
+			</div>
+{{Form::close()}}
+		</div>
+	</div>
+</div>
+
 <div id="listAvaluos">
-    <h3 style="display: block; text-align: center;">
-        Listado de Avalúos
-    </h3>
+    <h3 style="display: block; text-align: center;">Listado de Avalúos</h3>
     <div class="panel-heading" style="padding: 0;">
         <div class="col-md-offset-7 col-md-3 col-sm-3 col-xs-3 btn-beside-title">
             <a href="{{action('printAvaluosByValuador')}}" class="btn btn-success nuevo" title="Avalúos por Valuador" target="_blank">
@@ -57,6 +78,7 @@
                     <td>
                         <a href="/corevat/AvaluoDel/{{$row->idavaluo}}" class="eliminar btn btn-xs btn-danger" title="Eliminar"><i class="glyphicon glyphicon-remove"></i></a>
                         <a href="/corevat/AvaluoPrint/{{$row->idavaluo}}" target="_blank" class="print btn btn-xs btn-info" title="Imprimir"><i class="glyphicon glyphicon-print"></i></a>
+                        <a onclick="$.clonarAvaluo({{$row->idavaluo}}, '{{$row->foliocoretemp}}');" class="print btn btn-xs btn-primary" title="Clonar"><i class="glyphicon glyphicon-copy"></i></a>
                     </td>
                 </tr>
             @endforeach
@@ -88,11 +110,40 @@
 			"ordering": false,
 			"searching": false
 		});
+		
+		/*++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+		 * 
+		++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
 		$("body").delegate('.eliminar', 'click', function () {
 			if (!confirm("¿Seguro que quiere eliminar el registro?")) {
 				return false;
 			}
 		});
+		
+		/*++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+		 * 
+		++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
+		$.clonarAvaluo = function(id, folio) {
+			$('#idavaluo_clonar').val(id);
+			$('#corevatConfirmMessage').empty().append('Folio: ' + folio);
+			$('#clonarConfirm').modal('show');
+		}
+		//formAvaluoClonar
+		
+		/*++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+		 * 
+		$.ajax({
+			global: false,
+			cache: false,
+			dataType: 'json',
+			url: '/corevat/AvaluoClonar',
+			type: 'post',
+			data: id: id,
+			success: function (data) {
+				datos = eval(data);
+			}
+		});
+		++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
 	});
 </script>
 @stop

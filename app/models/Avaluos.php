@@ -104,7 +104,7 @@ class Avaluos extends \Eloquent {
 	 * @param  array  $row
 	 * @return Response
 	 */
-	private static function setAvaluo(&$row, $inputs) {
+	private static function setAvaluo(&$row, $inputs, $clonar) {
 		$row->proposito = $inputs["proposito"];
 		$row->fk_finalidad = $inputs["fk_finalidad"];
 		$row->finalidad = $inputs["finalidad"];
@@ -140,13 +140,14 @@ class Avaluos extends \Eloquent {
 		
 		$row->idregimenpropiedad = $inputs["idregimenpropiedad"];
 		
-		if (  $inputs["cuenta_catastral"] != '' ) {
+		//if (  $inputs["cuenta_catastral"] != '' ) {
+		// CLAVE CATASTRAL
 			$a = preg_split("/-/", $inputs["cuenta_catastral"]);
 			for ($b = strlen($inputs["clave_zona"]); $b<3; $b++) {$inputs["clave_zona"] = '0' . $inputs["clave_zona"];}
 			for ($b = strlen($inputs["clave_manzana"]); $b<4; $b++) {$inputs["clave_manzana"] = '0' . $inputs["clave_manzana"];}
 			for ($b = strlen($inputs["clave_predio"]); $b<6; $b++) {$inputs["clave_predio"] = '0' . $inputs["clave_predio"];}
 			$row->cuenta_catastral = $a[0] . "-" . $a[1] . "-" . $inputs["clave_zona"] . "-" . $inputs["clave_manzana"] . "-" . $inputs["clave_predio"];
-		}
+		//}
 		
 		if ( $inputs["cuenta_predial"] == '' )  {
 			$row->cuenta_predial = strtoupper($inputs["cuenta_predial"]);
@@ -170,7 +171,7 @@ class Avaluos extends \Eloquent {
 	 */
 	public static function insAvaluo(&$inputs) {
 		$row = new Avaluos();
-		Avaluos::setAvaluo($row, $inputs);
+		Avaluos::setAvaluo($row, $inputs, FALSE);
 		$row->iduser = Auth::id();
 		$row->save();
 		$inputs["idavaluo"] = $row->idavaluo;
@@ -184,11 +185,26 @@ class Avaluos extends \Eloquent {
 	 */
 	public static function updAvaluo($id, $inputs) {
 		$row = Avaluos::find($id);
-		Avaluos::setAvaluo($row, $inputs);
+		Avaluos::setAvaluo($row, $inputs, FALSE);
 		$row->updated_at = $inputs["updated_at"];
 		$row->save();
 	}
 
+	/**
+	 * Show the form for editing the specified resource.
+	 *
+	 * @param  int  $id
+	 * @return Response
+	 */
+	public static function clonarAvaluo($id) {
+		//$rowAvaluo = Avaluos::find($id);
+		//$row = new Avaluos();
+		//return DB::connection('corevat')->getPdo()->exec("INSERT INTO avaluos () VALUES ();");
+		//$row->save();
+	}
+
+
+	
 	/**
 	 * Show the form for editing the specified resource.
 	 *
