@@ -49,7 +49,7 @@
 
         PM.layerAutoRefresh = 1;
         PM.tbThm = 'default';
-        PM.activeLayer = ['manzanas','predios','construcciones','entidades','municipios','localidades','carreteras','calles','rios','hipsografico',"predio_ubicado_1"];
+        PM.activeLayer = ['manzanas','predios','construcciones','entidades','municipios','localidades','carreteras','calles','rios','hipsografico','predio_ubicado_1','orange','green','blue','cafe','pink'];
         // PM.activeLayer = ['predios'];
 
         // Query layers: modify query results in js

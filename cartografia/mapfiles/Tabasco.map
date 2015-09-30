@@ -528,6 +528,48 @@ LAYER  NAME "predio_ubicado_1"
 END  # Layer
 
 
+#
+# Start of Layer Predio.shp
+#
+LAYER  NAME "orange"
+  TYPE polygon
+  STATUS ON
+  CONNECTIONTYPE postgis
+  DATA "geom from predios"
+
+  TOLERANCE 3
+  TOLERANCEUNITS pixels
+  TEMPLATE void
+  PROJECTION
+    #"init=epsg:4326"
+    "+proj=utm +zone=15 +datum=WGS84 +units=m +no_defs"
+  END
+  #MINSCALEDENOM 250000
+  MAXSCALEDENOM 7000
+  LABELITEM "clave_catas"
+  LABELMAXSCALE 1000
+  
+  CLASS
+    Name 'Predio'
+    COLOR 223 0 212
+    OUTLINECOLOR 0 0 0
+
+    LABEL
+      POSITION Auto
+      COLOR 0 0 0 
+      OUTLINECOLOR 255 255 255
+      BUFFER 5
+      TYPE truetype
+      #ENCODING "UTF-8"
+      FONT vera
+      SIZE 8
+      MAXSIZE 9
+      #SIZE small
+    END #Label  
+    
+  END  # Class
+END  # Layer
+
 
 
 #
