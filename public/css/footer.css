@@ -43,7 +43,7 @@ footer .container input, footer .container textarea{
     color: dimgray;
 }
 footer .container input[type="submit"]{
-    background: #F27007;
+    background: #F27007 !important;
     letter-spacing: 2px;
     text-transform: uppercase;
     color: #FFF;
