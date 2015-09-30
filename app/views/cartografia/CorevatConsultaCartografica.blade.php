@@ -185,11 +185,61 @@
                 <input type="submit" value="Buscar" >
               </form>
  -->
-            <ul>
-                <li><a href="#" id="getT-2-008" class="getT">Predios con Avalúo en Huimanguillo (Alfa)</a></li>
-            </ul>
+            <span></span>
+            <div class="panel panel-default">
+              <div class="panel-heading">Predios por Avalúos según Valor Concluido</div>
+                  <div class="panel-body">
+                    <div class="list-group">
+                        <button type="button" class="btn btn-default btn-xs center pull-right list-group-item" id='getT'>Filtrar</button>
+                    </div>
 
+                      <ul class="list-group"> 
+                        <li>
+                            <label>
+                                <input class="chk0" id="0=chk=0-1000=008" type="checkbox">
+                                0 - 1M
+                            </label>
+                        </li>
 
+                        <li>
+                            <label>
+                                <input class="chk0" id="1=chk=1001-2000=008" type="checkbox">
+                                1M - 2M
+                            </label>
+                        </li>
+
+                        <li>
+                            <label>
+                                <input class="chk0" id="2=chk=2001-3000=008" type="checkbox">
+                                2M - 3M
+                            </label>
+                        </li>
+
+                        <li>
+                            <label>
+                                <input class="chk0" id="3=chk=3001-4000=008" type="checkbox">
+                                3M - 4M
+                            </label>
+                        </li>
+
+                        <li>
+                            <label>
+                                <input class="chk0" id="4=chk=4001-5000=008" type="checkbox">
+                                4M - 5M
+                            </label>
+                        </li>
+
+                        <li>
+                            <label>
+                                <input class="chk0" id="5=chk=5001-6000=008" type="checkbox">
+                                5M - 6M
+                            </label>
+                        </li>
+
+                    </ul>
+              </div>
+
+            </div>
         </div>
                     
         <!-- Reference Map -->
