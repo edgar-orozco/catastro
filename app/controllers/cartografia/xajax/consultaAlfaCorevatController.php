@@ -157,27 +157,17 @@ class ConsultaAlfaCorevatController extends \BaseController {
 
     function createLayerFromClaveCatasWithAvaluos($arr1, $mun, $type=0, $layer){
 
-
-
-
         if ( intval($mun) <= 0 ){
             $result = DB::select("select  ST_AsGeoJSON(geom) AS geom, st_xmin(p.geom)-5 as xmin, st_ymin(p.geom)-5 as ymin, st_xmax(p.geom)+5 as xmax, st_ymax(p.geom)+5 as ymax, clave_catas  from predios p where p.clave_catas IN (".$arr1.") "  );
         }else{
             $result = DB::select("select  ST_AsGeoJSON(geom) AS geom, st_xmin(p.geom)-5 as xmin, st_ymin(p.geom)-5 as ymin, st_xmax(p.geom)+5 as xmax, st_ymax(p.geom)+5 as ymax, clave_catas  from predios p where p.municipio = '".$mun."' and p.clave_catas IN (".$arr1.") "  );
         }    
 
-        if (count($result) == 0) {
+        if (count($result) <= 0) {
             $strJS  = '"msgError":"No se encontraron datos: \\n \\nClaves: '.$arr1.'\\nMunicipio: '.$mun.'  "';
             echo "{\"sessionerror\":\"QueryError\",".$strJS."}";
             return;
         }
-
-        if ( count($result) <= 0 ){
-            $strJS = '"msgError":"No se encontraron datos."';
-            echo "{\"sessionerror\":\"QueryError\"," . $strJS . "}";
-            return;
-        }        
-
 
         foreach ($result as $k => $value) {
 
