@@ -427,18 +427,18 @@ LAYER  NAME "manzanas"
     COLOR 224 224 224
     OUTLINECOLOR 224 224 224
 
-    LABEL
-      POSITION Auto
-      COLOR 0 0 0 
-      OUTLINECOLOR 255 255 255
-      BUFFER 5
-      TYPE truetype
-      #ENCODING "UTF-8"
-      FONT vera
-      SIZE 8
-      MAXSIZE 9
-      #SIZE small
-    END #Label  
+#    LABEL
+#      POSITION Auto
+#      COLOR 0 0 0 
+#      OUTLINECOLOR 255 255 255
+#      BUFFER 5
+#      TYPE truetype
+#      #ENCODING "UTF-8"
+#      FONT vera
+#      SIZE 8
+#      MAXSIZE 9
+#      #SIZE small
+#    END #Label  
     
   END  # Class
 END  # Layer
@@ -469,18 +469,18 @@ LAYER  NAME "predios"
     COLOR 223 219 212
     OUTLINECOLOR 0 0 0
 
-    LABEL
-      POSITION Auto
-      COLOR 0 0 0 
-      OUTLINECOLOR 255 255 255
-      BUFFER 5
-      TYPE truetype
-      #ENCODING "UTF-8"
-      FONT vera
-      SIZE 8
-      MAXSIZE 9
-      #SIZE small
-    END #Label  
+#    LABEL
+#      POSITION Auto
+#      COLOR 0 0 0 
+#      OUTLINECOLOR 255 255 255
+#      BUFFER 5
+#      TYPE truetype
+#      #ENCODING "UTF-8"
+#      FONT vera
+#      SIZE 8
+#      MAXSIZE 9
+#      #SIZE small
+#    END #Label  
     
   END  # Class
 END  # Layer
@@ -509,19 +509,6 @@ LAYER  NAME "predio_ubicado_1"
     Name 'PredioUbicado'
     COLOR 223 64 64
     OUTLINECOLOR 0 0 0
-
-    LABEL
-      POSITION Auto
-      COLOR 255 255 255 
-      OUTLINECOLOR 64 64 64
-      BUFFER 5
-      TYPE truetype
-      #ENCODING "UTF-8"
-      FONT vera
-      SIZE 6
-      MAXSIZE 8
-      # SIZE small
-    END #Label  
     
   END  # Class
 END  # Layer
@@ -548,21 +535,8 @@ LAYER  NAME "orange"
   
   CLASS
     Name 'orange'
-    COLOR 255 182 72
+    COLOR 240 148 80
     OUTLINECOLOR 0 0 0
-
-    LABEL
-      POSITION Auto
-      COLOR 255 255 255 
-      OUTLINECOLOR 64 64 64
-      BUFFER 5
-      TYPE truetype
-      #ENCODING "UTF-8"
-      FONT vera
-      SIZE 6
-      MAXSIZE 8
-      # SIZE small
-    END #Label  
     
   END  # Class
 END  # Layer
@@ -589,21 +563,8 @@ LAYER  NAME "green"
   
   CLASS
     Name 'green'
-    COLOR 166 176 47
+    COLOR 49 181 115
     OUTLINECOLOR 0 0 0
-
-    LABEL
-      POSITION Auto
-      COLOR 255 255 255 
-      OUTLINECOLOR 64 64 64
-      BUFFER 5
-      TYPE truetype
-      #ENCODING "UTF-8"
-      FONT vera
-      SIZE 6
-      MAXSIZE 8
-      # SIZE small
-    END #Label  
     
   END  # Class
 END  # Layer
@@ -630,22 +591,9 @@ LAYER  NAME "blue"
   
   CLASS
     Name 'blue'
-    COLOR 95 180 229
+    COLOR 63 188 239
     OUTLINECOLOR 0 0 0
 
-    LABEL
-      POSITION Auto
-      COLOR 255 255 255 
-      OUTLINECOLOR 64 64 64
-      BUFFER 5
-      TYPE truetype
-      #ENCODING "UTF-8"
-      FONT vera
-      SIZE 6
-      MAXSIZE 8
-      # SIZE small
-    END #Label  
-    
   END  # Class
 END  # Layer
 
@@ -672,21 +620,8 @@ LAYER  NAME "cafe"
   
   CLASS
     Name 'cafe'
-    COLOR 185 125 5
+    COLOR 169 131 79
     OUTLINECOLOR 0 0 0
-
-    LABEL
-      POSITION Auto
-      COLOR 255 255 255 
-      OUTLINECOLOR 64 64 64
-      BUFFER 5
-      TYPE truetype
-      #ENCODING "UTF-8"
-      FONT vera
-      SIZE 6
-      MAXSIZE 8
-      # SIZE small
-    END #Label  
     
   END  # Class
 END  # Layer
@@ -715,21 +650,20 @@ LAYER  NAME "pink"
   
   CLASS
     Name 'pink'
-    COLOR 245 177 204
+    COLOR 237 108 158
     OUTLINECOLOR 0 0 0
 
-    LABEL
-      POSITION Auto
-      COLOR 255 255 255 
-      OUTLINECOLOR 64 64 64
-      BUFFER 5
-      TYPE truetype
-      #ENCODING "UTF-8"
-      FONT vera
-      SIZE 6
-      MAXSIZE 8
-      # SIZE small
-    END #Label  
+#    LABEL
+#      POSITION Auto
+#      COLOR 255 255 255 
+#      OUTLINECOLOR 64 64 64
+#      BUFFER 5
+#      TYPE truetype
+#      #ENCODING "UTF-8"
+#      FONT vera
+#      SIZE 6
+#      MAXSIZE 8
+#    END #Label  
     
   END  # Class
 END  # Layer
