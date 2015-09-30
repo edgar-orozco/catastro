@@ -194,42 +194,42 @@ Avalúos según Valor Concluido
                         <li class="list-group-item">
                             <label>
                                 <input class="chk0" id="0=chk=0-1000=008" type="checkbox">
-                                0 - 1M
+                                <span style="color:#E465CC;">0 - 1M</span>
                             </label>
                         </li>
 
                         <li class="list-group-item">
                             <label>
                                 <input class="chk0" id="1=chk=1001-2000=008" type="checkbox">
-                                1M - 2M
+                                 <span style="color:#DD672E;">1M - 2M</span>
                             </label>
                         </li>
 
                         <li class="list-group-item">
                             <label>
                                 <input class="chk0" id="2=chk=2001-3000=008" type="checkbox">
-                                2M - 3M
+                                <span style="color:#2D9449;">2M - 3M</span>
                             </label>
                         </li>
 
                         <li class="list-group-item">
                             <label>
                                 <input class="chk0" id="3=chk=3001-4000=008" type="checkbox">
-                                3M - 4M
+                                <span style="color:#329CD4;">3M - 4M</span>
                             </label>
                         </li class="list-group-item">
 
                         <li class="list-group-item">
                             <label>
                                 <input class="chk0" id="4=chk=4001-5000=008" type="checkbox">
-                                4M - 5M
+                                <span style="color:#C82323;">4M - 5M</span>
                             </label>
                         </li>
 
                         <li class="list-group-item">
                             <label>
                                 <input class="chk0" id="5=chk=5001-6000=008" type="checkbox">
-                                5M - 6M
+                                <span style="color:#9C6868;">5M - 6M</span>
                             </label>
                         </li>
 
