@@ -189,9 +189,6 @@
             <div class="panel panel-default">
               <div class="panel-heading">Predios por Avalúos según Valor Concluido</div>
                   <div class="panel-body">
-                    <div class="list-group">
-                        <button type="button" class="btn btn-default btn-xs center pull-right list-group-item" id='getT'>Filtrar</button>
-                    </div>
 
                       <ul class="list-group"> 
                         <li>
@@ -237,6 +234,12 @@
                         </li>
 
                     </ul>
+
+                    <div class="list-group">
+                        <button type="button" class="btn btn-default btn-xs center pull-right list-group-item" id='getT'>Filtrar</button>
+                    </div>
+
+                    
               </div>
 
             </div>
