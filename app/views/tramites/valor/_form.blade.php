@@ -9,9 +9,11 @@
     <!-- Tab panes -->
     <div class="tab-content">
         <div role="tabpanel" class="tab-pane active" id="datos-valuar-terreno">
+            <br/>
             @include('tramites.valor._form_valuar_terreno', [] )
         </div>
         <div role="tabpanel" class="tab-pane" id="datos-valuar-construccion">
+            <br/>
             @include('tramites.valor._form_valuar_construccion', [] )
         </div>
     </div>
@@ -32,6 +34,7 @@
     {{ HTML::script('js/jquery/jquery-ui-autocomplete.min.js') }}
     {{ HTML::style('js/jquery/jquery-ui.css') }}
     {{ HTML::script('js/jquery/jquery.mask.min.js') }}
+    {{ HTML::script('js/highcharts/highcharts.js') }}
 
     {{-- X-Editable--}}
     {{ HTML::script('js/bootstrap-editable.min.js') }}
@@ -42,24 +45,105 @@
 
     <script>
         //Fuentes de datos para selects del xeditable
-        var techos = {{json_encode((array)$techos)}};
-        var pisos = {{json_encode((array)$pisos)}};
-        var ventanas = {{json_encode((array)$ventanas)}};
-        var muros = {{json_encode((array)$muros)}};
-        var puertas = {{json_encode((array)$puertas)}};
-        var hidraulicas = {{json_encode((array)$hidraulicas)}};
-        var sanitarias = {{json_encode((array)$sanitarias)}};
-        var electricas = {{json_encode((array)$electricas)}};
+        var municipio = '{{$municipio}}';
+        var categorias ={{json_encode((array)$categoriasConstruccion)}};
+        var valoresConstruccion ={{json_encode($valoresConstruccion)}};
+
         var edosConstruccion = {{json_encode((array)$edosConstruccion)}};
         var tiposConstruccion = {{json_encode((array)$tiposConstruccion)}};
+        var elementosConstruccion = {{json_encode((array)$elementosConstruccion)}};
+        var anioActual = {{date("Y")}};
         var setEditables = null;
         var registrosConstrucciones = {construcciones:{},sup_albercas:0,sup_total:0};
+
+        var valorXElemento = function(municipio, tipo_construccion, categoria, elemento, conservacion){
+            var v;
+            var elementoID = elementosConstruccion[elemento];
+            v = valoresConstruccion[municipio][tipo_construccion][categoria][elementoID][conservacion];
+            return v;
+        }
+
+        var valuaBloqueConstruccion = function(pk,municipio){
+
+            //Se calcula mediante la moda el valor de los 16 tipos
+            var predominante = [];
+
+            var techos, muros, pisos, puertas, hidraulicas, electricas, sanitarias;
+
+            for(elem in registrosConstrucciones.construcciones[pk]){
+                if(elem == 'sup_construccion') sup_construccion = registrosConstrucciones.construcciones[pk][elem];
+                else if(elem == 'tipo_construccion') tipo_construccion = registrosConstrucciones.construcciones[pk][elem];
+                else if(elem == 'techos') techos = registrosConstrucciones.construcciones[pk][elem];
+                else if(elem == 'muros') muros= registrosConstrucciones.construcciones[pk][elem];
+                else if(elem == 'pisos') pisos= registrosConstrucciones.construcciones[pk][elem];
+                else if(elem == 'puertas') puertas= registrosConstrucciones.construcciones[pk][elem];
+                else if(elem == 'hidraulicas') hidraulicas= registrosConstrucciones.construcciones[pk][elem];
+                else if(elem == 'electricas') electricas= registrosConstrucciones.construcciones[pk][elem];
+                else if(elem == 'sanitarias') sanitarias= registrosConstrucciones.construcciones[pk][elem];
+                else if(elem == 'antiguedad') antiguedad= registrosConstrucciones.construcciones[pk][elem];
+                else if(elem == 'edo_construccion') edo_construccion= registrosConstrucciones.construcciones[pk][elem];
+                else if(elem == 'avance') avance= registrosConstrucciones.construcciones[pk][elem];
+                else if(elem == 'num_niveles') num_niveles= registrosConstrucciones.construcciones[pk][elem];
+            }
+
+            /*
+            var valTechos = valorXElemento(municipio, tipo_construccion, techos, 'techos', edo_construccion);
+            var valMuros = valorXElemento(municipio, tipo_construccion, muros, 'muros', edo_construccion);
+            var valPisos = valorXElemento(municipio, tipo_construccion, pisos, 'pisos', edo_construccion);
+            var valPuertas = valorXElemento(municipio, tipo_construccion, puertas, 'puertas', edo_construccion);
+            var valHidraulicas = valorXElemento(municipio, tipo_construccion, hidraulicas, 'hidraulicas', edo_construccion);
+            var valElectricas = valorXElemento(municipio, tipo_construccion, electricas, 'electricas', edo_construccion);
+            var valSanitarias = valorXElemento(municipio, tipo_construccion, sanitarias, 'sanitarias', edo_construccion);
+            console.log("VT: %s VM: %s VP: %s VPT: %s VH: %s VE: %s VS: %s", valTechos, valMuros, valPisos, valPuertas, valHidraulicas, valElectricas, valSanitarias);
+            */
+
+            predominante[techos] = predominante[muros] = predominante[pisos] = predominante[puertas] = predominante[hidraulicas] = predominante[electricas] =  predominante[sanitarias] = 0;
+            predominante[techos]++;
+            predominante[muros]++;
+            predominante[pisos]++;
+            predominante[puertas]++;
+            predominante[hidraulicas]++;
+            predominante[electricas]++;
+            predominante[sanitarias]++;
+
+            var categos = limitaCategorias(pk);
+            var predom = Object.keys(predominante).reduce(function(a, b){ return predominante[a] > predominante[b] ? a : b });
+            console.log("predominante %s %s", predom, categos[predom]);
+
+
+            var valCategoria = valorXElemento(municipio, tipo_construccion, predom, 'techos', edo_construccion);
+
+            //Aqui insertamos en las nuevas columnas categoria y valor/m2
+            //Todo: Hacerlo en otro lado y de otra forma
+            $('.bloque-construccion[data-pk='+pk+'] td.categoria').text(categos[predom]);
+            $('.bloque-construccion[data-pk='+pk+'] td.val-categoria').text(valCategoria);
+
+            var valBloque = valCategoria * sup_construccion;
+            return valBloque;
+        }
+
+        var demBloquesConstruccion = function(pk){
+            var dem = 0;
+            var anioCons = registrosConstrucciones.construcciones[pk].antiguedad;
+            var pctTerm = registrosConstrucciones.construcciones[pk].avance;
+            var demEdad = demConstruccionEdad(anioCons, anioActual);
+            var demTerminado = demConstruccionTerminado(pctTerm);
+            if(demEdad && demTerminado){
+                dem = demEdad * demTerminado;
+            }
+            else if(demEdad && !demTerminado){
+                dem = demEdad;
+            }
+            else if(!demEdad && demTerminado){
+                dem = demTerminado;
+            }
+            return dem;
+        }
 
         var actualiza = function(response, valor){
             var pk = $(this).data('pk');
             var nombre = $(this).data('name');
 
-            //console.log("En el campo %s de la fila %s se puso este nuevo valor %s", nombre, pk, valor);
             if(nombre !== 'sup_albercas') {
                 if (pk in registrosConstrucciones.construcciones) {
                     var registro = registrosConstrucciones.construcciones[pk];
@@ -77,9 +161,10 @@
             }
 
             $('#construcciones').val(JSON.stringify(registrosConstrucciones));
-            console.log(JSON.stringify(registrosConstrucciones));
+            //console.log(JSON.stringify(registrosConstrucciones));
 
         }
+
 
         /**
          * Valida números enteros positivos
@@ -144,6 +229,16 @@
         }
 
 
+        var fnCategorias = function(){
+            var pk = $(this).data('pk');
+            return limitaCategorias(pk);
+        }
+
+        var limitaCategorias = function(pk){
+            var tipoConstruccion = registrosConstrucciones.construcciones[pk].tipo_construccion;
+            return categorias[tipoConstruccion];
+        }
+
         $(function () {
 
             //Selectores autocompletables
@@ -171,32 +266,30 @@
                     validate: validaDecimalPositivo
                 });
 
-                $( "tbody.tcons > tr:last" ).find('.xselect.techos').editable({
-                    source: techos
-                });
                 $( "tbody.tcons > tr:last" ).find('.xselect.tiposConstruccion').editable({
                     source: tiposConstruccion
                 });
+
+                $( "tbody.tcons > tr:last" ).find('.xselect.techos').editable({
+                    source: fnCategorias
+                });
                 $( "tbody.tcons > tr:last" ).find('.xselect.pisos').editable({
-                    source: pisos
+                    source: fnCategorias
                 });
                 $( "tbody.tcons > tr:last" ).find('.xselect.muros').editable({
-                    source: muros
-                });
-                $( "tbody.tcons > tr:last" ).find('.xselect.ventanas').editable({
-                    source: ventanas
+                    source: fnCategorias
                 });
                 $( "tbody.tcons > tr:last" ).find('.xselect.puertas').editable({
-                    source: puertas
+                    source: fnCategorias
                 });
                 $( "tbody.tcons > tr:last" ).find('.xselect.electricas').editable({
-                    source: electricas
+                    source: fnCategorias
                 });
                 $( "tbody.tcons > tr:last" ).find('.xselect.hidraulicas').editable({
-                    source: hidraulicas
+                    source: fnCategorias
                 });
                 $( "tbody.tcons > tr:last" ).find('.xselect.sanitarias').editable({
-                    source: sanitarias
+                    source: fnCategorias
                 });
                 $( "tbody.tcons > tr:last" ).find('.antiguedad').editable({
                     validate: validaEnteroPositivo
@@ -238,7 +331,7 @@
                 });
 
                 //Boton borrar construccion, si solo queda un registro en la tabla no lo elimina sino que lo limpia.
-                $( "tbody.tcons > tr:last" ).find('.borrar-construccion').click(function(ev){
+                $( "tbody.tcons > tr:last > td:last > button" ).on('click',function(ev){
                     ev.preventDefault();
                     var pk = $(this).data('pk');
                     var bloque_id = $(this).closest('tr').find('.bloque-id').text();
@@ -254,6 +347,7 @@
                     $('#datos-construccion').trigger('bloque-borrado',[pk]);
                     return false;
                 });
+
             }
 
             //Editable de la superficie de albercas

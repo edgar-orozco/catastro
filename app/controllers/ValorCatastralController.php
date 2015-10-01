@@ -42,6 +42,7 @@ class ValorCatastralController extends \BaseController
             '6' => 'PASTIZALES',
             '7' => 'DEPARTAMENTO EN CONDOMINIO',
             '8' => 'OFICINAS DE SERVICIOS',
+            '9' => 'CASA HABITACIÓN',
         ];
 $usoSueloList = [];
         $usoPredio = [
@@ -71,42 +72,48 @@ $usoSueloList = [];
         $serviciosPublicos = tiposervicios::orderBy('descripcion')->remember(120)->lists('descripcion', 'id_tiposervicio');
 
         $tiposConstruccion = [
-            '1'=>'ANTIGUAS',
-            '2'=>'MODERNAS',
-            '3'=>'EDIFICIOS MODERNOS',
-            '4'=>'CONSTRUCCIONES ESPECIALES',
-            '5'=>'EDIFICIOS DE CONSTRUCCIONES ESPECIALES',
+            '01'=>'ANTIGUAS',
+            '02'=>'MODERNAS',
+            '03'=>'EDIFICIOS MODERNOS',
+            '04'=>'CONSTRUCCIONES ESPECIALES',
+            '05'=>'EDIFICIOS DE CONSTRUCCIONES ESPECIALES',
         ];
+
+        $categoriasConstruccion = [
+            '01' => [  //Antiguas
+                '01' => 'ECONÓMICA',
+                '02' => 'MEDIO',
+                '03' => 'SUPERIOR',
+            ],
+            '02' => [ //Modernas
+                '04' => 'INTERÉS SOCIAL',
+                '05' => 'POPULAR',
+                '06' => 'MEDIO',
+                '07' => 'BUENO',
+                '08' => 'SUPERIOR',
+            ],
+            '03' => [ //Edificios modernos
+                '09' => 'INTERÉS SOCIAL',
+                '10' => 'MEDIO',
+                '11' => 'SUPERIOR',
+            ],
+            '04' => [ //Edificios construcciones especiales
+                '12' => 'CORRIENTE',
+                '13' => 'MEDIO',
+                '14' => 'BUENO',
+            ],
+            '05' => [ //Edificio construcciones especiales
+                '15' => 'MEDIO',
+                '16' => 'BUENO',
+            ]
+        ];
+
+
         $t = array();
         foreach($tiposConstruccion as $k => $v){
             $t[] = ['value'=>$k, 'text'=>$v];
         }
         $tiposConstruccion = $t;
-
-        $techos = [
-            '1'=>'INTERÉS SOCIAL',
-            '2'=>'POPULAR',
-            '3'=>'MEDIO',
-            '4'=>'BUENO',
-            '5'=>'SUPERIOR',
-        ];
-
-        $t = array();
-        foreach($techos as $k => $v){
-            $t[] = ['value'=>$k, 'text'=>$v];
-        }
-        $techos = $t;
-
-        $muros = $techos;
-
-        $pisos = $techos;
-
-        $puertas = $techos;
-        $ventanas = $puertas;
-       $hidraulicas = $techos;
-        $electricas = $hidraulicas;
-        $sanitarias = $hidraulicas;
-
 
         $edosConstruccion = [
           '1'=>'BUENO',
@@ -126,12 +133,38 @@ $usoSueloList = [];
             '3'=>'COMERCIAL ALTA',
         ];
 
+        $municipio = '014';
+        //$municipio = '008';
+
+        $elementosConstruccion = [
+            'techos'=>'03',
+            'muros'=>'04',
+            'pisos'=>'17',
+            'puertas'=>'09',
+            'hidraulicas'=>'05',
+            'electricas'=>'07',
+            'sanitarias'=>'06',
+        ];
+
+        $oVC = ValorConstruccion::where('municipio',$municipio)->get();
+        $valoresConstruccion = [];
+        foreach($oVC as $vc){
+            $valoresConstruccion[$vc->municipio][$vc->tipo_construccion][$vc->categoria][$vc->elemento] = [
+              '1'=>$vc->factor1,
+              '2'=>$vc->factor2,
+              '3'=>$vc->factor3,
+            ];
+        }
+
         $vars = [
           'title','title_section', 'subtitle_section',
-          'usoSuelo', 'serviciosPublicos','incEsquina',
-          'techos', 'muros', 'pisos', 'puertas', 'ventanas', 'hidraulicas', 'electricas', 'sanitarias', 'instEspeciales',
-          'edosConstruccion', 'usosConstruccion', 'tiposConstruccion',
+          'usoSuelo', 'serviciosPublicos','incEsquina','municipio',
+//          'techos', 'muros', 'pisos', 'puertas', 'ventanas', 'hidraulicas', 'electricas', 'sanitarias', 'instEspeciales',
+          'edosConstruccion', 'usosConstruccion', 'tiposConstruccion', 'categoriasConstruccion', 'valoresConstruccion',
+            'elementosConstruccion'
         ];
+
+
 
         return compact($vars);
 

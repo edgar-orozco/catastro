@@ -3,20 +3,21 @@
         <thead>
         <tr>
             <th rowspan="2">Bloque</th>
-            <th rowspan="2">Superficie de construcción (m<sup>2</sup>)</th>
+            <th rowspan="2">Superficie</th>
+            <th rowspan="2">Niveles</th>
+            <th rowspan="2">Estado conservación</th>
             <th rowspan="2">Tipo de construcción</th>
-            <th colspan="8">Características de la construcción</th>
-            <th rowspan="2">Año construcción</th>
-            <th rowspan="2">Edo. Cons.</th>
+            <th colspan="7">Características de la construcción</th>
             <th rowspan="2">Terminación (%)</th>
-            <th rowspan="2">No. Niveles</th>
+            <th rowspan="2">Año construcción</th>
+            <th rowspan="2">Categoría</th>
+            <th rowspan="2">Valor/m<sup>2</sup></th>
         </tr>
         <tr>
+            <th>Piso</th>
             <th>Techo</th>
             <th>Muro</th>
-            <th>Piso</th>
-            <th>Puertas</th>
-            <th>Ventanas</th>
+            <th>Puertas / Ventanas</th>
             <th>Inst. Hid.</th>
             <th>Inst. Sanit.</th>
             <th>Inst. Elec.</th>
@@ -33,6 +34,26 @@
                    data-name="sup_construccion"
                    data-title="Click para ingresar un valor"></a>
             </td>
+
+            <td>
+                <a href="javascript:void(0);"
+                   class="editable niveles"
+                   data-type="text"
+                   data-pk="1"
+                   data-name="num_niveles"
+                   data-title="Ingrese el número de niveles"></a>
+            </td>
+
+            <td>
+                <a href="javascript:void(0);"
+                   class="xselect edosConstruccion editable"
+                   data-type="select"
+                   data-pk="1"
+                   data-name="edo_construccion"
+                   data-title="Click para ingresar un valor"></a>
+
+            </td>
+
             <td>
 
                 <a href="javascript:void(0);"
@@ -44,6 +65,17 @@
                    data-title="Click para ingresar un valor"></a>
 
             </td>
+
+            <td>
+                <a href="javascript:void(0);"
+                   class="xselect pisos editable"
+                   data-type="select"
+                   data-pk="1"
+                   data-name="pisos"
+                   data-title="Click para ingresar un valor"></a>
+
+            </td>
+
             <td>
                 <a href="javascript:void(0);"
                    class="xselect techos editable"
@@ -63,27 +95,10 @@
             </td>
             <td>
                 <a href="javascript:void(0);"
-                   class="xselect pisos editable"
-                   data-type="select"
-                   data-pk="1"
-                   data-name="pisos"
-                   data-title="Click para ingresar un valor"></a>
-
-            </td>
-            <td>
-                <a href="javascript:void(0);"
                    class="xselect puertas editable"
                    data-type="select"
                    data-pk="1"
                    data-name="puertas"
-                   data-title="Click para ingresar un valor"></a>
-            </td>
-            <td>
-                <a href="javascript:void(0);"
-                   class="xselect ventanas editable"
-                   data-type="select"
-                   data-pk="1"
-                   data-name="ventanas"
                    data-title="Click para ingresar un valor"></a>
             </td>
             <td>
@@ -93,16 +108,6 @@
                    data-pk="1"
                    data-name="hidraulicas"
                    data-title="Click para ingresar un valor"></a>
-
-            </td>
-            <td>
-                <a href="javascript:void(0);"
-                   class="xselect electricas editable"
-                   data-type="select"
-                   data-pk="1"
-                   data-name="electricas"
-                   data-title="Click para ingresar un valor"></a>
-
             </td>
             <td>
                 <a href="javascript:void(0);"
@@ -112,21 +117,13 @@
                    data-name="sanitarias"
                    data-title="Click para ingresar un valor"></a>
             </td>
-            <td>
-                <a href="javascript:void(0);"
-                   class="editable antiguedad"
-                   data-type="text"
-                   data-pk="1"
-                   data-name="antiguedad"
-                   data-title="Ingrese la antigüedad en años"></a>
 
-            </td>
             <td>
                 <a href="javascript:void(0);"
-                   class="xselect edosConstruccion editable"
+                   class="xselect electricas editable"
                    data-type="select"
                    data-pk="1"
-                   data-name="edo_construccion"
+                   data-name="electricas"
                    data-title="Click para ingresar un valor"></a>
 
             </td>
@@ -139,16 +136,22 @@
                    data-title="Ingrese el porcentaje de avance"></a>
 
             </td>
+
             <td>
                 <a href="javascript:void(0);"
-                   class="editable niveles"
+                   class="editable antiguedad"
                    data-type="text"
                    data-pk="1"
-                   data-name="num_niveles"
-                   data-title="Ingrese el número de niveles"></a>
+                   data-name="antiguedad"
+                   data-title="Ingrese la antigüedad en años"></a>
+
+            </td>
+            <td class="categoria">
+            </td>
+            <td class="val-categoria">
             </td>
             <td>
-                <button class="btn btn-warning pull-right borrar-construccion" data-pk="1" title="Eliminar bloque de construcción"><i class="glyphicon glyphicon-trash"></i></button>
+                <button type="button" class="btn btn-warning pull-right borrar-construccion" data-pk="1" title="Eliminar bloque de construcción"><i class="glyphicon glyphicon-trash"></i></button>
             </td>
         </tr>
         </tbody>
@@ -167,7 +170,7 @@
             </td>
 
             <td colspan="15">
-                <button class="btn btn-success pull-right agregar-construccion"><i class="glyphicon glyphicon-plus-sign"></i>&nbsp; Agregar bloque de construcción</button>
+                <button type="button" class="btn btn-success pull-right agregar-construccion"><i class="glyphicon glyphicon-plus-sign"></i>&nbsp; Agregar bloque de construcción</button>
             </td>
         </tr>
         <tr>

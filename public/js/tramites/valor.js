@@ -6,19 +6,24 @@ var valCalle, valPredio, valCatastral, valUnitario, valAjustado, valTerreno;
 
 var demFrente, demProf, demIrreg, demExc, demDniv, demPredIn, incEsquina;
 
-var demConstruccionConservacion, demConstruccionEdad;
+var demConstruccionConservacion, demConstruccionEdad, demConstruccionTerminado;
 
 var incRusticoViasCom, incRusticoDisCabecera, incRusticoCentroPob;
 
-var actualizaValores;
+var actualizaValores, calculaValorConstrucciones, calculaDemeritosConstrucciones;
 
 //Fija numeros con dos decimales.
-var fixed = function(num){return parseFloat(Math.round(num * 100) / 100).toFixed(2);}
+var fixed = function(num){return Highcharts.numberFormat(num, 2, '.', ',');}
 
 $(function () {
 
     //Cuando se aprieta este boton se actualizan los valores.
-    $("#btn-actualizar-valor").on('click',function(e){e.preventDefault(); actualizaValores(); return false;})
+    $("#btn-actualizar-valor").on('click',function(e){
+        e.preventDefault();
+        actualizaValores();
+
+        return false;
+    });
 
 
     valTerreno = function(valCalle, supPredio){
@@ -93,19 +98,45 @@ $(function () {
         var incrementosTerreno = incPredio * valorTerreno;
         var valorAjustadoTerreno = valorTerreno - demeritosTerreno + incrementosTerreno;
 
-
-
-        var valorAjustadoConstruccion = 0;
+        var valorConstrucciones = calculaValorConstrucciones();
+        var demeritosConstrucciones = calculaDemeritosConstrucciones();
+        var valorAjustadoConstruccion = valorConstrucciones - demeritosConstrucciones;
 
         $('.valor-terreno').text(fixed(valorTerreno));
         $('.dem-terreno').text(fixed(demeritosTerreno));
         $('.inc-terreno').text(fixed(incrementosTerreno));
 
+        $('.valor-construccion').text(fixed(valorConstrucciones));
+        $('.dem-construccion').text(fixed(demeritosConstrucciones));
+        $('.inc-construccion').text(fixed(0));
+
         $('.vajust-terreno').text(fixed(valorAjustadoTerreno));
+        $('.vajust-construccion').text(fixed(valorAjustadoConstruccion));
         $('.valor-catastral').text(fixed(valorAjustadoTerreno + valorAjustadoConstruccion));
 
     }
 
+    calculaValorConstrucciones = function(){
+        var valorConstrucciones = 0;
+        for(i in registrosConstrucciones.construcciones){
+            if(i !== 'sup_albercas') {
+                valorConstrucciones += Number(valuaBloqueConstruccion(i, municipio));
+            }
+        }
+        return valorConstrucciones;
+    }
+
+    calculaDemeritosConstrucciones = function () {
+        var demConstrucciones = 0;
+        for(i in registrosConstrucciones.construcciones){
+            if(i !== 'sup_albercas') {
+                console.log("Dem B %s => %s x %s",i,valuaBloqueConstruccion(i, municipio), demBloquesConstruccion(i));
+                demConstrucciones += Number(valuaBloqueConstruccion(i, municipio)) * demBloquesConstruccion(i);
+            }
+        }
+        return demConstrucciones;
+
+    }
 
 //Deméritos
 
@@ -254,7 +285,7 @@ $(function () {
     demConstruccionEdad = function(anioCons, anioHoy){
         if(!anioHoy || !anioCons) return 0;
         var edad = anioHoy - anioCons;
-        if(!edad) return 1;
+        if(!edad) return 0;
         var pctDem = 0;
         var coef = 1;
         if(edad <= 10){
@@ -262,20 +293,34 @@ $(function () {
             coef = 1;
         }
         if(10 < edad && edad <= 20){
-            pctDem = 10;
+            pctDem = 0.1;
             coef = 0.9;
         }
         if(20 < edad && edad <= 30){
-            pctDem = 20;
+            pctDem = 0.20;
             coef = 0.8;
         }
         if(30 < edad){
-            pctDem = 50;
+            pctDem = 0.50;
             coef = 0.5;
+        }
+        return pctDem;
+    }
+
+    demConstruccionTerminado = function(pct){
+        if(!pct) return 0;
+        var coef = 0;
+        if(pct == 100){
+            coef = 0;
+        }
+        if(80 <= pct && pct < 100){
+            coef = 0.2;
+        }
+        if(0 < pct && pct < 80){
+            coef = 0.4;
         }
         return coef;
     }
-
 
     /////////////////////// De los terrenos rústicos
     incRusticoViasCom = function(tipoVia){
