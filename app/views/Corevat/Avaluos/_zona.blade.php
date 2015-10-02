@@ -126,7 +126,7 @@
 	<div class="col-md-6">
 		<label for="cobertura" class="col-sm-3">En un radio de: </label>
 		<div class="col-sm-6">
-			{{Form::text('cobertura', '1000.00', ['class'=>'form-control', 'maxlength'=>'250', 'disabled' => 'disabled'])}}
+			{{Form::number('cobertura', $row->cobertura, ['class'=>'form-control clsNumeric', 'step'=>'0', 'min'=>'0', 'max'=>'999999'])}}
 			{{$errors->first('cobertura', '<span class=text-danger>:message</span>')}}
 		</div>
 		<label class="col-sm-3">metros</label>
@@ -197,12 +197,17 @@
 		
 		$(".nivel_equipamiento").click(function() {
 			var x = 0;
-			var y = 18;
+			var y = 21;
 
+			if ( ($("#is_otro_servicio").is(':checked') && !$("#is_otro_equipamiento").is(':checked')) || (!$("#is_otro_servicio").is(':checked') && $("#is_otro_equipamiento").is(':checked'))) {
+				y = 22;
+			} else if ($("#is_otro_equipamiento").is(':checked') && $("#is_otro_equipamiento").is(':checked')) {
+				y = 23;
+			}
+			
 			if ( $(this).attr('id') === 'is_otro_servicio' ) {
 				if ( $(this).is(':checked' ) ) {
 					$("#otro_servicio_municipal").attr('disabled', false).attr('required', true);
-					y = ( $("#is_otro_equipamiento").is(':checked') ? 20 : 19);
 				} else {
 					$("#otro_servicio_municipal").attr('disabled', true).attr('required', false).val('');
 				}
@@ -211,7 +216,6 @@
 			if ( $(this).attr('id') === 'is_otro_equipamiento' ) {
 				if ( $(this).is(':checked' ) ) {
 					$("#otro_equipamiento").attr('disabled', false).attr('required', true);
-					y = ( $("#is_otro_servicio").is(':checked') ? 20 : 19);
 				} else {
 					$("#otro_equipamiento").attr('disabled', true).attr('required', false).val('');
 				}

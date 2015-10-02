@@ -6,8 +6,8 @@
 	<div class="col-md-10 col-sm-10 col-xs-10"><h4>Terreno</h4></div>
     <div class="col-md-2 col-sm-2 col-xs-2 btn-beside-title">
         <a class="btn btn-primary nuevo" id="btnNewAefTerr" title="Nuevo Registro">
-            <span class="glyphicon glyphicon-plus-sign"></span>
-            Nuevo</a>
+            <span class="glyphicon glyphicon-plus-sign"></span>Nuevo
+		</a>
     </div>
 	<div class="col-md-12">
 		<table cellpadding="0" cellspacing="0" border="0" class="table datatable table-striped" id="aefTerrenosDataTable">

@@ -29,6 +29,7 @@ class corevat_AvaluosZonaController extends \BaseController {
 	 */
 	public function update($id) {
 		$inputs = Input::All();
+		$inputs["cobertura"] = (int) $inputs["cobertura"];
 		$inputs["hidden_nivel_equipamiento"] = number_format((float) $inputs['hidden_nivel_equipamiento'], 2, '.', '');
 		$inputs["updated_at"] = Carbon::now()->format('Y-m-d H:i:s');
 		AvaluosZona::updAvaluosZona($id, $inputs);

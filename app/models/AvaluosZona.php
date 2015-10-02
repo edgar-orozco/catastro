@@ -63,8 +63,7 @@ class AvaluosZona extends \Eloquent {
 
 		$row->calles_transversales = $inputs["calles_transversales"];
 		//
-		//$row->cobertura = $inputs["cobertura"];
-		$row->cobertura = '1000.00';
+		$row->cobertura = $inputs["cobertura"];
 		$row->otro_equipamiento = isset($inputs["otro_equipamiento"]) ? $inputs["otro_equipamiento"] : '';
 		$row->idclasificacionzona = $inputs["idclasificacionzona"];
 		$row->idproximidadurbana = $inputs["idproximidadurbana"];

@@ -120,7 +120,7 @@
 
 	<div class="col-md-5">
 		{{Form::label('numero_niveles_unidad', 'Número de niveles de la Unidad')}}
-		{{Form::select('numero_niveles_unidad', $cat_niveles, $row->numero_niveles_unidad, ['id' => 'numero_niveles_unidad', 'class'=>'form-control'])}}
+		{{Form::number('numero_niveles_unidad', $row->numero_niveles_unidad, ['class'=>'form-control', 'step'=>'1', 'min' => '0', 'max' => '99'] )}}
 	</div>
 	<div class="col-md-2"></div>
 	<div class="col-md-5">
