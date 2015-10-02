@@ -10,7 +10,11 @@
     <div class="tab-content">
         <div role="tabpanel" class="tab-pane active" id="datos-valuar-terreno">
             <br/>
-            @include('tramites.valor._form_valuar_terreno', [] )
+            @if($tipo_predio == '')
+                @include('tramites.valor._form_valuar_terreno', [] )
+            @else
+                @include('tramites.valor._form_valuar_terreno_rustico', [] )
+            @endif
         </div>
         <div role="tabpanel" class="tab-pane" id="datos-valuar-construccion">
             <br/>
@@ -51,6 +55,7 @@
 
         var edosConstruccion = {{json_encode((array)$edosConstruccion)}};
         var tiposConstruccion = {{json_encode((array)$tiposConstruccion)}};
+        var tipoTerreno = '{{$tipo_predio}}'; //Tipo de predio rústico o urbano
         var elementosConstruccion = {{json_encode((array)$elementosConstruccion)}};
         var anioActual = {{date("Y")}};
         var setEditables = null;

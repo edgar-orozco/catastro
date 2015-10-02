@@ -18,11 +18,9 @@
             {{Form::select('usosuelo_id', [null => '']+$usoSuelo, null, ['class'=>'form-control select2 select-usosuelo_id'] )}}
             {{$errors->first('usosuelo_id', '<span class=text-danger>:message</span>')}}
         </div>
-
-
     </div>
 
-    <div class="col-md-6">
+    <div class=" col-md-offset-2 col-md-6">
         <fieldset><legend>Incrementos por su ubicación con respecto a:</legend>
 
             <div class="form-group">
@@ -36,6 +34,7 @@
                 {{Form::select('inc_dist_cabmun', [null => '']+ $distCabmun, null, ['class'=>'form-control select2 select-inc_dist_cabmun'] )}}
                 {{$errors->first('inc_dist_cabmun', '<span class=text-danger>:message</span>')}}
             </div>
+
             <div class="form-group">
                 {{Form::label('inc_dist_cenpob','Centros de población')}}
                 {{Form::select('inc_dist_cenpob', [null => '']+ $distCenpob, null, ['class'=>'form-control select2 select-inc_dist_cenpob'] )}}
