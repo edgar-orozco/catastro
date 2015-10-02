@@ -40,7 +40,8 @@ class FoliosComprados extends Eloquent  {
                 {
                 	$join->where(DB::raw("peritos.corevat||'-'||to_char(folios_comprados.numero_folio, 'FM0999')||folios_comprados.tipo_folio||'-15'"), 'like', "%".ltrim($corevat)."%");
                 }
-        });
+        })
+        ->select('folios_comprados.*', 'peritos.*', 'folios_comprados.id as fc_id');
 
         return $busqueda;
 	}
@@ -53,8 +54,18 @@ class FoliosComprados extends Eloquent  {
 		->whereRaw("EXTRACT(YEAR FROM fecha_autorizacion) = ". $year)
 		->orderBy('numero_folio', 'ASC')
 		->orderBy('fecha_autorizacion', 'DESC')
+		->select('*', 'id as fc_id')
 		->paginate($paginate);
 	}
+
+	static function detallesFC($perito_id, $tipo_folio)
+	{
+		return FoliosComprados::where('perito_id', $perito_id)
+		->where('tipo_folio', $tipo_folio)
+		->orderBy('numero_folio', 'DESC')
+		->first();
+	}
+
 
 }
 

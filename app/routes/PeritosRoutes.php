@@ -69,6 +69,8 @@ Route::group(array('before'=>'Folios'),  function (){
             Route::get('/entregafoliose/rusticos/habilitarm/{id}', 'folios_EntregaFoliosController@desmunicipior');
             Route::get('/entregafoliose/urbanos/habilitarm/{id}', 'folios_EntregaFoliosController@desmunicipiou');
 
+            Route::get('/entregafoliosestatal/tablaAjax/buscar','folios_EntregaFoliosController@buscarFolioEstatal' );
+			Route::get('/entregafoliosestatal/tablaAjax', 'folios_EntregaFoliosController@get_datatablePaginateEstatal');
             //Deshabilitar entrega Estatal
             Route::get('/entregafoliose/rusticos/habilitare/{id}', 'folios_EntregaFoliosController@desestador');
             Route::get('/entregafoliose/urbanos/habilitare/{id}', 'folios_EntregaFoliosController@desestadou');
@@ -106,6 +108,8 @@ Route::group(array('before'=>'Folios usuario'),  function (){
 			Route::get('/entregafoliose/rusticos/{id}', 'folios_EntregaFoliosController@get_rusticose');
 			Route::post('/entregafoliose/urbanos/{id}', 'folios_EntregaFoliosController@post_foliose');
 			Route::post('/entregafoliose/rusticos/{xid}', 'folios_EntregaFoliosController@post_foliose');
+			Route::get('/entregafoliosestatal/tablaAjax/buscar','folios_EntregaFoliosController@buscarFolioEstatal' );
+			Route::get('/entregafoliosestatal/tablaAjax', 'folios_EntregaFoliosController@get_datatablePaginateEstatal');
 
 			//Deshabilitar entrega municipal
             Route::get('/entregafoliose/rusticos/habilitarm/{id}', 'folios_EntregaFoliosController@desmunicipior');
