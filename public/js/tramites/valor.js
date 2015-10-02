@@ -2,7 +2,7 @@
  * Reglas de negocio del valor catastral
  */
 
-var valCalle, valPredio, valCatastral, valUnitario, valAjustado, valTerreno;
+var valCalle, valPredio, valCatastral, valUnitario, valAjustado, valTerreno, valSueloRustico;
 
 var demFrente, demProf, demIrreg, demExc, demDniv, demPredIn, incEsquina;
 
@@ -57,6 +57,16 @@ $(function () {
         var parDesnivelArea = $('#dem_desnivel_area').val();
         var parDesnivelPct = $('#dem_desnivel_pct').val();
 
+        //Si el terreno es rústico entonces leemos datos de la forma
+        var demPctRustico, incViasId, incDistCabmunId, incDistCenpobId;
+
+        if(tipoTerreno == 'R') {
+            demPctRustico = $('#dem_pct_rustico').val();
+            incViasId = $('#inc_vias_rustico').val();
+            incDistCabmunId = $('#inc_dist_cabmun').val();
+            incDistCenpobId = $('#inc_dist_cenpob').val();
+        }
+
         //TODO: ver que onda con este que se calcula muy diferente en el manual. En el manual no se solicita sup del paso de serv
         var demSupPasoServidumbre = $('#sup_paso_servidumbre').val();
 
@@ -84,12 +94,7 @@ $(function () {
         var de = demExc(parProfExcavada)  * parSupExcavada;
         var dd = demDniv(parDesnivelPct) * parDesnivelArea;
 
-
-
-
         var demTerreno = supPredio * demCompuesto + de + dd;
-
-        //dems.push( demPredIn(parDesnivelArea) );
 
         var incPredio = incEsquina(incEsquinaId);
 
@@ -101,6 +106,36 @@ $(function () {
         var valorConstrucciones = calculaValorConstrucciones();
         var demeritosConstrucciones = calculaDemeritosConstrucciones();
         var valorAjustadoConstruccion = valorConstrucciones - demeritosConstrucciones;
+
+
+        if(tipoTerreno == 'R'){
+            var incCompuesto = [];
+
+            valorTerreno = valSueloRustico(supPredio) * supPredio;
+            if(valorTerreno == 0) valorTerreno = 2500;
+
+            demeritosTerreno = demPctRustico * valorTerreno;
+
+            incCompuesto.push(incRusticoCentroPob(incDistCenpobId));
+            incCompuesto.push(incRusticoDisCabecera(incDistCabmunId));
+            incCompuesto.push(incRusticoViasCom(incViasId));
+
+            console.log("IncRusCP: %s IncRusDC: %s IncRusVC: %s", incRusticoCentroPob(incDistCenpobId), incRusticoDisCabecera(incDistCabmunId), incRusticoViasCom(incViasId));
+
+            var incrementos = 0;
+            for(i in incCompuesto){
+                if(incCompuesto[i] && incrementos == 0) incrementos = incCompuesto[i];
+                else if(incCompuesto[i] && incrementos != 0 ) incrementos += incCompuesto[i];
+            }
+
+            if(incrementos > 0.3) incrementos = 0.3;
+
+            incrementosTerreno = valorTerreno * incrementos;
+            console.log("IncRustico = %s * %s = %s", valorTerreno, incrementos, incrementosTerreno);
+            valorAjustadoTerreno = valorTerreno - demeritosTerreno + incrementosTerreno;
+
+        }
+
 
         $('.valor-terreno').text(fixed(valorTerreno));
         $('.dem-terreno').text(fixed(demeritosTerreno));
@@ -323,6 +358,7 @@ $(function () {
     }
 
     /////////////////////// De los terrenos rústicos
+
     incRusticoViasCom = function(tipoVia){
         if(!tipoVia) return 0;
         //Carretera pavimentada
@@ -366,6 +402,23 @@ $(function () {
     }
 
 
+    /**
+     * Determina el valor de suelo rústico
+     * Estas reglas salen de un documento llamado Tabla de Valores para predios rústicos
+     * Emitida por la Secretaría de Administración y Finanzas, Subsecretaría de Ingresos, Dirección de Catastro de Tabasco.
+     * @param m
+     * @returns {number}
+     */
+    valSueloRustico = function(m){
+
+        if(!m) return 0;
+        if( 0 < m && m <= 5000) return 0;
+        if( 5000 < m && m <= 50000) return 0.5;
+        if( 50000 < m && m <= 100000) return 0.4;
+        if( 100000 < m && m <= 150000) return 0.3;
+        if( 150000 < m && m <= 250000) return 0.2;
+        if( 250000 < m ) return 0.1;
+    }
 
 
 });
