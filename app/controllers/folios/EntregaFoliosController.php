@@ -12,10 +12,9 @@ class folios_EntregaFoliosController extends BaseController {
 
 		$perito = Perito::find($id);
 
-		$fu = FoliosComprados::where('perito_id', $perito->id)
-		->where('tipo_folio', 'U')
-		->orderBy('numero_folio', 'DESC')
-		->first();
+		$fu = FoliosComprados::detallesFC($perito->id, 'U');
+
+		$fr = FoliosComprados::detallesFC($perito->id, 'R');
 
 		$fr = FoliosComprados::where('perito_id', $perito->id)
 		->where('tipo_folio', 'R')
@@ -69,6 +68,10 @@ class folios_EntregaFoliosController extends BaseController {
 	}
 
 	public function get_rusticose($id = null){ //muestra todos los folios Rusticos del perito especificado
+		
+
+
+		$paginate = Input::get('pagina', '15');
 		if(Input::get('year'))
 		{
 			$YEAR = Input::get('year');
@@ -78,19 +81,33 @@ class folios_EntregaFoliosController extends BaseController {
 			$YEAR = date('Y');
 		}
 
+		$selectYear = ['' => '--seleccione un año--'] + FoliosComprados::distinct()->select(DB::raw("date_part('year', fecha_autorizacion) as year"))->orderBy('year', 'DESC')->lists('year', 'year');
+		
+
 		$perito = Perito::find($id);
 
-		$selectYear = ['' => '--seleccione un año--'] + FoliosComprados::distinct()->select(DB::raw("date_part('year', fecha_autorizacion) as year"))->where('perito_id', $perito->id)->orderBy('year', 'DESC')->lists('year', 'year');
-		
-		$fr = FoliosComprados::where('perito_id', $perito->id)
-		->where('tipo_folio', 'R')
-		->whereRaw("EXTRACT(YEAR FROM fecha_autorizacion) = ". $YEAR)
-		->get();
-
+		$fr = FoliosComprados::getEntregaM($id,'R',$YEAR,$paginate);
 		return View::make('folios.entregafoliose.rusticos', ['selectYear' => $selectYear])
 		->withFr($fr)
 		->withPerito($perito);
 	}
+
+	public function get_datatablePaginateEstatal()
+    {
+        $id = Input::get('id');
+        $tipo_folio = Input::get('tipo_folio');
+        $perito = Perito::find($id);
+        $paginate = Input::get('pagina', '15');
+
+        $fr = FoliosComprados::getEntregaM($id, $tipo_folio, null, $paginate);
+
+
+        return View::make('folios.entregafoliose.tablaAjax')
+        ->withFr($fr)
+        ->withPerito($perito)
+        ->render();
+
+    }
 
 	public function post_foliose($id){ //marca los folios utilizados por los peritos
 
@@ -239,7 +256,23 @@ class folios_EntregaFoliosController extends BaseController {
 
     }
 
-	public function buscarFolio()
+	public function buscarFolioEstatal()
+	{
+		$paginate = Input::get('pagina', '15');
+		$corevat =  strtoupper(Input::get('buscar'));
+        $id_perito = Input::get('id');
+        $tipo_folio = Input::get('tipo_folio');
+
+        $fr = FoliosComprados::buscarCorevat($corevat, $id_perito, $tipo_folio)
+        ->orderBy('numero_folio', 'ASC')
+		->orderBy('fecha_autorizacion', 'DESC')
+        ->paginate($paginate);
+
+        return View::make('folios.entregafoliose.tablaAjax')
+        ->withFr($fr);
+	}
+
+		public function buscarFolio()
 	{
 		$paginate = Input::get('pagina', '15');
 		$corevat =  strtoupper(Input::get('buscar'));

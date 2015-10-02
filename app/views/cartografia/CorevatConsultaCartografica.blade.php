@@ -49,7 +49,7 @@
 
         PM.layerAutoRefresh = 1;
         PM.tbThm = 'default';
-        PM.activeLayer = ['manzanas','predios','construcciones','entidades','municipios','localidades','carreteras','calles','rios','hipsografico',"predio_ubicado_1"];
+        PM.activeLayer = ['manzanas','predios','construcciones','entidades','municipios','localidades','carreteras','calles','rios','hipsografico','predio_ubicado_1','orange','green','blue','cafe','pink'];
         // PM.activeLayer = ['predios'];
 
         // Query layers: modify query results in js
@@ -148,6 +148,7 @@
 <div class="ui-layout-root" id="uiLayoutRoot" style="position: absolute; top: 76px; bottom: 10px; left: 10px; right: 10px;">
     
 <div class="ui-layout-north-west" id="uiLayoutNorthWest" style="position: absolute; top: 0px; height: 32px; width: 220px; margin-bottom: 6px; margin-right: 6px;">
+Avalúos según Valor Concluido
 </div>
 
     <div class="ui-layout-north" id="uiLayoutNorth" style="position: absolute; top: 0px; height: 32px; margin-bottom: 6px; right: -1px; left: 228px;">
@@ -185,11 +186,63 @@
                 <input type="submit" value="Buscar" >
               </form>
  -->
-            <ul>
-                <li><a href="#" id="getT-2-008" class="getT">Predios con Avalúo en Huimanguillo (Alfa)</a></li>
-            </ul>
+            <span></span>
+            <div class="panel panel-default">
+                  <div class="panel-body">
 
+                      <ul class="list-group"> 
+                        <li class="list-group-item">
+                            <label>
+                                <input class="chk0" id="0=chk=0-1000=008" type="checkbox">
+                                <span style="color:#E465CC;">0 - 1M</span>
+                            </label>
+                        </li>
 
+                        <li class="list-group-item">
+                            <label>
+                                <input class="chk0" id="1=chk=1001-2000=008" type="checkbox">
+                                 <span style="color:#DD672E;">1M - 2M</span>
+                            </label>
+                        </li>
+
+                        <li class="list-group-item">
+                            <label>
+                                <input class="chk0" id="2=chk=2001-3000=008" type="checkbox">
+                                <span style="color:#2D9449;">2M - 3M</span>
+                            </label>
+                        </li>
+
+                        <li class="list-group-item">
+                            <label>
+                                <input class="chk0" id="3=chk=3001-4000=008" type="checkbox">
+                                <span style="color:#329CD4;">3M - 4M</span>
+                            </label>
+                        </li class="list-group-item">
+
+                        <li class="list-group-item">
+                            <label>
+                                <input class="chk0" id="4=chk=4001-5000=008" type="checkbox">
+                                <span style="color:#C82323;">4M - 5M</span>
+                            </label>
+                        </li>
+
+                        <li class="list-group-item">
+                            <label>
+                                <input class="chk0" id="5=chk=5001-6000=008" type="checkbox">
+                                <span style="color:#9C6868;">5M - 6M</span>
+                            </label>
+                        </li>
+
+                    </ul>
+
+                    <div class="list-group">
+                        <button type="button" class="btn btn-default btn-xs center pull-right list-group-item" id='getT'>Filtrar</button>
+                    </div>
+
+                    
+              </div>
+
+            </div>
         </div>
                     
         <!-- Reference Map -->

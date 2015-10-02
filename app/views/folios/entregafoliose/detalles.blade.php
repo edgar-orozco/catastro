@@ -72,7 +72,7 @@
 			<th>Rustico</th>
 			@endif
 			<td align="center">{{$e->entrega}}</td>
-			<td align="center">{{$e->fecha}}</td>
+			<td align="center">{{FechasHelper::fechaFC($e->fecha)}}</td>
 		</tr>
 		@endforeach
 </table>
@@ -95,8 +95,8 @@
 			<tbody>
 				@foreach($fh as $h)
 				<tr>
-					<td>{{$h->fecha_solicitud}}</td>
-					<td>{{$h->fecha_oficio}}</td>
+					<td>{{FechasHelper::fechaFC($h->fecha_solicitud)}}</td>
+					<td>{{FechasHelper::fechaFC($h->fecha_oficio)}}</td>
 					<td>{{$h->no_recibo}}</td>
 					<td>{{$h->cantidad_urbanos}}</td>
 					<td>{{$h->cantidad_rusticos}}</td>

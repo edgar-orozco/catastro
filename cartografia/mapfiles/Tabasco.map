@@ -485,14 +485,13 @@ LAYER  NAME "predios"
 END  # Layer
 
 
+
 #
 # Start of Layer predio_ubicado_1.shp
 #
 LAYER  NAME "predio_ubicado_1"
   TYPE polygon
   STATUS ON
-  CONNECTIONTYPE postgis
- DATA "geom from predios"
 
   TOLERANCE 3
   TOLERANCEUNITS pixels
@@ -501,31 +500,240 @@ LAYER  NAME "predio_ubicado_1"
     #"init=epsg:4326"
     "+proj=utm +zone=15 +datum=WGS84 +units=m +no_defs"
   END
-  #MINSCALEDENOM 250000
-  MAXSCALEDENOM 7000
+  #MINSCALEDENOM 2500
+  MAXSCALEDENOM 140000
   LABELITEM "clave_catas"
-  LABELMAXSCALE 1000
+  LABELMAXSCALE 7000
   
   CLASS
     Name 'PredioUbicado'
-    COLOR 223 219 212
+    COLOR 223 64 64
     OUTLINECOLOR 0 0 0
 
     LABEL
       POSITION Auto
-      COLOR 0 0 0 
-      OUTLINECOLOR 255 255 255
+      COLOR 255 255 255 
+      OUTLINECOLOR 64 64 64
       BUFFER 5
       TYPE truetype
       #ENCODING "UTF-8"
       FONT vera
-      SIZE 8
-      MAXSIZE 9
-      #SIZE small
+      SIZE 6
+      MAXSIZE 8
+      # SIZE small
     END #Label  
     
   END  # Class
 END  # Layer
+
+
+#
+# Start of Layer orange.shp
+#
+LAYER  NAME "orange"
+  TYPE polygon
+  STATUS ON
+
+  TOLERANCE 3
+  TOLERANCEUNITS pixels
+  TEMPLATE void
+  PROJECTION
+    #"init=epsg:4326"
+    "+proj=utm +zone=15 +datum=WGS84 +units=m +no_defs"
+  END
+  #MINSCALEDENOM 2500
+  MAXSCALEDENOM 140000
+  LABELITEM "clave_catas"
+  LABELMAXSCALE 7000
+  
+  CLASS
+    Name 'orange'
+    COLOR 255 182 72
+    OUTLINECOLOR 0 0 0
+
+    LABEL
+      POSITION Auto
+      COLOR 255 255 255 
+      OUTLINECOLOR 64 64 64
+      BUFFER 5
+      TYPE truetype
+      #ENCODING "UTF-8"
+      FONT vera
+      SIZE 6
+      MAXSIZE 8
+      # SIZE small
+    END #Label  
+    
+  END  # Class
+END  # Layer
+
+
+#
+# Start of Layer orange.shp
+#
+LAYER  NAME "green"
+  TYPE polygon
+  STATUS ON
+
+  TOLERANCE 3
+  TOLERANCEUNITS pixels
+  TEMPLATE void
+  PROJECTION
+    #"init=epsg:4326"
+    "+proj=utm +zone=15 +datum=WGS84 +units=m +no_defs"
+  END
+  #MINSCALEDENOM 2500
+  MAXSCALEDENOM 140000
+  LABELITEM "clave_catas"
+  LABELMAXSCALE 7000
+  
+  CLASS
+    Name 'green'
+    COLOR 166 176 47
+    OUTLINECOLOR 0 0 0
+
+    LABEL
+      POSITION Auto
+      COLOR 255 255 255 
+      OUTLINECOLOR 64 64 64
+      BUFFER 5
+      TYPE truetype
+      #ENCODING "UTF-8"
+      FONT vera
+      SIZE 6
+      MAXSIZE 8
+      # SIZE small
+    END #Label  
+    
+  END  # Class
+END  # Layer
+
+
+#
+# Start of Layer orange.shp
+#
+LAYER  NAME "blue"
+  TYPE polygon
+  STATUS ON
+
+  TOLERANCE 3
+  TOLERANCEUNITS pixels
+  TEMPLATE void
+  PROJECTION
+    #"init=epsg:4326"
+    "+proj=utm +zone=15 +datum=WGS84 +units=m +no_defs"
+  END
+  #MINSCALEDENOM 2500
+  MAXSCALEDENOM 140000
+  LABELITEM "clave_catas"
+  LABELMAXSCALE 7000
+  
+  CLASS
+    Name 'blue'
+    COLOR 95 180 229
+    OUTLINECOLOR 0 0 0
+
+    LABEL
+      POSITION Auto
+      COLOR 255 255 255 
+      OUTLINECOLOR 64 64 64
+      BUFFER 5
+      TYPE truetype
+      #ENCODING "UTF-8"
+      FONT vera
+      SIZE 6
+      MAXSIZE 8
+      # SIZE small
+    END #Label  
+    
+  END  # Class
+END  # Layer
+
+
+
+#
+# Start of Layer orange.shp
+#
+LAYER  NAME "cafe"
+  TYPE polygon
+  STATUS ON
+
+  TOLERANCE 3
+  TOLERANCEUNITS pixels
+  TEMPLATE void
+  PROJECTION
+    #"init=epsg:4326"
+    "+proj=utm +zone=15 +datum=WGS84 +units=m +no_defs"
+  END
+  #MINSCALEDENOM 2500
+  MAXSCALEDENOM 140000
+  LABELITEM "clave_catas"
+  LABELMAXSCALE 7000
+  
+  CLASS
+    Name 'cafe'
+    COLOR 185 125 5
+    OUTLINECOLOR 0 0 0
+
+    LABEL
+      POSITION Auto
+      COLOR 255 255 255 
+      OUTLINECOLOR 64 64 64
+      BUFFER 5
+      TYPE truetype
+      #ENCODING "UTF-8"
+      FONT vera
+      SIZE 6
+      MAXSIZE 8
+      # SIZE small
+    END #Label  
+    
+  END  # Class
+END  # Layer
+
+
+
+
+#
+# Start of Layer orange.shp
+#
+LAYER  NAME "pink"
+  TYPE polygon
+  STATUS ON
+
+  TOLERANCE 3
+  TOLERANCEUNITS pixels
+  TEMPLATE void
+  PROJECTION
+    #"init=epsg:4326"
+    "+proj=utm +zone=15 +datum=WGS84 +units=m +no_defs"
+  END
+  #MINSCALEDENOM 2500
+  MAXSCALEDENOM 140000
+  LABELITEM "clave_catas"
+  LABELMAXSCALE 7000
+  
+  CLASS
+    Name 'pink'
+    COLOR 245 177 204
+    OUTLINECOLOR 0 0 0
+
+    LABEL
+      POSITION Auto
+      COLOR 255 255 255 
+      OUTLINECOLOR 64 64 64
+      BUFFER 5
+      TYPE truetype
+      #ENCODING "UTF-8"
+      FONT vera
+      SIZE 6
+      MAXSIZE 8
+      # SIZE small
+    END #Label  
+    
+  END  # Class
+END  # Layer
+
 
 
 

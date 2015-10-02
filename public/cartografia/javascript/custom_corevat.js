@@ -98,15 +98,21 @@ $(document).ready(function() {
 
 
 
-    $(".getT").click(function(event){
+    $("#getT").click(function(event){
+        var ids = '';
+        var ars = '';
+        var mun = '008';
+         $('input[type=checkbox]').each(function () {
+            if (this.checked) {
+                var ar = this.id.split('=');
+                ids += ids == '' ? ar[0] : ','+ar[0];
+                ars += ars == '' ? ar[2] : ','+ar[2];
+                mun = ar[3];
+            }
+        });
 
-        var arId = event.currentTarget.id.split('-');      
-        var type = arId[1];
-        var mun = arId[2];
-        // var tagselect = '';
-        // var inputext = $("#ClaveCatastral").val();            
         var mapurl = PM_XAJAX_LOCATION + 'consultaalfacorevat';
-        var variables = [type,mun];
+        var variables = [ids,ars,mun];
         var data = {
             "query":'Clave',
             "mode":"map",

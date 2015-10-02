@@ -1,0 +1,320 @@
+1	01	01	2015-09-30	2015-09-30	Mampostería de Block o Ladrillo
+2	01	02	2015-09-30	2015-09-30	Muros de Mamposteria de Piedra Bola
+3	01	03	2015-09-30	2015-09-30	Bóveda Catalana A Base de Vigas de Madera, Cubiertas de Teja o Tarima Sobre Vigas
+4	01	04	2015-09-30	2015-09-30	Lámina, Cartón o Material Endeble
+5	01	05	2015-09-30	2015-09-30	Tubería de Poliducto sin Tinaco
+6	01	06	2015-09-30	2015-09-30	W.C. y Lavabo sin Servicio de Agua
+7	01	07	2015-09-30	2015-09-30	Visible
+8	01	08	2015-09-30	2015-09-30	
+9	01	09	2015-09-30	2015-09-30	Madera Rústica
+10	01	10	2015-09-30	2015-09-30	
+11	01	11	2015-09-30	2015-09-30	
+12	01	12	2015-09-30	2015-09-30	Estructurales sin Anticorrosivo
+13	01	13	2015-09-30	2015-09-30	Estructurales sin Anticorrosivo
+14	01	14	2015-09-30	2015-09-30	Lisas con Pilastras
+15	01	15	2015-09-30	2015-09-30	Sin Aplanar
+16	01	16	2015-09-30	2015-09-30	Cemento Rustico
+17	01	17	2015-09-30	2015-09-30	Cemento Rustico
+18	01	18	2015-09-30	2015-09-30	Sencillo de 3 Mm.
+19	01	19	2015-09-30	2015-09-30	A la Cal y Cemento Blanco
+20	01	20	2015-09-30	2015-09-30	
+21	02	01	2015-09-30	2015-09-30	Mamposteria de Piedra Braza
+22	02	02	2015-09-30	2015-09-30	Muros de Mamposteria de Piedra Braza
+23	02	03	2015-09-30	2015-09-30	Bóveda Catalana A Base de Vigas de Madera, Cub. de Teja o Tarima Sobre Vigas Imperm.
+24	02	04	2015-09-30	2015-09-30	Mamposteria de Ladrillo o Block
+25	02	05	2015-09-30	2015-09-30	Tubería de Fierro Galvanizado y Poliducto con Tinaco de Mamposteria
+26	02	06	2015-09-30	2015-09-30	W.C. y Lavabo Color Blanco
+27	02	07	2015-09-30	2015-09-30	Visible y Oculta (Mixta)
+28	02	08	2015-09-30	2015-09-30	
+29	02	09	2015-09-30	2015-09-30	Entableradas Economicas
+30	02	10	2015-09-30	2015-09-30	Madera Rústica
+31	02	11	2015-09-30	2015-09-30	Madera de Pino
+32	02	12	2015-09-30	2015-09-30	Estructurales de Fierro con Anticorrosivo
+33	02	13	2015-09-30	2015-09-30	Estructurales de Fierro
+34	02	14	2015-09-30	2015-09-30	Lisas con Pilastras o on Molduras
+35	02	15	2015-09-30	2015-09-30	Mortero Cal-Arena
+36	02	16	2015-09-30	2015-09-30	Cemento Pulido o Cerámico
+37	02	17	2015-09-30	2015-09-30	Cemento Pulido, Mosaico de Pasta o Madera Rústica
+38	02	18	2015-09-30	2015-09-30	Sencillo de 3 Mm. opaco
+39	02	19	2015-09-30	2015-09-30	Vinílica, Esmalte o Barniz Economico
+40	02	20	2015-09-30	2015-09-30	Base Agua
+41	03	01	2015-09-30	2015-09-30	Mamposteria de Piedra Braza
+42	03	02	2015-09-30	2015-09-30	Muros de Mamposteria de Piedra Braza
+43	03	03	2015-09-30	2015-09-30	Bóveda Catalana A Base de Vigas de Madera o Rifles de Acero y Ladrillo Imperm.
+44	03	04	2015-09-30	2015-09-30	Mampostería de Ladrillo o Block
+45	03	05	2015-09-30	2015-09-30	Tubería de Fierro Galvanizado o Cobre y Tinaco de Cemento y Asbesto
+46	03	06	2015-09-30	2015-09-30	Dos o Mas Baños de Calidad
+47	03	07	2015-09-30	2015-09-30	Oculta
+48	03	08	2015-09-30	2015-09-30	Motobomba y Aljibe
+49	03	09	2015-09-30	2015-09-30	Entableradas con Molduras
+50	03	10	2015-09-30	2015-09-30	Duela o Lambrines de Pino o Similar
+51	03	11	2015-09-30	2015-09-30	Torneados y Entablerados
+52	03	12	2015-09-30	2015-09-30	Estructurales con ornatos
+53	03	13	2015-09-30	2015-09-30	Estructurales con ornatos y Elementos de Bronce
+54	03	14	2015-09-30	2015-09-30	Frontones, Pilastras, Molduras, Canteras, Marmol o Piedra Labrada
+55	03	15	2015-09-30	2015-09-30	Mortero Cal-Arena
+56	03	16	2015-09-30	2015-09-30	Muros Aplanados, Martelinados, Cantera, Chiluca, Pasta, Marmol o Piedra
+57	03	17	2015-09-30	2015-09-30	Piedra Labrada, Mosaico de Pasta y Granito, Marmol, Ceramic o Azulejo
+58	03	18	2015-09-30	2015-09-30	Emplomados, Esmereillados o Biselados
+59	03	19	2015-09-30	2015-09-30	Vinílica, Esmalt o Barniz
+60	03	20	2015-09-30	2015-09-30	Asfalto
+61	04	01	2015-09-30	2015-09-30	Mampostería de Piedra Braza o concreto Armado Sencillo
+62	04	02	2015-09-30	2015-09-30	Castillos y Cadenas de concreto Armado con Armex
+63	04	03	2015-09-30	2015-09-30	Lámina de Asb.-Cemento Galvanizada, Carton Teja o Parcialmente de Losa de concreto
+64	04	04	2015-09-30	2015-09-30	Lámina o Block
+65	04	05	2015-09-30	2015-09-30	Visible con Tuberia de Fierro Galvanizado o Cobre y Tinaco de Mamposteria
+66	04	06	2015-09-30	2015-09-30	Un Baño conpleto Tipo Económico
+67	04	07	2015-09-30	2015-09-30	Visible
+68	04	08	2015-09-30	2015-09-30	
+69	04	09	2015-09-30	2015-09-30	De Madera Rústica
+70	04	10	2015-09-30	2015-09-30	Madera Rústica
+71	04	11	2015-09-30	2015-09-30	
+72	04	12	2015-09-30	2015-09-30	Estructurales o Tubulares
+73	04	13	2015-09-30	2015-09-30	Fierro Tropical
+74	04	14	2015-09-30	2015-09-30	Muros Aplanados o Aparentes
+75	04	15	2015-09-30	2015-09-30	Mortero Cemento-Cal-Arena
+76	04	16	2015-09-30	2015-09-30	Cemento Rústico
+77	04	17	2015-09-30	2015-09-30	Cemento Pulido o Rustico
+78	04	18	2015-09-30	2015-09-30	Sencillo de 3 Mm.
+79	04	19	2015-09-30	2015-09-30	A la Cal y Cemento Blanco
+80	04	20	2015-09-30	2015-09-30	
+81	05	01	2015-09-30	2015-09-30	Mamposteria de Piedra Braza o concreto Armado
+82	05	02	2015-09-30	2015-09-30	Castillos y Cadenas de concreto Armado con Armex o Varilla
+83	05	03	2015-09-30	2015-09-30	Losa de conc. Armado con Malla Elect. o Varilla, Vigueta y Boved. o Lámina de Asb.
+84	05	04	2015-09-30	2015-09-30	Ladrillo o Block
+85	05	05	2015-09-30	2015-09-30	Oculta con Tuberia de Cobre y Tinaco de Asbesto-Cemento o Mampostería
+86	05	06	2015-09-30	2015-09-30	Un Baño conpleto de Color Tipo Economico
+87	05	07	2015-09-30	2015-09-30	Oculta
+88	05	08	2015-09-30	2015-09-30	Motobomba y Aljibe
+89	05	09	2015-09-30	2015-09-30	Tipo Tambor de Pino
+90	05	10	2015-09-30	2015-09-30	Madera Rústica
+91	05	11	2015-09-30	2015-09-30	Madera Rústica
+92	05	12	2015-09-30	2015-09-30	Estructurales o Tubulares
+93	05	13	2015-09-30	2015-09-30	Estructurales o Tubulares
+94	05	14	2015-09-30	2015-09-30	Muros Aplanados o Aparentes
+95	05	15	2015-09-30	2015-09-30	Mortero Cemento-Cal-Arena yeso o Tirol En Plafones
+96	05	16	2015-09-30	2015-09-30	Cemento Pulido o Azulejo
+97	05	17	2015-09-30	2015-09-30	Cemento Pulido o Mosaico de Pasta
+98	05	18	2015-09-30	2015-09-30	Sencillo de 1 Mm.
+99	05	19	2015-09-30	2015-09-30	Vinílica o Esmalte y Barniz Economica
+100	05	20	2015-09-30	2015-09-30	Asfalto
+101	06	01	2015-09-30	2015-09-30	Mamposteria de Piedra Braza o Cimentacion de concreto Armado
+102	06	02	2015-09-30	2015-09-30	Castillos y Cadenas Trabes o Columnas de concreto Armado
+103	06	03	2015-09-30	2015-09-30	Losa de concreto Armado o Viguet y Bovedilla
+104	06	04	2015-09-30	2015-09-30	Ladrillo o Block
+105	06	05	2015-09-30	2015-09-30	oculta con Tuberia de Fierro Galvanizada o Cobre, Tinaco de Asbesto-Cemento
+106	06	06	2015-09-30	2015-09-30	Un Baño completo de Color Tipo Económico
+107	06	07	2015-09-30	2015-09-30	Oculta
+108	06	08	2015-09-30	2015-09-30	Motobomba y Aljibe
+109	06	09	2015-09-30	2015-09-30	Tipo Tambor de Pino o Cedro
+110	06	10	2015-09-30	2015-09-30	Madera Barnizada
+111	06	11	2015-09-30	2015-09-30	Madera Tratada
+112	06	12	2015-09-30	2015-09-30	Estructurales o Tubulares, Aluminio
+113	06	13	2015-09-30	2015-09-30	Estructurales o Tubulares
+114	06	14	2015-09-30	2015-09-30	Muros Aplanados o Aparentes
+115	06	15	2015-09-30	2015-09-30	Mortero Cemento-Cal-Arena
+116	06	16	2015-09-30	2015-09-30	Cerámica o Azulejo
+117	06	17	2015-09-30	2015-09-30	Mosaico de Pasta, Granito, Terrazo o Ceramico
+118	06	18	2015-09-30	2015-09-30	Sencillo de 5 Mm.
+119	06	19	2015-09-30	2015-09-30	Vinílica, Esmalte o Barniz
+120	06	20	2015-09-30	2015-09-30	Asfalto con Tela de Refuerzo
+121	07	01	2015-09-30	2015-09-30	Mamposteria con Refuerzos de concreto Armado o Zapatas Aisladas
+122	07	02	2015-09-30	2015-09-30	Castillos, Cadenas, Trabes o Columnas de concreto Armado
+123	07	03	2015-09-30	2015-09-30	Losa de concreto Armada, Reticular o Aligerada
+124	07	04	2015-09-30	2015-09-30	Ladrillo, Block, Piedra Labrada, Block de Barro conprimido
+125	07	05	2015-09-30	2015-09-30	Oculta con Tuberia de Cobre y Dos o Mas Tinacos de Asbesto-Cemento
+126	07	06	2015-09-30	2015-09-30	Dos o mas Baños conpletos de Calidad
+127	07	07	2015-09-30	2015-09-30	Oculta Iluminacion Directa o Indirecta
+128	07	08	2015-09-30	2015-09-30	Motobomba, Aljibe, Gas, Interphone, Tv. o Sonido Ambiental
+129	07	09	2015-09-30	2015-09-30	Tipo Tambor, Entableradas con Molduras o Persianas de Pino o Cebro
+130	07	10	2015-09-30	2015-09-30	Duela de Caoba o Closets
+131	07	11	2015-09-30	2015-09-30	De Cedro o Pino
+132	07	12	2015-09-30	2015-09-30	Estructurales, Tubulares o Aluminio
+133	07	13	2015-09-30	2015-09-30	Estructurales, Tubulares o Aluminio
+134	07	14	2015-09-30	2015-09-30	Mur.Aplan.Past.Lacas Ceram.Azul.Mosaico Veneciano,Piedrin,Martel.Lad. o con.Arm.Apar.
+135	07	15	2015-09-30	2015-09-30	Mortero Cemento-Cal-Arena
+136	07	16	2015-09-30	2015-09-30	Pastas, Azulejo, Marmol, Ceramica, Tirol o Madera
+137	07	17	2015-09-30	2015-09-30	Terrazo, Gran.Losetas de Ceramica y sintet. Azulejos, Piedra Labrada, Marm.o Adoquin
+138	07	18	2015-09-30	2015-09-30	5 y 6 Mm. de Espesor
+139	07	19	2015-09-30	2015-09-30	Vinílica, Esmaltes, Lacas, Barniz o Pastas
+140	07	20	2015-09-30	2015-09-30	Cubierta A Base de Impermeabilizante
+141	08	01	2015-09-30	2015-09-30	Mamposteria con Refuerzos de concreto Armado
+142	08	02	2015-09-30	2015-09-30	Castillos, Cadenas, Trabes o Columnas de concreto Armado
+143	08	03	2015-09-30	2015-09-30	Losa de concreto Armado, Reticular o Aligerada
+144	08	04	2015-09-30	2015-09-30	Ladrillo concreto Armado, Piedra Labrada, Cantera o Block de Barro conprimido
+145	08	05	2015-09-30	2015-09-30	Oculta con Tuberia de Cobre y Dos o Mas Tinacos de Asbesto-Cemento
+146	08	06	2015-09-30	2015-09-30	Dos o mas Baños conpletos con Muebles de Lujo
+147	08	07	2015-09-30	2015-09-30	Oculta, o Iluminacion Directa o Indirecta o Salidas Multiples
+148	08	08	2015-09-30	2015-09-30	Motob.Aljibe,Gas,Sonido Ambient.Interconunic.Portones Elect.Tv.Clima o Circ.Cerrad.
+149	08	09	2015-09-30	2015-09-30	Entableradas con Molduras,Persianas o Mixtas de Metal y Madera de Cedro o Caoba
+150	08	10	2015-09-30	2015-09-30	Duela Parquet o Enduelado En Muros, Plafones Closet de Caoba
+151	08	11	2015-09-30	2015-09-30	Torneados y Entablerados de Caoba
+152	08	12	2015-09-30	2015-09-30	Aluminio
+153	08	13	2015-09-30	2015-09-30	Aluminio, Tubulares o Estructurales o Elementos de Bronce
+154	08	14	2015-09-30	2015-09-30	Chiluca, Cantera con Molduras, Marmol, Azulejos, Madera, Piedrin, Martelinado
+155	08	15	2015-09-30	2015-09-30	Mortero Cemento-Cal-Arena, Tirol Rustico Planchado
+156	08	16	2015-09-30	2015-09-30	Azulejo, Marmol, Pastas, Tirol o Madera Fina
+157	08	17	2015-09-30	2015-09-30	Mármol, Azulejo, Ceramica, concreto, Martelinado o Adoquin
+158	08	18	2015-09-30	2015-09-30	5 y 6 Mm. de Esp.Esmeril.Biselados,Polarizados,Cobriz.Reflecta, Filtrasol o Emplomad.
+159	08	19	2015-09-30	2015-09-30	Vinílica, Esmaltes, Lacas, Barniz, Pastas Plasticas
+160	08	20	2015-09-30	2015-09-30	Cubierta A Base de Impermeabilizante con Acabado de Pintura
+161	09	01	2015-09-30	2015-09-30	Losa de Cimentacion con contratrabes
+162	09	02	2015-09-30	2015-09-30	Castillos, Cadenas de concreto Armado con Armex o Varilla
+163	09	03	2015-09-30	2015-09-30	Losa de concreto Armado con Malla Electrosoldada o Varilla o Vigueta y Bovedilla
+164	09	04	2015-09-30	2015-09-30	Block, concreto Armado
+165	09	05	2015-09-30	2015-09-30	Oculta con Tuberia de Cobre y Tinacos de Asbesto-Cemento
+166	09	06	2015-09-30	2015-09-30	Un Baño Completo y Muebles Economicos
+167	09	07	2015-09-30	2015-09-30	Visible y Oculta (Mixta)
+168	09	08	2015-09-30	2015-09-30	Motobomba Aljibe, Gas
+169	09	09	2015-09-30	2015-09-30	Tipo Tambor de Pino
+170	09	10	2015-09-30	2015-09-30	Madera Rustica
+171	09	11	2015-09-30	2015-09-30	Madera Rustica
+172	09	12	2015-09-30	2015-09-30	Estructurales o Tubulares
+173	09	13	2015-09-30	2015-09-30	Estructurales o Tubulares
+174	09	14	2015-09-30	2015-09-30	Muros Aplanados o Aparentes
+175	09	15	2015-09-30	2015-09-30	Mortero Cemento-Cal-Arena
+176	09	16	2015-09-30	2015-09-30	Pasta o Tirol
+177	09	17	2015-09-30	2015-09-30	Mosaico de Pasta o Granito
+178	09	18	2015-09-30	2015-09-30	Sencillo de 5 Mm.
+179	09	19	2015-09-30	2015-09-30	Vinílica o Esmalte Economico
+180	09	20	2015-09-30	2015-09-30	Asfalto con Fibra de Vidrio y Primer o Similar
+181	10	01	2015-09-30	2015-09-30	Zapatas Aisladas, Corridas En Uno o Dos Sentidos Losa de Cimentacion con contratabes
+182	10	02	2015-09-30	2015-09-30	Castillos, Cadenas Trabes o Columnas de concreto Armado
+183	10	03	2015-09-30	2015-09-30	Losa de concreto Armado, Reticular Aligerada o Vigueta y Bovedilla
+184	10	04	2015-09-30	2015-09-30	Ladrillo, concreto Armado, o Celosia de Barro o Block
+185	10	05	2015-09-30	2015-09-30	oculta con Tuberia de Cobre y Tinacos de Asbesto-Cemento
+186	10	06	2015-09-30	2015-09-30	Dos o Mas Baños conpletos y Muebles de Color Economicos
+187	10	07	2015-09-30	2015-09-30	Oculta Iluminacion Directa o Indirecta o Visible con Tuberia conduit
+188	10	08	2015-09-30	2015-09-30	Motobomba Aljibe, Gas Equipo contra Incendio
+189	10	09	2015-09-30	2015-09-30	Tipo Tambor, Entableradas Sencillas con Molduras o Persianas de Pino o Cedro
+190	10	10	2015-09-30	2015-09-30	Duel o Parquet, Lambrines, Closets de Cedro o Pino
+191	10	11	2015-09-30	2015-09-30	Balastradas o Pasamanos de Pino
+192	10	12	2015-09-30	2015-09-30	Estructurales, Tubulares o Aluminio
+193	10	13	2015-09-30	2015-09-30	Estructurales, Tubulares o Aluminio
+194	10	14	2015-09-30	2015-09-30	Muros Aplanados o Aparentes
+195	10	15	2015-09-30	2015-09-30	Mortero Cemento-Cal-Arena Tirol En Plafones
+196	10	16	2015-09-30	2015-09-30	Azulejo, Marmol o Pasta
+197	10	17	2015-09-30	2015-09-30	Mosaico, Granito, Adoquin o Martelinado
+198	10	18	2015-09-30	2015-09-30	5 y 6 Mm. de Espesor
+199	10	19	2015-09-30	2015-09-30	Vinílica, Esmalte, Laca o Barniz
+200	10	20	2015-09-30	2015-09-30	Asfalto con Fibra de Vidrio y Primer o Similar
+201	11	01	2015-09-30	2015-09-30	Zap.Aisl. Corridas En Uno o Dos Sent.Pilot.Losa de Ciment.Cascarones de con.Arm.contr
+202	11	02	2015-09-30	2015-09-30	Castillos Cadenas, Trabes o Columnas de concreto Armado o Metalicas
+203	11	03	2015-09-30	2015-09-30	Losa de concreto Armado Reticular o Aligerada
+204	11	04	2015-09-30	2015-09-30	Ladrillo concreto Armado o Block conprimido
+205	11	05	2015-09-30	2015-09-30	Oculta con Tuberia de Cobre, Tanques de concreto Armado o Tinacos de Asbesto-Cemento
+206	11	06	2015-09-30	2015-09-30	Dos o Mas Baños conpletos y Muebles de Lujo
+207	11	07	2015-09-30	2015-09-30	Oculta, Portero Electrico
+208	11	08	2015-09-30	2015-09-30	Equipo contra Incendio, Gas, Motobomba, Ductos o Elevadores
+209	11	09	2015-09-30	2015-09-30	Tipo Tambor, Entableradas, Sencillas con Molduras o Persianas de Cedro o Caoba
+210	11	10	2015-09-30	2015-09-30	Duela o Parquet, Estanteria o Closets de Cedro o Caoba
+211	11	11	2015-09-30	2015-09-30	Balastradas o Pasamanos de Cedro
+212	11	12	2015-09-30	2015-09-30	Aluminio
+213	11	13	2015-09-30	2015-09-30	Estructurales o Aluminio
+214	11	14	2015-09-30	2015-09-30	Muros Aplan.Martelinados, Piedra Labrada, Pasta, Cantera,Maruga, Pisos o conc.Aparen.
+215	11	15	2015-09-30	2015-09-30	Mortero Cemento-Cal-Arena Tirol
+216	11	16	2015-09-30	2015-09-30	Azulejo, Corchos, Ceramica, Marmol o Pastas
+217	11	17	2015-09-30	2015-09-30	Terrazo, Ceramica, Marmol o Loseta sintetica, Duela
+218	11	18	2015-09-30	2015-09-30	5 y 6 Mm. de Esp.Esmeril.Biselados,Polariz.Cobrizados,Reflecta,Filtrasol o Emplomad.
+219	11	19	2015-09-30	2015-09-30	Vinílica, Lacas, Esmalte, Barniz (de Calidad)
+220	11	20	2015-09-30	2015-09-30	Asfalto con Fibra de Vidrio y Primer o Similr con Cubierta de Teja o Similar
+221	12	01	2015-09-30	2015-09-30	Mamposteria de Piedra Braza o Dados de concreto Simple
+222	12	02	2015-09-30	2015-09-30	Castillos y Cadenas de concreto Armado o Estruc.Loseta de Madera o Metalica
+223	12	03	2015-09-30	2015-09-30	Lámina Galvanizada, Asbesto, Cemento Carton, Acrilico Sobrevigas y
+224	12	04	2015-09-30	2015-09-30	Lámina, Madera o Alambrado
+225	12	05	2015-09-30	2015-09-30	Visible con Tuberia de Fierro Galvanizado
+226	12	06	2015-09-30	2015-09-30	W.C. y Lavabo Tipo Economico
+227	12	07	2015-09-30	2015-09-30	Visible
+228	12	08	2015-09-30	2015-09-30	Trifasica
+229	12	09	2015-09-30	2015-09-30	Madera Economica
+230	12	10	2015-09-30	2015-09-30	Madera Rústica
+231	12	11	2015-09-30	2015-09-30	Madera Rústica
+232	12	12	2015-09-30	2015-09-30	Estructurales o Tubulares
+233	12	13	2015-09-30	2015-09-30	Estructurales o Tubulares
+234	12	14	2015-09-30	2015-09-30	Lámina, Madera o Alambrado
+235	12	15	2015-09-30	2015-09-30	
+236	12	16	2015-09-30	2015-09-30	
+237	12	17	2015-09-30	2015-09-30	Pisos de concreto o Mosaico de Pasta
+238	12	18	2015-09-30	2015-09-30	
+239	12	19	2015-09-30	2015-09-30	Vinílica o Esmalte Economico
+240	12	20	2015-09-30	2015-09-30	
+241	13	01	2015-09-30	2015-09-30	Mamposteria de Piedra Braza o Dados de concreto Armado
+242	13	02	2015-09-30	2015-09-30	Castillos y Cadenas, Trabes y Columnas de concreto Armado
+243	13	03	2015-09-30	2015-09-30	Lámina de Asbesto-Cemento Galvanizada, Acrilico Sobre Molduras Metalicas o de Madera
+244	13	04	2015-09-30	2015-09-30	Ladrillo, Block, Celosia de Barro o Cemento
+245	13	05	2015-09-30	2015-09-30	Oculta o Visible de Fierro Galvaniz. o Cobre,Tinaco de Asb-Cemento o Tanque de conc.
+246	13	06	2015-09-30	2015-09-30	W.C. Lavabo y Muebles de Color Tipo Economico
+247	13	07	2015-09-30	2015-09-30	Oculta o Visible con Tubo conduit o Poliducto
+248	13	08	2015-09-30	2015-09-30	Trifásica
+249	13	09	2015-09-30	2015-09-30	Tipo Tambor o Entableradas Sencillas de Pino o Cedro
+250	13	10	2015-09-30	2015-09-30	Cedro o Pino Barnizado
+251	13	11	2015-09-30	2015-09-30	Cedro o Pino Barnizado
+252	13	12	2015-09-30	2015-09-30	Estructurales Tubulares o Aluminio
+253	13	13	2015-09-30	2015-09-30	Estructurales, Tubulares o Asbesto Metalico
+254	13	14	2015-09-30	2015-09-30	Lámina, Aplanado o Asbesto
+255	13	15	2015-09-30	2015-09-30	Mortero Cemento-Cal-Arena
+256	13	16	2015-09-30	2015-09-30	
+257	13	17	2015-09-30	2015-09-30	Cemento Pulido, Mosaico de Pasta o Granito
+258	13	18	2015-09-30	2015-09-30	Sencillo de 5 Mm.
+259	13	19	2015-09-30	2015-09-30	A la Cal, Vinílica o Esmalte
+260	13	20	2015-09-30	2015-09-30	Asfalto con Tela de Refuerzo
+261	14	01	2015-09-30	2015-09-30	Zapatas de conc.Armado Aisladas o Corridas En Uno o Dos Sent.contrat.Losas o Pilotes
+262	14	02	2015-09-30	2015-09-30	Columnas o Trabes de Acero, Columnas, Cadenas y Castillos de concreto Armado
+263	14	03	2015-09-30	2015-09-30	Armad.Metálicas, Cub. con Lámina Acrílica, Galvaniz.Asb.-Cement.Caballet.o Canalones
+264	14	04	2015-09-30	2015-09-30	Ladrillo, Block, concreto Armado o Celosia de Barro o Cemento
+265	14	05	2015-09-30	2015-09-30	Oculto, Visible de Fierro Galvaniz.o Cobre,Tinacos de Asb.-Cement.o Tanques de C.Arm.
+266	14	06	2015-09-30	2015-09-30	W.C. Lavabos, Mingitorios, Lavabos, Baños de Tipo Industrial
+267	14	07	2015-09-30	2015-09-30	Visible A Base de Ductos Especiales
+268	14	08	2015-09-30	2015-09-30	Instalacion Trifasica, Equipo contra Incendio o Hidrantes
+269	14	09	2015-09-30	2015-09-30	Tipo Tambor o Entableradas Sencillas de Cedro o Caoba
+270	14	10	2015-09-30	2015-09-30	Cedro o Caoba Barnizado
+271	14	11	2015-09-30	2015-09-30	Cedro o Caoba Barnizado
+272	14	12	2015-09-30	2015-09-30	Aluminio
+273	14	13	2015-09-30	2015-09-30	Estructurales, Tubulares o Aluminio
+274	14	14	2015-09-30	2015-09-30	
+275	14	15	2015-09-30	2015-09-30	Mortero, Cemento, Arena o Cemento, Cal, Arena
+276	14	16	2015-09-30	2015-09-30	
+277	14	17	2015-09-30	2015-09-30	Terrazo, Mármol, Ceramica o Duela
+278	14	18	2015-09-30	2015-09-30	
+279	14	19	2015-09-30	2015-09-30	Vinílica, Acrílica o Esmalte
+280	14	20	2015-09-30	2015-09-30	Cubiertas A Base Imperm.Primer con Emulsion Asfaltica y Fieltro o Similar
+281	15	01	2015-09-30	2015-09-30	Zap.de concreto Armado, Aisladas o Corridas En Uno o Dos Sent.contrat.Losas o Pilot.
+282	15	02	2015-09-30	2015-09-30	Columnas, Trabes, Castillos y Cadenas de concreto Armado
+283	15	03	2015-09-30	2015-09-30	Losa de concreto Armado
+284	15	04	2015-09-30	2015-09-30	Ladrillo, Block, concreto Armado o Celosia de Barro o Cemento
+285	15	05	2015-09-30	2015-09-30	Oculta de Cobre, Tinacos de Asbesto-Cemento o Tanque de concreto Armado
+286	15	06	2015-09-30	2015-09-30	W.C. Lavabos, y Accesorios de Tipo Economico
+287	15	07	2015-09-30	2015-09-30	Oculto o Visible con Tubo conduit
+288	15	08	2015-09-30	2015-09-30	Motobomba, Aljibe, Gas
+289	15	09	2015-09-30	2015-09-30	Tipo Tambor Entableradas o Sencillas de Pino o Cedro
+290	15	10	2015-09-30	2015-09-30	Cedro o Pino Barnizado
+291	15	11	2015-09-30	2015-09-30	Cedro o Pino Barnizado
+292	15	12	2015-09-30	2015-09-30	Tubulares o Aluminio
+293	15	13	2015-09-30	2015-09-30	Tubulares o Aluminio
+294	15	14	2015-09-30	2015-09-30	
+295	15	15	2015-09-30	2015-09-30	Mortero, Cemento, Cal, Arena
+296	15	16	2015-09-30	2015-09-30	
+297	15	17	2015-09-30	2015-09-30	Granito, Terrazo o Vitropiso
+298	15	18	2015-09-30	2015-09-30	5 y 6 Mm. de Espesor
+299	15	19	2015-09-30	2015-09-30	Vinílica, Acrilica, Esmalte o Pasta
+300	15	20	2015-09-30	2015-09-30	Cubiertas A Base Imperm.Primer con Emulsion Asfaltica y Fieltro o Similar
+301	16	01	2015-09-30	2015-09-30	Zap.de conc. Armado, Aisladas o Corridas en Uno o Dos Sentidos, contrat.Losas o Pilot.
+302	16	02	2015-09-30	2015-09-30	Estructuras Pesadas de Acero, Columnas y Trabes de concreto Armado
+303	16	03	2015-09-30	2015-09-30	Losa Reticular, Pre-Esforzados
+304	16	04	2015-09-30	2015-09-30	De Ladrillo o concreto Armado
+305	16	05	2015-09-30	2015-09-30	Oculta de Cobre,Tinacos de Asb.-Cemento o Tanque de concreto Armado
+306	16	06	2015-09-30	2015-09-30	W.C. Lavabos, Mingitorios, Tipo Economico y Accesorios de Acero Inoxidable
+307	16	07	2015-09-30	2015-09-30	Oculta, Ductos, Iluminación Directa o Indirecta
+308	16	08	2015-09-30	2015-09-30	Clima,Intercon.Equip.contra Incend.Motob.Aljibe,Sonido Amb.Cir.Cerr.Elev.o Plan.de L.
+309	16	09	2015-09-30	2015-09-30	Tipo Tambor de Cedro o Pino Forradas con Formaica
+310	16	10	2015-09-30	2015-09-30	Duela o Lambrines de Parquet de Cedro o Caoba
+311	16	11	2015-09-30	2015-09-30	Escaleras, Pasamanos o Balaustradas de Cedro o Caoba
+312	16	12	2015-09-30	2015-09-30	Aluminio
+313	16	13	2015-09-30	2015-09-30	Tubulares o Aluminio
+314	16	14	2015-09-30	2015-09-30	Muros Aplanados de Tabique o Concreto Apar.Marmol,Martelinados o Pastas
+315	16	15	2015-09-30	2015-09-30	Mortero-Cemento-Cal-Arena
+316	16	16	2015-09-30	2015-09-30	Azulejo, Parquet o Placas de Mármol, Pasta Acrilica o Tirol Planchado
+317	16	17	2015-09-30	2015-09-30	Granito,Terrazo,Parquet o Placa de Mármol, Vitropiso o Loseta Vinílica
+318	16	18	2015-09-30	2015-09-30	5 y 6 Mm. de Esp.Cobrizado, Filtrasol, Reflecta o Polarizado
+319	16	19	2015-09-30	2015-09-30	Vinílica, Acrílica, Esmalte, Silicón o Laca de Calidad
+320	16	20	2015-09-30	2015-09-30	Cubierta a Base Imperm.,Primer con Emulsión Asfáltica y Fieltro o Similar

@@ -5,7 +5,7 @@
 <div id="zonaCoveratSecc">
     <div class="row">
         <div class="col-md-6">
-            <h4>Servicios Municipales</h4>
+            <h4>Servicios</h4>
             <div class="checkboxContainer">
                 <div class="checkbox">
                     {{Form::label('is_agua_potable', 'Agua Potable')}}

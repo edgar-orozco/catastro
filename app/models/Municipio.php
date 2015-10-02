@@ -29,6 +29,10 @@ class Municipio extends Ardent
         return $this->hasMany('Asentamiento', 'municipio', 'municipio');
     }
 
+    public function entidad(){
+        return $this->belongsTo('Entidad','entidad','entidad');
+    }
+
     /**
      * Función para obtener los datos que requiere select2 para formar los filtros
      * de la bitacora de actividades

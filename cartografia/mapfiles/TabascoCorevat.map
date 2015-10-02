@@ -427,18 +427,18 @@ LAYER  NAME "manzanas"
     COLOR 224 224 224
     OUTLINECOLOR 224 224 224
 
-    LABEL
-      POSITION Auto
-      COLOR 0 0 0 
-      OUTLINECOLOR 255 255 255
-      BUFFER 5
-      TYPE truetype
-      #ENCODING "UTF-8"
-      FONT vera
-      SIZE 8
-      MAXSIZE 9
-      #SIZE small
-    END #Label  
+#    LABEL
+#      POSITION Auto
+#      COLOR 0 0 0 
+#      OUTLINECOLOR 255 255 255
+#      BUFFER 5
+#      TYPE truetype
+#      #ENCODING "UTF-8"
+#      FONT vera
+#      SIZE 8
+#      MAXSIZE 9
+#      #SIZE small
+#    END #Label  
     
   END  # Class
 END  # Layer
@@ -469,18 +469,18 @@ LAYER  NAME "predios"
     COLOR 223 219 212
     OUTLINECOLOR 0 0 0
 
-    LABEL
-      POSITION Auto
-      COLOR 0 0 0 
-      OUTLINECOLOR 255 255 255
-      BUFFER 5
-      TYPE truetype
-      #ENCODING "UTF-8"
-      FONT vera
-      SIZE 8
-      MAXSIZE 9
-      #SIZE small
-    END #Label  
+#    LABEL
+#      POSITION Auto
+#      COLOR 0 0 0 
+#      OUTLINECOLOR 255 255 255
+#      BUFFER 5
+#      TYPE truetype
+#      #ENCODING "UTF-8"
+#      FONT vera
+#      SIZE 8
+#      MAXSIZE 9
+#      #SIZE small
+#    END #Label  
     
   END  # Class
 END  # Layer
@@ -492,8 +492,6 @@ END  # Layer
 LAYER  NAME "predio_ubicado_1"
   TYPE polygon
   STATUS ON
-  CONNECTIONTYPE postgis
-  DATA "geom from predios using unique gid"
 
   TOLERANCE 3
   TOLERANCEUNITS pixels
@@ -511,22 +509,166 @@ LAYER  NAME "predio_ubicado_1"
     Name 'PredioUbicado'
     COLOR 223 64 64
     OUTLINECOLOR 0 0 0
-
-    LABEL
-      POSITION Auto
-      COLOR 255 255 255 
-      OUTLINECOLOR 64 64 64
-      BUFFER 5
-      TYPE truetype
-      #ENCODING "UTF-8"
-      FONT vera
-      SIZE 6
-      MAXSIZE 8
-      # SIZE small
-    END #Label  
     
   END  # Class
 END  # Layer
+
+
+#
+# Start of Layer orange.shp
+#
+LAYER  NAME "orange"
+  TYPE polygon
+  STATUS ON
+
+  TOLERANCE 3
+  TOLERANCEUNITS pixels
+  TEMPLATE void
+  PROJECTION
+    #"init=epsg:4326"
+    "+proj=utm +zone=15 +datum=WGS84 +units=m +no_defs"
+  END
+  #MINSCALEDENOM 2500
+  MAXSCALEDENOM 140000
+  LABELITEM "clave_catas"
+  LABELMAXSCALE 7000
+  
+  CLASS
+    Name 'orange'
+    COLOR 240 148 80
+    OUTLINECOLOR 0 0 0
+    
+  END  # Class
+END  # Layer
+
+
+#
+# Start of Layer orange.shp
+#
+LAYER  NAME "green"
+  TYPE polygon
+  STATUS ON
+
+  TOLERANCE 3
+  TOLERANCEUNITS pixels
+  TEMPLATE void
+  PROJECTION
+    #"init=epsg:4326"
+    "+proj=utm +zone=15 +datum=WGS84 +units=m +no_defs"
+  END
+  #MINSCALEDENOM 2500
+  MAXSCALEDENOM 140000
+  LABELITEM "clave_catas"
+  LABELMAXSCALE 7000
+  
+  CLASS
+    Name 'green'
+    COLOR 49 181 115
+    OUTLINECOLOR 0 0 0
+    
+  END  # Class
+END  # Layer
+
+
+#
+# Start of Layer orange.shp
+#
+LAYER  NAME "blue"
+  TYPE polygon
+  STATUS ON
+
+  TOLERANCE 3
+  TOLERANCEUNITS pixels
+  TEMPLATE void
+  PROJECTION
+    #"init=epsg:4326"
+    "+proj=utm +zone=15 +datum=WGS84 +units=m +no_defs"
+  END
+  #MINSCALEDENOM 2500
+  MAXSCALEDENOM 140000
+  LABELITEM "clave_catas"
+  LABELMAXSCALE 7000
+  
+  CLASS
+    Name 'blue'
+    COLOR 63 188 239
+    OUTLINECOLOR 0 0 0
+
+  END  # Class
+END  # Layer
+
+
+
+#
+# Start of Layer orange.shp
+#
+LAYER  NAME "cafe"
+  TYPE polygon
+  STATUS ON
+
+  TOLERANCE 3
+  TOLERANCEUNITS pixels
+  TEMPLATE void
+  PROJECTION
+    #"init=epsg:4326"
+    "+proj=utm +zone=15 +datum=WGS84 +units=m +no_defs"
+  END
+  #MINSCALEDENOM 2500
+  MAXSCALEDENOM 140000
+  LABELITEM "clave_catas"
+  LABELMAXSCALE 7000
+  
+  CLASS
+    Name 'cafe'
+    COLOR 169 131 79
+    OUTLINECOLOR 0 0 0
+    
+  END  # Class
+END  # Layer
+
+
+
+
+#
+# Start of Layer orange.shp
+#
+LAYER  NAME "pink"
+  TYPE polygon
+  STATUS ON
+
+  TOLERANCE 3
+  TOLERANCEUNITS pixels
+  TEMPLATE void
+  PROJECTION
+    #"init=epsg:4326"
+    "+proj=utm +zone=15 +datum=WGS84 +units=m +no_defs"
+  END
+  #MINSCALEDENOM 2500
+  MAXSCALEDENOM 140000
+  LABELITEM "clave_catas"
+  LABELMAXSCALE 7000
+  
+  CLASS
+    Name 'pink'
+    COLOR 237 108 158
+    OUTLINECOLOR 0 0 0
+
+#    LABEL
+#      POSITION Auto
+#      COLOR 255 255 255 
+#      OUTLINECOLOR 64 64 64
+#      BUFFER 5
+#      TYPE truetype
+#      #ENCODING "UTF-8"
+#      FONT vera
+#      SIZE 6
+#      MAXSIZE 8
+#    END #Label  
+    
+  END  # Class
+END  # Layer
+
+
 
 
 #
