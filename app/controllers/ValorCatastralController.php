@@ -28,9 +28,8 @@ class ValorCatastralController extends \BaseController
         //$listaMunicipios =  Municipio::with('entidad')->where('entidad', '27')->orderBy('nombre_municipio')->lists('nombre_municipio','municipio');
 
          $viasComunicacion = [
-          '1'=>'Pavimentada',
-          '2'=>'Terracería',
-          '3'=>'Camino vecinal',
+          '1'=>'CARRETERA PAVIMENTADA',
+          '2'=>'CARRETERA DE TERRACERIA',
         ];
 
         $usoSuelo = [
@@ -156,12 +155,27 @@ $usoSueloList = [];
             ];
         }
 
+
+        ///Catálogos para rústicos
+        $distCabmun = [
+          '1' => "MENOS DE 5 Km.",
+          '2' => "ENTRE 5 Y 10 Km.",
+          '3' => "ENTRE 10 Y 15 Km.",
+        ];
+
+        $distCenpob = [
+          '1' => "MENOS DE 5 Km.",
+          '2' => "ENTRE 5 Y 10 Km.",
+        ];
+
         $vars = [
           'title','title_section', 'subtitle_section',
           'usoSuelo', 'serviciosPublicos','incEsquina','municipio',
 //          'techos', 'muros', 'pisos', 'puertas', 'ventanas', 'hidraulicas', 'electricas', 'sanitarias', 'instEspeciales',
           'edosConstruccion', 'usosConstruccion', 'tiposConstruccion', 'categoriasConstruccion', 'valoresConstruccion',
-            'elementosConstruccion'
+            'elementosConstruccion',
+
+            'viasComunicacion','distCabmun','distCenpob'
         ];
 
 
