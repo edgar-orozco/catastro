@@ -113,7 +113,10 @@ $(function () {
 
             valorTerreno = valSueloRustico(supPredio) * supPredio;
             if(valorTerreno == 0) valorTerreno = 2500;
-
+            var demori = demPctRustico;
+            demPctRustico = demPctRustico / 100;
+            if (demPctRustico > 0.5) demPctRustico = 0.5;
+            console.log("Dem INP: %s Dem Lim: %s", demori, demPctRustico);
             demeritosTerreno = demPctRustico * valorTerreno;
 
             incCompuesto.push(incRusticoCentroPob(incDistCenpobId));
@@ -374,28 +377,28 @@ $(function () {
         return inc;
     }
 
-    incRusticoDisCabecera = function(dist){
-        if(!dist) return 0;
+    incRusticoDisCabecera = function(distId){
+        if(!distId) return 0;
 
         var inc = 0;
-        if(dist <= 5){
+        if(distId == 1){
             inc = 0.15;
         }
-        if(5 < dist && dist <= 10){
+        if(distId == 2){
             inc = 0.10;
         }
-        if(10 < dist && dist <= 15){
+        if(distId == 3){
             inc = 0.05;
         }
         return inc;
     }
 
-    incRusticoCentroPob = function(dist){
+    incRusticoCentroPob = function(distId){
         var inc = 0;
-        if(dist <= 5){
+        if(distId == 1){
             inc = 0.10;
         }
-        if(5 < dist && dist <= 10){
+        if(distId == 2){
             inc = 0.05;
         }
         return inc;
