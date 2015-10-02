@@ -10,6 +10,11 @@ class ValorCatastralController extends \BaseController
 
         //Todos los catalogos que se utilizan en combos y opciones en la forma de la manifestacion
         $vars = $this->catalogos();
+
+        //Eliminar este dato que se pone asi para que se puedan hacer pruebas
+        $tipo_predio = Input::get('tipo');
+        $vars['tipo_predio'] = strtoupper($tipo_predio);
+
         return View::make('tramites.valor.create', $vars);
     }
 
@@ -19,6 +24,10 @@ class ValorCatastralController extends \BaseController
 
 
     private function catalogos(){
+
+        //TODO: Eliminar datos harcodeados de prueba
+        $municipio = '014';
+
         $title = 'Valor Catastral';
 
         //Título de sección:
@@ -132,9 +141,6 @@ $usoSueloList = [];
             '3'=>'COMERCIAL ALTA',
         ];
 
-        $municipio = '014';
-        //$municipio = '008';
-
         $elementosConstruccion = [
             'techos'=>'03',
             'muros'=>'04',
@@ -155,7 +161,6 @@ $usoSueloList = [];
             ];
         }
 
-
         ///Catálogos para rústicos
         $distCabmun = [
           '1' => "MENOS DE 5 Km.",
@@ -169,16 +174,14 @@ $usoSueloList = [];
         ];
 
         $vars = [
-          'title','title_section', 'subtitle_section',
-          'usoSuelo', 'serviciosPublicos','incEsquina','municipio',
-//          'techos', 'muros', 'pisos', 'puertas', 'ventanas', 'hidraulicas', 'electricas', 'sanitarias', 'instEspeciales',
-          'edosConstruccion', 'usosConstruccion', 'tiposConstruccion', 'categoriasConstruccion', 'valoresConstruccion',
+            'title','title_section', 'subtitle_section',
+            'usoSuelo', 'serviciosPublicos','incEsquina','municipio',
+            //'techos', 'muros', 'pisos', 'puertas', 'ventanas', 'hidraulicas', 'electricas', 'sanitarias', 'instEspeciales',
+            'edosConstruccion', 'usosConstruccion', 'tiposConstruccion', 'categoriasConstruccion', 'valoresConstruccion',
             'elementosConstruccion',
-
+            'tipo_terreno',
             'viasComunicacion','distCabmun','distCenpob'
         ];
-
-
 
         return compact($vars);
 
