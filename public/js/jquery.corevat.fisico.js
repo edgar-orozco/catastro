@@ -15,9 +15,27 @@ $(document).ready(function () {
 	 *  
 	 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
 	aefTerrenos = $('#aefTerrenosDataTable').DataTable({
-		 ordering: false
+		 ordering: false,
+		 paging: false,
+		 buttons: false,
+		language: {
+			info: ""
+		},
+		 columnDefs: [
+			{ "visible": false, "targets": 0 }
+		]
 	});
 	aefTerrenos.ajax.url('/corevat/AefTerrenosGetAjax/' + $("#idavaluoenfoquefisico").val()).load();
+	aefTerrenos.on( 'xhr', function () {
+		var json = aefTerrenos.ajax.json();
+		if ( json.data.length === 0 ) {
+			$("#divHeaderTerreno").removeClass('col-md-12 col-sm-12 col-xs-12').addClass('col-md-10 col-sm-10 col-xs-10');
+			$("#divNuevoTerreno").show();
+		} else {
+			$("#divHeaderTerreno").removeClass('col-md-10 col-sm-10 col-xs-10').addClass('col-md-12 col-sm-12 col-xs-12');
+			$("#divNuevoTerreno").hide();
+		}
+	});
 
 	aefConstrucciones = $('#aefConstruccionesDataTable').DataTable({
 		 ordering: false

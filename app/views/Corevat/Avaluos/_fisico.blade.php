@@ -3,8 +3,8 @@
 {{Form::model($row, ['route' => array('updateAvaluoEnfoqueFisico', $row->idavaluo), 'method'=>'post', 'id'=>'formAvaluoFisico' ]) }}
 {{Form::hidden('idavaluoenfoquefisico', $row->idavaluoenfoquefisico, ['id'=>'idavaluoenfoquefisico'])}}
 <div class="row">
-	<div class="col-md-10 col-sm-10 col-xs-10"><h4>Terreno</h4></div>
-    <div class="col-md-2 col-sm-2 col-xs-2 btn-beside-title">
+	<div class="col-md-12 col-sm-12 col-xs-12" id="divHeaderTerreno"><h4>Terreno</h4></div>
+    <div class="col-md-2 col-sm-2 col-xs-2 btn-beside-title" id="divNuevoTerreno" style="display: none;">
         <a class="btn btn-primary nuevo" id="btnNewAefTerr" title="Nuevo Registro">
             <span class="glyphicon glyphicon-plus-sign"></span>Nuevo
 		</a>
