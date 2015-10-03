@@ -7,7 +7,7 @@
 #contenedor{  
 /*      background-color:#F4ABF2;*/
         border:2px solid #000;
-        background-image: url("/css/images/main/logo-header.png-agua.png");
+        background-image: url("css/images/main/logo-header.png-agua.png");
         background-repeat: no-repeat;
         background-position: 50% 50%;
         width: 100%;
