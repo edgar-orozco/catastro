@@ -7,7 +7,7 @@
 #contenedor{  
 /*      background-color:#F4ABF2;*/
         border:2px solid #000;
-        background-image: url("css/images/main/logo-header.png-agua.png");
+        background-image: url("/css/images/main/logo-header.png-agua.png");
         background-repeat: no-repeat;
         background-position: 50% 50%;
         width: 100%;
@@ -48,11 +48,11 @@
     <div id="cabecera">
         <table width="100%" border="0">
             <tr>
-              <td align="right"><img src="css/images/main/main-logo.png"  height="70"></td>
+              <td align="right"><img src="/css/images/main/main-logo.png"  height="70"></td>
               <td align="center">DIRECCIÓN DE FINANZA MUNICIPALES<br />SUBDIRECCIÓN DE CATASTRO<br/><br/>CONTROL DE RECEPCION DE DOCUMENTOS</td>
                 <td>
                     @if($logo)
-                        <img src="css/images/home/logos/{{$logo}}"  height="100">
+                        <img src="/css/images/home/logos/{{$logo}}"  height="100">
                     @endif
                 </td>
             </tr>
@@ -97,9 +97,13 @@
     <div id="cabecera">
         <table width="100%" border="0">
             <tr>
-              <td align="right"><img src="css/images/main/main-logo.png"  height="70"></td>
+              <td align="right"><img src="/css/images/main/main-logo.png"  height="70"></td>
               <td align="center">DIRECCIÓN DE FINANZA MUNICIPALES<br />SUBDIRECCIÓN DE CATASTRO<br/><br/>CONTROL DE RECEPCION DE DOCUMENTOS</td>
-              <td><img src="css/images/home/logos/{{$logo}}"  height="100"></td>
+                <td>
+                    @if($logo)
+                        <img src="/css/images/home/logos/{{$logo}}"  height="100">
+                    @endif
+                </td>
             </tr>
             <tr>
               <td>Fecha ingreso: <?php $fecha=strtotime($row->created_at); echo date("d/m/Y",$fecha) ?></td>
