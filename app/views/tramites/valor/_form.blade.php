@@ -59,7 +59,10 @@
         var elementosConstruccion = {{json_encode((array)$elementosConstruccion)}};
         var anioActual = {{date("Y")}};
         var setEditables = null;
-        var registrosConstrucciones = {construcciones:{},sup_albercas:0,sup_total:0};
+        var tiposAlbercas = {{json_encode($tiposAlbercas)}};
+        var valoresAlbercas = {{json_encode($valoresAlbercas)}};
+
+        var registrosConstrucciones = {construcciones:{},sup_total:0};
 
         var valorXElemento = function(municipio, tipo_construccion, categoria, elemento, conservacion){
             var v;
@@ -90,18 +93,6 @@
                 else if(elem == 'avance') avance= registrosConstrucciones.construcciones[pk][elem];
                 else if(elem == 'num_niveles') num_niveles= registrosConstrucciones.construcciones[pk][elem];
             }
-
-            /*
-            var valTechos = valorXElemento(municipio, tipo_construccion, techos, 'techos', edo_construccion);
-            var valMuros = valorXElemento(municipio, tipo_construccion, muros, 'muros', edo_construccion);
-            var valPisos = valorXElemento(municipio, tipo_construccion, pisos, 'pisos', edo_construccion);
-            var valPuertas = valorXElemento(municipio, tipo_construccion, puertas, 'puertas', edo_construccion);
-            var valHidraulicas = valorXElemento(municipio, tipo_construccion, hidraulicas, 'hidraulicas', edo_construccion);
-            var valElectricas = valorXElemento(municipio, tipo_construccion, electricas, 'electricas', edo_construccion);
-            var valSanitarias = valorXElemento(municipio, tipo_construccion, sanitarias, 'sanitarias', edo_construccion);
-            console.log("VT: %s VM: %s VP: %s VPT: %s VH: %s VE: %s VS: %s", valTechos, valMuros, valPisos, valPuertas, valHidraulicas, valElectricas, valSanitarias);
-            */
-
             predominante[techos] = predominante[muros] = predominante[pisos] = predominante[puertas] = predominante[hidraulicas] = predominante[electricas] =  predominante[sanitarias] = 0;
             predominante[techos]++;
             predominante[muros]++;
@@ -118,12 +109,13 @@
 
             var valCategoria = valorXElemento(municipio, tipo_construccion, predom, 'techos', edo_construccion);
 
+            var valBloque = valCategoria * sup_construccion;
+
             //Aqui insertamos en las nuevas columnas categoria y valor/m2
             //Todo: Hacerlo en otro lado y de otra forma
             $('.bloque-construccion[data-pk='+pk+'] td.categoria').text(categos[predom]);
             $('.bloque-construccion[data-pk='+pk+'] td.val-categoria').text(valCategoria);
 
-            var valBloque = valCategoria * sup_construccion;
             return valBloque;
         }
 
@@ -133,36 +125,22 @@
             var pctTerm = registrosConstrucciones.construcciones[pk].avance;
             var demEdad = demConstruccionEdad(anioCons, anioActual);
             var demTerminado = demConstruccionTerminado(pctTerm);
-            if(demEdad && demTerminado){
-                dem = demEdad * demTerminado;
-            }
-            else if(demEdad && !demTerminado){
-                dem = demEdad;
-            }
-            else if(!demEdad && demTerminado){
-                dem = demTerminado;
-            }
+            dem = demEdad + demTerminado;
+            console.log("Dm Edad: %s Dm Term: %s DemTot: %s", demEdad, demTerminado, dem);
             return dem;
         }
 
         var actualiza = function(response, valor){
             var pk = $(this).data('pk');
             var nombre = $(this).data('name');
-
-            if(nombre !== 'sup_albercas') {
-                if (pk in registrosConstrucciones.construcciones) {
-                    var registro = registrosConstrucciones.construcciones[pk];
-                    eval('registro.' + nombre + ' = valor');
-                }
-                else {
-                    var registro = {};
-                    eval('registro.' + nombre + ' = valor');
-                    registrosConstrucciones.construcciones[pk] = registro;
-                }
+            if (pk in registrosConstrucciones.construcciones) {
+                var registro = registrosConstrucciones.construcciones[pk];
+                eval('registro.' + nombre + ' = valor');
             }
-            else
-            {
-                registrosConstrucciones.sup_albercas = valor;
+            else {
+                var registro = {};
+                eval('registro.' + nombre + ' = valor');
+                registrosConstrucciones.construcciones[pk] = registro;
             }
 
             $('#construcciones').val(JSON.stringify(registrosConstrucciones));
@@ -227,6 +205,17 @@
             var totBloques = $('tr.bloque-construccion > td.bloque-id').length;
             $('.tot-bloques').text(totBloques);
             $('tr.bloque-construccion > td.bloque-id').each(function(){
+                c++;
+                $(this).text(c);
+            });
+
+        }
+
+        var recalculaIndicesAlbercas = function(){
+            var c = 0;
+            var totBloques = $('tr.bloque-alberca > td.alberca-id').length;
+            $('.tot-bloques').text(totBloques);
+            $('tr.bloque-alberca > td.alberca-id').each(function(){
                 c++;
                 $(this).text(c);
             });
@@ -352,13 +341,37 @@
                     $('#datos-construccion').trigger('bloque-borrado',[pk]);
                     return false;
                 });
+            }
+
+
+            setEditablesAlbercas = function() {
+                $( "tbody.talbercas > tr:last" ).find('.tipoAlberca').editable({
+                    source: tiposAlbercas
+                });
+                $( "tbody.talbercas > tr:last" ).find('.superficieAlberca').editable({
+                    validate: validaDecimalPositivo
+                });
+
+                //Boton borrar albercas, si solo queda un registro en la tabla no lo elimina sino que lo limpia.
+                $( "tbody.talbercas > tr:last > td:last > button" ).on('click',function(ev){
+                    ev.preventDefault();
+                    var pk = $(this).data('pk');
+                    var alberca_id = $(this).closest('tr').find('.alberca-id').text();
+                    var albercas = $('.bloque-alberca').length;
+                    if(!confirm('Ha presionado el botón para eliminar la alberca: "'+alberca_id+ '". ¿Desea continuar con esta acción?')) return false;
+                    if(albercas == 1)
+                    {
+                        $(".talbercas a.editable[data-pk="+pk+"]").editable('setValue', null);
+                    }
+                    else{
+                        $("tr[data-pk="+pk+"]").remove();
+                    }
+                    $('#datos-albercas').trigger('alberca-borrada',[pk]);
+                    return false;
+                });
 
             }
 
-            //Editable de la superficie de albercas
-            $('.sup-albercas').editable({
-                validate: validaDecimalPositivo
-            });
 
 
             //Boton agregar bloque de construccion
@@ -369,10 +382,9 @@
                 $('.editable').editable('hide');
 
                 //Tomamos la primera fila editable y la clonamos
-                randomID = Math.floor(Math.random()*1000001);
+                randomID = new Date().getTime();
                 var trs = $('tr.bloque-construccion');
                 var tr = $(trs[0]).clone();
-                //var col = "<tr><td colspan='3'><a href='#' data-pk='"+randomID+"'>Mike</a></td></tr>"
                 $(tr).attr('data-pk',randomID);
                 $(tr).find('.bloque-id').text(null);
                 $(tr).find('a').text(null);
@@ -380,6 +392,27 @@
                 $(tr).find('button').attr('data-pk', randomID);
                 $('tbody.tcons').append(tr);
                 $('#datos-construccion').trigger('bloque-agregado',[randomID]);
+                return false;
+            });
+
+            //Boton agregar alberca
+            $('.agregar-alberca').click(function(ev){
+                ev.preventDefault();
+
+                //Primero cerramos todos los posibles editables abiertos para no clonar inputs abiertos
+                $('.editable').editable('hide');
+
+                //Tomamos la primera fila editable y la clonamos
+                randomID = new Date().getTime();
+                var trs = $('tr.bloque-alberca');
+                var tr = $(trs[0]).clone();
+                $(tr).attr('data-pk',randomID);
+                $(tr).find('.alberca-id').text(null);
+                $(tr).find('a').text(null);
+                $(tr).find('a').attr('data-pk', randomID);
+                $(tr).find('button').attr('data-pk', randomID);
+                $('tbody.talbercas').append(tr);
+                $('#datos-albercas').trigger('alberca-agregada',[randomID]);
                 return false;
             });
 
@@ -394,7 +427,18 @@
 
                 //Aquí abre el primer editable del nuevo row
                 $( "tbody.tcons > tr:last" ).find('a:first').click();
-            })
+            });
+
+            //Escucha los eventos de agregar una nueva alberca
+            $('#datos-albercas').on('alberca-agregada',function(ev, id){
+                setEditablesAlbercas();
+                //Recalcula los indices y renumera toda la primera columna
+                recalculaIndicesAlbercas();
+                //Recalcula totales
+                recalculaTotalSupCons();
+                //Aquí abre el primer editable del nuevo row
+                $( "tbody.talbercas> tr:last" ).find('a:first').click();
+            });
 
             //Escucha los eventos de eliminar un bloque de construccion
             $('#datos-construccion').on('bloque-borrado',function(ev, id){
@@ -405,7 +449,18 @@
 
                 //Borra del objeto los valores correspondientes a la fila
                 delete registrosConstrucciones.construcciones[id];
-            })
+            });
+
+            //Escucha los eventos de eliminar una alberca
+            $('#datos-albercas').on('alberca-borrada',function(ev, id){
+                //Recalcula los indices
+                recalculaIndicesAlbercas();
+                //Recalcula totales
+                recalculaTotalSupCons();
+
+                //Borra del objeto los valores correspondientes a la fila
+                delete registrosConstrucciones.construcciones[id];
+            });
 
             //Cuando el uso de suelo es baldío (id == 1) quiere decir que no hay tab de construcciones
             $(".select-usosuelo_id").on('change', function(){
@@ -422,6 +477,7 @@
 
             //Se carga el seteo de editables por default
             setEditables();
+            setEditablesAlbercas();
         });
 
         var recalculaTotalSupCons = function(){
@@ -433,7 +489,7 @@
                 }
             }
             sup_total += Number(registrosConstrucciones.sup_albercas);
-            $('#total-sup-cons').text(sup_total);
+            //$('#total-sup-cons').text(sup_total);
             registrosConstrucciones.sup_total = sup_total;
             //console.log(sup_total);
         }

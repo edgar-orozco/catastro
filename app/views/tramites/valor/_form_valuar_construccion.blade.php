@@ -1,8 +1,9 @@
 <div class="datos-construccion">
+    <div class="col-md-12">
     <table id="datos-construccion" class="table">
         <thead>
         <tr>
-            <th rowspan="2">Bloque</th>
+            <th rowspan="2"></th>
             <th rowspan="2">Superficie</th>
             <th rowspan="2">Niveles</th>
             <th rowspan="2">Estado conservación</th>
@@ -10,8 +11,9 @@
             <th colspan="7">Características de la construcción</th>
             <th rowspan="2">Terminación (%)</th>
             <th rowspan="2">Año construcción</th>
-            <th rowspan="2">Categoría</th>
+            <th rowspan="2">Clase</th>
             <th rowspan="2">Valor/m<sup>2</sup></th>
+
         </tr>
         <tr>
             <th>Piso</th>
@@ -156,38 +158,67 @@
         </tr>
         </tbody>
         <tfoot>
-        <tr>
-            <td>
-                Sup. Albercas
-            </td>
-            <td >
-                <a href="javascript:void(0);"
-                   class="editable sup-albercas"
-                   data-type="text"
-                   data-pk="sup-alberca"
-                   data-name="sup_albercas"
-                   data-title="Click para ingresar un valor"></a>
-            </td>
 
-            <td colspan="15">
+        <tr style="border: none !important;">
+            <td colspan="16" style="border: none !important;">
                 <button type="button" class="btn btn-success pull-right agregar-construccion"><i class="glyphicon glyphicon-plus-sign"></i>&nbsp; Agregar bloque de construcción</button>
             </td>
         </tr>
-        <tr>
-            <td>Total bloques cons.</td>
-            <td class="tot-bloques">1</td>
-        </tr>
-        <tr>
-            <td>
-                Total Sup. Cons.
-            </td>
-            <td id="total-sup-cons">
-                0
-            </td>
-        </tr>
+
         </tfoot>
     </table>
+    </div>
+
+
+        <div class="col-md-3">
+        <table id="datos-albercas" class="table">
+            <thead>
+                <tr>
+                    <th></th>
+                    <th>Tipo Alberca</th>
+                    <th>Superficie</th>
+                    <th>Valor/m<sup>2</sup></th>
+                </tr>
+            </thead>
+            <tbody class="talbercas">
+                <tr class="bloque-alberca">
+                    <td class="alberca-id">1</td>
+                    <td>
+                        <a href="javascript:void(0);"
+                           class="xselect tipoAlberca editable"
+                           data-type="select"
+                           data-pk="1"
+                           data-name="tipoalberca"
+                           data-title="Click para ingresar un valor"></a>
+
+                    </td>
+                    <td>
+                        <a href="javascript:void(0);"
+                           class="xselect superficieAlberca editable"
+                           data-type="text"
+                           data-pk="1"
+                           data-name="superficie_alberca"
+                           data-title="Click para ingresar un valor"></a>
+                    </td>
+                    <td class="val-categoria-albercas"></td>
+                    <td style="width: 30px;">
+                        <button type="button" class="btn btn-warning pull-right borrar-alberca" data-pk="1" title="Eliminar Alberca"><i class="glyphicon glyphicon-trash"></i></button>
+                    </td>
+                </tr>
+            </tbody>
+            <tfoot>
+                <tr style="border: none !important;">
+                    <td colspan="4" style="border: none !important;">
+                        <button type="button" class="btn btn-success pull-right agregar-alberca"><i class="glyphicon glyphicon-plus-sign"></i>&nbsp; Agregar Alberca</button>
+                    </td>
+                </tr>
+            </tfoot>
+        </table>
+        </div>
+
 
     <input type="hidden" id="construcciones" name="datos_construccion" value="">
 </div>
+
+
 

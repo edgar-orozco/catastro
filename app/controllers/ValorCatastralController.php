@@ -52,7 +52,8 @@ class ValorCatastralController extends \BaseController
             '8' => 'OFICINAS DE SERVICIOS',
             '9' => 'CASA HABITACIÓN',
         ];
-$usoSueloList = [];
+        $usoSueloList = [];
+
         $usoPredio = [
           '1'=>'Habitacional',
           '2'=>'Industrial',
@@ -173,6 +174,33 @@ $usoSueloList = [];
           '2' => "ENTRE 5 Y 10 Km.",
         ];
 
+        //Valores para albercas
+        $tiposAlbercas = [
+            '1' => 'ECONÓMICA BUENA',
+            '2' => 'ECONÓMICA REGULAR',
+            '3' => 'ECONÓMICA MALA',
+            '4' => 'MEDIANA BUENA',
+            '5' => 'MEDIANA REGULAR',
+            '6' => 'MEDIANA MALA',
+            '7' => 'LUJO BUENA',
+            '8' => 'LUJO REGULAR',
+            '9' => 'LUJO MALA',
+        ];
+
+        $valoresAlbercas = [
+            '1' => 950,
+            '2' => 900,
+            '3' => 850,
+
+            '4' => 1200,
+            '5' => 1100,
+            '6' => 1000,
+
+            '7' => 1500,
+            '8' => 1400,
+            '9' => 1300,
+        ];
+
         $vars = [
             'title','title_section', 'subtitle_section',
             'usoSuelo', 'serviciosPublicos','incEsquina','municipio',
@@ -180,7 +208,8 @@ $usoSueloList = [];
             'edosConstruccion', 'usosConstruccion', 'tiposConstruccion', 'categoriasConstruccion', 'valoresConstruccion',
             'elementosConstruccion',
             'tipo_terreno',
-            'viasComunicacion','distCabmun','distCenpob'
+            'viasComunicacion','distCabmun','distCenpob',
+            'tiposAlbercas', 'valoresAlbercas',
         ];
 
         return compact($vars);
