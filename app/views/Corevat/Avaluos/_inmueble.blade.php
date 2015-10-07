@@ -256,7 +256,7 @@
 	<div class="col-md-12">
 		<h4>Otros datos</h4>
 	</div>
-    <br/><br/>
+	<br/><br/>
 	<div class="col-md-12">&nbsp;</div>
 
 	<div class="col-md-12">
@@ -284,6 +284,31 @@
 	<div class="col-md-12">&nbsp;</div>
 
 	<div class="col-md-12">
+		<table cellpadding="0" cellspacing="0" border="0" class="table">
+			<tbody>
+				<tr>
+					<th class="bg-primary" colspan="2">CARPINTERIA</th>
+					<td colspan="4"><input type="text" name="carpinteria" id="carpinteria" value="" /></td>
+				</tr>
+				<tr>
+					<th class="bg-primary" rowspan="2">HERRERIA</th>
+					<th class="bg-primary">VENTANAS</th>
+					<td><input type="text" name="herreria_ventana" id="herreria_ventana" value="" /></td>
+					<th class="bg-primary" rowspan="2">ALUMINIO</th>
+					<th class="bg-primary">VENTANAS</th>
+					<td><input type="text" name="aluminio_ventana" id="aluminio_ventana" value="" /></td>
+				</tr>
+				<tr>
+					<th class="bg-primary">PUERTAS</th>
+					<td><input type="text" name="herreria_puerta" id="herreria_puerta" value="" /></td>
+					<th class="bg-primary">VIDRERIA</th>
+					<td><input type="text" name="aluminio_puerta" id="aluminio_puerta" value="" /></td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+
+	<div class="col-md-12">
 		<h4>Superficies </h4>
 	</div>
 	<div class="col-md-12">&nbsp;</div>
@@ -292,7 +317,7 @@
 		<table cellpadding="0" cellspacing="0" border="0" class="table">
 			<tbody>
 				<tr>
-					<th class="bg-primary">{{Form::label('superficie_total_terreno', 'Superficie Total del Terreno M&sup2;')}}</th>
+					<th class="bg-primary"><label for="superficie_total_terreno">Superficie Total del Terreno M&sup2;</label></th>
 					<td>
 						{{Form::number('superficie_total_terreno', $row->superficie_total_terreno, ['class'=>'form-control clsNumeric', 'step'=>'0.0001', 'min'=>'0.0001', 'max'=>'9999999999.9999'])}}
 						{{$errors->first('superficie_total_terreno', '<span class=text-danger>:message</span>')}}
