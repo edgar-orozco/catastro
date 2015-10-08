@@ -281,15 +281,17 @@
 		{{Form::label('herreria', 'Herrería')}}
 		{{Form::text('herreria', $row->herreria, ['class'=>'form-control', 'maxlength'=>'150'] )}}
 	</div>
-	<div class="col-md-12">&nbsp;</div>
+	<div class="col-md-12"><hr></div>
 
+	<div class="col-md-12">
+		<label for="carpinteria">Carpinteria</label>
+		<input type="text" name="carpinteria" id="carpinteria" class="form-control" maxlength="250" value="{{$row->herreria}}" />
+	</div>
+	<div class="col-md-12"><hr></div>
+	
 	<div class="col-md-12">
 		<table cellpadding="0" cellspacing="0" border="0" class="table">
 			<tbody>
-				<tr>
-					<th class="bg-primary" colspan="2">CARPINTERIA</th>
-					<td colspan="4"><input type="text" name="carpinteria" id="carpinteria" value="" /></td>
-				</tr>
 				<tr>
 					<th class="bg-primary" rowspan="2">HERRERIA</th>
 					<th class="bg-primary">VENTANAS</th>
@@ -372,13 +374,12 @@
 		<div class="col-md-12">&nbsp;</div>
 		<hr>
 
-
-        <div class="col-md-6 form-actions">
-            <a href="{{URL::route('indexAvaluos')}}" class="btn btn-coveratSecondary" role="button"><i class="glyphicon glyphicon-arrow-left"></i> Regresar</a>
-        </div>
-        <div class="col-md-6 form-actions">
+		<div class="col-md-6 form-actions">
+			<a href="{{URL::route('indexAvaluos')}}" class="btn btn-coveratSecondary" role="button"><i class="glyphicon glyphicon-arrow-left"></i> Regresar</a>
+		</div>
+		<div class="col-md-6 form-actions">
 			{{Form::submit('Guardar', ['class'=>'btn btn-coveratPrincipal'])}}
-        </div>
+		</div>
 	</div>
 </div>
 {{Form::close()}}
