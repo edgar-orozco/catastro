@@ -285,7 +285,7 @@
 
 	<div class="col-md-12">
 		<label for="carpinteria">Carpinteria</label>
-		<input type="text" name="carpinteria" id="carpinteria" class="form-control" maxlength="250" value="{{$row->herreria}}" />
+		<input type="text" name="carpinteria" id="carpinteria" class="form-control" maxlength="250" value="" />
 	</div>
 	<div class="col-md-12"><hr></div>
 	
