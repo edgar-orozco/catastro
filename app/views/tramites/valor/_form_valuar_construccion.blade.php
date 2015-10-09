@@ -160,8 +160,11 @@
         <tfoot>
 
         <tr style="border: none !important;">
-            <td colspan="16" style="border: none !important;">
-                <button type="button" class="btn btn-success pull-right agregar-construccion"><i class="glyphicon glyphicon-plus-sign"></i>&nbsp; Agregar bloque de construcción</button>
+            <td style="border: none !important;"></td>
+            <td class="sup-total-construcciones"></td>
+            <td colspan="14" style="border: none !important;">
+                <button type="button" class="btn btn-success pull-right agregar-construccion">
+                    <i class="glyphicon glyphicon-plus-sign"></i>&nbsp; Agregar construcción</button>
             </td>
         </tr>
 
@@ -170,51 +173,25 @@
     </div>
 
 
-        <div class="col-md-3">
-        <table id="datos-albercas" class="table">
-            <thead>
-                <tr>
-                    <th></th>
-                    <th>Tipo Alberca</th>
-                    <th>Superficie</th>
-                    <th>Valor/m<sup>2</sup></th>
-                </tr>
-            </thead>
-            <tbody class="talbercas">
-                <tr class="bloque-alberca">
-                    <td class="alberca-id">1</td>
-                    <td>
-                        <a href="javascript:void(0);"
-                           class="xselect tipoAlberca editable"
-                           data-type="select"
-                           data-pk="1"
-                           data-name="tipoalberca"
-                           data-title="Click para ingresar un valor"></a>
+    <div class="col-md-6">
+        @include('tramites.valor._form_valuar_albercas',[])
+    </div>
 
-                    </td>
-                    <td>
-                        <a href="javascript:void(0);"
-                           class="xselect superficieAlberca editable"
-                           data-type="text"
-                           data-pk="1"
-                           data-name="superficie_alberca"
-                           data-title="Click para ingresar un valor"></a>
-                    </td>
-                    <td class="val-categoria-albercas"></td>
-                    <td style="width: 30px;">
-                        <button type="button" class="btn btn-warning pull-right borrar-alberca" data-pk="1" title="Eliminar Alberca"><i class="glyphicon glyphicon-trash"></i></button>
-                    </td>
-                </tr>
-            </tbody>
-            <tfoot>
-                <tr style="border: none !important;">
-                    <td colspan="4" style="border: none !important;">
-                        <button type="button" class="btn btn-success pull-right agregar-alberca"><i class="glyphicon glyphicon-plus-sign"></i>&nbsp; Agregar Alberca</button>
-                    </td>
-                </tr>
-            </tfoot>
+    <div class="col-md-6">
+        <table class="table">
+            <thead>
+            <tr>
+                <th>CUERPOS DE CONSTRUCCION</th>
+                <th>SUPERFICIE TOTAL (m<sup>2</sup>)</th>
+            </tr>
+            </thead>
+            <tr>
+                <td class="listable" id="total-construcciones">0</td>
+                <td class="listable" id="sup-total">0.00</td>
+            </tr>
         </table>
-        </div>
+
+    </div>
 
 
     <input type="hidden" id="construcciones" name="datos_construccion" value="">

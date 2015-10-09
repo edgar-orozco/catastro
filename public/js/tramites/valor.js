@@ -84,7 +84,7 @@ $(function () {
         var demCompuesto = 1;
 
         for(k in demsTerr){
-            console.log(" K %s, d[k] %s", k, demsTerr[k]);
+            //console.log(" K %s, d[k] %s", k, demsTerr[k]);
             if(demsTerr[k]) {
                 demCompuesto *= demsTerr[k];
             }
@@ -103,10 +103,10 @@ $(function () {
         var incrementosTerreno = incPredio * valorTerreno;
         var valorAjustadoTerreno = valorTerreno - demeritosTerreno + incrementosTerreno;
 
+        //Construcciones
         var valorConstrucciones = calculaValorConstrucciones();
         var demeritosConstrucciones = calculaDemeritosConstrucciones();
-        var valorAjustadoConstruccion = valorConstrucciones - demeritosConstrucciones;
-
+        var valorAjustadoConstruccion = valorConstrucciones  - demeritosConstrucciones;
 
         if(tipoTerreno == 'R'){
             var incCompuesto = [];
@@ -156,23 +156,29 @@ $(function () {
 
     calculaValorConstrucciones = function(){
         var valorConstrucciones = 0;
+        var valorConstruccionesAlbercas = 0;
         for(i in registrosConstrucciones.construcciones){
-            if(i !== 'sup_albercas') {
-                valorConstrucciones += Number(valuaBloqueConstruccion(i, municipio));
-            }
+            valorConstrucciones += Number(valuaBloqueConstruccion(i, municipio));
         }
-        return valorConstrucciones;
+        for(i in registrosConstrucciones.construccionesAlbercas){
+            valorConstruccionesAlbercas += Number(valuaBloqueConstruccionAlberca(i));
+        }
+        return (valorConstrucciones + valorConstruccionesAlbercas);
     }
 
     calculaDemeritosConstrucciones = function () {
         var demConstrucciones = 0;
+        var demConstruccionesAlbercas = 0;
         for(i in registrosConstrucciones.construcciones){
-            if(i !== 'sup_albercas') {
-                console.log("Dem B %s => %s x %s",i,valuaBloqueConstruccion(i, municipio), demBloquesConstruccion(i));
-                demConstrucciones += Number(valuaBloqueConstruccion(i, municipio)) * demBloquesConstruccion(i);
-            }
+            console.log("Dem B %s => %s x %s = %s",i,valuaBloqueConstruccion(i, municipio), demBloquesConstruccion(i), Number(valuaBloqueConstruccion(i, municipio)) * demBloquesConstruccion(i));
+            demConstrucciones += Number(valuaBloqueConstruccion(i, municipio)) * demBloquesConstruccion(i);
         }
-        return demConstrucciones;
+        for(i in registrosConstrucciones.construccionesAlbercas){
+            console.log("Dem B Alb %s => %s x %s = %s",i,valuaBloqueConstruccionAlberca(i), demBloquesConstruccionAlbercas(i), Number(valuaBloqueConstruccionAlberca(i)) * demBloquesConstruccionAlbercas(i));
+            demConstruccionesAlbercas += Number(valuaBloqueConstruccionAlberca(i)) * demBloquesConstruccionAlbercas(i);
+        }
+        console.log("Dm ConstruccionesTot: %s = %s + %s", demConstrucciones + demConstruccionesAlbercas, demConstrucciones, demConstruccionesAlbercas);
+        return (demConstrucciones + demConstruccionesAlbercas);
 
     }
 
@@ -328,19 +334,15 @@ $(function () {
         var coef = 1;
         if(edad <= 10){
             pctDem = 0;
-            coef = 1;
         }
         if(10 < edad && edad <= 20){
             pctDem = 0.1;
-            coef = 0.9;
         }
         if(20 < edad && edad <= 30){
             pctDem = 0.20;
-            coef = 0.8;
         }
         if(30 < edad){
-            pctDem = 0.50;
-            coef = 0.5;
+            pctDem = 0.30;
         }
         return pctDem;
     }
@@ -423,5 +425,12 @@ $(function () {
         if( 250000 < m ) return 0.1;
     }
 
+
+    /**
+     * Valor de las albercas
+     */
+    valorAlberca = function(tipo, sup){
+        return sup * valoresAlbercas[tipo];
+    }
 
 });
