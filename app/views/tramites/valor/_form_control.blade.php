@@ -49,8 +49,8 @@
 
     <div class="form-actions form-group" style="clear:both; ">
         {{ Form::button('Realizar Valuación', array('type'=>'button','class' => 'btn btn-primary', 'id'=>'btn-actualizar-valor')) }}
-        {{ Form::button('Guardar', array('type'=>'button','class' => 'btn btn-primary', 'id'=>'btn-sumbit-valor')) }}
-        {{ Form::button('Imprimir', array('type'=>'button','class' => 'btn btn-primary', 'id'=>'btn-sumbit-valor')) }}
+        {{ Form::button('Guardar', array('type'=>'button','class' => 'btn btn-success', 'id'=>'btn-submit-valor', 'style'=>'display: none;')) }}
+        {{ Form::button('Imprimir', array('type'=>'button','class' => 'btn btn-info', 'id'=>'btn-imprimir-valor', 'style'=>'display: none;')) }}
     </div>
 
 </div>
