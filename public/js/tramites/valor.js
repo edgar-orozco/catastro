@@ -21,7 +21,6 @@ $(function () {
     $("#btn-actualizar-valor").on('click',function(e){
         e.preventDefault();
         actualizaValores();
-
         return false;
     });
 
@@ -139,6 +138,12 @@ $(function () {
 
         }
 
+        if(valorTerreno > 0){
+            $('#btn-submit-valor').show();
+        }
+        else {
+            $('#btn-submit-valor').hide();
+        }
 
         $('.valor-terreno').text(fixed(valorTerreno));
         $('.dem-terreno').text(fixed(demeritosTerreno));
