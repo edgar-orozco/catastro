@@ -34,4 +34,68 @@ class Solicitante extends Eloquent {
     public function tramites(){
         return $this->hasMany('Tramite','solicitante_id','id');
     }
+
+    public function setNombresAttribute($val){
+        $this->attributes['nombres'] = mb_strtoupper($val);
+    }
+
+    public function setApellidoPaternoAttribute($val){
+        $this->attributes['apellido_paterno'] = mb_strtoupper($val);
+    }
+
+    public function setApellidoMaternoAttribute($val){
+        $this->attributes['apellido_materno'] = mb_strtoupper($val);
+    }
+
+    public function setCurpAttribute($val){
+        $this->attributes['curp'] = mb_strtoupper($val);
+    }
+
+    public function setRfcAttribute($val){
+        $this->attributes['rfc'] = mb_strtoupper($val);
+    }
+
+    public function setDireccionAttribute($val){
+        $this->attributes['direccion'] = mb_strtoupper($val);
+    }
+
+    public function setCorreoAttribute($val){
+        $this->attributes['correo'] = mb_strtolower($val);
+    }
+
+    public function getNombrecAttribute(){
+        $this->setNombreCompleto();
+        return $this->attributes['nombrec'];
+    }
+
+
+
+    /**
+     * Se hace override del metodo save
+     * @param array $options
+     * @return bool|void
+     */
+    public function save(array $options = array())
+    {
+        //Invocamos el setter del nombre completo cada que guardamos un solicitante
+        $this->setNombreCompleto();
+        //ejecutamos el codigo original del método save, el codigo original del metodo retorna bool, nosotros tambien tenemos que
+        //retornar bool para conservar la funcionalidad del metodo
+        return parent::save($options);
+    }
+
+    /**
+     * Setea el nombre completo
+     */
+    public function setNombreCompleto(){
+        $partes = array();
+        if(trim($this->nombres)) $partes[] = trim($this->nombres);
+        if(trim($this->apellido_paterno)) $partes[] = trim($this->apellido_paterno);
+        if(trim($this->apellido_materno)) $partes[] = trim($this->apellido_materno);
+
+        $this->attributes['nombrec'] = implode(" ", $partes);
+    }
+
+
+
 }
