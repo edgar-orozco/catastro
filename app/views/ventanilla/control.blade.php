@@ -4,6 +4,12 @@
     {{{ $title }}} :: @parent
 @stop
 
+<style>
+    input {
+        text-transform: uppercase;
+    }
+</style>
+
 @section('content')
     {{ HTML::style('css/forms.css') }}
     {{ HTML::style('css/select2.min.css') }}
@@ -61,7 +67,7 @@
 
                     <div class="form-group">
                         {{Form::label('rfc','RFC', ['class'=>'', 'p' ])}}
-                        {{Form::text('rfc', null, ['class' => 'form-control', 'id' => 'rfc', 'minlength'=>'12', 'maxlength'=>'13', 'pattern' => '([A-Za-z]{4})([0-9]{6})([A-Za-z0-9]{3})', 'title' => 'El RFC ingresado no tiene el formato esperado, verifique nuevamente el RFC ingresado'] )}}
+                        {{Form::text('rfc', null, ['class' => 'form-control', 'id' => 'rfc', 'pattern' => '^[A-Za-z]{4}[0-9]{6}([A-Za-z0-9]{3})?$', 'title' => 'El RFC ingresado no tiene el formato esperado, verifique nuevamente el RFC ingresado'] )}}
                     </div>
 
                     <div class="form-group clearfix">
@@ -225,7 +231,7 @@
                     $("#rfc").autocomplete("disable");
                     $("#rfc").attr("required",true);
 
-                    $('#rfc').attr('pattern', '([A-Za-z]{4})([0-9]{6})([A-Za-z0-9]{3})');
+                    $('#rfc').attr('pattern', '^[A-Za-z]{4}[0-9]{6}([A-Za-z0-9]{3})?$');
                     $('.tipo_persona').val('F');
                 }
                 else if(radio.val() == 'M')
@@ -239,7 +245,7 @@
                     $("#rfc").autocomplete("enable");
                     $("#rfc").attr("required",true);
 
-                    $('#rfc').attr('pattern', '([A-Za-z]{3})([0-9]{6})([A-Za-z0-9]{3})');
+                    $('#rfc').attr('pattern', '^[A-Za-z]{3}[0-9]{6}([A-Za-z0-9]{3})?$');
                     $('.tipo_persona').val('M');
                 }
             });
