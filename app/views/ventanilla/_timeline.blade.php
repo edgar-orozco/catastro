@@ -32,7 +32,7 @@
                     </h4>
                     <p>
                         <small class="text-muted">
-                            <i class="glyphicon glyphicon-time"></i> {{LocalizedCarbon::instance($tramite->created_at)->diffForHumans()}} el {{$actividad->created_at->format("d M Y H:i")}}</small>
+                            <i class="glyphicon glyphicon-time"></i> {{LocalizedCarbon::instance($actividad->created_at)->diffForHumans()}} el {{$actividad->created_at->format("d M Y H:i")}}</small>
                     </p>
 
                 </div>
@@ -49,7 +49,11 @@
                     @endif
 
                     @if($actividad->observaciones)
-                        <p>{{$actividad->observaciones}}</p>
+                        <p>{{ nl2br( e($actividad->observaciones) ) }}</p>
+                    @endif
+                    @if($actividad->comentarios)
+                        <hr>
+                        <p>{{ nl2br( e($actividad->comentarios) ) }}</p>
                     @endif
                 </div>
             </div>

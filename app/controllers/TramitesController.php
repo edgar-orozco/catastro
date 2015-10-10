@@ -421,18 +421,20 @@ class TramitesController extends BaseController {
         $tipotramite_id = Input::get('tipotramite_id');
         $observaciones = Input::get('observaciones');
 
+        $comentarios = Input::get('comentarios');
+
         $uid = Auth::id();
 
         $actividad = [];
         if($tipo_id) $actividad['tipo_id'] = $tipo_id;
         if($departamento_id) $actividad['departamento_id'] = $departamento_id;
         if(trim($observaciones)) $actividad['observaciones'] = $observaciones;
+        if(trim($comentarios)) $actividad['comentarios'] = $comentarios;
 
         //Si no hay ni actividad ni departamento es que nomás le dieron submit a lo buey
         if(!$departamento_id && !$tipo_id){
             Session::flash('error', "Seleccione una actividad y/o un departamento a turnar");
-            return Redirect::back();
-            //return Redirect::to('/')->with('success',"Se ha guardado trámite con folio: $anio/$municipio/".sprintf("%06d",$folio));
+            return Redirect::back()->withInput();
         }
 
         $actividad['tramite_id'] = $tramite_id;

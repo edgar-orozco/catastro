@@ -3,7 +3,7 @@
 use LaravelBook\Ardent\Ardent;
 
 class ActividadTramite extends Ardent {
-	protected $fillable = ['tramite_id','user_id','departamento_id','tipo_id','observaciones'];
+	protected $fillable = ['tramite_id','user_id','departamento_id','tipo_id','observaciones','comentarios'];
 
     protected $table = 'actividades_tramites';
     /**

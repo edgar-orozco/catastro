@@ -46,9 +46,19 @@
                         {{Form::select('departamento_id', [null => ''] + $lista_deptos, null, ['id'=>'departamento_id', 'class' => 'form-control', 'autofocus'=> 'autofocus'] )}}
                     </div>
 
+                    <div class="form-group">
+                        {{Form::checkbox('comentarios_chb',1,null, ['class'=>'comentarios_chb'])}}
+                        {{Form::label('comentarios_chb','Agregar comentario')}}
+                    </div>
+
                     <div class="form-group" id="observaciones" style="display: none;">
                         {{Form::label('observaciones','Observaciones', ['class'=>''])}}
                         {{Form::textarea('observaciones', null, ['class' => 'form-control'] )}}
+                    </div>
+
+                    <div class="form-group" id="comentarios-div" style="display: none;">
+                        {{Form::label('comentarios','Comentarios', ['class'=>''])}}
+                        {{Form::textarea('comentarios', null, ['class' => 'form-control'] )}}
                     </div>
 
                 </div>
@@ -268,6 +278,27 @@
                 }
             );
 
+            $(".comentarios_chb").change(function () {
+                console.log("Cambio del chb");
+                if($(this).is(':checked')){
+                    $("#comentarios-div").show();
+                    setTimeout(function()
+                        {
+                            $("#comentarios").focus();
+                            console.log("Mocos!");
+                        },
+                    150);
+                }
+                else{
+                    $("#comentarios-div").hide();
+                }
+            });
+
+
+            //Default
+            if($(".comentarios_chb").is(':checked')) {
+                $("#comentarios-div").show();
+            }
 
         });
 
