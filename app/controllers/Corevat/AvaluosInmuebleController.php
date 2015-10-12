@@ -131,6 +131,8 @@ class corevat_AvaluosInmuebleController extends \BaseController {
 	}
 
 
-
+	public function getFieldAutoCompleteInmueble() {
+		
+	}
 
 }

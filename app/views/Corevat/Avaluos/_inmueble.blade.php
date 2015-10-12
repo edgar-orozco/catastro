@@ -418,6 +418,7 @@
 
 </div>
 {{ HTML::style('/css/fileinput.min.css') }}
+
 @section('javascript')
 {{ HTML::script('/js/jquery/jquery.min.js') }}
 {{ HTML::script('/js/jquery/jquery.mask.min.js') }}

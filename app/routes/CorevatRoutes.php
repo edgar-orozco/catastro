@@ -681,5 +681,11 @@ Route::group(array('before' => 'corevat'), function () {
 		return Asentamiento::where('municipio',$input)->distinct()->orderBy('codigo_postal')->get(['codigo_postal']);
 	});
 // ------------------------ finaliza ROUTES for JQuery -------------------------------------------------
+	
+	Route::post('/getFieldAutoCompleteInmueble', function() {
+		$inputs = Input::All();
+		//return AvaluosInmueble::select($inputs["field"])->where($inputs["field"], 'like', $inputs["query"] . '%')->orderBy($inputs["field"])->get();
+		return ["prueba 01","prueba 02","prueba 03"];
+	});
 
 });
