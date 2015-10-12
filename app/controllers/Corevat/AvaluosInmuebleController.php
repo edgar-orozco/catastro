@@ -130,4 +130,7 @@ class corevat_AvaluosInmuebleController extends \BaseController {
 		//
 	}
 
+
+
+
 }

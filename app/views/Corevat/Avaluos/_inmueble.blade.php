@@ -251,60 +251,40 @@
 			</tbody>
 		</table>
 	</div>
-	<div class="col-md-12">&nbsp;</div>
 
-	<div class="col-md-12">
-		<h4>Otros datos</h4>
-	</div>
-	<br/><br/>
-	<div class="col-md-12">&nbsp;</div>
+	<div class="col-md-12"><h4>Otros datos</h4></div>
 
 	<div class="col-md-12">
 		{{Form::label('hidraulico_sanitarias', 'Hidráulico Sanitarias')}}
 		{{Form::text('hidraulico_sanitarias', $row->hidraulico_sanitarias, ['class'=>'form-control', 'maxlength'=>'150'] )}}
 	</div>
-	<div class="col-md-12">&nbsp;</div>
 
 	<div class="col-md-12">
 		{{Form::label('electricas', 'Eléctricas')}}
 		{{Form::text('electricas', $row->electricas, ['class'=>'form-control', 'maxlength'=>'150'] )}}
 	</div>
-	<div class="col-md-12">&nbsp;</div>
 
 	<div class="col-md-12">
 		{{Form::label('carpinteria', 'Carpintería')}}
 		{{Form::text('carpinteria', $row->carpinteria, ['class'=>'form-control', 'maxlength'=>'150'] )}}
 	</div>
-	<div class="col-md-12">&nbsp;</div>
 
-	<div class="col-md-12">
-		{{Form::label('herreria', 'Herrería')}}
-		{{Form::text('herreria', $row->herreria, ['class'=>'form-control', 'maxlength'=>'150'] )}}
-	</div>
-	<div class="col-md-12"><hr></div>
-
-	<div class="col-md-12">
-		<label for="carpinteria">Carpinteria</label>
-		<input type="text" name="carpinteria" id="carpinteria" class="form-control" maxlength="250" value="" />
-	</div>
-	<div class="col-md-12"><hr></div>
-	
 	<div class="col-md-12">
 		<table cellpadding="0" cellspacing="0" border="0" class="table">
 			<tbody>
 				<tr>
-					<th class="bg-primary" rowspan="2">HERRERIA</th>
-					<th class="bg-primary">VENTANAS</th>
-					<td><input type="text" name="herreria_ventana" id="herreria_ventana" value="" /></td>
-					<th class="bg-primary" rowspan="2">ALUMINIO</th>
-					<th class="bg-primary">VENTANAS</th>
-					<td><input type="text" name="aluminio_ventana" id="aluminio_ventana" value="" /></td>
+					<th class="bg-primary" rowspan="2">Herrería</th>
+					<th class="bg-primary">Ventanas</th>
+					<td><input type="text" class="form-control typeahead" name="herreria_ventana" id="herreria_ventana" data-provide="typeahead" value="{{$row->herreria_ventana}}" /></td>
+					<th class="bg-primary" rowspan="2">Aluminio</th>
+					<th class="bg-primary">Ventanas</th>
+					<td><input type="text" class="form-control typeahead" name="aluminio_ventana" id="aluminio_ventana" data-provide="typeahead" value="{{$row->aluminio_ventana}}" /></td>
 				</tr>
 				<tr>
-					<th class="bg-primary">PUERTAS</th>
-					<td><input type="text" name="herreria_puerta" id="herreria_puerta" value="" /></td>
-					<th class="bg-primary">VIDRERIA</th>
-					<td><input type="text" name="aluminio_puerta" id="aluminio_puerta" value="" /></td>
+					<th class="bg-primary">Puertas</th>
+					<td><input type="text" class="form-control typeahead" name="herreria_puerta" id="herreria_puerta" data-provide="typeahead" value="{{$row->herreria_puerta}}" /></td>
+					<th class="bg-primary">Vidreria</th>
+					<td><input type="text" class="form-control typeahead" name="aluminio_puerta" id="aluminio_puerta" data-provide="typeahead" value="{{$row->aluminio_puerta}}" /></td>
 				</tr>
 			</tbody>
 		</table>
@@ -313,7 +293,6 @@
 	<div class="col-md-12">
 		<h4>Superficies </h4>
 	</div>
-	<div class="col-md-12">&nbsp;</div>
 
 	<div class="col-md-12">
 		<table cellpadding="0" cellspacing="0" border="0" class="table">
@@ -371,8 +350,7 @@
 				</tr>
 			</tbody>
 		</table>
-		<div class="col-md-12">&nbsp;</div>
-		<hr>
+		<div class="col-md-12"><hr></div>
 
 		<div class="col-md-6 form-actions">
 			<a href="{{URL::route('indexAvaluos')}}" class="btn btn-coveratSecondary" role="button"><i class="glyphicon glyphicon-arrow-left"></i> Regresar</a>
@@ -450,5 +428,6 @@
 {{ HTML::script('/js/fileinput.min.js') }}
 {{ HTML::script('/js/fileinput_locale_es.js') }}
 {{ HTML::script('/js/jquery.corevat.js') }}
+{{ HTML::script('/js/bootstrap3-typeahead.js') }}
 {{ HTML::script('/js/jquery.corevat.inmueble.js') }}
 @stop

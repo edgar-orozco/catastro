@@ -119,4 +119,27 @@ $(document).ready(function () {
 		allowedFileExtensions: ["gif", "jpg", "JPG", "png"]
 	});
 
+	/*++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+	 * 
+	$('.typeahead').typeahead({
+		source: function(query, process) {
+			return $.ajax({
+				global: false,
+				cache: false,
+				dataType: 'json',
+				url: '/getFieldAutoCompleteInmueble',
+				type: 'post',
+				data: {
+					campo: $(this).attr('id'),
+					query: query
+				},
+				success: function (data) {
+					return typeof data.options == 'undefined' ? false : process(data.options);
+				}
+			});
+		}
+	});
+	 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
+
+
 });

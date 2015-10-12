@@ -193,7 +193,7 @@ class AvaluosInmueble extends \Eloquent {
 		$row->hidraulico_sanitarias = $inputs["hidraulico_sanitarias"];
 		$row->electricas = $inputs["electricas"];
 		$row->carpinteria = $inputs["carpinteria"];
-		$row->herreria = $inputs["herreria"];
+		//$row->herreria = $inputs["herreria"];
 		$row->segun = $inputs["segun"];
 
 		$row->superficie_total_terreno = $inputs["superficie_total_terreno"]=='' ? 0 : $inputs["superficie_total_terreno"];
@@ -205,6 +205,11 @@ class AvaluosInmueble extends \Eloquent {
 		$row->superficie_escritura = $inputs["superficie_escritura"]=='' ? 0 : $inputs["superficie_escritura"];
 		$row->superficie_vendible = $inputs["superficie_vendible"]=='' ? 0 : $inputs["superficie_vendible"];
 		$row->updated_at = $inputs["updated_at"];
+		
+		$row->herreria_ventana = $inputs["herreria_ventana"];
+		$row->aluminio_ventana = $inputs["aluminio_ventana"];
+		$row->herreria_puerta = $inputs["herreria_puerta"];
+		$row->aluminio_puerta = $inputs["aluminio_puerta"];
 
 		$row->save();
 		
