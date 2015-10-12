@@ -13,7 +13,7 @@
 		$fecha['7'] = "Julio";
 		$fecha['8'] = "Agosto";
 		$fecha['9'] = "Septiembre";
-		$fecha['0'] = "Octubre";
+		$fecha['10'] = "Octubre";
 		$fecha['11'] = "Noviembre";
 		$fecha['12'] = "Diciembre";
 	
