@@ -167,7 +167,7 @@
 
 	<div class="col-md-12"><hr></div>
 	<div class="col-md-12">
-		{{Form::label('calles_transversales', 'TRAMO DE CALLE, CALLES TRANSVERSALES LIMÍTROFES Y ORIENTACIÓN')}}
+		{{Form::label('calles_transversales', 'Calles transversales limitrofes y orientación')}}
 		{{Form::textarea('calles_transversales', $row->calles_transversales, ['class'=>'form-control', 'maxlength'=>'500', 'rows' => '3'] )}}
 		<hr>
 	</div>
