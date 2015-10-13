@@ -684,8 +684,17 @@ Route::group(array('before' => 'corevat'), function () {
 	
 	Route::post('/getFieldAutoCompleteInmueble', function() {
 		$inputs = Input::All();
-		//return AvaluosInmueble::select($inputs["field"])->where($inputs["field"], 'like', $inputs["query"] . '%')->orderBy($inputs["field"])->get();
-		return ["prueba 01","prueba 02","prueba 03"];
+		//$inputs["field"] = 'hidraulico_sanitarias';
+		//$inputs["query"] = '';
+		$rows = AvaluosInmueble::select($inputs["field"] . ' as field')->where($inputs["field"], '!=', '')->where($inputs["field"], 'like', $inputs["query"] . '%')->groupBy($inputs["field"])->orderBy($inputs["field"])->get();
+		$array = $rows->toArray();
+		$a = '[';
+		foreach ($array as $key => $value) {
+			$a .= '"'. $value['field'] . '",';
+		}
+		$a .= ']';
+		return $a;
+		//return ["prueba 01","prueba 02","prueba 03"];
 	});
 
 });

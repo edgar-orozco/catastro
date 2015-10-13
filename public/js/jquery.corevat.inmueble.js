@@ -124,7 +124,6 @@ $(document).ready(function () {
 	 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
 	$('.typeahead').typeahead({
 		source: function(query, process) {
-			name: 'options'
 			return $.ajax({
 				global: false,
 				cache: false,
@@ -136,11 +135,7 @@ $(document).ready(function () {
 					query: query
 				},
 				success: function (data) {
-					return typeof data.options == 'undefined' ? false : process(data.options);
-					//process(json);
-					//var json = JSON.parse(data);
-					//return process(json.options);
-					//return process(data.options);
+					return process(data);
 				}
 			});
 		}

@@ -275,16 +275,16 @@
 				<tr>
 					<th class="bg-primary" rowspan="2">Herrería</th>
 					<th class="bg-primary">Ventanas</th>
-					<td><input type="text" class="form-control typeahead" name="herreria_ventana" id="herreria_ventana" data-provide="typeahead" value="{{$row->herreria_ventana}}" /></td>
+					<td><input type="text" class="form-control typeahead" name="herreria_ventana" id="herreria_ventana" data-provide="typeahead" value="{{$row->herreria_ventana}}" style="z-index: 1051;" /></td>
 					<th class="bg-primary" rowspan="2">Aluminio</th>
 					<th class="bg-primary">Ventanas</th>
-					<td><input type="text" class="form-control typeahead" name="aluminio_ventana" id="aluminio_ventana" data-provide="typeahead" value="{{$row->aluminio_ventana}}" /></td>
+					<td><input type="text" class="form-control typeahead" name="aluminio_ventana" id="aluminio_ventana" data-provide="typeahead" value="{{$row->aluminio_ventana}}" style="z-index: 1051;" /></td>
 				</tr>
 				<tr>
 					<th class="bg-primary">Puertas</th>
-					<td><input type="text" class="form-control typeahead" name="herreria_puerta" id="herreria_puerta" data-provide="typeahead" value="{{$row->herreria_puerta}}" /></td>
+					<td><input type="text" class="form-control typeahead" name="herreria_puerta" id="herreria_puerta" data-provide="typeahead" value="{{$row->herreria_puerta}}" style="z-index: 1051;" /></td>
 					<th class="bg-primary">Vidreria</th>
-					<td><input type="text" class="form-control typeahead" name="aluminio_puerta" id="aluminio_puerta" data-provide="typeahead" value="{{$row->aluminio_puerta}}" /></td>
+					<td><input type="text" class="form-control typeahead" name="aluminio_puerta" id="aluminio_puerta" data-provide="typeahead" value="{{$row->aluminio_puerta}}" style="z-index: 1051;" /></td>
 				</tr>
 			</tbody>
 		</table>
