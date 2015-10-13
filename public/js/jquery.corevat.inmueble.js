@@ -135,6 +135,11 @@ $(document).ready(function () {
 					query: query
 				},
 				success: function (data) {
+					//return typeof data.options == 'undefined' ? false : process(data.options);
+					//process(json);
+					//var json = JSON.parse(data);
+					//datos = eval(data);
+					//return process(datos);
 					return process(data);
 				}
 			});
