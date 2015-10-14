@@ -3,7 +3,7 @@
 
         <div class="form-group">
             {{Form::label('sup_terreno','Superficie')}}
-            {{Form::text('sup_terreno', null, ['class' => 'form-control'])}}
+            {{Form::text('sup_terreno', $superficie_terreno, ['class' => 'form-control'])}}
             {{$errors->first('sup_terreno', '<span class=text-danger>:message</span>')}}
         </div>
         <div class="form-group">

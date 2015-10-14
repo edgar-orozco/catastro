@@ -12,4 +12,8 @@ Route::group(array('before' => 'auth'), function () {
     Route::post('tramites/valor/create',
       ['uses' => 'ValorCatastralController@store']);
 
+//Se muestra el resumen de valuación de un tramite
+    Route::get('tramites/valor/show-grid',
+      ['uses' => 'ValorCatastralController@showGrid']);
+
 });

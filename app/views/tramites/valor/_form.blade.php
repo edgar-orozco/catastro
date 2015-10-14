@@ -10,7 +10,7 @@
     <div class="tab-content">
         <div role="tabpanel" class="tab-pane active" id="datos-valuar-terreno">
             <br/>
-            @if($tipo_predio == '')
+            @if($tipo_predio == 'U')
                 @include('tramites.valor._form_valuar_terreno', [] )
             @else
                 @include('tramites.valor._form_valuar_terreno_rustico', [] )
@@ -552,6 +552,8 @@
             //Se carga el seteo de editables por default
             setEditables();
             setEditablesAlbercas();
+
+            console.log("Desde adentro %s",$('body').height());
         });
 
         var recalculaTotalSupCons = function(){

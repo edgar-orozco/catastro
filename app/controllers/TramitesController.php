@@ -351,8 +351,12 @@ class TramitesController extends BaseController {
         //Selector de Tipo de actividades
         $tipoactividades = TipoActividadTramite::where('manual',true)->orderBy('orden')->get();
         $lista_tipoactividades = array();
+        $callbacks = [];
+        $getters = [];
         foreach($tipoactividades as $tipoactividad) {
             $lista_tipoactividades[$tipoactividad->id] =$tipoactividad->nombre;
+            $callbacks[$tipoactividad->id] = $tipoactividad->callback;
+            $getters[$tipoactividad->id] = $tipoactividad->getters;
         }
 
         //Los roles que tiene el usuario actual
@@ -379,6 +383,7 @@ class TramitesController extends BaseController {
             'title',
             'title_section',
             'subtitle_section',
+            'tramite_id',
             'clave',
             'cuenta',
             'predio',
@@ -396,7 +401,9 @@ class TramitesController extends BaseController {
             'lista_tipotramites',
             'uuid',
             'ff',
-            'esResponsable'
+            'esResponsable',
+            'callbacks',
+            'getters'
         ));
     }
   
@@ -409,7 +416,7 @@ class TramitesController extends BaseController {
     public function storeActividad($tramite_id){
 
         $tramite = Tramite::findOrFail($tramite_id);
-
+print_r($tramite_id);
         $folio = $tramite->folio;
         $anio = $tramite->anio;
         $municipio = $tramite->municipio;
