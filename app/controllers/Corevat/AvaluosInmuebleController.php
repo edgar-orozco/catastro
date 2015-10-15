@@ -24,9 +24,12 @@ class corevat_AvaluosInmuebleController extends \BaseController {
 		$cat_usos_suelos = CatUsosSuelos::comboList();
 		$cat_niveles = CatNiveles::comboList();
 
+		// ACABADOS
+		$cat_acabados = CatAcabados::comboList();
 		$cat_pisos = CatPisos::comboList();
 		$cat_aplanados = CatAplanados::comboList();
 		$cat_plafones = CatPlafones::comboList();
+		
 		$cat_orientaciones = CatOrientaciones::comboList();
 
 		$croquis = $row->croquis != '' ? '/corevat/files/' . $row->croquis : '';
@@ -34,7 +37,7 @@ class corevat_AvaluosInmuebleController extends \BaseController {
 
 		$arrMedCol = array('Metros' => 'Metros', 'Metros Cuadrados' => 'Metros Cuadrados', 'Metros Cúbicos' => 'Metros Cúbicos', 'Metros Lineales' => 'Metros Lineales', 'Kilometros' => 'Kilometros', 'Kilometros Cuadrados' => 'Kilometros Cuadrados', 'Hectareas' => 'Hectareas', 'Hectareas Cuadradas' => 'Hectareas Cuadradas');
 
-		return View::make('Corevat.Avaluos.avaluos', compact('opt', 'idavaluo', 'title', 'row', 'cat_cimentaciones', 'cat_estructuras', 'cat_muros', 'cat_entrepisos', 'cat_techos', 'cat_bardas', 'cat_usos_suelos', 'cat_niveles', 'cat_pisos', 'cat_aplanados', 'cat_plafones', 'cat_orientaciones', 'arrMedCol', 'croquis', 'fachada'));
+		return View::make('Corevat.Avaluos.avaluos', compact('opt', 'idavaluo', 'title', 'row', 'cat_cimentaciones', 'cat_estructuras', 'cat_muros', 'cat_entrepisos', 'cat_techos', 'cat_bardas', 'cat_usos_suelos', 'cat_niveles', 'cat_pisos', 'cat_aplanados', 'cat_plafones', 'cat_orientaciones', 'arrMedCol', 'croquis', 'fachada', 'cat_acabados'));
 	}
 
 	/**

@@ -76,6 +76,10 @@ $(document).ready(function () {
 			url = '/corevat/AiMedidasColindanciasDel/' + $(this).attr('idTable');
 			datatable = aiMedidasColindancias;
 
+		} else if (ctrl === 'delAiAcabados') {
+			url = '/corevat/AiAcabadosDel/' + $(this).attr('idTable');
+			datatable = aiAcabados;
+
 		} else if (ctrl === 'delAemCompTerrenos') {
 			url = '/corevat/AemCompTerrenosDel/' + $(this).attr('idTable');
 			datatable = aemCompTerrenos;

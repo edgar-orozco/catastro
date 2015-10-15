@@ -22,10 +22,19 @@ $(document).ready(function () {
 		 ]
 	});
 
-	/*++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-	 * 
-	 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
 	aiMedidasColindancias.ajax.url('/corevat/AiMedidasColindanciasGetAjax/' + $("#idavaluoinmueble").val()).load();
+
+	/*++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+	 *  
+	 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
+	aiAcabados = $('#aiAcabadosDataTable').DataTable({
+		 ordering: false,
+		 columnDefs: [
+			 {"visible": false, "targets": 0 }
+		 ]
+	});
+
+	aiAcabados.ajax.url('/corevat/AiAcabadosGetAjax/' + $("#idavaluoinmueble").val()).load();
 
 	/*++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 	 * 
@@ -38,6 +47,20 @@ $(document).ready(function () {
 		$("#idorientacion option[value=1]").attr("selected", true);
 		$('#modalFormAiMedidasColindanciasTitle').empty().append('[COREVAT] Capturar un nuevo registro');
 		$('#modalFormAiMedidasColindancias').modal('show');
+	});
+
+	/*++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+	 * 
+	 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
+	$('#btnNewAcabado').click(function () {
+		$('#messagesDialogForm').empty().removeClass();
+		$('#ctrl_acabado').val('ins');
+		$("#fk_cat_acabados[value=1]").attr("selected", true);
+		$("#fk_cat_pisos[value=1]").attr("selected", true);
+		$("#fk_cat_aplanados[value=1]").attr("selected", true);
+		$("#fk_cat_plafones[value=1]").attr("selected", true);
+		$('#modalFormAiAcabadosTitle').empty().append('[COREVAT] Capturar un nuevo registro');
+		$('#modalFormAiAcabados').modal('show');
 	});
 
 	/*++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
@@ -67,10 +90,44 @@ $(document).ready(function () {
 	};
 
 	/*++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+	 * PENDIENTE CACHAR ERRORES EN AJAX
+	 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
+	$.editAiAcabados = function (id) {
+		$('#messagesDialogForm').empty().removeClass();
+		$('#ctrl_acabado').val('upd');
+		$('#idaiacabados').val(id);
+		$.ajax({
+			global: false,
+			cache: false,
+			dataType: 'json',
+			url: '/corevat/AiAcabadosGet/' + $('#idaiacabados').val(),
+			type: 'get',
+			success: function (data) {
+				datos = eval(data);
+				$("#fk_cat_acabados option[value=" + datos.fk_cat_acabados + "]").attr("selected", true);
+				$("#fk_cat_pisos option[value=" + datos.fk_cat_pisos + "]").attr("selected", true);
+				$("#fk_cat_aplanados option[value=" + datos.fk_cat_aplanados + "]").attr("selected", true);
+				$("#fk_cat_plafones option[value=" + datos.fk_cat_plafones + "]").attr("selected", true);
+				$('#modalFormAiAcabadosTitle').empty().append('[COREVAT] Modificar registro');
+				$('#modalFormAiAcabados').modal('show');
+			}
+		});
+	};
+
+	/*++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 	 * 
 	 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
 	$.delAiMedidasColindancias = function (id) {
 		$('#corevatConfirmButton').attr('ctrl', 'delAiMedidasColindancias').attr('idTable', id);
+		$('#corevatConfirmContainer').empty().append('<h2>¿Realmente dese eliminar el registro?</h2>');
+		$('#corevatConfirm').modal('show');
+	};
+
+	/*++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+	 * 
+	 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
+	$.delAiAcabados = function (id) {
+		$('#corevatConfirmButton').attr('ctrl', 'delAiAcabados').attr('idTable', id);
 		$('#corevatConfirmContainer').empty().append('<h2>¿Realmente dese eliminar el registro?</h2>');
 		$('#corevatConfirm').modal('show');
 	};
@@ -92,12 +149,49 @@ $(document).ready(function () {
 				if (datos.success) {
 					$('#messagesDialogForm').removeClass().addClass('alert').addClass('alert-success').append(datos.message);
 					$('#idTable').val(datos.idTable);
-					if ($('#ctrl').val() == 'ins') {
+					if ($('#ctrl_acabado').val() == 'ins') {
 						$('#idaimedidacolindancia, #medidas').val('0');
 						$('#colindancia').val('');
 						$("#idorientacion option[value=1]").attr("selected", true);
 					}
 					aiMedidasColindancias.ajax.reload();
+				} else {
+					var errores = '';
+					for (datos in data.errors) {
+						errores += '<p>' + data.errors[datos] + '</p>';
+					}
+					$('#messagesDialogForm').removeClass().addClass('alert').addClass('alert-danger').append(errores);
+				}
+			}
+		});
+		return false;
+	});
+
+	/*++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+	 * 
+	 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
+	$("#formAiAcabados").submit(function () {
+		$('#messagesDialogForm').empty().removeClass();
+		$.ajax({
+			global: false,
+			cache: false,
+			dataType: 'json',
+			url: $(this).attr("action"),
+			type: $(this).attr("method"),
+			data: $(this).serialize(),
+			success: function (data) {
+				datos = eval(data);
+				if (datos.success) {
+					$('#messagesDialogForm').removeClass().addClass('alert').addClass('alert-success').append(datos.message);
+					$('#idTable').val(datos.idTable);
+					if ($('#ctrl').val() === 'ins') {
+						$('#idaiacabado').val('0');
+						$("#fk_cat_acabados option[value=1]").attr("selected", true);
+						$("#fk_cat_pisos option[value=1]").attr("selected", true);
+						$("#fk_cat_aplanados option[value=1]").attr("selected", true);
+						$("#fk_cat_plafones option[value=1]").attr("selected", true);
+					}
+					aiAcabados.ajax.reload();
 				} else {
 					var errores = '';
 					for (datos in data.errors) {

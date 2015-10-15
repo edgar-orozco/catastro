@@ -35,13 +35,13 @@
 	<div class="col-md-12"><h3>Medidas y Colindancias</h3></div>
 	<div class="col-md-10 col-sm-10 col-xs-10"><h4>Detalles de Medidas y Colindancias</h4></div>
 
-    <div class="col-md-2 col-sm-2 col-xs-2 btn-beside-title">
-        <a class="btn btn-primary nuevo" id="btnNew" title="Nuevo Avaluo">
-            <span class="glyphicon glyphicon-plus-sign"></span> Nuevo
-        </a>
-    </div>
-    <div class="clearfix"></div>
-    <br/>
+	<div class="col-md-2 col-sm-2 col-xs-2 btn-beside-title">
+		<a class="btn btn-primary nuevo" id="btnNew" title="Nuevo Avaluo">
+			<span class="glyphicon glyphicon-plus-sign"></span> Nuevo
+		</a>
+	</div>
+	<div class="clearfix"></div>
+	<br/>
 	<div class="col-md-12" style="margin-top: 10px;">
 		{{Form::label('segun', 'Según')}}
 		{{Form::text('segun', $row->segun, ['class'=>'form-control', 'required' => 'required', 'maxlength' => '150'])}}
@@ -136,11 +136,34 @@
 	</div>
 	<div class="col-md-12">&nbsp;</div>
 
-	<div class="col-md-12">
-		<h4>Acabados</h4>
-	</div>
-	<div class="col-md-12">&nbsp;</div>
+	<div class="col-md-10 col-sm-10 col-xs-10"><h4>Acabados</h4></div>
 
+	<div class="col-md-2 col-sm-2 col-xs-2 btn-beside-title">
+		<a class="btn btn-primary nuevo" id="btnNewAcabado" title="Nuevo Acabado">
+			<span class="glyphicon glyphicon-plus-sign"></span> Nuevo
+		</a>
+	</div>
+	<div class="clearfix"></div>
+	<br/>
+
+	<div class="col-md-12">
+		<table cellpadding="0" cellspacing="0" border="0" class="table table-striped corevatDataTable" id="aiAcabadosDataTable">
+			<thead>
+				<tr>
+					<th style="width:5%;">#</th>
+					<th style="width:25%;">Acabado</th>
+					<th style="width:25%;">Pisos</th>
+					<th style="width:25%;">Muros</th>
+					<th style="width:25%;">Plafones</th>
+					<th style="width:5%;">Opciones</th>
+				</tr>
+			</thead>
+		</table>
+	</div>
+
+	<div class="col-md-12"><hr></div>
+
+<!--
 	<div class="col-md-12">
 		<table cellpadding="0" cellspacing="0" border="0" class="table">
 			<thead>
@@ -251,6 +274,7 @@
 			</tbody>
 		</table>
 	</div>
+-->
 
 	<div class="col-md-12"><h4>Otros datos</h4></div>
 
@@ -403,6 +427,55 @@
 						{{Form::text('colindancia', '', ['id'=>'colindancia', 'class'=>'form-control', 'required' => 'required', 'maxlength'=>'100'] )}}
 						<hr>
 					</div>
+				</div>
+				
+				<div style="text-align: center;" id="messagesDialogForm"></div>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+				<button type="submit" class="btn btn-primary">Aceptar</button>
+			</div>
+			{{Form::close()}}
+		</div>
+	</div>
+</div>
+
+<div class="modal fade bs-example-modal-lg" id="modalFormAiAcabados" role="dialog" tabindex="-1">
+	<div class="modal-dialog modal-lg">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h4 class="modal-title" id="modalFormAiAcabadosTitle"></h4>
+			</div>
+			{{Form::model($row, ['route' => array('setAiAcabados'), 'id'=>'formAiAcabados', 'method'=>'post' ]) }}
+			<input type="hidden" name="ctrl_acabado" id="ctrl_acabado" value="" />
+			<input type="hidden" name="idavaluoinmueble3" id="idavaluoinmueble3" value="{{$row->idavaluoinmueble}}" />
+			<input type="hidden" name="idaiacabado" id="idaiacabado" value="0" />
+			<div class="modal-body">
+				<div class="row">
+					<div class="col-md-6">
+						{{Form::label('fk_cat_acabados', 'Acabados')}}
+						{{Form::select('fk_cat_acabados', $cat_acabados, 1, ['id' => 'fk_cat_acabados', 'class'=>'form-control'])}}
+						<hr>
+					</div>
+
+					<div class="col-md-6">
+						{{Form::label('fk_cat_pisos', 'Pisos')}}
+						{{Form::select('fk_cat_pisos', $cat_pisos, 1, ['id' => 'fk_cat_pisos', 'class'=>'form-control'])}}
+						<hr>
+					</div>
+
+					<div class="col-md-6">
+						{{Form::label('fk_cat_aplanados', 'Muros')}}
+						{{Form::select('fk_cat_aplanados', $cat_aplanados, 1, ['id' => 'fk_cat_aplanados', 'class'=>'form-control'])}}
+						<hr>
+					</div>
+
+					<div class="col-md-6">
+						{{Form::label('fk_cat_plafones', 'Plafones')}}
+						{{Form::select('fk_cat_plafones', $cat_plafones, 1, ['id' => 'fk_cat_plafones', 'class'=>'form-control'])}}
+						<hr>
+					</div>
+
 				</div>
 				
 				<div style="text-align: center;" id="messagesDialogForm"></div>

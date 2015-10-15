@@ -552,6 +552,17 @@ Route::group(array('before' => 'admin'), function () {
 	Route::get('corevat/CatFinalidadE/{id}',          array('as' => 'destroyCatFinalidad', 'uses' => 'corevat_CatFinalidadController@destroy'));
 	Route::put('corevat/CatFinalidad/{id?}.{format}', array('as' => 'showCatFinalidad',    'uses' => 'corevat_CatFinalidadController@show'));
 
+	/*
+	 * CATALOGO DE ACABADOS
+	 * cat_acabados
+	 */
+	Route::resource('corevat/CatAcabados', 'corevat_CatAcabadosController');
+	Route::post('corevat/CatAcabados',      array('as' => 'storeCatAcabados',   'uses' => 'corevat_CatAcabadosController@store'));
+	Route::get('corevat/CatAcabados',       array('as' => 'indexCatAcabados',   'uses' => 'corevat_CatAcabadosController@index'));
+	Route::put('corevat/CatAcabados/{id?}', array('as' => 'updateCatAcabados',  'uses' => 'corevat_CatAcabadosController@update'));
+	Route::get('corevat/CatAcabadosE/{id}', array('as' => 'destroyCatAcabados', 'uses' => 'corevat_CatAcabadosController@destroy'));
+	Route::put('corevat/CatAcabados/{id?}', array('as' => 'showCatAcabados',    'uses' => 'corevat_CatAcabadosController@show'));
+
 });
 
 /**
@@ -596,6 +607,12 @@ Route::group(array('before' => 'corevat'), function () {
 	Route::post('/corevat/AiMedidasColindanciasUpd/{id?}',    array('as' => 'setAiMedidasColindancias',     'uses' => 'corevat_AiMedidasController@setAiMedidasColindancias'));
 	Route::get( '/corevat/AiMedidasColindanciasDel/{id}',     array('as' => 'destroyAiMedidasColindancias', 'uses' => 'corevat_AiMedidasController@destroy'));
 	Route::get( '/corevat/AiMedidasColindanciasGetAjax/{id}', array('as' => 'getAjaxAiMedidasColindancias', 'uses' => 'corevat_AiMedidasController@getAjaxAiMedidasColindancias'));
+	
+	// AVALUOS INMUEBLES ACABADOS
+	Route::get( '/corevat/AiAcabadosGet/{id}',     array('uses' => 'corevat_AiAcabadosController@getAiAcabados'));
+	Route::post('/corevat/AiAcabadosUpd/{id?}',    array('as' => 'setAiAcabados',     'uses' => 'corevat_AiAcabadosController@setAiAcabados'));
+	Route::get( '/corevat/AiAcabadosDel/{id}',     array('as' => 'destroyAiAcabados', 'uses' => 'corevat_AiAcabadosController@destroy'));
+	Route::get( '/corevat/AiAcabadosGetAjax/{id}', array('as' => 'getAjaxAiAcabados', 'uses' => 'corevat_AiAcabadosController@getAjaxAiAcabados'));
 	
 	// ENFOQUE MERCADO
 	Route::get('/corevat/AvaluoEnfoqueMercado/{id}',      array('as' => 'editAvaluoEnfoqueMercado',   'uses' => 'corevat_AvaluosMercadoController@edit'));

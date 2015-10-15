@@ -125,6 +125,9 @@
             <li class="dropdown-submenu @if(Request::is('CorevatCatalogos/*')) active @endif">
                 <a data-toggle="dropdown" class="dropdown-toggle" href="#">PARAMETROS</a>
                 <ul role="menu" class="dropdown-menu">
+                    <li class="@if(Request::is('corevat/CatAcabados')) active @endif">
+                        <a href="{{URL::to('corevat/CatAcabados')}}"><i class="glyphicon glyphicon-th-list"></i>&nbsp;Acabados</a>
+                    </li>
                     <li class="@if(Request::is('corevat/CatAplanados')) active @endif">
                         <a href="{{URL::to('corevat/CatAplanados')}}"><i class="glyphicon glyphicon-th-list"></i>&nbsp;Aplanados</a>
                     </li>
