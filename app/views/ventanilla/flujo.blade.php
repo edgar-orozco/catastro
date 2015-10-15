@@ -3,8 +3,16 @@
 @section('title')
     {{{ $title }}} :: @parent
 @stop
-
 @section('content')
+    <style>
+        html{
+            height: 100% !important;
+        }
+        body{
+            min-height: 100% !important;
+        }
+    </style>
+
     {{ HTML::style('css/forms.css') }}
     {{ HTML::style('css/select2.min.css') }}
     {{ HTML::style('css/tramites/timeline.css') }}
@@ -18,7 +26,7 @@
 
         <div class="col-md-4 column">
 
-            {{ Form::open(array('url' => 'tramites/proceso/'.$tramite->id, 'method' => 'POST', 'name' => 'forma-tramite', 'files'=>true)) }}
+            {{ Form::open(array('url' => 'tramites/proceso/'.$tramite->id, 'method' => 'POST', 'name' => 'forma-tramite', 'enctype' => 'multipart/form-data')) }}
 
 
             <div class="panel panel-default">
@@ -60,7 +68,7 @@
                         {{Form::label('comentarios','Comentarios', ['class'=>''])}}
                         {{Form::textarea('comentarios', null, ['class' => 'form-control'] )}}
                     </div>
-
+                    {{Form::hidden('tramite_id', $tramite_id, ['id'=>'tramite_id'])}}
                 </div>
 
             </div>
@@ -209,6 +217,28 @@
         </div>
 
     </div>
+    </div>
+
+
+
+
+                <!-- Modal -->
+                <div class="modal fade modal-tramites" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                    <div class="modal-dialog wrapper" role="document" style="width: 90%; min-height:90%;">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                <h4 class="modal-title" id="myModalLabel">{{$title_section}} Folio: {{$anio}}/{{$municipio}}/{{sprintf("%06d",$folio)}}</h4>
+                            </div>
+                            <div class="modal-body">
+                <iframe id="ifrcallback" style="width: 100%; " frameBorder="0" class="wrapper"></iframe>
+                            </div>
+                            <div class="modal-footer">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
 @stop
 
 @section('javascript')
@@ -216,6 +246,8 @@
     {{ HTML::script('js/select2/i18n/es.js') }}
 
     <script>
+
+        var callbacks = {{json_encode($callbacks)}}
 
         $(function () {
             $("#departamento_id").select2({
@@ -253,6 +285,17 @@
                     $("#select-tipotramites").show();
                     return true;
                 }
+
+                //Vemos si hay alguna forma que mostrar o hacer algun redirect
+                if(callbacks[$(this).val()]){
+                    var urlCallback = callbacks[$(this).val()];
+                    var tramite_id = $('#tramite_id').val();
+                    var tipoactividad_id = $(this).val();
+                    var depto_id = $("#departamento_id").val();
+                    $('#ifrcallback').attr('src','/'+urlCallback+'?tramite_id='+tramite_id+'&tipoactividad_id='+tipoactividad_id+'&depto_id='+depto_id);
+                    $('.modal-tramites').modal();
+                }
+
                 $('#observaciones').hide();
                 $('#select-tipotramites').hide();
             });
@@ -285,7 +328,6 @@
                     setTimeout(function()
                         {
                             $("#comentarios").focus();
-                            console.log("Mocos!");
                         },
                     150);
                 }
@@ -294,13 +336,39 @@
                 }
             });
 
-
             //Default
             if($(".comentarios_chb").is(':checked')) {
                 $("#comentarios-div").show();
             }
 
+            //Buscamos todos los getters de los callbacks en los tipos de actividad que lo tengan y cargamos asincronamente esas pantallas
+            $('iframe').load(function () {
+                acomodaIframes($(this));
+            });
+
+
+            acomodaIframes = function(iframe) {
+                var $iframe = $(iframe);
+                var height = $iframe.contents().find('.container').height();
+                console.log('Se ha cargado H:%s', height);
+                $iframe.height(height);
+            }
+
+            $('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
+                var target = $(e.target).attr("href") // activated tab
+                if(target =='#panel-historial'){
+                    $('iframe').each(function(){
+                        acomodaIframes($(this));
+                    });
+
+                }
+            });
+
         });
+
+
+
+
 
     </script>
 

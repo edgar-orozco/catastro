@@ -1,19 +1,45 @@
 <?php
 
+use \Catastro\Repos\Padron\PadronRepositoryInterface;
+
 class ValorCatastralController extends \BaseController
 {
+
+    protected $padron;
+    protected $tipotramite;
+    protected $tramite;
+    /**
+     * @param PadronRepositoryInterface $padron
+     * @param Tipotramite $tipotramite
+     * @param Tramite $tramite
+     */
+    public function __construct(PadronRepositoryInterface $padron, Tipotramite $tipotramite, Tramite $tramite)
+    {
+        $this->padron = $padron;
+        $this->tipotramite = $tipotramite;
+        $this->tramite = $tramite;
+    }
+
     public function index(){
 
     }
 
     public function create(){
 
-        //Todos los catalogos que se utilizan en combos y opciones en la forma de la manifestacion
-        $vars = $this->catalogos();
+        $tramite_id = Input::get('tramite_id');
+        $tramite = Tramite::find($tramite_id);
+        $municipio = $tramite->municipio;
+        $vars['municipio'] = $municipio;
 
-        //Eliminar este dato que se pone asi para que se puedan hacer pruebas
-        $tipo_predio = Input::get('tipo');
+        //Todos los catalogos que se utilizan en combos y opciones en la forma de la manifestacion
+        $vars = $this->catalogos($municipio);
+
+        $predio = $this->padron->getByClaveOCuenta($tramite->clave);
+
+        $tipo_predio = $predio->tipo_predio;
         $vars['tipo_predio'] = strtoupper($tipo_predio);
+        $vars['superficie_terreno'] = $predio->superficie_terreno;
+        $vars['predio'] = $predio;
 
         return View::make('tramites.valor.create', $vars);
     }
@@ -22,11 +48,44 @@ class ValorCatastralController extends \BaseController
 
     }
 
+    /**
+     * Regresa la vista del resumen del valor en una tablita
+     * @param $id
+     * @return \Illuminate\View\View
+     */
+    public function showGrid(){
 
-    private function catalogos(){
+        $tramite_id = Input::get('tramite_id');
+
+        //TODO: Aquí se tiene que consultar el registro mediante el tramite_id y/o actividad_id
+        $valor_terreno = 12345.67;
+
+        $valor_construccion = 123456.78;
+        $demeritos_terreno = 123456.78;
+        $demeritos_construccion = 123456.78;
+        $incrementos_terreno = 123456.78;
+        $ajustado_terreno = 123456.78;
+        $ajustado_construccion = 123456.78;
+        $valor_catastral = 123456.78;
+
+        $argumentos = [
+            'valor_terreno',
+            'valor_construccion',
+            'demeritos_terreno',
+            'demeritos_construccion',
+            'incrementos_terreno',
+            'ajustado_terreno',
+            'ajustado_construccion',
+            'valor_catastral'
+        ];
+
+        return View::make('tramites.valor._grid_valor',compact($argumentos));
+    }
+
+    private function catalogos($municipio){
 
         //TODO: Eliminar datos harcodeados de prueba
-        $municipio = '014';
+        //$municipio = '014';
 
         $title = 'Valor Catastral';
 

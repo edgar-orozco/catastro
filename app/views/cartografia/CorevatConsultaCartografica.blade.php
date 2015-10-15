@@ -180,12 +180,14 @@ Avalúos según Valor Concluido
         <div id="tocContainer">
 
 
-<!--               <form id="layerform" >
+<!--               
+            <form id="layerform" >
                 <label for="ClaveCatastral" >Clave Catastral</label>
                 <input type="text" id="ClaveCatastral" name="ClaveCatastral" value="" >
                 <input type="submit" value="Buscar" >
-              </form>
+            </form>
  -->
+
             <span></span>
             <div class="panel panel-default">
                   <div class="panel-body">
@@ -236,6 +238,10 @@ Avalúos según Valor Concluido
                     </ul>
 
                     <div class="list-group">
+                            <label style="font-weight: normal;">
+                                <input class="chkPDF" id="toPDF" type="checkbox">
+                                <span>PDF</span>
+                            </label>
                         <button type="button" class="btn btn-default btn-xs center pull-right list-group-item" id='getT'>Filtrar</button>
                     </div>
 
