@@ -12,8 +12,11 @@
  */
 class ShapesHelper {
 
+    private static $minImgSize = array( 'width' => 90, 'height' => 120);
+    private static $maxImgSize = array( 'width' => 150, 'height' => 200);
+
     /**
-     * Funcion para contar el numero de archivos guardados en la ruta storage/shapes
+     * Función para contar el numero de archivos guardados en la ruta storage/shapes
      * @return int|string
      */
     public static function countShapes() {
@@ -28,7 +31,7 @@ class ShapesHelper {
     }
 
     /**
-     * Funcion para obtener el tamaño maximo de archivos soportado por el servidor
+     * Función para obtener el tamaño maximo de archivos soportado por el servidor
      * @return float
      */
     public static function serverUploadSize() {
@@ -37,7 +40,25 @@ class ShapesHelper {
     }
 
     /**
-     * Funcion para representar de forma mas humana los bytes
+     * Función para obtener el tamaño mínimo de imágenes
+     * @return float
+     */
+    public static function minImgUploadSize() {
+
+        return self::$minImgSize;
+    }
+
+    /**
+     * Función para obtener el tamaño máximo de imágenes
+     * @return float
+     */
+    public static function maxImgUploadSize() {
+
+        return self::$maxImgSize;
+    }
+
+    /**
+     * Función para representar de forma mas humana los bytes
      *
      * @param $bytes
      * @param int $precision
@@ -56,7 +77,7 @@ class ShapesHelper {
     }
 
     /**
-     * Funcion para convertir el peso de un archivo en bytes
+     * Función para convertir el peso de un archivo en bytes
      *
      * @param $size
      * @return float

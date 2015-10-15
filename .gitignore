@@ -27,3 +27,4 @@ public/corevat/files/*
 !public/corevat/files/.gitkeep
 public/barcodes/*
 !public/barcodes/.gitkeep
+public/logos/usuarios

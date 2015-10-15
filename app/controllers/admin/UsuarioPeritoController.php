@@ -98,6 +98,23 @@ class admin_usuarioPeritoController extends \BaseController
         $this->user->password = $password;
         $this->user->password_confirmation = $password;
         $this->user->confirmed = true;
+        // Se enviar el correo
+        if(Input::file('logo')) {
+
+            // Se valida el directorio para subir shapes
+            $dir = storage_path('logos/usuarios');
+            if (!file_exists($dir) && !is_dir($dir)) {
+                mkdir($dir);
+            }
+
+            // Se valida la extensión del archivo
+            if(in_array(strtolower(Input::file('shape')->getClientMimeType()), array('image/png', 'image/jpg', 'image/jpeg'))) {
+                $fileName = Input::get('username') . Input::file('logo')->getClientOriginalExtension();
+                Input::file('logo')->move($dir, $fileName);
+            }
+            $this->user->logo = $fileName;
+        }
+
         if ($this->user->save()) {
             // Save if valid. Password field will be hashed before save
             // Save roles. Handles updating.
@@ -201,6 +218,22 @@ class admin_usuarioPeritoController extends \BaseController
         if (!empty($password)) {
             $user->password = $password;
             $user->password_confirmation = $passwordConfirmation;
+        }
+
+        if(Input::file('logo')) {
+
+            // Se valida el directorio para subir shapes
+            $dir = storage_path('logos/usuarios');
+            if (!file_exists($dir) && !is_dir($dir)) {
+                mkdir($dir);
+            }
+
+            // Se valida la extensión del archivo
+            if(in_array(strtolower(Input::file('shape')->getClientMimeType()), array('image/png', 'image/jpg', 'image/jpeg'))) {
+                $fileName = Input::get('username') . Input::file('logo')->getClientOriginalExtension();
+                Input::file('logo')->move($dir, $fileName);
+            }
+            $user->logo = $fileName;
         }
 
         if(Input::get( 'perito' )){

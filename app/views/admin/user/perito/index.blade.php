@@ -36,6 +36,10 @@
     width: 100%;
     height: 100%;
 }
+.btn-clean-input{
+    width: auto;
+    float: right;
+}
 </style>
 
 <div style="display: none" id="users">
@@ -83,7 +87,7 @@
             @include('admin.user.perito._formAngular')
 
             <div class="form-actions form-group">
-                <button disabled="disabled" class="btn btn-primary" ng-disabled="formUser.$invalid" type="button" ng-click="store()">
+                <button disabled="disabled" class="btn btn-primary" ng-disabled="formUser.$invalid || showErrorSize || showErrorType" type="button" ng-click="store()">
                     {[{ user.id !== undefinied ? 'Modificar usuario' : 'Crear nuevo usuario' }]}
                 </button>
                 <br>
@@ -107,6 +111,9 @@
     {{ HTML::script('js/user/user_perito.js') }}
     {{ HTML::script('js/laroute.js') }}
     <script type="text/javascript">
-        var roleDefault = {{ Role::where('name', '=', 'Perito Valuador')->first()->id }};
+        var roleDefault = {{ Role::where('name', '=', 'Perito Valuador')->first()->id }},
+            minImgSize  = {{ json_encode(ShapesHelper::minImgUploadSize()) }},
+            maxImgSize  = {{ json_encode(ShapesHelper::maxImgUploadSize()) }};
     </script>
+
 @stop

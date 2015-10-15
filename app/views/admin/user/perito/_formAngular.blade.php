@@ -74,3 +74,20 @@
     </select>
     {{$errors->first('municipios[]', '<span class=text-danger>:message</span>')}}
 </div>
+
+<div class="form-group">
+    {{Form::label('logo','Logo')}}
+    <button type="button" class="btn btn-mini btn-danger btn-clean-input" ng-show="user.logo" ng-click="clearFileUpload()">
+        <i class="glyphicon glyphicon-trash"></i>
+    </button>
+    {{Form::file('logo', ['bxd-file-size' => 'bxd-file-size'] )}}
+    <p class="text-danger" ng-show="showErrorType">
+        Solo se permiten imágenes de tipo PNG y JPG
+    </p>
+    <p class="help-block" ng-show="showErrorSize">
+        <span class="text-danger">El tamaño de la imagen no es correcto, intenta nuevamente.</span><br>
+        <span class="text-danger">Tamaño actual: {[{ imgActual.width }]} X {[{ imgActual.height }]} .</span><br>
+        <span class="text-danger" ng-if="imgActual.height > imgMax.height || imgActual.width > imgMax.width">Tamaño máximo admitido es de {[{ imgMax.width }]} X {[{ imgMax.height }]} pixeles.</span>
+        <span class="text-danger" ng-if="imgActual.height < imgMin.height || imgActual.width < imgMin.width">Tamaño mínimo admitido es de {[{ imgMin.width }]} X {[{ imgMin.height }]} pixeles.</span>
+    </p>
+</div>

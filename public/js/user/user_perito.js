@@ -9,9 +9,25 @@ angular.module('app', [
     'angularUtils.directives.dirPagination',
     'frapontillo.bootstrap-switch'
 ]).
-/**
- * Configuracion del modulo
- */
+    /**
+     * Directiva para revisar el tamaño de un archivo
+     */
+    directive('bxdFileSize',function(){
+        var linker = function(scope, element) {
+            element.on('change', function() {
+                scope.$emit('fileChange', this.files[0]);
+            });
+        };
+
+        return {
+            restrict: 'A',
+            link : linker
+        };
+
+    }).
+    /**
+     * Configuracion del modulo
+     */
     config(function($interpolateProvider) {
         // Se cambian los delimitadores default de angular para no chocar con blade
         $interpolateProvider.startSymbol('{[{').endSymbol('}]}');
@@ -23,14 +39,16 @@ angular.module('app', [
     {
         var urlsave = decodeURIComponent(laroute.action('admin_usuarioPeritoController@store', { format : 'json' })),
             urlUpdate = decodeURIComponent(laroute.action('admin_usuarioPeritoController@update', {user : ':id', format : 'json' })),
+            urlUpdateLogo = decodeURIComponent(laroute.action('admin_usuarioLogoController@update', {user : ':id', format : 'json' })),
             urlActive = decodeURIComponent(laroute.action('admin_usuarioPeritoController@active', {user : ':id'})),
             urlGetAll = decodeURIComponent(laroute.action('admin_usuarioPeritoController@all'));
         return $resource(urlsave, {},
             {
-                getAll  : {method:'GET', isArray: true, url : urlGetAll},
-                store   : {method:'POST', data: {}, isArray: false},
-                update  : {method:'PUT', params: { id : '@id' }, data: {}, isArray: false, url: urlUpdate},
-                active  : {method:'PUT', params: { id : '@id' }, data: {}, isArray: false, url: urlActive}
+                getAll      : { method:'GET', isArray: true, url : urlGetAll},
+                store       : { method:'POST', data: {}, isArray: false},
+                update      : { method:'PUT', params: { id : '@id' }, data: {}, isArray: false, url: urlUpdate},
+                updateLogo  : { method:'POST', params: { id : '@id' }, data: {}, isArray: false, url: urlUpdateLogo},
+                active      : { method:'PUT', params: { id : '@id' }, data: {}, isArray: false, url: urlActive}
             });
     }).
     filter('searchBy', function () {
@@ -191,7 +209,7 @@ angular.module('app', [
 /**
  *Control para mostrar, crear, editar, actualizar y eliminar usuarios de la aplicacion
  */
-    controller('UserCtrl', function($scope, $modal, $timeout, $location, $anchorScroll, Users) {
+    controller('UserCtrl', function($scope, $modal, $timeout, $location, $anchorScroll,$http, Users) {
         // Variables que se exponen en la vista
         $scope.showForm = false;
         $scope.focusForm = false;
@@ -206,8 +224,17 @@ angular.module('app', [
         $scope.roles = [];
         $scope.perito = '';
         $scope.role = {};
-
+        // Tamaño de la imagen
+        $scope.imgMin = minImgSize;
+        $scope.imgMax = maxImgSize;
+        $scope.showErrorSize = false;
+        $scope.showErrorType = false;
+        $scope.imgActual = {
+            "width"     : 0,
+            "height"    : 0
+        };
         // Variables para el control
+        var fd;
         /**
          * Funcion para obtener la lista de todos los usuarios
          */
@@ -222,6 +249,13 @@ angular.module('app', [
          * @param reponse
          */
         var afterSave = function(response){
+            if(fd){
+                $http.post( decodeURIComponent(laroute.action('admin_usuarioLogoController@update', {user : response.data.id, format : 'json' })), fd, {
+                    transformRequest: angular.identity,
+                    headers: { 'Content-Type': undefined }
+                });
+                $scope.clearFileUpload();
+            }
             // Se agrega el nombre completo al usuario
             $scope.users[response.data.idx].nombreCompleto = $scope.users[response.data.idx].nombre + ' ' + $scope.users[response.data.idx].apepat +' '+($scope.users[response.data.idx].apemat !== undefined ? $scope.users[response.data.idx].apemat : '') ;
             // Se revisa la repuesta, si se guardo correctamente el form
@@ -277,6 +311,7 @@ angular.module('app', [
          */
         var createUser = function(user){
             user.idx = $scope.users.length-1;
+
             Users.save(user,function(response){
                 // Se mueve el paginador a la ultima pagina
                 $scope.currentPage = Math.ceil($scope.users.length / $scope.itemsPage);
@@ -291,6 +326,7 @@ angular.module('app', [
             Users.update({ id : user.id },user,function(response){
                 afterSave(response);
             });
+
         };
         /**
          * Funcion para eliminar un usuario
@@ -406,6 +442,7 @@ angular.module('app', [
             $scope.showForm = false;
             $scope.user = {};
             $scope.notarias = [];
+            $scope.clearFileUpload();
         };
         /**
          * Funcion para mostrar el formulario
@@ -490,6 +527,73 @@ angular.module('app', [
                 }
             });
         };
+
+        /**
+         * Se escucha el evento fileChange
+         */
+        $scope.$on('fileChange', function(event, args){
+            $timeout(function () {
+                // Se revisa que el archivo cumpla con el tipo y el tamaño en pixeles proporcionado
+                $scope.$apply(function () {
+                    // Se revisa el tipo
+                    $scope.user.logo = args;
+                    if(args.type == 'image/png' || args.type == 'image/jpg' || args.type == 'image/jpeg') {
+                        $scope.showErrorType = false;
+                        var reader = new FileReader();
+                        // Se lee la imagen.
+                        fd = new FormData();
+                        fd.append("foto", args);
+                        reader.readAsDataURL(args);
+                        reader.onload = function (e) {
+                            // Se inicializa el objeto imagen
+                            var image = new Image();
+
+                            // Se para el reultado deñl contenido base64.
+                            image.src = e.target.result;
+
+                            // Se valida el tamaño de la imagen.
+                            image.onload = function () {
+                                var height = this.height;
+                                var width = this.width;
+                                if ((height > $scope.imgMax.height || width > $scope.imgMax.width)
+                                    || (height < $scope.imgMin.height || width < $scope.imgMin.width)) {
+
+                                    $scope.$apply(function () {
+                                        $scope.showErrorSize = true;
+                                        $scope.imgActual = {
+                                            "width": width,
+                                            "height": height
+                                        };
+                                    });
+                                    return false;
+                                }
+                                $scope.$apply(function () {
+                                    $scope.showErrorSize = false;
+                                });
+                                return true;
+                            };
+
+                        }
+                    } else {
+                        $scope.showErrorType = true;
+                        $scope.showErrorSize = false;
+                    }
+                });
+            }, 100);
+        });
+        /**
+         * Función para limpiar el selector de archivos
+         */
+        $scope.clearFileUpload = function(){
+            $scope.user.logo = null;
+            $scope.showErrorType = false;
+            $scope.showErrorSize = false;
+            angular.forEach(
+                angular.element("input[type='file']"),
+                function(inputElem) {
+                    angular.element(inputElem).val(null);
+                });
+        }
 
     }).
 /**
