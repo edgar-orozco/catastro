@@ -15,10 +15,10 @@
 
            <tr data-pk="1">
                 <td>
-                    {{Form::input('text','clave[]',null)}}
+                    {{Form::input('text','predios[1][clave]',null)}}
                 </td>
                 <td>
-                    {{Form::input('text','cuenta[]',null)}}
+                    {{Form::input('text','predios[1][cuenta]',null)}}
                 </td>
                 <td>
                     <button type="button" class="btn btn-warning pull-right borrar-predio" data-pk="1" title="Eliminar datos de predio">
