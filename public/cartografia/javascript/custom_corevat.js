@@ -103,16 +103,16 @@ $(document).ready(function() {
         var ars = '';
         var mun = '008';
          $('input[type=checkbox]').each(function () {
-            if (this.checked) {
+            if (this.checked && this.id != 'toPDF') {
                 var ar = this.id.split('=');
                 ids += ids == '' ? ar[0] : ','+ar[0];
                 ars += ars == '' ? ar[2] : ','+ar[2];
                 mun = ar[3];
             }
         });
-
+        var toPDF = !$('#toPDF').attr('checked') ? 0 : 1;
         var mapurl = PM_XAJAX_LOCATION + 'consultaalfacorevat';
-        var variables = [ids,ars,mun];
+        var variables = [ids,ars,mun,toPDF];
         var data = {
             "query":'Clave',
             "mode":"map",
@@ -122,7 +122,17 @@ $(document).ready(function() {
             "groups":PM.activeLayer,
             "variables":variables
         };
-        PM.Map.updateMap(mapurl, data);
+
+            PM.Map.updateMap(mapurl, data);
+
+/*
+        if ( !$('#toPDF').attr('checked') ) {
+            PM.Map.updateMap(mapurl, data);
+        }else{
+            alert("Modulo en Construcción");
+            return false;
+        }
+*/        
             
     });
 

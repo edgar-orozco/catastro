@@ -18,9 +18,10 @@ class ConsultaAlfaCorevatController extends \BaseController {
         $mapW = $_REQUEST["mapW"];
         $mapH = $_REQUEST["mapH"];
 
-        $ids = explode(',',$_REQUEST["variables"][0]);
-        $ars = explode(',',$_REQUEST["variables"][1]);
-        $mun = $_REQUEST["variables"][2];
+        $ids   = explode(',',$_REQUEST["variables"][0]);
+        $ars   = explode(',',$_REQUEST["variables"][1]);
+        $mun   = $_REQUEST["variables"][2];
+        $toPDF = $_REQUEST["variables"][3];
 
         $arLayer     = array('pink','orange','green','blue','predio_ubicado_1','cafe');
         $arItemQuery = array(2,3,4,5,6,7);
@@ -71,7 +72,6 @@ class ConsultaAlfaCorevatController extends \BaseController {
         $strJS .= '"refBoxStr":"' . $mapJS['refBoxStr'] . '" ';
 
         echo "{\"sessionerror\":\"false\",  \"mapURL\":\"$mapURL\", \"scalebarURL\":\"$scalebarURL\", \"geo_scale\":\"$geo_scale\",".$strJS."}";
-
 
     }
 
@@ -131,29 +131,6 @@ class ConsultaAlfaCorevatController extends \BaseController {
         return $arr1;
 
     }
-    
-    protected function img2map($width,$height,$point,$ext) {
-    		
-    	$minx = $ext->minx;
-    	$miny = $ext->miny;
-    	$maxx = $ext->maxx;
-    	$maxy = $ext->maxy;
-    
-    	if ($point->x && $point->y){
-    		$x = $point->x;
-    		$y = $point->y;
-    
-    		$dpp_x = ($maxx-$minx)/$width;
-    		$dpp_y = ($maxy-$miny)/$height;
-    
-    		$x = $minx + $dpp_x*$x;
-    		$y = $maxy - $dpp_y*$y;
-    	}
-    	$pt[0] = $x;
-    	$pt[1] = $y;
-    	return $pt;
-    }  
-
 
     function createLayerFromClaveCatasWithAvaluos($arr1, $mun, $type=0, $layer){
 
