@@ -9,6 +9,11 @@
 @stop
 
 @section('content')
+<style type="text/css">
+.dropzone button{
+    margin-top: 15px;
+}
+</style>
     <div id="profile" style="display: none" class="col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xs-offset-0 col-sm-offset-0 col-md-offset-3 col-lg-offset-3 toppad" >
 
         <div class="panel panel-info">
@@ -17,8 +22,28 @@
             </div>
             <div class="panel-body">
                 <div class="row">
-                    <div class="col-md-3 col-lg-3 " align="center">
-                        <img alt="User Pic" src="https://lh5.googleusercontent.com/-b0-k99FZlyE/AAAAAAAAAAI/AAAAAAAAAAA/eu7opA4byxI/photo.jpg?sz=100" class="img-circle">
+                    <div class="col-md-3 col-lg-3 dropzone text-center">
+                        <img alt="User Pic" ng-src="{[{ user.foto }]}" class="img-circle">
+
+
+                        <button type="button" class="btn btn-success" ng-click="openFileSelector()">
+                            <i class="glyphicon glyphicon-picture"></i>
+                            Cambiar foto
+                        </button>
+
+                        {{Form::file('logo', ['bxd-file-size' => 'bxd-file-size'] )}}
+
+
+                        <p class="text-danger" ng-show="showErrorType">
+                            Solo se permiten imágenes de tipo PNG y JPG
+                        </p>
+                        <p class="help-block" ng-show="showErrorSize">
+                            <span class="text-danger">El tamaño de la imagen no es correcto, intenta nuevamente.</span><br>
+                            <span class="text-danger">Tamaño actual: {[{ imgActual.width }]} X {[{ imgActual.height }]} .</span><br>
+                            <span class="text-danger" ng-if="imgActual.height > imgMax.height || imgActual.width > imgMax.width">Tamaño máximo admitido es de {[{ imgMax.width }]} X {[{ imgMax.height }]} pixeles.</span>
+                            <span class="text-danger" ng-if="imgActual.height < imgMin.height || imgActual.width < imgMin.width">Tamaño mínimo admitido es de {[{ imgMin.width }]} X {[{ imgMin.height }]} pixeles.</span>
+                        </p>
+
                     </div>
 
                     <div class=" col-md-9 col-lg-9 ">
@@ -83,7 +108,7 @@
                             Regresar
                         </a>
                         &nbsp; &nbsp;
-                        <button type="button" class="btn btn-success" ng-hide="loading" ng-disabled="formUser.$invalid || checkPassword()" ng-click="updateUser()">
+                        <button type="button" class="btn btn-success" ng-hide="loading" ng-disabled="formUser.$invalid || checkPassword() || showErrorSize || showErrorType" ng-click="updateUser()">
                             Actualizar datos
                         </button>
                         <span class="glyphicon glyphicon-refresh spin" ng-show="loading"></span>
@@ -97,5 +122,9 @@
 @section('javascript')
     {{ HTML::script('js/profile/profile.js') }}
     {{ HTML::script('js/laroute.js') }}
+    <script type="text/javascript">
+        var minImgSize  = {{ json_encode(ShapesHelper::minImgUploadSize()) }},
+            maxImgSize  = {{ json_encode(ShapesHelper::maxImgUploadSize()) }};
+    </script>
 @stop
 

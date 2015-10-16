@@ -254,8 +254,6 @@ angular.module('app', [
                     transformRequest: angular.identity,
                     headers: { 'Content-Type': undefined }
                 }).then(function(respuesta){
-                    console.log(respuesta);
-                    console.log(respuesta.data.data.foto);
                     $scope.users[response.data.idx].foto = respuesta.data.data.foto;
                     $scope.clearFileUpload();
                 });

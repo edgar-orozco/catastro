@@ -14,7 +14,9 @@
             <div class="panel-body">
                 <div class="row">
                     <div class="col-md-3 col-lg-3 " align="center">
-                        <img alt="User Pic" src="https://lh5.googleusercontent.com/-b0-k99FZlyE/AAAAAAAAAAI/AAAAAAAAAAA/eu7opA4byxI/photo.jpg?sz=100" class="img-circle">
+                        <img alt="User Pic"
+                             src="{{{ Auth::user()->foto ?  asset('logos/usuarios/'. Auth::user()->foto) : 'https://lh5.googleusercontent.com/-b0-k99FZlyE/AAAAAAAAAAI/AAAAAAAAAAA/eu7opA4byxI/photo.jpg?sz=100' }}}"
+                             class="img-circle">
                     </div>
 
                     <div class=" col-md-9 col-lg-9 ">
