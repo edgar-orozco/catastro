@@ -23,12 +23,12 @@
             <div class="panel-body">
                 <div class="row">
                     <div class="col-md-3 col-lg-3 dropzone text-center">
-                        <img alt="User Pic" ng-src="{[{ user.foto }]}" class="img-circle">
+                        <img alt="User Pic" ng-src="{[{ user.foto }]}">
 
 
                         <button type="button" class="btn btn-success" ng-click="openFileSelector()">
                             <i class="glyphicon glyphicon-picture"></i>
-                            Cambiar foto
+                            Cambiar imagen
                         </button>
 
                         {{Form::file('logo', ['bxd-file-size' => 'bxd-file-size'] )}}
