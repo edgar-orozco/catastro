@@ -12,8 +12,8 @@
  */
 class ShapesHelper {
 
-    private static $minImgSize = array( 'width' => 90, 'height' => 120);
-    private static $maxImgSize = array( 'width' => 150, 'height' => 200);
+    private static $minImgSize = array( 'width' => 90, 'height' => 90);
+    private static $maxImgSize = array( 'width' => 250, 'height' => 150);
 
     /**
      * Función para contar el numero de archivos guardados en la ruta storage/shapes
