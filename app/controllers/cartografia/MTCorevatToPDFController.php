@@ -1,8 +1,8 @@
 <?php
-error_reporting(E_ERROR | E_WARNING);
-use \PlanoAcotado;
+// error_reporting(E_ERROR | E_WARNING);
+// use \PlanoAcotado;
 
-class PlanoAcotadoController extends BaseController {
+class MTCorevatToPDFController extends BaseController {
     var $escala;
 
 
