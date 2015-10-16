@@ -253,8 +253,12 @@ angular.module('app', [
                 $http.post( decodeURIComponent(laroute.action('admin_usuarioLogoController@update', {user : response.data.id, format : 'json' })), fd, {
                     transformRequest: angular.identity,
                     headers: { 'Content-Type': undefined }
+                }).then(function(respuesta){
+                    console.log(respuesta);
+                    console.log(respuesta.data.data.foto);
+                    $scope.users[response.data.idx].foto = respuesta.data.data.foto;
+                    $scope.clearFileUpload();
                 });
-                $scope.clearFileUpload();
             }
             // Se agrega el nombre completo al usuario
             $scope.users[response.data.idx].nombreCompleto = $scope.users[response.data.idx].nombre + ' ' + $scope.users[response.data.idx].apepat +' '+($scope.users[response.data.idx].apemat !== undefined ? $scope.users[response.data.idx].apemat : '') ;
@@ -536,7 +540,7 @@ angular.module('app', [
                 // Se revisa que el archivo cumpla con el tipo y el tamaño en pixeles proporcionado
                 $scope.$apply(function () {
                     // Se revisa el tipo
-                    $scope.user.logo = args;
+                    $scope.user.foto = null;
                     if(args.type == 'image/png' || args.type == 'image/jpg' || args.type == 'image/jpeg') {
                         $scope.showErrorType = false;
                         var reader = new FileReader();
@@ -550,7 +554,6 @@ angular.module('app', [
 
                             // Se para el reultado deñl contenido base64.
                             image.src = e.target.result;
-
                             // Se valida el tamaño de la imagen.
                             image.onload = function () {
                                 var height = this.height;
@@ -569,6 +572,7 @@ angular.module('app', [
                                 }
                                 $scope.$apply(function () {
                                     $scope.showErrorSize = false;
+                                    $scope.user.foto = image.src;
                                 });
                                 return true;
                             };
@@ -585,7 +589,7 @@ angular.module('app', [
          * Función para limpiar el selector de archivos
          */
         $scope.clearFileUpload = function(){
-            $scope.user.logo = null;
+            $scope.user.foto = null;
             $scope.showErrorType = false;
             $scope.showErrorSize = false;
             angular.forEach(

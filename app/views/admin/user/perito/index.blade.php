@@ -36,9 +36,17 @@
     width: 100%;
     height: 100%;
 }
+.foto{
+    position: relative;
+    width: 100%;
+    max-height: 200px;
+    padding-top: 10px;
+}
 .btn-clean-input{
     width: auto;
-    float: right;
+    position: absolute;
+    right: 0;
+    top: calc(50% - 13px);
 }
 </style>
 

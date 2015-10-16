@@ -212,6 +212,9 @@ class admin_usuarioPeritoController extends \BaseController
         $user->apemat = Input::get( 'apemat' );
         $user->rfc = Input::get( 'rfc' );
         $user->curp = Input::get( 'curp' );
+        if(!Input::get( 'foto' )){
+            $user->foto = null;
+        }
 
         $password = Input::get( 'password' );
         $passwordConfirmation = Input::get( 'password_confirmation' );

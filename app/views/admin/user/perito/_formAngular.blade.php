@@ -76,10 +76,13 @@
 </div>
 
 <div class="form-group">
+    <div class="foto">
+        <img ng-src="{[{ user.foto }]}" ng-show="user.foto">
+        <button type="button" class="btn btn-mini btn-danger btn-clean-input" ng-show="showErrorType || showErrorSize || user.foto" ng-click="clearFileUpload()">
+            <i class="glyphicon glyphicon-trash"></i>
+        </button>
+    </div>
     {{Form::label('logo','Logo')}}
-    <button type="button" class="btn btn-mini btn-danger btn-clean-input" ng-show="user.logo" ng-click="clearFileUpload()">
-        <i class="glyphicon glyphicon-trash"></i>
-    </button>
     {{Form::file('logo', ['bxd-file-size' => 'bxd-file-size'] )}}
     <p class="text-danger" ng-show="showErrorType">
         Solo se permiten imágenes de tipo PNG y JPG

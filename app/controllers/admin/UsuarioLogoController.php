@@ -44,6 +44,8 @@ class admin_usuarioLogoController extends \BaseController
                 Input::file('foto')->move($dir, $fileName);
             }
             $user->foto = $fileName;
+        } else {
+            $user->foto = null;
         }
 
         if ($user->save()) {
@@ -53,6 +55,7 @@ class admin_usuarioLogoController extends \BaseController
                     'msg' => 'Logo actualizado',
                     'data' => array(
                         'id'        => $user->id,
+                        'foto'      => asset('logos/usuarios/'. $user->foto)
                     ),
                 );
             }

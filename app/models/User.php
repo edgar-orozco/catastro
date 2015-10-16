@@ -334,7 +334,8 @@ class User extends Eloquent implements ConfideUserInterface
                 'perito'         => $user->perito,
                 'vigente'        => $user->vigente,
                 'municipio'      => $user->notarias()->first() ? $user->notarias()->first()->mpio->nombre_municipio : '',
-                'estado'         => $user->notarias()->first() ? $user->notarias()->first()->estado->nom_ent : ''
+                'estado'         => $user->notarias()->first() ? $user->notarias()->first()->estado->nom_ent : '',
+                'foto'           => $user->foto ? asset('logos/usuarios/'. $user->foto) : ''
             );
         }
         return $users;
