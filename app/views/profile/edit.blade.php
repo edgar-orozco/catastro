@@ -26,7 +26,7 @@
                         <img alt="User Pic" ng-src="{[{ user.foto }]}">
 
 
-                        <button type="button" class="btn btn-success" ng-click="openFileSelector()">
+                        <button type="button" class="btn btn-success btn-sm" ng-click="openFileSelector()">
                             <i class="glyphicon glyphicon-picture"></i>
                             Cambiar imagen
                         </button>

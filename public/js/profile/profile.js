@@ -67,7 +67,7 @@ angular.module('app', ['ngAnimate', 'ngResource', 'ngSanitize']).
             // Se revisa la repuesta, si se guardo correctamente el form
             // se limpia y muestra un mensaje de exito
             if(response.status == 'success'){
-                //window.location = laroute.action('ProfileController@index');
+                window.location = laroute.action('ProfileController@index');
             }
             // Si no se guardo correctamente el form,
             // se muestran los mensajes de error correspondientes

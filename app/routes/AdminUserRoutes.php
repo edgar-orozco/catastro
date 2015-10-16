@@ -17,10 +17,6 @@ Route::group(array('before' => 'admin'), function () {
         array('as' => 'activeUseer', 'uses' => 'AdminUserController@active'));
     Route::resource('admin/user', 'AdminUserController');
 
-    // Ruta para actualizar el logo de un usuario
-    Route::post('admin/user-logo/{user}.{format}',
-        array('as' => 'updateLogo', 'uses' => 'admin_usuarioLogoController@update'));
-
     // Rutas para el administrador de permisos del sistema
     Route::post('admin/permission.{format}',
         array('as' => 'storePermission', 'uses' => 'AdminPermissionsController@store'));
