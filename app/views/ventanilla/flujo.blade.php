@@ -275,7 +275,6 @@
             //TODO: refactoring de los números mágicos por constantes de otro tipo
 
             $("#tipo_id").change(function (ev) {
-                console.log($(this).val());
                 if($(this).val() == 2 || $(this).val() == 9) {
                     $('#observaciones').show();
                     return true;
@@ -322,7 +321,6 @@
             );
 
             $(".comentarios_chb").change(function () {
-                console.log("Cambio del chb");
                 if($(this).is(':checked')){
                     $("#comentarios-div").show();
                     setTimeout(function()
@@ -350,7 +348,6 @@
             acomodaIframes = function(iframe) {
                 var $iframe = $(iframe);
                 var height = $iframe.contents().find('.container').height();
-                console.log('Se ha cargado H:%s', height);
                 $iframe.height(height);
             }
 
@@ -366,9 +363,12 @@
 
         });
 
-
-
-
+        //Escucha los mensajes de los iframes de actividades modulares.
+        $(window).on('message', receiveMessage);
+        function receiveMessage(evt)
+        {
+            window.location.reload();
+        }
 
     </script>
 

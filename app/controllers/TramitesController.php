@@ -416,7 +416,7 @@ class TramitesController extends BaseController {
     public function storeActividad($tramite_id){
 
         $tramite = Tramite::findOrFail($tramite_id);
-print_r($tramite_id);
+
         $folio = $tramite->folio;
         $anio = $tramite->anio;
         $municipio = $tramite->municipio;

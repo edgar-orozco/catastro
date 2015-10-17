@@ -75,7 +75,7 @@ class Tramite extends Ardent
      * Relación con las clave y cuenta de predios fusionados.
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
-    public function TramitePrediosFusionados() {
+    public function prediosFusionados() {
         return $this->hasMany('TramitePredioFusionado', 'tramite_id', 'id');
     }
 

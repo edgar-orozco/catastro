@@ -10,6 +10,6 @@ Route::group(array('before' => 'auth'), function () {
 
 //Se muestra la tabla de predios que se involucran en la fusión.
     Route::get('tramites/predio-fusionado/show-grid',
-      ['uses' => 'ValorCatastralController@showGrid']);
+      ['uses' => 'TramitePredioFusionadoController@showGrid']);
 
 });

@@ -2,7 +2,7 @@
 
 class TramitePredioFusionado extends Eloquent
 {
-    protected $table = 'tramites_predios_fusionados';
+    protected $table = 'tramite_predios_fusionados';
     protected $fillable = ['tramite_id','clave','cuenta'];
 
     /**

@@ -58,7 +58,7 @@
                     @if($actividad->tipoActividad && $actividad->tipoActividad->getter)
                         <hr>
                         <div class="contenido-actividad">
-                            <iframe frameborder="0" style="width: 100%;" src="{{URL::to($actividad->tipoActividad->getter)}}?tramite_id={{$tramite->id}}&actividad_id={{$actividad->id}}&departamento_id={{$actividad->departamento->id or null}}" class="iframe-contenido-actividad" data-actividad_id="{{$actividad->id}}" data-tramite_id="{{$tramite->id}}" data-departamento_id="{{$actividad->departamento->id}}"></iframe>
+                            <iframe frameborder="0" style="width: 100%;" src="{{URL::to($actividad->tipoActividad->getter)}}?tramite_id={{$tramite->id}}&actividad_id={{$actividad->id or null}}&departamento_id={{ $actividad->departamento->id or null}}" class="iframe-contenido-actividad"></iframe>
                         </div>
                     @endif
                 </div>
