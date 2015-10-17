@@ -244,6 +244,7 @@
 @section('javascript')
     {{ HTML::script('js/select2/select2.min.js') }}
     {{ HTML::script('js/select2/i18n/es.js') }}
+    {{ HTML::script('js/ResizeSensor.js') }}
 
     <script>
 
@@ -344,11 +345,15 @@
                 acomodaIframes($(this));
             });
 
-
             acomodaIframes = function(iframe) {
                 var $iframe = $(iframe);
                 var height = $iframe.contents().find('.container').height();
                 $iframe.height(height);
+
+                //despues del primer ajuste de tamaño escuchamos los cambios en tamaño para proceder en consecuencia.
+                new ResizeSensor($iframe.contents().find('.container'),function(){
+                    $iframe.height($iframe.contents().find('.container').height());
+                });
             }
 
             $('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
@@ -366,7 +371,7 @@
         //Escucha los mensajes de los iframes de actividades modulares.
         $(window).on('message', receiveMessage);
         function receiveMessage(evt)
-        {
+        {   console.log(evt);
             window.location.reload();
         }
 
