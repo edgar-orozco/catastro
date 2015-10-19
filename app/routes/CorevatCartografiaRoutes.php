@@ -16,9 +16,11 @@ Route::group(array('before' => 'cartografia/corevat'), function () {
 
     Route::resource('cartografia/xajax/consultaalfacorevat', 'ConsultaAlfaCorevatController');
 
+    Route::post('cartografia/xajax/getmtcorevat', 'MTCorevatToPDFController@store');
+
+	Route::post('cartografia/xajax/mtcorevat', 'MTCorevatToPDFController@index');
 
 });
-
 
 
 

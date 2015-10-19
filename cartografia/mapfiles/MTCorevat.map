@@ -1,0 +1,479 @@
+MAP
+
+EXTENT  365927.23841353016905487 1891919.63498854520730674 732152.99458523001521826 2077443.62099912133999169
+ 
+UNITS meters
+SIZE 650 350
+
+SHAPEPATH "/var/www/html/cartografia/shapes"
+FONTSET "/var/www/html/cartografia/fonts/fonts.txt"
+RESOLUTION 96
+IMAGETYPE png
+INTERLACE OFF
+PROJECTION
+  "+proj=utm +zone=15 +datum=WGS84 +units=m +no_defs"
+END  
+
+
+
+#
+# Start of web interface definition
+#
+WEB
+  IMAGEPATH '/tmp/'
+  IMAGEURL '/map_output/'
+END  # Web
+
+# SYMBOLS USED IN PMAPPER
+# - 'circle' always necessary (used e.g. for highlight)
+# - 'square' used in currecnt map file
+# Symbols can also be defined via tag SYMBOLSET (see above)
+Symbol
+  Name 'Circle'
+  Type ELLIPSE
+  Filled TRUE
+  Points
+    1 1
+  END
+END
+
+SYMBOL
+  NAME 'hatch'
+  TYPE HATCH
+END
+
+Symbol
+  Name 'Etiqueta'
+  Type truetype
+  FONT "vera"
+  CHARACTER "Point"
+END
+
+
+#================== START OF LAYER SECTION =====================#
+
+
+ 
+#
+# Start of Layer Estado.shp
+#
+
+LAYER
+  NAME "hipsografico"
+  TYPE polygon
+  STATUS ON
+  DATA "hipso4mgw"
+  #TRANSPARENCY 30
+  TEMPLATE void
+  PROJECTION
+    #"init=epsg:1000"
+     "+proj=longlat +ellps=WGS84 +datum=WGS84 +no_defs  no_defs"
+  END
+  METADATA 
+    "DESCRIPTION" "Hipso"
+    ## ADAPTED TO MULTILINGUAL SHAPEFILE
+    "ows_title"      ""
+  END  # Metadata 
+  CLASS NAME "0 a 200"
+    EXPRESSION ("[RANGO]" =  "0 a 200")
+    COLOR 106 255 118
+    #OUTLINECOLOR 0 0 0 
+  END  # Class
+  CLASS
+    NAME "200 a 500"
+    EXPRESSION ("[RANGO]" =  "200 a 500")
+    COLOR 0 219 0
+    #OUTLINECOLOR 0 0 0 
+  END  # Class
+  CLASS
+    NAME "500 a 1000"
+    EXPRESSION ("[RANGO]" =  "500 a 1000")
+    COLOR 0 170 0
+    #OUTLINECOLOR 0 0 0 
+  END  # Class
+  CLASS
+    NAME "1000 a 1500"
+    EXPRESSION ("[RANGO]" =  "1000 a 1500")
+    COLOR 255 251 0
+    #OUTLINECOLOR 0 0 0 
+  END  # Class
+  CLASS
+    NAME "1500 a 2000"
+    EXPRESSION ("[RANGO]" =  "1500 a 2000")
+    COLOR 255 187 0
+    #OUTLINECOLOR 0 0 0 
+  END  # Class
+  CLASS
+    NAME "> 2000"
+    COLOR 230 76 0
+    #OUTLINECOLOR 0 0 0 
+  END  # Class
+END  # Layer
+
+
+
+
+LAYER
+  NAME "entidades"
+  TYPE polygon
+  STATUS ON
+  DATA "Entidades_2013"
+  #TRANSPARENCY 30
+  TEMPLATE void
+  PROJECTION
+    #"init=epsg:1000"
+     "+proj=lcc +lat_1=17.5 +lat_2=29.5 +lat_0=12 +lon_0=-102 +x_0=2500000 +y_0=0 +ellps=GRS80 +towgs84=0,0,0,0,0,0,0 +units=m +no_defs"
+  END
+  METADATA 
+    "DESCRIPTION" "Entidad"
+    ## ADAPTED TO MULTILINGUAL SHAPEFILE
+    "ows_title"      "Entidades"
+  END  # Metadata 
+  CLASS
+    Name 'Entidad'
+    COLOR -1 -1 -1
+    OUTLINECOLOR 0 0 0
+  END  # Class
+END  # Layer
+
+
+
+LAYER
+  NAME "municipios" 
+  TYPE polygon
+  STATUS ON
+  CONNECTIONTYPE postgis
+  DATA "geom from municipios"
+  TOLERANCE 6
+  TOLERANCEUNITS pixels
+  LABELITEM "nombre_municipio"
+  LABELMAXSCALE 1600000
+  TEMPLATE void
+  PROJECTION
+    #"init=epsg:4326"
+    "+proj=utm +zone=15 +datum=WGS84 +units=m +no_defs"
+  END
+  METADATA 
+    "DESCRIPTION" "Municipios"
+    "ows_title"      "Municipios"
+  END  # Metadata  
+
+  CLASS
+    Name 'Municipios'
+ STYLE
+      COLOR -1 -1 -1
+      OUTLINECOLOR 125 125 125
+      WIDTH 1
+      LINECAP butt
+      PATTERN 10 5 5 10 END
+    END 
+
+ LABEL
+      POSITION Auto
+      COLOR 0 0 0 
+      OUTLINECOLOR 255 255 255
+      BUFFER 5
+      TYPE truetype
+      #ENCODING "UTF-8"
+      FONT vera
+      SIZE 8
+      MAXSIZE 9
+      #SIZE small
+    END #Label  
+
+    
+  END  # Class
+  
+
+END  # Layer
+
+
+LAYER
+  NAME "localidades" 
+  TYPE polygon
+  CONNECTIONTYPE postgis
+  DATA "geom from localidades_a"
+
+  TOLERANCE 3
+  TOLERANCEUNITS pixels
+  TEMPLATE void
+  PROJECTION
+    #"init=epsg:4326"
+    "+proj=utm +zone=15 +datum=WGS84 +units=m +no_defs"
+  END
+  LABELITEM "nombre"
+  METADATA 
+    "DESCRIPTION" "Localidades"
+    "ows_title"      "Localidades"
+  END  # Metadata  
+
+  CLASS
+    Name 'Localidades'
+    COLOR 255 255 255
+    OUTLINECOLOR 255 255 255
+  END  # Class
+  
+END  # Layer
+
+
+
+#
+# Start of Layer Rivers.shp
+#
+LAYER
+  NAME "rios"
+  TYPE polygon
+  STATUS ON
+  DATA "MEX_water_areas_dcw"
+  TOLERANCE 3
+  TOLERANCEUNITS pixels
+  TEMPLATE void
+  PROJECTION
+    #"init=epsg:4326"
+    "+proj=longlat +ellps=WGS84 +datum=WGS84 +no_defs  no_defs"
+  END
+  CLASS
+    Name 'Rios'
+    COLOR 165 191 221
+    OUTLINECOLOR 165 191 221
+  END  # Class
+END  # Layer
+
+
+#
+# Start of Layer Careteras.shp
+#
+LAYER
+  NAME "carreteras"
+  TYPE line
+  DATA "27_CARRETERA_L_EPSG32615"
+  TOLERANCE 3
+  TOLERANCEUNITS pixels
+  TEMPLATE void
+  PROJECTION
+    #"init=epsg:4326"
+    #"+proj=longlat +ellps=WGS84 +datum=WGS84 +no_defs  no_defs"
+  END
+  #MINSCALEDENOM 250000
+  MAXSCALEDENOM 500001
+  LABELITEM "IDENTIFICA"
+  LABELMAXSCALE 251000
+  
+  CLASS
+    Name 'Roads'
+
+    STYLE
+      COLOR 255 255 255
+      WIDTH 4.0
+    END # STYLE
+    STYLE
+      COLOR 0 0 0
+      WIDTH 1
+      LINECAP BUTT
+      PATTERN 8 12 END
+    END # STYLE
+    
+    LABEL
+      POSITION Auto
+      ANGLE Follow
+      COLOR 0 0 0 
+      OUTLINECOLOR 255 255 255
+      BUFFER 5
+      TYPE truetype
+      #ENCODING "UTF-8"
+      FONT vera
+      SIZE 8
+      MAXSIZE 9
+      #SIZE small
+    END #Label  
+    
+  END  # Class
+END  # Layer
+
+
+#
+# Start of Layer predio_ubicado_1.shp
+#
+LAYER  NAME "predio_ubicado_1"
+  TYPE polygon
+  STATUS ON
+
+  TOLERANCE 3
+  TOLERANCEUNITS pixels
+  TEMPLATE void
+  PROJECTION
+    #"init=epsg:4326"
+    "+proj=utm +zone=15 +datum=WGS84 +units=m +no_defs"
+  END
+  #MINSCALEDENOM 2500
+  MAXSCALEDENOM 140000
+  LABELITEM "clave_catas"
+  LABELMAXSCALE 7000
+  
+  CLASS
+    Name 'PredioUbicado'
+    COLOR 223 64 64
+    OUTLINECOLOR 0 0 0
+    
+  END  # Class
+END  # Layer
+
+
+#
+# Start of Layer orange.shp
+#
+LAYER  NAME "orange"
+  TYPE polygon
+  STATUS ON
+
+  TOLERANCE 3
+  TOLERANCEUNITS pixels
+  TEMPLATE void
+  PROJECTION
+    #"init=epsg:4326"
+    "+proj=utm +zone=15 +datum=WGS84 +units=m +no_defs"
+  END
+  #MINSCALEDENOM 2500
+  MAXSCALEDENOM 140000
+  LABELITEM "clave_catas"
+  LABELMAXSCALE 7000
+  
+  CLASS
+    Name 'orange'
+    COLOR 240 148 80
+    OUTLINECOLOR 0 0 0
+    
+  END  # Class
+END  # Layer
+
+
+#
+# Start of Layer orange.shp
+#
+LAYER  NAME "green"
+  TYPE polygon
+  STATUS ON
+
+  TOLERANCE 3
+  TOLERANCEUNITS pixels
+  TEMPLATE void
+  PROJECTION
+    #"init=epsg:4326"
+    "+proj=utm +zone=15 +datum=WGS84 +units=m +no_defs"
+  END
+  #MINSCALEDENOM 2500
+  MAXSCALEDENOM 140000
+  LABELITEM "clave_catas"
+  LABELMAXSCALE 7000
+  
+  CLASS
+    Name 'green'
+    COLOR 49 181 115
+    OUTLINECOLOR 0 0 0
+    
+  END  # Class
+END  # Layer
+
+
+#
+# Start of Layer orange.shp
+#
+LAYER  NAME "blue"
+  TYPE polygon
+  STATUS ON
+
+  TOLERANCE 3
+  TOLERANCEUNITS pixels
+  TEMPLATE void
+  PROJECTION
+    #"init=epsg:4326"
+    "+proj=utm +zone=15 +datum=WGS84 +units=m +no_defs"
+  END
+  #MINSCALEDENOM 2500
+  MAXSCALEDENOM 140000
+  LABELITEM "clave_catas"
+  LABELMAXSCALE 7000
+  
+  CLASS
+    Name 'blue'
+    COLOR 63 188 239
+    OUTLINECOLOR 0 0 0
+
+  END  # Class
+END  # Layer
+
+
+
+#
+# Start of Layer orange.shp
+#
+LAYER  NAME "cafe"
+  TYPE polygon
+  STATUS ON
+
+  TOLERANCE 3
+  TOLERANCEUNITS pixels
+  TEMPLATE void
+  PROJECTION
+    #"init=epsg:4326"
+    "+proj=utm +zone=15 +datum=WGS84 +units=m +no_defs"
+  END
+  #MINSCALEDENOM 2500
+  MAXSCALEDENOM 140000
+  LABELITEM "clave_catas"
+  LABELMAXSCALE 7000
+  
+  CLASS
+    Name 'cafe'
+    COLOR 169 131 79
+    OUTLINECOLOR 0 0 0
+    
+  END  # Class
+END  # Layer
+
+
+
+
+#
+# Start of Layer orange.shp
+#
+LAYER  NAME "pink"
+  TYPE polygon
+  STATUS ON
+
+  TOLERANCE 3
+  TOLERANCEUNITS pixels
+  TEMPLATE void
+  PROJECTION
+    #"init=epsg:4326"
+    "+proj=utm +zone=15 +datum=WGS84 +units=m +no_defs"
+  END
+  #MINSCALEDENOM 2500
+  MAXSCALEDENOM 140000
+  LABELITEM "clave_catas"
+  LABELMAXSCALE 7000
+  
+  CLASS
+    Name 'pink'
+    COLOR 237 108 158
+    OUTLINECOLOR 0 0 0
+
+#    LABEL
+#      POSITION Auto
+#      COLOR 255 255 255 
+#      OUTLINECOLOR 64 64 64
+#      BUFFER 5
+#      TYPE truetype
+#      #ENCODING "UTF-8"
+#      FONT vera
+#      SIZE 6
+#      MAXSIZE 8
+#    END #Label  
+    
+  END  # Class
+END  # Layer
+
+
+
+
+END  #Map
