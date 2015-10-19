@@ -1,316 +1,224 @@
 <?php
-// error_reporting(E_ERROR | E_WARNING);
-// use \PlanoAcotado;
+error_reporting(E_ERROR | E_WARNING);
+use \PlanoAcotado;
+use \PMap;
 
 class MTCorevatToPDFController extends BaseController {
-    var $escala;
+    private $xmin = 0;
+    private $ymin = 0;
+    private $xmax = 0;
+    private $ymax = 0;
+    private $init = true;
+    private $escala;
 
 
-    public function index($id = null) {
-        $ent = substr($id, 0, 2);
-        $mun = substr($id, 3, 3);
-        $clave_catas = substr($id, 7, 15);
-               
-        $predios = predios::where('clave_catas', '=',$clave_catas)
-                          ->where('municipio','=',$mun)
-                          ->first();
-        
-        $usosuelo = predios::join('tiposusosuelo','predios.uso_suelo','=','tiposusosuelo.id')
-                           ->where('predios.municipio','=',$mun)
-                           ->where('predios.clave_catas','=',$clave_catas)
-                           ->select('tiposusosuelo.descripcion')
-                           ->first();
-                           
-        $localidad = predios::join('municipios', function($join){
-                                $join->on('municipios.entidad','=','predios.entidad');
-                                $join->on('municipios.municipio', '=', 'predios.municipio');
-                            })
-                            ->join('entidades','predios.entidad','=','entidades.entidad')
-                            ->where('predios.clave_catas', '=',$clave_catas)
-                            ->where('predios.municipio','=',$mun)
-                            ->select('entidades.nom_ent', 'municipios.nombre_municipio')
-                            ->first();
 
-        $fiscal = fiscal::where('clave','=',$id)
-                        ->first();
-         
-        $datospredio = DB::SELECT("SELECT nombrec, ubicacion FROM datospredio  WHERE clave =('$id')");    
-        foreach ($datospredio as $row) {
-            $nombre = explode(",", $row->nombrec);
-            $ubicacion = $row->ubicacion;            
+    public function store() {
+        $PM_MAP_FILE = "/var/www/html/cartografia/mapfiles/TabascoCorevat.map";
+        $map = ms_newMapObj($PM_MAP_FILE);
+        $scaleLayers = 1;
+        $mapW = $_REQUEST["mapW"];
+        $mapH = $_REQUEST["mapH"];
+
+        $ids   = explode(',',$_REQUEST["oIDS"]);
+        $ars   = explode(',',$_REQUEST["oARS"]);
+        $mun   = $_REQUEST["oMun"];
+        $toPDF = $_REQUEST["oToPDF"];
+
+        $arLayer     = array('pink','orange','green','blue','predio_ubicado_1','cafe');
+        $arItemQuery = array(2,3,4,5,6,7);
+        $IsQuery = true;
+
+        for ($i=0; $i<count($ids); ++$i) {
+            $arr1 = $this->getQuery(2,$mun,$ars[$i]);
+            // echo "{\"sessionerror\":\"QueryError\","."Error: ".$arr1."}";
+            // return;
+            if ( $arr1 != '' ){
+                $layer = $map->getLayerByName($arLayer[$ids[$i]]);
+                $layer = $this->createLayerFromClaveCatasWithAvaluos($arr1, $mun, 0, $layer);
+                $IsQuery = false;
+            }
+
         }
-                
-        $dumpPoints = DB::SELECT("SELECT (ST_DumpPoints(geom)).Path[3] as path, 
-                                ST_x((ST_DumpPoints(geom)).geom) as x, 
-                                ST_y((ST_DumpPoints(geom)).geom) as y,
-                                ST_AsLatLonText(ST_Transform((ST_DumpPoints(geom)).geom, 4326), 'D_M''S.SSS\"C') as lat_lon,
-                                ST_X(ST_AsText(ST_Transform((ST_DumpPoints(geom)).geom, 4326))) as dlongitud,
-                                ST_Y(ST_AsText(ST_Transform((ST_DumpPoints(geom)).geom, 4326))) as dlatitud
-                                FROM predios 
-                                WHERE entidad = '$ent'
-                                AND municipio = '$mun'
-                                AND clave_catas = '$clave_catas'"); 
 
-        $i = 0;
-        $max = count($dumpPoints);
-        foreach ($dumpPoints as $row) {
-            $vertice = new PlanoAcotado();
-            $i = sizeof($planoacotado);
-            
-            $vertice->set_id($i);
-            $vertice->set_est($row->path - 1);
-            if ($i==0){
-                $vertice->set_pv(0);                
-            }
-            else{
-                if ($i==$max-1)
-                {
-                    $vertice->set_pv(1);
-                }
-                else{
-                    $vertice->set_pv($row->path);
-                }        
-            }
-            $vertice->set_x($row->x);
-            $vertice->set_y($row->y);
-            
-            
-            if ($i==0){
-                $vertice->set_azimut(0);
-            }
-            else{
-                //Cálcula el rumbo y el azimut de cada vértice.
-                //Variables afectadas de la clase PlanoAcotado: $azimut, $rumbo, $rumbo_x, $rumbo_y
-                $vertice->calculate_rumbo($planoacotado[$i-1]->get_x(),$planoacotado[$i-1]->get_y(),$vertice->get_x(),$vertice->get_y());
-                
-                //Cálcula la distancia entre un vértice i y el vértice i+1
-                $vertice->calculate_distancia($planoacotado[$i-1]->get_x(),$planoacotado[$i-1]->get_y(),$vertice->get_x(),$vertice->get_y());
-            }
-            
-            $vertice->set_convergencia(0);
-            $vertice->set_factor(0);
-            $lat_lon = explode(" ", $row->lat_lon);
-            $vertice->set_latitud($lat_lon[0]);
-            $vertice->set_longitud($lat_lon[1]);
-            $vertice->calculate_convergencia($row->dlatitud,$row->dlongitud);
-            
-            $planoacotado[$i]=$vertice;
+        if ( $IsQuery ){
+            $strJS  = '"msgError":"No se encontraron datos: \\n \\nClaves: '.$arr1.'\\nMunicipio: '.$mun.'  "';
+            echo "{\"sessionerror\":\"QueryError\",".$strJS."}";
+            return;
         }
-        
-        //Cálcula la superficie del predio 
-        $planoacotado[0]->calculate_superficie($planoacotado);
-        $planoacotado[0]->calculate_perimetro($planoacotado);
-                 
-        $meses = array("ENERO","FEBRERO","MARZO","ABRIL","MAYO","JUNIO","JULIO",
-                       "AGOSTO","SEPTIEMBRE","OCTUBRE","NOVIEMBRE","DICIEMBRE");       
-        $fecha = $meses[date('n')-1]." ".date("Y");
-        
-        $supconst = 1;
-        $suplibre = 2;
-        $suptotal = 3;
-        $superficie = array($supconst,$suplibre,$suptotal);
-        
-        $caracteristicas = array(
-                        'CIMENTACION DE CONCRETO ARMADO',
-                        'MUROS DE BLOCK MACIZO',
-                        'LOSA DE AZOTE DE CONCRETO ARMADO',
-                        'PISO DE CEMENTO PULIDO',
-                        'VENTANAS DE HERRERIA TIPO PERSIANA',
-                        'PUERTAS DE HERRERIA',
-                        'INSTALACION ELECTRICA Y SANITARIA OCULTA'
-                        );
-        
-        $imgPlanoAcotado = $this->getImgPlanoAcotado($id, $planoacotado);
-        $imgCroquis = $this->getImgCroquis($id);
-        $escala = $this->escala;
-        
-                           
-        $vista = View::make('cartografia.datos_PlanoAcotadoPDF',
-                            compact('id', 'predios', 'mun', 'ubicacion', 'nombre', 'usosuelo', 'superficie', 'caracteristicas', 'fecha',  
-                                    'fiscal', 'datospredio', 'localidad', 'planoacotado', 'imgPlanoAcotado', 'imgCroquis', 'escala'));
+
+        $_REQUEST["extent"] = ($this->xmin - 1.5) . "+" . ($this->ymin - 1.5) . "+" . ($this->xmax + 1.5) . "+" . ($this->ymax + 1.5);
+
+        $pmap = new PMAP($map); 
+        $pmap->pmap_create();
+
+        $mapURL      = $pmap->pmap_returnMapImgURL();
+        $scalebarURL = $pmap->pmap_returnScalebarImgURL();
+        $mapJS       = $pmap->pmap_returnMapJSParams();
+        $mapwidth    = $pmap->pmap_returnMapW();
+        $mapheight   = $pmap->pmap_returnMapH();
+        $geo_scale   = $pmap->pmap_returnGeoScale();
+        $escala = "1:".round($geo_scale);
+
+        // JS objects from map creation
+        $strJS  = '"mapW":"' . $mapJS['mapW'] . '", ';
+        $strJS .= '"mapH":"' . $mapJS['mapH'] . '", ';
+        $strJS .= '"refW":"' . $mapJS['refW'] . '", ';
+        $strJS .= '"refW":"' . $mapJS['refW'] . '", ';
+        $strJS .= '"extent":"' . $_REQUEST["extent"] . '", ';
+        $strJS .= '"minx_geo":"' . $mapJS['minx_geo'] . '", ';
+        $strJS .= '"miny_geo":"' . $mapJS['miny_geo'] . '", ';
+        $strJS .= '"maxx_geo":"' . $mapJS['maxx_geo'] . '", ';
+        $strJS .= '"maxy_geo":"' . $mapJS['maxy_geo'] . '", ';
+        $strJS .= '"xdelta_geo":"' . $mapJS['xdelta_geo'] . '", ';
+        $strJS .= '"ydelta_geo":"' . $mapJS['ydelta_geo'] . '", ';
+        $strJS .= '"refBoxStr":"' . $mapJS['refBoxStr'] . '" ';
+
+        echo "{\"sessionerror\":\"false\",  \"mapURL\":\"$mapURL\", \"scalebarURL\":\"$scalebarURL\", \"geo_scale\":\"$geo_scale\", \"escala\":\"$escala\",".$strJS."}";
+
+    }
+
+    public function index() {
+
+        $mapURL   = $_REQUEST["mapURL"];
+        $escala = $_REQUEST["escala"];
+                          
+        $vista = View::make('cartografia.MTCorevat',
+                            compact('mapURL', 'escala'));
         $vistastr = $vista->render();
-        $pdf = PDF::load($vistastr, 'Letter', 'landscape')->show("PlanoAcotadoPDF");
+        $pdf = PDF::load($vistastr, 'Letter', 'landscape')->show("MTCorevat");
         
         $response = Response::make($pdf, 200);
         
         $response->header('Content-Type', 'application/pdf');
         return $response;
+
     }
-    
-    private function getImgCroquis($id = null){                     
-        /**
-         * Entidad-Municipio-Zona-Manzana-Predio 
-         * (XX-XXX-XXX-XXXX-XXXXX)
-        */ 
-        $ent = substr($id, 0, 2);
-        $mun = substr($id, 3, 3);
-        $zon = substr($id, 7, 3);
-        $man = substr($id, 11, 4);
-        $clave_catas = substr($id, 7, 15);
-        
-        //Buscamos Manzana por ID
-        $regManzana = DB::SELECT("SELECT ST_xmin(geom) as xmin, 
-                                         ST_ymin(geom) as ymin, 
-                                         ST_xmax(geom) as xmax, 
-                                         ST_ymax(geom) as ymax 
-                                  FROM manzanas 
-                                  WHERE entidad = '$ent'
-                                  AND municipio = '$mun'
-                                  AND zona      = '$zon'
-                                  AND manzana   = '$man'");
-    
-        if (count($regManzana) != 0) {
-            $xmin = $regManzana[0]->xmin-10;
-            $ymin = $regManzana[0]->ymin-10;
-            $xmax = $regManzana[0]->xmax+10;
-            $ymax = $regManzana[0]->ymax+10;
+
+    private function getQuery($type=0,$municipio="008",$strrange='-'){
+        switch ($type) {
+            case 1:
+
+                $arr0 = Avaluos::select('avaluos.cuenta_catastral')
+                            ->leftJoin('avaluo_conclusiones', 'avaluos.idavaluo', '=', 'avaluo_conclusiones.idavaluo')
+                            ->leftJoin('municipios', 'avaluos.idmunicipio', '=', 'municipios.idmunicipio')
+                            ->where('avaluos.idavaluo', '>', '0')
+                            ->where('avaluos.cuenta_catastral', '!=', '')
+                            ->orderBy('avaluo_conclusiones.valor_concluido','asc')
+                            ->limit(5)
+                            ->lists('cuenta_catastral');
+
+                break;
+            
+            case 2:
+
+                $range = explode('-',$strrange);
+                $arr0 = Avaluos::select('avaluos.cuenta_catastral')
+                            ->leftJoin('avaluo_conclusiones', 'avaluos.idavaluo', '=', 'avaluo_conclusiones.idavaluo')
+                            ->leftJoin('municipios', 'avaluos.idmunicipio', '=', 'municipios.idmunicipio')
+                            ->where('avaluo_conclusiones.valor_concluido', '>', $range[0])
+                            ->where('avaluo_conclusiones.valor_concluido', '<=', $range[1])
+                            ->where('avaluos.cuenta_catastral', '!=', '')
+                            ->where('municipios.clave', '=', $municipio)
+                            ->orderBy('avaluos.idavaluo','desc')
+                            ->limit(60)
+                            ->lists('cuenta_catastral');
+
+                break;
+
+            case 3:
+
+
+            default:
+
+                $arr0 = Avaluos::select('avaluos.cuenta_catastral')
+                            ->leftJoin('avaluo_conclusiones', 'avaluos.idavaluo', '=', 'avaluo_conclusiones.idavaluo')
+                            ->leftJoin('municipios', 'avaluos.idmunicipio', '=', 'municipios.idmunicipio')
+                            ->where('avaluos.idavaluo', '>', '0')
+                            ->where('avaluos.cuenta_catastral', '!=', '')
+                            ->orderBy('avaluo_conclusiones.valor_concluido','desc')
+                            ->limit(5)
+                            ->lists('cuenta_catastral');
+
+                break;
         }
-        else{
-            //Buscamos Predio por ID
-            $regPredio = DB::SELECT("SELECT ST_xmin(geom) as xmin, 
-                                             ST_ymin(geom) as ymin, 
-                                             ST_xmax(geom) as xmax, 
-                                             ST_ymax(geom) as ymax 
-                                     FROM predios 
-                                     WHERE entidad = '$ent'
-                                     AND municipio = '$mun'
-                                     AND clave_catas = '$clave_catas'");
-            if (count($regPredio) == 0) {
-                return 'mapper/images/nofoto-770x345.jpg';
+
+        $arr1 = '';            
+        foreach ($arr0 as $i => $value) {
+            $arr1 .= $arr1 == "" ? "'".$arr0[$i]."'" : ",'".$arr0[$i]."'";
+        }        
+
+        return $arr1;
+
+    }
+
+    function createLayerFromClaveCatasWithAvaluos($arr1, $mun, $type=0, $layer){
+
+        if ( intval($mun) <= 0 ){
+            $result = DB::select("select  ST_AsGeoJSON(geom) AS geom, st_xmin(p.geom)-5 as xmin, st_ymin(p.geom)-5 as ymin, st_xmax(p.geom)+5 as xmax, st_ymax(p.geom)+5 as ymax, clave_catas  from predios p where p.clave_catas IN (".$arr1.") "  );
+        }else{
+            $result = DB::select("select  ST_AsGeoJSON(geom) AS geom, st_xmin(p.geom)-5 as xmin, st_ymin(p.geom)-5 as ymin, st_xmax(p.geom)+5 as xmax, st_ymax(p.geom)+5 as ymax, clave_catas  from predios p where p.municipio = '".$mun."' and p.clave_catas IN (".$arr1.") "  );
+        }    
+
+        if (count($result) <= 0) {
+            $strJS  = '"msgError":"No se encontraron datos: \\n \\nClaves: '.$arr1.'\\nMunicipio: '.$mun.'  "';
+            echo "{\"sessionerror\":\"QueryError\",".$strJS."}";
+            return;
+        }
+
+        foreach ($result as $k => $value) {
+
+            $row = $result[$k];
+            
+            if ( $this->init ) {
+                $this->xmin = $row->xmin;
+                $this->ymin = $row->ymin;
+                $this->xmax = $row->xmax;
+                $this->ymax = $row->ymax;
+                $this->init = false;
+            }else{
+
+
+                $this->xmin = $row->xmin < $this->xmin ? $row->xmin : $this->xmin;
+                $this->ymin = $row->ymin < $this->ymin ? $row->ymin : $this->ymin;
+                $this->xmax = $row->xmax > $this->xmax ? $row->xmax : $this->xmax;
+                $this->ymax = $row->ymax > $this->ymax ? $row->ymax : $this->ymax;
+            
             }
-            $xmin = $regPredio[0]->xmin - 10;
-            $ymin = $regPredio[0]->ymin - 10;
-            $xmax = $regPredio[0]->xmax + 10;
-            $ymax = $regPredio[0]->ymax + 10;
+
+            $geom = json_decode($row->geom);
+
+            $layer->setFilter("clave_catas = '".$row->clave_catas."'");
+            foreach($geom as $key=>$value){
+                if ( $key == "coordinates" ){
+                    $coord = $value;
+                    $polygon= ms_newShapeObj(MS_SHAPE_POLYGON);
+                    foreach($coord as $key=>$value){
+                        $coord2 = $value;
+                        foreach($coord2 as $key=>$value){    
+                            $coord3 = $value;
+                            $polyLine = ms_newLineObj();
+                            foreach($coord3 as $key=>$value){
+                                $coord4 = $value;
+                                $polyLine->addXY( $coord4[0], $coord4[1] );
+                            }
+                            $polygon->add($polyLine);
+                            $polygon->set("text",$row->clave_catas);
+
+                        }
+                    }
+                    $layer->addFeature($polygon);            
+                }
+            }
         }
-                
-        $PM_MAP_FILE = "/var/www/html/cartografia/mapfiles/MzaPredio.map";
-        $map = ms_newMapObj($PM_MAP_FILE);
-        $scaleLayers = 1;
-                
-        //Configuramos la conexion de datos del mapa
-        $conn = Config::get('database.connections.pgsql');
-        $host = $conn['host'];
-        $database = $conn['database'];
-        $username = $conn['username'];
-        $password = $conn['password'];
-        $connectionString = "user='$username' password='$password' dbname='$database' host=$host port=5432"; 
-        
-        //Configuramos las capas       
-        $layer = $map->getLayerByName('calles');
-        $layer->set("connection", $connectionString);
-        
-        $layer = $map->getLayerByName('Manzanas');
-        $layer->set("connection", $connectionString);
-        
-        //Filtramos el predio
-        $layer = $map->getLayerByName('Predios');
-        $layer->set("connection", $connectionString);
-        $layer->setFilter("clave_catas = '$clave_catas'");
-        
-        //Creamos el mapa
-        $map->setextent($xmin,$ymin,$xmax,$ymax);
-        $img = $map->prepareImage();
-        $image=$map->draw();
-        $mapURL=$image->saveWebImage();
-         
-        return substr($mapURL, 1, strlen($mapURL));
+
+        return $layer;
+
     }
-    
-    
-    private function getImgPlanoAcotado($id = null, $planoacotado){                     
-        /**
-         * Entidad-Municipio-Zona-Manzana-Predio 
-         * (XX-XXX-XXX-XXXX-XXXXX)
-        */ 
-        $ent = substr($id, 0, 2);
-        $mun = substr($id, 3, 3);
-        $zon = substr($id, 7, 3);
-        $man = substr($id, 11, 4);
-        $clave_catas = substr($id, 7, 15);
-        
-        //Buscamos Predio por ID
-        $regPredio = DB::SELECT("SELECT ST_xmin(geom) as xmin, 
-                                              ST_ymin(geom) as ymin, 
-                                              ST_xmax(geom) as xmax, 
-                                              ST_ymax(geom) as ymax 
-                                       FROM predios 
-                                       WHERE entidad = '$ent'
-                                       AND municipio = '$mun'
-                                       AND clave_catas = '$clave_catas'");
-        if (count($regPredio) == 0) {
-            return 'mapper/images/nofoto-770x345.jpg';
-        }
-        $xmin = $regPredio[0]->xmin - 1.5;
-        $ymin = $regPredio[0]->ymin - 1.5;
-        $xmax = $regPredio[0]->xmax + 1.5;
-        $ymax = $regPredio[0]->ymax + 1.5;
-                
-        $PM_MAP_FILE = "/var/www/html/cartografia/mapfiles/PlanoAcotado.map";
-        $map = ms_newMapObj($PM_MAP_FILE);
-        //$scaleLayers = 5;
-                
-        //Configuramos la conexion de datos del mapa
-        $conn = Config::get('database.connections.pgsql');
-        $host = $conn['host'];
-        $database = $conn['database'];
-        $username = $conn['username'];
-        $password = $conn['password'];
-        $connectionString = "user='$username' password='$password' dbname='$database' host=$host port=5432"; 
-        
-        //Configuramos las capas
-        $layer = $map->getLayerByName('Colindacias');
-        $layer->set("connection", $connectionString);
-               
-        $layer = $map->getLayerByName('Predios');
-        $layer->set("connection", $connectionString);
-        $layer->setFilter("clave_catas = '$clave_catas'");
-        
-        $layer = $map->getLayerByName('Construcciones');
-        $layer->set("connection", $connectionString);
-        $layer->setFilter("clave_catas = '$clave_catas'");
-
-        /*$layer = $map->getLayerByName('Medidas');
-        $layer->set("connection", $connectionString);
-        $layer->setFilter("clave_catas = '$clave_catas'");
-*/
-          
-  /*      $layer = $map->getLayerByName('Vertices');
-        $layer->set("connection", $connectionString);
-        $layer->setFilter("clave_catas = '$clave_catas'");
-    
-    */    
 
 
-        $layer = $map->getLayerByName('Vertices');
-        $numVert = 0;
-        $vertices = sizeof($planoacotado);
+ 
 
-        foreach ($planoacotado as $vertice) {
-            $numVert++;
-            if($numVert == $vertices) break;
 
-            $point = ms_newPointObj();
-            $point->setXY($vertice->get_x(), $vertice->get_y());
 
-            $line = ms_newLineObj();
-            $line->add($point);
-
-            $pointShape = ms_newShapeObj(MS_SHAPE_POINT);
-            $pointShape->add($line);
-            $pointShape->set("text", $numVert);
-
-            $layer->addFeature($pointShape);            
-        }
-
-        //Creamos el mapa
-        $map->setextent($xmin,$ymin,$xmax,$ymax);
-        $img = $map->prepareImage();
-        $image=$map->draw();
-        $this->escala = "1:".round($map->scaledenom);
-        $mapURL=$image->saveWebImage();
-         
-        return substr($mapURL, 1, strlen($mapURL));
-    }
-    
 }

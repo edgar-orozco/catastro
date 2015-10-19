@@ -26,7 +26,6 @@ $(document).ready(function() {
         domouseclick(tool); 
     });
 
-
     $(".gLayer").click(function(){
         var nombre = $(this).attr("id").substr(7);
         var stFind = 0;
@@ -47,15 +46,17 @@ $(document).ready(function() {
                 PM.activeLayer.splice(x,1);
             }
         }
+        
         //PM.resize_timer = setTimeout("PM.Map.zoompoint(1,'268+228')",300);
+        
     });
 
 
+/*    
     $("#layerform").submit(function(event){
         event.preventDefault();
         var dataString = $(this).serialize();      
         // alert("Hola");  
-        
         
         $.ajax
         ({
@@ -84,7 +85,6 @@ $(document).ready(function() {
 
             
         }, 
-
         error: function(xhr, textStatus, error){
             alert(xhr.statusText);
             alert(textStatus);
@@ -92,13 +92,16 @@ $(document).ready(function() {
         }
 
         });
+
     });
 
+*/
 
 
 
 
     $("#getT").click(function(event){
+
         var ids = '';
         var ars = '';
         var mun = '008';
@@ -111,28 +114,76 @@ $(document).ready(function() {
             }
         });
         var toPDF = !$('#toPDF').attr('checked') ? 0 : 1;
-        var mapurl = PM_XAJAX_LOCATION + 'consultaalfacorevat';
-        var variables = [ids,ars,mun,toPDF];
-        var data = {
-            "query":'Clave',
-            "mode":"map",
-            "zoom_type":"zoomextent",
-            "mapW":PM.mapW,
-            "mapH":PM.mapH,
-            "groups":PM.activeLayer,
-            "variables":variables
-        };
 
+        if ( toPDF == 0 ) {
+            
+            var mapurl = PM_XAJAX_LOCATION + 'consultaalfacorevat';
+            var variables = [ids,ars,mun,toPDF];
+            var data = {
+                "query":'Clave',
+                "mode":"map",
+                "zoom_type":"zoomextent",
+                "mapW":PM.mapW,
+                "mapH":PM.mapH,
+                "groups":PM.activeLayer,
+                "variables":variables
+            };
             PM.Map.updateMap(mapurl, data);
 
-/*
-        if ( !$('#toPDF').attr('checked') ) {
-            PM.Map.updateMap(mapurl, data);
         }else{
-            alert("Modulo en Construcción");
-            return false;
+
+            var url = PM_XAJAX_LOCATION + 'getmtcorevat';
+            var PARAMS = {
+                query:'Clave',
+                mode:"map",
+                zoom_type:"zoomextent",
+                mapW:PM.mapW,
+                mapH:PM.mapH,
+                groups:PM.activeLayer,
+                oIDS:ids,
+                oARS:ars,
+                oMun:mun
+            };
+
+            $.ajax
+            ({
+            type: "POST",
+            url: url,
+            data: PARAMS,
+            cache: false,
+            success: function(json)
+            {
+                var js = jQuery.parseJSON(json);
+
+                if (sessionerror == 'false'){
+
+                    var url = PM_XAJAX_LOCATION + 'mtcorevat';
+                    var PARAMS = {mapURL:js.mapURL,escala:js.escala};
+
+                    var temp=document.createElement("form");
+                    temp.action=url;
+                    temp.method="POST";
+                    temp.target="_blank";
+                    temp.style.display="none";
+                    for(var x in PARAMS) {
+                        var opt=document.createElement("textarea");
+                        opt.name=x;
+                        opt.value=PARAMS[x];
+                        temp.appendChild(opt);
+                    }
+                    document.body.appendChild(temp);
+                    temp.submit();
+                    return temp;
+
+                }
+            
+            }
+            });
+
+
+
+
         }
-*/        
             
     });
 
