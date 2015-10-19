@@ -158,37 +158,37 @@ class AvaluosInmueble extends \Eloquent {
 		$row->id_techo = $inputs["id_techo"];
 		$row->id_barda = $inputs["id_barda"];
 
-		$row->id_recamara0 = $inputs["id_recamara0"];
-		$row->id_recamara1 = $inputs["id_recamara1"];
-		$row->id_recamara2 = $inputs["id_recamara2"];
+		//$row->id_recamara0 = $inputs["id_recamara0"];
+		//$row->id_recamara1 = $inputs["id_recamara1"];
+		//$row->id_recamara2 = $inputs["id_recamara2"];
 
-		$row->id_estancia_comedor0 = $inputs["id_estancia_comedor0"];
-		$row->id_estancia_comedor1 = $inputs["id_estancia_comedor1"];
-		$row->id_estancia_comedor2 = $inputs["id_estancia_comedor2"];
+		//$row->id_estancia_comedor0 = $inputs["id_estancia_comedor0"];
+		//$row->id_estancia_comedor1 = $inputs["id_estancia_comedor1"];
+		//$row->id_estancia_comedor2 = $inputs["id_estancia_comedor2"];
 
-		$row->id_bano0 = $inputs["id_bano0"];
-		$row->id_bano1 = $inputs["id_bano1"];
-		$row->id_bano2 = $inputs["id_bano2"];
+		//$row->id_bano0 = $inputs["id_bano0"];
+		//$row->id_bano1 = $inputs["id_bano1"];
+		//$row->id_bano2 = $inputs["id_bano2"];
 
-		$row->id_escalera0 = $inputs["id_escalera0"];
-		$row->id_escalera1 = $inputs["id_escalera1"];
-		$row->id_escalera2 = $inputs["id_escalera2"];
+		//$row->id_escalera0 = $inputs["id_escalera0"];
+		//$row->id_escalera1 = $inputs["id_escalera1"];
+		//$row->id_escalera2 = $inputs["id_escalera2"];
 
-		$row->id_cocina0 = $inputs["id_cocina0"];
-		$row->id_cocina1 = $inputs["id_cocina1"];
-		$row->id_cocina2 = $inputs["id_cocina2"];
+		//$row->id_cocina0 = $inputs["id_cocina0"];
+		//$row->id_cocina1 = $inputs["id_cocina1"];
+		//$row->id_cocina2 = $inputs["id_cocina2"];
 
-		$row->id_patio_servicio0 = $inputs["id_patio_servicio0"];
-		$row->id_patio_servicio1 = $inputs["id_patio_servicio1"];
-		$row->id_patio_servicio2 = $inputs["id_patio_servicio2"];
+		//$row->id_patio_servicio0 = $inputs["id_patio_servicio0"];
+		//$row->id_patio_servicio1 = $inputs["id_patio_servicio1"];
+		//$row->id_patio_servicio2 = $inputs["id_patio_servicio2"];
 
-		$row->id_estacionamiento0 = $inputs["id_estacionamiento0"];
-		$row->id_estacionamiento1 = $inputs["id_estacionamiento1"];
-		$row->id_estacionamiento2 = $inputs["id_estacionamiento2"];
+		//$row->id_estacionamiento0 = $inputs["id_estacionamiento0"];
+		//$row->id_estacionamiento1 = $inputs["id_estacionamiento1"];
+		//$row->id_estacionamiento2 = $inputs["id_estacionamiento2"];
 
-		$row->id_fachada0 = $inputs["id_fachada0"];
-		$row->id_fachada1 = $inputs["id_fachada1"];
-		$row->id_fachada2 = $inputs["id_fachada2"];
+		//$row->id_fachada0 = $inputs["id_fachada0"];
+		//$row->id_fachada1 = $inputs["id_fachada1"];
+		//$row->id_fachada2 = $inputs["id_fachada2"];
 
 		$row->hidraulico_sanitarias = $inputs["hidraulico_sanitarias"];
 		$row->electricas = $inputs["electricas"];

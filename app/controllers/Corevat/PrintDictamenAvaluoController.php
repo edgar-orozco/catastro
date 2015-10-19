@@ -156,7 +156,7 @@ class corevat_PrintDictamenAvaluoController extends \BaseController {
 
 		$pdf->AddPage();
 		$pdf->Image(public_path() . "/css/images/corevat/crv-01.jpg", 5, 5, 139.57, 26.20);
-
+/*
 		if ($rs->foto != "") {
 			$userfoto = explode(".", $rs->foto);
 			$foto = public_path() . '/corevat/files/' . $userfoto[0] . '-big.' . $userfoto[1];
@@ -166,6 +166,12 @@ class corevat_PrintDictamenAvaluoController extends \BaseController {
 		} else {
 			$foto = public_path() . "/css/images/corevat/user-big.jpg";
 		}
+*/
+$user = Auth::user();
+$foto = public_path() . "/logos/usuarios/". $user->foto;
+if (!file_exists($foto)) {
+$foto = public_path() . "/css/images/corevat/user-big-blank.jpg";
+}
 		$pdf->Image($foto, 180, 5, 30.50, 26.56);
 		$pdf->Ln(25);
 
@@ -190,7 +196,7 @@ class corevat_PrintDictamenAvaluoController extends \BaseController {
 		//*********************************************************
 		//DATOS DEL VALUADOR
 		//*********************************************************
-		$pdf->Ln(10);
+		$pdf->Ln(1);
 
 		$pdf->SetFont('Arial', 'B', 12);
 		$pdf->SetFillColor(164, 164, 164);
@@ -232,7 +238,7 @@ class corevat_PrintDictamenAvaluoController extends \BaseController {
 		// /* *********************************************************
 		// ** INFORMACION GENERAL DEL INMUEBLE
 		// ** ********************************************************* */
-		$pdf->Ln(10);
+		$pdf->Ln(1);
 
 		$pdf->SetFont('Arial', 'B', 12);
 		$pdf->SetFillColor(164, 164, 164);
@@ -334,9 +340,9 @@ class corevat_PrintDictamenAvaluoController extends \BaseController {
 		$pdf->Cell(107, $nFont, utf8_decode(trim($rs->titulo_propietario) . " " . $rs->nombre_propietario), 'LBR', 1, 'L');
 
 		// /* *********************************************************
-		// ** 3. CARACTERÍSTICAS  DE LA ZON7
+		// ** 3. CARACTERÍSTICAS  DE LA ZONA
 		// ** ********************************************************* */
-		$pdf->Ln(10);
+		$pdf->Ln(1);
 
 		$zn = AvaluosZona::getAvaluosZonaByFk($id);
 
@@ -504,7 +510,7 @@ class corevat_PrintDictamenAvaluoController extends \BaseController {
 		// ** 4. CARACTERISTICAS DEL INMUEBLE
 		// ** ********************************************************* */
 		$in = AvaluosInmueble::getAvaluoInmuebleByIdForPdf($id);
-		$pdf->AddPage();
+		//$pdf->AddPage();
 
 		$pdf->SetFont('Arial', 'B', 12);
 		$pdf->SetFillColor(164, 164, 164);
