@@ -38,7 +38,7 @@ class corevat_AiAcabadosController extends \BaseController {
 			$response['message'] = '¡El registro fue ingresado satisfactoriamente!';
 		} else {
 			$inputs["updated_at"] = Carbon::now()->format('Y-m-d H:i:s');
-			//AiAcabados::updAiAcabados($inputs);
+			AiAcabados::updAiAcabados($inputs);
 			$response['message'] = '¡El registro fue modificado satisfactoriamente!';
 		}
 		$response['success'] = true;

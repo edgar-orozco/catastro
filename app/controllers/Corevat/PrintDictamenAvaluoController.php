@@ -138,19 +138,7 @@ class corevat_PrintDictamenAvaluoController extends \BaseController {
 		exit;
 	}
 
-	/**
-	 * Show the form for editing the specified resource.
-	 *
-	 * @param  int  $id
-	 * @return Response
-	 * 
-	 */
-	public function printAvaluo($id) {
-		require 'NumberToLetterConverter.php';
-		$nFont = 6;
-		$pagina = 0;
-		$rs = Avaluos::getAvaluo($id);
-		$pdf = new Fpdf('P', 'mm', 'Letter');
+	private function avaluoEncabezado($pdf, $nFont) {
 		$pdf->AliasNbPages();
 		$pdf->SetFillColor(64, 64, 64);
 
@@ -167,12 +155,13 @@ class corevat_PrintDictamenAvaluoController extends \BaseController {
 			$foto = public_path() . "/css/images/corevat/user-big.jpg";
 		}
 */
-$user = Auth::user();
-$foto = public_path() . "/logos/usuarios/". $user->foto;
-if (!file_exists($foto)) {
-$foto = public_path() . "/css/images/corevat/user-big-blank.jpg";
-}
+		$user = Auth::user();
+		$foto = public_path() . "/logos/usuarios/". $user->foto;
+		if (!file_exists($foto)) {
+			$foto = public_path() . "/css/images/corevat/user-big-blank.jpg";
+		}
 		$pdf->Image($foto, 180, 5, 30.50, 26.56);
+		// lineas que separan el encabezado del contenido
 		$pdf->Ln(25);
 
 		$pdf->setX(5);
@@ -193,17 +182,19 @@ $foto = public_path() . "/css/images/corevat/user-big-blank.jpg";
 		$pdf->setX(5);
 		$pdf->Cell(206, 8, utf8_decode('A V A L Ú O'), 'TLBR', 1, 'C', 0);
 
+	}
+	
+	private function avaluoDatosValuador($pdf, $nFont) {
 		//*********************************************************
 		//DATOS DEL VALUADOR
 		//*********************************************************
+		//$pdf->Ln(10);
 		$pdf->Ln(1);
-
 		$pdf->SetFont('Arial', 'B', 12);
 		$pdf->SetFillColor(164, 164, 164);
 		$pdf->Ln(2);
 		$pdf->setX(5);
 		$pdf->Cell(206, $nFont, 'DATOS DEL VALUADOR', 'TLBR', 1, 'C', 1);
-
 		// Línea 1
 		$pdf->setX(5);
 		$pdf->SetFont('Arial', 'B', 8);
@@ -234,7 +225,9 @@ $foto = public_path() . "/css/images/corevat/user-big-blank.jpg";
 		$pdf->Cell(86, $nFont, utf8_decode("Registro Colegio: "), 'B', 0, 'R');
 		$pdf->SetFont('Arial', '', 8);
 		$pdf->Cell(40, $nFont, $rs->registro_colegio, 'LBR', 1, 'L');
-
+	}
+	
+	private function avaluoDatosGeneralesInmueble($pdf, $nFont) {
 		// /* *********************************************************
 		// ** INFORMACION GENERAL DEL INMUEBLE
 		// ** ********************************************************* */
@@ -339,9 +332,32 @@ $foto = public_path() . "/css/images/corevat/user-big-blank.jpg";
 		$pdf->SetFont('Arial', '', 6);
 		$pdf->Cell(107, $nFont, utf8_decode(trim($rs->titulo_propietario) . " " . $rs->nombre_propietario), 'LBR', 1, 'L');
 
+	}
+	
+	/**
+	 * Show the form for editing the specified resource.
+	 *
+	 * @param  int  $id
+	 * @return Response
+	 * 
+	 */
+	public function printAvaluo($id) {
+		require 'NumberToLetterConverter.php';
+		$nFont = 6;
+		$pagina = 0;
+		$rs = Avaluos::getAvaluo($id);
+		$pdf = new Fpdf('P', 'mm', 'Letter');
+		
+		$this->avaluoEncabezado($pdf, $nFont);
+		
+		$this->avaluoDatosValuador($pdf, $nFont);
+		
+		$this->avaluoDatosGeneralesInmueble($pdf, $nFont);
+
 		// /* *********************************************************
 		// ** 3. CARACTERÍSTICAS  DE LA ZONA
 		// ** ********************************************************* */
+		//$pdf->Ln(10);
 		$pdf->Ln(1);
 
 		$zn = AvaluosZona::getAvaluosZonaByFk($id);

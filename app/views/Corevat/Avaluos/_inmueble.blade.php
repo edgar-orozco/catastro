@@ -478,7 +478,7 @@
 
 				</div>
 				
-				<div style="text-align: center;" id="messagesDialogForm"></div>
+				<div style="text-align: center;" id="messagesDialogFormAcabados"></div>
 			</div>
 			<div class="modal-footer">
 				<button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>

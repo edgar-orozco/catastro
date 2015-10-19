@@ -95,12 +95,12 @@ $(document).ready(function () {
 	$.editAiAcabados = function (id) {
 		$('#messagesDialogForm').empty().removeClass();
 		$('#ctrl_acabado').val('upd');
-		$('#idaiacabados').val(id);
+		$('#idaiacabado').val(id);
 		$.ajax({
 			global: false,
 			cache: false,
 			dataType: 'json',
-			url: '/corevat/AiAcabadosGet/' + $('#idaiacabados').val(),
+			url: '/corevat/AiAcabadosGet/' + $('#idaiacabado').val(),
 			type: 'get',
 			success: function (data) {
 				datos = eval(data);
@@ -171,7 +171,7 @@ $(document).ready(function () {
 	 * 
 	 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
 	$("#formAiAcabados").submit(function () {
-		$('#messagesDialogForm').empty().removeClass();
+		$('#messagesDialogFormAcabados').empty().removeClass();
 		$.ajax({
 			global: false,
 			cache: false,
@@ -182,7 +182,7 @@ $(document).ready(function () {
 			success: function (data) {
 				datos = eval(data);
 				if (datos.success) {
-					$('#messagesDialogForm').removeClass().addClass('alert').addClass('alert-success').append(datos.message);
+					$('#messagesDialogFormAcabados').removeClass().addClass('alert').addClass('alert-success').append(datos.message);
 					$('#idTable').val(datos.idTable);
 					if ($('#ctrl').val() === 'ins') {
 						$('#idaiacabado').val('0');
@@ -197,7 +197,7 @@ $(document).ready(function () {
 					for (datos in data.errors) {
 						errores += '<p>' + data.errors[datos] + '</p>';
 					}
-					$('#messagesDialogForm').removeClass().addClass('alert').addClass('alert-danger').append(errores);
+					$('#messagesDialogFormAcabados').removeClass().addClass('alert').addClass('alert-danger').append(errores);
 				}
 			}
 		});
