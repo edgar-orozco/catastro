@@ -184,7 +184,7 @@ $(document).ready(function () {
 				if (datos.success) {
 					$('#messagesDialogFormAcabados').removeClass().addClass('alert').addClass('alert-success').append(datos.message);
 					$('#idTable').val(datos.idTable);
-					if ($('#ctrl').val() === 'ins') {
+					if ($('#ctrl_acabado').val() === 'ins') {
 						$('#idaiacabado').val('0');
 						$("#fk_cat_acabados option[value=1]").attr("selected", true);
 						$("#fk_cat_pisos option[value=1]").attr("selected", true);
