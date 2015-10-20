@@ -1,4 +1,6 @@
 <?php
+
+
 use Carbon\Carbon;
 
 class corevat_AiMedidasController extends \BaseController {
@@ -70,6 +72,7 @@ class corevat_AiMedidasController extends \BaseController {
 	 * @return Response
 	 */
 	public function destroy($id) {
+
 		$row = AiMedidasColindancias::findOrFail($id);
 		$row->delete($id);
 		return Response::json(array('success' => true, 'message' => '!El registro fue eliminado satisfactoriamente!'));

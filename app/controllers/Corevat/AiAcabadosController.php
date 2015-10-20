@@ -1,4 +1,5 @@
 <?php
+
 use Carbon\Carbon;
 
 class corevat_AiAcabadosController extends \BaseController {

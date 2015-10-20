@@ -1,4 +1,6 @@
 <?php
+
+
 use Carbon\Carbon;
 
 class corevat_AvaluosInmuebleController extends \BaseController {
@@ -134,6 +136,12 @@ class corevat_AvaluosInmuebleController extends \BaseController {
 	}
 
 
+	/**
+	 * Show the form for editing the specified resource.
+	 *
+	 * @param  int  $id
+	 * @return Response
+	 */
 	public function getFieldAutoCompleteInmueble() {
 		
 	}
