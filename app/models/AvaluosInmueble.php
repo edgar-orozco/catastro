@@ -48,6 +48,7 @@ class AvaluosInmueble extends \Eloquent {
 	 */
 	public static function getAvaluoInmuebleByIdForPdf($idavaluo) {
 		return AvaluosInmueble::select('avaluo_inmueble.*', 
+				'us.usos_suelos',
 				'ct_niv.nivel AS nivel', 
 				'cim.cimentacion', 
 				'estruc.estructura', 
