@@ -150,7 +150,7 @@ class corevat_PrintDictamenAvaluoController extends \BaseController {
 		$pdf->Image(public_path() . "/css/images/corevat/crv-01.jpg", 5, 5, 139.57, 26.20);
 		$user = Auth::user();
 		$foto = public_path() . "/logos/usuarios/". $user->foto;
-		if (!file_exists($foto)) {
+		if (!( file_exists($foto) && is_file($foto) )) {
 			$foto = public_path() . "/css/images/corevat/user-big-blank.jpg";
 		}
 		$pdf->Image($foto, 180, 5, 30.50, 26.56);
