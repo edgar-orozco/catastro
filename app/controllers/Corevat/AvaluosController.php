@@ -137,25 +137,23 @@ class corevat_AvaluosController extends \BaseController {
 
 		if ($id > 2147483647) {
 			return Redirect::to('/corevat/index')->with('error', '¡El avalúo no existe!');
-			;
 		} else {
 			$id = (int) $id;
 			$row = Avaluos::find($id);
-			//dd($row);
 			if (is_null($row)) {
 				return Redirect::to('/corevat/index')->with('error', '¡El avalúo no existe!');
-				;
+			} else if ( $row->estatus ) {
+				return Redirect::to('/corevat/Avaluos')->with('error', '¡El avalúo ya fue registrado!');
+
 			} else if (( Auth::user()->hasRole("Perito Valuador") && $row->iduser == Auth::id()) || !Auth::user()->hasRole("Perito Valuador")) {
+				
 				$row->fecha_reporte = date("d-m-Y", strtotime($row->fecha_reporte));
 				$row->fecha_avaluo = date("d-m-Y", strtotime($row->fecha_avaluo));
 				$row->is_otro_servicio = 0;
 				$row->is_otro_equipamiento = 0;
 				$title = 'Editando el registro: ' . $row['foliocoretemp'];
-				// $municipios = Municipios::comboList();
-				//$estados = Estados::comboList();
 				$estados = Estados::select('idestado', 'clave', 'estado')->where('status', 1)->orderBy('estado')->get();
 
-				//$municipios = Municipios::orderBy('municipio')->where('idestado', $row->idestado)->where('status', 1)->lists('municipio', 'clave', 'idmunicipio');
 				$municipios = Municipios::select('municipio', 'clave', 'idmunicipio')
 								->orderBy('municipio')
 								->where('idestado', $row->idestado)
@@ -225,6 +223,14 @@ class corevat_AvaluosController extends \BaseController {
 	 * @return Response
 	 */
 	public function destroy($id) {
+		
+		$row = Avaluos::find($id);
+		if (is_null($row)) {
+			return Redirect::to('/corevat/Avaluos')->with('error', '¡El avalúo no existe!');
+		} else if ( $row->estatus ) {
+			return Redirect::to('/corevat/Avaluos')->with('error', '¡El avalúo ya fue registrado!');
+		}
+		
 		$message = '¡El Avalúo fue eliminado satisfactoriamente!';
 		Avaluos::where('idavaluo', '=', $id)->delete();
 
@@ -287,4 +293,56 @@ class corevat_AvaluosController extends \BaseController {
 		return Redirect::to('/corevat/Avaluos')->with('error', '¡PENDIENTE!');
 		//Avaluos::insAvaluo($inputs);
 	}
+	
+	/**
+	 * Display a listing of the resource.
+	 *
+	 * @return Response
+	 */
+	public function registrarAvaluo($id) {
+		$response = array('success' => true, 'message' => '', 'errors' => '', 'idTable' => '');
+		$response['success'] = true;
+		$rowAvaluo = Avaluos::find($id);
+		$rowInmueble = Avaluos::find($id)->AvaluosInmueble;
+		if ( $rowInmueble->segun == '' || is_null($rowInmueble->segun) ) {
+			$response['success'] = false;
+			$response['message'] = '¡El avalúo no puede registrarse debido a que en los datos del "Inmueble" no esta capturado el campo "Segun"!';
+		} else if ( $rowInmueble->superficie_total_terreno == 0 || is_null($rowInmueble->superficie_total_terreno) ) {
+			$response['success'] = false;
+			$response['message'] = '¡El avalúo no puede registrarse debido a que en los datos del "Inmueble" no esta capturado el campo "Superficie Total del Terreno M²"!';
+		} else if (  $rowInmueble->superficie_terreno == 0 || is_null($rowInmueble->superficie_terreno) ) {
+			$response['success'] = false;
+			$response['message'] = '¡El avalúo no puede registrarse debido a que en los datos del "Inmueble" no esta capturado el campo "Superficie del Terreno M²"!';
+		}
+
+		return Response::json($response);
+	}
+
+	/**
+	 * Display a listing of the resource.
+	 *
+	 * @return Response
+	 */
+	public function registrarAvaluoExe($id) {
+		$rowAvaluo = Avaluos::find($id);
+		$rowAvaluo->estatus = true;
+		$rowAvaluo->save();
+		$response = array();
+		$response['success'] = true;
+		$response['message'] = '¡El avalúo quedo registrado!';
+		return Response::json($response);
+		
+	}
+	
+	/**
+	 * Display a listing of the resource.
+	 *
+	 * @return Response
+	 */
+	public function registrarAvaluoPrint($id) {
+		$response = array('success' => true, 'message' => '¡El avalúo quedo registrado!');
+		return Response::json($response);
+		
+	}
+	
 }

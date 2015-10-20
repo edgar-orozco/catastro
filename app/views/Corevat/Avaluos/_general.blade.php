@@ -283,11 +283,11 @@
 {{ HTML::script('/js/jquery/jquery.min.js') }}
 {{ HTML::script('/js/jquery/jquery.mask.min.js') }}
 {{ HTML::script('/js/jquery/jquery-ui.js') }}
+{{ HTML::script('/js/bootstrap.min.js') }}
 {{ HTML::script('/js/jquery/jquery.dataTables.min.js') }}
 {{ HTML::script('/js/jquery/dataTables.bootstrap.js') }}
 {{ HTML::script('/js/jquery/jquery.mask.min.js') }}
 {{ HTML::script('/js/jquery.corevat.js') }}
-
 <script>
 	$(document).ready(function () {
 

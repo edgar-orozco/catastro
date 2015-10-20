@@ -229,9 +229,9 @@ class corevat_PrintDictamenAvaluoController extends \BaseController {
 		$pdf->SetFont('Arial', 'B', 6);
 		$pdf->Cell(26, $nFont, utf8_decode("Propósito: "), 'LB', 0, 'R');
 		$pdf->SetFont('Arial', '', 6);
-		$pdf->Cell(63, $nFont, utf8_decode($rs->proposito), 'LRB', 0, 'R');
+		$pdf->Cell(63, $nFont, utf8_decode($rs->proposito), 'LB', 0, 'L');
 		$pdf->SetFont('Arial', 'B', 6);
-		$pdf->Cell(15, $nFont, utf8_decode("Finalidad: "), 'RB', 0, 'R');
+		$pdf->Cell(15, $nFont, utf8_decode("Finalidad: "), 'B', 0, 'L');
 		$pdf->SetFont('Arial', '', 6);
 		$pdf->Cell(102, $nFont, utf8_decode($rs->finalidad), 'LBR', 1, 'L');
 
@@ -242,7 +242,7 @@ class corevat_PrintDictamenAvaluoController extends \BaseController {
 		$pdf->SetFont('Arial', '', 6);
 		$pdf->Cell(36, $nFont, utf8_decode($rs->tipo_inmueble), 'LB', 0, 'L');
 		$pdf->SetFont('Arial', 'B', 6);
-		$pdf->Cell(15, $nFont, utf8_decode("Ubicación: "), 'LB', 0, 'R');
+		$pdf->Cell(15, $nFont, utf8_decode("Ubicación: "), 'B', 0, 'R');
 		$pdf->SetFont('Arial', '', 6);
 		$pdf->Cell(129, $nFont, utf8_decode($rs->ubicacion), 'LBR', 1, 'L');
 
@@ -268,7 +268,7 @@ class corevat_PrintDictamenAvaluoController extends \BaseController {
 		$pdf->SetFont('Arial', '', 6);
 		$pdf->Cell(83, $nFont, utf8_decode($rs->municipio), 'LB', 0, 'L');
 		$pdf->SetFont('Arial', 'B', 6);
-		$pdf->Cell(26, $nFont, utf8_decode("Entidad Federativo: "), 'LB', 0, 'R');
+		$pdf->Cell(26, $nFont, utf8_decode("Entidad Federativo: "), 'B', 0, 'R');
 		$pdf->SetFont('Arial', '', 6);
 		$pdf->Cell(71, $nFont, utf8_decode($rs->estado), 'LBR', 1, 'L');
 

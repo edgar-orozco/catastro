@@ -68,79 +68,89 @@ $(document).ready(function () {
 	});
 
 	$('#corevatConfirmButton').click(function () {
+		
 		var ctrl = $(this).attr('ctrl');
 		var url = '';
 		var datatable = null;
 
-		if (ctrl === 'delAiMedidasColindancias') {
-			url = '/corevat/AiMedidasColindanciasDel/' + $(this).attr('idTable');
-			datatable = aiMedidasColindancias;
+		if ( ctrl === 'registrarAvaluo' ) {
+			$.registra($(this).attr('idTable'));
+		} else {
+			
+			if (ctrl === 'delAiMedidasColindancias') {
+				url = '/corevat/AiMedidasColindanciasDel/' + $(this).attr('idTable');
+				datatable = aiMedidasColindancias;
 
-		} else if (ctrl === 'delAiAcabados') {
-			url = '/corevat/AiAcabadosDel/' + $(this).attr('idTable');
-			datatable = aiAcabados;
+			} else if (ctrl === 'delAiAcabados') {
+				url = '/corevat/AiAcabadosDel/' + $(this).attr('idTable');
+				datatable = aiAcabados;
 
-		} else if (ctrl === 'delAemCompTerrenos') {
-			url = '/corevat/AemCompTerrenosDel/' + $(this).attr('idTable');
-			datatable = aemCompTerrenos;
+			} else if (ctrl === 'delAemCompTerrenos') {
+				url = '/corevat/AemCompTerrenosDel/' + $(this).attr('idTable');
+				datatable = aemCompTerrenos;
 
-		} else if (ctrl === 'delAemInformacion') {
-			url = '/corevat/AemInformacionDel/' + $(this).attr('idTable');
-			datatable = aemInformacion;
+			} else if (ctrl === 'delAemInformacion') {
+				url = '/corevat/AemInformacionDel/' + $(this).attr('idTable');
+				datatable = aemInformacion;
 
-		} else if (ctrl === 'delAefTerrenos') {
-			url = '/corevat/AefTerrenosDel/' + $(this).attr('idTable');
-			datatable = aefTerrenos;
+			} else if (ctrl === 'delAefTerrenos') {
+				url = '/corevat/AefTerrenosDel/' + $(this).attr('idTable');
+				datatable = aefTerrenos;
 
-		} else if (ctrl === 'delAefConstrucciones') {
-			url = '/corevat/AefConstruccionesDel/' + $(this).attr('idTable');
-			datatable = aefConstrucciones;
+			} else if (ctrl === 'delAefConstrucciones') {
+				url = '/corevat/AefConstruccionesDel/' + $(this).attr('idTable');
+				datatable = aefConstrucciones;
 
-		} else if (ctrl === 'delAefCondominios') {
-			url = '/corevat/AefCondominiosDel/' + $(this).attr('idTable');
-			datatable = aefCondominios;
+			} else if (ctrl === 'delAefCondominios') {
+				url = '/corevat/AefCondominiosDel/' + $(this).attr('idTable');
+				datatable = aefCondominios;
 
-		} else if (ctrl === 'delAefInstalaciones') {
-			url = '/corevat/AefInstalacionesDel/' + $(this).attr('idTable');
-			datatable = aefInstalaciones;
+			} else if (ctrl === 'delAefInstalaciones') {
+				url = '/corevat/AefInstalacionesDel/' + $(this).attr('idTable');
+				datatable = aefInstalaciones;
 
-		}
-		$.ajax({
-			global: false,
-			cache: false,
-			dataType: 'json',
-			url: url,
-			type: 'get',
-			success: function (data) {
-				datos = eval(data);
-				if (datos.success === true) {
-					datatable.ajax.reload();
-					if (ctrl === 'delAemCompTerrenos') {
-						aemHomologacion.ajax.reload();
-						$('#valor_unitario_promedio').empty().append(datos.valor_unitario_promedio);
-						$('#valor_aplicado_m2').empty().append(datos.valor_aplicado_m2);
-					} else if (ctrl === 'delAemInformacion') {
-						aemAnalisis.ajax.reload();
-					} else if (ctrl === 'delAefTerrenos') {
-						$('#valor_terreno').empty().append(datos.valor_aplicado_m2);
-						$('#total_valor_fisico').empty().append(datos.total_valor_fisico);
-					} else if (ctrl === 'delAefConstrucciones') {
-						$('#total_metros_construccion').empty().append(datos.total_metros_construccion);
-						$('#valor_construccion').empty().append(datos.valor_construccion);
-						$('#total_valor_fisico').empty().append(datos.total_valor_fisico);
-					} else if (ctrl === 'delAefCondominios') {
-						$('#subtotal_area_condominio').empty().append(datos.subtotal_area_condominio);
-						$('#total_valor_fisico').empty().append(datos.total_valor_fisico);
-					} else if (ctrl === 'delAefInstalaciones') {
-						$('#subtotal_instalaciones_especiales').empty().append(datos.subtotal_instalaciones_especiales);
-						$('#total_valor_fisico').empty().append(datos.total_valor_fisico);
-					}
-					$('#corevatConfirmMessage').empty().append('¡El registro fue eliminado!').addClass('alert-success');
-					$('#corevatConfirmButton').hide();
-				}
 			}
-		});
+			$.ajax({
+				global: false,
+				cache: false,
+				dataType: 'json',
+				url: url,
+				type: 'get',
+				success: function (data) {
+					datos = eval(data);
+					if (datos.success === true) {
+						datatable.ajax.reload();
+						if (ctrl === 'delAemCompTerrenos') {
+							aemHomologacion.ajax.reload();
+							$('#valor_unitario_promedio').empty().append(datos.valor_unitario_promedio);
+							$('#valor_aplicado_m2').empty().append(datos.valor_aplicado_m2);
+						} else if (ctrl === 'delAemInformacion') {
+							aemAnalisis.ajax.reload();
+						} else if (ctrl === 'delAefTerrenos') {
+							$('#valor_terreno').empty().append(datos.valor_aplicado_m2);
+							$('#total_valor_fisico').empty().append(datos.total_valor_fisico);
+						} else if (ctrl === 'delAefConstrucciones') {
+							$('#total_metros_construccion').empty().append(datos.total_metros_construccion);
+							$('#valor_construccion').empty().append(datos.valor_construccion);
+							$('#total_valor_fisico').empty().append(datos.total_valor_fisico);
+						} else if (ctrl === 'delAefCondominios') {
+							$('#subtotal_area_condominio').empty().append(datos.subtotal_area_condominio);
+							$('#total_valor_fisico').empty().append(datos.total_valor_fisico);
+						} else if (ctrl === 'delAefInstalaciones') {
+							$('#subtotal_instalaciones_especiales').empty().append(datos.subtotal_instalaciones_especiales);
+							$('#total_valor_fisico').empty().append(datos.total_valor_fisico);
+						}
+						$('#corevatConfirmMessage').empty().append('¡El registro fue eliminado!').addClass('alert-success');
+						$('#corevatConfirmButton').hide();
+					}
+				}
+			});
+		}
 	});
+
+	/*++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+	 * 
+	 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
 	$('#corevatConfirm').on('hidden.bs.modal', function (e) {
 		$('#corevatConfirmButton').show().attr('ctrl', '').attr('idTable', '');
 		$('#corevatConfirmContainer').empty();
@@ -148,8 +158,52 @@ $(document).ready(function () {
 	});
 	
 
+	/*++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+	 * 
+	 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
+	$("#btn3RegistrarAvaluo").click(function(){
+		$('#corevatConfirmButton').attr('ctrl', 'registrarAvaluo').attr('idTable', $(this).attr('idAvaluo') );
+		// VALIDAMOS QUE EL AVALUO SE PUEDA REGISTRAR
+		// USAR AJAX
+		$.ajax({
+			global: false,
+			cache: false,
+			dataType: 'json',
+			url: '/corevat/AvaluoRegistrar/' + $("#btn3RegistrarAvaluo").attr('idAvaluo'),
+			type: 'get',
+			success: function (data) {
+				datos = eval(data);
+				if (datos.success === true) {
+					$('#corevatConfirmContainer').empty().append('<h2>¿Realmente desea registrar el avalúo?</h2>');
+				} else {
+					$('#corevatConfirmContainer').empty().append('<h2>' + datos.message +'<h2>');
+				}
+			}
+		});
+		$('#corevatConfirm').modal('show');
+	});
 
-
-
+	/*++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+	 * 
+	 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
+	$.registra = function(id) {
+		$.ajax({
+			global: false,
+			cache: false,
+			dataType: 'json',
+			url: '/corevat/AvaluoRegistrarExe/' + id,
+			type: 'get',
+			success: function (data) {
+				datos = eval(data);
+				if (datos.success === true) {
+					$('#corevatConfirmContainer').empty().append('<h2>' + datos.message +'</h2>');
+					// OCULTAR EL BOTON Y LLEVAR AL USUARIO A LA TABLA DE LOS AVALUOS
+					
+				} else {
+					$('#corevatConfirmContainer').empty().append('<h2>' + datos.message +'</h2>');
+				}
+			}
+		});
+	};
 
 });
