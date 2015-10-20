@@ -198,7 +198,7 @@ $(document).ready(function () {
 				if (datos.success === true) {
 					$('#corevatConfirmContainer').empty().append('<h2>' + datos.message +'</h2>');
 					// OCULTAR EL BOTON Y LLEVAR AL USUARIO A LA TABLA DE LOS AVALUOS
-					
+					// 
 				} else {
 					$('#corevatConfirmContainer').empty().append('<h2>' + datos.message +'</h2>');
 				}
