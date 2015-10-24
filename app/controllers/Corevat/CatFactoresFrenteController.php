@@ -49,7 +49,6 @@ class corevat_CatFactoresFrenteController extends \BaseController {
 	public function store($format = 'html') {
 		$id=Input::get('id');
 		$inputs = Input::All();
-		$inputs["factor_frente"] = strtoupper($inputs["factor_frente"]);
 		$inputs['valor_minimo'] = number_format((float) $inputs['valor_minimo'], 2, '.', '');
 		$inputs['valor_maximo'] = number_format((float) $inputs['valor_maximo'], 2, '.', '');
 		$rules = array(
@@ -115,7 +114,6 @@ class corevat_CatFactoresFrenteController extends \BaseController {
 	public function update($id, $format = 'html') {
 		$inputs = Input::All();
 		$row = CatFactoresFrente::find($id);
-		$inputs["factor_frente"] = strtoupper($inputs["factor_frente"]);
 		$inputs['valor_minimo'] = number_format((float) $inputs['valor_minimo'], 2, '.', '');
 		$inputs['valor_maximo'] = number_format((float) $inputs['valor_maximo'], 2, '.', '');
 		$rules = array(

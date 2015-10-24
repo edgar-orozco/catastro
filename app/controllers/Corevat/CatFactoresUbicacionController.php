@@ -49,7 +49,6 @@ class corevat_CatFactoresUbicacionController extends \BaseController {
 	public function store($format = 'html') {
 		$id=Input::get('id');
 		$inputs = Input::All();
-		$inputs["factor_ubicacion"] = strtoupper($inputs["factor_ubicacion"]);
 		$inputs['valor_minimo'] = number_format((float) $inputs['valor_minimo'], 2, '.', '');
 		$inputs['valor_maximo'] = number_format((float) $inputs['valor_maximo'], 2, '.', '');
 		$rules = array(
@@ -115,7 +114,6 @@ class corevat_CatFactoresUbicacionController extends \BaseController {
 	public function update($id, $format = 'html') {
 		$inputs = Input::All();
 		$row = CatFactoresUbicacion::find($id);
-		$inputs["factor_ubicacion"] = strtoupper($inputs["factor_ubicacion"]);
 		$inputs['valor_minimo'] = number_format((float) $inputs['valor_minimo'], 2, '.', '');
 		$inputs['valor_maximo'] = number_format((float) $inputs['valor_maximo'], 2, '.', '');
 		$rules = array(

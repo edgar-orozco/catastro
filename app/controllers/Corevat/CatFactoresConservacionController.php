@@ -49,8 +49,8 @@ class corevat_CatFactoresConservacionController extends \BaseController {
 	public function store($format = 'html') {
 		$id=Input::get('id');
 		$inputs = Input::All();
-		$inputs['factor_conservacion'] = strtoupper($inputs['factor_conservacion']);
-		$inputs['valor_factor_conservacion'] = number_format((float) $inputs['valor_factor_conservacion'], 2, '.', '');
+		$inputs['abr_factor_conservacion'] = strtoupper($inputs['abr_factor_conservacion']);
+		$inputs['valor_factor_conservacion'] = number_format((float) $inputs['valor_factor_conservacion'], 4, '.', '');
 		$rules = array(
 			'valor_factor_conservacion' => 'numeric|min:0.0000|max:1.0000',
 		);
@@ -115,8 +115,7 @@ class corevat_CatFactoresConservacionController extends \BaseController {
 		$inputs = Input::All();
 		$row = CatFactoresConservacion::find($id);
 		$inputs['abr_factor_conservacion'] = strtoupper($inputs['abr_factor_conservacion']);
-		$inputs['factor_conservacion'] = strtoupper($inputs['factor_conservacion']);
-		$inputs['valor_factor_conservacion'] = number_format((float) $inputs['valor_factor_conservacion'], 2, '.', '');
+		$inputs['valor_factor_conservacion'] = number_format((float) $inputs['valor_factor_conservacion'], 4, '.', '');
 		$rules = array(
 			'valor_factor_conservacion' => 'numeric|min:0.0000|max:1.0000',
 		);

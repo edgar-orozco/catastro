@@ -53,11 +53,11 @@ class corevat_CatFactoresZonasController extends \BaseController {
 		$inputs['valor_maximo'] = number_format((float) $inputs['valor_maximo'], 2, '.', '');
 		$rules = array(
 			'valor_minimo' => array('before:valor_maximo'),
-			'valor_maximo' => array('after:valor_maximo'),
+			'valor_maximo' => array('after:valor_minimo'),
 		);
 		$messages = array(
 			'valor_minimo.before' => '¡El "Valor mínimo" debe ser menor al "Valor Máximo!',
-			'valor_maximo.after' => '¡El "Valor mínimo" debe ser menor al "Valor Máximo!',
+			'valor_maximo.after' => '¡El "Valor máximo" debe ser mayor al "Valor Mínimo!',
 		);
 		$validate = Validator::make($inputs, $rules, $messages);
 		if ($validate->fails()) {
@@ -117,9 +117,11 @@ class corevat_CatFactoresZonasController extends \BaseController {
 		$row = CatFactoresZonas::find($id);
 		$rules = array(
 			'valor_minimo' => array('before:valor_maximo'),
+			'valor_maximo' => array('after:valor_minimo'),
 		);
 		$messages = array(
 			'valor_minimo.before' => '¡El "Valor mínimo" debe ser menor al "Valor Máximo!',
+			'valor_maximo.after' => '¡El "Valor máximo" debe ser mayor al "Valor Mínimo!',
 		);
 		$validate = Validator::make($inputs, $rules, $messages);
 		if ($validate->fails()) {
@@ -150,13 +152,12 @@ class corevat_CatFactoresZonasController extends \BaseController {
 			return Redirect::back()->with('error', '¡EL REGISTRO NO PUEDE SER ELIMINADO DEBIDO A QUE ESTA SIENDO UTILIZADO POR ALGUN AVALUO!');
 		} else {
 			try {
-		        $row->delete($id);
+				$row->delete($id);
 				return Redirect::to('corevat/CatFactoresZonas')->with('success', '¡La eliminación se efectuo correctamente!');
 			} catch (\Illuminate\Database\QueryException $ex) {
 				return Redirect::back()->with('error', '¡EL REGISTRO NO PUEDE SER ELIMINADO DEBIDO A QUE ESTA SIENDO UTILIZADO POR ALGUN AVALUO!');
 			}
 		}
-        
 	}
 
 }
