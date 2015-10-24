@@ -1,12 +1,17 @@
 <div class="form-group">
 	{{Form::label('factor_ubicacion','Descripción')}}
-	{{Form::text('factor_ubicacion', $row->factor_ubicacion, ['tabindex'=>'1', 'class'=>'form-control', 'autofocus'=> 'autofocus', 'required' => 'required', 'ng-model' => 'CatFactoresUbicacion.factor_ubicacion', 'tb-focus' => 'focusForm', 'ng-blur' => 'focusForm = false', 'onblur'=>'aMayusculas(this.value,this.id)','maxlength'=>'20'] )}}
+	{{Form::text('factor_ubicacion', null, ['tabindex'=>'1','class'=>'form-control', 'required' => 'required','maxlength'=>'80'] )}}
 	{{$errors->first('factor_ubicacion', '<span class=text-danger>:message</span>')}}
 </div>
 <div class="form-group">
-	{{Form::label('valor_factor_ubicacion', 'Valor')}}
-	{{Form::number('valor_factor_ubicacion', $row->valor_factor_ubicacion, ['step'=>'0.01', 'min'=>'0.00', 'max'=>'9999999.99', 'tabindex'=>'2', 'class'=>'form-control', 'autofocus'=> 'autofocus', 'required' => 'required', 'ng-model' => 'CatFactoresUbicacion.valor_factor_ubicacion', 'tb-focus' => 'focusForm', 'ng-blur' => 'focusForm = false', 'maxlength'=>'13'] )}}
-	{{$errors->first('valor_factor_ubicacion', '<span class=text-danger>:message</span>')}}
+	{{Form::label('valor_minimo', 'Valor Mínimo')}}
+	{{Form::number('valor_minimo', $row->valor_minimo, ['step'=>'0.01', 'min'=>'0.00', 'max'=>'9999999.99', 'tabindex'=>'2', 'class'=>'form-control clsNumeric', 'required' => 'required', 'maxlength'=>'13'] )}}
+	{{$errors->first('valor_minimo', '<span class=text-danger>:message</span>')}}
+</div>
+<div class="form-group">
+	{{Form::label('valor_maximo', 'Valor Máximo')}}
+	{{Form::number('valor_maximo', $row->valor_maximo, ['step'=>'0.01', 'min'=>'0.00', 'max'=>'9999999.99', 'tabindex'=>'3', 'class'=>'form-control clsNumeric', 'required' => 'required', 'maxlength'=>'13'] )}}
+	{{$errors->first('valor_maximo', '<span class=text-danger>:message</span>')}}
 </div>
 <div class="form-group">
 	{{Form::label('status_factor_ubicacion', 'Estatus')}}

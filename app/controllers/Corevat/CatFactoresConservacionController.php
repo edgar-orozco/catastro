@@ -49,13 +49,15 @@ class corevat_CatFactoresConservacionController extends \BaseController {
 	public function store($format = 'html') {
 		$id=Input::get('id');
 		$inputs = Input::All();
+		$inputs['factor_conservacion'] = strtoupper($inputs['factor_conservacion']);
+		$inputs['valor_factor_conservacion'] = number_format((float) $inputs['valor_factor_conservacion'], 2, '.', '');
 		$rules = array(
-			'abr_factor_conservacion' => 'required',
-			'factor_conservacion' => 'required',
-			'valor_factor_conservacion' => 'required',
+			'valor_factor_conservacion' => 'numeric|min:0.0000|max:1.0000',
 		);
 		$messages = array(
-			'required' => 'El campo es requerido',
+			'valor_factor_conservacion.numeric' => '¡El campo "Valor" debe ser un número!',
+			'valor_factor_conservacion.min' => '¡El valor mínimo del campo "Valor" debe ser mayor a cero!',
+			'valor_factor_conservacion.max' => '¡El valor máximo del campo "Valor" debe ser 1.000!',
 		);
 		$validate = Validator::make($inputs, $rules, $messages);
 		if ($validate->fails()) {
@@ -112,13 +114,16 @@ class corevat_CatFactoresConservacionController extends \BaseController {
 	public function update($id, $format = 'html') {
 		$inputs = Input::All();
 		$row = CatFactoresConservacion::find($id);
+		$inputs['abr_factor_conservacion'] = strtoupper($inputs['abr_factor_conservacion']);
+		$inputs['factor_conservacion'] = strtoupper($inputs['factor_conservacion']);
+		$inputs['valor_factor_conservacion'] = number_format((float) $inputs['valor_factor_conservacion'], 2, '.', '');
 		$rules = array(
-			'abr_factor_conservacion' => 'required',
-			'factor_conservacion' => 'required',
-			'valor_factor_conservacion' => 'required',
+			'valor_factor_conservacion' => 'numeric|min:0.0000|max:1.0000',
 		);
 		$messages = array(
-			'required' => 'El campo es requerido',
+			'valor_factor_conservacion.numeric' => '¡El campo "Valor" debe ser un número!',
+			'valor_factor_conservacion.min' => '¡El valor mínimo del campo "Valor" debe ser mayor a cero!',
+			'valor_factor_conservacion.max' => '¡El valor máximo del campo "Valor" debe ser 1.000!',
 		);
 		$validate = Validator::make($inputs, $rules, $messages);
 		if ($validate->fails()) {
@@ -142,14 +147,13 @@ class corevat_CatFactoresConservacionController extends \BaseController {
 	 * @return Response
 	 */
 	public function destroy($id = null) {
-        $row = CatFactoresConservacion::findOrFail($id);
+		$row = CatFactoresConservacion::findOrFail($id);
 		try {
-	        $row->delete($id);
+			$row->delete($id);
 			return Redirect::to('corevat/CatFactoresConservacion')->with('success', '¡La eliminación se efectuo correctamente!');
 		} catch (\Illuminate\Database\QueryException $ex) {
 			return Redirect::back()->with('error', $ex->getMessage());
 		}
-        
 	}
 
 }

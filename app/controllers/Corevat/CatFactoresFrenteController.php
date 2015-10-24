@@ -49,12 +49,16 @@ class corevat_CatFactoresFrenteController extends \BaseController {
 	public function store($format = 'html') {
 		$id=Input::get('id');
 		$inputs = Input::All();
+		$inputs["factor_frente"] = strtoupper($inputs["factor_frente"]);
+		$inputs['valor_minimo'] = number_format((float) $inputs['valor_minimo'], 2, '.', '');
+		$inputs['valor_maximo'] = number_format((float) $inputs['valor_maximo'], 2, '.', '');
 		$rules = array(
-			'factor_frente' => 'required',
-			'valor_factor_frente' => 'required',
+			'valor_minimo' => array('before:valor_maximo'),
+			'valor_maximo' => array('after:valor_minimo'),
 		);
 		$messages = array(
-			'required' => 'El campo es requerido',
+			'valor_minimo.before' => '¡El "Valor mínimo" debe ser menor al "Valor Máximo!',
+			'valor_maximo.after' => '¡El "Valor máximo" debe ser mayor al "Valor Mínimo!',
 		);
 		$validate = Validator::make($inputs, $rules, $messages);
 		if ($validate->fails()) {
@@ -62,7 +66,9 @@ class corevat_CatFactoresFrenteController extends \BaseController {
 		}  else {
 			$row = new CatFactoresFrente;
 			$row->factor_frente = $inputs["factor_frente"];
-			$row->valor_factor_frente = $inputs["valor_factor_frente"];
+			$row->valor_factor_frente = 0;
+			$row->valor_minimo = $inputs["valor_minimo"];
+			$row->valor_maximo = $inputs["valor_maximo"];
 			$row->status_factor_frente = isset($inputs["status_factor_frente"]) ? $inputs["status_factor_frente"] : 0;
 			$row->idemp = 1;
 			$row->ip = $_SERVER['REMOTE_ADDR'];
@@ -109,19 +115,25 @@ class corevat_CatFactoresFrenteController extends \BaseController {
 	public function update($id, $format = 'html') {
 		$inputs = Input::All();
 		$row = CatFactoresFrente::find($id);
+		$inputs["factor_frente"] = strtoupper($inputs["factor_frente"]);
+		$inputs['valor_minimo'] = number_format((float) $inputs['valor_minimo'], 2, '.', '');
+		$inputs['valor_maximo'] = number_format((float) $inputs['valor_maximo'], 2, '.', '');
 		$rules = array(
-			'factor_frente' => 'required',
-			'valor_factor_frente' => 'required',
+			'valor_minimo' => array('before:valor_maximo'),
+			'valor_maximo' => array('after:valor_minimo'),
 		);
 		$messages = array(
-			'required' => 'El campo es requerido',
+			'valor_minimo.before' => '¡El "Valor mínimo" debe ser menor al "Valor Máximo!',
+			'valor_maximo.after' => '¡El "Valor máximo" debe ser mayor al "Valor Mínimo!',
 		);
 		$validate = Validator::make($inputs, $rules, $messages);
 		if ($validate->fails()) {
 			return Redirect::back()->withInput()->withErrors($validate);
 		} else {
 			$row->factor_frente = $inputs["factor_frente"];
-			$row->valor_factor_frente = $inputs["valor_factor_frente"];
+			$row->valor_factor_frente = 0;
+			$row->valor_minimo = $inputs["valor_minimo"];
+			$row->valor_maximo = $inputs["valor_maximo"];
 			$row->status_factor_frente = isset($inputs["status_factor_frente"]) ? $inputs["status_factor_frente"] : 0;
 			$row->modi_por = 1;
 			$row->modi_el = date('Y-m-d H:i:s');
@@ -137,13 +149,13 @@ class corevat_CatFactoresFrenteController extends \BaseController {
 	 * @return Response
 	 */
 	public function destroy($id = null) {
-        $row = CatFactoresFrente::findOrFail($id);
+		$row = CatFactoresFrente::findOrFail($id);
 		try {
-	        $row->delete($id);
+			$row->delete($id);
 			return Redirect::to('corevat/CatFactoresFrente')->with('success', '¡La eliminación se efectuo correctamente!');
 		} catch (\Illuminate\Database\QueryException $ex) {
-			return Redirect::back()->with('error', $ex->getMessage());
+			//$ex->getMessage()
+			return Redirect::back()->with('error', '¡EL REGISTRO NO PUEDE SER ELIMINADO DEBIDO A QUE ESTA SIENDO UTILIZADO POR ALGUN AVALUO!');
 		}
-        
 	}
 }
