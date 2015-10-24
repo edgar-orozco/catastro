@@ -4,11 +4,11 @@
 {{Form::hidden('idavaluoenfoquefisico', $row->idavaluoenfoquefisico, ['id'=>'idavaluoenfoquefisico'])}}
 <div class="row">
 	<div class="col-md-12 col-sm-12 col-xs-12" id="divHeaderTerreno"><h4>Terreno</h4></div>
-    <div class="col-md-2 col-sm-2 col-xs-2 btn-beside-title" id="divNuevoTerreno" style="display: none;">
-        <a class="btn btn-primary nuevo" id="btnNewAefTerr" title="Nuevo Registro">
-            <span class="glyphicon glyphicon-plus-sign"></span>Nuevo
+	<div class="col-md-2 col-sm-2 col-xs-2 btn-beside-title" id="divNuevoTerreno" style="display: none;">
+		<a class="btn btn-primary nuevo" id="btnNewAefTerr" title="Nuevo Registro">
+			<span class="glyphicon glyphicon-plus-sign"></span>Nuevo
 		</a>
-    </div>
+	</div>
 	<div class="col-md-12">
 		<table cellpadding="0" cellspacing="0" border="0" class="table datatable table-striped" id="aefTerrenosDataTable">
 			<thead>
@@ -56,9 +56,9 @@
 	<div class="col-md-12"><hr></div>
 
 	<div class="col-md-12"><h4>DE LA CONSTRUCCIÓN</h4></div>
-    <div class="clearfix"></div>
-    <br/>
-    <br/>
+	<div class="clearfix"></div>
+	<br/>
+	<br/>
 	<div class="col-md-3">
 		{{Form::label('idclasegeneralinmueble', 'Clase General')}}
 		{{Form::select('idclasegeneralinmueble', $cat_clase_general_inmueble, $row->idclasegeneral, ['id' => 'idclasegeneralinmueble', 'class'=>'form-control'])}}
@@ -103,12 +103,11 @@
 	<div class="col-md-12"><hr></div>
 
 	<div class="col-md-10 col-sm-10 col-xs-10"><h4>Datos de la Construcción</h4></div>
-    <div class="col-md-2 col-sm-2 col-xs-2 btn-beside-title">
-        <a class="btn btn-primary nuevo" id="btnNewAefCons" title="Nuevo Registro">
-            <span class="glyphicon glyphicon-plus-sign"></span>
-            Nuevo
-        </a>
-    </div>
+	<div class="col-md-2 col-sm-2 col-xs-2 btn-beside-title">
+		<a class="btn btn-primary nuevo" id="btnNewAefCons" title="Nuevo Registro">
+			<span class="glyphicon glyphicon-plus-sign"></span>Nuevo
+		</a>
+	</div>
 	<div class="col-md-12">
 		<table cellpadding="0" cellspacing="0" border="0" class="table datatable table-striped" id="aefConstruccionesDataTable">
 			<thead>
@@ -141,19 +140,18 @@
 					<td class="bg-default" colspan="3" style="text-align: right;">Valor de la Construcción</td>
 					<td class="bg-info" style="text-align: right;" id="valor_construccion">{{number_format($row->valor_construccion, 2, ".", ",")}}</td>
 					<td class="bg-default"></td>
-                </tr>
+				</tr>
 			</tfoot>
 		</table>
 	</div>
 	<div class="col-md-12"><hr></div>
 
 	<div class="col-md-10 col-sm-10 col-xs-10"><h4>Áreas y Elementos adicionales comunes (solo en Condominios)</h4></div>
-    <div class="col-md-2 col-sm-2 col-xs-2 btn-beside-title">
-        <a class="btn btn-primary nuevo" id="btnNewAefCon" title="Nuevo Registro">
-            <span class="glyphicon glyphicon-plus-sign"></span>
-            Nuevo
-        </a>
-    </div>
+	<div class="col-md-2 col-sm-2 col-xs-2 btn-beside-title">
+		<a class="btn btn-primary nuevo" id="btnNewAefCon" title="Nuevo Registro">
+			<span class="glyphicon glyphicon-plus-sign"></span>Nuevo
+		</a>
+	</div>
 	<div class="col-md-12">
 		<table cellpadding="0" cellspacing="0" border="0" class="table datatable table-striped" id="aefCondominiosDataTable">
 			<thead>
@@ -194,12 +192,11 @@
 	<div class="col-md-12"><hr style="border-width: 6px;"></div>
 
 	<div class="col-md-10 col-sm-10 col-xs-10"><h4>Instalaciones Especiales, Elementos, Accesorios y Obras Complementarias</h4></div>
-    <div class="col-md-2 col-sm-2 col-xs-2 btn-beside-title">
-        <a class="btn btn-primary nuevo" id="btnNewAefIns" title="Nuevo Registro">
-            <span class="glyphicon glyphicon-plus-sign"></span>
-            Nuevo
-        </a>
-    </div>
+	<div class="col-md-2 col-sm-2 col-xs-2 btn-beside-title">
+		<a class="btn btn-primary nuevo" id="btnNewAefIns" title="Nuevo Registro">
+			<span class="glyphicon glyphicon-plus-sign"></span>Nuevo
+		</a>
+	</div>
 	<div class="col-md-12">
 		<table cellpadding="0" cellspacing="0" border="0" class="table datatable table-striped" id="aefInstalacionesDataTable">
 			<thead>
@@ -243,10 +240,10 @@
 	<div class="col-md-12">&nbsp;</div>
 
 	<div class="col-md-12">&nbsp;</div>
-    <div class="col-md-6 form-actions">
-        <a href="{{URL::route('indexAvaluos')}}" class="btn btn-coveratSecondary" role="button"><i class="glyphicon glyphicon-arrow-left"></i> Regresar</a>
-    </div>
-    <div class="col-md-6 form-actions">
+	<div class="col-md-6 form-actions">
+		<a href="{{URL::route('indexAvaluos')}}" class="btn btn-coveratSecondary" role="button"><i class="glyphicon glyphicon-arrow-left"></i> Regresar</a>
+	</div>
+	<div class="col-md-6 form-actions">
 		{{Form::submit('Guardar', ['class'=>'btn btn-coveratPrincipal'])}}
 	</div>
 
@@ -282,7 +279,7 @@
 						<label for="idfactortop">Top:</label>
 						<select class="form-control" id="idfactortop" name="idfactortop">
 							@foreach ($cat_factores_top as $item)
-							<option value="{{$item->idfactorconservacion}}">{{$item->factor_conservacion}}</option>
+							<option value="{{$item->idfactorconservacion}}" min="{{$item->valor_minimo}}" max="{{$item->valor_maximo}}">{{$item->factor_conservacion}}</option>
 							@endforeach
 						</select>
 					</div>
@@ -294,7 +291,7 @@
 						<label for="idfactorfrente">Frente:</label>
 						<select class="form-control" id="idfactorfrente" name="idfactorfrente">
 							@foreach ($cat_factores_frente as $item)
-							<option value="{{$item->idfactorfrente}}">{{$item->factor_frente}}</option>
+							<option value="{{$item->idfactorfrente}}" min="{{$item->valor_minimo}}" max="{{$item->valor_maximo}}">{{$item->factor_frente .' ['.$item->valor_minimo.'-'.$item->valor_maximo.']'}}</option>
 							@endforeach
 						</select>
 					</div>
@@ -403,13 +400,13 @@
 						<label for="idfactorconservacion">Factor Conservación:</label>
 						<select class="form-control" id="idfactorconservacion" name="idfactorconservacion">
 							@foreach ($cat_factores_conservacion as $item)
-							<option value="{{$item->idfactorconservacion}}">{{$item->factor_conservacion}}</option>
+							<option value="{{$item->idfactorconservacion}}" valor_factor="{{$item->valor_factor_conservacion}}">{{$item->factor_conservacion .' ['.$item->valor_factor_conservacion.']'}}</option>
 							@endforeach
 						</select>
 					</div>
 					<div class="col-md-6">
 						<label for="factor_conservacion_construcciones">&nbsp;</label>
-						<input type="number" class="form-control clsNumeric" name="factor_conservacion_construcciones" id="factor_conservacion_construcciones" min="0.00" max="1.00" step="0.01" value="0.00" required />
+						<input type="number" class="form-control clsNumeric" name="factor_conservacion_construcciones" id="factor_conservacion_construcciones" min="0.0000" max="1.0000" step="0.0001" value="0.0000" required />
 					</div>
 
 					<div class="col-md-4">

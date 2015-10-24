@@ -51,8 +51,9 @@ class corevat_CatFactoresFrenteController extends \BaseController {
 		$inputs = Input::All();
 		$inputs['valor_minimo'] = number_format((float) $inputs['valor_minimo'], 2, '.', '');
 		$inputs['valor_maximo'] = number_format((float) $inputs['valor_maximo'], 2, '.', '');
+		/*
 		$rules = array(
-			'valor_minimo' => array('before:valor_maximo'),
+			'valor_minimo' => array('menor_igual:valor_maximo'),
 			'valor_maximo' => array('after:valor_minimo'),
 		);
 		$messages = array(
@@ -63,6 +64,8 @@ class corevat_CatFactoresFrenteController extends \BaseController {
 		if ($validate->fails()) {
 			return Redirect::back()->withInput()->withErrors($validate);
 		}  else {
+		 * 
+		 */
 			$row = new CatFactoresFrente;
 			$row->factor_frente = $inputs["factor_frente"];
 			$row->valor_factor_frente = 0;
@@ -76,7 +79,7 @@ class corevat_CatFactoresFrenteController extends \BaseController {
 			$row->creado_el = date('Y-m-d H:i:s');
 			$row->save();
 			return Redirect::to('corevat/CatFactoresFrente/create')->with('success', '¡Se ha creado correctamente el registro!');
-		}
+		//}
 	}
 
 	/**
@@ -116,9 +119,10 @@ class corevat_CatFactoresFrenteController extends \BaseController {
 		$row = CatFactoresFrente::find($id);
 		$inputs['valor_minimo'] = number_format((float) $inputs['valor_minimo'], 2, '.', '');
 		$inputs['valor_maximo'] = number_format((float) $inputs['valor_maximo'], 2, '.', '');
+		/*
 		$rules = array(
-			'valor_minimo' => array('before:valor_maximo'),
-			'valor_maximo' => array('after:valor_minimo'),
+			'valor_minimo' => array('min:valor_maximo'),
+			'valor_maximo' => array('max:valor_minimo'),
 		);
 		$messages = array(
 			'valor_minimo.before' => '¡El "Valor mínimo" debe ser menor al "Valor Máximo!',
@@ -128,6 +132,8 @@ class corevat_CatFactoresFrenteController extends \BaseController {
 		if ($validate->fails()) {
 			return Redirect::back()->withInput()->withErrors($validate);
 		} else {
+		 * 
+		 */
 			$row->factor_frente = $inputs["factor_frente"];
 			$row->valor_factor_frente = 0;
 			$row->valor_minimo = $inputs["valor_minimo"];
@@ -137,7 +143,7 @@ class corevat_CatFactoresFrenteController extends \BaseController {
 			$row->modi_el = date('Y-m-d H:i:s');
 			$row->save();
 			return Redirect::to('corevat/CatFactoresFrente/' . $id . '/edit')->with('success', '¡La modificación se efectuo correctamente!');
-		}
+		//}
 	}
 
 	/**

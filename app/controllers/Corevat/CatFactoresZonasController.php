@@ -51,6 +51,7 @@ class corevat_CatFactoresZonasController extends \BaseController {
 		$inputs = Input::All();
 		$inputs['valor_minimo'] = number_format((float) $inputs['valor_minimo'], 2, '.', '');
 		$inputs['valor_maximo'] = number_format((float) $inputs['valor_maximo'], 2, '.', '');
+		/*
 		$rules = array(
 			'valor_minimo' => array('before:valor_maximo'),
 			'valor_maximo' => array('after:valor_minimo'),
@@ -63,6 +64,8 @@ class corevat_CatFactoresZonasController extends \BaseController {
 		if ($validate->fails()) {
 			return Redirect::back()->withInput()->withErrors($validate);
 		}  else {
+		 * 
+		 */
 			$row = new CatFactoresZonas;
 			$row->factor_zona = $inputs["factor_zona"];
 			$row->valor_minimo = $inputs["valor_minimo"];
@@ -75,7 +78,7 @@ class corevat_CatFactoresZonasController extends \BaseController {
 			$row->creado_el = date('Y-m-d H:i:s');
 			$row->save();
 			return Redirect::to('corevat/CatFactoresZonas/create')->with('success', '¡Se ha creado correctamente el registro!');
-		}
+		//}
 	}
 
 	/**
@@ -114,7 +117,7 @@ class corevat_CatFactoresZonasController extends \BaseController {
 		$inputs = Input::All();
 		$inputs['valor_minimo'] = number_format((float) $inputs['valor_minimo'], 2, '.', '');
 		$inputs['valor_maximo'] = number_format((float) $inputs['valor_maximo'], 2, '.', '');
-		$row = CatFactoresZonas::find($id);
+		/*
 		$rules = array(
 			'valor_minimo' => array('before:valor_maximo'),
 			'valor_maximo' => array('after:valor_minimo'),
@@ -127,6 +130,9 @@ class corevat_CatFactoresZonasController extends \BaseController {
 		if ($validate->fails()) {
 			return Redirect::back()->withInput()->withErrors($validate);
 		} else {
+		 * 
+		 */
+			$row = CatFactoresZonas::find($id);
 			$row->factor_zona = $inputs["factor_zona"];
 			$row->valor_minimo = $inputs["valor_minimo"];
 			$row->valor_maximo = $inputs["valor_maximo"];
@@ -135,7 +141,7 @@ class corevat_CatFactoresZonasController extends \BaseController {
 			$row->modi_el = date('Y-m-d H:i:s');
 			$row->save();
 			return Redirect::to('corevat/CatFactoresZonas/' . $id . '/edit')->with('success', '¡La modificación se efectuo correctamente!');
-		}
+		//}
 	}
 
 	/**

@@ -6,7 +6,7 @@
 <div class="row">
     <a href="{{URL::route('corevat.CatFactoresUbicacion.index')}}" class="btn btn-primary pull-right" role="button"><i class="glyphicon glyphicon-arrow-left"></i>Regresar</a>
 	<div class="col-md-4">
-		{{ Form::model($row, ['route' => array('corevat.CatFactoresUbicacion.update', $row->idfactorubicacion ), 'method'=>'put' ]) }}
+		{{ Form::model($row, ['route' => array('corevat.CatFactoresUbicacion.update', $row->idfactorubicacion ), 'method'=>'put','id' => 'formFactorUbicacion' ]) }}
 		@include('CorevatCatalogos.CatFactoresUbicacion._form', compact('CatFactoresUbicacion'))
 		<div class="form-actions form-group">
 			{{ Form::submit('Modificar registro', array('class' => 'btn btn-primary')) }}

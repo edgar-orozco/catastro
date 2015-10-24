@@ -55,5 +55,15 @@ $("body").delegate('.eliminar', 'click', function(){
 		return false;
 	}
 });
+	$(document).ready(function () {
+		$("#formFactorUbicacion").submit(function(){
+			if ( parseFloat($("#valor_minimo").val()) <= parseFloat($("#valor_maximo").val()) ) {
+				return true;
+			} else {
+				alert('¡El valor mínimo debe ser menor al valor máximo');
+				return false;
+			}
+		});
+	});
 </script>
 @stop

@@ -454,5 +454,15 @@ $(document).ready(function () {
 	/*++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 	 * 
 	 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
+	$('#idfactorfrente').on("change", function () {
+		$("#frente").attr('min', $(this).find('option:selected').attr('min')).attr('max', $(this).find('option:selected').attr('max'));
+	});
+
+	/*++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+	 * 
+	 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
+	$('#idfactorconservacion').on("change", function () {
+		$("#factor_conservacion_construcciones").val($(this).find('option:selected').attr('valor_factor'));
+	});
 
 });

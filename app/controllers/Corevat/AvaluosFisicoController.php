@@ -30,12 +30,12 @@ class corevat_AvaluosFisicoController extends \BaseController {
 		$cat_estado_conservacion = CatEstadoConservacion::comboList();
 		$cat_calidad_proyecto = CatCalidadProyecto::comboList();
 
-		$cat_factores_frente = CatFactoresFrente::orderBy('valor_factor_frente')->get();
-		$cat_factores_forma = CatFactoresForma::orderBy('valor_factor_forma')->get();
-		$cat_factores_conservacion = CatFactoresConservacion::orderBy('valor_factor_conservacion')->get();
-		$cat_factores_top = CatFactoresConservacion::orderBy('valor_factor_conservacion')->get();
-		$cat_tipo = CatTipo::orderBy('tipo')->get();
-		$cat_obras_complementarias = CatObrasComplementarias::orderBy('obra_complementaria')->get();
+		$cat_factores_frente = CatFactoresFrente::orderBy('valor_factor_frente')->where('status_factor_frente', '=', '1')->get();
+		$cat_factores_forma = CatFactoresForma::orderBy('valor_factor_forma')->where('status_factor_forma', '=', '1')->get();
+		$cat_factores_conservacion = CatFactoresConservacion::orderBy('valor_factor_conservacion')->where('status_factor_conservacion', '=', '1')->get();
+		$cat_factores_top = CatFactoresConservacion::orderBy('valor_factor_conservacion')->where('status_factor_conservacion', '=', '1')->get();
+		$cat_tipo = CatTipo::orderBy('tipo')->where('status_tipo', '=', '1')->get();
+		$cat_obras_complementarias = CatObrasComplementarias::orderBy('obra_complementaria')->where('status_obra_complementaria', '=', '1')->get();
 		
 		return View::make('Corevat.Avaluos.avaluos', compact('opt', 'idavaluo', 'title', 'row', 'cat_clase_general_inmueble', 
 				'cat_tipo_inmueble', 'cat_estado_conservacion', 'cat_calidad_proyecto', 'cat_factores_frente', 
