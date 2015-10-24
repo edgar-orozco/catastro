@@ -271,7 +271,7 @@
 						<label for="idfactorubicacion_aemhomologacion">Ubicación:</label>
 						<select class="form-control" id="idfactorubicacion_aemhomologacion" name="idfactorubicacion_aemhomologacion">
 							@foreach ($cat_factores_ubicacion as $item)
-							<option value="{{$item->idfactorubicacion}}">{{$item->factor_ubicacion}}</option>
+							<option value="{{$item->idfactorubicacion}}" min="{{$item->valor_minimo}}" max="{{$item->valor_maximo}}">{{$item->factor_ubicacion .' ['.$item->valor_minimo.'-'.$item->valor_maximo.']'}}</option>
 							@endforeach
 						</select>
 					</div>
@@ -284,7 +284,7 @@
 						<label for="idfactorfrente">Frente:</label>
 						<select class="form-control" id="idfactorfrente" name="idfactorfrente">
 							@foreach ($cat_factores_frente as $item)
-							<option value="{{$item->idfactorfrente}}">{{$item->factor_frente}}</option>
+							<option value="{{$item->idfactorfrente}}" min="{{$item->valor_minimo}}" max="{{$item->valor_maximo}}">{{$item->factor_frente .' ['.$item->valor_minimo.'-'.$item->valor_maximo.']'}}</option>
 							@endforeach
 						</select>
 					</div>
@@ -424,7 +424,7 @@
 						<label for="idfactorubicacion_aemanalisis">Ubicación:</label>
 						<select class="form-control" id="idfactorubicacion_aemanalisis" name="idfactorubicacion_aemanalisis">
 							@foreach ($cat_factores_ubicacion as $item)
-							<option value="{{$item->idfactorubicacion}}">{{$item->factor_ubicacion}}</option>
+							<option value="{{$item->idfactorubicacion}}" min="{{$item->valor_minimo}}" max="{{$item->valor_maximo}}">{{$item->factor_ubicacion .' ['.$item->valor_minimo.'-'.$item->valor_maximo.']'}}</option>
 							@endforeach
 						</select>
 					</div>
