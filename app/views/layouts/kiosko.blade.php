@@ -15,29 +15,26 @@
 
     @yield('styles')
 
-
-</head>
-<body>
-
-    @include('layouts._header');
-
-    <div class="container">
-        @include('layouts._flash_messages')
-
-        @yield('content')
-    </div>
-
-
-    @include('layouts._footer')
-
-
     <!-- JQuery -->
     {{ HTML::script('js/jquery/jquery.min.js') }}
 
     <!-- JS Bootstrap -->
     {{ HTML::script('js/bootstrap.min.js') }}
+</head>
+<body>
 
-    @yield('javascript')
+@include('layouts._header');
+
+<div class="container">
+    @include('layouts._flash_messages')
+
+    @yield('content')
+</div>
+
+
+@include('layouts._footer')
+
+@yield('javascript')
 
 </body>
 </html>

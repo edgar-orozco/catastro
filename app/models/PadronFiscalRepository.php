@@ -53,4 +53,18 @@ class PadronFiscalRepository implements PadronRepositoryInterface
         $identificador = pg_escape_string($identificador);
         return PadronFiscal::where('clave',$identificador)->orWhere('cuenta', $identificador)->orWhereRaw("clave like '%$identificador'")->first();
     }
+
+    /**
+     * Obtiene un registro del padrón por su clave Y cuenta
+     * @param $clave
+     * @param $cuenta
+     */
+    public function getByClaveYCuenta($clave, $cuenta){
+
+        $clave= pg_escape_string($clave);
+        $cuenta= pg_escape_string($cuenta);
+
+        return PadronFiscal::where('clave',$clave)->where('cuenta', $cuenta)->first();
+
+    }
 }
