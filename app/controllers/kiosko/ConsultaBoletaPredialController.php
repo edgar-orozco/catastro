@@ -45,12 +45,12 @@ class ConsultaBoletaPredialController extends \BaseController
         $referencias = [];
 
         //Impuesto predial clave CA010
-        $referencias[_IMPUESTO_PREDIAL_] = $predio->impuesto;
-
         if(!$predio) {
             Session::flash('error','No existe ningún predio con esos datos dado de alta en el padrón catastral. Verifique los datos e intente nuevamente.');
             return Redirect::back()->withInput();
         }
+
+        $referencias[_IMPUESTO_PREDIAL_] = $predio->impuesto;
 
         $res = DB::select("SELECT sp_get_concepto_adeudo(?,?) AS adeudo",[$clave, $gidMunicipio]);
         $actualizacion = 0.00;
