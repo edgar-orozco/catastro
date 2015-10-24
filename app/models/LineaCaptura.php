@@ -75,9 +75,15 @@ class LineaCaptura extends SoapService {
      */
     public function createClient()
     {
-        $this->client =  @new SoapClient($this->getWsdl(), $this->getOptions());
+        try {
+            $this->client = @new SoapClient($this->getWsdl(), $this->getOptions());
+            return $this;
+        } catch (SoapFault $E) {
+            $this->estatus=false;
+            $this->msgError = "El servicio de línea de captura no se encuentra disponible. MSG05";
+            return null;
+        }
 
-        return $this;
     }
 
 
