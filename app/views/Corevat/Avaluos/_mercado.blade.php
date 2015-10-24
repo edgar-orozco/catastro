@@ -446,7 +446,7 @@
 						<label for="idfactorconservacion">Conservación:</label>
 						<select class="form-control" name="idfactorconservacion" id="idfactorconservacion">
 							@foreach ($cat_factores_conservacion as $item)
-							<option value="{{$item->idfactorconservacion}}">{{$item->factor_conservacion}}</option>
+							<option value="{{$item->idfactorconservacion}}">{{$item->factor_conservacion . ' [' . $item->valor_factor_conservacion . ']'}}</option>
 							@endforeach
 						</select>
 					</div>
