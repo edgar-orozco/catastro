@@ -41,7 +41,7 @@
             <a href="{{URL::to('users/login')}}" class="main-option op01">
                 <img src="css/images/home/opc01.jpg" alt="SERVICIOS CATASTRALES"/>
                 <div class="desc">
-                    SERVICIOS CATASTRALES
+                     TRÁMITES CATASTRALES
                 </div>
             </a>
         </div>
@@ -55,9 +55,9 @@
         </div>
         <div class="col-sm-6 col-md-4 col-lg-4">
             <a href="{{URL::to('users/login')}}" class="main-option op03">
-                <img src="css/images/home/opc03.jpg" alt="TRÁMITES CATASTRALES"/>
+                <img src="css/images/home/opc03-02.png" alt="TRÁMITES CATASTRALES"/>
                 <div class="desc">
-                    TRÁMITES CATASTRALES
+                    OFICINA VIRTUAL COREVAT
                 </div>
             </a>
         </div>
