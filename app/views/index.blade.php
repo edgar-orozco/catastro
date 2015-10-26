@@ -47,7 +47,7 @@
         </div>
         <div class="col-sm-6 col-md-4 col-lg-4">
             <a href="{{URL::to('users/login')}}" class="main-option op02">
-                <img src="css/images/home/opc02.jpg" alt="CONSULTAR PAGOS Y ADEUDOS DEL IMPUESTO PREDIAL"/>
+                <img src="css/images/home/opc03.jpg" alt="CONSULTAR PAGOS Y ADEUDOS DEL IMPUESTO PREDIAL"/>
                 <div class="desc">
                     CONSULTAR PAGOS Y ADEUDOS DEL IMPUESTO PREDIAL
                 </div>
