@@ -85,9 +85,12 @@ class AefTerrenos extends \Eloquent {
 		'aef_terrenos.forma',
 		'aef_terrenos.otros',
 		'aef_terrenos.factor_resultante',
+		'avaluo_enfoque_mercado.valor_aplicado_m2',
 		'aef_terrenos.valor_unitario_neto',
 		'aef_terrenos.indiviso',
 		'aef_terrenos.valor_parcial')
+						->leftJoin('avaluo_enfoque_fisico', 'aef_terrenos.idavaluoenfoquefisico', '=', 'avaluo_enfoque_fisico.idavaluoenfoquefisico')
+						->leftJoin('avaluo_enfoque_mercado', 'avaluo_enfoque_mercado.idavaluo', '=', 'avaluo_enfoque_fisico.idavaluo')
 						->where('aef_terrenos.idavaluoenfoquefisico', '=', $fk)
 						->orderBy('aef_terrenos.idaefterreno')
 						->get();
@@ -102,7 +105,8 @@ class AefTerrenos extends \Eloquent {
 				$row['frente'], 
 				$row['forma'], 
 				$row['otros'], 
-				$row['factor_resultante'], 
+				$row['factor_resultante'],
+				$row['valor_aplicado_m2'],
 				$row['valor_unitario_neto'], 
 				$row['indiviso'], 
 				$row['valor_parcial'], 

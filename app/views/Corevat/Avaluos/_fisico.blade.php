@@ -17,6 +17,7 @@
 					<th rowspan="2">FRACC</th>
 					<th rowspan="2">SUP.</th>
 					<th colspan="6">Factores de eficiencia</th>
+					<th rowspan="2">V. Aplicado</th>
 					<th rowspan="2">V.U. NETO</th>
 					<th rowspan="2">INDIVISO</th>
 					<th rowspan="2">V. PARCIAL</th>
@@ -37,7 +38,7 @@
 			</tbody>
 			<tfoot>
 				<tr>
-					<td class="bg-default" colspan="7">&nbsp;</td>
+					<td class="bg-default" colspan="8">&nbsp;</td>
 					<td class="bg-default" colspan="3" style="text-align: right;">Valor del Terreno:</td>
 					<td class="bg-info" colspan="3" style="text-align: right;" id="valor_terreno">{{number_format($row->valor_terreno, 2, ".", ",")}}</td>
 					<td class="bg-default"></td>
