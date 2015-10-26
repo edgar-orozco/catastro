@@ -4,7 +4,7 @@
 {{Form::hidden('idavaluofotosplano', $row->idavaluofotosplano)}}
 <div class="row">
 	<div class="col-md-12">
-        <h4>Fotos</h4>
+        <h4>Fotos (Tamaño máximo de 2 MB. Formato de imagenes: png y jpg)</h4>
     </div>
     <div class="clearfix"></div>
     <br/>
