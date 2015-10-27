@@ -188,7 +188,7 @@ class corevat_PrintDictamenAvaluoController extends \BaseController {
 		$pdf->SetFont('Arial', 'B', 8);
 		$pdf->Cell(40, $nFont, utf8_decode("Fecha del Avalúo: "), 'LB', 0, 'R');
 		$pdf->SetFont('Arial', '', 8);
-		$pdf->Cell(40, $nFont, Carbon::parse($rs->fecha_avaluo)->formatLocalized("%d de %B de %Y"), 'LB', 0, 'L');
+		$pdf->Cell(40, $nFont, Carbon::parse($rs->fecha_avaluo)->formatLocalized("%d de %B de %Y", 'America/Mexico'), 'LB', 0, 'L');
 		$pdf->SetFont('Arial', 'B', 8);
 		$pdf->Cell(86, $nFont, utf8_decode("Avalúo Número: "), 'B', 0, 'R');
 		$pdf->SetFont('Arial', '', 8);
@@ -323,11 +323,19 @@ class corevat_PrintDictamenAvaluoController extends \BaseController {
 		
 	}
 	
+	/**
+	 * Imprime el pie de página.
+	 *
+	 * @param  int  $id
+	 * @return Response
+	 * 
+	 */
 	function Header() {
 		$this->SetFont('Arial','B',15);
 		$this->Cell(80);
-	    $this->Cell(30,10,'Title',1,0,'C');
+		$this->Cell(30,10,'Title',1,0,'C');
 		$this->Ln(20);
+		//$pdf->Image(public_path() . "/css/images/corevat/crv-01.jpg", 5, 5, 139.57, 26.20);
 	}
 
 	/**
@@ -381,7 +389,7 @@ class corevat_PrintDictamenAvaluoController extends \BaseController {
 		$pdf->SetFont('Arial', 'B', 10);
 		$pdf->SetFillColor(164, 164, 164);
 		$pdf->setX(5);
-		$pdf->Cell(206, 5, utf8_decode('CARACTERÍSTICAS  DE LA ZONA'), 'TLBR', 1, 'C', 1);
+		$pdf->Cell(206, 5, utf8_decode('CARACTERÍSTICAS DE LA ZONA'), 'TLBR', 1, 'C', 1);
 
 		// Línea 1
 		$pdf->setX(5);
@@ -577,6 +585,7 @@ class corevat_PrintDictamenAvaluoController extends \BaseController {
 
 		$pdf->setX(5);
 
+		
 		// /* *********************************************************
 		// ** 4. CARACTERISTICAS DEL INMUEBLE
 		// ** ********************************************************* */

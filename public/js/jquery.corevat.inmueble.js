@@ -210,7 +210,8 @@ $(document).ready(function () {
 	$('#fachada, #croquis').fileinput({
 		maxFileSize: 2000,
 		maxFileCount: 1,
-		allowedFileExtensions: ["gif", "jpg", "JPG", "png"]
+		allowedFileExtensions: ["gif", "jpg", "JPG", "png"],
+		showUpload: false
 	});
 
 	/*++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
