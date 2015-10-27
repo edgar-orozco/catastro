@@ -189,6 +189,9 @@ class corevat_PrintDictamenAvaluoController extends \BaseController {
 		$pdf->Cell(40, $nFont, utf8_decode("Fecha del Avalúo: "), 'LB', 0, 'R');
 		$pdf->SetFont('Arial', '', 8);
 		$pdf->Cell(40, $nFont, Carbon::parse($rs->fecha_avaluo)->formatLocalized("%d de %B de %Y", 'America/Mexico'), 'LB', 0, 'L');
+		
+		
+		
 		$pdf->SetFont('Arial', 'B', 8);
 		$pdf->Cell(86, $nFont, utf8_decode("Avalúo Número: "), 'B', 0, 'R');
 		$pdf->SetFont('Arial', '', 8);
