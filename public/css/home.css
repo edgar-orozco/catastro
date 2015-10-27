@@ -32,10 +32,11 @@
 .main-container .options-cont .main-option .desc{
     position: absolute;
     width: 100%;
-    height: 62px;
+    height: 44px;
     padding: 5px 15px;
-    font-size: 18px;
+    font-size: 14px;
     color: #ffffff;
+	line-height:17px;
     left: 0;
     bottom: 0;
     background: rgba(0,0,0,0.7);
