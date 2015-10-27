@@ -613,6 +613,7 @@ class corevat_PrintDictamenAvaluoController extends \BaseController {
 			$fc = explode('.', $in->croquis);
 			$archivo = public_path() . '/corevat/files/' . $in->croquis;
 			if (file_exists($archivo)) {
+				//$pdf->Image($archivo, 5, 163, 89.0, 65.40);
 				$pdf->Image($archivo, 5, 163, 89.0, 65.40);
 			} else {
 				$pdf->Image(public_path() . '/css/images/corevat/blank.gif', 5, 163, 89.0, 65.40);
@@ -646,7 +647,7 @@ class corevat_PrintDictamenAvaluoController extends \BaseController {
 				 */
 			}
 		} else {
-			$pdf->Image(public_path() . '/css/images/corevat/blank.gif', 122, null, 89.0, 65.40);
+			$pdf->Image(public_path() . '/css/images/corevat/blank.gif', 122, 161, 89.0, 65.40);
 		}
 
 		$pdf->Ln(68);		
