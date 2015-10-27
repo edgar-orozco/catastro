@@ -23,18 +23,52 @@ class ConsultaBoletaPredialController extends \BaseController
 
         $listaMunicipios =  Municipio::with('entidad')->where('entidad', '27')->orderBy('nombre_municipio')->remember(120)->lists('nombre_municipio','municipio');
 
-        return View::make('kiosko.ConsultaBoletaPredial.index',compact(['listaMunicipios']));
+        $semestres = ['1', '2'];
+        $anioIni = 2010;
+        $anioFin = 2015;
+
+        for($i = $anioIni; $i <= $anioFin; $i++){
+            foreach($semestres as $semestre){
+                $listaPeriodos[$i."|".$semestre] = $i . " Semestre " . $semestre;
+            }
+        }
+
+        return View::make('kiosko.ConsultaBoletaPredial.index',compact(['listaMunicipios','listaPeriodos']));
     }
 
 
     public function consulta(){
         $entidad = '27'; //Nomas tabasco
         $zona = Input::get('clave_zona');
+        $ultimo_periodo = Input::get('ultimo_periodo');
+        if(!$ultimo_periodo){
+            Session::flash('error',"Porfavor, Seleccione el periodo a simular.");
+            return Redirect::back()->withInput();
+        }
+        list($anioDebioPagar, $mesDebioPagar) = explode("|",$ultimo_periodo);
+
         $manzana = Input::get('clave_manzana');
         $predio = Input::get('clave_predio');
         $cuenta = Input::get('cuenta');
         $tipo = Input::get('tipo');
         $municipio = Input::get('municipio');
+        if(!$municipio){
+            Session::flash('error',"Porfavor, Seleccione el municipio donde se ubica el predio.");
+            return Redirect::back()->withInput();
+        }
+
+        $anioActual = date("Y");
+        $mesActual = date("m");
+
+        $indiceActualizacion = 0;
+
+        try {
+            $indiceActualizacion = (new ImpuestoPredialHelper() )->indiceActualizacion($anioActual, $mesActual, $anioDebioPagar, $mesDebioPagar );
+        }
+        catch(INPCInexistenteException $e){
+            Session::flash('error',$e->getMessage());
+            return Redirect::back()->withInput();
+        }
 
         //TODO: En la base de datos solo esta configurado en la tabla configuracion_municipal los municipios gid 1 y 2;
         $gidMunicipio = 2;
@@ -61,7 +95,11 @@ class ConsultaBoletaPredialController extends \BaseController
             $adeudo = $res[0]->adeudo;
             $conceptos = explode("-",$adeudo);
             //print_r($conceptos);
-            $actualizacion = $conceptos[0];
+
+            //$actualizacion = $conceptos[0];
+            //No usamos el SP del concepto aduedo para la actualizacion porque usamos la nuestra
+            $actualizacion = abs($predio->impuesto * $indiceActualizacion - $predio->impuesto);
+
             if($actualizacion) $referencias[_ACTUALIZACION_IMPUESTO_PREDIAL_] = $actualizacion;
             $recargos = $conceptos[1];
             if($recargos) $referencias[_RECARGOS_IMPUESTO_PREDIAL_] = $recargos;

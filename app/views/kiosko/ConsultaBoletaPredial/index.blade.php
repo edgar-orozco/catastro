@@ -82,6 +82,17 @@
                 </div>
             </div>
         </div>
+        <div class="form-horizontal">
+            <div class="form-group">
+                <div class="col-sm-2">
+                    {{Form::label('ultimo_periodo','Simular periodo en que debió pagarse')}}
+                </div>
+                <div class="col-sm-3">
+                    {{Form::select('ultimo_periodo', [null => '']+$listaPeriodos, null, ['class'=>'form-control select-ultimo-periodo'] )}}
+                    {{$errors->first('tipo', '<span class=text-danger>:message</span>')}}
+                </div>
+            </div>
+        </div>
         <hr>
         {{Form::submit('Consultar Boleta Predial',['class'=>'btn btn-primary'])}}
         {{Form::reset('Cancelar',['class'=>'btn btn-warning'])}}
