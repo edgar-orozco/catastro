@@ -34,11 +34,12 @@
     width: 100%;
     height: 40px;
     padding: 5px 15px;
-    font-size: 12px;
+    font-size: 54px;
     color: #ffffff;
     left: 0;
     bottom: 0;
     background: rgba(0,0,0,0.7);
+	font-weight:bold;
 }
 .main-container .main-option:hover .desc{
     text-decoration: underline;
