@@ -41,6 +41,10 @@ class ConsultaBoletaPredialController extends \BaseController
         $entidad = '27'; //Nomas tabasco
         $zona = Input::get('clave_zona');
         $ultimo_periodo = Input::get('ultimo_periodo');
+        if(!$ultimo_periodo){
+            Session::flash('error',"Porfavor, Seleccione el periodo a simular.");
+            return Redirect::back()->withInput();
+        }
         list($anioDebioPagar, $mesDebioPagar) = explode("|",$ultimo_periodo);
 
         $manzana = Input::get('clave_manzana');
@@ -48,6 +52,10 @@ class ConsultaBoletaPredialController extends \BaseController
         $cuenta = Input::get('cuenta');
         $tipo = Input::get('tipo');
         $municipio = Input::get('municipio');
+        if(!$municipio){
+            Session::flash('error',"Porfavor, Seleccione el municipio donde se ubica el predio.");
+            return Redirect::back()->withInput();
+        }
 
         $anioActual = date("Y");
         $mesActual = date("m");
