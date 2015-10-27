@@ -468,7 +468,7 @@
 						<input type="text" class="form-control" name="valor_unitario_resultante_m2_aemanalisis" id="valor_unitario_resultante_m2_aemanalisis" disabled />
 					</div>
 					<div class="col-md-10 col-md-offset-1 checkbox-inline" style="margin-top: 1.5em;">
-						<input type="checkbox" style="width:10px !important;" ame="in_promedio_aemanalisis" id="in_promedio_aemanalisis" />
+						<input type="checkbox" style="width:10px !important;" name="in_promedio_aemanalisis" id="in_promedio_aemanalisis" />
 						<label for="in_promedio_aemanalisis">Interviene en el Promedio:</label>
 					</div>
 				</div>

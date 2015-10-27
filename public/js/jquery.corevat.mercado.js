@@ -230,7 +230,7 @@ $(document).ready(function () {
 				$('#factor_negociacion').val(datos.factor_negociacion);
 				$('#factor_resultante').val(datos.factor_resultante);
 				$('#valor_unitario_resultante_m2_aemanalisis').val(datos.valor_unitario_resultante_m2);
-				
+
 				$('#in_promedio_aemanalisis').prop('checked', (datos.in_promedio === 1 ? true : false));
 				$('#modalFormAemAnalisisTitle').empty().append('[COREVAT] Homologable: ' + id);
 				$('#modalFormAemAnalisis').modal('show');
