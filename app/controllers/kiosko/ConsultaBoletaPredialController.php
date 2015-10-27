@@ -47,6 +47,9 @@ class ConsultaBoletaPredialController extends \BaseController
         }
         list($anioDebioPagar, $mesDebioPagar) = explode("|",$ultimo_periodo);
 
+        if($mesDebioPagar == 1) $mesDebioPagar = 1;
+        if($mesDebioPagar == 2) $mesDebioPagar = 6;
+
         $manzana = Input::get('clave_manzana');
         $predio = Input::get('clave_predio');
         $cuenta = Input::get('cuenta');
