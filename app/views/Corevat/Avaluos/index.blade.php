@@ -76,7 +76,7 @@
 					<td>
 						<a href="/corevat/AvaluoDel/{{$row->idavaluo}}" class="eliminar btn btn-xs btn-danger" title="Eliminar"><i class="glyphicon glyphicon-remove"></i></a>
 						<a href="/corevat/AvaluoPrint/{{$row->idavaluo}}" target="_blank" class="print btn btn-xs btn-info" title="Imprimir"><i class="glyphicon glyphicon-print"></i></a>
-						<!--<a onclick="$.clonarAvaluo({{$row->idavaluo}}, '{{$row->foliocoretemp}}');" class="print btn btn-xs btn-primary" title="Clonar"><i class="glyphicon glyphicon-copy"></i></a>-->
+						<a onclick="$.clonarAvaluo({{$row->idavaluo}}, '{{$row->foliocoretemp}}');" class="print btn btn-xs btn-primary" title="Clonar"><i class="glyphicon glyphicon-copy"></i></a>
 					</td>
 				</tr>
 			@endforeach
