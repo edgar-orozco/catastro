@@ -175,7 +175,7 @@
 	<div class="col-md-12">
 		{{Form::label('longitud', 'Longitud : ',['class'=>'col-sm-2'])}}
 		<div class="col-md-10">
-			{{Form::text('longitud', $row->latitud, ['class'=>'form-control', 'id' => 'longitud', 'tabindex'=>'17', 'required' => 'required'])}}
+			{{Form::text('longitud', $row->longitud, ['class'=>'form-control', 'id' => 'longitud', 'tabindex'=>'17', 'required' => 'required'])}}
 		</div>
 	</div>
 	<div class="col-md-12">
