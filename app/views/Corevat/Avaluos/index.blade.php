@@ -14,13 +14,16 @@
 			</div>
 {{Form::model($row, ['route' => array('clonarAvaluo'), 'class'=>'horizontal', 'method'=>'post', 'id'=>'formAvaluoClonar' ]) }}
 {{Form::hidden('idavaluo_clonar', null, ['id'=>'idavaluo_clonar'])}}
-			<div class="modal-body" style="min-height: 200px; text-align: center;" >
-				<h3 id="corevatConfirmContainer"><h2>¿Realmente desea clonar el avalúo?</h2></h3>
+			<div class="modal-body" style="min-height: 200px; text-align: left;">
+				<h3 id="corevatConfirmContainer"></h3>
 				<h2 id="corevatConfirmMessage"></h2>
+				<label id="pato" for="folio_corevat">Folio:</label>
+				<input type="text" name="folio_corevat" id="folio_corevat" class="form-control" value="" size="30" />
 			</div>
 			<div class="modal-footer">
 				<button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
-				<button type="submit" class="btn btn-primary" id="clonarConfirmButton">Aceptar</button>
+				<button type="button" class="btn btn-primary" id="clonarConfirmButton">Aceptar</button>
+				<!-- submit -->
 			</div>
 {{Form::close()}}
 		</div>
@@ -91,6 +94,8 @@
 {{ HTML::script('/js/jquery/dataTables.bootstrap.js') }}
 <script type="text/javascript" charset="utf-8">
 	$(document).ready(function () {
+			$('#pato').hide();
+			$('#folio_corevat').hide().val('');
 		//$('#avaluos-table').dataTable();
 		$('#avaluos-table').dataTable({
 			"language": {
@@ -119,15 +124,22 @@
 		});
 		
 		/*++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-		 * 
+		 * <h3 id="corevatConfirmContainer"></h3>
 		++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
 		$.clonarAvaluo = function(id, folio) {
 			$('#idavaluo_clonar').val(id);
+			$('#corevatConfirmContainer').empty().append('<h2>¿Realmente desea clonar el avalúo?...</h2>');
 			$('#corevatConfirmMessage').empty().append('Folio: ' + folio);
 			$('#clonarConfirm').modal('show');
 		}
 		//formAvaluoClonar
 		
+		$("#clonarConfirmButton").click(function(){
+			$('#corevatConfirmContainer').empty().hide();
+			$('#corevatConfirmMessage').empty().hide();
+			$('#pato').show();
+			$('#folio_corevat').show().val('');
+		});
 		/*++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 		 * 
 		$.ajax({
