@@ -21,7 +21,7 @@
 				<input type="text" name="folio_corevat" id="folio_corevat" class="form-control" value="" size="30" />
 			</div>
 			<div class="modal-footer">
-				<button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+				<button type="button" class="btn btn-default" data-dismiss="modal" id="clonarClose">Cerrar</button>
 				<button type="button" class="btn btn-primary" id="clonarConfirmButton">Aceptar</button>
 				<!-- submit -->
 			</div>
@@ -134,12 +134,24 @@
 		}
 		//formAvaluoClonar
 		
-		$("#clonarConfirmButton").click(function(){
-			$('#corevatConfirmContainer').empty().hide();
-			$('#corevatConfirmMessage').empty().hide();
-			$('#pato').show();
-			$('#folio_corevat').show().val('');
+		$("#clonarConfirmButton").click(function() {
+			if ( $('#pato').css('display') !== 'none' ) {
+				$('#corevatConfirmMessage').empty().append('<span style="color:red;">El folio no existe</span>').show();
+			} else {
+				$('#corevatConfirmContainer').empty().hide();
+				$('#corevatConfirmMessage').empty().hide();
+				$('#pato').show();
+				$('#folio_corevat').show().val('');
+			}
 		});
+		
+		$("#clonarClose").click(function() {
+			$('#pato').hide();
+			$('#folio_corevat').hide().val('');
+			$('#corevatConfirmContainer').empty().show();
+			$('#corevatConfirmMessage').empty().show();
+		});
+
 		/*++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 		 * 
 		$.ajax({
