@@ -1,6 +1,6 @@
 <?php
 
-class folios_LineaCapturaController extends baseController 
+class folios_LineaCapturaController extends BaseController 
 {
 	public function index ()
 	{
