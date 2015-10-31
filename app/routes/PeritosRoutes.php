@@ -25,6 +25,9 @@ Route::group(array('before'=>'Folios'),  function (){
 			Route::get('/formatoreporteperito', 'folios_FoliosController@formatoreporteperito');
 			Route::get('/formatoreporteperito2', 'folios_FoliosController@formatoreporteperito2');
 
+			Route::get('/folios/lineaCaptura', 'folios_LineaCapturaController@index');
+			Route::post('/folios/lineaCaptura', 'folios_LineaCapturaController@ObtenerValoresWS');
+
 			//REPORTE MENSUAL
 			Route::get('/reportemensual', 'folios_reportes_MensualController@reportemensual');
 			Route::get('/formatoreportemensual', 'folios_reportes_MensualController@formatoreportemensual');
@@ -118,6 +121,9 @@ Route::group(array('before'=>'Folios usuario'),  function (){
             //Deshabilitar entrega Estatal
             Route::get('/entregafoliose/rusticos/habilitare/{id}', 'folios_EntregaFoliosController@desestador');
             Route::get('/entregafoliose/urbanos/habilitare/{id}', 'folios_EntregaFoliosController@desestadou');
+			
+			Route::get('/folios/lineaCaptura', 'folios_LineaCapturaController@index');
+			Route::post('/folios/lineaCaptura', 'folios_LineaCapturaController@ObtenerValoresWS');
 });
  Route::filter('Folio usuario', function () {
 
