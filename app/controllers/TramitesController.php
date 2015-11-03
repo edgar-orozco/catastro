@@ -16,18 +16,22 @@ class TramitesController extends BaseController {
     protected $padron;
     protected $tipotramite;
     protected $tramite;
+    protected $personas;
+    protected $domicilio;
     protected $numPags = 10;
     /**
      * @param PadronRepositoryInterface $padron
      * @param Tipotramite $tipotramite
      * @param Tramite $tramite
      */
-    public function __construct(PadronRepositoryInterface $padron, Tipotramite $tipotramite, Tramite $tramite, Fiscal $fiscal)
+    public function __construct(PadronRepositoryInterface $padron, Tipotramite $tipotramite, Tramite $tramite, Fiscal $fiscal, personas $personas, domicilio $domicilio)
     {
         $this->padron = $padron;
         $this->tipotramite = $tipotramite;
         $this->tramite = $tramite;
         $this->fiscal = $fiscal;
+        $this->personas = $personas;
+        $this->domicilio = $domicilio;
     }
 
     /**
@@ -704,6 +708,20 @@ class TramitesController extends BaseController {
             return Solicitante::getPorCurpRFC($q);
         }
 
+    }
+    public function create() {
+        $personas = $this->personas;
+        
+        $title = 'Propietario';
+        
+        $title_section = 'Ingresar Propietario';
+        
+        $vialidad = TipoVialidad::orderBy('descripcion', 'ASC')->lists('descripcion', 'id');
+        $asentamiento = TipoAsentamiento::orderBy('descripcion','ASC')->lists('descripcion', 'id');
+        $entidad =  Entidad::orderBy('nom_ent')->lists('nom_ent', 'gid');
+        $municipio = Municipio::orderBy('nombre_municipio','ASC')->lists('nombre_municipio','gid');
+        
+        return View::make('tramites.propietario.create',  compact('title','title_section','vialidad','asentamiento','entidad','municipio','personas'));
     }
 }
 

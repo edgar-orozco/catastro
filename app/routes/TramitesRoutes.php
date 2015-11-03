@@ -120,3 +120,24 @@ Route::get(
 
 //Ruta para consulta de solicitantes via ajax
     Route::get('ventanilla/solicitante', 'TramitesController@solicitante');
+
+//CAPTURA DE LOS PROPIETARIOS
+//Index captura de los propietario
+    Route::get('tramites/propietario',
+      'TramitesController@index');
+
+//Forma create captura de los propietario
+    Route::get('tramites/propietario/create',
+      'TramitesController@create');
+
+//Forma store captura de los propietario
+    Route::post('tramites/propietario/create',
+      ['uses' => 'TramitesController@store']);
+
+//Forma update captura de los propietario
+    Route::get('tramites/propietario/edit/{id}',
+      ['as'=>'propietario.edit', 'uses' => 'TramitesController@edit']);
+
+//Forma update captura de los propietario
+    Route::put('tramites/propietario/edit/{id}',
+      ['as'=>'propietario.update', 'uses' => 'TramitesController@update']);
