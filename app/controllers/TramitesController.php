@@ -726,11 +726,6 @@ class TramitesController extends BaseController {
         
         return View::make('tramites.propietario.create',  compact('title','title_section','vialidad','asentamiento','entidad','municipio','personas'));
     }
-    /*
-     * Store de propietarios
-     */
-    public function store($format = 'html'){
-        
-    }
+    
 }
 
