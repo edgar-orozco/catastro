@@ -113,7 +113,6 @@
 
 
 @section('javascript')
-
     {{ HTML::script('js/select2/select2.full.min.js') }}
     {{ HTML::script('js/select2/i18n/es.js') }}
     {{ HTML::style('css/select2.min.css') }}
