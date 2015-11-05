@@ -53,7 +53,7 @@
 		{{Form::open(['id' => 'formFolios'])}}
 
 		<div id="tablaAjax">
-			@include('folios.entregafoliose.tablaAjaxu')
+			@include('folios.entregafoliose.tablaAjaxU')
 		</div>
 		<div id ="ajaxloading" class="spinner" style="display:none;">
 			<img id="img-spinner" src="/css/images/folios/spinner.gif" alt="Loading" width="70%" height="70%" />
