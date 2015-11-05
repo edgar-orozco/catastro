@@ -1,8 +1,6 @@
 @extends('layouts.default')
 
-<!--Agrego para el datatable-->
-    {{ HTML::style('/css/bootstrap.min.css') }}
-    {{ HTML::style('/css/dataTables.bootstrap.css') }}
+
 
 @section('styles')
 .spinner {
@@ -73,8 +71,7 @@
 
 	@section('javascript')
 
-	{{ HTML::script('/js/jquery/jquery.dataTables.min.js') }}
-	{{ HTML::script('/js/jquery/dataTables.bootstrap.js') }}
+
 
 	<script type="text/javascript">
 	$(document).ready(function(){

@@ -1,7 +1,5 @@
 @extends('layouts.default')
-<!--Agrego para el datatable-->
-    {{ HTML::style('/css/bootstrap.min.css') }}
-    {{ HTML::style('/css/dataTables.bootstrap.css') }}
+
 
  @section('styles')
     .spinner 
@@ -73,9 +71,6 @@
 
 	@section('javascript')
 
-	{{ HTML::script('/js/jquery/jquery.dataTables.min.js') }}
-	{{ HTML::script('/js/jquery/dataTables.bootstrap.js') }}
-
 	<script type="text/javascript">
 	$(document).ready(function()
     {
@@ -98,21 +93,6 @@
 			}
 
 		});
-
-		$('#example').dataTable( {
-        "language": {
-            "lengthMenu": "Mostrar _MENU_ Registros por pagina",
-            "zeroRecords": "No se encontraron registros",
-            "info": "Mostrando pagina _PAGE_ de _PAGES_",
-            "infoEmpty": "No hay registros","search": "Filter records:",
-            "search": "Buscar:",
-            "infoFiltered": "(Filtrado en _MAX_ total de registros)",
-            "oPaginate": {
-		      "sPrevious": "Anterior",
-		      "sNext": "Siguiente"
-		    }
-        }
-	    });
 
 		$('body').delegate('.checkbox', 'click', function(event) {
 
