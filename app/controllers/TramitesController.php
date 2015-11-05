@@ -24,14 +24,14 @@ class TramitesController extends BaseController {
      * @param Tipotramite $tipotramite
      * @param Tramite $tramite
      */
-    public function __construct(PadronRepositoryInterface $padron, Tipotramite $tipotramite, Tramite $tramite, Fiscal $fiscal, personas $personas, domicilio $domicilio)
+    public function __construct(PadronRepositoryInterface $padron, Tipotramite $tipotramite, Tramite $tramite, Fiscal $fiscal, personas $personas, Domicilio $domicilio)
     {
         $this->padron = $padron;
         $this->tipotramite = $tipotramite;
         $this->tramite = $tramite;
         $this->fiscal = $fiscal;
         $this->personas = $personas;
-        $this->domicilio = $domicilio;
+        $this->Domicilio = $domicilio;
     }
 
     /**
@@ -709,6 +709,9 @@ class TramitesController extends BaseController {
         }
 
     }
+    /*
+     *Create de propietarios
+     */
     public function create() {
         $personas = $this->personas;
         
@@ -723,7 +726,6 @@ class TramitesController extends BaseController {
         
         return View::make('tramites.propietario.create',  compact('title','title_section','vialidad','asentamiento','entidad','municipio','personas'));
     }
+    
 }
-
-
 
