@@ -52,7 +52,7 @@
 			
 		</div>
 		
-		{{Form::open()}}
+		{{Form::open(['id' => 'formFolios'])}}
 
 		<div id="tablaAjax">
 			@include('folios.entregafoliose.tablaAjax')
@@ -63,7 +63,7 @@
 		</div>
         <div class="row">
             <div class="col-md-6">
-                {{Form::submit('Guardar', ['class'=>'btn btn-block btn-success'])}}
+                {{Form::submit('Guardar', ['class'=>'btn btn-block btn-success', 'id' => 'guardarFolio'])}}
                 {{Form::close()}}
             </div>
         </div>
