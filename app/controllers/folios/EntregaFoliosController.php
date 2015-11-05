@@ -43,6 +43,7 @@ class folios_EntregaFoliosController extends BaseController {
 	}
 
 	public function get_urbanose($id = null){ //muestra todos los folios Urbanos del perito especificado
+		$paginate = Input::get('pagina', '15');
 		if(Input::get('year'))
 		{
 			$YEAR = Input::get('year');
@@ -57,11 +58,7 @@ class folios_EntregaFoliosController extends BaseController {
 		$selectYear = ['' => '--seleccione un año--'] + FoliosComprados::distinct()->select(DB::raw("date_part('year', fecha_autorizacion) as year"))->where('perito_id', $perito->id)->orderBy('year', 'DESC')->lists('year', 'year');
 		
 
-		$fu = FoliosComprados::where('perito_id', $perito->id)
-		->where('tipo_folio', 'U')
-		->whereRaw("EXTRACT(YEAR FROM fecha_autorizacion) = ". $YEAR)
-		->get();
-
+		$fu = FoliosComprados::getEntregaM($id,'U',$YEAR,$paginate);
 		return View::make('folios.entregafoliose.urbanos', ['selectYear' => $selectYear])
 		->withFu($fu)
 		->withPerito($perito);
@@ -101,16 +98,27 @@ class folios_EntregaFoliosController extends BaseController {
 
         $fr = FoliosComprados::getEntregaM($id, $tipo_folio, null, $paginate);
 
-
-        return View::make('folios.entregafoliose.tablaAjax')
-        ->withFr($fr)
-        ->withPerito($perito)
-        ->render();
+        if($tipo_folio=="U")
+        {
+	        return View::make('folios.entregafoliose.tablaAjaxU')
+	        ->withFu($fr)
+	        ->withPerito($perito)
+	        ->render();
+        }
+        else if($tipo_folio=="R")
+        {
+	        return View::make('folios.entregafoliose.tablaAjax')
+	        ->withFr($fr)
+	        ->withPerito($perito)
+	        ->render();
+	    }
 
     }
 
-	public function post_foliose($id){ //marca los folios utilizados por los peritos
-
+	public function post_foliose($id)
+	{ //marca los folios utilizados por los peritos
+		$paginate = Input::get('pagina', '15');
+		$tipo_folio = Input::get('tipo_folio');
 		$inputs = Input::all();
 
 		if(isset($inputs['urbanos'])){
@@ -131,9 +139,11 @@ class folios_EntregaFoliosController extends BaseController {
 		}
 
 		
-		if(isset($inputs['rusticos'])){
+		if(isset($inputs['rusticos']))
+		{
 
-			for($a=0; $a<sizeof($inputs['rusticos']); $a++){
+			for($a=0; $a<sizeof($inputs['rusticos']); $a++)
+			{
 
 				$folio = FoliosComprados::where('tipo_folio', 'R')
 				->where('numero_folio', $inputs['rusticos'][$a])
@@ -149,7 +159,20 @@ class folios_EntregaFoliosController extends BaseController {
 		}
 
 
-		return Redirect::to('/entregafoliosestatal');
+		$fr = FoliosComprados::getEntregaM($id, $tipo_folio, null, $paginate);
+
+		if($tipo_folio=="U")
+        {
+	        return View::make('folios.entregafoliose.tablaAjaxU')
+	        ->withFu($fr)
+	        ->render();
+        }
+        else if($tipo_folio=="R")
+        {
+	        return View::make('folios.entregafoliose.tablaAjax')
+		        ->withFr($fr)
+		        ->render();
+        }
 	}
 
 
@@ -191,7 +214,7 @@ class folios_EntregaFoliosController extends BaseController {
 	}
 
 	public function get_urbanosm($id){ //muestra todos los folios Urbanos del perito especificado
-
+		$paginate = Input::get('pagina', '15');
 		if(Input::get('year'))
 		{
 			$YEAR = Input::get('year');
@@ -206,11 +229,7 @@ class folios_EntregaFoliosController extends BaseController {
 
 		$perito = Perito::find($id);
 
-		$fu = FoliosComprados::where('perito_id', $perito->id)
-		->where('tipo_folio', 'U')
-		->whereRaw("EXTRACT(YEAR FROM fecha_autorizacion) = ". $YEAR)
-		->get();
-
+		$fu = FoliosComprados::getEntregaM($id,'U',$YEAR,$paginate);
 		return View::make('folios.entregafoliosm.urbanos', ['selectYear' => $selectYear])
 		->withFu($fu)
 		->withPerito($perito);
@@ -248,12 +267,20 @@ class folios_EntregaFoliosController extends BaseController {
 
         $fr = FoliosComprados::getEntregaM($id, $tipo_folio, null, $paginate);
 
-
-        return View::make('folios.entregafoliosm.tablaAjax')
-        ->withFr($fr)
-        ->withPerito($perito)
-        ->render();
-
+        if($tipo_folio=="U")
+        {
+	        return View::make('folios.entregafoliosm.tablaAjaxU')
+	        ->withFu($fr)
+	        ->withPerito($perito)
+	        ->render();
+        }
+        else if($tipo_folio=="R")
+        {
+	        return View::make('folios.entregafoliosm.tablaAjax')
+	        ->withFr($fr)
+	        ->withPerito($perito)
+	        ->render();
+	    } 
     }
 
 	public function buscarFolioEstatal()
@@ -268,8 +295,14 @@ class folios_EntregaFoliosController extends BaseController {
 		->orderBy('fecha_autorizacion', 'DESC')
         ->paginate($paginate);
 
-        return View::make('folios.entregafoliose.tablaAjax')
-        ->withFr($fr);
+        if($tipo_folio=="U")
+        {
+        	return View::make('folios.entregafoliose.tablaAjaxU')->withFu($fr);
+        }
+        else if($tipo_folio=="R")
+        {
+            return View::make('folios.entregafoliose.tablaAjax')->withFr($fr);
+        }
 	}
 
 		public function buscarFolio()
@@ -283,9 +316,14 @@ class folios_EntregaFoliosController extends BaseController {
         ->orderBy('numero_folio', 'ASC')
 		->orderBy('fecha_autorizacion', 'DESC')
         ->paginate($paginate);
-
-        return View::make('folios.entregafoliosm.tablaAjax')
-        ->withFr($fr);
+        if($tipo_folio=="U")
+        {
+        	        return View::make('folios.entregafoliosm.tablaAjaxU')->withFu($fr);
+        }
+        else if($tipo_folio=="R")
+        {
+        	        return View::make('folios.entregafoliosm.tablaAjax')->withFr($fr);
+        }
 	}
 
 	public function post_foliosm($id)
@@ -332,10 +370,18 @@ class folios_EntregaFoliosController extends BaseController {
 
 		$fr = FoliosComprados::getEntregaM($id, $tipo_folio, null, $paginate);
 
-
-        return View::make('folios.entregafoliosm.tablaAjax')
-        ->withFr($fr)
-        ->render();
+		if($tipo_folio=="U")
+        {
+	        return View::make('folios.entregafoliosm.tablaAjaxU')
+	        ->withFu($fr)
+	        ->render();
+        }
+        else if($tipo_folio=="R")
+        {
+	        return View::make('folios.entregafoliosm.tablaAjax')
+		        ->withFr($fr)
+		        ->render();
+        }
 
 	}
 
