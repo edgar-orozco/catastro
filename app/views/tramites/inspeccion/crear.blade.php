@@ -3,7 +3,7 @@
 @section('content')
 
  <div class="row">
-    {{ Form::open(array('url' => 'tramites/valor/store', 'method' => 'POST', 'id' => 'formValor')) }}
+    {{ Form::open(array('url' => 'tramites/inspeccion/store', 'method' => 'POST', 'id' => 'formInspeccion')) }}
 
       @include('tramites.inspeccion._inspeccion', [])
 
