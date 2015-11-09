@@ -2,12 +2,13 @@
 
 @section('content')
 
-    <div class="row">
+ <div class="row">
+    {{ Form::open(array('url' => 'tramites/valor/store', 'method' => 'POST', 'id' => 'formValor')) }}
 
+      @include('tramites.inspeccion._inspeccion', [])
 
-        @include('tramites.inspeccion._inspeccion', [])
-
-
-    </div>
+     {{Form::submit('Crear Solicitud',['class'=>'btn btn-primary'])}}
+    {{Form::close()}}
+  </div>
 
 @stop
