@@ -30,4 +30,23 @@ class AvaluosConclusiones extends \Eloquent {
 		}
 	}
 
+	public static function clonarAvaluosConclusiones($idavaluoold, $idavaluonew) {
+		$rowConclusionesOld = Avaluos::find($idavaluoold)->AvaluosConclusiones;
+		$rowConclusionesNew = Avaluos::find($idavaluonew)->AvaluosConclusiones;
+		$rowConclusionesNew->valor_fisico = $rowConclusionesOld->valor_fisico;
+		$rowConclusionesNew->valor_mercado = $rowConclusionesOld->valor_mercado;
+		$rowConclusionesNew->factor_seleccion_valor = $rowConclusionesOld->factor_seleccion_valor;
+		$rowConclusionesNew->valor_concluido = $rowConclusionesOld->valor_concluido;
+		$rowConclusionesNew->leyenda = $rowConclusionesOld->leyenda;
+		$rowConclusionesNew->sello = $rowConclusionesOld->sello;
+		$rowConclusionesNew->firma = $rowConclusionesOld->firma;
+		$rowConclusionesNew->idemp = $rowConclusionesOld->idemp;
+		$rowConclusionesNew->ip = $rowConclusionesOld->ip;
+		$rowConclusionesNew->host = $rowConclusionesOld->host;
+		$rowConclusionesNew->creado_por = $rowConclusionesOld->creado_por;
+		$rowConclusionesNew->creado_el = $rowConclusionesOld->creado_el;
+		$rowConclusionesNew->modi_por = $rowConclusionesOld->modi_por;
+		$rowConclusionesNew->modi_el = $rowConclusionesOld->modi_el;
+		$rowConclusionesNew->save();
+	}
 }

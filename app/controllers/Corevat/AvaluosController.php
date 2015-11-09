@@ -286,13 +286,33 @@ class corevat_AvaluosController extends \BaseController {
 
 	
 	public function clonar() {
+		$response = array('success' => true, 'message' => '¡El avalúo fue duplicado satisfactoriamente!');
 		$inputs = Input::All();
-		$row = Avaluos::clonarAvaluo($inputs["idavaluo_clonar"]);
-		//dd($row);
-		//dd( $row );
-		return Redirect::to('/corevat/Avaluos')->with('error', '¡PENDIENTE!');
-		//Avaluos::insAvaluo($inputs);
+		$rows = Avaluos::select('idavaluo', 'foliocoretemp')->where('foliocoretemp', '=', $inputs["folio_corevat"])->first();
+		if ( isset($rows) ) {
+			$response['message'] = '<span style="color:red;">¡El folio ya esta asignado al<br />Avalúo: '.$rows["idavaluo"].'!</span>';
+			$response['success'] = false;
+		} else {
+			$idavaluonew = Avaluos::clonarAvaluo($inputs["idavaluo_clonar"], $inputs["folio_corevat"]);
+			$this->clonarInmuebleArchivos($inputs["idavaluo_clonar"], $idavaluonew);
+			$this->clonarFotosArchivos($inputs["idavaluo_clonar"], $idavaluonew);
+		}
+		return $response;
 	}
+
+	private function clonarInmuebleArchivos($idavaluoold, $idavaluonew) {
+		$rowInmuebleOld = Avaluos::find($idavaluoold)->AvaluosInmueble;
+		$rowInmuebleNew = Avaluos::find($idavaluonew)->AvaluosInmueble;
+		//$row->croquis = 'croquis-' . $row->idavaluo . '.' . Input::file('croquis')->guessExtension();
+		// SI $rowInmuebleOld->croquis != ''
+		//$croquis = 
+	}
+	
+	private function clonarFotosArchivos($idavaluoold, $idavaluonew) {
+		$rowFotosOld = Avaluos::find($idavaluoold)->AvaluosFotos;
+		$rowFotosNew = Avaluos::find($idavaluonew)->AvaluosFotos;
+	}
+	
 	
 	/**
 	 * Display a listing of the resource.

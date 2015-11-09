@@ -122,4 +122,33 @@ class AefTerrenos extends \Eloquent {
 		return $res;
 	}
 
+	public static function clonarAefTerrenos($idavaluoenfoquefisicoold, $idavaluoenfoquefisiconew) {
+		$rowsAefTerrenosOld = AefTerrenos::select('*')->where('idavaluoenfoquefisico', '=', $idavaluoenfoquefisicoold)->get();
+		foreach ($rowsAefTerrenosOld as $rowAefTerrenosOld) {
+			AefTerrenos::clonarAefTerrenosIns($idavaluoenfoquefisiconew, $rowAefTerrenosOld);
+		}
+		
+	}
+	
+	private static function clonarAefTerrenosIns($idavaluoenfoquefisiconew, $rowAefTerrenosOld) {
+		$rowAefTerrenosNew = new AefTerrenos();
+		$rowAefTerrenosNew->idavaluoenfoquefisico = $idavaluoenfoquefisiconew;
+		$rowAefTerrenosNew->fraccion = $rowAefTerrenosOld->fraccion;
+		$rowAefTerrenosNew->superficie = $rowAefTerrenosOld->superficie;
+		$rowAefTerrenosNew->irregular = $rowAefTerrenosOld->irregular;
+		$rowAefTerrenosNew->top = $rowAefTerrenosOld->top;
+		$rowAefTerrenosNew->frente = $rowAefTerrenosOld->frente;
+		$rowAefTerrenosNew->forma = $rowAefTerrenosOld->forma;
+		$rowAefTerrenosNew->otros = $rowAefTerrenosOld->otros;
+		$rowAefTerrenosNew->factor_resultante = $rowAefTerrenosOld->factor_resultante;
+		$rowAefTerrenosNew->valor_unitario_neto = $rowAefTerrenosOld->valor_unitario_neto;
+		$rowAefTerrenosNew->indiviso = $rowAefTerrenosOld->indiviso;
+		$rowAefTerrenosNew->valor_parcial = $rowAefTerrenosOld->valor_parcial;
+		$rowAefTerrenosNew->in_promedio = $rowAefTerrenosOld->in_promedio;
+		$rowAefTerrenosNew->fk_frente = $rowAefTerrenosOld->fk_frente;
+		$rowAefTerrenosNew->fk_forma = $rowAefTerrenosOld->fk_forma;
+		$rowAefTerrenosNew->fk_top = $rowAefTerrenosOld->fk_top;
+		$rowAefTerrenosNew->fk_otros = $rowAefTerrenosOld->fk_otros;
+		$rowAefTerrenosNew->save();
+	}
 }

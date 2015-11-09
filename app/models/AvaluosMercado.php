@@ -80,4 +80,28 @@ class AvaluosMercado extends \Eloquent {
 						->get();
 	}
 
+	public static function clonarAvaluosMercado($idavaluoold, $idavaluonew) {
+		$rowMercadoOld = Avaluos::find($idavaluoold)->AvaluosMercado;
+		$rowMercadoNew = Avaluos::find($idavaluonew)->AvaluosMercado;
+		$rowMercadoNew->promedio_directo = $rowMercadoOld->promedio_directo;
+		$rowMercadoNew->valor_unitario_promedio = $rowMercadoOld->valor_unitario_promedio;
+		$rowMercadoNew->valor_aplicado_m2 = $rowMercadoOld->valor_aplicado_m2;
+		$rowMercadoNew->minimo_directo = $rowMercadoOld->minimo_directo;
+		$rowMercadoNew->maximo_directo = $rowMercadoOld->maximo_directo;
+		$rowMercadoNew->promedio_analisis = $rowMercadoOld->promedio_analisis;
+		$rowMercadoNew->minimo_analisis = $rowMercadoOld->minimo_analisis;
+		$rowMercadoNew->maximo_analisis = $rowMercadoOld->maximo_analisis;
+		$rowMercadoNew->monto_unitario_aplicable = $rowMercadoOld->monto_unitario_aplicable;
+		$rowMercadoNew->superficie_terreno = $rowMercadoOld->superficie_terreno;
+		$rowMercadoNew->superficie_construida = $rowMercadoOld->superficie_construida;
+		$rowMercadoNew->valor_comparativo_mercado = $rowMercadoOld->valor_comparativo_mercado;
+		$rowMercadoNew->superfice_terreno_avaluo = $rowMercadoOld->superfice_terreno_avaluo;
+		$rowMercadoNew->superficie_construccion_avaluo = $rowMercadoOld->superficie_construccion_avaluo;
+		$rowMercadoNew->promedio_unitario = $rowMercadoOld->promedio_unitario;
+		$rowMercadoNew->save();
+		
+		AemCompTerrenos::clonarAemCompTerrenos($rowMercadoOld->idavaluoenfoquemercado, $rowMercadoNew->idavaluoenfoquemercado);
+		AemInformacion::clonarAemInformacion($rowMercadoOld->idavaluoenfoquemercado, $rowMercadoNew->idavaluoenfoquemercado);
+		
+	}
 }

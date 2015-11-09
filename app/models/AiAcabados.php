@@ -79,4 +79,33 @@ class AiAcabados extends \Eloquent {
 		$row->save();
 	}
 
+	/**
+	 * Show the form for editing the specified resource.
+	 *
+	 * @param  int $idavaluoinmuebleold, int $idavaluoinmueblenew 
+	 * @return Void
+	 */
+	public static function clonarAiAcabados($idavaluoinmuebleold, $idavaluoinmueblenew) {
+		$rowsAiAcabadosOld = AiAcabados::select('*')->where('idavaluoinmueble', '=', $idavaluoinmuebleold)->get();
+		foreach ($rowsAiAcabadosOld as $rowAiAcabadosOld) {
+			AiAcabados::clonarAiAcabadosIns($idavaluoinmueblenew, $rowAiAcabadosOld);
+		}
+	}
+	
+	/**
+	 * Show the form for editing the specified resource.
+	 *
+	 * @param  int $idavaluoinmueblenew, array $rowAiMedidasColindanciasOld 
+	 * @return Void
+	 */
+	private static function clonarAiAcabadosIns($idavaluoinmueblenew, $rowAiAcabadosOld) {
+		$rowAiAcabadosNew = new AiAcabados();
+		$rowAiAcabadosNew->idavaluoinmueble = $idavaluoinmueblenew;
+		$rowAiAcabadosNew->fk_cat_acabados  = $rowAiAcabadosOld->fk_cat_acabados;
+		$rowAiAcabadosNew->fk_cat_aplanados = $rowAiAcabadosOld->fk_cat_aplanados;
+		$rowAiAcabadosNew->fk_cat_pisos     = $rowAiAcabadosOld->fk_cat_pisos;
+		$rowAiAcabadosNew->fk_cat_plafones  = $rowAiAcabadosOld->fk_cat_plafones;
+		$rowAiAcabadosNew->save();
+	}
+
 }

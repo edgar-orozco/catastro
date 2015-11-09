@@ -216,4 +216,49 @@ class AvaluosInmueble extends \Eloquent {
 		
 	}
 
+	public static function clonarAvaluosInmueble($idavaluoold, $idavaluonew) {
+		$rowInmuebleOld = Avaluos::find($idavaluoold)->AvaluosInmueble;
+		$rowInmuebleNew = Avaluos::find($idavaluonew)->AvaluosInmueble;
+		
+		$rowInmuebleNew->medidas_colindancias         = $rowInmuebleOld->medidas_colindancias;
+		$rowInmuebleNew->idusossuelo                  = $rowInmuebleOld->idusossuelo;
+		$rowInmuebleNew->servidumbre_restricciones    = $rowInmuebleOld->servidumbre_restricciones;
+		$rowInmuebleNew->descripcion_inmueble         = $rowInmuebleOld->descripcion_inmueble;
+		$rowInmuebleNew->numero_niveles_unidad        = $rowInmuebleOld->numero_niveles_unidad;
+		$rowInmuebleNew->unidades_rentables_escritura = $rowInmuebleOld->unidades_rentables_escritura;
+		$rowInmuebleNew->cimentacion                  = $rowInmuebleOld->cimentacion;
+		$rowInmuebleNew->estructura                   = $rowInmuebleOld->estructura;
+		$rowInmuebleNew->muros                        = $rowInmuebleOld->muros;
+		$rowInmuebleNew->entrepisos                   = $rowInmuebleOld->entrepisos;
+		$rowInmuebleNew->techos = $rowInmuebleOld->techos;
+		$rowInmuebleNew->bardas = $rowInmuebleOld->bardas;
+		$rowInmuebleNew->id_cimentacion = $rowInmuebleOld->id_cimentacion;
+		$rowInmuebleNew->id_estructura = $rowInmuebleOld->id_estructura;
+		$rowInmuebleNew->id_muro = $rowInmuebleOld->id_muro;
+		$rowInmuebleNew->id_entrepiso = $rowInmuebleOld->id_entrepiso;
+		$rowInmuebleNew->id_techo = $rowInmuebleOld->id_techo;
+		$rowInmuebleNew->id_barda = $rowInmuebleOld->id_barda;
+		$rowInmuebleNew->hidraulico_sanitarias = $rowInmuebleOld->hidraulico_sanitarias;
+		$rowInmuebleNew->electricas = $rowInmuebleOld->electricas;
+		$rowInmuebleNew->carpinteria = $rowInmuebleOld->carpinteria;
+		$rowInmuebleNew->segun = $rowInmuebleOld->segun;
+		$rowInmuebleNew->superficie_total_terreno = $rowInmuebleOld->superficie_total_terreno;
+		$rowInmuebleNew->indiviso_terreno = $rowInmuebleOld->indiviso_terreno;
+		$rowInmuebleNew->superficie_terreno = $rowInmuebleOld->superficie_terreno;
+		$rowInmuebleNew->indiviso_areas_comunes = $rowInmuebleOld->indiviso_areas_comunes;
+		$rowInmuebleNew->superficie_construccion = $rowInmuebleOld->superficie_construccion;
+		$rowInmuebleNew->indiviso_accesoria      = $rowInmuebleOld->indiviso_accesoria;
+		$rowInmuebleNew->superficie_escritura = $rowInmuebleOld->superficie_escritura;
+		$rowInmuebleNew->superficie_vendible = $rowInmuebleOld->superficie_vendible;
+		$rowInmuebleNew->herreria_ventana = $rowInmuebleOld->herreria_ventana;
+		$rowInmuebleNew->aluminio_ventana = $rowInmuebleOld->aluminio_ventana;
+		$rowInmuebleNew->herreria_puerta = $rowInmuebleOld->herreria_puerta;
+		$rowInmuebleNew->aluminio_puerta = $rowInmuebleOld->aluminio_puerta;
+
+		$rowInmuebleNew->save();
+		
+		AiMedidasColindancias::clonarAiMedidasColindancias($rowInmuebleOld->idavaluoinmueble, $rowInmuebleNew->idavaluoinmueble);
+		AiAcabados::clonarAiAcabados($rowInmuebleOld->idavaluoinmueble, $rowInmuebleNew->idavaluoinmueble);
+		
+	}
 }
