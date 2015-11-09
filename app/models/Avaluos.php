@@ -208,7 +208,7 @@ class Avaluos extends \Eloquent {
 		AvaluosMercado::clonarAvaluosMercado($idavaluo, $newAvaluo->idavaluo);
 		AvaluosFisico::clonarAvaluosFisico($idavaluo, $newAvaluo->idavaluo);
 		AvaluosConclusiones::clonarAvaluosConclusiones($idavaluo, $newAvaluo->idavaluo);
-		AvaluosFotos::clonarAvaluosFotos($idavaluo, $newAvaluo->idavaluo);
+		//AvaluosFotos::clonarAvaluosFotos($idavaluo, $newAvaluo->idavaluo);
 		return $newAvaluo->idavaluo;
 	}
 

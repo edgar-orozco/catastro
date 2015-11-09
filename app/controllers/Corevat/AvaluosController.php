@@ -306,6 +306,8 @@ class corevat_AvaluosController extends \BaseController {
 		//$row->croquis = 'croquis-' . $row->idavaluo . '.' . Input::file('croquis')->guessExtension();
 		// SI $rowInmuebleOld->croquis != ''
 		//$croquis = 
+		$rowInmuebleNew->croquis = '';
+		$rowInmuebleNew->fachada = '';
 	}
 	
 	private function clonarFotosArchivos($idavaluoold, $idavaluonew) {
