@@ -582,12 +582,14 @@ class TramitesController extends BaseController {
         }
 
 
+        $tramites->appends(Input::except('page'));
+
         if (Request::ajax())
         {
-            return View::make('ventanilla._lista_tramites',compact(['tramites']));
+            return View::make('ventanilla._lista_tramites',compact(['tramites']) );
         }
 
-        return $tramites;
+        return View::make('ventanilla.porAtender', compact(['tramites']) );
     }
 
 

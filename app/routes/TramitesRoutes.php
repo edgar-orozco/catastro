@@ -83,7 +83,7 @@ Route::post(
 
 
 //Búsqueda de trámites
-Route::post(
+Route::match(array('GET', 'POST'),
     'tramites/buscar',
     array(
         'as' => 'tramite.buscar',
