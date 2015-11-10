@@ -111,7 +111,6 @@
 @stop
 
 @section('javascript')
-<script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
 {{ HTML::script('js/jquery/jquery-ui.js') }}
 
 <script type="text/javascript">
