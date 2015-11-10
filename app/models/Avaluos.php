@@ -104,7 +104,7 @@ class Avaluos extends \Eloquent {
 	 * @param  array  $row
 	 * @return Response
 	 */
-	private static function setAvaluo(&$row, $inputs, $clonar) {
+	private static function setAvaluo(&$row, $inputs) {
 		$row->proposito = $inputs["proposito"];
 		$row->fk_finalidad = $inputs["fk_finalidad"];
 		$row->finalidad = $inputs["finalidad"];
@@ -171,7 +171,7 @@ class Avaluos extends \Eloquent {
 	 */
 	public static function insAvaluo(&$inputs) {
 		$row = new Avaluos();
-		Avaluos::setAvaluo($row, $inputs, FALSE);
+		Avaluos::setAvaluo($row, $inputs);
 		$row->iduser = Auth::id();
 		$row->save();
 		$inputs["idavaluo"] = $row->idavaluo;
@@ -185,7 +185,7 @@ class Avaluos extends \Eloquent {
 	 */
 	public static function updAvaluo($id, $inputs) {
 		$row = Avaluos::find($id);
-		Avaluos::setAvaluo($row, $inputs, FALSE);
+		Avaluos::setAvaluo($row, $inputs);
 		$row->updated_at = $inputs["updated_at"];
 		$row->save();
 	}
@@ -196,15 +196,60 @@ class Avaluos extends \Eloquent {
 	 * @param  int  $id
 	 * @return Response
 	 */
-	public static function clonarAvaluo($id) {
-		//$rowAvaluo = Avaluos::find($id);
-		//$row = new Avaluos();
-		//return DB::connection('corevat')->getPdo()->exec("INSERT INTO avaluos () VALUES ();");
-		//$row->save();
+	public static function clonarAvaluo($idavaluo, $folio) {
+		$rowAvaluo = Avaluos::find($idavaluo);
+		$newAvaluo = new Avaluos();
+		$newAvaluo->foliocoretemp = $folio;
+		Avaluos::clonarAvaluoUpd($rowAvaluo, $newAvaluo);
+		$newAvaluo->save();
+		$newAvaluo->idavaluo;
+		AvaluosZona::clonarAvaluosZona($idavaluo, $newAvaluo->idavaluo);
+		AvaluosInmueble::clonarAvaluosInmueble($idavaluo, $newAvaluo->idavaluo);
+		AvaluosMercado::clonarAvaluosMercado($idavaluo, $newAvaluo->idavaluo);
+		AvaluosFisico::clonarAvaluosFisico($idavaluo, $newAvaluo->idavaluo);
+		AvaluosConclusiones::clonarAvaluosConclusiones($idavaluo, $newAvaluo->idavaluo);
+		//AvaluosFotos::clonarAvaluosFotos($idavaluo, $newAvaluo->idavaluo);
+		return $newAvaluo->idavaluo;
 	}
 
+	private static function clonarAvaluoUpd($rowAvaluo, &$newAvaluo) {
+		$newAvaluo->iduser = $rowAvaluo->iduser;
+		$newAvaluo->proposito = $rowAvaluo->proposito;
+		$newAvaluo->finalidad = $rowAvaluo->finalidad;
+		$newAvaluo->idmunicipio = $rowAvaluo->idmunicipio;
+		$newAvaluo->idestado = $rowAvaluo->idestado;
+		$newAvaluo->fecha_reporte = $rowAvaluo->fecha_reporte;
+		$newAvaluo->fecha_avaluo = $rowAvaluo->fecha_avaluo;
+		$newAvaluo->serie = $rowAvaluo->serie;
+		$newAvaluo->folio = $rowAvaluo->folio;
+		$newAvaluo->idtipoinmueble = $rowAvaluo->idtipoinmueble;
+		$newAvaluo->ubicacion = $rowAvaluo->ubicacion;
+		$newAvaluo->conjunto = $rowAvaluo->conjunto;
+		$newAvaluo->colonia = $rowAvaluo->colonia;
+		$newAvaluo->cp = $rowAvaluo->cp;
+		$newAvaluo->latitud = $rowAvaluo->latitud;
+		$newAvaluo->lat0 = $rowAvaluo->lat0;
+		$newAvaluo->lat1 = $rowAvaluo->lat1;
+		$newAvaluo->lat2 = $rowAvaluo->lat2;
+		$newAvaluo->longitud = $rowAvaluo->longitud;
+		$newAvaluo->lon0 = $rowAvaluo->lon0;
+		$newAvaluo->lon1 = $rowAvaluo->lon1;
+		$newAvaluo->lon2 = $rowAvaluo->lon2;
+		$newAvaluo->altitud = $rowAvaluo->altitud;
+		$newAvaluo->idregimenpropiedad = $rowAvaluo->idregimenpropiedad;
+		$newAvaluo->cuenta_predial = $rowAvaluo->cuenta_predial;
+		$newAvaluo->cuenta_catastral = $rowAvaluo->cuenta_catastral;
+		$newAvaluo->nombre_solicitante = $rowAvaluo->nombre_solicitante;
+		$newAvaluo->nombre_propietario = $rowAvaluo->nombre_propietario;
+		$newAvaluo->fk_titulo_solicitante = $rowAvaluo->fk_titulo_solicitante;
+		$newAvaluo->fk_titulo_propietario = $rowAvaluo->fk_titulo_propietario;
+		$newAvaluo->fk_finalidad = $rowAvaluo->fk_finalidad;
+		$newAvaluo->tp_coordenada = $rowAvaluo->tp_coordenada;
+		$newAvaluo->sistema_coordenadas = $rowAvaluo->sistema_coordenadas;
+		$newAvaluo->datum = $rowAvaluo->datum;
+		$newAvaluo->estatus = 'false';
+	}
 
-	
 	/**
 	 * Show the form for editing the specified resource.
 	 *

@@ -1,6 +1,5 @@
 <?php
 error_reporting(E_ERROR | E_WARNING);
-use \PlanoAcotado;
 use \PMap;
 
 class MTCorevatToPDFController extends BaseController {
@@ -74,7 +73,8 @@ class MTCorevatToPDFController extends BaseController {
         $strJS .= '"ydelta_geo":"' . $mapJS['ydelta_geo'] . '", ';
         $strJS .= '"refBoxStr":"' . $mapJS['refBoxStr'] . '" ';
 
-        echo "{\"sessionerror\":\"false\",  \"mapURL\":\"$mapURL\", \"scalebarURL\":\"$scalebarURL\", \"geo_scale\":\"$geo_scale\", \"escala\":\"$escala\",".$strJS."}";
+
+        echo "{\"sessionerror\":\"false\",  \"mapURL\":\"$mapURL\", \"scalebarURL\":\"$mapURL\", \"geo_scale\":\"$mapURL\", \"escala\":\"$mapURL\",".$strJS."}";
 
     }
 

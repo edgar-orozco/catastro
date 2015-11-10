@@ -177,6 +177,41 @@ class AvaluosFisico extends \Eloquent {
 	}
 
 	
-	
+	public static function clonarAvaluosFisico($idavaluoold, $idavaluonew) {
+		$rowFisicoOld = Avaluos::find($idavaluoold)->AvaluosFisico;
+		$rowFisicoNew = Avaluos::find($idavaluonew)->AvaluosFisico;
+		$rowFisicoNew->tipo_moda = $rowFisicoOld->tipo_moda;
+		$rowFisicoNew->valor_unitario_promedio = $rowFisicoOld->valor_unitario_promedio;
+		$rowFisicoNew->valor_aplicado_m2 = $rowFisicoOld->valor_aplicado_m2;
+		$rowFisicoNew->conclusion_investigacion_comparables = $rowFisicoOld->conclusion_investigacion_comparables;
+		$rowFisicoNew->valor_terreno = $rowFisicoOld->valor_terreno;
+		$rowFisicoNew->idclasegeneral = $rowFisicoOld->idclasegeneral;
+		$rowFisicoNew->idtipoinmueble = $rowFisicoOld->idtipoinmueble;
+		$rowFisicoNew->idestado_conservacion = $rowFisicoOld->idestado_conservacion;
+		$rowFisicoNew->idcalidadproyecto = $rowFisicoOld->idcalidadproyecto;
+		$rowFisicoNew->edad_construccion = $rowFisicoOld->edad_construccion;
+		$rowFisicoNew->vida_util = $rowFisicoOld->vida_util;
+		$rowFisicoNew->numero_niveles = $rowFisicoOld->numero_niveles;
+		$rowFisicoNew->nivel_edificio_condominio = $rowFisicoOld->nivel_edificio_condominio;
+		$rowFisicoNew->conclusion_investigacion_terreno = $rowFisicoOld->conclusion_investigacion_terreno;
+		$rowFisicoNew->conclusion_investigacion_construccion = $rowFisicoOld->conclusion_investigacion_construccion;
+		$rowFisicoNew->total_metros_construccion = $rowFisicoOld->total_metros_construccion;
+		$rowFisicoNew->valor_construccion = $rowFisicoOld->valor_construccion;
+		$rowFisicoNew->subtotal_area_condominio = $rowFisicoOld->subtotal_area_condominio;
+		$rowFisicoNew->subtotal_instalaciones_especiales = $rowFisicoOld->subtotal_instalaciones_especiales;
+		$rowFisicoNew->total_valor_fisico = $rowFisicoOld->total_valor_fisico;
+		$rowFisicoNew->idemp = $rowFisicoOld->idemp;
+		$rowFisicoNew->ip = $rowFisicoOld->ip;
+		$rowFisicoNew->creado_por = $rowFisicoOld->creado_por;
+		$rowFisicoNew->creado_el = $rowFisicoOld->creado_el;
+		$rowFisicoNew->modi_por = $rowFisicoOld->modi_por;
+		$rowFisicoNew->modi_el = $rowFisicoOld->modi_el;
+		$rowFisicoNew->justificacion_valor_aplicado = $rowFisicoOld->justificacion_valor_aplicado;
+		$rowFisicoNew->save();
+		AefConstrucciones::clonarAefConstrucciones($rowFisicoOld->idavaluoenfoquefisico, $rowFisicoNew->idavaluoenfoquefisico);
+		AefTerrenos::clonarAefTerrenos($rowFisicoOld->idavaluoenfoquefisico, $rowFisicoNew->idavaluoenfoquefisico);
+		AefCondominios::clonarAefCondominios($rowFisicoOld->idavaluoenfoquefisico, $rowFisicoNew->idavaluoenfoquefisico);
+		AefInstalaciones::clonarAefInstalaciones($rowFisicoOld->idavaluoenfoquefisico, $rowFisicoNew->idavaluoenfoquefisico);
+	}
 	
 }
