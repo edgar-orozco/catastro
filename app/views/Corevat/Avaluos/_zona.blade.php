@@ -156,29 +156,29 @@
 	<div class="col-md-12"><hr></div>
 	<div class="col-md-6">
 		{{Form::label('construc_predominante', 'Construcciones Predominante')}}
-		{{Form::textarea('construc_predominante', $row->construc_predominante, ['class'=>'form-control', 'maxlength'=>'500', 'rows' => '3'] )}}
+		{{Form::textarea('construc_predominante', $row->construc_predominante, ['class'=>'form-control textareanoenter', 'maxlength'=>'500', 'rows' => '3'] )}}
 		<hr>
 	</div>
 	<div class="col-md-6">
 		{{Form::label('vias_acceso_importante', 'Vias de acceso e importancia')}}
-		{{Form::textarea('vias_acceso_importante', $row->vias_acceso_importante, ['class'=>'form-control', 'maxlength'=>'500', 'rows' => '3'] )}}
+		{{Form::textarea('vias_acceso_importante', $row->vias_acceso_importante, ['class'=>'form-control textareanoenter', 'maxlength'=>'500', 'rows' => '3'] )}}
 		<hr>
 	</div>
 
 	<div class="col-md-12"><hr></div>
 	<div class="col-md-12">
 		{{Form::label('calles_transversales', 'Calles transversales limitrofes y orientación')}}
-		{{Form::textarea('calles_transversales', $row->calles_transversales, ['class'=>'form-control', 'maxlength'=>'500', 'rows' => '3'] )}}
+		{{Form::textarea('calles_transversales', $row->calles_transversales, ['class'=>'form-control textareanoenter', 'maxlength'=>'500', 'rows' => '3'] )}}
 		<hr>
 	</div>
 	
 	<div class="col-md-12"><hr></div>
-    <div class="col-md-6 form-actions">
-        <a href="{{URL::route('indexAvaluos')}}" class="btn btn-primary btn-coveratSecondary" role="button"><i class="glyphicon glyphicon-arrow-left"></i> Regresar</a>
-    </div>
-    <div class="col-md-6 form-actions">
+	<div class="col-md-6 form-actions">
+		<a href="{{URL::route('indexAvaluos')}}" class="btn btn-primary btn-coveratSecondary" role="button"><i class="glyphicon glyphicon-arrow-left"></i> Regresar</a>
+	</div>
+	<div class="col-md-6 form-actions">
 		{{Form::submit('Guardar', ['class'=>'btn btn-primary btn-coveratPrincipal'])}}
-    </div>
+	</div>
 </div>
 
 {{Form::close()}}
