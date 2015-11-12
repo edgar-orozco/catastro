@@ -411,7 +411,43 @@ $pdf->Cell(0, 10, 'Line ' . $ordenada, 1, 1);
 		$pdf->Cell(30, 5, utf8_decode("Cimentación: "), 'LB', 0, 'R');
 		$pdf->SetFont('Arial', '', 7);
 		$pdf->Cell(160, 5, utf8_decode($in->cimentacion), 'LBR', 1, 'L');
+		$pdf->SetFont('Arial', 'B', 7);
+		$pdf->Cell(30, 5, utf8_decode("Estructuras: "), 'LB', 0, 'R');
+		$pdf->SetFont('Arial', '', 7);
+		$pdf->Cell(160, 5, utf8_decode($in->estructura), 'LBR', 1, 'L');
+		$pdf->SetFont('Arial', 'B', 7);
+		$pdf->Cell(30, 5, utf8_decode("Muros: "), 'LB', 0, 'R');
+		$pdf->SetFont('Arial', '', 7);
+		$pdf->Cell(160, 5, utf8_decode($in->muros), 'LBR', 1, 'L');
+		$pdf->SetFont('Arial', 'B', 7);
+		$pdf->Cell(30, 5, utf8_decode("Entrepisos: "), 'LB', 0, 'R');
+		$pdf->SetFont('Arial', '', 7);
+		$pdf->Cell(160, 5, utf8_decode($in->entrepisos), 'LBR', 1, 'L');
+		$pdf->SetFont('Arial', 'B', 7);
+		$pdf->Cell(30, 5, utf8_decode("Techos: "), 'LB', 0, 'R');
+		$pdf->SetFont('Arial', '', 7);
+		$pdf->Cell(160, 5, utf8_decode($in->techos), 'LBR', 1, 'L');
+		$pdf->SetFont('Arial', 'B', 7);
+		$pdf->Cell(30, 5, utf8_decode("Bardas: "), 'LB', 0, 'R');
+		$pdf->SetFont('Arial', '', 7);
+		$pdf->Cell(160, 5, utf8_decode($in->bardas), 'LBR', 1, 'L');
+		$pdf->SetFont('Arial', 'B', 7);
+		$pdf->Cell(30, 5, utf8_decode("Uso de suelo: "), 'LB', 0, 'R');
+		$pdf->SetFont('Arial', '', 7);
+		$pdf->Cell(65, 5, utf8_decode($in->usos_suelos), 'LB', 0, 'L');
+		$pdf->SetFont('Arial', 'B', 7);
+		$pdf->Cell(30, 5, utf8_decode("Serv. y Restric.: "), 'TB', 0, 'R');
+		$pdf->SetFont('Arial', '', 7);
+		$pdf->Cell(65, 5, substr(utf8_decode($in->servidumbre_restricciones), 0, 81), 'LBR', 1, 'L');
 
+		$pdf->SetFont('Arial', 'B', 7);
+		$pdf->Cell(30, 5, utf8_decode("Niveles de la Unidad: "), 'LB', 0, 'R');
+		$pdf->SetFont('Arial', '', 7);
+		$pdf->Cell(50, 5, utf8_decode($in->nivel), 'LB', 0, 'L');
+		$pdf->SetFont('Arial', 'B', 7);
+		$pdf->Cell(40, 5, utf8_decode("Unidades rentables en la misma estructura: "), 'B', 0, 'R');
+		$pdf->SetFont('Arial', '', 7);
+		$pdf->Cell(70, 5, utf8_decode($in->unidades_rentables_escritura), 'LBR', 1, 'L');
 
 
 
