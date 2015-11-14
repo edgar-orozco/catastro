@@ -320,12 +320,15 @@ class corevat_AvaluosController extends \BaseController {
 	 * Display a listing of the resource.
 	 *
 	 * @return Response
+	 * corevat, cuenta , clave catastral,  y valor final en el avaluo.
 	 */
 	public function registrarAvaluo($id) {
 		$response = array('success' => true, 'message' => '', 'errors' => '', 'idTable' => '');
 		$response['success'] = true;
 		$rowAvaluo = Avaluos::find($id);
 		$rowInmueble = Avaluos::find($id)->AvaluosInmueble;
+		$rowConclusion = Avaluos::find($id)->AvaluosConclusion;
+
 		if ( $rowInmueble->segun == '' || is_null($rowInmueble->segun) ) {
 			$response['success'] = false;
 			$response['message'] = '¡El avalúo no puede registrarse debido a que en los datos del "Inmueble" no esta capturado el campo "Segun"!';
@@ -335,6 +338,18 @@ class corevat_AvaluosController extends \BaseController {
 		} else if (  $rowInmueble->superficie_terreno == 0 || is_null($rowInmueble->superficie_terreno) ) {
 			$response['success'] = false;
 			$response['message'] = '¡El avalúo no puede registrarse debido a que en los datos del "Inmueble" no esta capturado el campo "Superficie del Terreno M²"!';
+		} else if ( $rowAvaluo->cuenta_predial != '' || is_null($rowAvaluo->cuenta_predial) ) {
+			$response['success'] = false;
+			$response['message'] = '¡El avalúo no puede registrarse debido a que no cuenta con "Cuenta Predial"!';
+			
+		} else if ( $rowAvaluo->cuenta_catastral != '' || is_null($rowAvaluo->cuenta_catastral) ) {
+			$response['success'] = false;
+			$response['message'] = '¡El avalúo no puede registrarse debido a que no cuenta con "Clave Catastral"!';
+			
+		} else if ( $rowConclusion->valor_concluido <= 0 ) {
+			$response['success'] = false;
+			$response['message'] = '¡El avalúo no puede registrarse debido a que no cuenta con el "Valor Concluido"!';
+			
 		}
 
 		return Response::json($response);
