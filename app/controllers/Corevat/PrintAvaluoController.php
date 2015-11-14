@@ -1087,27 +1087,10 @@ class corevat_PrintAvaluoController extends \BaseController {
 
 		$pdf->ln(3);
 		$pdf->SetFont('Arial', '', 10);
-		$str = 'DECLARACIONES, ADVERTENCIAS Y CONSIDERACIONES PREVIAS.- ' .
-		'El presente avalúo se fundamenta en la Ley de Valuación para el Estado de Tabasco, ' . 
-		'Artículos 110, 111, de la Ley de Hacienda Municipal. ' . 
-		'Éste avalúo no tendrá validez para ningún propósito distinto al especificado en el mismo, ' . 
-		'así como si carece de los sellos y firmas del valuador autorizado. ' . 
-		'El presente avalúo tendrá una validez de seis meses a partir de la fecha de firma del mismo, ' . 
-		'siempre que no cambien las características físicas del inmueble o las condiciones generales del mercado inmobiliario. ' . 
-		'No se verificó la propiedad legal ni la existencia de gravamen o créditos fiscales que pudiera tener el inmueble. ' . 
-		'1. Son análisis, opiniones y conclusiones de tipo profesional y están solamente limitadas por los supuestos y condiciones limitantes. ' . 
-		'2. Los análisis, opiniones y conclusiones reportados corresponden a un estudio profesional totalmente imparcial. ' . 
-		'3. No existe por nuestra parte ningún interés presente o futuro inmediato en la propiedad valuada. ' . 
-		'4. Los honorarios no están relacionados con el hecho de concluir un valor predeterminado o en la dirección ' . 
-		'que favorezca la causa del cliente, el monto del valor estimado, la obtención de un resultado estipulado o ' . 
-		'la ocurrencia de un evento subsecuente. ' . 
-		'5. Personalmente hice la  inspección de los bienes objeto de este avaluó y manifiesto que los resultados ' . 
-		'serán guardados con absoluta confidencialidad. 6. Se concluye que el valor comercial del inmueble ' . 
-		'está definido por el resultado obtenido por el Método de Mercado.';
-		$pdf->MultiCell(0, 4, utf8_decode($str), '1', 'L');
+		$pdf->MultiCell(0, 4, utf8_decode($cl->leyenda), '1', 'L');
 
-		$pdf->SetFont('Arial', '', 8);
-		$pdf->MultiCell(0, 3.60, utf8_decode($cl->leyenda), '', 'L');
+		//$pdf->SetFont('Arial', '', 8);
+		//$pdf->MultiCell(0, 3.60, utf8_decode($cl->leyenda), '', 'L');
 
 		$pdf->ln(5);
 		$pdf->SetFont('Arial', 'B', 12);
