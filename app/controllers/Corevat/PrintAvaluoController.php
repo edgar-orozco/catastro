@@ -1048,7 +1048,7 @@ class corevat_PrintAvaluoController extends \BaseController {
 		$pdf->SetFont('Arial', '', 6);
 		$lID = 0;
 		foreach ($rowsAefInstalaciones as $fila) {
-			$pdf->Cell(45, $nFont, utf8_decode(substr($fila->descripcion, 0, 47)), 'LRB', 0, 'L', 0);
+			$pdf->Cell(45, $nFont, utf8_decode(substr($fila->obra_complementaria, 0, 47)), 'LRB', 0, 'L', 0);
 			$pdf->Cell(14, $nFont, utf8_decode($fila->unidad), 'LB', 0, 'C', 0);
 			$pdf->Cell(14, $nFont, number_format($fila->cantidad, 2, '.', ','), 'RB', 0, 'R', 0);
 			$pdf->Cell(20, $nFont, number_format($fila->valor_nuevo, 2, '.', ','), 'RB', 0, 'R', 0);
