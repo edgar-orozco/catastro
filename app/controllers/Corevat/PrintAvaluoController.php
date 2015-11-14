@@ -1089,9 +1089,6 @@ class corevat_PrintAvaluoController extends \BaseController {
 		$pdf->SetFont('Arial', '', 10);
 		$pdf->MultiCell(0, 4, utf8_decode($cl->leyenda), '1', 'L');
 
-		//$pdf->SetFont('Arial', '', 8);
-		//$pdf->MultiCell(0, 3.60, utf8_decode($cl->leyenda), '', 'L');
-
 		$pdf->ln(5);
 		$pdf->SetFont('Arial', 'B', 12);
 		$pdf->SetFont('Arial', 'B', 14);
@@ -1214,7 +1211,7 @@ class corevat_PrintAvaluoController extends \BaseController {
 			$pdf->Image(public_path() . '/css/images/corevat/blank.gif', 144, $ordenada, 62.0, 50.00);
 		}
 
-		$pdf->Ln(53);
+		$pdf->Ln(58);
 		
 		$ordenada = $pdf->GetY();
 
