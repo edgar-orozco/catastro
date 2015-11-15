@@ -322,37 +322,37 @@ class corevat_AvaluosController extends \BaseController {
 	 * @return Response
 	 * corevat, cuenta , clave catastral,  y valor final en el avaluo.
 	 */
-	public function registrarAvaluo($id) {
-		$response = array('success' => true, 'message' => '', 'errors' => '', 'idTable' => '');
-		$response['success'] = true;
-		$rowAvaluo = Avaluos::find($id);
-		$rowInmueble = Avaluos::find($id)->AvaluosInmueble;
-		$rowConclusion = Avaluos::find($id)->AvaluosConclusion;
+	public function registrarAvaluo($idavaluo) {
+		$rowAvaluo = Avaluos::find($idavaluo);
+		$rowInmueble = Avaluos::find($idavaluo)->AvaluosInmueble;
+		$rowConclusion = Avaluos::find($idavaluo)->AvaluosConclusiones;
 
+		$opt = 'registrar';
+		$title = 'Registro del avalúo: ' . $rowAvaluo['foliocoretemp'];
+
+		$errors = array();
 		if ( $rowInmueble->segun == '' || is_null($rowInmueble->segun) ) {
-			$response['success'] = false;
-			$response['message'] = '¡El avalúo no puede registrarse debido a que en los datos del "Inmueble" no esta capturado el campo "Segun"!';
+			$errors[] = '¡Que en los datos del "Inmueble" no esta capturado el campo "Segun"!';
+
 		} else if ( $rowInmueble->superficie_total_terreno == 0 || is_null($rowInmueble->superficie_total_terreno) ) {
-			$response['success'] = false;
-			$response['message'] = '¡El avalúo no puede registrarse debido a que en los datos del "Inmueble" no esta capturado el campo "Superficie Total del Terreno M²"!';
+			$errors[] = '¡Que en los datos del "Inmueble" no esta capturado el campo "Superficie Total del Terreno M²"!';
+
 		} else if (  $rowInmueble->superficie_terreno == 0 || is_null($rowInmueble->superficie_terreno) ) {
-			$response['success'] = false;
-			$response['message'] = '¡El avalúo no puede registrarse debido a que en los datos del "Inmueble" no esta capturado el campo "Superficie del Terreno M²"!';
-		} else if ( $rowAvaluo->cuenta_predial != '' || is_null($rowAvaluo->cuenta_predial) ) {
-			$response['success'] = false;
-			$response['message'] = '¡El avalúo no puede registrarse debido a que no cuenta con "Cuenta Predial"!';
-			
-		} else if ( $rowAvaluo->cuenta_catastral != '' || is_null($rowAvaluo->cuenta_catastral) ) {
-			$response['success'] = false;
-			$response['message'] = '¡El avalúo no puede registrarse debido a que no cuenta con "Clave Catastral"!';
-			
+			$errors[] = '¡Que en los datos del "Inmueble" no esta capturado el campo "Superficie del Terreno M²"!';
+
+		} else if ( $rowAvaluo->cuenta_predial == '' || is_null($rowAvaluo->cuenta_predial) ) {
+			$errors[] = '¡No cuenta con la "Cuenta Predial"!';
+
+		} else if ( $rowAvaluo->cuenta_catastral == '' || is_null($rowAvaluo->cuenta_catastral) ) {
+			$errors[] = '¡No cuenta con la "Clave Catastral"!';
+
 		} else if ( $rowConclusion->valor_concluido <= 0 ) {
-			$response['success'] = false;
-			$response['message'] = '¡El avalúo no puede registrarse debido a que no cuenta con el "Valor Concluido"!';
-			
+			$errors[] = '¡No cuenta con el "Valor Concluido"!';
+
 		}
 
-		return Response::json($response);
+		return View::make('Corevat.Avaluos.avaluos', compact('opt', 'idavaluo', 'title', 'rowAvaluo', 'errors'));
+
 	}
 
 	/**
@@ -377,9 +377,44 @@ class corevat_AvaluosController extends \BaseController {
 	 * @return Response
 	 */
 	public function registrarAvaluoPrint($id) {
-		$response = array('success' => true, 'message' => '¡El avalúo quedo registrado!');
-		return Response::json($response);
+		$avaluo = Avaluos::getAvaluo($id);
+		$pdf = new Fpdf();
+		$pdf->AliasNbPages();
+		$pdf->AddPage();
+
+		$pdf->Image(public_path() . "/css/images/corevat/crv-01.jpg", null, null, 130, 25);
+		//$this->Image($this->logo_perito, 170, 10, 30, 25);
+		$pdf->Ln(10);
+
+		$pdf->SetFillColor(164, 164, 164);
+		$pdf->SetFont('Arial', 'B', 12);
+		$pdf->Cell(0, 8, utf8_decode('ACUSE DE REGISTRO'), 'TLBR', 1, 'C', 1);
+
+		$pdf->Ln(3);
+
+		$pdf->SetFont('Arial', 'B', 10);
+		$pdf->Cell(50, 6, utf8_decode("Folio COREVAT: "), 'LTB', 0, 'R');
+		$pdf->SetFont('Arial', '', 10);
+		$pdf->Cell(140, 6, $avaluo->foliocoretemp, 'LTBR', 1, 'L', 0);
+
+		$pdf->SetFont('Arial', 'B', 10);
+		$pdf->Cell(50, 6, utf8_decode("Nombre del Valuador: "), 'LB', 0, 'R');
+		$pdf->SetFont('Arial', '', 10);
+		$pdf->Cell(140, 6, utf8_decode($avaluo->apellidos) . ' ' . utf8_decode($avaluo->nombres), 'LRB', 1, 'L');
 		
+		$pdf->SetFont('Arial', 'B', 10);
+		$pdf->Cell(50, 6, utf8_decode("Fecha del Registro: "), 'LB', 0, 'R');
+		$pdf->SetFont('Arial', '', 10);
+		$pdf->Cell(140, 6, Carbon::now()->format('Y-m-d H:i:s'), 'LRB', 1, 'L');
+		//$inputs["updated_at"] = Carbon::now()->format('Y-m-d H:i:s');
+
+		$pdf->Ln(3);
+
+		$pdf->SetFont('Arial', 'B', 6);
+		$pdf->Cell(0, 6, utf8_decode("El presente avalúo pasa a formar parte del Padrón Catastral. Por lo tanto me sujeto a las condiciones de confidencialidad de la información catastral. "), '', 0, 'L');
+
+		$pdf->Output();
+		exit;
 	}
 	
 }

@@ -13,12 +13,15 @@ class corevat_AvaluosZonaController extends \BaseController {
 		$idavaluo = $id;
 		$opt = 'zona';
 		$rowA = Avaluos::find($id);
-		$title = 'Características de la Zona: ' . $rowA['foliocoretemp'];
-		$row = Avaluos::find($id)->AvaluosZona;
-		$cat_clasificacion_zona = CatClasificacionZona::comboList();
-		$cat_proximidad_urbana = CatProximidadUrbana::comboList();
-
-		return View::make('Corevat.Avaluos.avaluos', compact('opt', 'idavaluo', 'idavaluozona', 'title', 'row', 'cat_clasificacion_zona', 'cat_proximidad_urbana'));
+		if ( $rowA->estatus ) {
+			return Redirect::to('/corevat/Avaluos')->with('error', '¡El avalúo ya fue registrado!');
+		} else {
+			$title = 'Características de la Zona: ' . $rowA['foliocoretemp'];
+			$row = Avaluos::find($id)->AvaluosZona;
+			$cat_clasificacion_zona = CatClasificacionZona::comboList();
+			$cat_proximidad_urbana = CatProximidadUrbana::comboList();
+			return View::make('Corevat.Avaluos.avaluos', compact('opt', 'idavaluo', 'idavaluozona', 'title', 'row', 'cat_clasificacion_zona', 'cat_proximidad_urbana'));
+		}
 	}
 
 	/**
