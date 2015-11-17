@@ -327,14 +327,14 @@ class corevat_PrintAvaluoController extends \BaseController {
 		$pdf->Cell(63, 5, utf8_decode($zona->nivel_equipamiento) . '%', 'RBT', 1, 'L');
 
 		$pdf->SetFont('Arial', 'B', 7);
-		$pdf->Cell(35, 5, utf8_decode("Clasificacion de la Zona: "), 'LRB', 0, 'R');
+		$pdf->Cell(35, 5, utf8_decode("Clasificación de la Zona: "), 'LRB', 0, 'R');
 		$pdf->SetFont('Arial', '', 7);
-		$pdf->Cell(63, 5, $zona->proximidad_urbana, 'RB', 0, 'L');
+		$pdf->Cell(63, 5, utf8_decode($zona->proximidad_urbana), 'RB', 0, 'L');
 
 		$pdf->SetFont('Arial', 'B', 7);
 		$pdf->Cell(35, 5, utf8_decode("Proximidad Urbana: "), 'RB', 0, 'R');
 		$pdf->SetFont('Arial', '', 7);
-		$pdf->Cell(63, 5, $zona->clasificacion_zona, 'RB', 1, 'L');
+		$pdf->Cell(63, 5, utf8_decode($zona->clasificacion_zona), 'RB', 1, 'L');
 
 		$pdf->Ln(2);
 
@@ -553,12 +553,12 @@ class corevat_PrintAvaluoController extends \BaseController {
 		$pdf->SetFont('Arial', 'B', 7);
 		$pdf->Cell(20, 5, utf8_decode("Ventanas: "), 'LRTB', 0, 'R');
 		$pdf->SetFont('Arial', '', 7);
-		$pdf->Cell(156, 5, $in->herreria_ventana, 'LRTB', 1, 'L');
+		$pdf->Cell(156, 5, utf8_decode($in->herreria_ventana), 'LRTB', 1, 'L');
 		$pdf->setX(30);
 		$pdf->SetFont('Arial', 'B', 7);
 		$pdf->Cell(20, 5, utf8_decode("Puertas: "), 'BR', 0, 'R');
 		$pdf->SetFont('Arial', '', 7);
-		$pdf->Cell(156, 5, $in->herreria_puerta, 'BR', 1, 'L');
+		$pdf->Cell(156, 5, utf8_decode($in->herreria_puerta), 'BR', 1, 'L');
 
 		$pdf->Ln(1);
 
@@ -567,12 +567,12 @@ class corevat_PrintAvaluoController extends \BaseController {
 		$pdf->SetFont('Arial', 'B', 7);
 		$pdf->Cell(20, 5, utf8_decode("Ventanas: "), 'TBR', 0, 'R');
 		$pdf->SetFont('Arial', '', 7);
-		$pdf->Cell(156, 5, $in->aluminio_ventana, 'TBR', 1, 'L');
+		$pdf->Cell(156, 5, utf8_decode($in->aluminio_ventana), 'TBR', 1, 'L');
 		$pdf->setX(30);
 		$pdf->SetFont('Arial', 'B', 7);
 		$pdf->Cell(20, 5, utf8_decode("Puertas: "), 'BR', 0, 'R');
 		$pdf->SetFont('Arial', '', 7);
-		$pdf->Cell(156, 5, $in->aluminio_puerta, 'BR', 1, 'L');
+		$pdf->Cell(156, 5, utf8_decode($in->aluminio_puerta), 'BR', 1, 'L');
 
 		$pdf->ln(3);
 
