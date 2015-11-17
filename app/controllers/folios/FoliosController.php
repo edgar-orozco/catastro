@@ -16,32 +16,39 @@ class folios_FoliosController extends BaseController {
 
 		$inputs = Input::all();
 
-		//Extraigo solo el año del campo fecha solicitud.
-
-		$year = explode('-',$inputs['fecha_solicitud']);
-
-		$year = $year[2];
-
-
 		$reglas = [
-		'folio_catastro'	=>	'required',
-		'cantidad_rusticos'	=>	'required|min:0',
-		'cantidad_urbanos'	=>	'required|min:0',
+		'numero_oficio'	=>	'required|integer',
+		'cantidad_rusticos'	=>	'required|min:0|integer',
+		'cantidad_urbanos'	=>	'required|min:0|integer',
 		'fecha_solicitud'	=>	'required|date',
 		'fecha_oficio'		=>	'required|date',
-		'no_recibo'			=>	'required'
+		'no_recibo'			=>	'required',
+		'perito_id' 		=>	'required'
 		];
 
-		$validar = Validator::make($inputs, $reglas);
+		$messages =
+		[
+			'required' => 'El campo :attribute es requerido.',
+			'date' => 'El campo :attribute no tiene un formato de fecha valido.',
+			'integer' => 'El campo :attribute debe de ser un numero entero.'
+		];
+
+		$validar = Validator::make($inputs, $reglas, $messages);
 
 		if($validar->fails())
 		{
-
-			return Response::json($validar->getMessageBag()->toArray(), 400);
+			return Redirect::back()->withErrors($validar)->withInput(Input::All());
 		} else {
+		
+			//Extraigo solo el año del campo fecha solicitud.
+
+			$year = explode('-',$inputs['fecha_solicitud']);
+
+			$year = $year[2];
+
 			$nuevosfolios = new FoliosHistorial; 
 			$folioscomprados = new FoliosComprados;
-			$foliocatastro = Input::get('folio_catastro');
+			$foliocatastro = Input::get('numero_oficio');
 			$vu=Input::get('cantidad_urbanos');
 			$vr=Input::get('cantidad_rusticos');
 
@@ -199,7 +206,7 @@ class folios_FoliosController extends BaseController {
 			$nuevosfolios -> id_usuario = Auth::id();
 			$nuevosfolios -> save();
 
-			return $nuevosfolios;
+			return Redirect::to('/nfolios/formato/'.$nuevosfolios->id);
 		}
 	}
 	

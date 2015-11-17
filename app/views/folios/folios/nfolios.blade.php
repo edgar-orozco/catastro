@@ -10,6 +10,17 @@
     <h3>Generador de Folios</h3>
     <h4>Datos del Folio</h4>
 </div>
+    @if(Session::has('errors'))
+        <div class="alert alert-danger">
+            @if(is_array(Session::get('errors')->All()))
+                @foreach(Session::get('errors')->All() as $error )
+                    <h4><span class="glyphicon glyphicon-remove"></span>  {{ $error }}</h4>
+                @endforeach
+            @else
+                <h4><span class="glyphicon glyphicon-remove"></span>  {{ Session::get('errors') }}</h4>
+            @endif
+        </div>
+    @endif
 <div class="panel panel-default">
     <div id="respuesta" hidden>
         <div class="alert alert-danger">
@@ -17,21 +28,24 @@
         </div>
     </div>
 
-    {{Form::open(['id'=>'form'])}}
+    {{Form::open(['id'=>'form'])}} 
 
     <div class="row">
         <br/>
         <div class="col-md-6">
             <div class="form-group">
 
-                {{Form::label('folio_catastro','Número de Oficio')}}
-                {{Form::text('folio_catastro','', ['class'=>'form-control', 'maxlength'=>'8'])}}
+                {{Form::label('numero_oficio','Número de Oficio')}}
+                {{Form::text('numero_oficio','', ['class'=>'form-control', 'maxlength'=>'8'])}}
             </div>
         </div>
         <div class="col-md-6">
             <div class="form-group">
                 {{Form::label('perito_id','Perito')}}
                 <select id="perito_id" name="perito_id" class="form-control">
+                <option value="" selected="selected"> -- Seleccione el perito --</option>
+
+
                     @foreach($peritos as $perito)
                         <option value="{{$perito->id}}">{{$perito->corevat." -- ".$perito->nombre}}</option>
                     @endforeach
@@ -77,7 +91,7 @@
                 {{Form::button('Limpiar Formulario', ['class'=>'btn btn-primary form-control', 'id' => 'limpiar_form'])}}
             </div>
             <div class="col-md-6 col-sm-6">
-                {{Form::submit('Guardar', ['class'=>'btn btn-warning form-control', 'data-toggle'=>'modal', 'data-target'=>'#myModal'])}}
+                {{Form::submit('Guardar', ['class'=>'btn btn-warning form-control', 'href' => '_blank'])}}
                 {{Form::close()}}
             </div>
         </div>
@@ -122,7 +136,7 @@
             document.getElementById("form").reset();
         });
 
-	var form = $('#form');
+	var form = $('#forms');
 	form.bind('submit',function ()
 	{
         $.ajax(
