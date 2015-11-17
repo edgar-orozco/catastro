@@ -1,7 +1,7 @@
 <?php
 
 //setlocale(LC_MONETARY, 'es_MX');
-setlocale(LC_TIME, 'es_ES.UTF-8');
+setlocale(LC_ALL, 'es_MX.UTF-8');
 
 use Carbon\Carbon;
 
@@ -197,7 +197,7 @@ class corevat_PrintAvaluoController extends \BaseController {
 		$pdf->Cell(3, 5, $zona->is_agua_potable == 1 ? 'X' : '', 'RBT', 0, 'C');
 
 		$pdf->SetFont('Arial', 'B', 7);
-		$pdf->Cell(30, 5, utf8_decode("Drenaje: "), 'RBT', 0, 'L');
+		$pdf->Cell(30, 5, utf8_decode("Drenaje: "), 'RBT', 0, 'R');
 		$pdf->SetFont('Arial', '', 7);
 		$pdf->Cell(3, 5, $zona->is_drenaje == 1 ? 'X' : '', 'RBT', 0, 'L');
 
