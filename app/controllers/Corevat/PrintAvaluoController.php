@@ -1,6 +1,7 @@
 <?php
 
-setlocale(LC_MONETARY, 'es_MX');
+//setlocale(LC_MONETARY, 'es_MX');
+setlocale(LC_TIME, 'es_ES.UTF-8');
 
 use Carbon\Carbon;
 
