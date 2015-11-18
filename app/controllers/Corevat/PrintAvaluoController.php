@@ -1125,7 +1125,7 @@ class corevat_PrintAvaluoController extends \BaseController {
 		$pdf->SetLineWidth('0.5');
 		$pdf->Cell(126, $nFont, utf8_decode('Importe del Valor Comercial:'), 'TBL', 0, 'R', 1);
 		$pdf->SetFont('Arial', 'B', 16);
-		$pdf->Cell(70, $nFont, '$ ' . number_format($cl->valor_concluido, 2, '.', ','), 'TBLR', 1, 'R', 1);
+		$pdf->Cell(70, $nFont, '$ ' . number_format($cl->valor_concluido, 0, '.', ','), 'TBLR', 1, 'R', 1);
 
 		$pdf->SetFont('Arial', '', 12);
 		$pdf->SetFillColor(208, 208, 208);
