@@ -329,12 +329,12 @@ class corevat_PrintAvaluoController extends \BaseController {
 		$pdf->SetFont('Arial', 'B', 7);
 		$pdf->Cell(35, 5, utf8_decode("Clasificación de la Zona: "), 'LRB', 0, 'R');
 		$pdf->SetFont('Arial', '', 7);
-		$pdf->Cell(63, 5, utf8_decode($zona->proximidad_urbana), 'RB', 0, 'L');
+		$pdf->Cell(63, 5, utf8_decode($zona->clasificacion_zona), 'RB', 0, 'L');
 
 		$pdf->SetFont('Arial', 'B', 7);
 		$pdf->Cell(35, 5, utf8_decode("Proximidad Urbana: "), 'RB', 0, 'R');
 		$pdf->SetFont('Arial', '', 7);
-		$pdf->Cell(63, 5, utf8_decode($zona->clasificacion_zona), 'RB', 1, 'L');
+		$pdf->Cell(63, 5, utf8_decode($zona->proximidad_urbana), 'RB', 1, 'L');
 
 		$pdf->Ln(2);
 
@@ -430,7 +430,7 @@ class corevat_PrintAvaluoController extends \BaseController {
 			$pdf->SetFont('Arial', '', 6);
 			$pdf->Cell(30, 5, utf8_decode($medcol->orientacion. ','.$pdf->y), 'BL', 0, 'L', 0);
 			$pdf->Cell(30, 5, utf8_decode($medcol->unidad_medida), 'BL', 0, 'L', 0);
-			$pdf->Cell(30, 5, utf8_decode($medcol->medidas), 'BL', 0, 'L', 0);
+			$pdf->Cell(30, 5, number_format($medcol->medidas, 2, '.', ','), 'BL', 0, 'L', 0);
 			$pdf->Cell(106, 5, utf8_decode($medcol->colindancia), 'BLR', 1, 'L', 0);
 		}
 
@@ -507,6 +507,7 @@ class corevat_PrintAvaluoController extends \BaseController {
 						->where('ai_acabados.idavaluoinmueble', '=', $in->idavaluoinmueble)
 						->orderBy('ai_acabados.id')
 						->get();
+
 		$pdf->SetFont('Arial', 'B', 7);
 		$pdf->Cell(40, 4, utf8_decode("Acabado"), 'TLB', 0, 'C', true);
 		$pdf->Cell(50, 4, utf8_decode("Pisos"), 'TLB', 0, 'C', true);
@@ -519,10 +520,19 @@ class corevat_PrintAvaluoController extends \BaseController {
 		} else {
 			$pdf->SetFont('Arial', '', 7);
 			foreach ($rows as $row) {
+				if ( $pdf->y > 258 ) {
+					$pdf->SetFont('Arial', 'B', 7);
+					$pdf->Cell(40, 4, utf8_decode("Acabado"), 'TLB', 0, 'C', true);
+					$pdf->Cell(50, 4, utf8_decode("Pisos"), 'TLB', 0, 'C', true);
+					$pdf->Cell(50, 4, utf8_decode("Muros"), 'TLB', 0, 'C', true);
+					$pdf->Cell(56, 4, utf8_decode("Plafones"), 'TLBR', 1, 'C', true);
+					$pdf->SetFont('Arial', '', 7);
+				}
 				$pdf->Cell(40, 4, utf8_decode($row['nombre']), 'LB', 0, 'L', false);
 				$pdf->Cell(50, 4, utf8_decode($row['piso']), 'LB', 0, 'L', false);
 				$pdf->Cell(50, 4, utf8_decode($row['aplanado']), 'LB', 0, 'L', false);
 				$pdf->Cell(56, 4, utf8_decode($row['plafon']), 'LRB', 1, 'L', false);
+				
 			}
 		}
 
@@ -582,38 +592,38 @@ class corevat_PrintAvaluoController extends \BaseController {
 		$pdf->SetFont('Arial', 'B', 7);
 		$pdf->Cell(50, 5, utf8_decode("Superficie Total del Terreno"), 'LB', 0, 'R');
 		$pdf->SetFont('Arial', '', 7);
-		$pdf->Cell(48, 5, utf8_decode($in->superficie_total_terreno) . ' m2', 'LB', 0, 'C');
+		$pdf->Cell(48, 5, number_format($in->superficie_total_terreno, 4, '.', ',') . ' m2', 'LB', 0, 'C');
 		$pdf->SetFont('Arial', 'B', 7);
 		$pdf->Cell(50, 5, utf8_decode("Individo del Terreno"), 'LB', 0, 'R');
 		$pdf->SetFont('Arial', '', 7);
-		$pdf->Cell(48, 5, utf8_decode($in->indiviso_terreno) . ' %', 'LBR', 1, 'C');
+		$pdf->Cell(48, 5, number_format($in->indiviso_terreno, 4, '.', ',') . ' %', 'LBR', 1, 'C');
 
 		$pdf->SetFont('Arial', 'B', 7);
 		$pdf->Cell(50, 5, utf8_decode("Superficie del Terreno"), 'LB', 0, 'R');
 		$pdf->SetFont('Arial', '', 7);
-		$pdf->Cell(48, 5, utf8_decode($in->superficie_terreno) . ' m2', 'LB', 0, 'C');
+		$pdf->Cell(48, 5, number_format($in->superficie_terreno, 4, '.', ',') . ' m2', 'LB', 0, 'C');
 		$pdf->SetFont('Arial', 'B', 7);
 		$pdf->Cell(50, 5, utf8_decode("Individo de Áreas Comunes"), 'LB', 0, 'R');
 		$pdf->SetFont('Arial', '', 7);
-		$pdf->Cell(48, 5, utf8_decode($in->indiviso_areas_comunes) . ' %', 'LBR', 1, 'C');
+		$pdf->Cell(48, 5, number_format($in->indiviso_areas_comunes, 4, '.', ',') . ' %', 'LBR', 1, 'C');
 
 		$pdf->SetFont('Arial', 'B', 7);
 		$pdf->Cell(50, 5, utf8_decode("Superficie de Construcción"), 'LB', 0, 'R');
 		$pdf->SetFont('Arial', '', 7);
-		$pdf->Cell(48, 5, utf8_decode($in->superficie_construccion) . ' m2', 'LB', 0, 'C');
+		$pdf->Cell(48, 5, number_format($in->superficie_construccion, 4, '.', ',') . ' m2', 'LB', 0, 'C');
 		$pdf->SetFont('Arial', 'B', 7);
 		$pdf->Cell(50, 5, utf8_decode("Individo Accesoría"), 'LB', 0, 'R');
 		$pdf->SetFont('Arial', '', 7);
-		$pdf->Cell(48, 5, utf8_decode($in->indiviso_accesoria) . ' %', 'LBR', 1, 'C');
+		$pdf->Cell(48, 5, number_format($in->indiviso_accesoria, 4, '.', ',') . ' %', 'LBR', 1, 'C');
 
 		$pdf->SetFont('Arial', 'B', 7);
 		$pdf->Cell(50, 5, utf8_decode("Superficie Asentada en Escritura"), 'LB', 0, 'R');
 		$pdf->SetFont('Arial', '', 7);
-		$pdf->Cell(48, 5, utf8_decode($in->superficie_escritura) . ' m2', 'LB', 0, 'C');
+		$pdf->Cell(48, 5, number_format($in->superficie_escritura, 4, '.', ',') . ' m2', 'LB', 0, 'C');
 		$pdf->SetFont('Arial', 'B', 7);
 		$pdf->Cell(50, 5, utf8_decode("Superficie Vendible"), 'LB', 0, 'R');
 		$pdf->SetFont('Arial', '', 7);
-		$pdf->Cell(48, 5, utf8_decode($in->superficie_vendible) . ' m2', 'LBR', 1, 'C');
+		$pdf->Cell(48, 5, number_format($in->superficie_vendible, 4, '.', ',') . ' m2', 'LBR', 1, 'C');
 		
 	}
 	
@@ -644,6 +654,16 @@ class corevat_PrintAvaluoController extends \BaseController {
 		$pdf->SetFont('Arial', '', 6);
 		$lID = 0;
 		foreach ($rst as $fila) {
+			if ( $pdf->y > 258 ) {
+				$pdf->SetFont('Arial', 'B', 7);
+				$pdf->Cell(10, 5, utf8_decode('No.'), 'BLR', 0, 'C', 1);
+				$pdf->Cell(90, 5, utf8_decode('Ubicación de la oferta (comparables)'), 'BL', 0, 'C', 1);
+				$pdf->Cell(20, 5, utf8_decode('Precio Oferta'), 'BL', 0, 'C', 1);
+				$pdf->Cell(15, 5, utf8_decode('Sup. Const.'), 'BL', 0, 'C', 1);
+				$pdf->Cell(15, 5, utf8_decode('P. U./m2'), 'BL', 0, 'C', 1);
+				$pdf->Cell(46, 5, utf8_decode('Observaciones'), 'BLR', 1, 'C', 1);
+				$pdf->SetFont('Arial', '', 6);
+			}
 			$pdf->Cell(10, 5, ++$lID, 'BLR', 0, 'C', 0);
 			$pdf->Cell(90, 5, utf8_decode(substr($fila->ubicacion, 0, 80)), 'BL', 0, 'L', 0);
 			$pdf->Cell(20, 5, number_format($fila->precio, 2, '.', ','), 'BL', 0, 'R', 0);
