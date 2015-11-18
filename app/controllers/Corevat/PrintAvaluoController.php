@@ -49,7 +49,12 @@ class corevat_PrintAvaluoController extends \BaseController {
 
 		$this->avaluoEnfoqueMercado($pdf, $id);
 
+		//$pdf->AddPage();
+		$pdf->Ln(10);
+
 		$this->avaluoEnfoqueFisico($pdf, $id);
+
+		$pdf->Ln(10);
 
 		$this->avaluoConclusion($pdf, $avaluo);
 		
@@ -415,22 +420,22 @@ class corevat_PrintAvaluoController extends \BaseController {
 		$pdf->Cell(0, 5, utf8_decode('Detalles de Medidas y Colindancias'), 'TLR', 1, 'C', true);
 		$pdf->SetFont('Arial', 'B', 7);
 		$pdf->Cell(30, 5, utf8_decode('Orientación'), 'TBL', 0, 'C', true);
-		$pdf->Cell(30, 5, utf8_decode('U. M.'), 'TBL', 0, 'C', true);
 		$pdf->Cell(30, 5, utf8_decode('Medidas'), 'TBL', 0, 'C', true);
+		$pdf->Cell(30, 5, utf8_decode('U. M.'), 'TBL', 0, 'C', true);
 		$pdf->Cell(106, 5, utf8_decode('Colindancias'), 'TLBR', 1, 'C', true);
 		$i = 1;
 		foreach ($rstMedCol as $medcol) {
 			if ( $pdf->y > 258 ) {
 				$pdf->SetFont('Arial', 'B', 7);
 				$pdf->Cell(30, 5, utf8_decode('Orientación'. ','.$pdf->y), 'TLBR', 0, 'C', true);
-				$pdf->Cell(30, 5, utf8_decode('U. M.'), 'TLBR', 0, 'C', true);
 				$pdf->Cell(30, 5, utf8_decode('Medidas'), 'TLBR', 0, 'C', true);
+				$pdf->Cell(30, 5, utf8_decode('U. M.'), 'TLBR', 0, 'C', true);
 				$pdf->Cell(106, 5, utf8_decode('Colindancias'), 'TLBR', 1, 'C', true);
 			}
 			$pdf->SetFont('Arial', '', 6);
-			$pdf->Cell(30, 5, utf8_decode($medcol->orientacion. ','.$pdf->y), 'BL', 0, 'L', 0);
-			$pdf->Cell(30, 5, utf8_decode($medcol->unidad_medida), 'BL', 0, 'L', 0);
+			$pdf->Cell(30, 5, utf8_decode($medcol->orientacion), 'BL', 0, 'L', 0);
 			$pdf->Cell(30, 5, number_format($medcol->medidas, 2, '.', ','), 'BL', 0, 'L', 0);
+			$pdf->Cell(30, 5, utf8_decode($medcol->unidad_medida), 'BL', 0, 'L', 0);
 			$pdf->Cell(106, 5, utf8_decode($medcol->colindancia), 'BLR', 1, 'L', 0);
 		}
 
@@ -818,7 +823,6 @@ class corevat_PrintAvaluoController extends \BaseController {
 
 	private function avaluoEnfoqueFisico(&$pdf, $idavaluo) {
 		$fisico = AvaluosFisico::getAvaluoFisicoByFk($idavaluo);
-		$pdf->AddPage();
 		$nFont = 5;
 		$pdf->SetFont('Arial', 'B', 12);
 		$pdf->Cell(0, 7, utf8_decode('ANÁLISIS FÍSICO'), 'TLBR', 1, 'C', 1);
@@ -845,13 +849,17 @@ class corevat_PrintAvaluoController extends \BaseController {
 		$pdf->SetFont('Arial', 'B', 6);
 		$pdf->Cell(8, $nFont, utf8_decode("Tipo "), 'RB', 0, 'R');
 		$pdf->SetFont('Arial', '', 6);
-		$pdf->Cell(30, $nFont, utf8_decode($fisico->tipo_inmueble), 'RB', 0, 'L');
+		$pdf->Cell(40, $nFont, utf8_decode($fisico->tipo_inmueble), 'RB', 0, 'L');
+		
 		$pdf->SetFont('Arial', 'B', 6);
 		$pdf->Cell(25, $nFont, utf8_decode("Estado Conservación "), 'RB', 0, 'R');
+		
 		$pdf->SetFont('Arial', '', 6);
-		$pdf->Cell(52, $nFont, utf8_decode($fisico->estado_conservacion), 'RB', 0, 'L');
+		$pdf->Cell(42, $nFont, utf8_decode($fisico->estado_conservacion), 'RB', 0, 'L');
+		
 		$pdf->SetFont('Arial', 'B', 6);
 		$pdf->Cell(24, $nFont, utf8_decode("Calidad del Proyecto:"), 'RB', 0, 'R');
+		
 		$pdf->SetFont('Arial', '', 6);
 		$pdf->Cell(19, $nFont, utf8_decode($fisico->calidad_proyecto), 'LRB', 1, 'L');
 
@@ -1091,7 +1099,7 @@ class corevat_PrintAvaluoController extends \BaseController {
 
 	private function avaluoConclusion(&$pdf, $avaluo) {
 		$cl = Avaluos::find($avaluo->idavaluo)->AvaluosConclusiones;
-		$pdf->AddPage();
+		//$pdf->AddPage();
 		$nFont = 12;
 		$pdf->SetFont('Arial', 'B', 12);
 		$pdf->Cell(0, 7, utf8_decode('CONCLUSIONES'), 'TLBR', 1, 'C', 1);
@@ -1136,14 +1144,27 @@ class corevat_PrintAvaluoController extends \BaseController {
 		$pdf->Cell(65, 45, '', 'RLT', 0, 'C', 0);
 		$pdf->Cell(66, 45, '', 'RLT', 1, 'C', 0);
 
-		$pdf->SetX(10);
+		
+		$pdf->SetWidths(array(65,65,66));
+		$pdf->SetAligns(array('C', 'C', 'C'));
+		$pdf->Row(array(utf8_decode(trim($avaluo->nombres)) . ' ' . utf8_decode(trim($avaluo->apellidos)) . "\n \n",'FIRMA' . "\n \n \n", 'SELLO' . "\n \n \n"));
+/*
+		//$pdf->SetX(10);
 		$ordenada = $pdf->getY();
+		
+		$pdf->MultiCell(65, 4.5, utf8_decode(trim($avaluo->nombres)) . ' ' . utf8_decode(trim($avaluo->apellidos)), 'LR', 'C', '0');
+		//$pdf->SetY($ordenada);
+		$pdf->Cell(65, 20, 'FIRMA', 'RLB', 0, 'C', 0);
+		$pdf->Cell(66, 20, 'SELLO', 'RLB', 1, 'C', 0);
+
+		//$pdf->MultiCell(65, 4.5, utf8_decode('FIRMA'), 'R', 'C', '0');
+
 		$pdf->Cell(65, 10, utf8_decode(trim($avaluo->apellidos)) . ' ' . utf8_decode(trim($avaluo->nombres)), 'RL', 0, 'C', 0);
 		$pdf->Cell(65, 20, 'FIRMA', 'RLB', 0, 'C', 0);
 		$pdf->Cell(66, 20, 'SELLO', 'RLB', 1, 'C', 0);
 		$pdf->SetY($ordenada + 10);
 		$pdf->Cell(65, 10, trim($avaluo->registro), 'RLB', 1, 'C', 0);
-
+*/
 	}
 
 	private function avaluoFotos(&$pdf, $idavaluo) {
