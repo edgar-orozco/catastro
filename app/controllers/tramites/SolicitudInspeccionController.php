@@ -1,6 +1,6 @@
 <?php
 
-class tramites_ResultadoInspeccionController extends \BaseController {
+class tramites_SolicitarInspeccionController extends \BaseController {
 
 protected $manifestacion;
 
@@ -28,7 +28,7 @@ protected $manifestacion;
         $vars['JsonColindancias'] = $JsonColindancias;
         $vars['manifestacion'] = $manifestacion;
 
-		return View::make('tramites.inspeccion.complementa', $vars);
+		return View::make('tramites.inspeccion.create', $vars);
 	}
 
 
@@ -256,4 +256,6 @@ protected $manifestacion;
 
         return compact($vars);
     }
+
+
 }

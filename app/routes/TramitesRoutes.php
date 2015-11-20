@@ -141,3 +141,6 @@ Route::get(
 //Forma update captura de los propietario
     Route::put('tramites/propietario/edit/{id}',
       ['as'=>'propietario.update', 'uses' => 'TramitesController@update']);
+
+//Ruta para la cédula de Campo en pdf
+Route::get("tramites/cedulaCampo", "CedulaCampoController@imprimirCedulaCampo");

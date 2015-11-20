@@ -4,12 +4,17 @@
 Se toma parte del archivo /ofvirtual/notario/manifestacion/_form.blade elaborado por Edgar Orozco
 -->
 @section('content')
-	<fieldset><legend>Datos del predio</legend>
-	    @include('ofvirtual.notario.manifestacion._form_datos_predio',['instancia'=>'manifestacion'])
+    <fieldset><legend>Propietario</legend>
+        @include('tramites.inspeccion._form_persona_inline',['instancia'=>'enajenante'])
+        <h4>Domicilio:</h4>
+        @include('tramites.inspeccion._form_persona_domicilio',['instancia'=>'domicilioEnajenante'])
+    </fieldset>
+    <fieldset><legend>Datos del predio</legend>
+	    @include('tramites.inspeccion._form_datos_predio',['instancia'=>'manifestacion'])
 	</fieldset>
 
 	<fieldset><legend>Datos de la construcción</legend>
-	    @include('ofvirtual.notario.manifestacion._form_datos_construccion',['instancia'=>'manifestacion'])
+	    @include('tramites.inspeccion._form_datos_construccion_create',['instancia'=>'manifestacion'])
 	</fieldset>
 @stop
 
