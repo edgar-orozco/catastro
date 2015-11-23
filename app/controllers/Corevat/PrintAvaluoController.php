@@ -81,20 +81,21 @@ class corevat_PrintAvaluoController extends \BaseController {
 		$pdf->SetFont('Arial', 'B', 8);
 		$pdf->Cell(40, 6, utf8_decode("Nombre del Valuador: "), 'LB', 0, 'R');
 		$pdf->SetFont('Arial', '', 8);
-		$pdf->Cell(46, 6, utf8_decode($avaluo->apellidos) . ' ' . utf8_decode($avaluo->nombres), 'LB', 0, 'L');
+		$pdf->Cell(0, 6, utf8_decode($avaluo->nombres) . ' ' . utf8_decode($avaluo->apellidos), 'LRB', 1, 'L');
+
 		$pdf->SetFont('Arial', 'B', 8);
-		$pdf->Cell(60, 6, utf8_decode("Cédula Profesional del Valuador: "), 'B', 0, 'R');
+		$pdf->Cell(40, 6, utf8_decode("Cédula Profesional: "), 'LB', 0, 'R');
 		$pdf->SetFont('Arial', '', 8);
-		$pdf->Cell(50, 6, $avaluo->cedulaprofesional, 'LBR', 1, 'L');
-		
+		$pdf->Cell(31, 6, $avaluo->cedulaprofesional, 'LBR', 0, 'L');
+
 		$pdf->SetFont('Arial', 'B', 8);
-		$pdf->Cell(40, 6, utf8_decode("Registro Estatal: "), 'LB', 0, 'R');
+		$pdf->Cell(30, 6, utf8_decode("Registro Estatal: "), 'LB', 0, 'R');
 		$pdf->SetFont('Arial', '', 8);
-		$pdf->Cell(46, 6, $avaluo->registro, 'LB', 0, 'L');
+		$pdf->Cell(35, 6, $avaluo->registro, 'LB', 0, 'L');
 		$pdf->SetFont('Arial', 'B', 8);
-		$pdf->Cell(60, 6, utf8_decode("Registro Colegio: "), 'B', 0, 'R');
+		$pdf->Cell(30, 6, utf8_decode("Registro Colegio: "), 'LB', 0, 'R');
 		$pdf->SetFont('Arial', '', 8);
-		$pdf->Cell(50, 6, $avaluo->registro_colegio, 'LBR', 1, 'L');
+		$pdf->Cell(30, 6, $avaluo->registro_colegio, 'LBR', 1, 'L');
 		
 	}
 
@@ -1125,14 +1126,16 @@ class corevat_PrintAvaluoController extends \BaseController {
 		$pdf->SetLineWidth('0.5');
 		$pdf->Cell(126, $nFont, utf8_decode('Importe del Valor Comercial:'), 'TBL', 0, 'R', 1);
 		$pdf->SetFont('Arial', 'B', 16);
-		$pdf->Cell(70, $nFont, '$ ' . number_format($cl->valor_concluido, 0, '.', ','), 'TBLR', 1, 'R', 1);
+		$pato = number_format($cl->valor_concluido, 0, '.', ',');
+		$pdf->Cell(70, $nFont, '$ ' . number_format($cl->valor_concluido, 0, '.', ',') . '.00', 'TBLR', 1, 'R', 1);
 
 		$pdf->SetFont('Arial', '', 12);
 		$pdf->SetFillColor(208, 208, 208);
 		$val0 = explode('.', $cl->valor_concluido);
 		$toLetter = new NumberToLetterConverter();
 
-		$pdf->Cell(0, $nFont, trim($toLetter->to_word($val0[0])) . ' PESOS ' . $val0[1] . '/100 M.N.', 'TBLR', 1, 'R', 1);
+		//$pdf->Cell(0, $nFont, trim($toLetter->to_word($val0[0])) . ' PESOS ' . $val0[1] . '/100 M.N.', 'TBLR', 1, 'R', 1);
+		$pdf->Cell(0, $nFont, trim($toLetter->to_word($val0[0])) . ' PESOS 00/100 M.N.', 'TBLR', 1, 'R', 1);
 
 		$pdf->SetLineWidth('0');
 
@@ -1147,7 +1150,7 @@ class corevat_PrintAvaluoController extends \BaseController {
 		
 		$pdf->SetWidths(array(65,65,66));
 		$pdf->SetAligns(array('C', 'C', 'C'));
-		$pdf->Row(array(utf8_decode(trim($avaluo->nombres)) . ' ' . utf8_decode(trim($avaluo->apellidos)) . "\n \n",'FIRMA' . "\n \n \n", 'SELLO' . "\n \n \n"));
+		$pdf->Row(array(utf8_decode(trim($avaluo->nombres)) . ' ' . utf8_decode(trim($avaluo->apellidos)) . "\n \n",'FIRMA' . "\n \n", 'SELLO' . "\n \n"));
 /*
 		//$pdf->SetX(10);
 		$ordenada = $pdf->getY();
