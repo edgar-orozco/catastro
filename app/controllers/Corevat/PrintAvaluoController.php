@@ -325,7 +325,7 @@ class corevat_PrintAvaluoController extends \BaseController {
 		$pdf->SetFont('Arial', 'B', 7);
 		$pdf->Cell(35, 5, utf8_decode("En un radio: "), 'LRBT', 0, 'R');
 		$pdf->SetFont('Arial', '', 7);
-		$pdf->Cell(63, 5, number_format($zona->cobertura, 2, '.', ',') . ' metros', 'RBT', 0, 'L');
+		$pdf->Cell(63, 5, ( is_null($zona->cobertura) || $zona->covertura=='' ? '0.00' : number_format($zona->cobertura, 2, '.', ',') ). ' metros', 'RBT', 0, 'L');
 		//
 		$pdf->SetFont('Arial', 'B', 7);
 		$pdf->Cell(35, 5, utf8_decode("Nivel de Equipamiento: "), 'RBT', 0, 'R');
