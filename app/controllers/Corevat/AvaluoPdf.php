@@ -3,6 +3,7 @@
 class AvaluoPdf extends \Anouar\Fpdf\Fpdf {
 
 	public $logo_perito;
+	public $numero_avaluo;
 
 	public function __construct($orientation = 'P', $unit = 'mm', $size = 'Letter') {
 		parent::__construct($orientation, $unit, $size);
@@ -13,7 +14,12 @@ class AvaluoPdf extends \Anouar\Fpdf\Fpdf {
 	function Header() {
 		$this->Image(public_path() . "/css/images/corevat/crv-01.jpg", null, null, 130, 25);
 		$this->Image($this->logo_perito, 170, 10, 30, 25);
-		$this->Ln(5);
+		$this->Ln(1);
+		if ( $this->PageNo() > 1 ) {
+			$this->SetFont('Arial', 'B', 12);
+			$this->Cell(0, 10, utf8_decode("Avalúo Número: ") . $this->numero_avaluo, 0, 0, 'R');
+		}
+		$this->Ln(10);
 	}
 
 	function Footer() {

@@ -27,7 +27,8 @@ class corevat_PrintAvaluoController extends \BaseController {
 				$pdf->logo_perito = public_path() . "/css/images/corevat/user-48.jpg";
 			}
 		}
-		//$pdf->logo_perito = public_path() . "/logos/usuarios/". $user->foto;
+
+		$pdf->numero_avaluo = $avaluo->foliocoretemp;
 
 		$pdf->AliasNbPages();
 		$pdf->AddPage();
