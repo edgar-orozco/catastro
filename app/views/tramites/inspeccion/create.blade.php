@@ -3,9 +3,12 @@
 <!--
 Se toma parte del archivo /ofvirtual/notario/manifestacion/_form.blade elaborado por Edgar Orozco
 -->
-            {{ Form::open(array('url' => 'tramites/inspeccion/solicitud/store', 'method' => 'POST', 'id' => 'forminspeccion')) }}
+            {{ Form::open(array('url' => 'tramites/inspeccion/solicitud/store', 'method' => 'POST', 'id' => 'forminspecciones')) }}
 
 @section('content')
+
+
+
     <fieldset><legend>Propietario</legend>
         @include('tramites.inspeccion._form_persona_inline',['instancia'=>'enajenante'])
         <h4>Domicilio:</h4>
@@ -27,7 +30,7 @@ Se toma parte del archivo /ofvirtual/notario/manifestacion/_form.blade elaborado
 
 @section('javascript')
 
-    {{HTML::script('js/macros/copropietario.js')}}
+    {{ HTML::script('js/macros/copropietario.js') }}
     {{ HTML::script('js/select2/select2.full.min.js') }}
     {{ HTML::script('js/select2/i18n/es.js') }}
     {{ HTML::style('css/select2.min.css') }}
@@ -420,7 +423,7 @@ Se toma parte del archivo /ofvirtual/notario/manifestacion/_form.blade elaborado
             //console.log(sup_total);
         }
 
-
+        //autocompleter para la curp de los copropietarios
         $('body').on('keyup','.curp',function () {
 
              //Estas son las opciones con las que se construye el autocomplete, como son comunes a los dos inputs rfc y curp se sacan para reutlizar
@@ -435,38 +438,67 @@ Se toma parte del archivo /ofvirtual/notario/manifestacion/_form.blade elaborado
                 var apellido_paterno = 'copropietario[0][apellido_paterno]';
                 var apellido_materno = 'copropietario[0][apellido_materno]';
 
-                  var num = parseInt($(this).prop("name").match(/\d+/g), 10) ;
+                var num = parseInt($(this).prop("name").match(/\d+/g), 10) ;
 
-                   rfc = rfc.replace(/(\w+)\[(\d+)\]\[(\w+)\]/, "$1[" + num + "][$3]");
-                   nombres = nombres.replace(/(\w+)\[(\d+)\]\[(\w+)\]/, "$1[" + num + "][$3]");
-                   apellido_paterno = apellido_paterno.replace(/(\w+)\[(\d+)\]\[(\w+)\]/, "$1[" + num + "][$3]");
-                   apellido_materno = apellido_materno.replace(/(\w+)\[(\d+)\]\[(\w+)\]/, "$1[" + num + "][$3]");
-                   console.log('rfc '+ rfc);
+                rfc = rfc.replace(/(\w+)\[(\d+)\]\[(\w+)\]/, "$1[" + num + "][$3]");
+                nombres = nombres.replace(/(\w+)\[(\d+)\]\[(\w+)\]/, "$1[" + num + "][$3]");
+                apellido_paterno = apellido_paterno.replace(/(\w+)\[(\d+)\]\[(\w+)\]/, "$1[" + num + "][$3]");
+                apellido_materno = apellido_materno.replace(/(\w+)\[(\d+)\]\[(\w+)\]/, "$1[" + num + "][$3]");
+                console.log('rfc '+ rfc);
 
-            $('#' +  $(this).attr('name').replace( /(:|\.|\[|\]|,)/g, "\\$1" )).val(ui.item.curp);
-            $('#' +  rfc.replace( /(:|\.|\[|\]|,)/g, "\\$1" )).val(ui.item.rfc);
-            $('#' +  nombres.replace( /(:|\.|\[|\]|,)/g, "\\$1" )).val(ui.item.nombres);
-            $('#' +  apellido_paterno.replace( /(:|\.|\[|\]|,)/g, "\\$1" )).val(ui.item.apellido_paterno);
-            $('#' +  apellido_materno.replace( /(:|\.|\[|\]|,)/g, "\\$1" )).val(ui.item.apellido_materno);
-            //datos domicilio
-
+                $('#' +  $(this).attr('name').replace( /(:|\.|\[|\]|,)/g, "\\$1" )).val(ui.item.curp);
+                $('#' +  rfc.replace( /(:|\.|\[|\]|,)/g, "\\$1" )).val(ui.item.rfc);
+                $('#' +  nombres.replace( /(:|\.|\[|\]|,)/g, "\\$1" )).val(ui.item.nombres);
+                $('#' +  apellido_paterno.replace( /(:|\.|\[|\]|,)/g, "\\$1" )).val(ui.item.apellido_paterno);
+                $('#' +  apellido_materno.replace( /(:|\.|\[|\]|,)/g, "\\$1" )).val(ui.item.apellido_materno);
                     return false;
                 }
             };
-
-
             //Se crea autocompleter de CURP
-
             $('#' +  $(this).attr('name').replace( /(:|\.|\[|\]|,)/g, "\\$1" )).autocomplete(autoCompleteOptsAdquiriente).autocomplete("instance")._renderItem = function (ul, item) {
                 return $("<li>")
                         .append("<a>" + item.curp + "<br>" + "<span class='nombre-coincidencia'><i class='glyphicon glyphicon-user'></i><small> " + item.nombrec + "</small><span></a>")
                         .appendTo(ul);
             };
-            //Se crea autocompleter de RFC
+});
 
-            //por default es persona física por lo que el autocomplete lo deshabilitamos
-            //$('#' + rfc.replace( /(:|\.|\[|\]|,)/g, "\\$1" )).autocomplete("disable");
-        });
+ //autocompleter para la curp de los copropietarios
+        $('body').on('keyup','.rfc',function () {
+             //alert('rfc');
+             //Estas son las opciones con las que se construye el autocomplete, como son comunes a los dos inputs rfc y curp se sacan para reutlizar
+            var autoCompleteOptsAdquiriente = {
+                source: "/ofvirtual/notario/registro/adquiriente", //Ruta al controlador que provee los resultados de la busqueda
+                minLength: 5, //Empezamos a mandar los teclazos si han tecleado 8 caracteres
+                select: function (event, ui) {
+                    //Al seleccionar un valor de los desplegados rellenamos los campos
+
+                var rfc = 'copropietario[0][rfc]';
+                var nombres = 'copropietario[0][nombres]';
+
+
+                var num = parseInt($(this).prop("name").match(/\d+/g), 10) ;
+
+                rfc = rfc.replace(/(\w+)\[(\d+)\]\[(\w+)\]/, "$1[" + num + "][$3]");
+                nombres = nombres.replace(/(\w+)\[(\d+)\]\[(\w+)\]/, "$1[" + num + "][$3]");
+
+                console.log('rfc '+ rfc);
+
+
+                $('#' +  rfc.replace( /(:|\.|\[|\]|,)/g, "\\$1" )).val(ui.item.rfc);
+                $('#' +  nombres.replace( /(:|\.|\[|\]|,)/g, "\\$1" )).val(ui.item.nombres);
+
+                    return false;
+                }
+            };
+            //Se crea autocompleter de CURP
+            $('#' +  $(this).attr('name').replace( /(:|\.|\[|\]|,)/g, "\\$1" )).autocomplete(autoCompleteOptsAdquiriente).autocomplete("instance")._renderItem = function (ul, item) {
+                return $("<li>")
+                        .append("<a>" + item.curp + "<br>" + "<span class='nombre-coincidencia'><i class='glyphicon glyphicon-user'></i><small> " + item.nombrec + "</small><span></a>")
+                        .appendTo(ul);
+            };
+});
+
+
 
 
     </script>
