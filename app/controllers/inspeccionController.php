@@ -22,8 +22,8 @@ class InspeccionController extends \BaseController {
 	public function create()
 	{
 
-
-    return View::make('tramites.inspeccion.crear');
+    $tramite_id = Input::get('tramite_id');
+    return View::make('tramites.inspeccion.crear', compact ('tramite_id'));
 }
  public function showGrid(){
 
@@ -36,7 +36,7 @@ class InspeccionController extends \BaseController {
 	 */
 	public function store()
 	{
-		//
+		 return View::make('tramites.valor.create');
 	}
 
 

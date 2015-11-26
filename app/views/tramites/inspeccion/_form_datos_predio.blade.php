@@ -14,7 +14,7 @@
                     'maxlength'=>'12',
                     'size'=>'14',
                     'placeholder'=>'SUP. TERRENO',
-                    'required'=>true,
+                    'required'=>false,
                     'data-instancia'=>$instancia
                     ]
                 )}}
@@ -29,7 +29,7 @@
                     'maxlength'=>'12',
                     'size'=>'14',
                     'placeholder'=>'SUP. CONS.',
-                    'required'=>true,
+                    'required'=>false,
                     'data-instancia'=>$instancia
                     ]
                 )}}
@@ -53,7 +53,7 @@
                     'id'=>$instancia.'-poblacion_proxima',
                     'maxlength'=>'120',
                     'size'=>'25',
-                    'required'=>false,
+
                     'data-instancia'=>$instancia
                     ]
                 )}}
@@ -64,7 +64,7 @@
                         'id'=>$instancia.'-distancia_poblacion',
                         'maxlength'=>'12',
                         'size'=>'13',
-                        'required'=>false,
+
                         'data-instancia'=>$instancia
                         ]
                     )}}
