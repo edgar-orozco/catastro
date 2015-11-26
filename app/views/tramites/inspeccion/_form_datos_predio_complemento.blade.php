@@ -14,7 +14,7 @@
                     'maxlength'=>'12',
                     'size'=>'14',
                     'placeholder'=>'SUP. TERRENO',
-                    'required'=>true,
+                    'required'=>false,
                     'data-instancia'=>$instancia
                     ]
                 )}}
@@ -40,7 +40,7 @@
                     'maxlength'=>'12',
                     'size'=>'14',
                     'placeholder'=>'VAL. CALLE',
-                    'required'=>true,
+                    'required'=>false,
                     'data-instancia'=>$instancia
                     ]
                 )}}
@@ -53,7 +53,7 @@
                     'maxlength'=>'12',
                     'size'=>'14',
                     'placeholder'=>'Archivo foto',
-                    'required'=>true,
+                    'required'=>false,
                     'data-instancia'=>$instancia
                     ]
                 )}}
