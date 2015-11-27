@@ -190,6 +190,12 @@
 			{{Form::text('latitud', $row->latitud, ['class'=>'form-control', 'id' => 'latitud', 'tabindex'=>'14', 'required' => 'required'])}}
 		</div>
 	</div>
+	<div class="col-md-12">
+		{{Form::label('altitud', 'Altitud : ',['class'=>'col-sm-2'])}}
+		<div class="col-md-10">
+			{{Form::text('altitud', $row->altitud, ['class'=>'form-control', 'id' => 'altitud', 'tabindex'=>'15', 'required' => 'required'])}}
+		</div>
+	</div>
 
 	<div class="col-md-12"><hr></div>
 

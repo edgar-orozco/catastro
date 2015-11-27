@@ -126,6 +126,7 @@ class Avaluos extends \Eloquent {
 		
 		$row->latitud = $inputs["latitud"];
 		$row->longitud = $inputs["longitud"];
+		$row->altitud = $inputs["altitud"];
 		$row->tp_coordenada = $inputs["tp_coordenada"];
 		$row->sistema_coordenadas = isset($inputs["sistema_coordenadas"]) ? $inputs["sistema_coordenadas"] : '';
 		$row->datum = isset($inputs["datum"]) ? $inputs["datum"] : '';
@@ -136,8 +137,7 @@ class Avaluos extends \Eloquent {
 		$row->lon0 = 0;
 		$row->lon1 = 0;
 		$row->lon2 = 0;
-		$row->altitud = 0;
-		
+
 		$row->idregimenpropiedad = $inputs["idregimenpropiedad"];
 		
 		//if (  $inputs["cuenta_catastral"] != '' ) {

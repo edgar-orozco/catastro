@@ -148,23 +148,19 @@ class corevat_PrintAvaluoController extends \BaseController {
 		$pdf->SetFont('Arial', 'B', 7);
 		$pdf->Cell(30, 5, utf8_decode("Coordenads Geo: "), 'LBR', 0, 'R');
 		$pdf->SetFont('Arial', '', 7);
-		$pdf->Cell(10, 5, '', 'B', 0, 'L');
-
+		$pdf->Cell(5, 5, '', 'B', 0, 'L');
 		$pdf->SetFont('Arial', 'B', 7);
-		$pdf->Cell(25, 5, utf8_decode("Longitud: "), 'BR', 0, 'R');
+		$pdf->Cell(15, 5, utf8_decode("Longitud: "), 'BR', 0, 'R');
 		$pdf->SetFont('Arial', '', 7);
-		$pdf->Cell(50, 5, utf8_decode($avaluo->longitud), 'B', 0, 'L');
-
+		$pdf->Cell(38, 5, utf8_decode($avaluo->longitud), 'B', 0, 'L');
 		$pdf->SetFont('Arial', 'B', 7);
-		$pdf->Cell(25, 5, utf8_decode("Latitud: "), 'BR', 0, 'R');
+		$pdf->Cell(15, 5, utf8_decode("Latitud: "), 'BR', 0, 'R');
 		$pdf->SetFont('Arial', '', 7);
-		$pdf->Cell(56, 5, utf8_decode($avaluo->latitud), 'BR', 1, 'L');
-/*
+		$pdf->Cell(38, 5, utf8_decode($avaluo->latitud), 'B', 0, 'L');
 		$pdf->SetFont('Arial', 'B', 7);
-		$pdf->Cell(25, 5, utf8_decode("Altitud: "), 'BR', 0, 'R');
+		$pdf->Cell(15, 5, utf8_decode("Altitud: "), 'BR', 0, 'R');
 		$pdf->SetFont('Arial', '', 7);
-		$pdf->Cell(27, 5, utf8_decode($avaluo->altitud), 'BR', 1, 'L');
-*/
+		$pdf->Cell(40, 5, utf8_decode($avaluo->altitud), 'BR', 1, 'L');
 
 		$pdf->SetFont('Arial', 'B', 7);
 		$pdf->Cell(30, 5, utf8_decode("Regimen de Propiedad: "), 'LB', 0, 'R');
