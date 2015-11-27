@@ -152,15 +152,15 @@ class corevat_PrintAvaluoController extends \BaseController {
 		$pdf->SetFont('Arial', 'B', 7);
 		$pdf->Cell(15, 5, utf8_decode("Longitud: "), 'BR', 0, 'R');
 		$pdf->SetFont('Arial', '', 7);
-		$pdf->Cell(38, 5, utf8_decode($avaluo->longitud), 'B', 0, 'L');
+		$pdf->Cell(38, 5, substr(utf8_decode($avaluo->longitud), 0, 29), 'B', 0, 'L');
 		$pdf->SetFont('Arial', 'B', 7);
 		$pdf->Cell(15, 5, utf8_decode("Latitud: "), 'BR', 0, 'R');
 		$pdf->SetFont('Arial', '', 7);
-		$pdf->Cell(38, 5, utf8_decode($avaluo->latitud), 'B', 0, 'L');
+		$pdf->Cell(38, 5, substr(utf8_decode($avaluo->latitud), 0, 29), 'B', 0, 'L');
 		$pdf->SetFont('Arial', 'B', 7);
 		$pdf->Cell(15, 5, utf8_decode("Altitud: "), 'BR', 0, 'R');
 		$pdf->SetFont('Arial', '', 7);
-		$pdf->Cell(40, 5, utf8_decode($avaluo->altitud), 'BR', 1, 'L');
+		$pdf->Cell(40, 5, substr(utf8_decode($avaluo->altitud), 0, 28), 'BR', 1, 'L');
 
 		$pdf->SetFont('Arial', 'B', 7);
 		$pdf->Cell(30, 5, utf8_decode("Regimen de Propiedad: "), 'LB', 0, 'R');
@@ -1127,12 +1127,14 @@ class corevat_PrintAvaluoController extends \BaseController {
 		$pdf->SetLineWidth('0.5');
 		$pdf->Cell(126, $nFont, utf8_decode('Importe del Valor Comercial:'), 'TBL', 0, 'R', 1);
 		$pdf->SetFont('Arial', 'B', 16);
-		$pato = number_format($cl->valor_concluido, 0, '.', ',');
-		$pdf->Cell(70, $nFont, '$ ' . number_format($cl->valor_concluido, 0, '.', ',') . '.00', 'TBLR', 1, 'R', 1);
+		
+		$pato = round($cl->valor_concluido);
+
+		$pdf->Cell(70, $nFont, '$ ' . number_format($pato, 0, '.', ',') . '.00', 'TBLR', 1, 'R', 1);
 
 		$pdf->SetFont('Arial', '', 12);
 		$pdf->SetFillColor(208, 208, 208);
-		$val0 = explode('.', $cl->valor_concluido);
+		$val0 = explode('.', $pato);
 		$toLetter = new NumberToLetterConverter();
 
 		//$pdf->Cell(0, $nFont, trim($toLetter->to_word($val0[0])) . ' PESOS ' . $val0[1] . '/100 M.N.', 'TBLR', 1, 'R', 1);
