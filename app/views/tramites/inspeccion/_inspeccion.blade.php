@@ -48,7 +48,9 @@
 <fieldset><legend>COLINDANTES</legend>
 
   <div class="col-md-12 form-group">
-            {{Form::colindancias('colindancia',$JsonColindancias)}}
+        {{Form::label('colindancia','')}}
+        {{Form::text('colindancia', null, ['class' => 'form-control'])}}
+        {{$errors->first('colindancia', '<span class=text-danger>:message</span>')}}
   </div>
 
 </fieldset>

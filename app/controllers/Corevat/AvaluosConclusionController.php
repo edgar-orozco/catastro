@@ -11,16 +11,20 @@ class corevat_AvaluosConclusionController extends \BaseController {
 	 */
 	public function edit($id) {
 		$idavaluo = $id;
-		$opt = 'conclusiones';
 		$row = Avaluos::find($id);
-		$title = 'Conclusiones: ' . $row['foliocoretemp'];
-		$row = Avaluos::find($id)->AvaluosConclusiones;
-		if (count($row) <= 0) {
-			AvaluosConclusiones::insAvaluoConclusiones($id);
+		if ( $row->estatus ) {
+			return Redirect::to('/corevat/Avaluos')->with('error', '¡El avalúo ya fue registrado!');
+		} else {
+			$opt = 'conclusiones';
+			$title = 'Conclusiones: ' . $row['foliocoretemp'];
 			$row = Avaluos::find($id)->AvaluosConclusiones;
-		}
+			if (count($row) <= 0) {
+				AvaluosConclusiones::insAvaluoConclusiones($id);
+				$row = Avaluos::find($id)->AvaluosConclusiones;
+			}
 
-		return View::make('Corevat.Avaluos.avaluos', compact('opt', 'idavaluo', 'title', 'row'));
+			return View::make('Corevat.Avaluos.avaluos', compact('opt', 'idavaluo', 'title', 'row'));
+		}
 	}
 
 	/**

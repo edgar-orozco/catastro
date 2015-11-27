@@ -123,5 +123,8 @@ require app_path().'/macros/macrosDomicilios.php';
 //Control input para clave o cuenta catastral con mascara de entrada
 require app_path().'/macros/macrosClaveCuenta.php';
 
+//macro para copropietarios
+require app_path().'/macros/macrosCopropietarios.php';
+
 
 

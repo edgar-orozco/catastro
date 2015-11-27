@@ -1,6 +1,6 @@
 <?php
 
-class inspeccionController extends \BaseController {
+class InspeccionController extends \BaseController {
 
 	/**
 	 * Display a listing of the resource.
@@ -22,8 +22,8 @@ class inspeccionController extends \BaseController {
 	public function create()
 	{
 
-         $JsonColindancias = NULL;
-    return View::make('tramites.inspeccion.crear',compact('JsonColindancias'));
+    $tramite_id = Input::get('tramite_id');
+    return View::make('tramites.inspeccion.crear', compact ('tramite_id'));
 }
  public function showGrid(){
 
@@ -36,7 +36,7 @@ class inspeccionController extends \BaseController {
 	 */
 	public function store()
 	{
-		//
+		 return View::make('tramites.valor.create');
 	}
 
 

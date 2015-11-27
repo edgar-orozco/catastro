@@ -582,12 +582,14 @@ class TramitesController extends BaseController {
         }
 
 
+        $tramites->appends(Input::except('page'));
+
         if (Request::ajax())
         {
-            return View::make('ventanilla._lista_tramites',compact(['tramites']));
+            return View::make('ventanilla._lista_tramites',compact(['tramites']) );
         }
 
-        return $tramites;
+        return View::make('ventanilla.porAtender', compact(['tramites']) );
     }
 
 
@@ -674,7 +676,7 @@ class TramitesController extends BaseController {
     
     public function valorCatastral() {
         //estraigo la clave de la tabla tramites
-        $clave = $this-> tramite -> where('id', '=', '2') -> pluck('clave');
+        $clave = $this-> tramite -> where('id', '=', '5') -> pluck('clave');
         //Hacemos el explode para obtener el municipio
         $claveC = explode('-', $clave);
         //traemos la clave catastral por partes
@@ -689,7 +691,7 @@ class TramitesController extends BaseController {
         $logo = configuracionMunicipal::where('municipio','=', $gid)->pluck('file');
         $autorizo = configuracionMunicipal::where('municipio','=', $gid)->pluck('nombre');
         //traigo el nombre del solicitante solicitante
-        $solicitante = $this->tramite -> join('solicitante as p', 'solicitante_id','=','p.id') -> where('id', '=', '2') -> select('p.nombres as nombre','p.apellido_paterno as paterno','p.apellido_materno as materno') -> get();
+        $solicitante = $this->tramite -> join('solicitante as p', 'solicitante_id','=','p.id') -> where('p.id', '=', '5') -> select('p.nombres as nombre','p.apellido_paterno as paterno','p.apellido_materno as materno') -> get();
         //traigo los datos del predio con la clave de la tabla fiscal
         $datos = $this-> fiscal -> join ('personas as p', 'id_propietarios','=','p.id_p') -> join ('ubicacion_fiscal as u', 'id_ubicacion_fiscal','=','id_ubicacion') -> where ('clave', '=', $clave) -> select ('clave', 'cuenta', 'tipo_predio', 'superficie_terreno', 'superficie_construccion', 'valor_catastral','p.nombres','p.apellido_paterno','p.apellido_materno','u.ubicacion') -> get();
         //Mandamos las bariables para imprimir y conbertimos en pdf el archivo
@@ -697,7 +699,6 @@ class TramitesController extends BaseController {
         $pdf = PDF::load($vista)->show('Valor Catastral'.' '.$clave);
         $response = Response::make($pdf, 200);
         $response->header('Content-Type', 'application/pdf');
-//        return $vista;
     }
 
 

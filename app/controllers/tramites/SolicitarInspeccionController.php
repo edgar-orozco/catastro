@@ -1,6 +1,6 @@
 <?php
 
-class tramites_ResultadoInspeccionController extends \BaseController {
+class tramites_SolicitarInspeccionController extends \BaseController {
 
 protected $manifestacion;
 
@@ -19,6 +19,8 @@ protected $manifestacion;
 	 */
 	public function create()
 	{
+        $clave=Input::get('clave');
+        $cuenta=Input::get('cuenta');
 		$vars = $this->catalogos();
 
 		$JsonColindancias = json_encode([]);
@@ -27,8 +29,9 @@ protected $manifestacion;
 
         $vars['JsonColindancias'] = $JsonColindancias;
         $vars['manifestacion'] = $manifestacion;
-
-		return View::make('tramites.inspeccion.complementa', $vars);
+        $vars['clave']=$clave;
+        $vars['cuenta']=$cuenta;
+		return View::make('tramites.inspeccion.create', $vars);
 	}
 
 
@@ -40,7 +43,7 @@ protected $manifestacion;
 	 */
 	public function show($id)
 	{
-		
+
 	}
 
     private function catalogos(){
@@ -256,4 +259,47 @@ protected $manifestacion;
 
         return compact($vars);
     }
+
+public function store(){
+
+   //print_r( $enajenanteR=Input::get('enajenante'));
+   //dd(Input::get('enajenante'));
+
+
+
+    $propietario = new personas();
+    $propietario->fill(Input::get('enajenante', []))->save();
+    $propietario_id=$propietario->id_p;
+
+    $domicilio = new Domicilio();
+    $domicilio->fill(Input::get('domicilioEnajenante', []))->save();
+    $domicilio_id=$domicilio->id;
+
+    $propietarios = new propietarios();
+    $propietarios->id_propietario=$propietario_id;
+    $propietarios->tipo_propietario=1;
+    $propietarios->id_dom=$domicilio_id;
+    $propietarios->save();
+
+    $propietario_id=$propietarios->id_propietarios;
+
+    $man=Input::get('manifestacion',[]);
+
+    $man['clave']=Input::get('clave');
+    $man['propietario_id']=$propietario_id;
+    $man['cuenta']=Input::get('cuenta');
+
+    //$man->domicilio_id=$denajenante=$denajenante->id;
+   $manifestacion = new Manifestacion();
+   $manifestacion->fill($man)->save();
+
+
+    /*foreach(Input::get('copropietario') as $colindancia) {
+          //hasta aqui funiona correctamente
+          // $colindancia['registro_id'] = $registro->id;
+           //aqui ya no funciona no se si tenga que ver con el modelo
+            $Colindancias[] = new RegistroColindancias($colindancia);
+          //
+        }*/
+}
 }

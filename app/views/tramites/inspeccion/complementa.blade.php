@@ -5,11 +5,11 @@ Se toma parte del archivo /ofvirtual/notario/manifestacion/_form.blade elaborado
 -->
 @section('content')
 	<fieldset><legend>Datos del predio</legend>
-	    @include('ofvirtual.notario.manifestacion._form_datos_predio',['instancia'=>'manifestacion'])
+	    @include('tramites.inspeccion._form_datos_predio',['instancia'=>'manifestacion'])
 	</fieldset>
 
 	<fieldset><legend>Datos de la construcción</legend>
-	    @include('ofvirtual.notario.manifestacion._form_datos_construccion',['instancia'=>'manifestacion'])
+	    @include('tramites.inspeccion._form_datos_construccion_complemento',['instancia'=>'manifestacion'])
 	</fieldset>
 @stop
 

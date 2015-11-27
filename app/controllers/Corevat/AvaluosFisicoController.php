@@ -11,36 +11,41 @@ class corevat_AvaluosFisicoController extends \BaseController {
 	 * @return Response
 	 */
 	public function edit($idavaluo) {
-		$opt = 'fisico';
 		$rowAvaluos = Avaluos::find($idavaluo);
-		$title = 'Enfoque de Físico: ' . $rowAvaluos['foliocoretemp'];
 
-		$row = Avaluos::find($idavaluo)->AvaluosFisico;
-		if ( !$row->idavaluo ) {
-			AvaluosFisico::insAvaluoFisico($idavaluo);
+		if ( $rowAvaluos->estatus ) {
+			return Redirect::to('/corevat/Avaluos')->with('error', '¡El avalúo ya fue registrado!');
+		} else {
+			$opt = 'fisico';
+			$title = 'Enfoque de Físico: ' . $rowAvaluos['foliocoretemp'];
+
 			$row = Avaluos::find($idavaluo)->AvaluosFisico;
-		}
+			if ( !$row->idavaluo ) {
+				AvaluosFisico::insAvaluoFisico($idavaluo);
+				$row = Avaluos::find($idavaluo)->AvaluosFisico;
+			}
 
-		$AvaluoInmueble = AvaluosInmueble::where('idavaluo', '=', $idavaluo)->first();
-		$superficie_total_terreno = number_format($AvaluoInmueble->superficie_total_terreno, 2, '.', ',');
-		$indiviso_terreno = number_format($AvaluoInmueble-> indiviso_terreno, 2, '.', ',');
-		
-		$cat_clase_general_inmueble = CatClaseGeneralInmueble::comboList();
-		$cat_tipo_inmueble = CatTipoInmueble::comboList();
-		$cat_estado_conservacion = CatEstadoConservacion::comboList();
-		$cat_calidad_proyecto = CatCalidadProyecto::comboList();
+			$AvaluoInmueble = AvaluosInmueble::where('idavaluo', '=', $idavaluo)->first();
+			$superficie_total_terreno = number_format($AvaluoInmueble->superficie_total_terreno, 2, '.', ',');
+			$indiviso_terreno = number_format($AvaluoInmueble-> indiviso_terreno, 2, '.', ',');
 
-		$cat_factores_frente = CatFactoresFrente::orderBy('valor_factor_frente')->where('status_factor_frente', '=', '1')->get();
-		$cat_factores_forma = CatFactoresForma::orderBy('valor_factor_forma')->where('status_factor_forma', '=', '1')->get();
-		$cat_factores_conservacion = CatFactoresConservacion::orderBy('valor_factor_conservacion')->where('status_factor_conservacion', '=', '1')->get();
-		$cat_factores_top = CatFactoresConservacion::orderBy('valor_factor_conservacion')->where('status_factor_conservacion', '=', '1')->get();
-		$cat_tipo = CatTipo::orderBy('tipo')->where('status_tipo', '=', '1')->get();
-		$cat_obras_complementarias = CatObrasComplementarias::orderBy('obra_complementaria')->where('status_obra_complementaria', '=', '1')->get();
+			$cat_clase_general_inmueble = CatClaseGeneralInmueble::comboList();
+			$cat_tipo_inmueble = CatTipoInmueble::comboList();
+			$cat_estado_conservacion = CatEstadoConservacion::comboList();
+			$cat_calidad_proyecto = CatCalidadProyecto::comboList();
+
+			$cat_factores_frente = CatFactoresFrente::orderBy('valor_factor_frente')->where('status_factor_frente', '=', '1')->get();
+			$cat_factores_forma = CatFactoresForma::orderBy('valor_factor_forma')->where('status_factor_forma', '=', '1')->get();
+			$cat_factores_conservacion = CatFactoresConservacion::orderBy('valor_factor_conservacion')->where('status_factor_conservacion', '=', '1')->get();
+			$cat_factores_top = CatFactoresConservacion::orderBy('valor_factor_conservacion')->where('status_factor_conservacion', '=', '1')->get();
+			$cat_tipo = CatTipo::orderBy('tipo')->where('status_tipo', '=', '1')->get();
+			$cat_obras_complementarias = CatObrasComplementarias::orderBy('obra_complementaria')->where('status_obra_complementaria', '=', '1')->get();
 		
-		return View::make('Corevat.Avaluos.avaluos', compact('opt', 'idavaluo', 'title', 'row', 'cat_clase_general_inmueble', 
+			return View::make('Corevat.Avaluos.avaluos', compact('opt', 'idavaluo', 'title', 'row', 'cat_clase_general_inmueble', 
 				'cat_tipo_inmueble', 'cat_estado_conservacion', 'cat_calidad_proyecto', 'cat_factores_frente', 
 				'cat_factores_forma', 'cat_factores_conservacion', 'cat_factores_top', 'cat_tipo', 'cat_obras_complementarias',
 				'superficie_total_terreno', 'indiviso_terreno'));
+		}
 	}
 
 	/**

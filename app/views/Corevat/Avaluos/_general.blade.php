@@ -175,13 +175,19 @@
 	<div class="col-md-12">
 		{{Form::label('longitud', 'Longitud : ',['class'=>'col-sm-2'])}}
 		<div class="col-md-10">
-			{{Form::text('longitud', $row->longitud, ['class'=>'form-control', 'id' => 'longitud', 'tabindex'=>'17', 'required' => 'required'])}}
+			{{Form::text('longitud', $row->longitud, ['class'=>'form-control', 'id' => 'longitud', 'tabindex'=>'17', 'required' => 'required', 'maxlength' => '200'])}}
 		</div>
 	</div>
 	<div class="col-md-12">
 		{{Form::label('latitud', 'Latitud : ',['class'=>'col-sm-2'])}}
 		<div class="col-md-10">
-			{{Form::text('latitud', $row->latitud, ['class'=>'form-control', 'id' => 'latitud', 'tabindex'=>'18', 'required' => 'required'])}}
+			{{Form::text('latitud', $row->latitud, ['class'=>'form-control', 'id' => 'latitud', 'tabindex'=>'18', 'required' => 'required', 'maxlength' => '200'])}}
+		</div>
+	</div>
+	<div class="col-md-12">
+		{{Form::label('altitud', 'Altitud : ',['class'=>'col-sm-2'])}}
+		<div class="col-md-10">
+			{{Form::text('altitud', $row->altitud, ['class'=>'form-control', 'id' => 'altitud', 'tabindex'=>'19', 'required' => 'required', 'maxlength' => '200'])}}
 		</div>
 	</div>
 

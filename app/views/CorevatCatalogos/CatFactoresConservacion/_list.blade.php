@@ -31,7 +31,7 @@
                         {{$row->valor_factor_conservacion}}
                     </td>
                     <td>
-                        {{ ($row->status_estructura==1 ? 'Activo' : 'Inactivo') }}
+                        {{ ($row->status_factor_conservacion==1 ? 'Activo' : 'Inactivo') }}
                     </td>
                     <td nowrap>
                         {{ Form::open(array('method' => 'DELETE', 'route' => array('corevat.CatFactoresConservacion.destroy', 'id'=>$row->idfactorconservacion))) }}

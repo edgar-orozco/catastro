@@ -586,14 +586,22 @@ Route::group(array('before' => 'corevat'), function () {
 	Route::get('/corevat/AvaluoGeneral/{id}',  array('uses' => 'corevat_AvaluosController@edit',    'as' => 'editAvaluoGeneral'));
 	Route::post('/corevat/AvaluosUpd/{id?}', array('uses' => 'corevat_AvaluosController@update',  'as' => 'updateAvaluoGeneral'));
 	
-	Route::get('/corevat/AvaluoPrint/{id}',  array('as' => 'printAvaluo',  'uses' => 'corevat_PrintDictamenAvaluoController@printAvaluo'));
+	//Route::get('/corevat/AvaluoPrint/{id}',  array('as' => 'printAvaluo',  'uses' => 'corevat_PrintDictamenAvaluoController@printAvaluo'));
+	Route::get('/corevat/AvaluoPrint/{id}',  array('as' => 'printAvaluo',  'uses' => 'corevat_PrintAvaluoController@printAvaluo'));
 	
 	// IMPRIMIR EL AVALUO
 	Route::get('/corevat/AvaluosValuadorPrint/{id}', array('as' => 'printAvaluosByValuador', 'uses' => 'corevat_PrintDictamenAvaluoController@printAvaluosByValuador'));
 	
 	// CLONAR EL AVALUO
 	Route::post('/corevat/AvaluoClonar', array('uses' => 'corevat_AvaluosController@clonar',  'as' => 'clonarAvaluo'));
-	
+
+	/*
+	 * REGISTRAR AVALUO
+	 */
+	Route::get('/corevat/AvaluoRegistrar/{id}',       array('as' => 'registrarAvaluo',      'uses' => 'corevat_AvaluosController@registrarAvaluo'));
+	Route::get('/corevat/AvaluoRegistrarExe/{id}',    array('as' => 'registrarAvaluoExe',   'uses' => 'corevat_AvaluosController@registrarAvaluoExe'));
+	Route::get('/corevat/AvaluoRegistrarPrint/{id}',  array('as' => 'registrarAvaluoPrint', 'uses' => 'corevat_AvaluosController@registrarAvaluoPrint'));
+
 	// AVALUOS ZONA
 	Route::get('/corevat/AvaluoZona/{id}',      array('uses' => 'corevat_AvaluosZonaController@edit',   'as' => 'editAvaluoZona'));
 	Route::post('/corevat/AvaluoZonaUpd/{id?}', array('uses' => 'corevat_AvaluosZonaController@update', 'as' => 'updateAvaluoZona'));
@@ -708,12 +716,5 @@ Route::group(array('before' => 'corevat'), function () {
 			return $rows;
 		}
 	});
-
-	/*
-	 * REGISTRAR AVALUO
-	 */
-	Route::get('/corevat/AvaluoRegistrar/{id}',  array('as' => 'registrarAvaluo',  'uses' => 'corevat_AvaluosController@registrarAvaluo'));
-	Route::get('/corevat/AvaluoRegistrarExe/{id}',  array('as' => 'registrarAvaluoExe',  'uses' => 'corevat_AvaluosController@registrarAvaluoExe'));
-	Route::get('/corevat/AvaluoRegistrarPrint/{id}',  array('as' => 'registrarAvaluoPrint',  'uses' => 'corevat_AvaluosController@registrarAvaluoPrint'));
 
 });

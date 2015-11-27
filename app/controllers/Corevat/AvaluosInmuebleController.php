@@ -13,33 +13,38 @@ class corevat_AvaluosInmuebleController extends \BaseController {
 	 */
 	public function edit($id) {
 		$idavaluo = $id;
-		$opt = 'inmueble';
 		$row = Avaluos::find($id);
-		$title = 'Características del Inmueble: ' . $row['foliocoretemp'];
-		$row = Avaluos::find($id)->AvaluosInmueble;
-		$cat_cimentaciones = CatCimentaciones::comboList();
-		$cat_estructuras = CatEstructuras::comboList();
-		$cat_muros = CatMuros::comboList();
-		$cat_entrepisos = CatEntrepisos::comboList();
-		$cat_techos = CatTechos::comboList();
-		$cat_bardas = CatBardas::comboList();
-		$cat_usos_suelos = CatUsosSuelos::comboList();
-		$cat_niveles = CatNiveles::comboList();
 
-		// ACABADOS
-		$cat_acabados = CatAcabados::comboList();
-		$cat_pisos = CatPisos::comboList();
-		$cat_aplanados = CatAplanados::comboList();
-		$cat_plafones = CatPlafones::comboList();
-		
-		$cat_orientaciones = CatOrientaciones::comboList();
+		if ( $row->estatus ) {
+			return Redirect::to('/corevat/Avaluos')->with('error', '¡El avalúo ya fue registrado!');
+		} else {
+			$opt = 'inmueble';
+			$title = 'Características del Inmueble: ' . $row['foliocoretemp'];
+			$row = Avaluos::find($id)->AvaluosInmueble;
+			$cat_cimentaciones = CatCimentaciones::comboList();
+			$cat_estructuras = CatEstructuras::comboList();
+			$cat_muros = CatMuros::comboList();
+			$cat_entrepisos = CatEntrepisos::comboList();
+			$cat_techos = CatTechos::comboList();
+			$cat_bardas = CatBardas::comboList();
+			$cat_usos_suelos = CatUsosSuelos::comboList();
+			$cat_niveles = CatNiveles::comboList();
 
-		$croquis = $row->croquis != '' ? '/corevat/files/' . $row->croquis : '';
-		$fachada = $row->fachada != '' ? '/corevat/files/' . $row->fachada : '';
+			// ACABADOS
+			$cat_acabados = CatAcabados::comboList();
+			$cat_pisos = CatPisos::comboList();
+			$cat_aplanados = CatAplanados::comboList();
+			$cat_plafones = CatPlafones::comboList();
 
-		$arrMedCol = array('Metros' => 'Metros', 'Metros Cuadrados' => 'Metros Cuadrados', 'Metros Cúbicos' => 'Metros Cúbicos', 'Metros Lineales' => 'Metros Lineales', 'Kilometros' => 'Kilometros', 'Kilometros Cuadrados' => 'Kilometros Cuadrados', 'Hectareas' => 'Hectareas', 'Hectareas Cuadradas' => 'Hectareas Cuadradas');
+			$cat_orientaciones = CatOrientaciones::comboList();
 
-		return View::make('Corevat.Avaluos.avaluos', compact('opt', 'idavaluo', 'title', 'row', 'cat_cimentaciones', 'cat_estructuras', 'cat_muros', 'cat_entrepisos', 'cat_techos', 'cat_bardas', 'cat_usos_suelos', 'cat_niveles', 'cat_pisos', 'cat_aplanados', 'cat_plafones', 'cat_orientaciones', 'arrMedCol', 'croquis', 'fachada', 'cat_acabados'));
+			$croquis = $row->croquis != '' ? '/corevat/files/' . $row->croquis : '';
+			$fachada = $row->fachada != '' ? '/corevat/files/' . $row->fachada : '';
+
+			$arrMedCol = array('Metros' => 'Metros', 'Metros Cuadrados' => 'Metros Cuadrados', 'Metros Cúbicos' => 'Metros Cúbicos', 'Metros Lineales' => 'Metros Lineales', 'Kilometros' => 'Kilometros', 'Kilometros Cuadrados' => 'Kilometros Cuadrados', 'Hectareas' => 'Hectareas', 'Hectareas Cuadradas' => 'Hectareas Cuadradas');
+
+			return View::make('Corevat.Avaluos.avaluos', compact('opt', 'idavaluo', 'title', 'row', 'cat_cimentaciones', 'cat_estructuras', 'cat_muros', 'cat_entrepisos', 'cat_techos', 'cat_bardas', 'cat_usos_suelos', 'cat_niveles', 'cat_pisos', 'cat_aplanados', 'cat_plafones', 'cat_orientaciones', 'arrMedCol', 'croquis', 'fachada', 'cat_acabados'));
+		}
 	}
 
 	/**

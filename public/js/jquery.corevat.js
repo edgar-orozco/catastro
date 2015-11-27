@@ -161,49 +161,11 @@ $(document).ready(function () {
 	/*++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 	 * 
 	 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
-	$("#btn3RegistrarAvaluo").click(function(){
-		$('#corevatConfirmButton').attr('ctrl', 'registrarAvaluo').attr('idTable', $(this).attr('idAvaluo') );
-		// VALIDAMOS QUE EL AVALUO SE PUEDA REGISTRAR
-		// USAR AJAX
-		$.ajax({
-			global: false,
-			cache: false,
-			dataType: 'json',
-			url: '/corevat/AvaluoRegistrar/' + $("#btn3RegistrarAvaluo").attr('idAvaluo'),
-			type: 'get',
-			success: function (data) {
-				datos = eval(data);
-				if (datos.success === true) {
-					$('#corevatConfirmContainer').empty().append('<h2>¿Realmente desea registrar el avalúo?</h2>');
-				} else {
-					$('#corevatConfirmContainer').empty().append('<h2>' + datos.message +'<h2>');
-				}
-			}
-		});
-		$('#corevatConfirm').modal('show');
+	$('.textareanoenter').keypress(function(event) {
+		if (event.keyCode == 13) {
+			event.preventDefault();
+		}
 	});
 
-	/*++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-	 * 
-	 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
-	$.registra = function(id) {
-		$.ajax({
-			global: false,
-			cache: false,
-			dataType: 'json',
-			url: '/corevat/AvaluoRegistrarExe/' + id,
-			type: 'get',
-			success: function (data) {
-				datos = eval(data);
-				if (datos.success === true) {
-					$('#corevatConfirmContainer').empty().append('<h2>' + datos.message +'</h2>');
-					// OCULTAR EL BOTON Y LLEVAR AL USUARIO A LA TABLA DE LOS AVALUOS
-					// 
-				} else {
-					$('#corevatConfirmContainer').empty().append('<h2>' + datos.message +'</h2>');
-				}
-			}
-		});
-	};
 
 });

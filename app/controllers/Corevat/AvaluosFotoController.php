@@ -11,23 +11,27 @@ class corevat_AvaluosFotoController extends \BaseController {
 	 */
 	public function edit($id) {
 		$idavaluo = $id;
-		$opt = 'fotos';
 		$row = Avaluos::find($id);
-		$title = 'Fotos y Plano: ' . $row['foliocoretemp'];
-		$row = Avaluos::find($id)->AvaluosFotos;
-		if (count($row) <= 0) {
-			AvaluosFotos::insAvaluoFotos($id);
+		if ( $row->estatus ) {
+			return Redirect::to('/corevat/Avaluos')->with('error', '¡El avalúo ya fue registrado!');
+		} else {
+			$opt = 'fotos';
+			$title = 'Fotos y Plano: ' . $row['foliocoretemp'];
 			$row = Avaluos::find($id)->AvaluosFotos;
-		}
-		$foto0 = $row->foto0 != '' ? '/corevat/files/' . $row->foto0 : '';
-		$foto1 = $row->foto1 != '' ? '/corevat/files/' . $row->foto1 : '';
-		$foto2 = $row->foto2 != '' ? '/corevat/files/' . $row->foto2 : '';
-		$foto3 = $row->foto3 != '' ? '/corevat/files/' . $row->foto3 : '';
-		$foto4 = $row->foto4 != '' ? '/corevat/files/' . $row->foto4 : '';
-		$foto5 = $row->foto5 != '' ? '/corevat/files/' . $row->foto5 : '';
-		$plano0 = $row->plano0 != '' ? '/corevat/files/' . $row->plano0 : '';
+			if (count($row) <= 0) {
+				AvaluosFotos::insAvaluoFotos($id);
+				$row = Avaluos::find($id)->AvaluosFotos;
+			}
+			$foto0 = $row->foto0 != '' ? '/corevat/files/' . $row->foto0 : '';
+			$foto1 = $row->foto1 != '' ? '/corevat/files/' . $row->foto1 : '';
+			$foto2 = $row->foto2 != '' ? '/corevat/files/' . $row->foto2 : '';
+			$foto3 = $row->foto3 != '' ? '/corevat/files/' . $row->foto3 : '';
+			$foto4 = $row->foto4 != '' ? '/corevat/files/' . $row->foto4 : '';
+			$foto5 = $row->foto5 != '' ? '/corevat/files/' . $row->foto5 : '';
+			$plano0 = $row->plano0 != '' ? '/corevat/files/' . $row->plano0 : '';
 
-		return View::make('Corevat.Avaluos.avaluos', compact('opt', 'idavaluo', 'title', 'row', 'foto0', 'foto1', 'foto2', 'foto3', 'foto4', 'foto5', 'plano0'));
+			return View::make('Corevat.Avaluos.avaluos', compact('opt', 'idavaluo', 'title', 'row', 'foto0', 'foto1', 'foto2', 'foto3', 'foto4', 'foto5', 'plano0'));
+		}
 	}
 
 	/**
