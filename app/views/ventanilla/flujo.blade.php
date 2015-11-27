@@ -133,10 +133,13 @@
                             <tr>
                                 <th class="text-right"><b>Clave catastral:</b></th>
                                 <td>{{$clave}}</td>
+                                {{ Form::hidden('clave', $clave, ['class' => 'form-control', 'id' => 'clave'] )}}
                             </tr>
                             <tr>
                                 <th class="text-right"><b>Cuenta catastral:</b></th>
                                 <td>{{$cuenta}}</td>
+                                {{ Form::hidden('cuenta', $cuenta, ['class' => 'form-control', 'id' => 'cuenta'] )}}
+
                             </tr>
                             <tr>
                                 <th class="text-right"><b>Tipo predio:</b></th>
@@ -242,6 +245,7 @@
 @stop
 
 @section('javascript')
+
     {{ HTML::script('js/select2/select2.min.js') }}
     {{ HTML::script('js/select2/i18n/es.js') }}
     {{ HTML::script('js/ResizeSensor.js') }}
@@ -289,10 +293,14 @@
                 //Vemos si hay alguna forma que mostrar o hacer algun redirect
                 if(callbacks[$(this).val()]){
                     var urlCallback = callbacks[$(this).val()];
+                    console.log(urlCallback);
                     var tramite_id = $('#tramite_id').val();
                     var tipoactividad_id = $(this).val();
                     var depto_id = $("#departamento_id").val();
-                    $('#ifrcallback').attr('src','/'+urlCallback+'?tramite_id='+tramite_id+'&tipoactividad_id='+tipoactividad_id+'&depto_id='+depto_id);
+                    var clave = $("#clave").val();
+                    var cuenta = $("#cuenta").val();
+                    console.log(cuenta);
+                    $('#ifrcallback').attr('src','/'+urlCallback+'?tramite_id='+tramite_id+'&tipoactividad_id='+tipoactividad_id+'&depto_id='+depto_id+'&clave='+clave+'&cuenta='+cuenta);
                     $('.modal-tramites').modal();
                 }
 

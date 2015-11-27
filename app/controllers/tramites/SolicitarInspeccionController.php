@@ -19,6 +19,8 @@ protected $manifestacion;
 	 */
 	public function create()
 	{
+        $clave=Input::get('clave');
+        $cuenta=Input::get('cuenta');
 		$vars = $this->catalogos();
 
 		$JsonColindancias = json_encode([]);
@@ -27,7 +29,8 @@ protected $manifestacion;
 
         $vars['JsonColindancias'] = $JsonColindancias;
         $vars['manifestacion'] = $manifestacion;
-
+        $vars['clave']=$clave;
+        $vars['cuenta']=$cuenta;
 		return View::make('tramites.inspeccion.create', $vars);
 	}
 
@@ -264,18 +267,31 @@ public function store(){
 
 
 
-    $enajenante = new personas();
-    $enajenante->fill(Input::get('enajenante', []))->save();
-    $enajenante_id=$enajenante->id_p;
+    $propietario = new personas();
+    $propietario->fill(Input::get('enajenante', []))->save();
+    $propietario_id=$propietario->id_p;
 
-    $denajenante = new Domicilio();
-    $denajenante->fill(Input::get('domicilioEnajenante', []))->save();
-    $denajenante=$denajenante->id;
+    $domicilio = new Domicilio();
+    $domicilio->fill(Input::get('domicilioEnajenante', []))->save();
+    $domicilio_id=$domicilio->id;
 
-    $man=Input::get('manifestacion');
-    //$man->propietario_id=$enajenante_id=$enajenante->id_p;
+    $propietarios = new propietarios();
+    $propietarios->id_propietario=$propietario_id;
+    $propietarios->tipo_propietario=1;
+    $propietarios->id_dom=$domicilio_id;
+    $propietarios->save();
+
+    $propietario_id=$propietarios->id_propietarios;
+
+    $man=Input::get('manifestacion',[]);
+
+    $man['clave']=Input::get('clave');
+    $man['propietario_id']=$propietario_id;
+    $man['cuenta']=Input::get('cuenta');
+
     //$man->domicilio_id=$denajenante=$denajenante->id;
-    print_r($man);
+   $manifestacion = new Manifestacion();
+   $manifestacion->fill($man)->save();
 
 
     /*foreach(Input::get('copropietario') as $colindancia) {
