@@ -89,7 +89,7 @@
                             <tr>
                                 <td align="center">
                                     <div style="width: 650px; height: 350px; text-align:center ">
-                                        <img id="mapImg" src="<?= $mapURL ?>" style="overflow: hidden; width: 650px; height: 350px;">
+                                        <img id="mapImg" src="<?= substr($mapURL, 1, (strlen($mapURL)-1) ); ?>" style="overflow: hidden; width: 650px; height: 350px;">
                                     </div>
                                 </td>
                             </tr>
@@ -158,7 +158,7 @@
                                 </tr>
                                 <tr>
                                     <td colspan="3" style="border:none;" align="center" width="100%" class='titulo'>
-                                        Plano Acotado
+                                        DATOS
                                     </td>
                                 </tr>
                             </table>       
@@ -166,7 +166,7 @@
                                 <tr>
                                     <td class="row">
                                         <div style="font-weight:bold; text-align:center; font-size:10px">
-                                            DATOS DEL PREDIO
+                                            DATOS
                                         </div>
                                         <br>
                                         <div style="font-weight:bold; text-align:center; font-size:8px">
@@ -180,7 +180,7 @@
                                 <tr>
                                     <td class="row" width="50%" valign="top">
                                         <div style="font-weight:bold; text-align:left; font-size:8px">
-                                            TIPO DE PREDIO
+                                            DATOS
                                         </div>
                                         <br>
                                         <div style="font-weight:bold; text-align:center; font-size:10px">

@@ -206,7 +206,7 @@ Avalúos según Valor Concluido
                             </label>
                         </li>
 
-<!-- 
+
                         <li class="list-group-item">
                             <label>
                                 <input class="chk0" id="2=chk=2001-3000=008" type="checkbox">
@@ -235,7 +235,7 @@ Avalúos según Valor Concluido
                             </label>
                         </li>
 
--->
+
 
                     </ul> 
 

@@ -124,4 +124,32 @@ class AefInstalaciones extends \Eloquent {
 		return $res;
 	}
 
+	public static function clonarAefInstalaciones($idavaluoenfoquefisicoold, $idavaluoenfoquefisiconew) {
+		$rowsAefInstalacionesOld = AefInstalaciones::select('*')->where('idavaluoenfoquefisico', '=', $idavaluoenfoquefisicoold)->get();
+		foreach ($rowsAefInstalacionesOld as $rowAefInstalacionesOld) {
+			AefInstalaciones::clonarAefInstalacionesIns($idavaluoenfoquefisiconew, $rowAefInstalacionesOld);
+		}
+		
+	}
+	
+	private static function clonarAefInstalacionesIns($idavaluoenfoquefisiconew, $rowAefInstalacionesOld) {
+		$rowAefInstalacionesNew = new AefCondominios();
+		$rowAefInstalacionesNew->idavaluoenfoquefisico = $idavaluoenfoquefisiconew;
+		$rowAefInstalacionesNew->idobracomplementaria = $rowAefInstalacionesOld->idobracomplementaria;
+		$rowAefInstalacionesNew->descripcion = $rowAefInstalacionesOld->descripcion;
+		$rowAefInstalacionesNew->cantidad = $rowAefInstalacionesOld->cantidad;
+		$rowAefInstalacionesNew->unidad = $rowAefInstalacionesOld->unidad;
+		$rowAefInstalacionesNew->valor_nuevo = $rowAefInstalacionesOld->valor_nuevo;
+		$rowAefInstalacionesNew->vida_util = $rowAefInstalacionesOld->vida_util;
+		$rowAefInstalacionesNew->edad = $rowAefInstalacionesOld->edad;
+		$rowAefInstalacionesNew->fe_v1 = $rowAefInstalacionesOld->fe_v1;
+		$rowAefInstalacionesNew->fe_v2 = $rowAefInstalacionesOld->fe_v2;
+		$rowAefInstalacionesNew->factor_edad = $rowAefInstalacionesOld->factor_edad;
+		$rowAefInstalacionesNew->factor_conservacion = $rowAefInstalacionesOld->factor_conservacion;
+		$rowAefInstalacionesNew->factor_resultante = $rowAefInstalacionesOld->factor_resultante;
+		$rowAefInstalacionesNew->valor_neto = $rowAefInstalacionesOld->valor_neto;
+		$rowAefInstalacionesNew->valor_parcial = $rowAefInstalacionesOld->valor_parcial;
+		$rowAefInstalacionesNew->save();
+	}
+
 }

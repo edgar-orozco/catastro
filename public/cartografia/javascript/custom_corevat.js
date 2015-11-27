@@ -113,25 +113,24 @@ $(document).ready(function() {
                 mun = ar[3];
             }
         });
+         
         var toPDF = !$('#toPDF').attr('checked') ? 0 : 1;
 
-        if ( toPDF == 0 ) {
+        var mapurl = PM_XAJAX_LOCATION + 'consultaalfacorevat';
+        var variables = [ids,ars,mun,toPDF];
+        var data = {
+            "query":'Clave',
+            "mode":"map",
+            "zoom_type":"zoomextent",
+            "mapW":PM.mapW,
+            "mapH":PM.mapH,
+            "groups":PM.activeLayer,
+            "variables":variables
+        };
+        PM.Map.updateMap(mapurl, data);
+
+        if ( toPDF == 1 ) {
             
-            var mapurl = PM_XAJAX_LOCATION + 'consultaalfacorevat';
-            var variables = [ids,ars,mun,toPDF];
-            var data = {
-                "query":'Clave',
-                "mode":"map",
-                "zoom_type":"zoomextent",
-                "mapW":PM.mapW,
-                "mapH":PM.mapH,
-                "groups":PM.activeLayer,
-                "variables":variables
-            };
-            PM.Map.updateMap(mapurl, data);
-
-        }else{
-
             var url = PM_XAJAX_LOCATION + 'getmtcorevat';
             var PARAMS = {
                 query:'Clave',
@@ -147,41 +146,34 @@ $(document).ready(function() {
 
             $.ajax
             ({
-            type: "POST",
-            url: url,
-            data: PARAMS,
-            cache: false,
-            success: function(json)
-            {
-                var js = jQuery.parseJSON(json);
+                type: "POST",
+                url: url,
+                data: PARAMS,
+                cache: false,
+                success: function(json)
+                {
+                    var js = jQuery.parseJSON(json);
 
-                if (sessionerror == 'false'){
+                        var url = PM_XAJAX_LOCATION + 'mtcorevat';
+                        var PARAMS = {mapURL:js.mapURL,escala:js.escala};
 
-                    var url = PM_XAJAX_LOCATION + 'mtcorevat';
-                    var PARAMS = {mapURL:js.mapURL,escala:js.escala};
-
-                    var temp=document.createElement("form");
-                    temp.action=url;
-                    temp.method="POST";
-                    temp.target="_blank";
-                    temp.style.display="none";
-                    for(var x in PARAMS) {
-                        var opt=document.createElement("textarea");
-                        opt.name=x;
-                        opt.value=PARAMS[x];
-                        temp.appendChild(opt);
-                    }
-                    document.body.appendChild(temp);
-                    temp.submit();
-                    return temp;
+                        var temp=document.createElement("form");
+                        temp.action=url;
+                        temp.method="POST";
+                        temp.target="_blank";
+                        temp.style.display="none";
+                        for(var x in PARAMS) {
+                            var opt=document.createElement("textarea");
+                            opt.name=x;
+                            opt.value=PARAMS[x];
+                            temp.appendChild(opt);
+                        }
+                        document.body.appendChild(temp);
+                        temp.submit();
+                        return temp;
 
                 }
-            
-            }
             });
-
-
-
 
         }
             
@@ -281,15 +273,15 @@ var PM = {
         forceRefreshToc: false,
         zoomJitter: 10,
         bindOnMapRefresh: function(bindData, bindFunction) {
-			var data, fct;
-			
-			if ($.isFunction(bindData) ) {
-				fct = bindData;
-				data = null;
-			} else {
-				fct = bindFunction;
-				data = bindData;
-			}
+            var data, fct;
+            
+            if ($.isFunction(bindData) ) {
+                fct = bindData;
+                data = null;
+            } else {
+                fct = bindFunction;
+                data = bindData;
+            }
             //$("#mapUpdateForm").bind("reset", bindData, bindFunction);
             $("#pm_mapUpdateEvent").bind("change", data, fct);
         }
@@ -490,7 +482,7 @@ Number.prototype.roundTo=function(precision){return parseFloat(parseFloat(this).
 /**
  * DOM generic functions
  */
-function objL(obj) {	
+function objL(obj) {    
     return parseInt(obj.style.left || obj.offsetLeft);
 }
 
@@ -499,10 +491,10 @@ function objT(obj) {
 }
 
 function objW(obj) {
-	return parseInt( obj.style.width || obj.clientWidth );
+    return parseInt( obj.style.width || obj.clientWidth );
 }
 
-function objH(obj) {		
+function objH(obj) {        
     return parseInt( obj.style.height || obj.clientHeight);    
 }
 

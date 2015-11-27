@@ -106,4 +106,54 @@ class AemCompTerrenos extends \Eloquent {
 		);
 		return $res;
 	}
+
+	/**
+	 * Show the form for editing the specified resource.
+	 *
+	 * @param  int  $id
+	 * @return Response
+	 */
+	public static function clonarAemCompTerrenos($idavaluoenfoquemercadoold, $idavaluoenfoquemercadonew) {
+		$rowsAemCompTerrenosOld = AemCompTerrenos::select('*')->where('idavaluoenfoquemercado', '=', $idavaluoenfoquemercadoold)->get();
+		foreach ($rowsAemCompTerrenosOld as $rowAemCompTerrenosOld) {
+			AemCompTerrenos::clonarAemCompTerrenosIns($idavaluoenfoquemercadonew, $rowAemCompTerrenosOld);
+		}
+		
+	}
+	
+	private static function clonarAemCompTerrenosIns($idavaluoenfoquemercadonew, $rowAemCompTerrenosOld) {
+		$rowAemCompTerrenosNew = new AemCompTerrenos();
+		$rowAemCompTerrenosNew->idavaluoenfoquemercado          = $idavaluoenfoquemercadonew;
+		$rowAemCompTerrenosNew->ubicacion                       = $rowAemCompTerrenosOld->ubicacion;
+		$rowAemCompTerrenosNew->precio                          = $rowAemCompTerrenosOld->precio;
+		$rowAemCompTerrenosNew->superficie_terreno              = $rowAemCompTerrenosOld->superficie_terreno;
+		$rowAemCompTerrenosNew->observaciones                   = $rowAemCompTerrenosOld->observaciones;
+		$rowAemCompTerrenosNew->superficie_construida           = $rowAemCompTerrenosOld->superficie_construida;
+		$rowAemCompTerrenosNew->precio_unitario_m2_terreno      = $rowAemCompTerrenosOld->precio_unitario_m2_terreno;
+		$rowAemCompTerrenosNew->precio_unitario_m2_construccion = $rowAemCompTerrenosOld->precio_unitario_m2_construccion;
+		$rowAemCompTerrenosNew->save();
+		AemCompTerrenos::clonarAemHomologacionUpd($rowAemCompTerrenosOld->idaemcompterreno, $rowAemCompTerrenosNew->idaemcompterreno);
+	}
+	
+	private static function clonarAemHomologacionUpd($idaemcompterrenoold, $idaemcompterrenonew) {
+		$rowAemHomologacionOld = AemCompTerrenos::find($idaemcompterrenoold)->AemHomologacion;
+		$rowAemHomologacionNew = AemCompTerrenos::find($idaemcompterrenonew)->AemHomologacion;
+		$rowAemHomologacionNew->comparable = $rowAemHomologacionOld->comparable;
+		$rowAemHomologacionNew->superficie_terreno = $rowAemHomologacionOld->superficie_terreno;
+		$rowAemHomologacionNew->superficie_construccion = $rowAemHomologacionOld->superficie_construccion;
+		$rowAemHomologacionNew->valor_unitario = $rowAemHomologacionOld->valor_unitario;
+		$rowAemHomologacionNew->zona = $rowAemHomologacionOld->zona;
+		$rowAemHomologacionNew->ubicacion = $rowAemHomologacionOld->ubicacion;
+		$rowAemHomologacionNew->frente = $rowAemHomologacionOld->frente;
+		$rowAemHomologacionNew->forma = $rowAemHomologacionOld->forma;
+		$rowAemHomologacionNew->superficie = $rowAemHomologacionOld->superficie;
+		$rowAemHomologacionNew->valor_unitario_negociable = $rowAemHomologacionOld->valor_unitario_negociable;
+		$rowAemHomologacionNew->valor_unitario_resultante_m2 = $rowAemHomologacionOld->valor_unitario_resultante_m2;
+		$rowAemHomologacionNew->in_promedio = $rowAemHomologacionOld->in_promedio;
+		$rowAemHomologacionNew->fk_zona = $rowAemHomologacionOld->fk_zona;
+		$rowAemHomologacionNew->fk_ubicacion = $rowAemHomologacionOld->fk_ubicacion;
+		$rowAemHomologacionNew->fk_frente = $rowAemHomologacionOld->fk_frente;
+		$rowAemHomologacionNew->fk_forma = $rowAemHomologacionOld->fk_forma;
+		$rowAemHomologacionNew->save();
+	}
 }

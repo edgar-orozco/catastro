@@ -123,4 +123,30 @@ class AefCondominios extends \Eloquent {
 		return $res;
 	}
 
+	public static function clonarAefCondominios($idavaluoenfoquefisicoold, $idavaluoenfoquefisiconew) {
+		$rowsAefCondominiosOld = AefCondominios::select('*')->where('idavaluoenfoquefisico', '=', $idavaluoenfoquefisicoold)->get();
+		foreach ($rowsAefCondominiosOld as $rowAefCondominiosOld) {
+			AefCondominios::clonarAefCondominiosIns($idavaluoenfoquefisiconew, $rowAefCondominiosOld);
+		}
+		
+	}
+	
+	private static function clonarAefCondominiosIns($idavaluoenfoquefisiconew, $rowAefCondominiosOld) {
+		$rowAefCondominiosNew = new AefCondominios();
+		$rowAefCondominiosNew->idavaluoenfoquefisico = $idavaluoenfoquefisiconew;
+		$rowAefCondominiosNew->descripcion = $rowAefCondominiosOld->descripcion;
+		$rowAefCondominiosNew->unidad = $rowAefCondominiosOld->unidad;
+		$rowAefCondominiosNew->cantidad = $rowAefCondominiosOld->cantidad;
+		$rowAefCondominiosNew->valor_nuevo = $rowAefCondominiosOld->valor_nuevo;
+		$rowAefCondominiosNew->vida_remanente = $rowAefCondominiosOld->vida_remanente;
+		$rowAefCondominiosNew->edad = $rowAefCondominiosOld->edad;
+		$rowAefCondominiosNew->fe_v1 = $rowAefCondominiosOld->fe_v1;
+		$rowAefCondominiosNew->fe_v2 = $rowAefCondominiosOld->fe_v2;
+		$rowAefCondominiosNew->factor_edad = $rowAefCondominiosOld->factor_edad;
+		$rowAefCondominiosNew->factor_conservacion = $rowAefCondominiosOld->factor_conservacion;
+		$rowAefCondominiosNew->factor_resultante = $rowAefCondominiosOld->factor_resultante;
+		$rowAefCondominiosNew->indiviso = $rowAefCondominiosOld->indiviso;
+		$rowAefCondominiosNew->valor_parcial = $rowAefCondominiosOld->valor_parcial;
+		$rowAefCondominiosNew->save();
+	}
 }

@@ -73,5 +73,43 @@ class AvaluosZona extends \Eloquent {
 		
 		$row->save();
 	}
-
+	
+	public static function clonarAvaluosZona($idavaluo_old, $idavaluo_new) {
+		$rowZonaOld = AvaluosZona::select('*')->where('idavaluo', '=', $idavaluo_old)->first();
+		$rowZonaNew = Avaluos::find($idavaluo_new)->AvaluosZona;
+		$rowZonaNew->is_agua_potable = $rowZonaOld->is_agua_potable;
+		$rowZonaNew->is_guarniciones = $rowZonaOld->is_guarniciones;
+		$rowZonaNew->is_drenaje = $rowZonaOld->is_drenaje;
+		$rowZonaNew->is_banqueta = $rowZonaOld->is_banqueta;
+		$rowZonaNew->is_electricidad = $rowZonaOld->is_electricidad;
+		$rowZonaNew->is_telefono = $rowZonaOld->is_telefono;
+		$rowZonaNew->is_pavimentacion = $rowZonaOld->is_pavimentacion;
+		$rowZonaNew->is_transporte_publico = $rowZonaOld->is_transporte_publico;
+		$rowZonaNew->is_alumbrado_publico = $rowZonaOld->is_alumbrado_publico;
+		$rowZonaNew->is_otro_servicio = $rowZonaOld->is_otro_servicio;
+		$rowZonaNew->otro_servicio_municipal = $rowZonaOld->otro_servicio_municipal;
+		$rowZonaNew->is_escuela = $rowZonaOld->is_escuela;
+		$rowZonaNew->is_iglesia = $rowZonaOld->is_iglesia;
+		$rowZonaNew->is_banco = $rowZonaOld->is_banco;
+		$rowZonaNew->is_comercio = $rowZonaOld->is_comercio;
+		$rowZonaNew->is_hospital = $rowZonaOld->is_hospital;
+		$rowZonaNew->is_parque = $rowZonaOld->is_parque;
+		$rowZonaNew->is_transporte = $rowZonaOld->is_transporte;
+		$rowZonaNew->is_gasolinera = $rowZonaOld->is_gasolinera;
+		$rowZonaNew->is_mercado = $rowZonaOld->is_mercado;
+		$rowZonaNew->is_otro_equipamiento = $rowZonaOld->is_otro_equipamiento;
+		$rowZonaNew->cobertura = $rowZonaOld->cobertura;
+		$rowZonaNew->otro_equipamiento = $rowZonaOld->otro_equipamiento;
+		$rowZonaNew->nivel_equipamiento = $rowZonaOld->nivel_equipamiento;
+		$rowZonaNew->idclasificacionzona = $rowZonaOld->idclasificacionzona;
+		$rowZonaNew->idproximidadurbana = $rowZonaOld->idproximidadurbana;
+		$rowZonaNew->construc_predominante = $rowZonaOld->construc_predominante;
+		$rowZonaNew->vias_acceso_importante = $rowZonaOld->vias_acceso_importante;
+		$rowZonaNew->is_recoleccion_basura = $rowZonaOld->is_recoleccion_basura;
+		$rowZonaNew->is_vigilancia_privada = $rowZonaOld->is_vigilancia_privada;
+		$rowZonaNew->is_internet = $rowZonaOld->is_internet;
+		$rowZonaNew->calles_transversales = $rowZonaOld->calles_transversales;
+		$rowZonaNew->save();
+	}
+	
 }

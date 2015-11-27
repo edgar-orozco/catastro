@@ -12,24 +12,24 @@
 				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
 				<h4 class="modal-title">[COREVAT] Mensaje de confirmación</h4>
 			</div>
-{{Form::model($row, ['route' => array('clonarAvaluo'), 'class'=>'horizontal', 'method'=>'post', 'id'=>'formAvaluoClonar' ]) }}
-{{Form::hidden('idavaluo_clonar', null, ['id'=>'idavaluo_clonar'])}}
-			<div class="modal-body" style="min-height: 200px; text-align: left;">
-				<h3 id="corevatConfirmContainer"></h3>
-				<h2 id="corevatConfirmMessage"></h2>
+			{{Form::model($row, ['route' => array('clonarAvaluo'), 'class'=>'horizontal', 'method'=>'post', 'id'=>'formAvaluoClonar' ]) }}
+			{{Form::hidden('idavaluo_clonar', null, ['id'=>'idavaluo_clonar'])}}
+			{{Form::hidden('success', null, ['id'=>'success'])}}
+			<div class="modal-body" style="height: 200px; text-align: left;">
+				<p id="clonarConfirmHeader2" style="text-align: center; font-size: 32px; font-weight: bold;"></p>
+				<p id="clonarConfirmHeader3" style="font-size: 24px; font-weight: bold;"></p>
 				<label id="pato" for="folio_corevat">Folio:</label>
 				<input type="text" name="folio_corevat" id="folio_corevat" class="form-control" value="" size="30" />
 			</div>
 			<div class="modal-footer">
 				<button type="button" class="btn btn-default" data-dismiss="modal" id="clonarClose">Cerrar</button>
 				<button type="button" class="btn btn-primary" id="clonarConfirmButton">Aceptar</button>
-				<!-- submit -->
 			</div>
-{{Form::close()}}
+			{{Form::close()}}
 		</div>
 	</div>
 </div>
-
+<!-- <div class="alert alert-warning" role="alert">...</div> -->
 <div id="listAvaluos">
 	<h3 style="display: block; text-align: center;">Listado de Avalúos</h3>
 	<div class="panel-heading" style="padding: 0;">
@@ -94,8 +94,8 @@
 {{ HTML::script('/js/jquery/dataTables.bootstrap.js') }}
 <script type="text/javascript" charset="utf-8">
 	$(document).ready(function () {
-			$('#pato').hide();
-			$('#folio_corevat').hide().val('');
+		$('#pato').hide();
+		$('#folio_corevat').hide().val('');
 		//$('#avaluos-table').dataTable();
 		$('#avaluos-table').dataTable({
 			"language": {
@@ -124,22 +124,43 @@
 		});
 		
 		/*++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-		 * <h3 id="corevatConfirmContainer"></h3>
+		 * 
 		++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
 		$.clonarAvaluo = function(id, folio) {
 			$('#idavaluo_clonar').val(id);
-			$('#corevatConfirmContainer').empty().append('<h2>¿Realmente desea clonar el avalúo?...</h2>');
-			$('#corevatConfirmMessage').empty().append('Folio: ' + folio);
+			$('#clonarConfirmHeader2').empty().append('¿Realmente desea duplicar el avalúo?').show();
+			$('#clonarConfirmHeader3').empty().append('Folio: ' + folio).show();
 			$('#clonarConfirm').modal('show');
 		}
 		//formAvaluoClonar
 		
 		$("#clonarConfirmButton").click(function() {
 			if ( $('#pato').css('display') !== 'none' ) {
-				$('#corevatConfirmMessage').empty().append('<span style="color:red;">El folio no existe</span>').show();
+				$.ajax({
+					global: false,
+					cache: false,
+					dataType: 'json',
+					url: '/corevat/AvaluoClonar',
+					type: 'post',
+					data: {idavaluo_clonar: $("#idavaluo_clonar").val(), folio_corevat: $("#folio_corevat").val() },
+					success: function (data) {
+						datos = eval(data);
+						$('#success').val(datos.success);
+						if ( datos.success === true ) {
+							$('#clonarConfirmHeader2').empty().append(datos.message).show();
+							$('#clonarConfirmHeader3').empty().hide();
+							$('#pato').hide();
+							$('#folio_corevat').hide().val('');
+						} else {
+							$('#clonarConfirmHeader2').empty().append(datos.message).show();
+						}
+					}
+				});
+
+				
 			} else {
-				$('#corevatConfirmContainer').empty().hide();
-				$('#corevatConfirmMessage').empty().hide();
+				$('#clonarConfirmHeader2').empty().hide();
+				$('#clonarConfirmHeader3').empty().hide();
 				$('#pato').show();
 				$('#folio_corevat').show().val('');
 			}
@@ -148,23 +169,17 @@
 		$("#clonarClose").click(function() {
 			$('#pato').hide();
 			$('#folio_corevat').hide().val('');
-			$('#corevatConfirmContainer').empty().show();
-			$('#corevatConfirmMessage').empty().show();
+			$('#clonarConfirmHeader2').empty().show();
+			$('#clonarConfirmHeader3').empty().show();
+			if ( $('#success').val() === 'true' ) {
+				window.location = '/corevat/Avaluos';
+			}
 		});
 
 		/*++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 		 * 
-		$.ajax({
-			global: false,
-			cache: false,
-			dataType: 'json',
-			url: '/corevat/AvaluoClonar',
-			type: 'post',
-			data: id: id,
-			success: function (data) {
-				datos = eval(data);
-			}
-		});
+				<div class="alert alert-warning" role="alert">
+				</div>
 		++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
 	});
 </script>
