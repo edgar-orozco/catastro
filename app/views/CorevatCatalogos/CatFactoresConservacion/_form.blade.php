@@ -11,7 +11,7 @@
 <div class="form-group">
 	
 	{{Form::label('valor_factor_conservacion', 'Valor')}}
-	{{Form::number('valor_factor_conservacion', $row->valor_factor_conservacion, ['tabindex'=>'3', 'required' => 'required', 'class'=>'form-control clsNumeric', 'step'=>'0.0001', 'min'=>'0.0000', 'max'=>'1.0000'] )}}
+	{{Form::number('valor_factor_conservacion', number_format($row->valor_factor_conservacion, 4, '.', ''), ['tabindex'=>'3', 'required' => 'required', 'class'=>'form-control clsNumeric', 'step'=>'0.0001', 'min'=>'0.0000', 'max'=>'1.0000'] )}}
 	{{$errors->first('valor_factor_conservacion', '<span class=text-danger>:message</span>')}}
 </div>
 <div class="form-group">
