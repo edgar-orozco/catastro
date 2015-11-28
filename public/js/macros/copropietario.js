@@ -28,6 +28,9 @@ $(document).on('click','.agregarPersonaFisica',function () {
     var apellido_materno = clon.find('input')[4];
     var apellido_materno2 = clon.find('input')[4];
 
+    var id_p = clon.find('input')[5];
+    var id_p = clon.find('input')[5];
+
 
 
 
@@ -56,8 +59,8 @@ $(document).on('click','.agregarPersonaFisica',function () {
     apellido_materno.name = apellido_materno.name.replace(/(\w+)\[(\d+)\]\[(\w+)\]/, "$1[" + num + "][$3]");
     apellido_materno2.id = apellido_materno2.id.replace(/(\w+)\[(\d+)\]\[(\w+)\]/, "$1[" + num + "][$3]");
 
-
-
+    id_p.name = id_p.name.replace(/(\w+)\[(\d+)\]\[(\w+)\]/, "$1[" + num + "][$3]");
+    id_p.id = id_p.id.replace(/(\w+)\[(\d+)\]\[(\w+)\]/, "$1[" + num + "][$3]");
 
 
     //los creamos en blanco
@@ -66,6 +69,7 @@ $(document).on('click','.agregarPersonaFisica',function () {
     $(nombres).val('');
     $(apellido_paterno).val('').show();
     $(apellido_materno).val('').show();
+    $(id_p).val();
 
     //Mostramos etiquetas ocultas
     $(label).show();

@@ -12,6 +12,7 @@ Se toma parte del archivo /ofvirtual/notario/manifestacion/_form.blade elaborado
     <fieldset><legend>Propietario</legend>
     {{ Form::hidden('clave', $clave, ['class' => 'form-control', 'id' => 'clave'] )}}
     {{ Form::hidden('cuenta', $cuenta, ['class' => 'form-control', 'id' => 'cuenta'] )}}
+    {{ Form::hidden('tramite_id', $tramite_id, ['class' => 'form-control', 'id' => 'tramite_id'] )}}
         @include('tramites.inspeccion._form_persona_inline',['instancia'=>'enajenante'])
         <h4>Domicilio:</h4>
         @include('tramites.inspeccion._form_persona_domicilio',['instancia'=>'domicilioEnajenante'])
@@ -439,6 +440,7 @@ Se toma parte del archivo /ofvirtual/notario/manifestacion/_form.blade elaborado
                 var nombres = 'copropietario[0][nombres]';
                 var apellido_paterno = 'copropietario[0][apellido_paterno]';
                 var apellido_materno = 'copropietario[0][apellido_materno]';
+                var id_p = 'copropietario[0][id_p]';
 
                 var num = parseInt($(this).prop("name").match(/\d+/g), 10) ;
 
@@ -446,6 +448,7 @@ Se toma parte del archivo /ofvirtual/notario/manifestacion/_form.blade elaborado
                 nombres = nombres.replace(/(\w+)\[(\d+)\]\[(\w+)\]/, "$1[" + num + "][$3]");
                 apellido_paterno = apellido_paterno.replace(/(\w+)\[(\d+)\]\[(\w+)\]/, "$1[" + num + "][$3]");
                 apellido_materno = apellido_materno.replace(/(\w+)\[(\d+)\]\[(\w+)\]/, "$1[" + num + "][$3]");
+                id_p = id_p.replace(/(\w+)\[(\d+)\]\[(\w+)\]/, "$1[" + num + "][$3]");
                 console.log('rfc '+ rfc);
 
                 $('#' +  $(this).attr('name').replace( /(:|\.|\[|\]|,)/g, "\\$1" )).val(ui.item.curp);
@@ -453,6 +456,7 @@ Se toma parte del archivo /ofvirtual/notario/manifestacion/_form.blade elaborado
                 $('#' +  nombres.replace( /(:|\.|\[|\]|,)/g, "\\$1" )).val(ui.item.nombres);
                 $('#' +  apellido_paterno.replace( /(:|\.|\[|\]|,)/g, "\\$1" )).val(ui.item.apellido_paterno);
                 $('#' +  apellido_materno.replace( /(:|\.|\[|\]|,)/g, "\\$1" )).val(ui.item.apellido_materno);
+                $('#' +  id_p.replace( /(:|\.|\[|\]|,)/g, "\\$1" )).val(ui.item.id_p);
                     return false;
                 }
             };

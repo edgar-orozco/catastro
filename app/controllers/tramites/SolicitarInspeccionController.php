@@ -21,6 +21,7 @@ protected $manifestacion;
 	{
         $clave=Input::get('clave');
         $cuenta=Input::get('cuenta');
+        $tramite_id=Input::get('tramite_id');
 		$vars = $this->catalogos();
 
 		$JsonColindancias = json_encode([]);
@@ -31,6 +32,7 @@ protected $manifestacion;
         $vars['manifestacion'] = $manifestacion;
         $vars['clave']=$clave;
         $vars['cuenta']=$cuenta;
+        $vars['tramite_id']=$tramite_id;
 		return View::make('tramites.inspeccion.create', $vars);
 	}
 
@@ -262,44 +264,96 @@ protected $manifestacion;
 
 public function store(){
 
+
+  // $datos_construccion['id_manifestacion_construccion']=100000;
+
+   //dd($datos_construccion);
    //print_r( $enajenanteR=Input::get('enajenante'));
    //dd(Input::get('enajenante'));
 
 
+    //se agregan los de la persona (propietario)
+    $persona = new personas();
+    $persona->fill(Input::get('enajenante', []))->save();
+    $persona_id=$persona->id_p;
 
-    $propietario = new personas();
-    $propietario->fill(Input::get('enajenante', []))->save();
-    $propietario_id=$propietario->id_p;
-
+    //se agrega el domicilio
     $domicilio = new Domicilio();
     $domicilio->fill(Input::get('domicilioEnajenante', []))->save();
     $domicilio_id=$domicilio->id;
 
-    $propietarios = new propietarios();
-    $propietarios->id_propietario=$propietario_id;
-    $propietarios->tipo_propietario=1;
-    $propietarios->id_dom=$domicilio_id;
-    $propietarios->save();
+    //se agrega el propietario
+    $propietario = new propietarios();
+    $propietario->id_propietario=$persona_id;
+    $propietario->tipo_propietario=1;
+    $propietario->id_dom=$domicilio_id;
+    $propietario->tramite_id=Input::get('tramite_id');
+    $propietario->save();
 
-    $propietario_id=$propietarios->id_propietarios;
+    $propietario_id=$propietario->id_propietarios;
 
-    $man=Input::get('manifestacion',[]);
+    //Se agregann los Copropietarios
+    $copropietarios = Input::get('copropietario');
+        foreach($copropietarios as $cpropietario) {
+
+            if($cpropietario['id_p'])
+                {//dd($cpropietario);
+                    $ex_propietarios = new propietarios();
+                    $ex_propietarios->id_propietario=$cpropietario['id_p'];
+                    $ex_propietarios->tipo_propietario=2;
+                    $ex_propietarios->tramite_id=Input::get('tramite_id');
+                    $ex_propietarios->save();
+                }else
+                {
+                    $new_persona = new personas();
+                    $new_persona->fill(Input::get('enajenante', []))->save();
+                    $new_persona_id=$new_persona->id_p;
+
+                    $co_propietarios = new propietarios();
+                    $co_propietarios->id_propietario=$new_persona_id;
+                    $co_propietarios->tipo_propietario=2;
+                    $co_propietarios->tramite_id=Input::get('tramite_id');
+                    $co_propietarios->save();
+                }
+
+
+        }
+    //Se cargan los datos en la tabla manifestacion
+   $man=Input::get('manifestacion',[]);
 
     $man['clave']=Input::get('clave');
     $man['propietario_id']=$propietario_id;
     $man['cuenta']=Input::get('cuenta');
+    $man['tramite_id']=Input::get('tramite_id');
 
     //$man->domicilio_id=$denajenante=$denajenante->id;
    $manifestacion = new Manifestacion();
    $manifestacion->fill($man)->save();
+   $id_manifestacion= $manifestacion->id;
+
+    //se guarda bloque de construccion
+    $datos_construccion =  json_decode(Input::get('datos_construccion'),true) ;
+    //dd($datos_construccion['construcciones']);
+   $sup_total=0;
+   foreach ($datos_construccion['construcciones'] as $key  )
+   {
+        $construc = new ManifestacionConstruccion();
+         $construc->manifestacion_id =  $id_manifestacion;
+         $construc->sup_construccion = $key['sup_construccion'];
+          $construc->save();
+          $sup_total= $sup_total +  $key['sup_construccion'];
 
 
-    /*foreach(Input::get('copropietario') as $colindancia) {
-          //hasta aqui funiona correctamente
-          // $colindancia['registro_id'] = $registro->id;
-           //aqui ya no funciona no se si tenga que ver con el modelo
-            $Colindancias[] = new RegistroColindancias($colindancia);
-          //
-        }*/
+   }
+
+   $update_manifestacion =  Manifestacion::find($id_manifestacion);
+   $update_manifestacion->total_sup_construccion = $sup_total;
+   $update_manifestacion->superficie_alberca = $datos_construccion['sup_albercas'];
+   $update_manifestacion->save();
+
+//return 'listo final';
+return View::make('tramites.inspeccion._form_datos_guardados', compact ('update_manifestacion','construc','manifestacion','copropietarios','propietario','domicilio','persona'));
+
+
 }
 }
