@@ -1,8 +1,9 @@
 <div class="persona">
     <div class="form-inline">
         <div class="form-group">
-            {{Form::label('tipo_persona','Tipo de persona:',[])}}
+            {{Form::label('tipo_persona','Tipo de persona :',[])}}
             {{Form::label($instancia.'PersonaFisica','Física')}}
+            {{ Form::hidden($instancia.'[id_pp]',null, ['class' => 'form-control', 'id' => 'id_pp'] )}}
 
             {{Form::radio($instancia.'[id_tipo]', '1', null, ['class'=>$instancia.'-radio-persona-1 radio-persona', 'id'=>$instancia.'PersonaFisica', 'data-instancia'=>$instancia]) }}
             {{Form::label($instancia.'PersonaMoral','Moral')}}
@@ -16,6 +17,13 @@
                 'maxlength'=>'18',
                 'pattern' => '([A-Za-z]{4})([0-9]{6})([A-Za-z]{6})([0-9]{2})',
                 'title' => 'El CURP ingresado no tiene el formato esperado, verifique nuevamente el CURP ingresado',
+                'data-instancia'=>$instancia
+                ]
+            )}}
+
+            {{Form::hidden($instancia.'[id_p]', null, [
+                'class' => "form-control $instancia-campos-fisica",
+                'id'=>$instancia.'-id_p',
                 'data-instancia'=>$instancia
                 ]
             )}}
@@ -38,7 +46,7 @@
                 'maxlength'=>'120',
                 'size'=>'25',
                 'placeholder'=>'NOMBRE',
-                'required'=>true,
+                'required'=>false,
                 'data-instancia'=>$instancia
                 ]
             )}}
@@ -50,7 +58,7 @@
                     'maxlength'=>'120',
                     'size'=>'25',
                     'placeholder'=>'APELLIDO PATERNO',
-                    'required'=> true,
+                    'required'=> false,
                     'data-instancia'=>$instancia
                     ]
                 )}}

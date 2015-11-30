@@ -25,7 +25,7 @@ $personas = '
                 Form::text($llave.'[1][apellido_paterno]', null, ['class' => 'form-control'] ).
                 Form::label($llave.'[1][apellido_materno]','Apellido Materno', ['class'=>'']).
                 Form::text($llave.'[1][apellido_materno]', null, ['class' => 'form-control'] ).
-                Form::text($llave.'[1][id_p]', null, ['class' => 'form-control id_p '.$llave, 'id' => $llave.'[1][id_p]']).
+                Form::hidden($llave.'[1][id_p]', null, ['class' => 'form-control id_p '.$llave, 'id' => $llave.'[1][id_p]']).
                  '<div class="form-group">' .
                 Form::button('<i class="glyphicon glyphicon-trash"></i> Eliminar Persona', ['class' => 'btn btn-warning quitarPersona', 'type' => 'button', 'title'=>'Eliminar colindancia']) .
             '</fieldset>'.

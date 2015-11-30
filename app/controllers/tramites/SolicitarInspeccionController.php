@@ -273,10 +273,19 @@ public function store(){
 
 
     //se agregan los de la persona (propietario)
+    $persona_propietario=Input::get('enajenante');
+ //  echo 'id '.$persona_propietario['id_pp'];
+//dd($persona_propietario);
+    if ($persona_propietario['id_pp']) {
+         $persona_id = $persona_propietario['id_pp'];
+         $persona = personas::find($persona_id);
+
+    }else{
     $persona = new personas();
     $persona->fill(Input::get('enajenante', []))->save();
     $persona_id=$persona->id_p;
-
+    }
+    //dd($persona);
     //se agrega el domicilio
     $domicilio = new Domicilio();
     $domicilio->fill(Input::get('domicilioEnajenante', []))->save();
