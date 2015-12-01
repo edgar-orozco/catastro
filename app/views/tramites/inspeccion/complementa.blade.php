@@ -6,7 +6,7 @@ Se toma parte del archivo /ofvirtual/notario/manifestacion/_form.blade elaborado
 @section('content')
 {{Form::Open(['ID'=>'formulario', 'URL'=>'tramites/inspeccion/resultado', 'METHOD'=>'POST'])}}
 	<fieldset><legend>Datos del predio</legend>
-	    @include('tramites.inspeccion._form_datos_predio',['instancia'=>'manifestaciones', 'consultaMani'=>$consultaMani])
+	    @include('tramites.inspeccion._form_datos_predio_edit',['instancia'=>'manifestaciones', 'consultaMani'=>$consultaMani])
 	</fieldset>
 {{Form::close()}}
 	<fieldset><legend>Datos de la construcción</legend>
@@ -242,8 +242,7 @@ Se toma parte del archivo /ofvirtual/notario/manifestacion/_form.blade elaborado
                 });
 
                 $( "tbody > tr:last" ).find('.xselect.techos').editable({
-                    source: techos,
-                    value:'TB'
+                    source: techos
                 });
                 $( "tbody > tr:last" ).find('.xselect.tiposConstruccion').editable({
                     source: tiposConstruccion,
