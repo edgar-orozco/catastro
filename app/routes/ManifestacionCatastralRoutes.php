@@ -8,6 +8,10 @@ Route::group(array('before' => 'auth'), function () {
     Route::get('ofvirtual/notario/manifestacion/create',
       'ManifestacionCatastralController@create');
 
+//Forma create
+    Route::get('ofvirtual/notario/manifestacion/tramite',
+        'ManifestacionCatastralTramiteController@create');
+
 //Forma store
     Route::post('ofvirtual/notario/manifestacion/create',
       ['uses' => 'ManifestacionCatastralController@store']);

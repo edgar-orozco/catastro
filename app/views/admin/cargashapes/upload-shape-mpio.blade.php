@@ -1,13 +1,5 @@
 @extends('layouts.hooktramite')
 
-@section('title')
-    {{{ $title }}} @parent
-@stop
-
-@section('angular')
-    ng-app="app" ng-controller="ShapeCtrl" ng-init="initApp({{ ShapesHelper::serverUploadSize() }})"
-@stop
-
 @section('content')
     @if(Session::has('logHead'))
         <div class="col-xs-12 col-sm-12 col-md-10 col-lg-10 col-xs-offset-0 col-sm-offset-0 col-md-offset-1 col-lg-offset-1 toppad"  >
@@ -55,7 +47,7 @@
                                     @foreach($municipios as $municipio => $nombre)
                                         <option value="{{$municipio}}"> {{$nombre}} </option>
                                     @endforeach
-                                </select>                                  
+                                </select>
                             </div>
                             <br>
                             <div class="input-group col-xs-6">

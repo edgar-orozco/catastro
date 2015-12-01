@@ -59,6 +59,11 @@ Route::group(array('before' => 'cartografia'), function () {
 
 });
 
+Route::get('admin/CargaShapesControllerMpio',
+    'CargaShapesControllerMpio@index');
+
+
+
 /*
  * Filtro para detección de roles de cartografía o permisos para actualizar la cartografia
  */

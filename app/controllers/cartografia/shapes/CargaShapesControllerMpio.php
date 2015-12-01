@@ -5,7 +5,7 @@
 
 use \shpUploader;
 
-class CargaShapesController extends BaseController
+class CargaShapesControllerMpio extends BaseController
 {
 
     /**
@@ -14,11 +14,6 @@ class CargaShapesController extends BaseController
      */
     public function index()
     {
-        // Title
-        $title = "Actualización Cartográfica";
-        // Title
-        $title_section = "Actualización Cartográfica";
-
         //municipios
         $result = DB::select('SELECT municipio, nombre_municipio from municipios order by municipio');
 
@@ -30,7 +25,7 @@ class CargaShapesController extends BaseController
 
         //$view = View::make('cartografia.consultas.form') ;
 
-        return View::make('admin.cargashapes.upload-shape', compact('title', 'title_section', 'municipios'));
+        return View::make('admin.cargashapes.upload-shape-mpio', compact('title', 'title_section', 'municipios'));
     }
 
     /**
@@ -61,21 +56,8 @@ class CargaShapesController extends BaseController
 
                 $zipfile = $municipio."-".$manzana."-".$sufijo.".zip";
                 Input::file('shape')->move($dir, $zipfile);
-                $dirzip = storage_path('shapes/');
-                $dirtmp = "/tmp/";
-
-
-                $upload = new shpUploader();
-
-                $Respuesta = $upload->uploadShape($municipio, $manzana, $dirzip, $dirtmp, $zipfile);
-                $logHead = $Respuesta[0];
-                $logErr = $Respuesta[1];
-                $logWar = $Respuesta[2];
-
-                //return Redirect::to('admin/carga-shapes')->with('success',
-                //   '¡Se guardo correctamente el archivo: '. Input::file('shape')->getClientOriginalName() .'!');
-
-                return Redirect::to('admin/carga-shapes')->with('logHead', nl2br($logHead))->with('logErr', nl2br($logErr))->with('logWar', nl2br($logWar));
+                return Redirect::to('admin/carga-shapes')->with('notice',
+                    'Archivo Entregado con Exito');
 
             }
 
