@@ -8,7 +8,7 @@
         <div class="form-group">
             {{Form::label($instancia.'[sup_terreno]','Superficie del terreno')}}
             <div class="input-group">
-                {{Form::text($instancia.'[sup_terreno]', null, [
+                {{Form::text($instancia.'[sup_terreno]', $consultaMani->sup_terreno, [
                     'class' => 'form-control',
                     'id'=>$instancia.'-sup_terreno',
                     'maxlength'=>'12',
@@ -23,7 +23,7 @@
 
             {{Form::label($instancia.'[sup_construccion]','Superficie de construcción')}}
             <div class="input-group">
-                {{Form::text($instancia.'[sup_construccion]', null, [
+                {{Form::text($instancia.'[sup_construccion]', $consultaMani->sup_construccion, [
                     'class' => 'form-control',
                     'id'=>$instancia.'-sup_construccion',
                     'maxlength'=>'12',
@@ -38,7 +38,7 @@
 
             <span class="solo-rusticos">
                 {{Form::label($instancia.'[vias_comunicacion_id]','Vías de comunicación')}}
-                {{Form::select($instancia.'[vias_comunicacion_id]', [null => '']+$viasComunicacion, null, ['class'=>'form-control select2 select-manifestacion-vias_comunicacion_id'] )}}
+                {{Form::select($instancia.'[vias_comunicacion_id]', [null => '']+$viasComunicacion, null, ['class'=>'form-control select2 select-manifestacion-vias_comunicacion_id'])}}
             </span>
         </div>
     </div>
@@ -73,18 +73,18 @@
             </span>
 
             {{Form::label($instancia.'[tenencia_tierra_id]','Tenencia de la tierra')}}
-            {{Form::select($instancia.'[tenencia_tierra_id]', [null => '']+$tenenciaTierra, null, ['class'=>'form-control select2 select-manifestacion-tenencia_tierra_id'] )}}
+            {{Form::select($instancia.'[tenencia_tierra_id]', [null => '']+$tenenciaTierra, $consultaMani->tenencia_tierra_id , ['class'=>'form-control select2 select-manifestacion-tenencia_tierra_id'] )}}
 
             {{Form::label($instancia.'[uso_predio_id]','Uso del predio')}}
-            {{Form::select($instancia.'[uso_predio_id]', [null => '']+$usoPredio, null, ['class'=>'form-control select2 select-manifestacion-uso_predio_id'] )}}
+            {{Form::select($instancia.'[uso_predio_id]', [null => '']+$usoPredio, $consultaMani->uso_predio_id, ['class'=>'form-control select2 select-manifestacion-uso_predio_id'] )}}
 
             {{Form::label($instancia.'_servicios[]','Servicios públicos')}}
-            {{Form::select($instancia.'_servicios[]', $serviciosPublicos, null, ['class'=>'form-control select2-multiple select-manifestacion-servicios_id', 'multiple'=>'multiple'] )}}
+            {{Form::select($instancia.'_servicios[]', $serviciosPublicos, $serv_publico, ['class'=>'form-control select2-multiple select-manifestacion-servicios_id', 'multiple'=>'multiple'] )}}
 
             <h4>Características del suelo</h4>
             {{Form::label($instancia.'[suelo_inundable]','Inundable')}}
             <div class="input-group">
-                {{Form::text($instancia.'[suelo_inundable]', null, [
+                {{Form::text($instancia.'[suelo_inundable]', $consultaMani->suelo_inundable, [
                     'class' => 'form-control',
                     'id'=>$instancia.'-suelo_inundable',
                     'maxlength'=>'5',
@@ -97,7 +97,7 @@
             </div>
             {{Form::label($instancia.'[suelo_popal]','Popal')}}
             <div class="input-group">
-                {{Form::text($instancia.'[suelo_popal]', null, [
+                {{Form::text($instancia.'[suelo_popal]', $consultaMani->suelo_popal, [
                     'class' => 'form-control',
                     'id'=>$instancia.'-suelo_popal',
                     'maxlength'=>'5',
@@ -110,7 +110,7 @@
             </div>
             {{Form::label($instancia.'[suelo_desnivel]','Desnivel')}}
             <div class="input-group">
-                {{Form::text($instancia.'[suelo_desnivel]', null, [
+                {{Form::text($instancia.'[suelo_desnivel]', $consultaMani->suelo_desnivel, [
                     'class' => 'form-control',
                     'id'=>$instancia.'-suelo_desnivel',
                     'maxlength'=>'5',
@@ -123,7 +123,7 @@
             </div>
             {{Form::label($instancia.'[suelo_incultivable]','Incultivable')}}
             <div class="input-group">
-                {{Form::text($instancia.'[suelo_incultivable]', null, [
+                {{Form::text($instancia.'[suelo_incultivable]', $consultaMani->suelo_incultivable, [
                     'class' => 'form-control',
                     'id'=>$instancia.'-suelo_incultivable',
                     'maxlength'=>'5',
@@ -137,7 +137,7 @@
 
             {{Form::label($instancia.'[suelo_cultivable]','Cultivable')}}
             <div class="input-group">
-                {{Form::text($instancia.'[suelo_cultivable]', null, [
+                {{Form::text($instancia.'[suelo_cultivable]', $consultaMani->suelo_cultivable, [
                     'class' => 'form-control',
                     'id'=>$instancia.'-suelo_cultivable',
                     'maxlength'=>'5',

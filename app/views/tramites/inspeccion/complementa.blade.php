@@ -1,16 +1,21 @@
 @extends('layouts.hooktramite')
-
+<link href="/css/complementarios_cargar/fileinput.css" media="all" rel="stylesheet" type="text/css" />
 <!--
 Se toma parte del archivo /ofvirtual/notario/manifestacion/_form.blade elaborado por Edgar Orozco
 -->
 @section('content')
+{{Form::Open(['ID'=>'formulario', 'URL'=>'tramites/inspeccion/resultado', 'METHOD'=>'POST'])}}
 	<fieldset><legend>Datos del predio</legend>
-	    @include('tramites.inspeccion._form_datos_predio',['instancia'=>'manifestacion'])
+	    @include('tramites.inspeccion._form_datos_predio',['instancia'=>'manifestaciones', 'consultaMani'=>$consultaMani])
 	</fieldset>
-
+{{Form::close()}}
 	<fieldset><legend>Datos de la construcción</legend>
 	    @include('tramites.inspeccion._form_datos_construccion_complemento',['instancia'=>'manifestacion'])
 	</fieldset>
+
+        <fieldset><legend>Carga de imagenes</legend>
+        @include('tramites.inspeccion._form_load_images')
+    </fieldset>
 @stop
 
 @section('javascript')
@@ -237,7 +242,8 @@ Se toma parte del archivo /ofvirtual/notario/manifestacion/_form.blade elaborado
                 });
 
                 $( "tbody > tr:last" ).find('.xselect.techos').editable({
-                    source: techos
+                    source: techos,
+                    value:'TB'
                 });
                 $( "tbody > tr:last" ).find('.xselect.tiposConstruccion').editable({
                     source: tiposConstruccion,
@@ -408,4 +414,28 @@ Se toma parte del archivo /ofvirtual/notario/manifestacion/_form.blade elaborado
         }
 
     </script>
+    <script src="/js/jquery/fileinput.js" type="text/javascript"></script>
+
+    <script>
+
+    $("#input-700").fileinput({
+        uploadUrl: "http://localhost/file-upload-single/1", // server upload action
+        uploadAsync: true,
+        maxFileCount: 5
+    });
+
+
+    $('#file').on('fileloaded', function(event, file, previewId, index, reader) 
+    {
+            
+
+    });
+
+
+
+
+
+    </script>
+
+
 @stop

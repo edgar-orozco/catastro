@@ -24,152 +24,320 @@
             <th>Inst. Elec.</th>
         </tr>
         </thead>
-        <tbody>
-        <tr class="bloque-construccion" data-pk="1">
-            <td class="bloque-id">1</td>
-            <td>
-                <a href="javascript:void(0);"
-                   class="editable supConstruccion"
-                   data-type="text"
-                   data-pk="1"
-                   data-name="sup_construccion"
-                   data-title="Click para ingresar un valor"></a>
-            </td>
-            <td>
+        <tbody id="tbodyConstruccion">
+          @if($manifestacionConstruccion->count()>0)
+          @foreach($manifestacionConstruccion as $maniConstruccion)
 
-                <a href="javascript:void(0);"
-                   class="xselect tiposConstruccion editable"
-                   data-type="select"
-                   data-pk="1"
-                   data-value=""
-                   data-name="tipo_construccion"
-                   data-title="Click para ingresar un valor"></a>
+            <tr class="bloque-construccion" data-pk="1">
+                <td class="bloque-id">1</td>
+                <td>
+                    <a href="javascript:void(0);"
+                       class="editable supConstruccion"
+                       data-type="text"
+                       data-pk="1"
+                       data-name="sup_construccion"
+                       data-title="Click para ingresar un valor"
+                       value="{{$maniConstruccion->sup_construccion}}"></a>
+                </td>
+                <td>
 
-            </td>
-            <td>
-                <a href="javascript:void(0);"
-                   class="xselect techos editable"
-                   data-type="select"
-                   data-pk="1"
-                   data-name="techos"
-                   data-title="Click para ingresar un valor"></a>
-            </td>
-            <td>
-                <a href="javascript:void(0);"
-                   class="xselect muros editable"
-                   data-type="select"
-                   data-pk="1"
-                   data-name="muros"
-                   data-title="Click para ingresar un valor"></a>
+                    <a href="javascript:void(0);"
+                       class="xselect tiposConstruccion editable"
+                       data-type="select"
+                       data-pk="1"
+                       data-value=""
+                       data-name="tipo_construccion"
+                       data-title="Click para ingresar un valor"
+                       value="{{$maniConstruccion->tipo_construccion}}"></a>
 
-            </td>
-            <td>
-                <a href="javascript:void(0);"
-                   class="xselect pisos editable"
-                   data-type="select"
-                   data-pk="1"
-                   data-name="pisos"
-                   data-title="Click para ingresar un valor"></a>
+                </td>
+                <td>
+                    <a href="javascript:void(0);"
+                       class="xselect techos editable"
+                       data-type="select"
+                       data-pk="1"
+                       data-name="techos"
+                       data-title="Click para ingresar un valor"
+                       value="{{$maniConstruccion->techos}}"></a>
+                </td>
+                <td>
+                    <a href="javascript:void(0);"
+                       class="xselect muros editable"
+                       data-type="select"
+                       data-pk="1"
+                       data-name="muros"
+                       data-title="Click para ingresar un valor"
+                       value="{{$maniConstruccion->muros}}"></a>
 
-            </td>
-            <td>
-                <a href="javascript:void(0);"
-                   class="xselect puertas editable"
-                   data-type="select"
-                   data-pk="1"
-                   data-name="puertas"
-                   data-title="Click para ingresar un valor"></a>
-            </td>
-            <td>
-                <a href="javascript:void(0);"
-                   class="xselect ventanas editable"
-                   data-type="select"
-                   data-pk="1"
-                   data-name="ventanas"
-                   data-title="Click para ingresar un valor"></a>
-            </td>
-            <td>
-                <a href="javascript:void(0);"
-                   class="xselect hidraulicas editable"
-                   data-type="select"
-                   data-pk="1"
-                   data-name="hidraulicas"
-                   data-title="Click para ingresar un valor"></a>
+                </td>
+                <td>
+                    <a href="javascript:void(0);"
+                       class="xselect pisos editable"
+                       data-type="select"
+                       data-pk="1"
+                       data-name="pisos"
+                       data-title="Click para ingresar un valor"
+                       value="{{$maniConstruccion->pisos}}"></a>
 
-            </td>
-            <td>
-                <a href="javascript:void(0);"
-                   class="xselect electricas editable"
-                   data-type="select"
-                   data-pk="1"
-                   data-name="electricas"
-                   data-title="Click para ingresar un valor"></a>
+                </td>
+                <td>
+                    <a href="javascript:void(0);"
+                       class="xselect puertas editable"
+                       data-type="select"
+                       data-pk="1"
+                       data-name="puertas"
+                       data-title="Click para ingresar un valor"
+                       value="{{$maniConstruccion->puertas}}"></a>
+                </td>
+                <td>
+                    <a href="javascript:void(0);"
+                       class="xselect ventanas editable"
+                       data-type="select"
+                       data-pk="1"
+                       data-name="ventanas"
+                       data-title="Click para ingresar un valor"
+                       value="{{$maniConstruccion->ventanas}}"></a>
+                </td>
+                <td>
+                    <a href="javascript:void(0);"
+                       class="xselect hidraulicas editable"
+                       data-type="select"
+                       data-pk="1"
+                       data-name="hidraulicas"
+                       data-title="Click para ingresar un valor"
+                       value="{{$maniConstruccion->hidraulicas}}"></a>
 
-            </td>
-            <td>
-                <a href="javascript:void(0);"
-                   class="xselect sanitarias editable"
-                   data-type="select"
-                   data-pk="1"
-                   data-name="sanitarias"
-                   data-title="Click para ingresar un valor"></a>
-            </td>
-            <td>
-                <a href="javascript:void(0);"
-                   class="xselect instEspeciales editable"
-                   data-type="select"
-                   data-pk="1"
-                   data-name="inst_especiales"
-                   data-title="Click para ingresar un valor"></a>
-            </td>
-            <td>
-                <a href="javascript:void(0);"
-                   class="editable antiguedad"
-                   data-type="text"
-                   data-pk="1"
-                   data-name="antiguedad"
-                   data-title="Ingrese la antigüedad en años"></a>
+                </td>
+                <td>
+                    <a href="javascript:void(0);"
+                       class="xselect electricas editable"
+                       data-type="select"
+                       data-pk="1"
+                       data-name="electricas"
+                       data-title="Click para ingresar un valor"
+                       value="{{$maniConstruccion->electricas}}"></a>
 
-            </td>
-            <td>
-                <a href="javascript:void(0);"
-                   class="xselect edosConstruccion editable"
-                   data-type="select"
-                   data-pk="1"
-                   data-name="edo_construccion"
-                   data-title="Click para ingresar un valor"></a>
+                </td>
+                <td>
+                    <a href="javascript:void(0);"
+                       class="xselect sanitarias editable"
+                       data-type="select"
+                       data-pk="1"
+                       data-name="sanitarias"
+                       data-title="Click para ingresar un valor"
+                       value="{{$maniConstruccion->sanitarias}}"></a>
+                </td>
+                <td>
+                    <a href="javascript:void(0);"
+                       class="xselect instEspeciales editable"
+                       data-type="select"
+                       data-pk="1"
+                       data-name="inst_especiales"
+                       data-title="Click para ingresar un valor"
+                       value="{{$maniConstruccion->inst_especiales}}"></a>
+                </td>
+                <td>
+                    <a href="javascript:void(0);"
+                       class="editable antiguedad"
+                       data-type="text"
+                       data-pk="1"
+                       data-name="antiguedad"
+                       data-title="Ingrese la antigüedad en años"
+                       value="{{$maniConstruccion->antiguedad}}"></a>
 
-            </td>
-            <td>
-                <a href="javascript:void(0);"
-                   class="editable avance"
-                   data-type="text"
-                   data-pk="1"
-                   data-name="avance"
-                   data-title="Ingrese el porcentaje de avance"></a>
+                </td>
+                <td>
+                    <a href="javascript:void(0);"
+                       class="xselect edosConstruccion editable"
+                       data-type="select"
+                       data-pk="1"
+                       data-name="edo_construccion"
+                       data-title="Click para ingresar un valor"
+                       value="{{$maniConstruccion->edo_construccion}}"></a>
 
-            </td>
-            <td>
-                <a href="javascript:void(0);"
-                   class="xselect usosConstruccion editable"
-                   data-type="select"
-                   data-pk="1"
-                   data-name="uso_construccion"
-                   data-title="Click para ingresar un valor"></a>
+                </td>
+                <td>
+                    <a href="javascript:void(0);"
+                       class="editable avance"
+                       data-type="text"
+                       data-pk="1"
+                       data-name="avance"
+                       data-title="Ingrese el porcentaje de avance"
+                       value="{{$maniConstruccion->avance}}"></a>
 
-            </td>
-            <td>
-                <a href="javascript:void(0);"
-                   class="editable niveles"
-                   data-type="text"
-                   data-pk="1"
-                   data-name="num_niveles"
-                   data-title="Ingrese el número de niveles"></a>
-            </td>
-            <td>
-                <button class="btn btn-warning pull-right borrar-construccion" data-pk="1" title="Eliminar bloque de construcción"><i class="glyphicon glyphicon-trash"></i></button>
-            </td>
-        </tr>
+                </td>
+                <td>
+                    <a href="javascript:void(0);"
+                       class="xselect usosConstruccion editable"
+                       data-type="select"
+                       data-pk="1"
+                       data-name="uso_construccion"
+                       data-title="Click para ingresar un valor"
+                       value="{{$maniConstruccion->uso_construccion}}"></a>
+
+                </td>
+                <td>
+                    <a href="javascript:void(0);"
+                       class="editable niveles"
+                       data-type="text"
+                       data-pk="1"
+                       data-name="num_niveles"
+                       data-title="Ingrese el número de niveles"
+                       value="{{$maniConstruccion->num_niveles}}"></a>
+                </td>
+                <td>
+                    <button class="btn btn-warning pull-right borrar-construccion" data-pk="1" title="Eliminar bloque de construcción"><i class="glyphicon glyphicon-trash"></i></button>
+                </td>
+            </tr>
+          @endforeach
+          @else
+                        <tr class="bloque-construccion" data-pk="1">
+                <td class="bloque-id">1</td>
+                <td>
+                    <a href="javascript:void(0);"
+                       class="editable supConstruccion"
+                       data-type="text"
+                       data-pk="1"
+                       data-name="sup_construccion"
+                       data-title="Click para ingresar un valor"></a>
+                </td>
+                <td>
+
+                    <a href="javascript:void(0);"
+                       class="xselect tiposConstruccion editable"
+                       data-type="select"
+                       data-pk="1"
+                       data-value=""
+                       data-name="tipo_construccion"
+                       data-title="Click para ingresar un valor"></a>
+
+                </td>
+                <td>
+                    <a href="javascript:void(0);"
+                       class="xselect techos editable"
+                       data-type="select"
+                       data-pk="1"
+                       data-name="techos"
+                       data-title="Click para ingresar un valor"
+                       value=1></a>
+                </td>
+                <td>
+                    <a href="javascript:void(0);"
+                       class="xselect muros editable"
+                       data-type="select"
+                       data-pk="1"
+                       data-name="muros"
+                       data-title="Click para ingresar un valor"></a>
+
+                </td>
+                <td>
+                    <a href="javascript:void(0);"
+                       class="xselect pisos editable"
+                       data-type="select"
+                       data-pk="1"
+                       data-name="pisos"
+                       data-title="Click para ingresar un valor"></a>
+
+                </td>
+                <td>
+                    <a href="javascript:void(0);"
+                       class="xselect puertas editable"
+                       data-type="select"
+                       data-pk="1"
+                       data-name="puertas"
+                       data-title="Click para ingresar un valor"></a>
+                </td>
+                <td>
+                    <a href="javascript:void(0);"
+                       class="xselect ventanas editable"
+                       data-type="select"
+                       data-pk="1"
+                       data-name="ventanas"
+                       data-title="Click para ingresar un valor"></a>
+                </td>
+                <td>
+                    <a href="javascript:void(0);"
+                       class="xselect hidraulicas editable"
+                       data-type="select"
+                       data-pk="1"
+                       data-name="hidraulicas"
+                       data-title="Click para ingresar un valor"></a>
+
+                </td>
+                <td>
+                    <a href="javascript:void(0);"
+                       class="xselect electricas editable"
+                       data-type="select"
+                       data-pk="1"
+                       data-name="electricas"
+                       data-title="Click para ingresar un valor"></a>
+
+                </td>
+                <td>
+                    <a href="javascript:void(0);"
+                       class="xselect sanitarias editable"
+                       data-type="select"
+                       data-pk="1"
+                       data-name="sanitarias"
+                       data-title="Click para ingresar un valor"></a>
+                </td>
+                <td>
+                    <a href="javascript:void(0);"
+                       class="xselect instEspeciales editable"
+                       data-type="select"
+                       data-pk="1"
+                       data-name="inst_especiales"
+                       data-title="Click para ingresar un valor"></a>
+                </td>
+                <td>
+                    <a href="javascript:void(0);"
+                       class="editable antiguedad"
+                       data-type="text"
+                       data-pk="1"
+                       data-name="antiguedad"
+                       data-title="Ingrese la antigüedad en años"></a>
+
+                </td>
+                <td>
+                    <a href="javascript:void(0);"
+                       class="xselect edosConstruccion editable"
+                       data-type="select"
+                       data-pk="1"
+                       data-name="edo_construccion"
+                       data-title="Click para ingresar un valor"></a>
+
+                </td>
+                <td>
+                    <a href="javascript:void(0);"
+                       class="editable avance"
+                       data-type="text"
+                       data-pk="1"
+                       data-name="avance"
+                       data-title="Ingrese el porcentaje de avance"></a>
+
+                </td>
+                <td>
+                    <a href="javascript:void(0);"
+                       class="xselect usosConstruccion editable"
+                       data-type="select"
+                       data-pk="1"
+                       data-name="uso_construccion"
+                       data-title="Click para ingresar un valor"></a>
+
+                </td>
+                <td>
+                    <a href="javascript:void(0);"
+                       class="editable niveles"
+                       data-type="text"
+                       data-pk="1"
+                       data-name="num_niveles"
+                       data-title="Ingrese el número de niveles"></a>
+                </td>
+                <td>
+                    <button class="btn btn-warning pull-right borrar-construccion" data-pk="1" title="Eliminar bloque de construcción"><i class="glyphicon glyphicon-trash"></i></button>
+                </td>
+            </tr>
+          @endif
         </tbody>
         <tfoot>
             <tr>
@@ -209,7 +377,7 @@
 <div class="col-md-6">
     <div class="form-group">
         {{Form::label('ValorCalle','MAPA DE MANZANA')}}
-        {{Form::textarea('valorcalle', null, ['class' => 'form-control'])}}
+        <div style="width:552px;height:240px;border:1px solid #C0C0C0;">Aqui debe de ir algo</div>
         {{$errors->first('valorcalle', '<span class=text-danger>:message</span>')}}
     </div>
 </div>

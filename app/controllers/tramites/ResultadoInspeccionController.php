@@ -3,10 +3,14 @@
 class tramites_ResultadoInspeccionController extends \BaseController {
 
 protected $manifestacion;
+protected $servicioPublico;
+protected $manifestacionConstruccion;
 
-    public function __construct(Manifestacion $manifestacion) {
+    public function __construct(Manifestacion $manifestacion, ServicioPublico $servicioPublico, ManifestacionConstruccion $manifestacionConstruccion) {
 
         $this->manifestacion = $manifestacion;
+        $this->servicioPublico = $servicioPublico;
+        $this->manifestacionConstruccion = $manifestacionConstruccion;
 
         $this->beforeFilter('csrf',array('on' => 'post'));
         $this->afterFilter("no-cache");
@@ -19,16 +23,43 @@ protected $manifestacion;
 	 */
 	public function create()
 	{
+
+    $clave = Input::get('clave');
+    $cuenta = INput::get('cuenta');
+
 		$vars = $this->catalogos();
 
 		$JsonColindancias = json_encode([]);
 
-        $manifestacion = $this->manifestacion;
+    $manifestacion = $this->manifestacion;
 
-        $vars['JsonColindancias'] = $JsonColindancias;
-        $vars['manifestacion'] = $manifestacion;
+    $consultaMani = $manifestacion->where('clave', $clave)->where('cuenta',$cuenta)->get()[0];
+
+    //dd($modelos['manifestaciones']);
+
+    if(!$consultaMani)
+    {
+      return 'No se encontro la solicitud inspeccion para la clave ' . $clave . ' y cuenta '. $cuenta;
+    }
+
+    $manifestacion_id = $consultaMani->id;
+
+    $servicioPublico = $this->servicioPublico;
+
+    $maniConstruccion = $this->manifestacionConstruccion;
+
+    $vars['serv_publico'] = $servicioPublico->where('manifestacion_predio_id', $manifestacion_id)->lists('tipo_servicio_id');
+
+    $vars['JsonColindancias'] = $JsonColindancias;
+
+    $vars['manifestacion'] = $manifestacion;
+
+    $vars['consultaMani'] = $consultaMani;
+
+    $vars['manifestacionConstruccion'] = $maniConstruccion->where('manifestacion_id', $manifestacion_id)->get();
 
 		return View::make('tramites.inspeccion.complementa', $vars);
+
 	}
 
 
@@ -40,7 +71,7 @@ protected $manifestacion;
 	 */
 	public function show($id)
 	{
-		
+    
 	}
 
     private function catalogos(){
