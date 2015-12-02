@@ -417,16 +417,37 @@ Se toma parte del archivo /ofvirtual/notario/manifestacion/_form.blade elaborado
             for(i in registrosConstrucciones.construcciones){
                 if(i !== 'sup_albercas') {
                     sup_total += Number(registrosConstrucciones.construcciones[i].sup_construccion);
-                    //console.log("La sup total calculada en el %s : %s",i, sup_total);
                 }
             }
             sup_total += Number(registrosConstrucciones.sup_albercas);
             $('#total-sup-cons').text(sup_total);
             registrosConstrucciones.sup_total = sup_total;
-            //console.log(sup_total);
+            
         }
+        $(document).ready(function(){
+            $("#enajenante-rfc").autocomplete("disable");
+            $(".radio-persona").click(function(){
+               // var valor = $this.val();
+                var valor = $('input:radio:checked').val();
+                if(valor == 2)
+                    {
+                        $("#enajenante-curp").hide();
+                        $("#enajenante-apellido_paterno").hide();
+                        $("#enajenante-apellido_materno").hide();
 
-        //autocompleter para la curp de los copropietarios
+                    }
+                if(valor == 1)
+                {
+                    $("#enajenante-curp").show();
+                    $("#enajenante-apellido_paterno").show();
+                    $("#enajenante-apellido_materno").show();
+                    
+                    //$('#renajenante-rfc').attr('autocomplete', 'off');
+                }
+            });
+
+        });
+                //autocompleter para la curp de los copropietarios
         $('body').on('keyup','.curp',function () {
 
              //Estas son las opciones con las que se construye el autocomplete, como son comunes a los dos inputs rfc y curp se sacan para reutlizar
@@ -470,7 +491,6 @@ Se toma parte del archivo /ofvirtual/notario/manifestacion/_form.blade elaborado
 
  //autocompleter para la RFC de los copropietarios
         $('body').on('keyup','.rfc',function () {
-             //alert('rfc');
              //Estas son las opciones con las que se construye el autocomplete, como son comunes a los dos inputs rfc y curp se sacan para reutlizar
             var autoCompleteOptsAdquiriente = {
                 source: "/ofvirtual/notario/registro/adquiriente", //Ruta al controlador que provee los resultados de la busqueda
@@ -516,32 +536,15 @@ Se toma parte del archivo /ofvirtual/notario/manifestacion/_form.blade elaborado
                 select: function (event, ui) {
                     //Al seleccionar un valor de los desplegados rellenamos los campos
 
-                ////var rfc = 'copropietario[0][rfc]';
-                ////var nombres = 'copropietario[0][nombres]';
-               //// var apellido_paterno = 'copropietario[0][apellido_paterno]';
-                ////var apellido_materno = 'copropietario[0][apellido_materno]';
-                ////var id_p = 'copropietario[0][id_p]';
-
-              //  var num = parseInt($(this).prop("name").match(/\d+/g), 10) ;
-
-              //  rfc = rfc.replace(/(\w+)\[(\d+)\]\[(\w+)\]/, "$1[" + num + "][$3]");
-             //   nombres = nombres.replace(/(\w+)\[(\d+)\]\[(\w+)\]/, "$1[" + num + "][$3]");
-               // apellido_paterno = apellido_paterno.replace(/(\w+)\[(\d+)\]\[(\w+)\]/, "$1[" + num + "][$3]");
-             //   apellido_materno = apellido_materno.replace(/(\w+)\[(\d+)\]\[(\w+)\]/, "$1[" + num + "][$3]");
-               // id_p = id_p.replace(/(\w+)\[(\d+)\]\[(\w+)\]/, "$1[" + num + "][$3]");
-              //  console.log('rfc '+ rfc);
-//
                 $('#enajenante-curp').val(ui.item.curp);
                 $('#enajenante-rfc' ).val(ui.item.rfc);
                 $('#enajenante-nombres' ).val(ui.item.nombres);
                 $('#enajenante-apellido_paterno' ).val(ui.item.apellido_paterno);
                 $('#enajenante-apellido_materno' ).val(ui.item.apellido_materno);
                 $('#enajenante-curp').val(ui.item.curp);
-            //    $('#' +  nombres.replace( /(:|\.|\[|\]|,)/g, "\\$1" )).val(ui.item.nombres);
-            //    $('#' +  apellido_paterno.replace( /(:|\.|\[|\]|,)/g, "\\$1" )).val(ui.item.apellido_paterno);
-            //    $('#' +  apellido_materno.replace( /(:|\.|\[|\]|,)/g, "\\$1" )).val(ui.item.apellido_materno);
                 $('#id_pp' ).val(ui.item.id_p);
-                    return false;
+            
+                return false;
                 }
             };
             //Se crea autocompleter de CURP
@@ -550,6 +553,34 @@ Se toma parte del archivo /ofvirtual/notario/manifestacion/_form.blade elaborado
                         .append("<a>" + item.curp + "<br>" + "<span class='nombre-coincidencia'><i class='glyphicon glyphicon-user'></i><small> " + item.nombrec + "</small><span></a>")
                         .appendTo(ul);
             };
+
+});
+
+//autocompleter para la rfc de los propietario principal
+        $('body').on('keyup','#enajenante-rfc',function () {
+
+             //Estas son las opciones con las que se construye el autocomplete, como son comunes a los dos inputs rfc y curp se sacan para reutlizar
+            var autoCompleteOptsAdquiriente = {
+                source: "/ofvirtual/notario/registro/adquiriente", //Ruta al controlador que provee los resultados de la busqueda
+                minLength: 5, //Empezamos a mandar los teclazos si han tecleado 8 caracteres
+                select: function (event, ui) {
+                    //Al seleccionar un valor de los desplegados rellenamos los campos
+
+                
+                $('#enajenante-rfc' ).val(ui.item.rfc);
+                $('#enajenante-nombres' ).val(ui.item.nombres);
+                $('#id_pp' ).val(ui.item.id_p);
+            
+                return false;
+                }
+            };
+            //Se crea autocompleter de CURP
+            $('#enajenante-rfc').autocomplete(autoCompleteOptsAdquiriente).autocomplete("instance")._renderItem = function (ul, item) {
+                return $("<li>")
+                        .append("<a>" + item.curp + "<br>" + "<span class='nombre-coincidencia'><i class='glyphicon glyphicon-user'></i><small> " + item.nombrec + "</small><span></a>")
+                        .appendTo(ul);
+            };
+
 });
 
 

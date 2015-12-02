@@ -19,7 +19,7 @@ $personas = '
                 Form::label($llave.'[1][rfc]','RFC', ['class'=>'']).
                 Form::text($llave.'[1][rfc]', null, ['class' => 'form-control rfc', 'minlength'=>'12', 'maxlength'=>'13', 'pattern' => '([A-Za-z]{4})([0-9]{6})([A-Za-z0-9]{3})', 'title' => 'El RFC ingresado no tiene el formato esperado, verifique nuevamente el RFC ingresado'] ).
                 Form::label($llave.'[1][nombres]','Nombre', ['class'=>'']).
-                Form::text($llave.'[1][nombres]', null, ['class' => 'form-control', 'required'=>true] ).
+                Form::text($llave.'[1][nombres]', null, ['class' => 'form-control']).
             '<span class='.$llave.'>'.
                 Form::label($llave.'[1][apellido_paterno]','Apellido Paterno', ['class'=>'']).
                 Form::text($llave.'[1][apellido_paterno]', null, ['class' => 'form-control'] ).

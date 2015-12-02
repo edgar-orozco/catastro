@@ -263,10 +263,6 @@ protected $manifestacion;
     }
 
 public function store(){
-
-
-  // $datos_construccion['id_manifestacion_construccion']=100000;
-
    //dd($datos_construccion);
    //print_r( $enajenanteR=Input::get('enajenante'));
    //dd(Input::get('enajenante'));
@@ -276,15 +272,16 @@ public function store(){
     $persona_propietario=Input::get('enajenante');
  //  echo 'id '.$persona_propietario['id_pp'];
 //dd($persona_propietario);
-    if ($persona_propietario['id_pp']) {
-         $persona_id = $persona_propietario['id_pp'];
-         $persona = personas::find($persona_id);
-
-    }else{
-    $persona = new personas();
-    $persona->fill(Input::get('enajenante', []))->save();
-    $persona_id=$persona->id_p;
-    }
+    if ($persona_propietario['id_pp'])
+        {
+             $persona_id = $persona_propietario['id_pp'];
+             $persona = personas::find($persona_id);
+        }else
+            {
+                $persona = new personas();
+                $persona->fill(Input::get('enajenante', []))->save();
+                $persona_id=$persona->id_p;
+            }
     //dd($persona);
     //se agrega el domicilio
     $domicilio = new Domicilio();
@@ -303,63 +300,73 @@ public function store(){
 
     //Se agregann los Copropietarios
     $copropietarios = Input::get('copropietario');
-        foreach($copropietarios as $cpropietario) {
-
-            if($cpropietario['id_p'])
-                {//dd($cpropietario);
-                    $ex_propietarios = new propietarios();
-                    $ex_propietarios->id_propietario=$cpropietario['id_p'];
-                    $ex_propietarios->tipo_propietario=2;
-                    $ex_propietarios->tramite_id=Input::get('tramite_id');
-                    $ex_propietarios->save();
-                }else
+    if($copropietarios)
+        {
+            foreach($copropietarios as $cpropietario)
                 {
-                    $new_persona = new personas();
-                    $new_persona->fill(Input::get('enajenante', []))->save();
-                    $new_persona_id=$new_persona->id_p;
+                    if($cpropietario['id_p'])
+                        {//dd($cpropietario);
+                            $ex_propietarios = new propietarios();
+                            $ex_propietarios->id_propietario=$cpropietario['id_p'];
+                            $ex_propietarios->tipo_propietario=2;
+                            $ex_propietarios->tramite_id=Input::get('tramite_id');
+                            $ex_propietarios->save();
+                        }else
+                            {
+                                $new_persona = new personas();
+                                $new_persona->fill(Input::get('enajenante', []))->save();
+                                $new_persona_id=$new_persona->id_p;
 
-                    $co_propietarios = new propietarios();
-                    $co_propietarios->id_propietario=$new_persona_id;
-                    $co_propietarios->tipo_propietario=2;
-                    $co_propietarios->tramite_id=Input::get('tramite_id');
-                    $co_propietarios->save();
+                                $co_propietarios = new propietarios();
+                                $co_propietarios->id_propietario=$new_persona_id;
+                                $co_propietarios->tipo_propietario=2;
+                                $co_propietarios->tramite_id=Input::get('tramite_id');
+                                $co_propietarios->save();
+                            }
                 }
-
-
         }
     //Se cargan los datos en la tabla manifestacion
    $man=Input::get('manifestacion',[]);
-
-    $man['clave']=Input::get('clave');
-    $man['propietario_id']=$propietario_id;
-    $man['cuenta']=Input::get('cuenta');
-    $man['tramite_id']=Input::get('tramite_id');
-
+   $man['clave']=Input::get('clave');
+   $man['propietario_id']=$propietario_id;
+   $man['cuenta']=Input::get('cuenta');
+   $man['tramite_id']=Input::get('tramite_id');
     //$man->domicilio_id=$denajenante=$denajenante->id;
    $manifestacion = new Manifestacion();
    $manifestacion->fill($man)->save();
    $id_manifestacion= $manifestacion->id;
 
     //se guarda bloque de construccion
-    $datos_construccion =  json_decode(Input::get('datos_construccion'),true) ;
-    //dd($datos_construccion['construcciones']);
-   $sup_total=0;
-   foreach ($datos_construccion['construcciones'] as $key  )
-   {
-        $construc = new ManifestacionConstruccion();
-         $construc->manifestacion_id =  $id_manifestacion;
-         $construc->sup_construccion = $key['sup_construccion'];
-          $construc->save();
-          $sup_total= $sup_total +  $key['sup_construccion'];
-
-
-   }
-
+    $datos_construccion =  json_decode(Input::get('datos_construccion'),true);
+    if($datos_construccion)
+        {
+            //dd($datos_construccion['construcciones']);
+            $sup_total=0;
+            foreach ($datos_construccion['construcciones'] as $key  )
+                {
+                    $construc = new ManifestacionConstruccion();
+                    $construc->manifestacion_id =  $id_manifestacion;
+                    $construc->sup_construccion = $key['sup_construccion'];
+                    $construc->save();
+                    $sup_total= $sup_total +  $key['sup_construccion'];
+                }
+        }
+   
    $update_manifestacion =  Manifestacion::find($id_manifestacion);
    $update_manifestacion->total_sup_construccion = $sup_total;
    $update_manifestacion->superficie_alberca = $datos_construccion['sup_albercas'];
    $update_manifestacion->save();
 
+   //se guardan los servicios
+   $datos_construccion=Input::get('manifestacion_servicios');
+   foreach ($datos_construccion as $key ) 
+        {
+            $servicio = new ServicioPublico();
+            $servicio->manifestacion_predio_id = $id_manifestacion;
+            $servicio->tipo_servicio_id = $key;
+            $servicio->save();
+//       echo 'id: '.$key.'</br>';
+        }
 //return 'listo final';
 return View::make('tramites.inspeccion._form_datos_guardados', compact ('update_manifestacion','construc','manifestacion','copropietarios','propietario','domicilio','persona'));
 
