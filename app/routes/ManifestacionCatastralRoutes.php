@@ -7,14 +7,17 @@ Route::group(array('before' => 'auth'), function () {
 //Forma create
     Route::get('ofvirtual/notario/manifestacion/create',
       'ManifestacionCatastralController@create');
+//Forma create prueba de manifestacion completa
+    Route::get('ofvirtual/notario/manifestacion/stores',
+      'ManifestacionCatastralTramiteController@stores');
 
 //Forma create
     Route::get('ofvirtual/notario/manifestacion/tramite',
         'ManifestacionCatastralTramiteController@create');
 
 //Forma store
-    Route::post('ofvirtual/notario/manifestacion/create',
-      ['uses' => 'ManifestacionCatastralController@store']);
+  //  Route::post('ofvirtual/notario/manifestacion/create',
+   //   ['uses' => 'ManifestacionCatastralController@store']);
 
 //Forma update
     Route::get('ofvirtual/notario/manifestacion/edit/{id}',
