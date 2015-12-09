@@ -5,6 +5,9 @@ use Illuminate\Support\Facades\Redirect;
 
 class ManifestacionCatastralTramiteController extends \BaseController
 {
+
+
+
     /**
      * Reglas de validación para datos de identificacion
      */
@@ -28,10 +31,12 @@ class ManifestacionCatastralTramiteController extends \BaseController
     );
 
     protected $manifestacion;
+    protected $registro;
 
-    public function __construct(Manifestacion $manifestacion) {
+    public function __construct(Manifestacion $manifestacion,RegistroEscritura $registro) {
 
         $this->manifestacion = $manifestacion;
+        $this->registro = $registro;
 
         $this->beforeFilter('csrf',array('on' => 'post'));
         $this->afterFilter("no-cache");
@@ -63,6 +68,9 @@ class ManifestacionCatastralTramiteController extends \BaseController
      */
     public function create(){
 
+      $clave=Input::get('clave');
+        $cuenta=Input::get('cuenta');
+        $tramite_id=Input::get('tramite_id');
         //Todos los catalogos que se utilizan en combos y opciones en la forma de la manifestacion
         $vars = $this->catalogos();
 
@@ -72,8 +80,11 @@ class ManifestacionCatastralTramiteController extends \BaseController
 
         $vars['JsonColindancias'] = $JsonColindancias;
         $vars['manifestacion'] = $manifestacion;
-
-        return View::make('ofvirtual.notario.manifestacion.create', $vars);
+        $vars['clave']=$clave;
+        $vars['cuenta']=$cuenta;
+        $vars['tramite_id']=$tramite_id;
+        
+        return View::make('ofvirtual.notario.manifestacion.createTramite', $vars);
     }
 
 
@@ -443,5 +454,113 @@ class ManifestacionCatastralTramiteController extends \BaseController
         return compact($vars);
     }
 
+     public function stores(){
+      $array[]='';
+
+      $clave=Input::get('clave');
+      $cuenta=Input::get('cuenta');
+      $tramite_id=Input::get('tramite_id');
+     
+
+      //datos del propietario
+      $propietario = new personas();
+      $propietario->fill(Input::get('enajenante', []))->save();
+      $propietario_id=$propietario->id_p;
+
+
+      //domicilio del propierario
+      $domicilio_p = new Domicilio();
+      $domicilio_p->fill(Input::get('domicilioEnajenante', []))->save();
+      $domicilio_p_id=$domicilio_p->id;
+
+      //se agrega el propietario
+    $propietario_t = new propietarios();
+    $propietario_t->id_propietario=$propietario_id;
+    $propietario_t->tipo_propietario=1;
+    $propietario_t->id_dom=$domicilio_p_id;
+    $propietario_t->tramite_id=Input::get('tramite_id');
+    $propietario_t->save();
+    $propietario_t_id=$propietario_t->id_propietarios;
+
+     //domicilio vendedor
+      $domicilio_vend = new Domicilio();
+      $domicilio_vend->fill(Input::get('domicilioAdquiriente', []))->save();
+      $domicilio_vend_id=$domicilio_vend->id;
+      ////dd($domicilio_vend_id);
+      //datos del vendedor
+      $ven_persona = new personas();
+      $ven_persona->fill(Input::get('adquiriente', []))->save();
+      $ven_persona_id=$ven_persona->id_p;
+
+      $vendedor = new propietarios();
+      $vendedor->id_propietario= $ven_persona_id;
+      $vendedor->id_dom=$domicilio_vend_id;
+      $vendedor->tipo_propietario=3;
+      $vendedor->tramite_id=Input::get('tramite_id');
+      $vendedor->save();
+     
+      
+      //direccion del predio pendiente
+      /*
+      $domicilio_predio = new Domicilio();
+      $domicilio_predio->fill(Input::get('direccionUrbano', []))->save();
+      $domicilio_predio_id=$domicilio_predio->id;
+      */
+      //colindancias del predio 
+      $colin = Input::get('colindancias',[]);
+
+    //$man->domicilio_id=$denajenante=$denajenante->id;
+    $man = Input::get('manifestacion',[]);
+    //dd($man);
+    $man['clave']=$clave;
+    $man['cuenta']=$cuenta;
+    $man['tramite_id']=$tramite_id;
+    $man['propietario_id']= $propietario_t_id;
+   // dd($man);
+   $manifestacion = new Manifestacion();
+   $manifestacion->fill($man)->save();
+       //datos de la manifestacion
+      //
+     // $array['manifestacion'] = $manifestacion;
+   
+       foreach(Input::get('colindancias') as $colindancia) {
+          //hasta aqui funiona correctamente
+           $colindancia['manifestacion_id'] = $manifestacion->id;
+
+           //id de la manifestacion
+           //aqui ya no funciona no se si tenga que ver con el modelo
+            $Colindancias[] = new ManifestacionColindancia($colindancia);
+            //dd($Colindancias);
+           // ;
+          //
+        }
+       // print_r($oColindancias);
+        //aqui la varianble $Colindancias llega vacia
+       // dd($manifestacion);
+        $manifestacion->colindancias()->saveMany($Colindancias);
+
+      //datos construccion
+    
+
+      //se guarda bloque de construccion
+    $datos_construccion =  json_decode(Input::get('datos_construccion'),true);
+    
+    if($datos_construccion)
+        {
+            //dd($datos_construccion['construcciones']);
+            $sup_total=0;
+            foreach ($datos_construccion['construcciones'] as $key  )
+                {
+                    $construc = new ManifestacionConstruccion();
+                    $construc->manifestacion_id =  $manifestacion->id;
+                    $construc->sup_construccion = $key['sup_construccion'];
+                    dd($construc->manifestacion_id);
+                    $construc->save();
+                    $sup_total= $sup_total +  $key['sup_construccion'];
+                }
+        }
+      
+ return Redirect::to('/');
+    }
 
 }
