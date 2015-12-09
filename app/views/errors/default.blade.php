@@ -34,7 +34,7 @@
                         <h4>{{Request::getClientIp()}}</h4>
                     </div>
                     <div align="center">
-                        <h4>Favor de reportar esta pantalla de error. Si no le es posible realizar una captura de pantalla copie el código de error y la fecha y hora que aparecen en el mensaje anterior</h4>                        
+                        <h4>Favor de reportar esta pantalla de error. Si no le es posible realizar una captura de pantalla copie el texto que aparecen en el recuadro anterior</h4>                        
                     </div>
                 </div>
             </div>
