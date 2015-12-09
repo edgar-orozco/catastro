@@ -30,6 +30,9 @@
                     <div align="center">
                         <h1>Error 500</h1>
                         <h2>Error interno de sistema.</h2>
+                        <h4>{{date("Y-m-d H:i:s")}}</h4>
+                        <h4>{{Request::getClientIp()}}</h4>
+                        <h5>Favor de reportar esta pantalla de error. Si no le es posible realizar una captura de pantalla copie el código de error y la fecha y hora que aparecen en el mensaje anterior</h5>
                     </div>
                 </div>
             </div>
