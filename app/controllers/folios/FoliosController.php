@@ -4,7 +4,7 @@ class folios_FoliosController extends BaseController {
 
 	public function nfolios(){ //formulario para nuevos folios
 
-		$noperito = Perito::where('Estado', 1)
+		$noperito = Perito::where('Estado', 1)->orderBy('corevat')
 		->get();
 
 		return View::make('folios.folios.nfolios')->withPeritos($noperito);
