@@ -519,6 +519,7 @@ class ManifestacionCatastralTramiteController extends \BaseController
    // dd($man);
    $manifestacion = new Manifestacion();
    $manifestacion->fill($man)->save();
+
        //datos de la manifestacion
       //
      // $array['manifestacion'] = $manifestacion;
@@ -554,13 +555,13 @@ class ManifestacionCatastralTramiteController extends \BaseController
                     $construc = new ManifestacionConstruccion();
                     $construc->manifestacion_id =  $manifestacion->id;
                     $construc->sup_construccion = $key['sup_construccion'];
-                    dd($construc->manifestacion_id);
+                    //dd($construc->manifestacion_id);
                     $construc->save();
                     $sup_total= $sup_total +  $key['sup_construccion'];
                 }
         }
-      
- return Redirect::to('/');
+      $idm=$manifestacion->id;
+ return View::make('ofvirtual.notario.manifestacion._form_datos_guardados',compact('idm'));
     }
 
 }
