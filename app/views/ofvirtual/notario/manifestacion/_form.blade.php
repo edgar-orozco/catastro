@@ -10,7 +10,7 @@
 </div>
 
 <fieldset><legend>Propietario</legend>
-    @include('ofvirtual.notario.manifestacion._form_persona_inline',['instancia'=>'enajenante'])
+    @include('ofvirtual.notario.manifestacion._from_persona_inline_manifestacion',['instancia'=>'enajenante'])
     <h4>Domicilio:</h4>
     @include('ofvirtual.notario.manifestacion._form_persona_domicilio',['instancia'=>'domicilioEnajenante'])
 </fieldset>
@@ -496,6 +496,86 @@
             registrosConstrucciones.sup_total = sup_total;
             //console.log(sup_total);
         }
+        //comportamiento de los radio-button propietario
+        $(document).ready(function(){
+            $(".radio-persona").click(function(){
+               // var valor = $this.val();
+                var valor = $('input:radio:checked').val();
+                if(valor == 2)
+                    {
+                        $("#enajenante-curp").hide();
+                        $("#enajenante-apellido_paterno").hide();
+                        $("#enajenante-apellido_materno").hide();
+
+                    }
+                if(valor == 1)
+                {
+                    $("#enajenante-curp").show();
+                    $("#enajenante-apellido_paterno").show();
+                    $("#enajenante-apellido_materno").show();
+                    
+                    //$('#renajenante-rfc').attr('autocomplete', 'off');
+                }
+            });
+
+        });
+
+
+        $('body').on('keyup','#enajenante-curp',function() {
+            
+             //Estas son las opciones con las que se construye el autocomplete, como son comunes a los dos inputs rfc y curp se sacan para reutlizar
+            var autoCompleteOptsAdquiriente = {
+                source: "/ofvirtual/notario/registro/adquiriente", //Ruta al controlador que provee los resultados de la busqueda
+                minLength: 5, //Empezamos a mandar los teclazos si han tecleado 8 caracteres
+                select: function (event, ui) {
+                    //Al seleccionar un valor de los desplegados rellenamos los campos
+
+                $('#enajenante-curp').val(ui.item.curp);
+                $('#enajenante-rfc' ).val(ui.item.rfc);
+                $('#enajenante-nombres' ).val(ui.item.nombres);
+                $('#enajenante-apellido_paterno' ).val(ui.item.apellido_paterno);
+                $('#enajenante-apellido_materno' ).val(ui.item.apellido_materno);
+                $('#enajenante-curp').val(ui.item.curp);
+                $('#enajenante-id_p' ).val(ui.item.id_p);
+            
+                return false;
+                }
+            };
+
+            //Se crea autocompleter de CURP
+            $('#enajenante-curp').autocomplete(autoCompleteOptsAdquiriente).autocomplete("instance")._renderItem = function (ul, item) {
+                return $("<li>")
+                        .append("<a>" + item.curp + "<br>" + "<span class='nombre-coincidencia'><i class='glyphicon glyphicon-user'></i><small> " + item.nombrec + "</small><span></a>")
+                        .appendTo(ul);
+            };
+        });
+
+
+    //autocompleter para la RFC del propietario
+        $('body').on('keyup','#enajenante-rfc',function () {
+             //Estas son las opciones con las que se construye el autocomplete, como son comunes a los dos inputs rfc y curp se sacan para reutlizar
+             var autoCompleteOptsAdquiriente = {
+                source: "/ofvirtual/notario/registro/adquiriente", //Ruta al controlador que provee los resultados de la busqueda
+                minLength: 5, //Empezamos a mandar los teclazos si han tecleado 8 caracteres
+                select: function (event, ui) {
+                    //Al seleccionar un valor de los desplegados rellenamos los campos
+
+                
+                $('#enajenante-rfc' ).val(ui.item.rfc);
+                $('#enajenante-nombres' ).val(ui.item.nombres);
+                $('#enajenante-id_p' ).val(ui.item.id_p);
+            
+                return false;
+                }
+            };
+            //Se crea autocompleter de CURP
+             $('#enajenante-rfc').autocomplete(autoCompleteOptsAdquiriente).autocomplete("instance")._renderItem = function (ul, item) {
+                return $("<li>")
+                        .append("<a>" + item.curp + "<br>" + "<span class='nombre-coincidencia'><i class='glyphicon glyphicon-user'></i><small> " + item.nombrec + "</small><span></a>")
+                        .appendTo(ul);
+            };
+});
+
 
     </script>
 @stop

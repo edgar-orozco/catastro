@@ -463,11 +463,17 @@ class ManifestacionCatastralTramiteController extends \BaseController
      
 
       //datos del propietario
-      $propietario = new personas();
-      $propietario->fill(Input::get('enajenante', []))->save();
-      $propietario_id=$propietario->id_p;
-
-
+      $pp = Input::get('enajenante', []);
+      if($pp['id_p'])
+      {
+        $propietario_id=$pp['id_p'];
+      }else
+      {
+        $propietario = new personas();
+        $propietario->fill(Input::get('enajenante', []))->save();
+        $propietario_id=$propietario->id_p;
+      }
+      //dd($propietario_id);
       //domicilio del propierario
       $domicilio_p = new Domicilio();
       $domicilio_p->fill(Input::get('domicilioEnajenante', []))->save();
