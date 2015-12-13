@@ -98,7 +98,6 @@ class ConsultaBoletaPredialController extends \BaseController
         if(isset($res[0]) && isset($res->adeudo) ){
             $adeudo = $res[0]->adeudo;
             $conceptos = explode("-",$adeudo);
-            //print_r($conceptos);
 
             //$actualizacion = $conceptos[0];
             //No usamos el SP del concepto aduedo para la actualizacion porque usamos la nuestra
