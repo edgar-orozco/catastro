@@ -1,5 +1,6 @@
 <?php
 
+use Carbon\Carbon;
 use Catastro\Repos\Padron\PadronFiscalRepository;
 
 class ConsultaBoletaPredialController extends \BaseController
@@ -94,7 +95,7 @@ class ConsultaBoletaPredialController extends \BaseController
         $recargos = 0.00;
         $gastosejecucion = 0.00;
 
-        if(count($res)>0){
+        if(isset($res[0]) && isset($res->adeudo) ){
             $adeudo = $res[0]->adeudo;
             $conceptos = explode("-",$adeudo);
             //print_r($conceptos);
@@ -134,6 +135,20 @@ class ConsultaBoletaPredialController extends \BaseController
         //TODO: En lo que dan de alta las claves esas.
         $referencias = "DT001|0";
 
+        //TODO: En lo que vuelven a activar el ws... 13/12/2015 se pone una linea fake
+        $linea = array(
+            "0" => "",
+            "1" => '831147',
+            "2" => Carbon::now()->toDateString(),
+            "3" => Carbon::now()->addDays(2)->toDateString(),
+            "4" => "",
+            "5" => "",
+            "6" => '201583114706661278',
+            "7" => '0900008311471510160012627',
+            "8" => '00201583114706661278',
+
+        );
+        /*
         $lc = new LineaCaptura($nombre, $referencias, $folio);
         if(!$lc->estatus){
             Session::flash('error',$lc->getErrorMsg());
@@ -141,6 +156,9 @@ class ConsultaBoletaPredialController extends \BaseController
         }
 
         $linea = $lc->getLineaCaptura();
+        */
+
+
         if(is_array($linea)){
 
             $linea_captura['finanzas'] = $linea[6];
@@ -151,8 +169,9 @@ class ConsultaBoletaPredialController extends \BaseController
             $linea_captura['transaccion'] = date("Y")."/".$linea[1];
         }
         else{
-            Session::flash('error',$lc->getErrorMsg());
-            return Redirect::back()->withInput();
+            //Todo: Mientras se activa el ws
+            //Session::flash('error',$lc->getErrorMsg());
+            //return Redirect::back()->withInput();
         }
 
         //barcodes
