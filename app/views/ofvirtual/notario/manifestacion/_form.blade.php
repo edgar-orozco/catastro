@@ -16,7 +16,7 @@
 </fieldset>
 
 <fieldset><legend>Vendedor</legend>
-    @include('ofvirtual.notario.manifestacion._form_persona_inline',['instancia'=>'adquiriente'])
+    @include('ofvirtual.notario.manifestacion._form_persona_inline_adquiriente',['instancia'=>'adquiriente'])
     <h4>Domicilio:</h4>
     @include('ofvirtual.notario.manifestacion._form_persona_domicilio',['instancia'=>'domicilioAdquiriente'])
 </fieldset>
@@ -576,6 +576,61 @@
             };
 });
 
+//buscador para vendedor
+$('body').on('keyup','#adquiriente-curp',function() {
+            
+             //Estas son las opciones con las que se construye el autocomplete, como son comunes a los dos inputs rfc y curp se sacan para reutlizar
+            var autoCompleteOptsAdquiriente = {
+                source: "/ofvirtual/notario/registro/adquiriente", //Ruta al controlador que provee los resultados de la busqueda
+                minLength: 5, //Empezamos a mandar los teclazos si han tecleado 8 caracteres
+                select: function (event, ui) {
+                    //Al seleccionar un valor de los desplegados rellenamos los campos
+
+                $('#adquiriente-curp').val(ui.item.curp);
+                $('#adquiriente-rfc' ).val(ui.item.rfc);
+                $('#adquiriente-nombres' ).val(ui.item.nombres);
+                $('#adquiriente-apellido_paterno' ).val(ui.item.apellido_paterno);
+                $('#adquiriente-apellido_materno' ).val(ui.item.apellido_materno);
+                $('#adquiriente-curp').val(ui.item.curp);
+                $('#adquiriente-id_p' ).val(ui.item.id_p);
+            
+                return false;
+                }
+            };
+
+            //Se crea autocompleter de CURP
+            $('#adquiriente-curp').autocomplete(autoCompleteOptsAdquiriente).autocomplete("instance")._renderItem = function (ul, item) {
+                return $("<li>")
+                        .append("<a>" + item.curp + "<br>" + "<span class='nombre-coincidencia'><i class='glyphicon glyphicon-user'></i><small> " + item.nombrec + "</small><span></a>")
+                        .appendTo(ul);
+            };
+        });
+
+
+    //autocompleter para la RFC del vendedor
+        $('body').on('keyup','#adquiriente-rfc',function () {
+             //Estas son las opciones con las que se construye el autocomplete, como son comunes a los dos inputs rfc y curp se sacan para reutlizar
+             var autoCompleteOptsAdquiriente = {
+                source: "/ofvirtual/notario/registro/adquiriente", //Ruta al controlador que provee los resultados de la busqueda
+                minLength: 5, //Empezamos a mandar los teclazos si han tecleado 8 caracteres
+                select: function (event, ui) {
+                    //Al seleccionar un valor de los desplegados rellenamos los campos
+
+                
+                $('#adquiriente-rfc' ).val(ui.item.rfc);
+                $('#adquiriente-nombres' ).val(ui.item.nombres);
+                $('#adquiriente-id_p' ).val(ui.item.id_p);
+            
+                return false;
+                }
+            };
+            //Se crea autocompleter de CURP
+             $('#adquiriente-rfc').autocomplete(autoCompleteOptsAdquiriente).autocomplete("instance")._renderItem = function (ul, item) {
+                return $("<li>")
+                        .append("<a>" + item.curp + "<br>" + "<span class='nombre-coincidencia'><i class='glyphicon glyphicon-user'></i><small> " + item.nombrec + "</small><span></a>")
+                        .appendTo(ul);
+            };
+});
 
     </script>
 @stop

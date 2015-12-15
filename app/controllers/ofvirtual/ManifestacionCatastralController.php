@@ -443,5 +443,6 @@ class ManifestacionCatastralController extends \BaseController
         return compact($vars);
     }
 
+   
 
 }
