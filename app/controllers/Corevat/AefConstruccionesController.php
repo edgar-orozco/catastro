@@ -55,6 +55,10 @@ class corevat_AefConstruccionesController extends \BaseController {
 	 */
 	public function edit($id) {
 		$row = AefConstrucciones::find($id);
+		$AvaluoFisico = AvaluosFisico::where('idavaluoenfoquefisico', '=', $row->idavaluoenfoquefisico)->first();
+		$AvaluoInmueble = AvaluosInmueble::where('idavaluo', '=', $AvaluoFisico->idavaluo)->first();
+		$row->subtotal_construccion = AefConstrucciones::subtotalSuperficie($row->idavaluoenfoquefisico);
+		$row->diferencia_construccion = round($AvaluoInmueble->superficie_construccion - $row->subtotal_construccion, 2);
 		return $row;
 	}
 
@@ -76,12 +80,17 @@ class corevat_AefConstruccionesController extends \BaseController {
 		} else {
 			$inputs["updated_at"] = Carbon::now()->format('Y-m-d H:i:s');
 			AefConstrucciones::updAefConstrucciones($inputs, $total_metros_construccion, $valor_construccion, $total_valor_fisico);
+			$AvaluoFisico = AvaluosFisico::where('idavaluoenfoquefisico', '=', $inputs["idavaluoenfoquefisico2"])->first();
+			$AvaluoInmueble = AvaluosInmueble::where('idavaluo', '=', $AvaluoFisico->idavaluo)->first();
+			$subtotal_construccion = AefConstrucciones::subtotalSuperficie($inputs["idavaluoenfoquefisico2"]);
 			$response = array(
 				'success' => true,
 				'message' => '¡El registro fue modificado satisfactoriamente!',
 				'total_metros_construccion' => number_format($total_metros_construccion, 2, ".", ","),
 				'valor_construccion' => number_format($valor_construccion, 2, ".", ","),
-				'total_valor_fisico' => number_format($total_valor_fisico, 2, ".", ",")
+				'total_valor_fisico' => number_format($total_valor_fisico, 2, ".", ","),
+				'subtotal_construccion' => number_format($subtotal_construccion, 2, ".", ""),
+				'diferencia_construccion' => round($AvaluoInmueble->superficie_construccion - $subtotal_construccion, 2),
 			);
 		}
 		return $response;
@@ -97,13 +106,17 @@ class corevat_AefConstruccionesController extends \BaseController {
 	public function destroy($id) {
 		$row = AefConstrucciones::find($id);
 		if ($row) {
-			$row->delete($id);
-
 			$rowEnfoqueFisico = AvaluosFisico::find($row->idavaluoenfoquefisico);
+			$AvaluoInmueble = AvaluosInmueble::where('idavaluo', '=', $rowEnfoqueFisico->idavaluo)->first();
+			$subtotal_construccion = AefConstrucciones::subtotalSuperficie($rowEnfoqueFisico->idavaluoenfoquefisico);
+			$row->delete($id);
 			return Response::json(array('success' => true, 'message' => '!El registro fue eliminado satisfactoriamente!',
 				'valor_construccion' => number_format($rowEnfoqueFisico->valor_construccion, 2, ".", ","), 
 				'total_metros_construccion' => number_format($rowEnfoqueFisico->total_metros_construccion, 2, ".", ","), 
-				'total_valor_fisico' => number_format($rowEnfoqueFisico->total_valor_fisico, 2, ".", ",")));
+				'total_valor_fisico' => number_format($rowEnfoqueFisico->total_valor_fisico, 2, ".", ","),
+				'subtotal_construccion' => number_format($subtotal_construccion, 2, ".", ""),
+				'diferencia_construccion' => round($AvaluoInmueble->superficie_construccion - $subtotal_construccion, 2)
+				));
 		} else {
 			return Response::json(array('success' => false, 'message' => '!El registro no existe!'));
 		}

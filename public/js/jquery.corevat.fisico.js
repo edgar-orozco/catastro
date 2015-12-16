@@ -78,6 +78,7 @@ $(document).ready(function () {
 		$('#messagesModalFormAefConstrucciones').empty().removeClass();
 		$('#ctrlAefConstrucciones').val('ins');
 		$('#idaefconstruccion').val('0');
+		$('#superficie_m2_construcciones').attr('max', $('#diferencia_construccion').val() );
 		$('#modalFormAefConstruccionesTitle').empty().append('[COREVAT] Nuevo Construcción');
 		$('#modalFormAefConstrucciones').modal('show');
 	});
@@ -128,6 +129,7 @@ $(document).ready(function () {
 		$('#ctrlAefConstrucciones').val('upd');
 		$('#idaefconstruccion').val(id);
 		$.loadFormAefConstrucciones(id);
+		$('#superficie_m2_construcciones').attr('max', $('#diferencia_construccion').val() );
 		$('#modalFormAefConstruccionesTitle').empty().append('[COREVAT] Construcción: ' + id);
 		$('#modalFormAefConstrucciones').modal('show');
 	};
@@ -254,7 +256,8 @@ $(document).ready(function () {
 				$('#factor_resultante_construcciones').val(datos.factor_resultante);
 				$('#valor_neto_construccion').val(datos.valor_neto);
 				$('#valor_parcial_construccion').val(datos.valor_parcial_construccion);
-
+				$('#subtotal_construccion').val(datos.subtotal_construccion);
+				$('#diferencia_construccion').val(datos.diferencia_construccion);
 			}
 		});
 	};
@@ -353,33 +356,42 @@ $(document).ready(function () {
 	 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
 	$("#formAefConstrucciones").submit(function () {
 		$('#messagesModalFormAefConstrucciones').empty().removeClass();
-		$.ajax({
-			global: false,
-			cache: false,
-			dataType: 'json',
-			url: $(this).attr("action"),
-			type: $(this).attr("method"),
-			data: $(this).serialize(),
-			success: function (data) {
-				datos = eval(data);
-				if (datos.success) {
-					$('#messagesModalFormAefConstrucciones').addClass('alert').addClass('alert-success').append(datos.message);
-					if ($('#ctrlAefConstrucciones').val() === 'ins') {
-						$('#formAefConstrucciones :reset').click();
+		// VALIDAR QUE EL VALOR DE superficie_m2_construcciones
+		// 
+		if ( parseFloat($('#superficie_m2_construcciones').val()) > parseFloat($('#diferencia_construccion').val()) ) {
+			$('#messagesModalFormAefConstrucciones').addClass('alert').addClass('alert-danger').append('El valor de la "Superficie M²" no debe exceder "'+$('#subtotal_construccion').val()+'"');
+		} else {
+			$.ajax({
+				global: false,
+				cache: false,
+				dataType: 'json',
+				url: $(this).attr("action"),
+				type: $(this).attr("method"),
+				data: $(this).serialize(),
+				success: function (data) {
+					datos = eval(data);
+					if (datos.success) {
+						$('#messagesModalFormAefConstrucciones').addClass('alert').addClass('alert-success').append(datos.message);
+						if ($('#ctrlAefConstrucciones').val() === 'ins') {
+							$('#formAefConstrucciones :reset').click();
+						}
+						$('#total_metros_construccion').empty().append(datos.total_metros_construccion);
+						$('#valor_construccion').empty().append(datos.valor_construccion);
+						$('#total_valor_fisico').empty().append(datos.total_valor_fisico);
+						$('#subtotal_construccion').val(datos.subtotal_construccion);
+						$('#diferencia_construccion').val(datos.diferencia_construccion);
+						alert(datos.total_valor_fisico + ' : ' + datos.subtotal_construccion + ' : ' + datos.diferencia_construccion );
+						aefConstrucciones.ajax.reload();
+					} else {
+						var errores = '';
+						for (datos in data.errors) {
+							errores += '<p>' + data.errors[datos] + '</p>';
+						}
+						$('#messagesModalFormAefConstrucciones').addClass('alert').addClass('alert-danger').append(errores);
 					}
-					$('#total_metros_construccion').empty().append(datos.total_metros_construccion);
-					$('#valor_construccion').empty().append(datos.valor_construccion);
-					$('#total_valor_fisico').empty().append(datos.total_valor_fisico);
-					aefConstrucciones.ajax.reload();
-				} else {
-					var errores = '';
-					for (datos in data.errors) {
-						errores += '<p>' + data.errors[datos] + '</p>';
-					}
-					$('#messagesModalFormAefConstrucciones').addClass('alert').addClass('alert-danger').append(errores);
 				}
-			}
-		});
+			});
+		}
 		return false;
 	});
 

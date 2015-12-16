@@ -62,6 +62,7 @@ class AefConstrucciones extends \Eloquent {
 	public static function setAefConstrucciones(&$rowAefConstrucciones, $inputs) {
 		$rowAefConstrucciones->idtipo = $inputs["idtipo"];
 		$rowAefConstrucciones->edad = $inputs["edad_construcciones"];
+		$rowAefConstrucciones->superficie_m2 = $inputs["superficie_m2_construcciones"];
 		$rowAefConstrucciones->valor_nuevo = $inputs["valor_nuevo_construcciones"];
 		$rowAefConstrucciones->factor_edad = $inputs["factor_edad_construcciones"];
 		$rowAefConstrucciones->fk_conservacion = $inputs["idfactorconservacion"];
@@ -135,5 +136,14 @@ class AefConstrucciones extends \Eloquent {
 		$rowAefConstruccionesNew->valor_nuevo = $rowAefConstruccionesOld->valor_nuevo;
 		$rowAefConstruccionesNew->fk_conservacion = $rowAefConstruccionesOld->fk_conservacion;
 		$rowAefConstruccionesNew->save();
+	}
+
+	public static function subtotalSuperficie($idavaluoenfoquefisico) {
+		$pato = AefConstrucciones::select(DB::raw('sum(superficie_m2) as subtotal'))->where('idavaluoenfoquefisico', '=', $idavaluoenfoquefisico)->get();
+		if ( is_null($pato) ) {
+			return 0;
+		} else {
+			return $pato[0]->subtotal;
+		}
 	}
 }

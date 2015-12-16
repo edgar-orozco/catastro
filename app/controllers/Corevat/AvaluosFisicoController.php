@@ -28,6 +28,10 @@ class corevat_AvaluosFisicoController extends \BaseController {
 			$AvaluoInmueble = AvaluosInmueble::where('idavaluo', '=', $idavaluo)->first();
 			$superficie_total_terreno = number_format($AvaluoInmueble->superficie_total_terreno, 2, '.', ',');
 			$indiviso_terreno = number_format($AvaluoInmueble-> indiviso_terreno, 2, '.', ',');
+			$superficie_construccion = number_format($AvaluoInmueble->superficie_construccion, 2, '.', '');
+
+			$subtotal_construccion = AefConstrucciones::subtotalSuperficie($row->idavaluoenfoquefisico);
+			$diferencia_construccion = round($superficie_construccion - $subtotal_construccion, 2);
 
 			$cat_clase_general_inmueble = CatClaseGeneralInmueble::comboList();
 			$cat_tipo_inmueble = CatTipoInmueble::comboList();
@@ -44,7 +48,7 @@ class corevat_AvaluosFisicoController extends \BaseController {
 			return View::make('Corevat.Avaluos.avaluos', compact('opt', 'idavaluo', 'title', 'row', 'cat_clase_general_inmueble', 
 				'cat_tipo_inmueble', 'cat_estado_conservacion', 'cat_calidad_proyecto', 'cat_factores_frente', 
 				'cat_factores_forma', 'cat_factores_conservacion', 'cat_factores_top', 'cat_tipo', 'cat_obras_complementarias',
-				'superficie_total_terreno', 'indiviso_terreno'));
+				'superficie_total_terreno', 'indiviso_terreno', 'superficie_construccion', 'subtotal_construccion', 'diferencia_construccion'));
 		}
 	}
 

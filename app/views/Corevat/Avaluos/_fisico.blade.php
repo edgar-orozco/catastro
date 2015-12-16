@@ -2,6 +2,7 @@
 <hr>
 {{Form::model($row, ['route' => array('updateAvaluoEnfoqueFisico', $row->idavaluo), 'method'=>'post', 'id'=>'formAvaluoFisico' ]) }}
 {{Form::hidden('idavaluoenfoquefisico', $row->idavaluoenfoquefisico, ['id'=>'idavaluoenfoquefisico'])}}
+
 <div class="row">
 	<div class="col-md-12 col-sm-12 col-xs-12" id="divHeaderTerreno"><h4>Terreno</h4></div>
 	<div class="col-md-2 col-sm-2 col-xs-2 btn-beside-title" id="divNuevoTerreno" style="display: none;">
@@ -103,6 +104,12 @@
 	</div>
 	<div class="col-md-12"><hr></div>
 
+	@if( $superficie_construccion <= 0 )
+	<div class="col-md-12 col-sm-12 col-xs-12">
+		<h4>Datos de la Construcción</h4>
+		<h4>Esta sección no aplica debido a que no se especifico la "Superficie de Construcción" en el apartado "Inmueble"</h4>
+	</div>
+	@else
 	<div class="col-md-10 col-sm-10 col-xs-10"><h4>Datos de la Construcción</h4></div>
 	<div class="col-md-2 col-sm-2 col-xs-2 btn-beside-title">
 		<a class="btn btn-primary nuevo" id="btnNewAefCons" title="Nuevo Registro">
@@ -124,9 +131,9 @@
 					<th colspan="2">Opciones</th>
 				</tr>
 				<tr>
-					<th>F. EDAD</th>
-					<th>F. CONS.</th>
-					<th>F. RESUL.</th>
+					<th>Edad</th>
+					<th>Construcción</th>
+					<th>Resultante</th>
 					<th>&nbsp;</th>
 					<th>&nbsp;</th>
 				</tr>
@@ -135,16 +142,17 @@
 			</tbody>
 			<tfoot>
 				<tr>
-					<td class="bg-default" colspan="4" style="text-align: right;">Total Metros Construcción</td>
+					<td class="bg-default" colspan="3" style="text-align: right;">Total Metros Construcción</td>
 					<td class="bg-info" style="text-align: right;" id="total_metros_construccion">{{number_format($row->total_metros_construccion, 2, ".", ",")}}</td>
-					<td class="bg-default" colspan="2"></td>
-					<td class="bg-default" colspan="3" style="text-align: right;">Valor de la Construcción</td>
+					<td class="bg-default" colspan="3"></td>
+					<td class="bg-default" colspan="2" style="text-align: right;">Valor de la Construcción</td>
 					<td class="bg-info" style="text-align: right;" id="valor_construccion">{{number_format($row->valor_construccion, 2, ".", ",")}}</td>
-					<td class="bg-default"></td>
+					<td class="bg-default" colspan="2"></td>
 				</tr>
 			</tfoot>
 		</table>
 	</div>
+	@endif
 	<div class="col-md-12"><hr></div>
 
 	<div class="col-md-10 col-sm-10 col-xs-10"><h4>Áreas y Elementos adicionales comunes (solo en Condominios)</h4></div>
@@ -369,23 +377,37 @@
 			<input type="hidden" name="ctrlAefConstrucciones" id="ctrlAefConstrucciones" value="" />
 			<input type="hidden" name="idavaluoenfoquefisico2" id="idavaluoenfoquefisico2" value="{{$row->idavaluoenfoquefisico}}" />
 			<input type="hidden" name="idaefconstruccion" id="idaefconstruccion" value="0" />
+			<!--<input type="hidden" name="subtotal_construccion" id="subtotal_construccion" value="{{$subtotal_construccion}}" />-->
+			<input type="hidden" name="diferencia_construccion" id="diferencia_construccion" value="{{number_format($diferencia_construccion, 2, ".", "")}}" />
 			<div class="modal-body">
 				<div class="row">
-					<div class="col-md-4">
+					<div class="col-md-2">
 						<label for="idtipo">Tipo:</label>
 						<select class="form-control" id="idtipo" name="idtipo">
 							@foreach ($cat_tipo as $item)
+							@if( $item == $row->idtipo)
 							<option value="{{$item->idtipo}}">{{$item->tipo}}</option>
+							@else
+							<option value="{{$item->idtipo}}">{{$item->tipo}}</option>
+							@endif
 							@endforeach
 						</select>
 					</div>
-					<div class="col-md-4">
+					<div class="col-md-1">
 						<label for="edad_construcciones">Edad:</label>
 						<input type="text" class="form-control clsNumeric edad" name="edad_construcciones" id="edad_construcciones" required />
 					</div>
-					<div class="col-md-4">
+					<div class="col-md-3">
+						<label for="superficie_construccion">Superficie Total:</label>
+						<input type="number" class="form-control clsNumeric" name="superficie_construccion" id="superficie_construccion" value="{{$superficie_construccion}}" disabled />
+					</div>
+					<div class="col-md-3">
+						<label for="subtotal_construccion">Subtotal:</label>
+						<input type="number" class="form-control clsNumeric" name="subtotal_construccion" id="subtotal_construccion" value="{{number_format($subtotal_construccion, 2, ".", "")}}" disabled />
+					</div>
+					<div class="col-md-3">
 						<label for="superficie_m2_construcciones">Superficie M&sup2:</label>
-						<input type="text" class="form-control" name="superficie_m2_construcciones" id="superficie_m2_construcciones" disabled />
+						<input type="number" class="form-control clsNumeric" name="superficie_m2_construcciones" id="superficie_m2_construcciones" min="0.01" max="0.01" step="0.01" value="0.01" required />
 					</div>
 
 					<div class="col-md-6">
