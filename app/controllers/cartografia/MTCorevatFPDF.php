@@ -22,16 +22,9 @@ class MTCorevatFPDF extends \Anouar\Fpdf\Fpdf
 
     function Header(){   
 
-
     }
 
 	function Footer(){
-
-		// $this->SetY(-7);
-		// //Arial italic 8
-		// $this->SetFont('Arial','I',4);
-		// $this->Cell(0,10,utf8_decode('Última Actualización:').$this->lastupdate,0,0,'L');
-		// $this->Cell(0,10,utf8_decode('PlatSource.mx © '.date('Y')),0,0,'R');
 
 	}
 
