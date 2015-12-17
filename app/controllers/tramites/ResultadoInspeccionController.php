@@ -75,6 +75,7 @@ protected $manifestacionConstruccion;
     $clave = Input::get('clave');
     $mani_id = Input::get('manifestacion_id');
     $datosMani = Input::get('manifestaciones');
+    $datosConstruccion = json_decode(Input::get('datos_construccion'), true);
 
 
     $serviciosMani = Input::get('manifestaciones_servicios');
@@ -91,7 +92,7 @@ protected $manifestacionConstruccion;
                 $row[] = 
                 [
                     'manifestacion_predio_id' => $mani_id,
-                    'superficie_alberca' => $construcciones['sup_albercas'],
+                    'superficie_alberca' => $datosConstruccion['sup_albercas'],
                     'mtipo_servicio_id' => $serv, 
                     'created_at' => new Datetime, 
                     'updated_at'=> new DateTime
@@ -112,8 +113,6 @@ protected $manifestacionConstruccion;
     $manifestacion = $this->manifestacion->find($mani_id);
 
     $manifestacion->update($datosMani);
-
-    $datosConstruccion = json_decode(Input::get('datos_construccion'), true);
 
     $construcciones = $datosConstruccion['construcciones'];
 
