@@ -122,7 +122,6 @@ protected $manifestacionConstruccion;
             $consulta = $this->manifestacionConstruccion->find($key);
             if($consulta)
             {
-                echo "Entra la pendejada esta ELIMINAR";
                 $consulta->delete();
             }
         }
@@ -148,6 +147,8 @@ protected $manifestacionConstruccion;
 
         }
     }
+
+    return Redirect::back();
 
     
   }

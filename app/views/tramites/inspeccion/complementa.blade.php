@@ -15,7 +15,7 @@ Se toma parte del archivo /ofvirtual/notario/manifestacion/_form.blade elaborado
 	<fieldset><legend>Datos de la construcción</legend>
 	    @include('tramites.inspeccion._form_datos_construccion_complemento_new',['instancia'=>'manifestacion'])
 	</fieldset>
-    {{Form::submit()}}
+    {{Form::submit('Guardar',['class'=>'btn btn-info'])}}
 {{Form::close()}}
         <fieldset><legend>Carga de imagenes</legend>
         @include('tramites.inspeccion._form_load_images')
