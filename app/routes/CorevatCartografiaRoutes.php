@@ -20,7 +20,11 @@ Route::group(array('before' => 'cartografia/corevat'), function () {
 
 	Route::post('cartografia/xajax/mtcorevat', 'MTCorevatToPDFController@index');
 
+    Route::post('cartografia/xajax/mtcorevatprint', 'MTCorevatToPDFController@printMT');
+
+
 });
+
 
 
 

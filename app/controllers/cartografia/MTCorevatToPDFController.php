@@ -1,6 +1,17 @@
 <?php
+
 error_reporting(E_ERROR | E_WARNING);
+
+ini_set('display_errors', TRUE);
+ini_set('display_startup_errors', TRUE);
+ini_set('default_socket_timeout', 6000);
+
+// setlocale(LC_ALL, 'es_MX.UTF-8');
+
 use \PMap;
+use Carbon\Carbon;
+
+require('MTCorevatFPDF.php');
 
 class MTCorevatToPDFController extends BaseController {
     private $xmin = 0;
@@ -9,6 +20,9 @@ class MTCorevatToPDFController extends BaseController {
     private $ymax = 0;
     private $init = true;
     private $escala;
+    private $rangos;
+    private $colores_rangos;
+    private $localidades = "";
 
 
 
@@ -34,7 +48,7 @@ class MTCorevatToPDFController extends BaseController {
             // return;
             if ( $arr1 != '' ){
                 $layer = $map->getLayerByName($arLayer[$ids[$i]]);
-                $layer = $this->createLayerFromClaveCatasWithAvaluos($arr1, $mun, 0, $layer);
+                $layer = $this->createLayerFromClaveCatasWithAvaluos($arr1, $mun, 0, $layer);                
                 $IsQuery = false;
             }
 
@@ -74,7 +88,7 @@ class MTCorevatToPDFController extends BaseController {
         $strJS .= '"refBoxStr":"' . $mapJS['refBoxStr'] . '" ';
 
 
-        echo "{\"sessionerror\":\"false\",  \"mapURL\":\"$mapURL\", \"scalebarURL\":\"$mapURL\", \"geo_scale\":\"$mapURL\", \"escala\":\"$mapURL\",".$strJS."}";
+        echo "{\"sessionerror\":\"false\",  \"mapURL\":\"$mapURL\", \"scalebarURL\":\"$mapURL\", \"geo_scale\":\"$mapURL\", \"escala\":\"$escala\", \"municipio\":\"$mun\", \"localidades\":\"$this->localidades\",".$strJS."}";
 
     }
 
@@ -82,20 +96,150 @@ class MTCorevatToPDFController extends BaseController {
 
         $mapURL   = $_REQUEST["mapURL"];
         $escala = $_REQUEST["escala"];
+
                           
         $vista = View::make('cartografia.MTCorevat',
                             compact('mapURL', 'escala'));
+
         $vistastr = $vista->render();
         $pdf = PDF::load($vistastr, 'Letter', 'landscape')->show("MTCorevat");
         
         $response = Response::make($pdf, 200);
         
         $response->header('Content-Type', 'application/pdf');
+
         return $response;
 
     }
 
-    private function getQuery($type=0,$municipio="008",$strrange='-'){
+    public function printMT(){
+
+
+    $pdf = new MTCorevatFPDF('L','mm','Letter');
+    $pdf->mapURL = public_path() . $_POST["mapURL"];
+    $pdf->escala = $_POST["escala"];
+    $pdf->rangos = explode(',',$_POST["rangos"]);
+    $pdf->colores = explode(',',$_POST["colores"]);
+
+    $munn = $_POST["municipio"];
+    $mun = Municipios::select('idmunicipio','municipio')->where('clave', '=', $munn)->get();
+    $pdf->municipio =  strtoupper($mun[0]->municipio);
+    $idmun = $mun[0]->idmunicipio;
+    
+    $pdf->AliasNbPages();
+    $pdf->AddPage();
+    $pdf->SetX(0);
+    $pdf->SetY(0);
+
+    if (file_exists($pdf->mapURL)) {
+        $pdf->Image($pdf->mapURL, 5, 35, 200, 140);
+    }else{
+
+    }
+
+    $pdf->RoundedRect(5, 5, 200, 205, 2, '1234', '');
+
+    $pdf->Image( public_path() . "/css/images/main/main-logo.gif", 207, 5, 32, 16);
+    $pdf->Image( public_path() . "/css/images/home/secrt.gif", 239, 5, 20, 16);
+    $pdf->Image( public_path() . "/css/images/main/logo-header.gif", 259, 5, 16, 16);
+
+    $line = 30;
+    $pdf->RoundedRect(207, $line, 67, 10, 1, '1234', 'FD');
+    $pdf->Ln(0);
+    $pdf->SetY($line+2);
+    $pdf->SetX(207);
+    $pdf->SetFont('Arial', 'B', 12);
+    $pdf->Cell(67, 6, utf8_decode('A V A L U O S'), '', 1, 'C', 0);
+
+    $pdf->SetFillColor(224, 224, 224);
+
+    $line = 45;
+    $pdf->RoundedRect(207, $line, 67, 8, 1, '12', 'FD');
+    $pdf->Ln(0);
+    $pdf->SetY($line + 1);
+    $pdf->SetX(207);
+    $pdf->SetFont('Arial', 'B', 10);
+    $pdf->Cell(67, 6, 'MUNICIPIO', '', 1, 'C', 0);
+    $pdf->SetFont('Arial', '', 10);
+
+    $pdf->RoundedRect(207, $line+8, 67, 10, 1, '', '');    
+    $pdf->SetY( $pdf->getY() + 3 );
+    $pdf->Ln(0);
+    $pdf->SetX(208);
+    $pdf->SetFillColor(255,255,255);
+    $pdf->Cell(65, 6, $pdf->municipio, '', 1, 'C', 1);
+
+
+    $pdf->SetFillColor(224, 224, 224);
+
+    $line = 65;
+    $pdf->RoundedRect(207, $line, 67, 8, 1, '12', 'FD');
+    $pdf->Ln(0);
+    $pdf->SetY($line + 1);
+    $pdf->SetX(207);
+    $pdf->SetFont('Arial', 'B', 10);
+    $pdf->Cell(67, 6, 'ESTADO', '', 1, 'C', 0);
+    $pdf->SetFont('Arial', '', 10);
+
+    $pdf->RoundedRect(207, $line+8, 67, 10, 1, '', '');    
+    $pdf->SetY( $pdf->getY() + 3 );
+    $pdf->Ln(0);
+    $pdf->SetX(208);
+    $pdf->SetFillColor(255,255,255);
+    $pdf->Cell(65, 6, 'TABASCO', '', 1, 'C', 1);
+
+    $pdf->SetFillColor(224, 224, 224);
+    $line = 85;
+    $pdf->RoundedRect(207, $line, 67, 8, 1, '12', 'FD');
+    $pdf->Ln(0);
+    $pdf->SetY($line + 1);
+    $pdf->SetX(207);
+    $pdf->SetFont('Arial', 'B', 10);
+    $pdf->Cell(67, 6, 'VALORES', '', 1, 'C', 0);
+    $pdf->SetFont('Arial', '', 10);
+
+    $pdf->RoundedRect(207, $line + 8, 67, ( 10 * count( $pdf->rangos ) ), 1, '', '');    
+    $pdf->SetFillColor(255,255,255);
+    for($i=0;$i<count( $pdf->rangos ); $i++){
+        $pdf->SetY( $pdf->getY() + 4 );
+        $pdf->Ln(0);
+        $pdf->SetX(208);
+        $_x = $pdf->getX();
+        $_y = $pdf->getY();
+        $rgb = $pdf->hex2rgb("#".$pdf->colores[$i]);
+        $pdf->SetFillColor($rgb[0],$rgb[1],$rgb[2]);        
+        $pdf->RoundedRect($_x, $_y, 5, 5, 1, '', 'DF');    
+        $pdf->SetFillColor(255,255,255);
+        $pdf->SetX(217);
+        $rng = explode('-',$pdf->rangos[$i]);
+        $rango = "DE ".number_format($rng[0], 2, '.', ',').' A '.number_format($rng[1], 2, '.', ',');
+        $pdf->Cell(40, 6, $rango, '', 1, 'L', 1);
+    }
+
+    $pdf->SetFillColor(224, 224, 224);
+
+    $line = $pdf->getY()+3;
+    $pdf->RoundedRect(207, $line, 67, 8, 1, '12', 'FD');
+    $pdf->Ln(0);
+    $pdf->SetY($line + 1);
+    $pdf->SetX(207);
+    $pdf->SetFont('Arial', 'B', 10);
+    $pdf->Cell(67, 6, 'ESCALA', '', 1, 'C', 0);
+    $pdf->SetFont('Arial', '', 10);
+
+    $pdf->RoundedRect(207, $line+8, 67, 10, 1, '', '');    
+    $pdf->SetY( $pdf->getY() + 3 );
+    $pdf->Ln(0);
+    $pdf->SetX(208);
+    $pdf->SetFillColor(255,255,255);
+    $pdf->Cell(65, 6, $pdf->escala, '', 1, 'C', 1);
+
+
+    $pdf->Output();
+
+    }
+
+    private function getQuery($type=0,$municipio="",$strrange='-'){
         switch ($type) {
             case 1:
 
@@ -143,9 +287,17 @@ class MTCorevatToPDFController extends BaseController {
                 break;
         }
 
+        $mun = Municipios::select('idmunicipio','municipio')->where('clave', '=', $municipio)->get();
+
         $arr1 = '';            
         foreach ($arr0 as $i => $value) {
             $arr1 .= $arr1 == "" ? "'".$arr0[$i]."'" : ",'".$arr0[$i]."'";
+            $locs = $this->getLocalidad($arr0[$i],$mun[0]->idmunicipio);
+            $pos = strpos($this->localidades, $locs);
+            if ($pos === false) {
+                $this->localidades .= $this->localidades == "" ? $locs : "|".$locs;
+            }
+            $this->localidades .= $locs;
         }        
 
         return $arr1;
@@ -213,6 +365,21 @@ class MTCorevatToPDFController extends BaseController {
         }
 
         return $layer;
+
+    }
+
+    function getLocalidad($clave_catas,$mun){
+
+        $localidad = predios::join('municipios', function($join){
+                                $join->on('municipios.entidad','=','predios.entidad');
+                                $join->on('municipios.municipio', '=', 'predios.municipio');
+                            })
+                            ->join('entidades','predios.entidad','=','entidades.entidad')
+                            ->where('predios.clave_catas', '=',$clave_catas)
+                            ->where('predios.municipio','=',$mun)
+                            ->select('entidades.nom_ent', 'municipios.nombre_municipio')
+                            ->get();
+        return count($localidad);
 
     }
 
