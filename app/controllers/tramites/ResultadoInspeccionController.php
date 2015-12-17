@@ -74,8 +74,8 @@ protected $manifestacionConstruccion;
     $cuenta = Input::get('cuenta');
     $clave = Input::get('clave');
     $mani_id = Input::get('manifestacion_id');
-    $datosMani = array_merge(Input::get('manifestaciones'),['superficie_alberca' => $construcciones['sup_albercas']]);
     $datosConstruccion = json_decode(Input::get('datos_construccion'), true);
+    $datosMani = array_merge(Input::get('manifestaciones'),['superficie_alberca' => $datosConstruccion['sup_albercas']]);
 
 
     $serviciosMani = Input::get('manifestaciones_servicios');

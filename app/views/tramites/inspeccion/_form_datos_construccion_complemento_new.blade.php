@@ -389,7 +389,7 @@
         </tfoot>
     </table>
 
-    <input  id="construcciones" name="datos_construccion" value="">
+    <input type="hidden" id="construcciones" name="datos_construccion" value="">
 </div>
 <div class="col-md-6">
     <div class="form-group">
