@@ -82,29 +82,31 @@ protected $manifestacionConstruccion;
     $arrayData = $servPublicos->lists('mtipo_servicio_id');
     $a=[];
     $row=[];
-
-    foreach ($serviciosMani as $serv)
+    if($serviciosMani)
     {
-        if (!in_array($serv, $arrayData))
+        foreach ($serviciosMani as $serv)
         {
-            $row[] = 
-            [
-                'manifestacion_predio_id' => $mani_id,
-                'superficie_alberca' => $datosConstruccion['construcciones'],
-                'mtipo_servicio_id' => $serv, 
-                'created_at' => new Datetime, 
-                'updated_at'=> new DateTime
-            ];
+            if (!in_array($serv, $arrayData))
+            {
+                $row[] = 
+                [
+                    'manifestacion_predio_id' => $mani_id,
+                    'superficie_alberca' => $datosConstruccion['construcciones'],
+                    'mtipo_servicio_id' => $serv, 
+                    'created_at' => new Datetime, 
+                    'updated_at'=> new DateTime
+                ];
+            }
+            $a[]=$serv;
         }
-        $a[]=$serv;
-    }
-    $servPublicos
-        ->whereNotIn('mtipo_servicio_id', $a)
-        ->delete();
+        $servPublicos
+            ->whereNotIn('mtipo_servicio_id', $a)
+            ->delete();
 
-    if($row)
-    {
-        $this->servicioPublico->insert($row);        
+        if($row)
+        {
+            $this->servicioPublico->insert($row);        
+        }
     }
 
     $manifestacion = $this->manifestacion->find($mani_id);
