@@ -80,74 +80,22 @@
     </head>
     <body>
         <div class="contenido">
-            <table style="width:100%" >
+            <table style="width:100%;" >
                 <tr>
                     <!-- Contenido Izquierdo -->
-                    <td width="70%" style="border:solid;">
-                        <!-- Plano -->
-                        <table width="100%" >
-                            <tr>
-                                <td align="center">
-                                    <div style="width: 650px; height: 350px; text-align:center ">
-                                        <img id="mapImg" src="<?= substr($mapURL, 1, (strlen($mapURL)-1) ); ?>" style="overflow: hidden; width: 650px; height: 350px;">
-                                    </div>
-                                </td>
-                            </tr>
-                        </table>
-                        <br>
-                        <!-- cuadro de construcciones -->
-                        <table class = "cuadroCosntrucción" style="width: 100%; text-align: center; font-family: sans-serif; font-size: 8px; ">
-                            <tr>
-                                <td width="10%" class='row' rowspan="2">LADO<br>EST-PV</td>
-                                <td width="10%" class='row' rowspan="2">AZIMUT</td>
-                                <td width="10%" class='row' rowspan="2">DISTANCIA<br>(MTS.)</td>
-                                <td colspan="2" class='row'>CORDENADAS UTM</td>
-                                <td width="10%" class='row' rowspan="2">CONVERGENCIA</td>
-                                <td width="10%" class='row' rowspan="2">FACTOR DE<br>ESCALA LINEAL</td>
-                                <td width="15%" class='row' rowspan="2">LATITUD</td>
-                                <td width="15%" class='row' rowspan="2">LONGITUD</td>
-                            </tr>
-                            <tr>
-                                <td width="10%" class='row'>X</td>
-                                <td width="10%" class='row'>Y</td>
-                            </tr>
+                    <td width="70%" style="border:solid; height: 800px; background-color: red;">
+                            <!-- Plano -->
+                            <table width="100%" >
+                                <tr>
+                                    <td align="center">
+                                        <div style="width: 650px; height: 350px; text-align:center; ">
+                                            <img id="mapImg" src="<?= substr($mapURL, 1, (strlen($mapURL)-1) ); ?>" style="overflow: hidden; width: 650px; height: 350px;">
+                                        </div>
+                                    </td>
+                                </tr>
+                            </table>
+                    </td>
 
-                            <?php
-                            for($i=0;$i<sizeof($planoacotado);$i++) {
-                                if ($i!=0){
-                            ?>
-
-                            <tr>
-<!-- 
-                                <td class='row'><?php // echo $planoacotado[$i]->get_est() ?>-<?php echo $planoacotado[$i]->get_pv() ?></td>
-                                <td class='row'><?php // echo $planoacotado[$i]->cast_grados($planoacotado[$i]->get_azimut()) ?></td>
-                                <td class='row'><?php // echo round($planoacotado[$i]->get_distancia(),2) ?></td>
-                                <td class='row'><?php // echo round($planoacotado[$i]->get_x(),3) ?></td>
-                                <td class='row'><?php // echo round($planoacotado[$i]->get_y(),2) ?></td>
-                                <td class='row'><?php // echo $planoacotado[$i]->cast_grados($planoacotado[$i]->get_convergencia()) ?></td>
-                                <td class='row'><?php // echo $planoacotado[$i]->get_factor() ?></td>
-                                <td class='row'><?php // echo $planoacotado[$i]->get_latitud() ?></td>
-                                <td class='row'><?php // echo $planoacotado[$i]->get_longitud() ?></td>
- -->        
-                            </tr>
-
-                            <?php 
-                                }
-                            } 
-                            ?>
-                        </table>
-                        <table width="100%" >
-                            <tr>
-<!-- 
-                                <td width="50%" class="row" align="center"> AREA = <?php // echo round($planoacotado[0]->get_superficie(),2) ?> m2</td>
-                                <td width="50%" class="row" align="center"> PERIMETRO = <?php // echo round($planoacotado[0]->get_perimetro(),2) ?> m</td>
- -->
-                            </tr>
-                        </table>                           
-                        </td>
-                        <td width="1%">
-                            
-                        </td>
                         <!-- Tira marginal -->
                         <td width="29%" valign="top" style="border:solid;">
                             <table style="border:none; font-family: sans-serif; font-size: 11px; width:100%">
@@ -158,7 +106,7 @@
                                 </tr>
                                 <tr>
                                     <td colspan="3" style="border:none;" align="center" width="100%" class='titulo'>
-                                        DATOS
+                                        AVALUOS
                                     </td>
                                 </tr>
                             </table>       
@@ -170,8 +118,8 @@
                                         </div>
                                         <br>
                                         <div style="font-weight:bold; text-align:center; font-size:8px">
-                                            NO. DE CUENTA: <?php // echo $fiscal->cuenta ?><br>
-                                            CLAVE CATASTRAL: <?php // echo $fiscal->clave ?><br>
+                                            NO. DE CUENTA: <br>
+                                            CLAVE CATASTRAL: <br>
                                         </div>
                                     </td>
                                 </tr>
@@ -184,18 +132,6 @@
                                         </div>
                                         <br>
                                         <div style="font-weight:bold; text-align:center; font-size:10px">
-                                            <?php 
-                                            /*
-                                            $tipo_predio = "";
-                                            switch($predios->tipo_predio){
-                                                case 'U':   $tipo_predio = "URBANO";
-                                                            break;
-                                                case 'R':   $tipo_predio = "RUSTICO";
-                                                            break;
-                                                            
-                                            }
-                                            */
-                                            ?>
                                            
                                         </div>
                                             <br>
@@ -206,7 +142,6 @@
                                         </div>
                                         <br>
                                         <div style="font-weight:bold; text-align:center; font-size:10px">
-                                            <?php // echo $usosuelo->descripcion ?>
                                         </div>
                                     </td>
                                 </tr>
@@ -216,7 +151,7 @@
                                 <tr>
                                     <td class="row">
                                         <div style="width:100%; height:175px">
-                                            <img id="mapImg" src="<?php //echo $imgCroquis ?>" style="overflow: hidden; width: auto; height: 175px;">
+                                            <img id="mapImg" src="" style="overflow: hidden; width: auto; height: 175px;">
                                         </div>
                                     </td>
                                 </tr>
@@ -259,15 +194,7 @@
                                         </div>
                                         <br>
                                         <div style="text-align:center; margin: 0px 10px; ; height:120px">
-                                        <?php
-                                        /*
-                                        for($i=0;$i<sizeof($caracteristicas);$i++) {
-                                            */
-                                        ?>
                                         <br>                      
-                                        <?php
-                                        // }
-                                        ?>
                                         </div>                                        
                                     </td>
                                 </tr>
@@ -280,7 +207,6 @@
                                         </div>
                                         <div style="font-weight:bold; text-align:center; font-size:10px">
                                             <br>
-                                            <?php //echo strtoupper($localidad->nombre_municipio).", ".strtoupper($localidad->nom_ent) ?>
                                         </div>
                                     </td>
                                 </tr>
@@ -318,6 +244,7 @@
                                 </tr>
                             </table>
                         </td>
+
                     </tr>
                 </table>
             </div>

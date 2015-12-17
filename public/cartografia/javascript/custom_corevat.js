@@ -104,6 +104,7 @@ $(document).ready(function() {
 
         var ids = '';
         var ars = '';
+        var cls = '';
         var mun = '008';
          $('input[type=checkbox]').each(function () {
             if (this.checked && this.id != 'toPDF') {
@@ -111,6 +112,7 @@ $(document).ready(function() {
                 ids += ids == '' ? ar[0] : ','+ar[0];
                 ars += ars == '' ? ar[2] : ','+ar[2];
                 mun = ar[3];
+                cls += cls == '' ? ar[4] : ','+ar[4];
             }
         });
          
@@ -141,7 +143,8 @@ $(document).ready(function() {
                 groups:PM.activeLayer,
                 oIDS:ids,
                 oARS:ars,
-                oMun:mun
+                oMun:mun,
+                oToPDF:toPDF
             };
 
             $.ajax
@@ -154,8 +157,15 @@ $(document).ready(function() {
                 {
                     var js = jQuery.parseJSON(json);
 
-                        var url = PM_XAJAX_LOCATION + 'mtcorevat';
-                        var PARAMS = {mapURL:js.mapURL,escala:js.escala};
+                        var url = PM_XAJAX_LOCATION + 'mtcorevatprint';
+                        var PARAMS = {
+                                        mapURL:js.mapURL,
+                                        escala:js.escala,
+                                        municipio:js.municipio,
+                                        rangos:ars,
+                                        colores:cls,
+                                        localidades:js.localidades
+                                    };
 
                         var temp=document.createElement("form");
                         temp.action=url;
@@ -172,7 +182,13 @@ $(document).ready(function() {
                         temp.submit();
                         return temp;
 
+                }, 
+                error: function(xhr, textStatus, error){
+                    //alert(xhr.statusText);
+                    //alert(textStatus);
+                    alert(error);
                 }
+
             });
 
         }
