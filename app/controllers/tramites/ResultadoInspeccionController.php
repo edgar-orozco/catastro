@@ -91,7 +91,7 @@ protected $manifestacionConstruccion;
                 $row[] = 
                 [
                     'manifestacion_predio_id' => $mani_id,
-                    'superficie_alberca' => $datosConstruccion['construcciones'],
+                    'superficie_alberca' => $datosConstruccion['sup_alberca'],
                     'mtipo_servicio_id' => $serv, 
                     'created_at' => new Datetime, 
                     'updated_at'=> new DateTime
