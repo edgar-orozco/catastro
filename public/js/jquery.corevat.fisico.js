@@ -78,6 +78,10 @@ $(document).ready(function () {
 		$('#messagesModalFormAefConstrucciones').empty().removeClass();
 		$('#ctrlAefConstrucciones').val('ins');
 		$('#idaefconstruccion').val('0');
+		$('#edad_construcciones').val('0');
+		$('#superficie_m2_construcciones').val('0.01');
+		$("#idfactorconservacion option[value=0]").attr("selected", true);
+		$('#valor_nuevo_construcciones, #factor_edad_construcciones, #factor_conservacion_construcciones, #factor_resultante_construcciones, #valor_neto_construccion, #valor_parcial_construccion').val('0.00');
 		$('#superficie_m2_construcciones').attr('max', $('#diferencia_construccion').val() );
 		$('#modalFormAefConstruccionesTitle').empty().append('[COREVAT] Nuevo Construcción');
 		$('#modalFormAefConstrucciones').modal('show');
@@ -380,7 +384,6 @@ $(document).ready(function () {
 						$('#total_valor_fisico').empty().append(datos.total_valor_fisico);
 						$('#subtotal_construccion').val(datos.subtotal_construccion);
 						$('#diferencia_construccion').val(datos.diferencia_construccion);
-						alert(datos.total_valor_fisico + ' : ' + datos.subtotal_construccion + ' : ' + datos.diferencia_construccion );
 						aefConstrucciones.ajax.reload();
 					} else {
 						var errores = '';

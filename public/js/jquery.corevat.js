@@ -129,10 +129,14 @@ $(document).ready(function () {
 						} else if (ctrl === 'delAefTerrenos') {
 							$('#valor_terreno').empty().append(datos.valor_aplicado_m2);
 							$('#total_valor_fisico').empty().append(datos.total_valor_fisico);
+
 						} else if (ctrl === 'delAefConstrucciones') {
 							$('#total_metros_construccion').empty().append(datos.total_metros_construccion);
 							$('#valor_construccion').empty().append(datos.valor_construccion);
 							$('#total_valor_fisico').empty().append(datos.total_valor_fisico);
+							$('#subtotal_construccion').val(datos.subtotal_construccion);
+							$('#diferencia_construccion').val(datos.diferencia_construccion);
+
 						} else if (ctrl === 'delAefCondominios') {
 							$('#subtotal_area_condominio').empty().append(datos.subtotal_area_condominio);
 							$('#total_valor_fisico').empty().append(datos.total_valor_fisico);
