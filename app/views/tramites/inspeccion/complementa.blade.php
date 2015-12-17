@@ -4,15 +4,19 @@
 Se toma parte del archivo /ofvirtual/notario/manifestacion/_form.blade elaborado por Edgar Orozco
 -->
 @section('content')
-{{Form::Open(['ID'=>'formulario', 'URL'=>'tramites/inspeccion/resultado', 'METHOD'=>'POST'])}}
+{{Form::Open(['ID'=>'formulario', 'route'=>'tramites.inspeccion.resultado.store'])}}
+    {{Form::hidden('cuenta', $cuenta)}}
+    {{Form::hidden('clave', $clave)}}
+    {{Form::hidden('manifestacion_id', $manifestacion_id)}}
 	<fieldset><legend>Datos del predio</legend>
 	    @include('tramites.inspeccion._form_datos_predio_edit',['instancia'=>'manifestaciones', 'consultaMani'=>$consultaMani])
 	</fieldset>
-{{Form::close()}}
-	<fieldset><legend>Datos de la construcción</legend>
-	    @include('tramites.inspeccion._form_datos_construccion_complemento',['instancia'=>'manifestacion'])
-	</fieldset>
 
+	<fieldset><legend>Datos de la construcción</legend>
+	    @include('tramites.inspeccion._form_datos_construccion_complemento_new',['instancia'=>'manifestacion'])
+	</fieldset>
+    {{Form::submit()}}
+{{Form::close()}}
         <fieldset><legend>Carga de imagenes</legend>
         @include('tramites.inspeccion._form_load_images')
     </fieldset>
@@ -52,11 +56,12 @@ Se toma parte del archivo /ofvirtual/notario/manifestacion/_form.blade elaborado
         var edosConstruccion = {{json_encode((array)$edosConstruccion)}};
         var tiposConstruccion = {{json_encode((array)$tiposConstruccion)}};
         var setEditables = null;
-        var registrosConstrucciones = {construcciones:{},sup_albercas:0,sup_total:0};
+        var registrosConstrucciones = {construcciones:{},sup_albercas:0,sup_total:0, eliminar:{}};
 
         var actualiza = function(response, valor){
             var pk = $(this).data('pk');
             var nombre = $(this).data('name');
+            var num_bloque = $('tr.bloque-construccion > td#'+pk).text();
 
             //console.log("En el campo %s de la fila %s se puso este nuevo valor %s", nombre, pk, valor);
             if(nombre !== 'sup_albercas') {
@@ -79,6 +84,7 @@ Se toma parte del archivo /ofvirtual/notario/manifestacion/_form.blade elaborado
             console.log(JSON.stringify(registrosConstrucciones));
 
         }
+
 
         /**
          * Valida números enteros positivos
@@ -135,10 +141,25 @@ Se toma parte del archivo /ofvirtual/notario/manifestacion/_form.blade elaborado
             var c = 0;
             var totBloques = $('tr.bloque-construccion > td.bloque-id').length;
             $('.tot-bloques').text(totBloques);
-            $('tr.bloque-construccion > td.bloque-id').each(function(){
+            $('tr.bloque-construccion > td.bloque-id').each(function()
+            {
                 c++;
                 $(this).text(c);
+                var pk = $(this).data('pk');
+                console.log(pk);
+                if (pk in registrosConstrucciones.construcciones) 
+                {
+                    var registro = registrosConstrucciones.construcciones[pk];
+                    eval('registro.' + 'num_bloque' + ' = c');
+                }
+                else {
+                    var registro = {};
+                    eval('registro.' + 'num_bloque' + ' = c');
+                    registrosConstrucciones.construcciones[pk] = registro;
+                }
+                console.log(JSON.stringify(registrosConstrucciones)); 
             });
+
 
         }
 
@@ -237,14 +258,14 @@ Se toma parte del archivo /ofvirtual/notario/manifestacion/_form.blade elaborado
 
             setEditables = function() {
 
-                $( "tbody > tr:last" ).find('.supConstruccion').editable({
+                $( "tbody > tr" ).find('.supConstruccion').editable({
                     validate: validaDecimalPositivo
                 });
 
-                $( "tbody > tr:last" ).find('.xselect.techos').editable({
+                $( "tbody > tr" ).find('.xselect.techos').editable({
                     source: techos
                 });
-                $( "tbody > tr:last" ).find('.xselect.tiposConstruccion').editable({
+                $( "tbody > tr" ).find('.xselect.tiposConstruccion').editable({
                     source: tiposConstruccion,
                     display: function (value, sourceData) {
                         var sel = $.fn.editableutils.itemsByValue(value, sourceData);
@@ -255,43 +276,43 @@ Se toma parte del archivo /ofvirtual/notario/manifestacion/_form.blade elaborado
                         }
                     }
                 });
-                $( "tbody > tr:last" ).find('.xselect.pisos').editable({
+                $( "tbody > tr" ).find('.xselect.pisos').editable({
                     source: pisos
                 });
-                $( "tbody > tr:last" ).find('.xselect.muros').editable({
+                $( "tbody > tr" ).find('.xselect.muros').editable({
                     source: muros
                 });
-                $( "tbody > tr:last" ).find('.xselect.ventanas').editable({
+                $( "tbody > tr" ).find('.xselect.ventanas').editable({
                     source: ventanas
                 });
-                $( "tbody > tr:last" ).find('.xselect.puertas').editable({
+                $( "tbody > tr" ).find('.xselect.puertas').editable({
                     source: puertas
                 });
-                $( "tbody > tr:last" ).find('.xselect.electricas').editable({
+                $( "tbody > tr" ).find('.xselect.electricas').editable({
                     source: electricas
                 });
-                $( "tbody > tr:last" ).find('.xselect.hidraulicas').editable({
+                $( "tbody > tr" ).find('.xselect.hidraulicas').editable({
                     source: hidraulicas
                 });
-                $( "tbody > tr:last" ).find('.xselect.sanitarias').editable({
+                $( "tbody > tr" ).find('.xselect.sanitarias').editable({
                     source: sanitarias
                 });
-                $( "tbody > tr:last" ).find('.xselect.instEspeciales').editable({
+                $( "tbody > tr" ).find('.xselect.instEspeciales').editable({
                     source: instEspeciales
                 });
-                $( "tbody > tr:last" ).find('.antiguedad').editable({
+                $( "tbody > tr" ).find('.antiguedad').editable({
                     validate: validaEnteroPositivo
                 });
-                $( "tbody > tr:last" ).find('.xselect.usosConstruccion').editable({
+                $( "tbody > tr" ).find('.xselect.usosConstruccion').editable({
                     source: usosConstruccion
                 });
-                $( "tbody > tr:last" ).find('.avance').editable({
+                $( "tbody > tr" ).find('.avance').editable({
                     validate: validaPorcentajePositivo
                 });
-                $( "tbody > tr:last" ).find('.xselect.edosConstruccion').editable({
+                $( "tbody > tr" ).find('.xselect.edosConstruccion').editable({
                     source: edosConstruccion
                 });
-                $( "tbody > tr:last" ).find('.niveles').editable({
+                $( "tbody > tr" ).find('.niveles').editable({
                     validate: validaEnteroPositivo
                 });
 
@@ -322,11 +343,15 @@ Se toma parte del archivo /ofvirtual/notario/manifestacion/_form.blade elaborado
                 });
 
                 //Boton borrar construccion, si solo queda un registro en la tabla no lo elimina sino que lo limpia.
-                $( "tbody > tr:last" ).find('.borrar-construccion').click(function(ev){
+                $( "tbody > tr" ).find('.borrar-construccion').click(function(ev){
                     ev.preventDefault();
                     var pk = $(this).data('pk');
                     var bloque_id = $(this).closest('tr').find('.bloque-id').text();
                     var bloques = $('.bloque-construccion').length;
+                    var registro = {};
+                    eval('registro'+ '= pk');
+                    registrosConstrucciones.eliminar[pk] = registro;
+                    console.log(JSON.stringify(registrosConstrucciones));
                     if(!confirm('Ha presionado el botón para eliminar el Bloque de construcción: "'+bloque_id+ '". ¿Desea continuar con esta acción?')) return false;
                     if(bloques == 1)
                     {
@@ -336,6 +361,8 @@ Se toma parte del archivo /ofvirtual/notario/manifestacion/_form.blade elaborado
                         $("tr[data-pk="+pk+"]").remove();
                     }
                     $('#datos-construccion').trigger('bloque-borrado',[pk]);
+
+                    actualiza;
                     return false;
                 });
             }
@@ -355,13 +382,15 @@ Se toma parte del archivo /ofvirtual/notario/manifestacion/_form.blade elaborado
 
                 //Tomamos la primera fila editable y la clonamos
                 randomID = Math.floor(Math.random()*1000001);
-                var trs = $('tr.bloque-construccion');
+                var trs = $('tbody > tr:last');
                 var tr = $(trs[0]).clone();
                 //var col = "<tr><td colspan='3'><a href='#' data-pk='"+randomID+"'>Mike</a></td></tr>"
                 $(tr).attr('data-pk',randomID);
                 $(tr).find('.bloque-id').text(null);
                 $(tr).find('a').text(null);
                 $(tr).find('a').attr('data-pk', randomID);
+                $(tr).find('.bloque-id').attr('data-pk', randomID);
+                $(tr).find('.bloque-id').attr('id', randomID);
                 $(tr).find('button').attr('data-pk', randomID);
                 $('tbody').append(tr);
                 $('#datos-construccion').trigger('bloque-agregado',[randomID]);
@@ -371,6 +400,8 @@ Se toma parte del archivo /ofvirtual/notario/manifestacion/_form.blade elaborado
             //Escucha los eventos de agregar un nuevo bloque de construccion
             $('#datos-construccion').on('bloque-agregado',function(ev, id){
                 setEditables();
+
+                $("a.editable[data-pk="+id+"]").editable('setValue', null);
                 //Recalcula los indices y renumera toda la primera columna
                 recalculaIndices();
                 //ToDo: Aqui debe haber un coso que calcule los totales de superficie y de bloques
@@ -390,6 +421,8 @@ Se toma parte del archivo /ofvirtual/notario/manifestacion/_form.blade elaborado
 
                 //Borra del objeto los valores correspondientes a la fila
                 delete registrosConstrucciones.construcciones[id];
+
+                $('#construcciones').val(JSON.stringify(registrosConstrucciones));
             })
 
             //ToDo: Se debe ver como regenerar la tabla apartir de datos del servidor.

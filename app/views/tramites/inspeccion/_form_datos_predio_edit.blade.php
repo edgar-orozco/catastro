@@ -37,8 +37,8 @@
             </div>
 
             <span class="solo-rusticos">
-                {{Form::label($instancia.'[vias_comunicacion_id]','Vías de comunicación')}}
-                {{Form::select($instancia.'[vias_comunicacion_id]', [null => '']+$viasComunicacion, null, ['class'=>'form-control select2 select-manifestacion-vias_comunicacion_id'])}}
+                {{Form::label($instancia.'rustico[vias_comunicacion_id]','Vías de comunicación')}}
+                {{Form::select($instancia.'rustico[vias_comunicacion_id]', [null => '']+$viasComunicacion, null, ['class'=>'form-control select2 select-manifestacion-vias_comunicacion_id'])}}
             </span>
         </div>
     </div>
@@ -47,8 +47,8 @@
         <div class="form-group">
             <span class="solo-rusticos">
 
-                {{Form::label($instancia.'[poblacion_proxima]','Población próxima')}}
-                {{Form::text($instancia.'[poblacion_proxima]', null, [
+                {{Form::label($instancia.'rustico[poblacion_proxima]','Población próxima')}}
+                {{Form::text($instancia.'rustico[poblacion_proxima]', null, [
                     'class' => 'form-control',
                     'id'=>$instancia.'-poblacion_proxima',
                     'maxlength'=>'120',
@@ -57,9 +57,9 @@
                     'data-instancia'=>$instancia
                     ]
                 )}}
-                {{Form::label($instancia.'[distancia_poblacion]','Distancia')}}
+                {{Form::label($instancia.'rustico[distancia_poblacion]','Distancia')}}
                 <div class="input-group">
-                    {{Form::text($instancia.'[distancia_poblacion]', null, [
+                    {{Form::text($instancia.'rustico[distancia_poblacion]', null, [
                         'class' => 'form-control',
                         'id'=>$instancia.'-distancia_poblacion',
                         'maxlength'=>'12',
@@ -71,7 +71,6 @@
                     <span class="input-group-addon">Km.</span>
                 </div>
             </span>
-
             {{Form::label($instancia.'[tenencia_tierra_id]','Tenencia de la tierra')}}
             {{Form::select($instancia.'[tenencia_tierra_id]', [null => '']+$tenenciaTierra, $consultaMani->tenencia_tierra_id , ['class'=>'form-control select2 select-manifestacion-tenencia_tierra_id'] )}}
 

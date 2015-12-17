@@ -6,7 +6,7 @@ protected $manifestacion;
 protected $servicioPublico;
 protected $manifestacionConstruccion;
 
-    public function __construct(Manifestacion $manifestacion, ServicioPublico $servicioPublico, ManifestacionConstruccion $manifestacionConstruccion) {
+    public function __construct(Manifestacion $manifestacion, mServiciosPublicos $servicioPublico, ManifestacionConstruccion $manifestacionConstruccion) {
 
         $this->manifestacion = $manifestacion;
         $this->servicioPublico = $servicioPublico;
@@ -25,11 +25,16 @@ protected $manifestacionConstruccion;
 	{
 
     $clave = Input::get('clave');
+    
     $cuenta = INput::get('cuenta');
 
-		$vars = $this->catalogos();
+	$vars = $this->catalogos();
 
-		$JsonColindancias = json_encode([]);
+    $vars['clave'] = $clave;
+
+    $vars['cuenta'] = $cuenta;
+
+	$JsonColindancias = json_encode([]);
 
     $manifestacion = $this->manifestacion;
 
@@ -44,11 +49,13 @@ protected $manifestacionConstruccion;
 
     $manifestacion_id = $consultaMani->id;
 
+    $vars['manifestacion_id'] = $manifestacion_id;
+
     $servicioPublico = $this->servicioPublico;
 
     $maniConstruccion = $this->manifestacionConstruccion;
 
-    $vars['serv_publico'] = $servicioPublico->where('manifestacion_predio_id', $manifestacion_id)->lists('tipo_servicio_id');
+    $vars['serv_publico'] = $servicioPublico->where('manifestacion_predio_id', $manifestacion_id)->lists('mtipo_servicio_id');
 
     $vars['JsonColindancias'] = $JsonColindancias;
 
@@ -56,11 +63,103 @@ protected $manifestacionConstruccion;
 
     $vars['consultaMani'] = $consultaMani;
 
-    $vars['manifestacionConstruccion'] = $maniConstruccion->where('manifestacion_id', $manifestacion_id)->get();
+    $vars['manifestacionConstruccion'] = $maniConstruccion->where('manifestacion_id', $manifestacion_id)->orderBy('num_bloque')->get();
 
 		return View::make('tramites.inspeccion.complementa', $vars);
 
 	}
+
+  public function store()
+  {
+    $cuenta = Input::get('cuenta');
+    $clave = Input::get('clave');
+    $mani_id = Input::get('manifestacion_id');
+    $datosMani = Input::get('manifestaciones');
+
+
+    $serviciosMani = Input::get('manifestaciones_servicios');
+    $servPublicos = $this->servicioPublico->where('manifestacion_predio_id', $mani_id);
+    $arrayData = $servPublicos->lists('mtipo_servicio_id');
+    $a=[];
+    $row=[];
+
+    foreach ($serviciosMani as $serv)
+    {
+        if (!in_array($serv, $arrayData))
+        {
+            $row[] = 
+            [
+                'manifestacion_predio_id' => $mani_id,
+                'superficie_alberca' => $datosConstruccion['construcciones'],
+                'mtipo_servicio_id' => $serv, 
+                'created_at' => new Datetime, 
+                'updated_at'=> new DateTime
+            ];
+        }
+        $a[]=$serv;
+    }
+    $servPublicos
+        ->whereNotIn('mtipo_servicio_id', $a)
+        ->delete();
+
+    if($row)
+    {
+        $this->servicioPublico->insert($row);        
+    }
+
+    $manifestacion = $this->manifestacion->find($mani_id);
+
+    $manifestacion->update($datosMani);
+
+    $datosConstruccion = json_decode(Input::get('datos_construccion'), true);
+
+    $construcciones = $datosConstruccion['construcciones'];
+
+    if($datosConstruccion['eliminar'])
+    {
+        foreach ($datosConstruccion['eliminar'] as $key)
+        {
+            $consulta = $this->manifestacionConstruccion->find($key);
+            if($consulta)
+            {
+                echo "Entra la pendejada esta ELIMINAR";
+                $consulta->delete();
+            }
+        }
+    }
+    $constru = [];
+
+    $x=1;
+    print_r($datosConstruccion);
+    print_r($construcciones);
+    foreach ($construcciones as $key => $value) 
+    {
+        $consulta = $this->manifestacionConstruccion->find($key);
+        if($consulta)
+        {
+            print_r($value);
+            $consulta->update($value);
+        }
+        else
+        {
+            $constru = array_merge($value, ['manifestacion_id'=>$mani_id, 'created_at' => new Datetime, 
+                'updated_at'=> new DateTime ]);
+            $this->manifestacionConstruccion->fill($constru)->save();
+            $x+=1; 
+        }
+        
+
+    }
+
+
+
+    
+    
+
+    
+
+    
+  }
 
 
 	/**
@@ -85,6 +184,10 @@ protected $manifestacionConstruccion;
         $listaMunicipios =  Municipio::with('entidad')->where('entidad', '27')->orderBy('nombre_municipio')->lists('nombre_municipio','municipio');
 
         //En lo que se sabe que hacer con los catalogos...
+        
+        //tipos_propietarios?
+        //Vacio...
+        //se creo migrate mtipos_propietarios
         $listaTiposPropietario =  [
             '1'=>'Particular',
             '2'=>'Municipal',
@@ -102,55 +205,62 @@ protected $manifestacionConstruccion;
             '2'=>'Terracería',
             '3'=>'Camino vecinal',
         ];
-        $usoPredio = [
+
+
+        /*tipousosuelo?
+        //DATOS: HABITACIONAL, NO HABITACIONAL, MIXTO, SIN USO.
+        //MIGRATE: muso_predio
+         $usoPredio = [
             '1'=>'Habitacional',
             '2'=>'Industrial',
             '3'=>'Agrícola',
-        ];
+        ];*/
+
+        $usoPredio = mUsoPredio::orderBy('descripcion', 'DESC')->lists('descripcion', 'id'); 
+       
+
+        /*
+        SE CREO MIGRATE: mtenencia_tierra
         $tenenciaTierra = [
             '1'=>'Propiedad',
             '2'=>'Ejidal',
             '3'=>'Común',
             '4'=>'Posesión',
         ];
+        */
 
-        $serviciosPublicos = [
-            '1'=>'Agua',
-            '2'=>'Luz',
-            '3'=>'Teléfono',
-            '4'=>'Banqueta',
-            '5'=>'Alumbrado',
-            '6'=>'Pavimento',
-            '7'=>'Drenaje',
-            '8'=>'Transporte',
-        ];
+        $tenenciaTierra = mTenenciaTierra::orderBy('descripcion', 'DESC')->lists('descripcion', 'id');
 
-        $serviciosPublicos = tiposervicios::orderBy('descripcion')->remember(120)->lists('descripcion', 'id_tiposervicio');
+        //tiposervicios
+        //diferentes: PAVIMENTO DE CONCRETO HIDRÁULICO, PAVIMENTO DE ASFALTO
+        //RECOLECCIÓN DE BASURA, GUARNICIÓN, TV SATELITAL, TV POR CABLE
+        $serviciosPublicos = mTiposServicios::orderBy('descripcion')->lists('descripcion', 'id');
 
-        $tiposConstruccion = [
+        /*ftipos_construccion
+        */$tiposConstruccion = [
             'Antigua' => ['A1' => 'Económica', 'A2'=>'Medio', 'A3'=>'Superior'],
             'Moderna' => ['M1' => 'Interés Social', 'M2'=>'Popular', 'M3'=>'Medio', 'M4'=>'Bueno', 'M5'=>'Superior'],
             'Edificio Habitacional' => ['H1'=>'Interés social', 'H2'=>'Medio', 'H3'=>'Superior'],
             'Construcciones Especiales' => ['C1'=>'Corriente', 'C2'=>'Medio', 'C3'=>'Bueno'],
             'Edif. Construcciones Especiales' => ['E1'=>'Medio', 'E2'=>'Bueno'],
         ];
+        
+        $tiposConstruccion1 = mTiposConstruccion::distinct()->select('grupo_tipoconstruccion')->orderBy('grupo_tipoconstruccion')->get();
         $t=[];
-        foreach($tiposConstruccion as $k => $v){
+        foreach($tiposConstruccion1 as $k){
             $s = [];
-            foreach($v as $a => $b){
+            $tiposConstruccion2 = mTiposConstruccion::where('grupo_tipoconstruccion', $k->grupo_tipoconstruccion )->orderBy('grupo_tipoconstruccion')->lists('descripcion', 'id');
+            foreach($tiposConstruccion2 as $a => $b){
                 $s[] = ['value'=>$a, 'text'=>$b];
             }
-            $t[] = ['text'=>$k, 'children'=>$s];
+            $t[] = ['text'=>$k->grupo_tipoconstruccion, 'children'=>$s];
         }
         $tiposConstruccion = $t;
 
-        $techos = [
-            'CC'=>'Concreto',
-            'TB'=>'Teja de barro',
-            'LZ'=>'Lámina de zinc',
-            'LA'=>'Lámina de asbesto',
-            'OT'=>'Otros',
-        ];
+
+
+
+        $techos = mTiposTechos::orderBy('descripcion')->lists('descripcion', 'id');
 
         $t = array();
         foreach($techos as $k => $v){
@@ -158,42 +268,38 @@ protected $manifestacionConstruccion;
         }
         $techos = $t;
 
-        $muros = [
-            'BT' => 'Block tabique',
-            'AM' => 'Adobe madera',
-        ];
+
+
+        $muros = mTiposMuros::orderBy('descripcion')->lists('descripcion', 'id');
         $t = array();
         foreach($muros as $k => $v){
             $t[] = ['value'=>$k, 'text'=>$v];
         }
         $muros = $t;
 
-        $pisos = [
-            'CM' => 'Cemento',
-            'MS' => 'Mosaico',
-            'MR' => 'Mármol',
-        ];
+
+
+        $pisos = mTiposPisos::orderBy('descripcion')->lists('descripcion', 'id');
         $t = array();
         foreach($pisos as $k => $v){
             $t[] = ['value'=>$k, 'text'=>$v];
         }
         $pisos = $t;
 
-        $puertas = [
-            'AL' => 'Aluminio',
-            'HR' => 'Herrería',
-            'MD' => 'Madera',
-        ];
+
+        $puertas = mTiposPuertas::orderBy('descripcion')->lists('descripcion', 'id');
         $t = array();
         foreach($puertas as $k => $v){
             $t[] = ['value'=>$k, 'text'=>$v];
         }
+
 
         $ventanas = $puertas;
         $t = array();
         foreach($ventanas as $k => $v){
             $t[] = ['value'=>$k, 'text'=>$v];
         }
+
 
         $hidraulicas = [
             'OC' => 'Oculta',
@@ -208,38 +314,22 @@ protected $manifestacionConstruccion;
         $electricas = $hidraulicas;
         $sanitarias = $hidraulicas;
 
-        $instEspeciales = [
-            'E' => 'Elevador',
-            'CC' => 'Circuito cerrado',
-            'ECI' => 'Equipo contra incendios',
-            'SH' => 'Sistema hidroneumático',
-            'EE' => 'Escaleras electromecánicas',
-            'O' => 'Otros',
-        ];
+
+        $instEspeciales = mTiposInstalacionesEspeciales::orderBy('descripcion')->lists('descripcion', 'id');
         $t = array();
         foreach($instEspeciales as $k => $v){
             $t[] = ['value'=>$k, 'text'=>$v];
         }
         $instEspeciales = $t;
 
-        $edosConstruccion = [
-            'B'=>'Bueno',
-            'R'=>'Regular',
-            'M'=>'Malo',
-        ];
+        $edosConstruccion = mTiposEstadosConservacion::orderBy('descripcion')->lists('descripcion', 'id');
         $t = array();
         foreach($edosConstruccion as $k => $v){
             $t[] = ['value'=>$k, 'text'=>$v];
         }
         $edosConstruccion = $t;
 
-        $usosConstruccion = [
-            'CH'=>'Habitacional',
-            'IN'=>'Industrial',
-            'CM'=>'Comercial',
-            'M'=>'Mixto',
-            'GO'=>'Ofic. Serv. Gob. Fral. Mpal.',
-        ];
+        $usosConstruccion = mTiposUsosConstruccion::orderBy('descripcion')->lists('descripcion', 'id');
         $t = array();
         foreach($usosConstruccion as $k => $v){
             $t[] = ['value'=>$k, 'text'=>$v];
