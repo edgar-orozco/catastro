@@ -128,35 +128,26 @@ protected $manifestacionConstruccion;
         }
     }
     $constru = [];
-
-    $x=1;
-    print_r($datosConstruccion);
-    print_r($construcciones);
-    foreach ($construcciones as $key => $value) 
+    if($construcciones)
     {
-        $consulta = $this->manifestacionConstruccion->find($key);
-        if($consulta)
+        foreach ($construcciones as $key => $value) 
         {
-            print_r($value);
-            $consulta->update($value);
-        }
-        else
-        {
-            $constru = array_merge($value, ['manifestacion_id'=>$mani_id, 'created_at' => new Datetime, 
-                'updated_at'=> new DateTime ]);
-            $this->manifestacionConstruccion->fill($constru)->save();
-            $x+=1; 
-        }
-        
+            $consulta = $this->manifestacionConstruccion->find($key);
+            if($consulta)
+            {
+                print_r($value);
+                $consulta->update($value);
+            }
+            else
+            {
+                $constru = array_merge($value, ['manifestacion_id'=>$mani_id, 'created_at' => new Datetime, 
+                    'updated_at'=> new DateTime ]);
+                $this->manifestacionConstruccion->fill($constru)->save();
+            }
+            
 
+        }
     }
-
-
-
-    
-    
-
-    
 
     
   }
