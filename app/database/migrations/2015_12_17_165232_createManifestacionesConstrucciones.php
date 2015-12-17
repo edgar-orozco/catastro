@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class ManiConstruccionesForeignKeys extends Migration {
+class CreateManifestacionesConstrucciones extends Migration {
 
 	/**
 	 * Run the migrations.
