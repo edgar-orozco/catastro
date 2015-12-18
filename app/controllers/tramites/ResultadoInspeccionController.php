@@ -139,9 +139,11 @@ protected $manifestacionConstruccion;
             }
             else
             {
+                $modelMani = $this->manifestacionConstruccion;
                 $constru = array_merge($value, ['manifestacion_id'=>$mani_id, 'created_at' => new Datetime, 
                     'updated_at'=> new DateTime ]);
-                $this->manifestacionConstruccion->fill($constru)->save();
+                $modelMani->insert($constru);
+                echo "guardo bloque"; 
             }
             
 
