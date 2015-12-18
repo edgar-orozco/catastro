@@ -663,11 +663,30 @@ Route::group(array('before' => 'corevat'), function () {
 
 	// ENFOQUE FISICO [CONSTRUCCIONES]
 	Route::get( '/corevat/AefConstruccionesGetAjax/{id}', array('uses' => 'corevat_AefConstruccionesController@getAjax', 'as' => 'getAjaxAefConstrucciones'));
-	Route::get( '/corevat/AefConstruccionesNew/{id}',     array('uses' => 'corevat_AefConstruccionesController@create',  'as' => 'createAefConstrucciones'));
+	//Route::get( '/corevat/AefConstruccionesNew/{id}',     array('uses' => 'corevat_AefConstruccionesController@create',  'as' => 'createAefConstrucciones'));
 	Route::post('/corevat/AefConstruccionesNew/',         array('uses' => 'corevat_AefConstruccionesController@store',   'as' => 'storeAefConstrucciones'));
 	Route::get( '/corevat/AefConstruccionesUpd/{id}',     array('uses' => 'corevat_AefConstruccionesController@edit',    'as' => 'editAefConstrucciones'));
 	Route::post('/corevat/AefConstruccionesUpd/{id?}',    array('uses' => 'corevat_AefConstruccionesController@update',  'as' => 'updateAefConstrucciones'));
 	Route::get( '/corevat/AefConstruccionesDel/{id}',     array('uses' => 'corevat_AefConstruccionesController@destroy', 'as' => 'delAefConstrucciones'));
+	Route::get('/corevat/getSuperficieConstruccion/{id}', function($id) {
+		$AvaluoFisico = AvaluosFisico::where('idavaluoenfoquefisico', '=', $id)->first();
+		$AvaluoInmueble = AvaluosInmueble::where('idavaluo', '=', $AvaluoFisico->idavaluo)->first();
+		$subtotal_construccion = AefConstrucciones::subtotalSuperficie($id);
+
+		$response = array(
+			'superficie_construccion' => number_format($AvaluoInmueble->superficie_construccion, 2, ".", ","),
+			'total_metros_construccion' => number_format($AvaluoInmueble->total_metros_construccion, 2, ".", ","),
+			'valor_construccion' => number_format($AvaluoInmueble->valor_construccion, 2, ".", ","),
+			'total_valor_fisico' => number_format($AvaluoInmueble->total_valor_fisico, 2, ".", ","),
+			'subtotal_construccion' => number_format($subtotal_construccion, 2, ".", ""),
+			'diferencia_construccion' => round($AvaluoInmueble->superficie_construccion - $subtotal_construccion, 2),
+		);
+
+		return $response;
+	});
+//			
+//			$AvaluoInmueble = AvaluosInmueble::where('idavaluo', '=', $AvaluoFisico->idavaluo)->first();
+//			$subtotal_construccion = AefConstrucciones::subtotalSuperficie($inputs["idavaluoenfoquefisico2"]);
 
 	// ENFOQUE FISICO [CONDOMINIOS]
 	Route::get( '/corevat/AefCondominiosGetAjax/{id}', array('uses' => 'corevat_AefCondominiosController@getAjax', 'as' => 'getAjaxAefCondominios'));

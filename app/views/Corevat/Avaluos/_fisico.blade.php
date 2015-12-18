@@ -381,7 +381,7 @@
 
 			<div class="modal-body">
 				<div class="row">
-					<div class="col-md-2">
+					<div class="col-md-3">
 						<label for="idtipo">Tipo:</label>
 						<select class="form-control" id="idtipo" name="idtipo">
 							@foreach ($cat_tipo as $item)
@@ -395,7 +395,7 @@
 					</div>
 					<div class="col-md-2">
 						<label for="edad_construcciones">Edad:</label>
-						<input type="number" class="form-control clsNumeric" name="edad_construcciones" id="edad_construcciones" min="0" max="999" step="1" required />
+						<input type="number" class="form-control clsNumeric" name="edad_construcciones" id="edad_construcciones" min="0" max="999" step="1" valu="0" required />
 					</div>
 					<div class="col-md-2">
 						<label for="superficie_construccion">Superficie Total:</label>
@@ -405,21 +405,22 @@
 						<label for="subtotal_construccion">Subtotal:</label>
 						<input type="text" class="form-control clsNumeric" name="subtotal_construccion" id="subtotal_construccion" value="{{number_format($subtotal_construccion, 2, ".", "")}}" disabled />
 					</div>
-					<div class="col-md-4">
+					<div class="col-md-3">
 						<label for="superficie_m2_construcciones">Superficie M&sup2:</label>
 						<input type="number" class="form-control clsNumeric" name="superficie_m2_construcciones" id="superficie_m2_construcciones" min="0.01" max="0.01" step="0.01" value="0.01" required />
 					</div>
-
-					<div class="col-md-6">
+				</div>
+<br />
+				<div class="row">
+					<div class="col-md-3">
 						<label for="valor_nuevo_construcciones">V. R. Nuevo:</label>
 						<input type="number" class="form-control clsNumeric" name="valor_nuevo_construcciones" id="valor_nuevo_construcciones" min="0.00" max="9999999999.99" step="0.01" value="0.00" required />
 					</div>
-					<div class="col-md-6">
+					<div class="col-md-3">
 						<label for="factor_edad_construcciones">Factor Edad:</label>
 						<input type="number" class="form-control clsNumeric" name="factor_edad_construcciones" id="factor_edad_construcciones" min="0.00" max="1.00" step="0.01" value="0.00" required />
 					</div>
-
-					<div class="col-md-6">
+					<div class="col-md-3">
 						<label for="idfactorconservacion">Factor Conservación:</label>
 						<select class="form-control" id="idfactorconservacion" name="idfactorconservacion">
 							@foreach ($cat_factores_conservacion as $item)
@@ -427,11 +428,13 @@
 							@endforeach
 						</select>
 					</div>
-					<div class="col-md-6">
+					<div class="col-md-3">
 						<label for="factor_conservacion_construcciones">&nbsp;</label>
 						<input type="number" class="form-control clsNumeric" name="factor_conservacion_construcciones" id="factor_conservacion_construcciones" min="0.0000" max="1.0000" step="0.0001" value="0.0000" required />
 					</div>
-
+				</div>
+<br />
+				<div class="row">
 					<div class="col-md-4">
 						<label for="factor_resultante_construcciones">Factor Resultante:</label>
 						<input type="text" class="form-control" name="factor_resultante_construcciones" id="factor_resultante_construcciones" disabled />
@@ -450,7 +453,6 @@
 			</div>
 			<div class="modal-footer">
 				<button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
-				<button type="reset" class="btn btn-default">Limpiar</button>
 				<button type="submit" class="btn btn-primary">Aceptar</button>
 			</div>
 			{{Form::close()}}

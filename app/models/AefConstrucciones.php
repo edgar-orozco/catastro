@@ -28,11 +28,11 @@ class AefConstrucciones extends \Eloquent {
 	 * @param  int  $id
 	 * @return Response
 	 */
-	public static function insAefConstrucciones($inputs, &$total_metros_construccion, &$valor_construccion, &$total_valor_fisico) {
+	public static function insAefConstrucciones($inputs) {
 		$rowAefConstrucciones = new AefConstrucciones();
 		$rowAefConstrucciones->idavaluoenfoquefisico = $inputs["idavaluoenfoquefisico2"];
 		$rowAefConstrucciones->created_at = $inputs["created_at"];
-		AefConstrucciones::setAefConstrucciones($rowAefConstrucciones, $inputs, $inputs, $total_metros_construccion, $valor_construccion, $total_valor_fisico);
+		AefConstrucciones::setAefConstrucciones($rowAefConstrucciones, $inputs);
 		$rowAefConstrucciones->save();
 	}
 	
@@ -42,14 +42,14 @@ class AefConstrucciones extends \Eloquent {
 	 * @param  int  $id
 	 * @return Response
 	 */
-	public static function updAefConstrucciones($inputs, &$total_metros_construccion, &$valor_construccion, &$total_valor_fisico) {
+	public static function updAefConstrucciones($inputs) {
 		$rowAefConstrucciones = AefConstrucciones::find($inputs["idaefconstruccion"]);
 		$rowAefConstrucciones->updated_at = $inputs["updated_at"];
-		AefConstrucciones::setAefConstrucciones($rowAefConstrucciones, $inputs, $total_metros_construccion, $valor_construccion, $total_valor_fisico);
+		AefConstrucciones::setAefConstrucciones($rowAefConstrucciones, $inputs);
 		$rowAefConstrucciones->save();
 	}
 	
-	public static function setAefConstrucciones(&$rowAefConstrucciones, $inputs, &$total_metros_construccion, &$valor_construccion, &$total_valor_fisico) {
+	public static function setAefConstrucciones(&$rowAefConstrucciones, $inputs) {
 		$rowAefConstrucciones->idtipo = $inputs["idtipo"];
 		$rowAefConstrucciones->edad = $inputs["edad_construcciones"];
 		$rowAefConstrucciones->superficie_m2 = $inputs["superficie_m2_construcciones"];
@@ -57,11 +57,6 @@ class AefConstrucciones extends \Eloquent {
 		$rowAefConstrucciones->factor_edad = $inputs["factor_edad_construcciones"];
 		$rowAefConstrucciones->fk_conservacion = $inputs["idfactorconservacion"];
 		$rowAefConstrucciones->factor_conservacion = $inputs["factor_conservacion_construcciones"];
-
-		$rowAef = AvaluosFisico::find($rowAefConstrucciones->idavaluoenfoquefisico);
-		$total_metros_construccion = $rowAef->total_metros_construccion;
-		$valor_construccion = $rowAef->valor_construccion;
-		$total_valor_fisico = $rowAef->total_valor_fisico;
 	}
 
 	public static function getAjaxAefConstruccionesByFk($fk) {
@@ -141,4 +136,7 @@ class AefConstrucciones extends \Eloquent {
 			return $pato[0]->subtotal;
 		}
 	}
+	
+	
+	
 }

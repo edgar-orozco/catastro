@@ -124,8 +124,10 @@ $(document).ready(function () {
 							aemHomologacion.ajax.reload();
 							$('#valor_unitario_promedio').empty().append(datos.valor_unitario_promedio);
 							$('#valor_aplicado_m2').empty().append(datos.valor_aplicado_m2);
+
 						} else if (ctrl === 'delAemInformacion') {
 							aemAnalisis.ajax.reload();
+
 						} else if (ctrl === 'delAefTerrenos') {
 							$('#valor_terreno').empty().append(datos.valor_aplicado_m2);
 							$('#total_valor_fisico').empty().append(datos.total_valor_fisico);
@@ -140,6 +142,7 @@ $(document).ready(function () {
 						} else if (ctrl === 'delAefCondominios') {
 							$('#subtotal_area_condominio').empty().append(datos.subtotal_area_condominio);
 							$('#total_valor_fisico').empty().append(datos.total_valor_fisico);
+
 						} else if (ctrl === 'delAefInstalaciones') {
 							$('#subtotal_instalaciones_especiales').empty().append(datos.subtotal_instalaciones_especiales);
 							$('#total_valor_fisico').empty().append(datos.total_valor_fisico);

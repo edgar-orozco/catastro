@@ -12,11 +12,11 @@ class corevat_AefConstruccionesController extends \BaseController {
 	 * GET /aefconstrucciones/create
 	 *
 	 * @return Response
-	 */
 	public function create() {
 		$row = new AefConstrucciones();
 		return $row;
 	}
+	 */
 
 	/**
 	 * Store a newly created resource in storage.
@@ -34,18 +34,18 @@ class corevat_AefConstruccionesController extends \BaseController {
 			$response = array('success' => false, 'errors' => $validate->getMessageBag()->toArray());
 		} else {
 			$inputs["created_at"] = Carbon::now()->format('Y-m-d H:i:s');
-			AefConstrucciones::insAefConstrucciones($inputs, $total_metros_construccion, $valor_construccion, $total_valor_fisico);
+			AefConstrucciones::insAefConstrucciones($inputs);
 
 			$AvaluoFisico = AvaluosFisico::where('idavaluoenfoquefisico', '=', $inputs["idavaluoenfoquefisico2"])->first();
 			$AvaluoInmueble = AvaluosInmueble::where('idavaluo', '=', $AvaluoFisico->idavaluo)->first();
-			$subtotal_construccion = AefConstrucciones::subtotalSuperficie($inputs["idavaluoenfoquefisico2"]);
+			$subtotal_construccion = AefConstrucciones::subtotalSuperficie($AvaluoFisico->idavaluoenfoquefisico);
 
 			$response = array(
 				'success' => true,
 				'message' => '¡El registro fue ingresado satisfactoriamente!',
-				'total_metros_construccion' => number_format($total_metros_construccion, 2, ".", ","),
-				'valor_construccion' => number_format($valor_construccion, 2, ".", ","),
-				'total_valor_fisico' => number_format($total_valor_fisico, 2, ".", ","),
+				'total_metros_construccion' => number_format($AvaluoFisico->total_metros_construccion, 2, ".", ","),
+				'valor_construccion' => number_format($AvaluoFisico->valor_construccion, 2, ".", ","),
+				'total_valor_fisico' => number_format($AvaluoFisico->total_valor_fisico, 2, ".", ","),
 				'subtotal_construccion' => number_format($subtotal_construccion, 2, ".", ""),
 				'diferencia_construccion' => round($AvaluoInmueble->superficie_construccion - $subtotal_construccion, 2),
 			);
@@ -65,7 +65,8 @@ class corevat_AefConstruccionesController extends \BaseController {
 		$AvaluoFisico = AvaluosFisico::where('idavaluoenfoquefisico', '=', $row->idavaluoenfoquefisico)->first();
 		$AvaluoInmueble = AvaluosInmueble::where('idavaluo', '=', $AvaluoFisico->idavaluo)->first();
 		$row->subtotal_construccion = AefConstrucciones::subtotalSuperficie($row->idavaluoenfoquefisico);
-		$row->diferencia_construccion = round($AvaluoInmueble->superficie_construccion - $row->subtotal_construccion, 2);
+		$row->diferencia_construccion = round($AvaluoInmueble->superficie_construccion - $row->subtotal_construccion + $row->superficie_m2, 2);
+		//$row->subtotal_construccion = $row->diferencia_construccion;
 		return $row;
 	}
 
@@ -77,25 +78,24 @@ class corevat_AefConstruccionesController extends \BaseController {
 	 * @return Response
 	 */
 	public function update($id) {
-		$total_metros_construccion = 0;
-		$valor_construccion = 0;
-		$total_valor_fisico = 0;
 		$inputs = Input::All();
 		$validate = $this->validate($inputs);
 		if ($validate->fails()) {
 			$response = array('success' => false, 'errors' => $validate->getMessageBag()->toArray());
 		} else {
 			$inputs["updated_at"] = Carbon::now()->format('Y-m-d H:i:s');
-			AefConstrucciones::updAefConstrucciones($inputs, $total_metros_construccion, $valor_construccion, $total_valor_fisico);
+			AefConstrucciones::updAefConstrucciones($inputs);
+
 			$AvaluoFisico = AvaluosFisico::where('idavaluoenfoquefisico', '=', $inputs["idavaluoenfoquefisico2"])->first();
 			$AvaluoInmueble = AvaluosInmueble::where('idavaluo', '=', $AvaluoFisico->idavaluo)->first();
-			$subtotal_construccion = AefConstrucciones::subtotalSuperficie($inputs["idavaluoenfoquefisico2"]);
+			$subtotal_construccion = AefConstrucciones::subtotalSuperficie($AvaluoFisico->idavaluoenfoquefisico);
+
 			$response = array(
 				'success' => true,
 				'message' => '¡El registro fue modificado satisfactoriamente!',
-				'total_metros_construccion' => number_format($total_metros_construccion, 2, ".", ","),
-				'valor_construccion' => number_format($valor_construccion, 2, ".", ","),
-				'total_valor_fisico' => number_format($total_valor_fisico, 2, ".", ","),
+				'total_metros_construccion' => number_format($AvaluoFisico->total_metros_construccion, 2, ".", ","),
+				'valor_construccion' => number_format($AvaluoFisico->valor_construccion, 2, ".", ","),
+				'total_valor_fisico' => number_format($AvaluoFisico->total_valor_fisico, 2, ".", ","),
 				'subtotal_construccion' => number_format($subtotal_construccion, 2, ".", ""),
 				'diferencia_construccion' => round($AvaluoInmueble->superficie_construccion - $subtotal_construccion, 2),
 			);
@@ -117,7 +117,9 @@ class corevat_AefConstruccionesController extends \BaseController {
 			$rowEnfoqueFisico = AvaluosFisico::find($row->idavaluoenfoquefisico);
 			$AvaluoInmueble = AvaluosInmueble::where('idavaluo', '=', $rowEnfoqueFisico->idavaluo)->first();
 			$subtotal_construccion = AefConstrucciones::subtotalSuperficie($rowEnfoqueFisico->idavaluoenfoquefisico);
-			return Response::json(array('success' => true, 'message' => '!El registro fue eliminado satisfactoriamente!',
+			return Response::json(array(
+				'success' => true, 
+				'message' => '!El registro fue eliminado satisfactoriamente!',
 				'valor_construccion' => number_format($rowEnfoqueFisico->valor_construccion, 2, ".", ","), 
 				'total_metros_construccion' => number_format($rowEnfoqueFisico->total_metros_construccion, 2, ".", ","), 
 				'total_valor_fisico' => number_format($rowEnfoqueFisico->total_valor_fisico, 2, ".", ","),

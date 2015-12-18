@@ -38,7 +38,7 @@ $(document).ready(function () {
 	});
 
 	aefConstrucciones = $('#aefConstruccionesDataTable').DataTable({
-		 ordering: false
+		ordering: false
 	});
 	aefConstrucciones.ajax.url('/corevat/AefConstruccionesGetAjax/' + $("#idavaluoenfoquefisico").val()).load();
 
@@ -68,23 +68,6 @@ $(document).ready(function () {
 		$('#idaefterreno').val('0');
 		$('#modalFormAefTerrenosTitle').empty().append('[COREVAT] Nuevo Registro Factores de Eficiencia');
 		$('#modalFormAefTerrenos').modal('show');
-	});
-
-	/*++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-	 * 
-	 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
-	$('#btnNewAefCons').click(function () {
-		$('#formAefConstrucciones').trigger('reset').attr('action', '/corevat/AefConstruccionesNew');
-		$('#messagesModalFormAefConstrucciones').empty().removeClass();
-		$('#ctrlAefConstrucciones').val('ins');
-		$('#idaefconstruccion').val('0');
-		$('#edad_construcciones').val('0');
-		$('#superficie_m2_construcciones').val('0.01');
-		$("#idfactorconservacion option[value=0]").attr("selected", true);
-		$('#valor_nuevo_construcciones, #factor_edad_construcciones, #factor_conservacion_construcciones, #factor_resultante_construcciones, #valor_neto_construccion, #valor_parcial_construccion').val('0.00');
-		$('#superficie_m2_construcciones').attr('max', $('#diferencia_construccion').val() );
-		$('#modalFormAefConstruccionesTitle').empty().append('[COREVAT] Nuevo Construcción');
-		$('#modalFormAefConstrucciones').modal('show');
 	});
 
 	/*++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
@@ -127,20 +110,6 @@ $(document).ready(function () {
 	/*++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 	 * 
 	 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
-	$.editAefConstrucciones = function (id) {
-		$('#messagesModalFormAefConstrucciones').empty().removeClass();
-		$('#formAefConstrucciones').attr('action', '/corevat/AefConstruccionesUpd/' + id);
-		$('#ctrlAefConstrucciones').val('upd');
-		$('#idaefconstruccion').val(id);
-		$.loadFormAefConstrucciones(id);
-		$('#superficie_m2_construcciones').attr('max', $('#diferencia_construccion').val() );
-		$('#modalFormAefConstruccionesTitle').empty().append('[COREVAT] Construcción: ' + id);
-		$('#modalFormAefConstrucciones').modal('show');
-	};
-
-	/*++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-	 * 
-	 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
 	$.editAefCondominios = function (id) {
 		$('#messagesModalFormAefCondominios').empty().removeClass();
 		$('#formAefCondominios').attr('action', '/corevat/AefCondominiosUpd/' + id);
@@ -169,15 +138,6 @@ $(document).ready(function () {
 	 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
 	$.delAefTerrenos = function (id) {
 		$('#corevatConfirmButton').attr('ctrl', 'delAefTerrenos').attr('idTable', id);
-		$('#corevatConfirmContainer').empty().append('<h2>¿Realmente dese eliminar el registro?<h2>');
-		$('#corevatConfirm').modal('show');
-	};
-
-	/*++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-	 * 
-	 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
-	$.delAefConstrucciones = function (id) {
-		$('#corevatConfirmButton').attr('ctrl', 'delAefConstrucciones').attr('idTable', id);
 		$('#corevatConfirmContainer').empty().append('<h2>¿Realmente dese eliminar el registro?<h2>');
 		$('#corevatConfirm').modal('show');
 	};
@@ -234,34 +194,6 @@ $(document).ready(function () {
 				$('#indiviso_terrenos').val(datos.indiviso);
 				$('#valor_parcial_terrenos').val(datos.valor_parcial);
 
-			}
-		});
-	};
-
-	/*++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-	 * 
-	 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
-	$.loadFormAefConstrucciones = function (id) {
-		$.ajax({
-			global: false,
-			cache: false,
-			dataType: 'json',
-			url: '/corevat/AefConstruccionesUpd/' + id,
-			type: 'get',
-			success: function (data) {
-				datos = eval(data);
-				$("#idtipo option[value=" + datos.idtipo + "]").attr("selected", true);
-				$('#edad_construcciones').val(datos.edad);
-				$('#superficie_m2_construcciones').val(datos.superficie_m2);
-				$('#valor_nuevo_construcciones').val(datos.valor_nuevo);
-				$('#factor_edad_construcciones').val(datos.factor_edad);
-				$("#idfactorconservacion option[value=" + datos.fk_conservacion + "]").attr("selected", true);
-				$('#factor_conservacion_construcciones').val(datos.factor_conservacion);
-				$('#factor_resultante_construcciones').val(datos.factor_resultante);
-				$('#valor_neto_construccion').val(datos.valor_neto);
-				$('#valor_parcial_construccion').val(datos.valor_parcial_construccion);
-				$('#subtotal_construccion').val(datos.subtotal_construccion);
-				$('#diferencia_construccion').val(datos.diferencia_construccion);
 			}
 		});
 	};
@@ -358,49 +290,6 @@ $(document).ready(function () {
 	/*++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 	 * 
 	 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
-	$("#formAefConstrucciones").submit(function () {
-		$('#messagesModalFormAefConstrucciones').empty().removeClass();
-		// VALIDAR QUE EL VALOR DE superficie_m2_construcciones
-		// 
-		if ( parseFloat($('#superficie_m2_construcciones').val()) > parseFloat($('#diferencia_construccion').val()) ) {
-			$('#messagesModalFormAefConstrucciones').addClass('alert').addClass('alert-danger').append('El valor de la "Superficie M²" no debe exceder "'+$('#subtotal_construccion').val()+'"');
-		} else {
-			$.ajax({
-				global: false,
-				cache: false,
-				dataType: 'json',
-				url: $(this).attr("action"),
-				type: $(this).attr("method"),
-				data: $(this).serialize(),
-				success: function (data) {
-					datos = eval(data);
-					if (datos.success) {
-						$('#messagesModalFormAefConstrucciones').addClass('alert').addClass('alert-success').append(datos.message);
-						if ($('#ctrlAefConstrucciones').val() === 'ins') {
-							$('#formAefConstrucciones :reset').click();
-						}
-						$('#total_metros_construccion').empty().append(datos.total_metros_construccion);
-						$('#valor_construccion').empty().append(datos.valor_construccion);
-						$('#total_valor_fisico').empty().append(datos.total_valor_fisico);
-						$('#subtotal_construccion').val(datos.subtotal_construccion);
-						$('#diferencia_construccion').val(datos.diferencia_construccion);
-						aefConstrucciones.ajax.reload();
-					} else {
-						var errores = '';
-						for (datos in data.errors) {
-							errores += '<p>' + data.errors[datos] + '</p>';
-						}
-						$('#messagesModalFormAefConstrucciones').addClass('alert').addClass('alert-danger').append(errores);
-					}
-				}
-			});
-		}
-		return false;
-	});
-
-	/*++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-	 * 
-	 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
 	$("#formAefCondominios").submit(function () {
 		$('#messagesModalFormAefCondominios').empty().removeClass();
 		$.ajax({
@@ -480,4 +369,152 @@ $(document).ready(function () {
 		$("#factor_conservacion_construcciones").val($(this).find('option:selected').attr('valor_factor'));
 	});
 
+
+
+
+
+
+
+
+	/*++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+	 * 
+	 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
+	$('#btnNewAefCons').click(function () {
+		$.getSuperficieConstruccion( $('#idavaluoenfoquefisico2').val() );
+		$('#formAefConstrucciones').trigger('reset').attr('action', '/corevat/AefConstruccionesNew');
+		$('#messagesModalFormAefConstrucciones').empty().removeClass();
+		$('#ctrlAefConstrucciones').val('ins');
+		$('#idaefconstruccion, #edad_construcciones').val('0');
+		$('#superficie_m2_construcciones').val('0.01');
+		$("#idfactorconservacion option[value=0]").attr("selected", true);
+		$('#valor_nuevo_construcciones, #factor_edad_construcciones, #factor_conservacion_construcciones, #factor_resultante_construcciones, #valor_neto_construccion, #valor_parcial_construccion').val('0.00');
+		$('#superficie_m2_construcciones').attr('max', $('#diferencia_construccion').val() );
+		$('#modalFormAefConstruccionesTitle').empty().append('[COREVAT] Nuevo Construcción');
+		$('#modalFormAefConstrucciones').modal('show');
+	});
+
+	/*++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+	 * 
+	 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
+	$.editAefConstrucciones = function (id) {
+		$('#messagesModalFormAefConstrucciones').empty().removeClass();
+		$('#formAefConstrucciones').attr('action', '/corevat/AefConstruccionesUpd/' + id);
+		$('#ctrlAefConstrucciones').val('upd');
+		$('#idaefconstruccion').val(id);
+		$.loadFormAefConstrucciones(id);
+		$('#modalFormAefConstruccionesTitle').empty().append('[COREVAT] Construcción: ' + id);
+		$('#modalFormAefConstrucciones').modal('show');
+	};
+
+	/*++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+	 * 
+	 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
+	$.delAefConstrucciones = function (id) {
+		$('#corevatConfirmButton').attr('ctrl', 'delAefConstrucciones').attr('idTable', id);
+		$('#corevatConfirmContainer').empty().append('<h2>¿Realmente dese eliminar el registro?<h2>');
+		$('#corevatConfirm').modal('show');
+	};
+
+	/*++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+	 * 
+	 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
+	$.getSuperficieConstruccion = function(id) {
+		$.ajax({
+			global: false,
+			cache: false,
+			dataType: 'json',
+			url: '/corevat/getSuperficieConstruccion/&id=' + id,
+			type: 'get',
+			success: function (data) {
+				datos = eval(data);
+				$('#superficie_construccion').val(datos.superficie_construccion);
+				$('#subtotal_construccion').val(datos.subtotal_construccion);
+				$('#diferencia_construccion').val(datos.diferencia_construccion);
+				$('#superficie_m2_construcciones').attr('max', datos.diferencia_construccion );
+			}
+		});
+	};
+
+	/*++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+	 * 
+	 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
+	$.loadFormAefConstrucciones = function (id) {
+		$.ajax({
+			global: false,
+			cache: false,
+			dataType: 'json',
+			url: '/corevat/AefConstruccionesUpd/' + id,
+			type: 'get',
+			success: function (data) {
+				datos = eval(data);
+				$("#idtipo option[value=" + datos.idtipo + "]").attr("selected", true);
+				$('#edad_construcciones').val(datos.edad);
+				$('#valor_nuevo_construcciones').val(datos.valor_nuevo);
+				$('#factor_edad_construcciones').val(datos.factor_edad);
+				$("#idfactorconservacion option[value=" + datos.fk_conservacion + "]").attr("selected", true);
+				$('#factor_conservacion_construcciones').val(datos.factor_conservacion);
+				$('#factor_resultante_construcciones').val(datos.factor_resultante);
+				$('#valor_neto_construccion').val(datos.valor_neto);
+				$('#valor_parcial_construccion').val(datos.valor_parcial_construccion);
+				$('#subtotal_construccion').val(datos.subtotal_construccion);
+				$('#diferencia_construccion').val(datos.diferencia_construccion);
+				//$('#superficie_m2_construcciones');
+				$('#superficie_m2_construcciones').attr('max', datos.diferencia_construccion ).val(datos.superficie_m2);
+			}
+		});
+	};
+
+	/*++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+	 * 
+	 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
+	$("#formAefConstrucciones").submit(function () {
+		$('#messagesModalFormAefConstrucciones').empty().removeClass();
+		// VALIDAR QUE EL VALOR DE superficie_m2_construcciones
+		// 
+		//if ( parseFloat($('#superficie_m2_construcciones').val()) > parseFloat($('#diferencia_construccion').val()) ) {
+			//$('#messagesModalFormAefConstrucciones').addClass('alert').addClass('alert-danger').append('El valor de la "Superficie M²" no debe exceder "'+$('#subtotal_construccion').val()+'"');
+		//} else {
+			$.ajax({
+				global: false,
+				cache: false,
+				dataType: 'json',
+				url: $(this).attr("action"),
+				type: $(this).attr("method"),
+				data: $(this).serialize(),
+				success: function (data) {
+					datos = eval(data);
+					if (datos.success) {
+						$('#messagesModalFormAefConstrucciones').addClass('alert').addClass('alert-success').append(datos.message);
+						$('#total_metros_construccion').empty().append(datos.total_metros_construccion);
+						$('#valor_construccion').empty().append(datos.valor_construccion);
+						$('#total_valor_fisico').empty().append(datos.total_valor_fisico);
+						$('#subtotal_construccion').val(datos.subtotal_construccion);
+						$('#diferencia_construccion').val(datos.diferencia_construccion);
+						aefConstrucciones.ajax.reload();
+						if ($('#ctrlAefConstrucciones').val() === 'ins') {
+							$('#idaefconstruccion, #edad_construcciones').val('0');
+							$('#superficie_m2_construcciones').val('0.01');
+							$("#idfactorconservacion option[value=0]").attr("selected", true);
+							$('#valor_nuevo_construcciones, #factor_edad_construcciones, #factor_conservacion_construcciones, #factor_resultante_construcciones, #valor_neto_construccion, #valor_parcial_construccion').val('0.00');
+							$('#superficie_m2_construcciones').attr('max', $('#diferencia_construccion').val() );
+						}
+					} else {
+						var errores = '';
+						for (datos in data.errors) {
+							errores += '<p>' + data.errors[datos] + '</p>';
+						}
+						$('#messagesModalFormAefConstrucciones').addClass('alert').addClass('alert-danger').append(errores);
+					}
+				}
+			});
+		//}
+		return false;
+	});
+
 });
+/*
+				//$('#total_valor_fisico').empty().append(datos.total_valor_fisico);
+			'superficie_construccion' => number_format($AvaluoInmueble->superficie_construccion, 2, ".", ","),
+			'total_metros_construccion' => number_format($AvaluoInmueble->total_metros_construccion, 2, ".", ","),
+			'valor_construccion' => number_format($AvaluoInmueble->valor_construccion, 2, ".", ","),
+*/
