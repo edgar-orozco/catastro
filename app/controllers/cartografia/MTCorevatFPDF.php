@@ -1,8 +1,6 @@
 <?php
 
-class MTCorevatFPDF extends \Anouar\Fpdf\Fpdf
-{
-
+class MTCorevatFPDF extends \Anouar\Fpdf\Fpdf{
     public $nFont;
     public $logo;
     public $mapURL;
@@ -20,16 +18,11 @@ class MTCorevatFPDF extends \Anouar\Fpdf\Fpdf
 		$this->logo = public_path() . "/css/images/corevat/user-big-blank.jpg";
 	}
 
-    function Header(){   
+    function Header(){ }
 
-    }
+	function Footer(){ }
 
-	function Footer(){
-
-	}
-
-	function Sector($xc, $yc, $r, $a, $b, $style='FD', $cw=true, $o=90)
-	{
+	function Sector($xc, $yc, $r, $a, $b, $style='FD', $cw=true, $o=90){
 		$d0 = $a - $b;
 		if($cw){
 			$d = $b;
@@ -121,8 +114,7 @@ class MTCorevatFPDF extends \Anouar\Fpdf\Fpdf
 		$this->_out($op);
 	}
 
-	function _Arc($x1, $y1, $x2, $y2, $x3, $y3 )
-	{
+	function _Arc($x1, $y1, $x2, $y2, $x3, $y3 ){
 		$h = $this->h;
 		$this->_out(sprintf('%.2F %.2F %.2F %.2F %.2F %.2F c',
 			$x1*$this->k,
@@ -133,23 +125,7 @@ class MTCorevatFPDF extends \Anouar\Fpdf\Fpdf
 			($h-$y3)*$this->k));
 	}
 
-/*
-
-RoundedRect
-
-Description
-This script is based on this one and allows to draw a rectangle with some rounded corners. Parameters are:
-
-x, y: top left corner of the rectangle.
-w, h: width and height.
-r: radius of the rounded corners.
-corners: numbers of the corners to be rounded: 1, 2, 3, 4 or any combination (1=top left, 2=top right, 3=bottom right, 4=bottom left).
-style: same as Rect(): F, D (default), FD or DF.
-
-*/
-
-    function RoundedRect($x, $y, $w, $h, $r, $corners = '1234', $style = '')
-    {
+    function RoundedRect($x, $y, $w, $h, $r, $corners = '1234', $style = ''){
         $k = $this->k;
         $hp = $this->h;
         if($style=='F')
@@ -198,18 +174,13 @@ style: same as Rect(): F, D (default), FD or DF.
         $this->_out($op);
     }
 
-    function _Arc2($x1, $y1, $x2, $y2, $x3, $y3)
-    {
+    function _Arc2($x1, $y1, $x2, $y2, $x3, $y3){
         $h = $this->h;
         $this->_out(sprintf('%.2F %.2F %.2F %.2F %.2F %.2F c ', $x1*$this->k, ($h-$y1)*$this->k,
             $x2*$this->k, ($h-$y2)*$this->k, $x3*$this->k, ($h-$y3)*$this->k));
     }
 
-
-
-
-	function WriteHTML($html)
-	{
+	function WriteHTML($html) {
 	    // Intérprete de HTML
 	    $html = str_replace("\n",' ',$html);
 	    $a = preg_split('/<(.*)>/U',$html,-1,PREG_SPLIT_DELIM_CAPTURE);
@@ -245,8 +216,7 @@ style: same as Rect(): F, D (default), FD or DF.
 	    }
 	}
 
-	function OpenTag($tag, $attr)
-	{
+	function OpenTag($tag, $attr){
 	    // Etiqueta de apertura
 	    if($tag=='B' || $tag=='I' || $tag=='U')
 	        $this->SetStyle($tag,true);
@@ -256,8 +226,7 @@ style: same as Rect(): F, D (default), FD or DF.
 	        $this->Ln(5);
 	}
 
-	function CloseTag($tag)
-	{
+	function CloseTag($tag){
 	    // Etiqueta de cierre
 	    if($tag=='B' || $tag=='I' || $tag=='U')
 	        $this->SetStyle($tag,false);
@@ -265,8 +234,7 @@ style: same as Rect(): F, D (default), FD or DF.
 	        $this->HREF = '';
 	}
 
-	function SetStyle($tag, $enable)
-	{
+	function SetStyle($tag, $enable){
 	    // Modificar estilo y escoger la fuente correspondiente
 	    $this->$tag += ($enable ? 1 : -1);
 	    $style = '';
@@ -278,8 +246,7 @@ style: same as Rect(): F, D (default), FD or DF.
 	    $this->SetFont('',$style);
 	}
 
-	function PutLink($URL, $txt)
-	{
+	function PutLink($URL, $txt){
 	    // Escribir un hiper-enlace
 	    $this->SetTextColor(0,0,255);
 	    $this->SetStyle('U',true);
@@ -289,25 +256,21 @@ style: same as Rect(): F, D (default), FD or DF.
 	}
 
 	function hex2rgb($hex) {
-	$hex = str_replace("#", "", $hex);
+		$hex = str_replace("#", "", $hex);
 
-	if(strlen($hex) == 3) {
-	$r = hexdec(substr($hex,0,1).substr($hex,0,1));
-	$g = hexdec(substr($hex,1,1).substr($hex,1,1));
-	$b = hexdec(substr($hex,2,1).substr($hex,2,1));
-	} else {
-	$r = hexdec(substr($hex,0,2));
-	$g = hexdec(substr($hex,2,2));
-	$b = hexdec(substr($hex,4,2));
+		if(strlen($hex) == 3) {
+			$r = hexdec(substr($hex,0,1).substr($hex,0,1));
+			$g = hexdec(substr($hex,1,1).substr($hex,1,1));
+			$b = hexdec(substr($hex,2,1).substr($hex,2,1));
+		} else {
+			$r = hexdec(substr($hex,0,2));
+			$g = hexdec(substr($hex,2,2));
+			$b = hexdec(substr($hex,4,2));
+		}
+		$rgb = array($r, $g, $b);
+		//return implode(",", $rgb); // returns the rgb values separated by commas
+		return $rgb; // returns an array with the rgb values
 	}
-	$rgb = array($r, $g, $b);
-	//return implode(",", $rgb); // returns the rgb values separated by commas
-	return $rgb; // returns an array with the rgb values
-	}
-
-
-
-
 
 }
 ?>
