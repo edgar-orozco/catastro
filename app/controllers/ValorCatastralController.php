@@ -45,8 +45,9 @@ class ValorCatastralController extends \BaseController
         //Todos los catalogos que se utilizan en combos y opciones en la forma de la manifestacion
         $vars = $this->catalogos($municipio);
 
-        //$predio = $this->padron->getByClaveOCuenta($tramite->clave);
-        $predio = $this->Manifestacion->where('clave',$clave)->first();
+        $predio = $this->padron->getByClaveOCuenta($tramite->clave);
+        //$predio = $this->Manifestacion->where('clave',$clave)->first();
+        //osodd($predio->cuenta);
 
         $tipo_predio = $predio->tipo_predio;
         $vars['tipo_predio'] = strtoupper($tipo_predio);
