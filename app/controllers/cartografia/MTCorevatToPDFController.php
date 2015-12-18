@@ -97,15 +97,12 @@ class MTCorevatToPDFController extends BaseController {
         $mapURL   = $_REQUEST["mapURL"];
         $escala = $_REQUEST["escala"];
 
-                          
-        $vista = View::make('cartografia.MTCorevat',
-                            compact('mapURL', 'escala'));
+        $vista = View::make('cartografia.MTCorevat',compact('mapURL', 'escala'));
 
         $vistastr = $vista->render();
         $pdf = PDF::load($vistastr, 'Letter', 'landscape')->show("MTCorevat");
         
-        $response = Response::make($pdf, 200);
-        
+        $response = Response::make($pdf, 200);        
         $response->header('Content-Type', 'application/pdf');
 
         return $response;
@@ -114,128 +111,121 @@ class MTCorevatToPDFController extends BaseController {
 
     public function printMT(){
 
+        $pdf = new MTCorevatFPDF('L','mm','Letter');
+        $pdf->mapURL = public_path() . $_POST["mapURL"];
+        $pdf->escala = $_POST["escala"];
+        $pdf->rangos = explode(',',$_POST["rangos"]);
+        $pdf->colores = explode(',',$_POST["colores"]);
 
-    $pdf = new MTCorevatFPDF('L','mm','Letter');
-    $pdf->mapURL = public_path() . $_POST["mapURL"];
-    $pdf->escala = $_POST["escala"];
-    $pdf->rangos = explode(',',$_POST["rangos"]);
-    $pdf->colores = explode(',',$_POST["colores"]);
+        $munn = $_POST["municipio"];
+        $mun = Municipios::select('idmunicipio','municipio')->where('clave', '=', $munn)->get();
+        $pdf->municipio =  strtoupper($mun[0]->municipio);
+        $idmun = $mun[0]->idmunicipio;
+        
+        $pdf->AliasNbPages();
+        $pdf->AddPage();
+        $pdf->SetX(0);
+        $pdf->SetY(0);
 
-    $munn = $_POST["municipio"];
-    $mun = Municipios::select('idmunicipio','municipio')->where('clave', '=', $munn)->get();
-    $pdf->municipio =  strtoupper($mun[0]->municipio);
-    $idmun = $mun[0]->idmunicipio;
-    
-    $pdf->AliasNbPages();
-    $pdf->AddPage();
-    $pdf->SetX(0);
-    $pdf->SetY(0);
+        if (file_exists($pdf->mapURL)) {
+            $pdf->Image($pdf->mapURL, 5, 35, 200, 140);
+        }
 
-    if (file_exists($pdf->mapURL)) {
-        $pdf->Image($pdf->mapURL, 5, 35, 200, 140);
-    }else{
+        $pdf->RoundedRect(5, 5, 200, 205, 2, '1234', '');
 
-    }
+        $pdf->Image( public_path() . "/css/images/main/main-logo.gif", 207, 5, 32, 16);
+        $pdf->Image( public_path() . "/css/images/home/secrt.gif", 239, 5, 20, 16);
+        $pdf->Image( public_path() . "/css/images/main/logo-header.gif", 259, 5, 16, 16);
 
-    $pdf->RoundedRect(5, 5, 200, 205, 2, '1234', '');
+        $line = 30;
+        $pdf->RoundedRect(207, $line, 67, 10, 1, '1234', 'FD');
+        $pdf->Ln(0);
+        $pdf->SetY($line+2);
+        $pdf->SetX(207);
+        $pdf->SetFont('Arial', 'B', 12);
+        $pdf->Cell(67, 6, utf8_decode('A V A L U O S'), '', 1, 'C', 0);
 
-    $pdf->Image( public_path() . "/css/images/main/main-logo.gif", 207, 5, 32, 16);
-    $pdf->Image( public_path() . "/css/images/home/secrt.gif", 239, 5, 20, 16);
-    $pdf->Image( public_path() . "/css/images/main/logo-header.gif", 259, 5, 16, 16);
+        $pdf->SetFillColor(224, 224, 224);
+        $line = 45;
+        $pdf->RoundedRect(207, $line, 67, 8, 1, '12', 'FD');
+        $pdf->Ln(0);
+        $pdf->SetY($line + 1);
+        $pdf->SetX(207);
+        $pdf->SetFont('Arial', 'B', 10);
+        $pdf->Cell(67, 6, 'MUNICIPIO', '', 1, 'C', 0);
+        $pdf->SetFont('Arial', '', 10);
 
-    $line = 30;
-    $pdf->RoundedRect(207, $line, 67, 10, 1, '1234', 'FD');
-    $pdf->Ln(0);
-    $pdf->SetY($line+2);
-    $pdf->SetX(207);
-    $pdf->SetFont('Arial', 'B', 12);
-    $pdf->Cell(67, 6, utf8_decode('A V A L U O S'), '', 1, 'C', 0);
-
-    $pdf->SetFillColor(224, 224, 224);
-
-    $line = 45;
-    $pdf->RoundedRect(207, $line, 67, 8, 1, '12', 'FD');
-    $pdf->Ln(0);
-    $pdf->SetY($line + 1);
-    $pdf->SetX(207);
-    $pdf->SetFont('Arial', 'B', 10);
-    $pdf->Cell(67, 6, 'MUNICIPIO', '', 1, 'C', 0);
-    $pdf->SetFont('Arial', '', 10);
-
-    $pdf->RoundedRect(207, $line+8, 67, 10, 1, '', '');    
-    $pdf->SetY( $pdf->getY() + 3 );
-    $pdf->Ln(0);
-    $pdf->SetX(208);
-    $pdf->SetFillColor(255,255,255);
-    $pdf->Cell(65, 6, $pdf->municipio, '', 1, 'C', 1);
-
-
-    $pdf->SetFillColor(224, 224, 224);
-
-    $line = 65;
-    $pdf->RoundedRect(207, $line, 67, 8, 1, '12', 'FD');
-    $pdf->Ln(0);
-    $pdf->SetY($line + 1);
-    $pdf->SetX(207);
-    $pdf->SetFont('Arial', 'B', 10);
-    $pdf->Cell(67, 6, 'ESTADO', '', 1, 'C', 0);
-    $pdf->SetFont('Arial', '', 10);
-
-    $pdf->RoundedRect(207, $line+8, 67, 10, 1, '', '');    
-    $pdf->SetY( $pdf->getY() + 3 );
-    $pdf->Ln(0);
-    $pdf->SetX(208);
-    $pdf->SetFillColor(255,255,255);
-    $pdf->Cell(65, 6, 'TABASCO', '', 1, 'C', 1);
-
-    $pdf->SetFillColor(224, 224, 224);
-    $line = 85;
-    $pdf->RoundedRect(207, $line, 67, 8, 1, '12', 'FD');
-    $pdf->Ln(0);
-    $pdf->SetY($line + 1);
-    $pdf->SetX(207);
-    $pdf->SetFont('Arial', 'B', 10);
-    $pdf->Cell(67, 6, 'VALORES', '', 1, 'C', 0);
-    $pdf->SetFont('Arial', '', 10);
-
-    $pdf->RoundedRect(207, $line + 8, 67, ( 10 * count( $pdf->rangos ) ), 1, '', '');    
-    $pdf->SetFillColor(255,255,255);
-    for($i=0;$i<count( $pdf->rangos ); $i++){
-        $pdf->SetY( $pdf->getY() + 4 );
+        $pdf->RoundedRect(207, $line+8, 67, 10, 1, '', '');    
+        $pdf->SetY( $pdf->getY() + 3 );
         $pdf->Ln(0);
         $pdf->SetX(208);
-        $_x = $pdf->getX();
-        $_y = $pdf->getY();
-        $rgb = $pdf->hex2rgb("#".$pdf->colores[$i]);
-        $pdf->SetFillColor($rgb[0],$rgb[1],$rgb[2]);        
-        $pdf->RoundedRect($_x, $_y, 5, 5, 1, '', 'DF');    
         $pdf->SetFillColor(255,255,255);
-        $pdf->SetX(217);
-        $rng = explode('-',$pdf->rangos[$i]);
-        $rango = "DE ".number_format($rng[0], 2, '.', ',').' A '.number_format($rng[1], 2, '.', ',');
-        $pdf->Cell(40, 6, $rango, '', 1, 'L', 1);
-    }
-
-    $pdf->SetFillColor(224, 224, 224);
-
-    $line = $pdf->getY()+3;
-    $pdf->RoundedRect(207, $line, 67, 8, 1, '12', 'FD');
-    $pdf->Ln(0);
-    $pdf->SetY($line + 1);
-    $pdf->SetX(207);
-    $pdf->SetFont('Arial', 'B', 10);
-    $pdf->Cell(67, 6, 'ESCALA', '', 1, 'C', 0);
-    $pdf->SetFont('Arial', '', 10);
-
-    $pdf->RoundedRect(207, $line+8, 67, 10, 1, '', '');    
-    $pdf->SetY( $pdf->getY() + 3 );
-    $pdf->Ln(0);
-    $pdf->SetX(208);
-    $pdf->SetFillColor(255,255,255);
-    $pdf->Cell(65, 6, $pdf->escala, '', 1, 'C', 1);
+        $pdf->Cell(65, 6, $pdf->municipio, '', 1, 'C', 1);
 
 
-    $pdf->Output();
+        $pdf->SetFillColor(224, 224, 224);
+        $line = 65;
+        $pdf->RoundedRect(207, $line, 67, 8, 1, '12', 'FD');
+        $pdf->Ln(0);
+        $pdf->SetY($line + 1);
+        $pdf->SetX(207);
+        $pdf->SetFont('Arial', 'B', 10);
+        $pdf->Cell(67, 6, 'ESTADO', '', 1, 'C', 0);
+        $pdf->SetFont('Arial', '', 10);
+
+        $pdf->RoundedRect(207, $line+8, 67, 10, 1, '', '');    
+        $pdf->SetY( $pdf->getY() + 3 );
+        $pdf->Ln(0);
+        $pdf->SetX(208);
+        $pdf->SetFillColor(255,255,255);
+        $pdf->Cell(65, 6, 'TABASCO', '', 1, 'C', 1);
+
+        $pdf->SetFillColor(224, 224, 224);
+        $line = 85;
+        $pdf->RoundedRect(207, $line, 67, 8, 1, '12', 'FD');
+        $pdf->Ln(0);
+        $pdf->SetY($line + 1);
+        $pdf->SetX(207);
+        $pdf->SetFont('Arial', 'B', 10);
+        $pdf->Cell(67, 6, 'VALORES', '', 1, 'C', 0);
+        $pdf->SetFont('Arial', '', 10);
+
+        $pdf->RoundedRect(207, $line + 8, 67, ( 10 * count( $pdf->rangos ) ), 1, '', '');    
+        $pdf->SetFillColor(255,255,255);
+        for($i=0;$i<count( $pdf->rangos ); $i++){
+            $pdf->SetY( $pdf->getY() + 4 );
+            $pdf->Ln(0);
+            $pdf->SetX(208);
+            $_x = $pdf->getX();
+            $_y = $pdf->getY();
+            $rgb = $pdf->hex2rgb("#".$pdf->colores[$i]);
+            $pdf->SetFillColor($rgb[0],$rgb[1],$rgb[2]);        
+            $pdf->RoundedRect($_x, $_y, 5, 5, 1, '', 'DF');    
+            $pdf->SetFillColor(255,255,255);
+            $pdf->SetX(217);
+            $rng = explode('-',$pdf->rangos[$i]);
+            $rango = "DE ".number_format($rng[0], 2, '.', ',').' A '.number_format($rng[1], 2, '.', ',');
+            $pdf->Cell(40, 6, $rango, '', 1, 'L', 1);
+        }
+
+        $pdf->SetFillColor(224, 224, 224);
+        $line = $pdf->getY()+3;
+        $pdf->RoundedRect(207, $line, 67, 8, 1, '12', 'FD');
+        $pdf->Ln(0);
+        $pdf->SetY($line + 1);
+        $pdf->SetX(207);
+        $pdf->SetFont('Arial', 'B', 10);
+        $pdf->Cell(67, 6, 'ESCALA', '', 1, 'C', 0);
+        $pdf->SetFont('Arial', '', 10);
+
+        $pdf->RoundedRect(207, $line+8, 67, 10, 1, '', '');    
+        $pdf->SetY( $pdf->getY() + 3 );
+        $pdf->Ln(0);
+        $pdf->SetX(208);
+        $pdf->SetFillColor(255,255,255);
+        $pdf->Cell(65, 6, $pdf->escala, '', 1, 'C', 1);
+
+        $pdf->Output();
 
     }
 
