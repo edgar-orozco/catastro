@@ -8,16 +8,27 @@ class ValorCatastralController extends \BaseController
     protected $padron;
     protected $tipotramite;
     protected $tramite;
+    protected $manifestacion;
+    protected $valuacionPredio;
+    protected $datosValuacionTerreno;
+    protected $datosValuacionConstrucciones;
     /**
      * @param PadronRepositoryInterface $padron
      * @param Tipotramite $tipotramite
      * @param Tramite $tramite
+     * @param Manifestacion $manifestacion
+     * @param ValuacionPredio $valuacionPredio
+     * @param DatosValuacionTerrenos $datosvaluacionterreno
      */
-    public function __construct(PadronRepositoryInterface $padron, Tipotramite $tipotramite, Tramite $tramite)
+    public function __construct(PadronRepositoryInterface $padron, Tipotramite $tipotramite, Tramite $tramite, Manifestacion $manifestacion, ValuacionPredio $valuacionPredio, DatosValuacionTerrenos $datosValuacionTerreno, DatosValuacionConstrucciones $datosValuacionConstrucciones)
     {
         $this->padron = $padron;
         $this->tipotramite = $tipotramite;
         $this->tramite = $tramite;
+        $this->Manifestacion = $manifestacion;
+        $this->ValuacionPredio = $valuacionPredio;
+        $this->DatosValuacionTerrenos = $datosValuacionTerreno;
+        $this->DatosValuacionConstrucciones = $datosValuacionConstrucciones;
     }
 
     public function index(){
@@ -30,22 +41,120 @@ class ValorCatastralController extends \BaseController
         $tramite = Tramite::find($tramite_id);
         $municipio = $tramite->municipio;
         $vars['municipio'] = $municipio;
-
+        $clave = $tramite->clave;
         //Todos los catalogos que se utilizan en combos y opciones en la forma de la manifestacion
         $vars = $this->catalogos($municipio);
 
-        $predio = $this->padron->getByClaveOCuenta($tramite->clave);
+        //$predio = $this->padron->getByClaveOCuenta($tramite->clave);
+        $predio = $this->Manifestacion->where('clave',$clave)->first();
 
         $tipo_predio = $predio->tipo_predio;
         $vars['tipo_predio'] = strtoupper($tipo_predio);
-        $vars['superficie_terreno'] = $predio->superficie_terreno;
+        $vars['superficie_terreno'] = $predio->sup_terreno;
         $vars['predio'] = $predio;
+        $vars['clave'] = $predio->clave;
+        $vars['cuenta'] = $predio->cuenta;
+        $vars['tramite'] = $tramite_id;
 
         return View::make('tramites.valor.create', $vars);
     }
 
     public function store(){
+        //hablamos todos los inputs
+        $input = Input::All();
+        //guardamos en la tabla ValuacionPredio
+        //dd($input);
+        $valuacion = new ValuacionPredio;
+        $valuacion->tramite_id = $input["tramite_id"];
+        $valuacion->clave = $input["clave"];
+        $valuacion->cuenta = $input["cuenta"];
+        $valuacion->valor_terreno = str_replace(",","",$input["valor_terreno"]);
+        $valuacion->valor_construccion = str_replace(",","",$input["valor_construccion"]);
+        $valuacion->fecha_valuacion = date('Y-m-d');
+        $valuacion->demerito_terreno = str_replace(",","",$input["dem_terreno"]);
+        $valuacion->demerito_construccion = str_replace(",","",$input["dem_construccion"]);
+        $valuacion->incremento_terreno = str_replace(",","",$input["inc_terreno"]);
+        $valuacion->incremento_construccion = str_replace(",","",$input["inc_construccion"]);
+        $valuacion->valor_ajustado_terreno = str_replace(",","",$input["vajust_terreno"]);
+        $valuacion->valor_ajustado_construccion = str_replace(",","",$input["vajust_construccion"]);
+        $valuacion->valor_catastral = str_replace(",","",$input["valor_catastral"]);
+        $valuacion->save();
 
+        //gurdamos en la tabla datos_valuacion_terreno
+        $terreno = new DatosValuacionTerrenos;
+        $terreno->valuacion_id = $valuacion->id;
+        $terreno->clave = $input["clave"];
+        $terreno->cuenta = $input["cuenta"];
+        $terreno->sup_terreno = $input["sup_terreno"];
+        $terreno->valor_calle = $input["valor_calle"];
+        $terreno->usosuelo_id = $input["usosuelo_id"];
+        $terreno->incremnento_esquina_id = $input["inc_esquina_id"];
+        $terreno->demerito_escaso_frente = $input["dem_frente"];
+        $terreno->demerito_profundidad_frente = $input["dem_prof_frente"];
+        $terreno->demerito_profundidad = $input["dem_prof_prof"];
+        $terreno->demerito_irregular = $input["dem_irregular"];
+        $terreno->demerito_superficie_excavada = $input["dem_sup_excavada"];
+        $terreno->demerito_profundidad_excavada = $input["dem_prof_excavada"];
+        $terreno->demerito_desnivel_area = $input["dem_desnivel_area"];
+        $terreno->demerito_desnivel_porcentaje = $input["dem_desnivel_pct"];
+        $terreno->superficie_paso_servidumbre = $input["sup_paso_servidumbre"];
+        $terreno->observaciones = $input["observaciones"];
+        $terreno->save();
+
+        //guardamos en la tabla datos_valuacion_construcciones
+        $datosConstruccion = json_decode(Input::get('datos_construccion'), true);
+        $construcciones = $datosConstruccion['construcciones'];
+        $construccionesAlbercas = $datosConstruccion['construccionesAlbercas'];
+        
+        //acomodamos los campos segun las tabla datos_valuacion_construcciones para las construcciones
+        foreach( $construcciones as $construccion) {
+            $construccion['valuacion_id']=$valuacion->id;
+            $construccion['clave']=$input["clave"];
+            $construccion['cuenta']=$input["cuenta"];
+            $construccion['valuacion_terreno_id']=$terreno->id;
+            $construccion['sup_terreno']=$construccion['sup_construccion'];
+            $construccion['conservacion_id']=$construccion['edo_construccion'];
+            $construccion['tipo_id']=$construccion['tipo_construccion'];
+            $construccion['piso_id']=$construccion['pisos'];
+            $construccion['techo_id']=$construccion['techos'];
+            $construccion['muros_id']=$construccion['muros'];
+            $construccion['hidraulicas_id']=$construccion['hidraulicas'];
+            $construccion['sanitarias_id']=$construccion['sanitarias'];
+            $construccion['electricas_id']=$construccion['electricas'];
+            $construccion['avance']=$construccion['avance'];
+            $construccion['anio_construccion']=$construccion['antiguedad'];
+            $construccion['puerta_id']=$construccion['puertas'];
+            $construccion['numero_niveles']=$construccion['num_niveles'];
+            $Construccion[] = new DatosValuacionConstrucciones($construccion);
+        }
+        //Expresamos la felicidad que ya gurdo
+        //dd($Construccion);
+        $valuacion->ValuacionConstruccion()->saveMany($Construccion);
+
+        //vemos si tiene datos en alberca
+        if ($construccionesAlbercas ) {
+            //acomodamos los compos segun la tabla datos_valuacion_construcciones para las alvercas
+            foreach ($construccionesAlbercas as $alberca) {
+                $alberca['valuacion_id']=$valuacion->id;
+                $alberca['clave']=$input["clave"];
+                $alberca['cuenta']=$input["cuenta"];
+                $alberca['valuacion_terreno_id']=$terreno->id;
+                $alberca['sup_terreno']=$alberca['superficie_alberca'];
+                $alberca['es_alberca']=1;
+                $alberca['tipoalberca_id']=$alberca['tipoalberca'];
+                $alberca['avance']=$alberca['avance'];
+                $alberca['anio_construccion']=$alberca['antiguedad'];
+                $Alberca[] = new DatosValuacionConstrucciones($alberca);
+            }
+            //Expresamos la felicidad que ya gurdo
+            $valuacion->ValuacionConstruccion()->saveMany($Alberca);
+
+            return Redirect::back()-> with('success',
+                'Los datos se han guardado correctamente'."!");
+        }
+        
+        return Redirect::back()-> with('success',
+                'Los datos se han guardado correctamente'."!");
     }
 
     /**

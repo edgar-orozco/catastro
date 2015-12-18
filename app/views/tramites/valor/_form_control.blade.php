@@ -47,9 +47,19 @@
         </tfoot>
     </table>
 
+    <input type="hidden" id="valor-terreno" name="valor_terreno" value="">
+    <input type="hidden" id="dem-terreno" name="dem_terreno" value="">
+    <input type="hidden" id="inc-terreno" name="inc_terreno" value="">
+    <input type="hidden" id="valor-construccion" name="valor_construccion" value="">
+    <input type="hidden" id="dem-construccion" name="dem_construccion" value="">
+    <input type="hidden" id="inc-construccion" name="inc_construccion" value="">
+    <input type="hidden" id="vajust-terreno" name="vajust_terreno" value="">
+    <input type="hidden" id="vajust-construccion" name="vajust_construccion" value="">
+    <input type="hidden" id="valor-catastral" name="valor_catastral" value="">
+
     <div class="form-actions form-group" style="clear:both; ">
         {{ Form::button('Realizar Valuación', array('type'=>'button','class' => 'btn btn-primary', 'id'=>'btn-actualizar-valor')) }}
-        {{ Form::button('Guardar', array('type'=>'button','class' => 'btn btn-success', 'id'=>'btn-submit-valor', 'style'=>'display: none;')) }}
+        {{ Form::submit('Guardar', array('type'=>'button','class' => 'btn btn-success', 'id'=>'btn-submit-valor', 'style'=>'display: none;')) }}
         {{ Form::button('Imprimir', array('type'=>'button','class' => 'btn btn-info', 'id'=>'btn-imprimir-valor', 'style'=>'display: none;')) }}
     </div>
 

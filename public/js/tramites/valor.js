@@ -156,7 +156,16 @@ $(function () {
         $('.vajust-terreno').text(fixed(valorAjustadoTerreno));
         $('.vajust-construccion').text(fixed(valorAjustadoConstruccion));
         $('.valor-catastral').text(fixed(valorAjustadoTerreno + valorAjustadoConstruccion));
-
+                
+        document.getElementById("valor-terreno").value = (fixed(valorTerreno));
+        document.getElementById("dem-terreno").value = (fixed(demeritosTerreno));
+        document.getElementById("inc-terreno").value = (fixed(incrementosTerreno));
+        document.getElementById("valor-construccion").value = (fixed(valorConstrucciones));
+        document.getElementById("dem-construccion").value = (fixed(demeritosConstrucciones));
+        document.getElementById("inc-construccion").value = (fixed(0));
+        document.getElementById("vajust-terreno").value = (fixed(valorAjustadoTerreno));
+        document.getElementById("vajust-construccion").value = (fixed(valorAjustadoConstruccion));
+        document.getElementById("valor-catastral").value = (fixed(valorAjustadoTerreno + valorAjustadoConstruccion));
     }
 
     calculaValorConstrucciones = function(){

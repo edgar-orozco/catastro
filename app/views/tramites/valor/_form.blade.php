@@ -10,6 +10,9 @@
     <div class="tab-content">
         <div role="tabpanel" class="tab-pane active" id="datos-valuar-terreno">
             <br/>
+            {{ Form::hidden('clave', $clave, array('id' => 'clave')) }}
+            {{ Form::hidden('cuenta', $cuenta, array('id' => 'cuenta')) }}
+            {{ Form::hidden('tramite_id', $tramite, array('id' => 'tramite_id')) }}
             @if($tipo_predio == 'U')
                 @include('tramites.valor._form_valuar_terreno', [] )
             @else
