@@ -144,6 +144,7 @@
                             <tr>
                                 <th class="text-right"><b>Tipo predio:</b></th>
                                 <td>{{$predio->tipo_predio}}</td>
+                                {{ Form::hidden('tipo_predio', $predio->tipo_predio, ['class' => 'form-control', 'id' => 'tipo_predio'] )}}
                             </tr>
                             <tr>
                                 <th class="text-right"><b>Ubicacion:</b></th>
@@ -299,8 +300,9 @@
                     var depto_id = $("#departamento_id").val();
                     var clave = $("#clave").val();
                     var cuenta = $("#cuenta").val();
+                    var tipo_predio = $("#tipo_predio").val();
                     console.log(cuenta);
-                    $('#ifrcallback').attr('src','/'+urlCallback+'?tramite_id='+tramite_id+'&tipoactividad_id='+tipoactividad_id+'&depto_id='+depto_id+'&clave='+clave+'&cuenta='+cuenta);
+                    $('#ifrcallback').attr('src','/'+urlCallback+'?tramite_id='+tramite_id+'&tipoactividad_id='+tipoactividad_id+'&depto_id='+depto_id+'&clave='+clave+'&cuenta='+cuenta+'&tipo_predio='+tipo_predio);
                     $('.modal-tramites').modal();
                 }
 

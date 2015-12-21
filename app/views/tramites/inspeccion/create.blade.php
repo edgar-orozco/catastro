@@ -12,6 +12,7 @@ Se toma parte del archivo /ofvirtual/notario/manifestacion/_form.blade elaborado
     <fieldset><legend>Propietario</legend>
     {{ Form::hidden('clave', $clave, ['class' => 'form-control', 'id' => 'clave'] )}}
     {{ Form::hidden('cuenta', $cuenta, ['class' => 'form-control', 'id' => 'cuenta'] )}}
+    {{ Form::hidden('tipo_predio', $tipo_predio, ['class' => 'form-control', 'id' => 'tipo_predio'] )}}
     {{ Form::hidden('tramite_id', $tramite_id, ['class' => 'form-control', 'id' => 'tramite_id'] )}}
         @include('tramites.inspeccion._form_persona_inline',['instancia'=>'enajenante'])
         <h4>Domicilio:</h4>

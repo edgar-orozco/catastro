@@ -22,6 +22,7 @@ protected $manifestacion;
         $clave=Input::get('clave');
         $cuenta=Input::get('cuenta');
         $tramite_id=Input::get('tramite_id');
+        $tipo_predio=Input::get('tipo_predio');
 		$vars = $this->catalogos();
 
 		$JsonColindancias = json_encode([]);
@@ -33,6 +34,7 @@ protected $manifestacion;
         $vars['clave']=$clave;
         $vars['cuenta']=$cuenta;
         $vars['tramite_id']=$tramite_id;
+        $vars['tipo_predio']=$tipo_predio;
 		return View::make('tramites.inspeccion.create', $vars);
 	}
 
@@ -331,11 +333,13 @@ public function store(){
    $man['propietario_id']=$propietario_id;
    $man['cuenta']=Input::get('cuenta');
    $man['tramite_id']=Input::get('tramite_id');
+   $man['tipo_predio']=Input::get('tipo_predio');
+
     //$man->domicilio_id=$denajenante=$denajenante->id;
    $manifestacion = new Manifestacion();
    $manifestacion->fill($man)->save();
    $id_manifestacion= $manifestacion->id;
-
+   //dd( $id_manifestacion);
     //se guarda bloque de construccion
     $datos_construccion =  json_decode(Input::get('datos_construccion'),true);
     if($datos_construccion)
@@ -350,10 +354,13 @@ public function store(){
                     $construc->save();
                     $sup_total= $sup_total +  $key['sup_construccion'];
                 }
+            $update_manifestacion =  Manifestacion::find($id_manifestacion);
+   $update_manifestacion->total_sup_construccion = $sup_total;
+   $update_manifestacion->superficie_alberca = $datos_construccion['sup_albercas'];
+   $update_manifestacion->save();
         }
    
    $update_manifestacion =  Manifestacion::find($id_manifestacion);
-   $update_manifestacion->total_sup_construccion = $sup_total;
    $update_manifestacion->superficie_alberca = $datos_construccion['sup_albercas'];
    $update_manifestacion->save();
 
