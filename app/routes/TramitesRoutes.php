@@ -115,9 +115,6 @@ Route::get(
 //Ruta para el recibo en pdf
     Route::get("ventanilla/recibo/{id}", "TramitesController@get_pdf");
     
-//ruta para el Valor Catastral en pdf
-    Route::get("ventanilla/valor", "TramitesController@valorCatastral");
-
 //Ruta para consulta de solicitantes via ajax
     Route::get('ventanilla/solicitante', 'TramitesController@solicitante');
 

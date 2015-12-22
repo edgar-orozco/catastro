@@ -45,9 +45,8 @@ class ValorCatastralController extends \BaseController
         //Todos los catalogos que se utilizan en combos y opciones en la forma de la manifestacion
         $vars = $this->catalogos($municipio);
 
-        $predio = $this->padron->getByClaveOCuenta($tramite->clave);
-        //$predio = $this->Manifestacion->where('clave',$clave)->first();
-        //osodd($predio->cuenta);
+        //$predio = $this->padron->getByClaveOCuenta($tramite->clave);
+        $predio = $this->Manifestacion->where('clave',$clave)->orderBy('id', 'desc')->first();
 
         $tipo_predio = $predio->tipo_predio;
         $vars['tipo_predio'] = strtoupper($tipo_predio);
@@ -63,8 +62,9 @@ class ValorCatastralController extends \BaseController
     public function store(){
         //hablamos todos los inputs
         $input = Input::All();
+        $rustico = Input::get("dem_pct_rustico");
+
         //guardamos en la tabla ValuacionPredio
-        //dd($input);
         $valuacion = new ValuacionPredio;
         $valuacion->tramite_id = $input["tramite_id"];
         $valuacion->clave = $input["clave"];
@@ -99,6 +99,7 @@ class ValorCatastralController extends \BaseController
         $terreno->demerito_desnivel_area = $input["dem_desnivel_area"];
         $terreno->demerito_desnivel_porcentaje = $input["dem_desnivel_pct"];
         $terreno->superficie_paso_servidumbre = $input["sup_paso_servidumbre"];
+        $terreno->demerito_porcentaje = $rustico;
         $terreno->observaciones = $input["observaciones"];
         $terreno->save();
 
@@ -129,7 +130,6 @@ class ValorCatastralController extends \BaseController
             $Construccion[] = new DatosValuacionConstrucciones($construccion);
         }
         //Expresamos la felicidad que ya gurdo
-        //dd($Construccion);
         $valuacion->ValuacionConstruccion()->saveMany($Construccion);
 
         //vemos si tiene datos en alberca
@@ -149,13 +149,41 @@ class ValorCatastralController extends \BaseController
             }
             //Expresamos la felicidad que ya gurdo
             $valuacion->ValuacionConstruccion()->saveMany($Alberca);
-
-            return Redirect::back()-> with('success',
-                'Los datos se han guardado correctamente'."!");
         }
         
-        return Redirect::back()-> with('success',
-                'Los datos se han guardado correctamente'."!");
+        return Redirect::to('tramites/valorCatastral/'. $valuacion->id);
+    }
+
+    public function valorCatastral($id) {
+        //traigo el id de valuacion predio
+        //$id = 101;
+        //consulto a la tabla valuacion predio
+        $valuacion = $this->ValuacionPredio->where('id',$id)->first();
+        //suma de todas las  sup_terreno
+        foreach ($valuacion->ValuacionConstruccion as $construccion) {
+            $cons[] = $construccion->sup_terreno;
+        }
+        $Cons=array_sum($cons);
+        //tramite
+        $tramites=$this->tramite->where('id',$valuacion->tramite_id)->first();
+        //traemos el dato del propietario del padron
+        $datos = $this->padron->getByClaveOCuenta($valuacion->clave);
+        //traemos la clable para hacer un explode y sacar los siguientes datos
+        $clave = explode('-', $valuacion->clave);
+        $municipio=$clave[1];
+        $zona=$clave[2];
+        $manzana=$clave[3];
+        $predio=$clave[4];
+        //traigo el municipio
+        $municipios = Municipio::where('municipio','=',$municipio)->first();
+        //traigo el nombre del logo del municipio
+        $configuracion = configuracionMunicipal::where('municipio','=', $municipios->gid)->first();
+        //lo mandamos com PDF la vista
+        $vista = View::make('ventanilla.valorCatastral', compact('valuacion','Cons','tramites','datos','zona','manzana','predio','municipios','configuracion'));
+        $pdf = PDF::load($vista)->show('Valor Catastral'.' '.$valuacion->cuenta);
+        $response = Response::make($pdf, 200);
+        $response->header('Content-Type', 'application/pdf');
+        return $vista;
     }
 
     /**

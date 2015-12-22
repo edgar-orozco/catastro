@@ -137,6 +137,16 @@ class AefConstrucciones extends \Eloquent {
 		}
 	}
 	
+	public static function validSuperficie($idavaluo) {
+		$AvaluosInmueble = AvaluosInmueble::where('idavaluo', '=', $idavaluo)->first();
+		$AvaluoFisico = AvaluosFisico::where('idavaluo', '=', $idavaluo)->first();
+		$subtot = AefConstrucciones::subtotalSuperficie($AvaluoFisico->idavaluoenfoquefisico);
+		if ( $subtot < $AvaluosInmueble->superficie_construccion ) {
+			return false;
+		} else {
+			return true;
+		}
+	}
 	
 	
 }

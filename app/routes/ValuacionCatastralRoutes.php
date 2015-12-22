@@ -16,4 +16,7 @@ Route::group(array('before' => 'auth'), function () {
     Route::get('tramites/valor/show-grid',
       ['uses' => 'ValorCatastralController@showGrid']);
 
+//ruta para el Valor Catastral en pdf
+    Route::get("tramites/valorCatastral/{id}", "ValorCatastralController@valorCatastral");
+
 });

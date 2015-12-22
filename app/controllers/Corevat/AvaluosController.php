@@ -349,6 +349,8 @@ class corevat_AvaluosController extends \BaseController {
 		} else if ( $rowConclusion->valor_concluido <= 0 ) {
 			$errors[] = '¡No cuenta con el "Valor Concluido"!';
 
+		} else if ( !AefConstrucciones::validSuperficie($idavaluo) ) {
+			$errors[] = '¡La Superficie de Construcción esta incompleta!';
 		}
 
 		return View::make('Corevat.Avaluos.avaluos', compact('opt', 'idavaluo', 'title', 'rowAvaluo', 'errors'));

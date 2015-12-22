@@ -15,7 +15,7 @@
 		<div class="form-group">
 			{{Form::label('fecha_reporte', 'Fecha del Reporte : ', ['class'=>'col-md-2'])}}
 			<div class="col-md-10">
-				{{Form::text('fecha_reporte', $row->fecha_reporte, ['class'=>'form-control', 'tabindex'=>'1', 'required' => 'required', 'maxlength' => '10', 'size' => '11', 'style' => 'width:110px', 'readonly'=>'readonly'])}}
+				{{Form::text('fecha_reporte', $row->fecha_reporte, ['class'=>'form-control', 'required' => 'required', 'maxlength' => '10', 'size' => '11', 'style' => 'width:110px', 'readonly'=>'readonly'])}}
 				{{$errors->first('fecha_reporte', '<span class=text-danger>:message</span>')}}
 			</div>
 		</div>
@@ -24,7 +24,7 @@
 		<div class="form-group">
 			{{Form::label('fecha_avaluo', 'Fecha del Avalúo : ', ['class'=>'col-md-2'])}}
 			<div class="col-md-10">
-				{{Form::text('fecha_avaluo', $row->fecha_avaluo, ['class'=>'form-control', 'tabindex'=>'2', 'required' => 'required', 'maxlength' => '10', 'size' => '11', 'style' => 'width:110px', 'readonly'=>'readonly'])}}
+				{{Form::text('fecha_avaluo', $row->fecha_avaluo, ['class'=>'form-control', 'required' => 'required', 'maxlength' => '10', 'size' => '11', 'style' => 'width:110px', 'readonly'=>'readonly'])}}
 				{{$errors->first('fecha_avaluo', '<span class=text-danger>:message</span>')}}
 			</div>
 		</div>
@@ -33,7 +33,7 @@
 		<div class="form-group">
 			{{Form::label('serie', 'Tipo de predio : ', ['class'=>'col-md-2'])}}
 			<div class="col-md-10">
-				{{Form::select('serie', array('U'=>'Urbano', 'R'=>'Rústico'), null, ['id' => 'serie', 'class'=>'form-control', 'tabindex'=>'3', 'style' => 'width:110px'])}}
+				{{Form::select('serie', array('U'=>'Urbano', 'R'=>'Rústico'), null, ['id' => 'serie', 'class'=>'form-control', 'style' => 'width:110px'])}}
 			</div>
 		</div>
 	</div>
@@ -41,7 +41,7 @@
 		<div class="form-group">
 			{{Form::label('proposito', 'Propósito : ', ['class'=>'col-md-2'])}}
 			<div class="col-md-10">
-				{{Form::text('proposito', $row->proposito, ['class'=>'form-control', 'tabindex'=>'4', 'required' => 'required', 'maxlength' => '250'])}}
+				{{Form::text('proposito', $row->proposito, ['class'=>'form-control', 'required' => 'required', 'maxlength' => '250'])}}
 				{{$errors->first('proposito', '<span class=text-danger>:message</span>')}}
 			</div>
 		</div>
@@ -50,7 +50,7 @@
 		<div class="form-group">
 			{{Form::label('fk_finalidad', 'Finalidad : ',['class'=>'col-sm-2'])}}
 			<div class="col-md-10">
-				{{Form::select('fk_finalidad', $cat_finalidad, $row->fk_finalidad, ['id' => 'fk_finalidad', 'class'=>'form-control', 'tabindex'=>'5', 'required' => 'required'])}}
+				{{Form::select('fk_finalidad', $cat_finalidad, $row->fk_finalidad, ['id' => 'fk_finalidad', 'class'=>'form-control', 'required' => 'required'])}}
 				{{$errors->first('fk_finalidad', '<span class=text-danger>:message</span>')}}
 			</div>
 		</div>
@@ -59,7 +59,7 @@
 		<div class="form-group">
 			{{Form::label('idtipoinmueble', 'Tipo Inmueble : ', ['class'=>'col-md-2'])}}
 			<div class="col-md-10">
-				{{Form::select('idtipoinmueble', $cat_tipo_inmueble, $row->idtipoinmueble, ['id' => 'idtipoinmueble', 'class'=>'form-control', 'tabindex'=>'6'])}}
+				{{Form::select('idtipoinmueble', $cat_tipo_inmueble, $row->idtipoinmueble, ['id' => 'idtipoinmueble', 'class'=>'form-control'])}}
 			</div>
 		</div>
 	</div>
@@ -67,7 +67,7 @@
 		<div class="form-group">
 			{{Form::label('ubicacion', 'Ubicación : ', ['class'=>'col-md-4'])}}
 			<div class="col-md-8">
-				{{Form::text('ubicacion', $row->ubicacion, ['class'=>'form-control', 'tabindex'=>'7', 'maxlength' => '300'])}}
+				{{Form::text('ubicacion', $row->ubicacion, ['class'=>'form-control', 'maxlength' => '300'])}}
 			</div>
 		</div>
 	</div>
@@ -76,7 +76,7 @@
 		<div class="form-group">
 			{{Form::label('conjunto', 'Conjunto : ', ['class'=>'col-md-4'])}}
 			<div class="col-md-8">
-				{{Form::text('conjunto', $row->conjunto, ['class'=>'form-control', 'tabindex'=>'8', 'maxlength' => '150'])}}
+				{{Form::text('conjunto', $row->conjunto, ['class'=>'form-control', 'maxlength' => '150'])}}
 			</div>
 		</div>
 	</div>
@@ -85,7 +85,7 @@
 		<div class="form-group">
 			{{Form::label('colonia', 'Colonia : ',['class'=>'col-sm-4'])}}
 			<div class="col-md-8">
-				{{Form::text('colonia', $row->colonia, ['class'=>'form-control', 'tabindex'=>'9', 'maxlength' => '150'])}}
+				{{Form::text('colonia', $row->colonia, ['class'=>'form-control', 'maxlength' => '150'])}}
 			</div>
 		</div>
 	</div>
@@ -93,7 +93,7 @@
 		<div class="form-group">
 			{{Form::label('idestado', 'Estados : ',['class'=>'col-sm-4'])}}
 			<div class="col-md-8">
-				<select class="form-control" name="idestado" id="idestado" tabindex="10">
+				<select class="form-control" name="idestado" id="idestado">
 					@foreach ($estados as $estado)
 						@if ( $estado->idestado == $row->idestado )
 						<option value="{{$estado->idestado}}" selected="selected" clave="{{$estado->clave}}">{{ $estado->estado }}</option>
@@ -110,7 +110,7 @@
 		<div class="form-group">
 			{{Form::label('idmunicipio', 'Municipios : ',['class'=>'col-sm-4'])}}
 			<div class="col-md-8">
-				<select class="form-control" name="idmunicipio" id="idmunicipio" tabindex="11">
+				<select class="form-control" name="idmunicipio" id="idmunicipio">
 					@foreach ($municipios as $municipio)
 						@if ( $municipio->idmunicipio == $row->idmunicipio || $municipio->clave == $row->idmunicipio )
 						<option value="{{$municipio->clave}}" selected="selected" clave="{{$municipio->clave}}">{{ $municipio->municipio }}</option>
