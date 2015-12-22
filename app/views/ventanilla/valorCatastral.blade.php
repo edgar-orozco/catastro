@@ -87,24 +87,23 @@
 }
 </style>
 <body>
-@foreach($datos as $row)
 <div id="contenedor">
     <div id="cabecera">
         <table width="100%">
             <tr>
                 <td width="20%" align="right"><img src="css/images/main/main-logo.png"  height="70"></td>
-                <td width="60%" align="center" class="title">H. AYUNTAMIENTO CONSTITUCIONAL DE {{strtoupper($nmunicipio)}}, TAB.<br>DIRECCION DE FINANZAS<br>SUBDIRECCIÓN DE CATASTRO</td>
-                <td width="20%" align="center"><img src="css/images/home/logos/{{$logo}}"  height="100"></td>
+                <td width="60%" align="center" class="title">H. AYUNTAMIENTO CONSTITUCIONAL DE {{strtoupper($municipios->nombre_municipio)}}, TAB.<br>DIRECCION DE FINANZAS<br>SUBDIRECCIÓN DE CATASTRO</td>
+                <td width="20%" align="center"><img src="css/images/home/logos/{{$configuracion->file}}"  height="100"></td>
             </tr>
         </table>
         <table width="100%">
             <tr>
-                <td width="33.33%">Lugar: {{$nmunicipio}}, Tabasco.</td>
+                <td width="33.33%">Lugar: {{$municipios->nombre_municipio}}, Tabasco.</td>
                 <td width="33.33%" align="center"><strong>CERTIFICADO DE VALOR CATASTRAL</strong></td>
-                <td width="33.33%" align="right">Fecha de Impresión:</td>
+                <td width="33.33%" align="right">Fecha de Impresión: <?php echo(date('d/m/Y')); ?></td>
             </tr>
             <tr>
-                <td width="33.33%">Fecha de Valuación:</td>
+                <td width="33.33%">Fecha de Valuación: <?php $fecha=strtotime($valuacion->created_at); echo date("d/m/Y",$fecha) ?></td>
                 <td width="33.33%" ></td>
                 <td width="33.33%" align="right"></td>
             </tr>
@@ -115,19 +114,22 @@
             <div id="dentro"><strong>DESCRIPCIÓN DEL PREDIO</strong></div>
                 <div id="izquierda">
                     <p>
-                        Propietario: {{$row->nombres}} {{$row->apellido_paterno}} {{$row->apellido_materno}}
+                        Propietario:
+                        @foreach($datos->propietarios as $propietario)
+                        {{$propietario->propietario->nombrec}}
+                        @endforeach
                     </p>
                     <p>
-                        Ubicación del predio: {{$row->ubicacion}}
+                        Ubicación del predio: {{$datos->ubicacionFiscal->ubicacion}}
                     </p>  
                     <p>
-                        Cuenta: {{$row->cuenta}}
+                        Cuenta: {{$valuacion->cuenta}}
                     </p>
                     <p>
-                        Tipo de Predio: {{$row->tipo_predio}}
+                        Tipo de Predio: {{$datos->tipo_predio}}
                     </p>
                     <p>
-                        Nombre del Solicitante:@foreach($solicitante as $ro) {{$ro->nombre}} {{$ro->paterno}} {{$ro->materno}}  @endforeach
+                        Nombre del Solicitante: {{$tramites->solicitante->nombres}} {{$tramites->solicitante->apellido_paterno}} {{$tramites->apellido_materno}}
                     </p>
                 </div>
             <div id="derecha">
@@ -135,16 +137,16 @@
                    Zona: {{$zona}}
                 </p>
                 <p>
-                    Manzana: {{$manzana}}
+                    Manzana: {{$manzana}} 
                 </p>
                 <p>
                     Predio: {{$predio}}
                 </p>
                 <p>
-                    Superficie de Terreno: {{$row->superficie_terreno}} m<sup>2</sup>
+                    Superficie de Terreno: {{$valuacion->ValuacionTerreno->sup_terreno}}m<sup>2</sup>
                 </p>
                 <p>
-                    Superficie de Construcción: {{$row->superficie_construccion}} m<sup>2</sup>
+                    Superficie de Construcción: {{$Cons}} m<sup>2</sup>
                 </p>
             </div>
         </div>
@@ -152,24 +154,24 @@
             <div id="dentro"><strong>EL PREDIO AL QUE SE REFIERE LA PRESENTE SOLICITUD SE LE ASIGNÓ:</strong></div>
             <div id="izquierda">
                 <p>
-                    Clave Catastral: {{$row->clave}}
+                    Clave Catastral: {{$valuacion->clave}}
                 </p>
                 <p>
-                    Superficie Terreno: {{$row->superficie_terreno}} m<sup>2</sup>
+                    Superficie Terreno: {{$valuacion->ValuacionTerreno->sup_terreno}}m<sup>2</sup>
                 </p>
                 <p>
-                    Superficie Construcción: {{$row->superficie_construccion}} m<sup>2</sup>
+                    Superficie Construcción: {{$Cons}} m<sup>2</sup>
                 </p>
             </div>
             <div id="derecha">
                 <p>
-                    Valor de Terreno:<br/>
+                    Valor de Terreno: {{$valuacion->valor_terreno}} <br/>
                 </p>
                 <p>
-                    Valor de Construcción:<br/>
+                    Valor de Construcción: {{$valuacion->valor_construccion}} <br/>
                 </p>
                 <p>
-                    Valor Catastral: {{$row->valor_catastral}}
+                    Valor Catastral: {{$valuacion->valor_catastral}}
                 </p>
             </div>
         </div>
@@ -186,7 +188,7 @@
                     
                 </td>
                 <td width="33.33%" align="center">
-                    AUTORIZO<br/>{{$autorizo}}
+                    AUTORIZO<br/>{{$configuracion->nombre}}
                     
                 </td>
             </tr>
@@ -197,6 +199,5 @@
             </p>
         </div>
 </div>
-@endforeach
 </body>
 </html>

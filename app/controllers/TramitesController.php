@@ -674,34 +674,6 @@ class TramitesController extends BaseController {
 //        return $vista;
     }
     
-    public function valorCatastral() {
-        //estraigo la clave de la tabla tramites
-        $clave = $this-> tramite -> where('id', '=', '5') -> pluck('clave');
-        //Hacemos el explode para obtener el municipio
-        $claveC = explode('-', $clave);
-        //traemos la clave catastral por partes
-        $municipio=$claveC [1];
-        $zona=$claveC[2];
-        $manzana=$claveC[3];
-        $predio=$claveC[4];
-        //traigo el id del municipio
-        $gid = Municipio::where('municipio','=',$municipio)->pluck('gid');
-        $nmunicipio = Municipio::where('municipio','=',$municipio)->pluck('nombre_municipio');
-        //trtaigo el nombre de la imgaen del municipio
-        $logo = configuracionMunicipal::where('municipio','=', $gid)->pluck('file');
-        $autorizo = configuracionMunicipal::where('municipio','=', $gid)->pluck('nombre');
-        //traigo el nombre del solicitante solicitante
-        $solicitante = $this->tramite -> join('solicitante as p', 'solicitante_id','=','p.id') -> where('p.id', '=', '5') -> select('p.nombres as nombre','p.apellido_paterno as paterno','p.apellido_materno as materno') -> get();
-        //traigo los datos del predio con la clave de la tabla fiscal
-        $datos = $this-> fiscal -> join ('personas as p', 'id_propietarios','=','p.id_p') -> join ('ubicacion_fiscal as u', 'id_ubicacion_fiscal','=','id_ubicacion') -> where ('clave', '=', $clave) -> select ('clave', 'cuenta', 'tipo_predio', 'superficie_terreno', 'superficie_construccion', 'valor_catastral','p.nombres','p.apellido_paterno','p.apellido_materno','u.ubicacion') -> get();
-        //Mandamos las bariables para imprimir y conbertimos en pdf el archivo
-        $vista = View::make('ventanilla.valorCatastral', compact('datos','solicitante','logo','nmunicipio','zona','manzana','predio','autorizo'));
-        $pdf = PDF::load($vista)->show('Valor Catastral'.' '.$clave);
-        $response = Response::make($pdf, 200);
-        $response->header('Content-Type', 'application/pdf');
-    }
-
-
     public function solicitante(){
         $q = Input::get('term');
         if (Request::ajax())
