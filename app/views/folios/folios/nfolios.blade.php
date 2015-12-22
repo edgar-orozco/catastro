@@ -36,7 +36,7 @@
             <div class="form-group">
 
                 {{Form::label('numero_oficio','Número de Oficio')}}
-                {{Form::text('numero_oficio','', ['class'=>'form-control', 'maxlength'=>'8'])}}
+                {{Form::text('no_oficio','', ['class'=>'form-control', 'maxlength'=>'8'])}}
             </div>
         </div>
         <div class="col-md-6">
