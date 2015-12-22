@@ -18,7 +18,13 @@ Se toma parte del archivo /ofvirtual/notario/manifestacion/_form.blade elaborado
     <fieldset><legend>Carga de imagenes</legend>
         @include('tramites.inspeccion._form_load_images')
     </fieldset>
-    {{Form::submit('Guardar',['class'=>'btn btn-info'])}}
+    <br>
+    <br>
+    <br>
+
+    {{Form::submit('Guardar',['class'=>'btn btn-info btn-block'])}}
+
+
 {{Form::close()}}
 @stop
 
