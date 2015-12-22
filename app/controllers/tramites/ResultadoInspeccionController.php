@@ -26,7 +26,7 @@ protected $manifestacionConstruccion;
 
     $clave = Input::get('clave');
     
-    $cuenta = INput::get('cuenta');
+    $cuenta = Input::get('cuenta');
 
 	$vars = $this->catalogos();
 
@@ -73,16 +73,18 @@ protected $manifestacionConstruccion;
   {
     $cuenta = Input::get('cuenta');
     $clave = Input::get('clave');
+    $array_clave = explode('-', $clave);
     $mani_id = Input::get('manifestacion_id');
+    $file = Input::file('imagen');
+    $datosMani = array_merge(Input::get('manifestaciones'), ['observacion'=>Input::get('observacion')]);
     $datosConstruccion = json_decode(Input::get('datos_construccion'), true);
-    $datosMani = array_merge(Input::get('manifestaciones'),['superficie_alberca' => $datosConstruccion['sup_albercas']]);
-
-
     $serviciosMani = Input::get('manifestaciones_servicios');
     $servPublicos = $this->servicioPublico->where('manifestacion_predio_id', $mani_id);
     $arrayData = $servPublicos->lists('mtipo_servicio_id');
     $a=[];
     $row=[];
+
+    //Guarda los servicios de la manifestacion
     if($serviciosMani)
     {
         foreach ($serviciosMani as $serv)
@@ -109,9 +111,33 @@ protected $manifestacionConstruccion;
         }
     }
 
-    $manifestacion = $this->manifestacion->find($mani_id);
+    //GUARDAR EN MANIFESTACION
 
+    $manifestacion = $this->manifestacion->find($mani_id);
+    if ($file) 
+    {
+        // Se valida el directorio para subir shapes
+        $dir = '/complementarios/anexos/'. $array_clave[0] . '/' . $array_clave[1] . '/' . $cuenta . '/m/';
+        $nombre_archivo = $cuenta . '-' . date("d-m-y") . '-' . $file->getClientOriginalName();
+        if (!file_exists(public_path() . $dir) && !is_dir(public_path() . $dir)) 
+        {
+            File::makeDirectory(public_path() . $dir, $mode = 0777, true, true);
+        }
+        if (!file_exists($dir . $nombre_archivo) && in_array(strtolower($file->getClientMimeType()), array('image/png', 'image/jpeg', 'image/jpeg', 'image/jpeg', 'image/gif', 'image/bmp', 'image/vnd.microsoft.icon', 'text/plain', 'application/vnd.ms-excel', 'application/msword', 'application/pdf')))
+        {
+            $file->move(public_path() . $dir, $nombre_archivo);
+            $datosMani = array_merge($datosMani,['fachada'=>$dir.$nombre_archivo]);  
+        }
+    }
+
+    if(isset($datosConstruccion['sup_albercas']))
+    {
+       $datosMani = array_merge($datosMani,['superficie_alberca' => $datosConstruccion['sup_albercas']]); 
+    }
+    
     $manifestacion->update($datosMani);
+
+
 
     $construcciones = $datosConstruccion['construcciones'];
 
@@ -134,7 +160,6 @@ protected $manifestacionConstruccion;
             $consulta = $this->manifestacionConstruccion->find($key);
             if($consulta)
             {
-                print_r($value);
                 $consulta->update($value);
             }
             else
