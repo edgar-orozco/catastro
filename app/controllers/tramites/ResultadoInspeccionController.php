@@ -28,6 +28,8 @@ protected $manifestacionConstruccion;
     
     $cuenta = Input::get('cuenta');
 
+    $tramite_id = Input::get('tramite_id');
+
 	$vars = $this->catalogos();
 
     $vars['clave'] = $clave;
@@ -38,7 +40,12 @@ protected $manifestacionConstruccion;
 
     $manifestacion = $this->manifestacion;
 
-    $consultaMani = $manifestacion->where('clave', $clave)->where('cuenta',$cuenta)->get()[0];
+    $consultaMani = $manifestacion->where('tramite_id', $tramite_id)->get();
+
+    if($consultaMani->count()>0)
+    {
+        $consultaMani = $consultaMani[0];
+    }
 
     //dd($modelos['manifestaciones']);
 
