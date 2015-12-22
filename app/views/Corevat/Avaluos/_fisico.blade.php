@@ -276,7 +276,7 @@
 						<input type="text" class="form-control" name="fraccion" id="fraccion" maxlength="50" required />
 					</div>
 					<div class="col-md-4">
-						<label for="superficie">Superficie:</label>
+						<label for="superficie">Superficie Total del Tereno:</label>
 						<input type="text" class="form-control" name="superficie" id="superficie" value="{{$superficie_total_terreno}}" disabled />
 					</div>
 					<div class="col-md-4">
@@ -321,16 +321,6 @@
 						<label for="forma">Factor Forma:</label>
 						<input type="number" class="form-control clsNumeric" name="forma" id="forma" min="0.00" max="99999999.99" step="0.01" value="0.00" required />
 					</div>
-					<!--
-					<div class="col-md-3">
-						<label for="idfactorotros">Otros:</label>
-						<select class="form-control" id="idfactorotros" name="idfactorotros">
-							@foreach ($cat_factores_conservacion as $item)
-							<option value="{{$item->idfactorconservacion}}">{{$item->factor_conservacion}}</option>
-							@endforeach
-						</select>
-					</div>
-					-->
 					<div class="col-md-6">
 						<label for="otros">Factor Otro:</label>
 						<input type="number" class="form-control clsNumeric" name="otros" id="otros" min="0.00" max="99999999.99" step="0.01" value="0.00" required />

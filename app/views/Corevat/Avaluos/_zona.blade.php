@@ -3,128 +3,128 @@
 {{Form::hidden('idavaluozona', $row->idavaluozona)}}
 {{Form::hidden('hidden_nivel_equipamiento', $row->nivel_equipamiento, ['id' => 'hidden_nivel_equipamiento'])}}
 <div id="zonaCoveratSecc">
-    <div class="row">
-        <div class="col-md-6">
-            <h4>Servicios</h4>
-            <div class="checkboxContainer">
-                <div class="checkbox">
-                    {{Form::label('is_agua_potable', 'Agua Potable')}}
-                    {{Form::checkbox('is_agua_potable', 1,  $row->is_agua_potable, ['class' => 'nivel_equipamiento'])}}
-                </div>
-                <div class="checkbox">
-                    {{Form::label('is_guarniciones', 'Guarniciones')}}
-                    {{Form::checkbox('is_guarniciones', 1,  $row->is_guarniciones, ['class' => 'nivel_equipamiento'])}}
-                </div>
-                <div class="checkbox">
-                    {{Form::label('is_drenaje', 'Drenaje')}}
-                    {{Form::checkbox('is_drenaje', 1,  $row->is_drenaje, ['class' => 'nivel_equipamiento'])}}
-                </div>
-                <div class="checkbox">
-                    {{Form::label('is_banqueta', 'Banqueta')}}
-                    {{Form::checkbox('is_banqueta', 1,  $row->is_banqueta, ['class' => 'nivel_equipamiento'])}}
-                </div>
-                <div class="checkbox">
-                    {{Form::label('is_electricidad', 'Electricidad')}}
-                    {{Form::checkbox('is_electricidad', 1,  $row->is_electricidad, ['class' => 'nivel_equipamiento'])}}
-                </div>
-                <div class="checkbox">
-                    {{Form::label('is_telefono', 'Teléfono')}}
-                    {{Form::checkbox('is_telefono', 1,  $row->is_telefono, ['class' => 'nivel_equipamiento'])}}
-                </div>
-                <div class="checkbox">
-                    {{Form::label('is_pavimentacion', 'Pavimentación')}}
-                    {{Form::checkbox('is_pavimentacion', 1,  $row->is_pavimentacion, ['class' => 'nivel_equipamiento'])}}
-                </div>
-                <div class="checkbox">
-                    {{Form::label('is_transporte_publico', 'Transporte Público')}}
-                    {{Form::checkbox('is_transporte_publico', 1,  $row->is_transporte_publico, ['class' => 'nivel_equipamiento'])}}
-                </div>
-                <div class="checkbox">
-                    {{Form::label('is_alumbrado_publico', 'Alumbrado Público')}}
-                    {{Form::checkbox('is_alumbrado_publico', 1,  $row->is_alumbrado_publico, ['class' => 'nivel_equipamiento'])}}
-                </div>
-                <div class="checkbox">
-                    {{Form::label('is_otro_servicio', 'Otros')}}
-                    {{Form::checkbox('is_otro_servicio', 1, $row->is_otro_servicio, ['class'=>'nivel_equipamiento', 'id'=>'is_otro_servicio'])}}
-                </div>
-                <div class="checkbox"></div>
-                <div class="checkbox">
-                    {{Form::text('otro_servicio_municipal', $row->otro_servicio_municipal, ['class'=>'form-control', 'id'=>'otro_servicio_municipal', 'maxlength'=>'300'])}}
-                    {{$errors->first('otro_servicio_municipal', '<span class=text-danger>:message</span>')}}
-                </div>
+	<div class="row">
+		<div class="col-md-6">
+			<h4>Servicios</h4>
+			<div class="checkboxContainer">
+				<div class="checkbox">
+					{{Form::label('is_agua_potable', 'Agua Potable')}}
+					{{Form::checkbox('is_agua_potable', 1,  $row->is_agua_potable, ['class' => 'nivel_equipamiento'])}}
+				</div>
+				<div class="checkbox">
+					{{Form::label('is_guarniciones', 'Guarniciones')}}
+					{{Form::checkbox('is_guarniciones', 1,  $row->is_guarniciones, ['class' => 'nivel_equipamiento'])}}
+				</div>
+				<div class="checkbox">
+					{{Form::label('is_drenaje', 'Drenaje')}}
+					{{Form::checkbox('is_drenaje', 1,  $row->is_drenaje, ['class' => 'nivel_equipamiento'])}}
+				</div>
+				<div class="checkbox">
+					{{Form::label('is_banqueta', 'Banqueta')}}
+					{{Form::checkbox('is_banqueta', 1,  $row->is_banqueta, ['class' => 'nivel_equipamiento'])}}
+				</div>
+				<div class="checkbox">
+					{{Form::label('is_electricidad', 'Electricidad')}}
+					{{Form::checkbox('is_electricidad', 1,  $row->is_electricidad, ['class' => 'nivel_equipamiento'])}}
+				</div>
+				<div class="checkbox">
+					{{Form::label('is_telefono', 'Teléfono')}}
+					{{Form::checkbox('is_telefono', 1,  $row->is_telefono, ['class' => 'nivel_equipamiento'])}}
+				</div>
+				<div class="checkbox">
+					{{Form::label('is_pavimentacion', 'Pavimentación')}}
+					{{Form::checkbox('is_pavimentacion', 1,  $row->is_pavimentacion, ['class' => 'nivel_equipamiento'])}}
+				</div>
+				<div class="checkbox">
+					{{Form::label('is_transporte_publico', 'Transporte Público')}}
+					{{Form::checkbox('is_transporte_publico', 1,  $row->is_transporte_publico, ['class' => 'nivel_equipamiento'])}}
+				</div>
+				<div class="checkbox">
+					{{Form::label('is_alumbrado_publico', 'Alumbrado Público')}}
+					{{Form::checkbox('is_alumbrado_publico', 1,  $row->is_alumbrado_publico, ['class' => 'nivel_equipamiento'])}}
+				</div>
+				<div class="checkbox">
+					{{Form::label('is_otro_servicio', 'Otros')}}
+					{{Form::checkbox('is_otro_servicio', 1, $row->is_otro_servicio, ['class'=>'nivel_equipamiento', 'id'=>'is_otro_servicio'])}}
+				</div>
+				<div class="checkbox"></div>
+				<div class="checkbox">
+					{{Form::text('otro_servicio_municipal', $row->otro_servicio_municipal, ['class'=>'form-control', 'id'=>'otro_servicio_municipal', 'maxlength'=>'300'])}}
+					{{$errors->first('otro_servicio_municipal', '<span class=text-danger>:message</span>')}}
+				</div>
 
-                <div class="checkbox">
-                    {{Form::label('is_recoleccion_basura', 'Recolección de Basura')}}
-                    {{Form::checkbox('is_recoleccion_basura', 1,  $row->is_recoleccion_basura, ['class' => 'nivel_equipamiento'])}}
-                </div>
-                <div class="checkbox">
-                    {{Form::label('is_vigilancia_privada', 'Vigilancia Privada')}}
-                    {{Form::checkbox('is_vigilancia_privada', 1,  $row->is_vigilancia_privada, ['class' => 'nivel_equipamiento'])}}
-                </div>
+				<div class="checkbox">
+					{{Form::label('is_recoleccion_basura', 'Recolección de Basura')}}
+					{{Form::checkbox('is_recoleccion_basura', 1,  $row->is_recoleccion_basura, ['class' => 'nivel_equipamiento'])}}
+				</div>
+				<div class="checkbox">
+					{{Form::label('is_vigilancia_privada', 'Vigilancia Privada')}}
+					{{Form::checkbox('is_vigilancia_privada', 1,  $row->is_vigilancia_privada, ['class' => 'nivel_equipamiento'])}}
+				</div>
 
-                <div class="checkbox">
-                    {{Form::label('is_internet', 'Internet')}}
-                    {{Form::checkbox('is_internet', 1,  $row->is_internet, ['class' => 'nivel_equipamiento'])}}
-                </div>
-                <div class="checkbox"></div>
-            </div>
-        </div>
+				<div class="checkbox">
+					{{Form::label('is_internet', 'Internet')}}
+					{{Form::checkbox('is_internet', 1,  $row->is_internet, ['class' => 'nivel_equipamiento'])}}
+				</div>
+				<div class="checkbox"></div>
+			</div>
+		</div>
 
-        <div class="col-md-6">
-            <h4>Equipamiento Urbano</h4>
-            <div class="checkboxContainer">
-                <div class="checkbox">
-                    {{Form::label('is_escuela', 'Escuela')}}
-                    {{Form::checkbox('is_escuela', 1,  $row->is_escuela, ['class' => 'nivel_equipamiento'])}}
-                </div>
-                <div class="checkbox">
-                    {{Form::label('is_iglesia', 'Iglesia')}}
-                    {{Form::checkbox('is_iglesia', 1,  $row->is_iglesia, ['class' => 'nivel_equipamiento'])}}
-                </div>
-                <div class="checkbox">
-                    {{Form::label('is_banco', 'Banco')}}
-                    {{Form::checkbox('is_banco', 1,  $row->is_banco, ['class' => 'nivel_equipamiento'])}}
-                </div>
-                <div class="checkbox">
-                    {{Form::label('is_comercio', 'Comercio')}}
-                    {{Form::checkbox('is_comercio', 1,  $row->is_comercio, ['class' => 'nivel_equipamiento'])}}
-                </div>
-                <div class="checkbox">
-                    {{Form::label('is_hospital', 'Hospital')}}
-                    {{Form::checkbox('is_hospital', 1,  $row->is_hospital, ['class' => 'nivel_equipamiento'])}}
-                </div>
-                <div class="checkbox">
-                    {{Form::label('is_parque', 'Parque')}}
-                    {{Form::checkbox('is_parque', 1,  $row->is_parque, ['class' => 'nivel_equipamiento'])}}
-                </div>
-                <div class="checkbox">
-                    {{Form::label('is_transporte', 'Transporte')}}
-                    {{Form::checkbox('is_transporte', 1,  $row->is_transporte, ['class' => 'nivel_equipamiento'])}}
-                </div>
-                <div class="checkbox">
-                    {{Form::label('is_gasolinera', 'Gasolinera')}}
-                    {{Form::checkbox('is_gasolinera', 1,  $row->is_gasolinera, ['class' => 'nivel_equipamiento'])}}
-                </div>
-                <div class="checkbox">
-                    {{Form::label('is_mercado', 'Mercado')}}
-                    {{Form::checkbox('is_mercado', 1,  $row->is_mercado, ['class' => 'nivel_equipamiento'])}}
-                </div>
-                <div class="checkbox">
-                    {{Form::label('is_otro_equipamiento', 'Otros')}}
-                    {{Form::checkbox('is_otro_equipamiento', 1, $row->is_otro_equipamiento, ['class' => 'nivel_equipamiento', 'id' => 'is_otro_equipamiento'])}}
-                </div>
-                <div class="checkbox"></div>
-                <div class="checkbox">
-                    {{Form::text('otro_equipamiento', $row->otro_equipamiento, ['class'=>'form-control', 'id'=>'otro_equipamiento', 'maxlength'=>'300'])}}
-                    {{$errors->first('otro_equipamiento', '<span class=text-danger>:message</span>')}}
-                </div>
-            </div>
-        </div>
-    </div>
+		<div class="col-md-6">
+			<h4>Equipamiento Urbano</h4>
+			<div class="checkboxContainer">
+				<div class="checkbox">
+					{{Form::label('is_escuela', 'Escuela')}}
+					{{Form::checkbox('is_escuela', 1,  $row->is_escuela, ['class' => 'nivel_equipamiento'])}}
+				</div>
+				<div class="checkbox">
+					{{Form::label('is_iglesia', 'Iglesia')}}
+					{{Form::checkbox('is_iglesia', 1,  $row->is_iglesia, ['class' => 'nivel_equipamiento'])}}
+				</div>
+				<div class="checkbox">
+					{{Form::label('is_banco', 'Banco')}}
+					{{Form::checkbox('is_banco', 1,  $row->is_banco, ['class' => 'nivel_equipamiento'])}}
+				</div>
+				<div class="checkbox">
+					{{Form::label('is_comercio', 'Comercio')}}
+					{{Form::checkbox('is_comercio', 1,  $row->is_comercio, ['class' => 'nivel_equipamiento'])}}
+				</div>
+				<div class="checkbox">
+					{{Form::label('is_hospital', 'Hospital')}}
+					{{Form::checkbox('is_hospital', 1,  $row->is_hospital, ['class' => 'nivel_equipamiento'])}}
+				</div>
+				<div class="checkbox">
+					{{Form::label('is_parque', 'Parque')}}
+					{{Form::checkbox('is_parque', 1,  $row->is_parque, ['class' => 'nivel_equipamiento'])}}
+				</div>
+				<div class="checkbox">
+					{{Form::label('is_transporte', 'Transporte')}}
+					{{Form::checkbox('is_transporte', 1,  $row->is_transporte, ['class' => 'nivel_equipamiento'])}}
+				</div>
+				<div class="checkbox">
+					{{Form::label('is_gasolinera', 'Gasolinera')}}
+					{{Form::checkbox('is_gasolinera', 1,  $row->is_gasolinera, ['class' => 'nivel_equipamiento'])}}
+				</div>
+				<div class="checkbox">
+					{{Form::label('is_mercado', 'Mercado')}}
+					{{Form::checkbox('is_mercado', 1,  $row->is_mercado, ['class' => 'nivel_equipamiento'])}}
+				</div>
+				<div class="checkbox">
+					{{Form::label('is_otro_equipamiento', 'Otros')}}
+					{{Form::checkbox('is_otro_equipamiento', 1, $row->is_otro_equipamiento, ['class' => 'nivel_equipamiento', 'id' => 'is_otro_equipamiento'])}}
+				</div>
+				<div class="checkbox"></div>
+				<div class="checkbox">
+					{{Form::text('otro_equipamiento', $row->otro_equipamiento, ['class'=>'form-control', 'id'=>'otro_equipamiento', 'maxlength'=>'300'])}}
+					{{$errors->first('otro_equipamiento', '<span class=text-danger>:message</span>')}}
+				</div>
+			</div>
+		</div>
+	</div>
 
 	<div class="col-md-12"><hr></div>
 	<div class="col-md-6">
-		<label for="cobertura" class="col-sm-3">En un radio de: </label>
+		<label for="cobertura" class="col-sm-3">En un radio de:</label>
 		<div class="col-sm-6">
 			{{Form::number('cobertura', $row->cobertura, ['class'=>'form-control clsNumeric', 'step'=>'0', 'min'=>'0', 'max'=>'999999'])}}
 			{{$errors->first('cobertura', '<span class=text-danger>:message</span>')}}

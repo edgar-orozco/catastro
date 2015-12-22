@@ -114,7 +114,7 @@
 
 	<div class="col-md-12">
 		{{Form::label('servidumbre_restricciones', 'Servidumbres y Restricciones')}}
-		{{Form::textarea('servidumbre_restricciones', $row->servidumbre_restricciones, ['class'=>'form-control', 'rows' => '3'] )}}
+		{{Form::textarea('servidumbre_restricciones', $row->servidumbre_restricciones, ['class'=>'form-control', 'rows' => '3', 'maxlength'=>'250'] )}}
 	</div>
 	<div class="col-md-12">&nbsp;</div>
 
@@ -132,7 +132,7 @@
 
 	<div class="col-md-12">
 		{{Form::label('descripcion_inmueble', 'Descripción general del inmueble')}}
-		{{Form::textarea('descripcion_inmueble', $row->descripcion_inmueble, ['class'=>'form-control'] )}}
+		{{Form::textarea('descripcion_inmueble', $row->descripcion_inmueble, ['class'=>'form-control', 'maxlength'=>'150'] )}}
 	</div>
 	<div class="col-md-12">&nbsp;</div>
 
@@ -163,119 +163,6 @@
 
 	<div class="col-md-12"><hr></div>
 
-<!--
-	<div class="col-md-12">
-		<table cellpadding="0" cellspacing="0" border="0" class="table">
-			<thead>
-				<tr>
-					<th class="bg-primary"></th>
-					<th class="bg-primary">PISOS</th>
-					<th class="bg-primary">MUROS</th>
-					<th class="bg-primary">PLAFONES</th>
-				</tr>
-			</thead>
-			<tbody>
-				<tr>
-					<th class="bg-primary">RECÁMARAS</th>
-					<td>
-						{{Form::select('id_recamara0', $cat_pisos, $row->id_recamara0, ['id' => 'id_recamara0', 'class'=>'form-control'])}}
-					</td>
-					<td>
-						{{Form::select('id_recamara1', $cat_aplanados, $row->id_recamara1, ['id' => 'id_recamara1', 'class'=>'form-control'])}}
-					</td>
-					<td>
-						{{Form::select('id_recamara2', $cat_plafones, $row->id_recamara2, ['id' => 'id_recamara2', 'class'=>'form-control'])}}
-					</td>
-				</tr>
-				<tr>
-					<th class="bg-primary">ESTANCIA COMEDOR</th>
-					<td>
-						{{Form::select('id_estancia_comedor0', $cat_pisos, $row->id_estancia_comedor0, ['id' => 'id_estancia_comedor0', 'class'=>'form-control'])}}
-					</td>
-					<td>
-						{{Form::select('id_estancia_comedor1', $cat_aplanados, $row->id_estancia_comedor1, ['id' => 'id_estancia_comedor1', 'class'=>'form-control'])}}
-					</td>
-					<td>
-						{{Form::select('id_estancia_comedor2', $cat_plafones, $row->id_estancia_comedor2, ['id' => 'id_estancia_comedor2', 'class'=>'form-control'])}}
-					</td>
-				</tr>
-				<tr>
-					<th class="bg-primary">BAÑOS</th>
-					<td>
-						{{Form::select('id_bano0', $cat_pisos, $row->id_bano0, ['id' => 'id_bano0', 'class'=>'form-control'])}}
-					</td>
-					<td>
-						{{Form::select('id_bano1', $cat_aplanados, $row->id_bano1, ['id' => 'id_bano1', 'class'=>'form-control'])}}
-					</td>
-					<td>
-						{{Form::select('id_bano2', $cat_plafones, $row->id_bano2, ['id' => 'id_bano2', 'class'=>'form-control'])}}
-					</td>
-				</tr>
-				<tr>
-					<th class="bg-primary">ESCALERAS</th>
-					<td>
-						{{Form::select('id_escalera0', $cat_pisos, $row->id_escalera0, ['id' => 'id_escalera0', 'class'=>'form-control'])}}
-					</td>
-					<td>
-						{{Form::select('id_escalera1', $cat_aplanados, $row->id_escalera1, ['id' => 'id_escalera1', 'class'=>'form-control'])}}
-					</td>
-					<td>
-						{{Form::select('id_escalera2', $cat_plafones, $row->id_escalera2, ['id' => 'id_escalera2', 'class'=>'form-control'])}}
-					</td>
-				</tr>
-				<tr>
-					<th class="bg-primary">COCINA</th>
-					<td>
-						{{Form::select('id_cocina0', $cat_pisos, $row->id_cocina0, ['id' => 'id_cocina0', 'class'=>'form-control'])}}
-					</td>
-					<td>
-						{{Form::select('id_cocina1', $cat_aplanados, $row->id_cocina1, ['id' => 'id_cocina1', 'class'=>'form-control'])}}
-					</td>
-					<td>
-						{{Form::select('id_cocina2', $cat_plafones, $row->id_cocina2, ['id' => 'id_cocina2', 'class'=>'form-control'])}}
-					</td>
-				</tr>
-				<tr>
-					<th class="bg-primary">PATIO DE SERVICIO</th>
-					<td>
-						{{Form::select('id_patio_servicio0', $cat_pisos, $row->id_patio_servicio0, ['id' => 'id_patio_servicio0', 'class'=>'form-control'])}}
-					</td>
-					<td>
-						{{Form::select('id_patio_servicio1', $cat_aplanados, $row->id_patio_servicio1, ['id' => 'id_patio_servicio1', 'class'=>'form-control'])}}
-					</td>
-					<td>
-						{{Form::select('id_patio_servicio2', $cat_plafones, $row->id_patio_servicio2, ['id' => 'id_patio_servicio2', 'class'=>'form-control'])}}
-					</td>
-				</tr>
-				<tr>
-					<th class="bg-primary">ESTACIONAMIENTO</th>
-					<td>
-						{{Form::select('id_estacionamiento0', $cat_pisos, $row->id_estacionamiento0, ['id' => 'id_estacionamiento0', 'class'=>'form-control'])}}
-					</td>
-					<td>
-						{{Form::select('id_estacionamiento1', $cat_aplanados, $row->id_estacionamiento1, ['id' => 'id_estacionamiento1', 'class'=>'form-control'])}}
-					</td>
-					<td>
-						{{Form::select('id_estacionamiento2', $cat_plafones, $row->id_estacionamiento2, ['id' => 'id_estacionamiento2', 'class'=>'form-control'])}}
-					</td>
-				</tr>
-				<tr>
-					<th class="bg-primary">FACHADA</th>
-					<td>
-						{{Form::select('id_fachada0', $cat_pisos, $row->id_fachada0, ['id' => 'id_fachada0', 'class'=>'form-control'])}}
-					</td>
-					<td>
-						{{Form::select('id_fachada1', $cat_aplanados, $row->id_fachada1, ['id' => 'id_fachada1', 'class'=>'form-control'])}}
-					</td>
-					<td>
-						{{Form::select('id_fachada2', $cat_plafones, $row->id_fachada2, ['id' => 'id_fachada2', 'class'=>'form-control'])}}
-					</td>
-				</tr>
-			</tbody>
-		</table>
-	</div>
--->
-
 	<div class="col-md-12"><h4>Otros datos</h4></div>
 
 	<div class="col-md-12">
@@ -299,16 +186,16 @@
 				<tr>
 					<th class="bg-primary" rowspan="2">Herrería</th>
 					<th class="bg-primary">Ventanas</th>
-					<td><input type="text" class="form-control typeahead" name="herreria_ventana" id="herreria_ventana" data-provide="typeahead" value="{{$row->herreria_ventana}}" style="z-index: 1051;" /></td>
+					<td><input type="text" class="form-control typeahead" name="herreria_ventana" id="herreria_ventana" data-provide="typeahead" value="{{$row->herreria_ventana}}" style="z-index: 1051;" maxlength="150" /></td>
 					<th class="bg-primary" rowspan="2">Aluminio</th>
 					<th class="bg-primary">Ventanas</th>
-					<td><input type="text" class="form-control typeahead" name="aluminio_ventana" id="aluminio_ventana" data-provide="typeahead" value="{{$row->aluminio_ventana}}" style="z-index: 1051;" /></td>
+					<td><input type="text" class="form-control typeahead" name="aluminio_ventana" id="aluminio_ventana" data-provide="typeahead" value="{{$row->aluminio_ventana}}" style="z-index: 1051;" maxlength="150" /></td>
 				</tr>
 				<tr>
 					<th class="bg-primary">Puertas</th>
-					<td><input type="text" class="form-control typeahead" name="herreria_puerta" id="herreria_puerta" data-provide="typeahead" value="{{$row->herreria_puerta}}" style="z-index: 1051;" /></td>
+					<td><input type="text" class="form-control typeahead" name="herreria_puerta" id="herreria_puerta" data-provide="typeahead" value="{{$row->herreria_puerta}}" style="z-index: 1051;"  maxlength="150"/></td>
 					<th class="bg-primary">Vidreria</th>
-					<td><input type="text" class="form-control typeahead" name="aluminio_puerta" id="aluminio_puerta" data-provide="typeahead" value="{{$row->aluminio_puerta}}" style="z-index: 1051;" /></td>
+					<td><input type="text" class="form-control typeahead" name="aluminio_puerta" id="aluminio_puerta" data-provide="typeahead" value="{{$row->aluminio_puerta}}" style="z-index: 1051;"  maxlength="150"/></td>
 				</tr>
 			</tbody>
 		</table>
@@ -324,7 +211,7 @@
 				<tr>
 					<th class="bg-primary"><label for="superficie_total_terreno">Superficie Total del Terreno M&sup2;</label></th>
 					<td>
-						{{Form::number('superficie_total_terreno', $row->superficie_total_terreno, ['class'=>'form-control clsNumeric', 'step'=>'0.0001', 'min'=>'0.0001', 'max'=>'9999999999.9999'])}}
+						{{Form::number('superficie_total_terreno', $row->superficie_total_terreno, ['class'=>'form-control clsNumeric', 'step'=>'0.0001', 'min'=>'0.0001', 'max'=>'999999999.9999'])}}
 						{{$errors->first('superficie_total_terreno', '<span class=text-danger>:message</span>')}}
 					</td>
 					<th class="bg-primary">{{Form::label('indiviso_terreno', 'Indiviso del Terreno (%)')}}</th>
@@ -336,39 +223,39 @@
 				<tr>
 					<th class="bg-primary">{{Form::label('superficie_terreno', 'Superficie del Terreno M&sup2;')}}</th>
 					<td>
-						{{Form::number('superficie_terreno', $row->superficie_terreno, ['id'=>'superficie_terreno','class'=>'form-control clsNumeric', 'step'=>'0.0001', 'min'=>'0.0001', 'max'=>'9999999999.9999'] )}}
+						{{Form::number('superficie_terreno', $row->superficie_terreno, ['id'=>'superficie_terreno','class'=>'form-control clsNumeric', 'step'=>'0.0001', 'min'=>'0.0001', 'max'=>'999999999.9999'] )}}
 						{{$errors->first('superficie_terreno', '<span class=text-danger>:message</span>')}}
 					</td>
 
 					<th class="bg-primary">{{Form::label('indiviso_areas_comunes', 'Indiviso de Áreas Comunes (%)')}}</th>
 					<td>
-						{{Form::number('indiviso_areas_comunes', $row->indiviso_areas_comunes, ['id'=>'indiviso_areas_comunes','class'=>'form-control clsNumeric', 'step'=>'0.0001', 'min'=>'0.0000', 'max'=>'9999999999.9999'] )}}
+						{{Form::number('indiviso_areas_comunes', $row->indiviso_areas_comunes, ['id'=>'indiviso_areas_comunes','class'=>'form-control clsNumeric', 'step'=>'0.0001', 'min'=>'0.0000', 'max'=>'999999999.9999'] )}}
 						{{$errors->first('indiviso_areas_comunes', '<span class=text-danger>:message</span>')}}
 					</td>
 				</tr>
 				<tr>
 					<th class="bg-primary">{{Form::label('superficie_construccion', 'Superficie de Construcción M&sup2;')}}</th>
 					<td>
-						{{Form::number('superficie_construccion', $row->superficie_construccion, ['id'=>'superficie_construccion','class'=>'form-control clsNumeric', 'step'=>'0.0001', 'min'=>'0.0000', 'max'=>'9999999999.9999'] )}}
+						{{Form::number('superficie_construccion', $row->superficie_construccion, ['id'=>'superficie_construccion','class'=>'form-control clsNumeric', 'step'=>'0.0001', 'min'=>'0.0000', 'max'=>'999999999.9999'] )}}
 						{{$errors->first('superficie_construccion', '<span class=text-danger>:message</span>')}}
 					</td>
 
 					<th class="bg-primary">{{Form::label('indiviso_accesoria', 'Edad de la Construcción (años)')}}</th>
 					<td>
-						{{Form::number('indiviso_accesoria', $row->indiviso_accesoria, ['id'=>'indiviso_accesoria','class'=>'form-control clsNumeric', 'step'=>'0.0001', 'min'=>'0.0000', 'max'=>'9999999999.9999'] )}}
+						{{Form::number('indiviso_accesoria', $row->indiviso_accesoria, ['id'=>'indiviso_accesoria','class'=>'form-control clsNumeric', 'step'=>'0.0001', 'min'=>'0.0000', 'max'=>'999999999.9999'] )}}
 						{{$errors->first('indiviso_accesoria', '<span class=text-danger>:message</span>')}}
 					</td>
 				</tr>
 				<tr>
 					<th class="bg-primary">{{Form::label('superficie_escritura', 'Superficie Asentada en Escritura M&sup2;')}}</th>
 					<td>
-						{{Form::number('superficie_escritura', $row->superficie_escritura, ['id'=>'superficie_escritura','class'=>'form-control clsNumeric', 'step'=>'0.0001', 'min'=>'0.0000', 'max'=>'9999999999.9999'])}}
+						{{Form::number('superficie_escritura', $row->superficie_escritura, ['id'=>'superficie_escritura','class'=>'form-control clsNumeric', 'step'=>'0.0001', 'min'=>'0.0000', 'max'=>'999999999.9999'])}}
 						{{$errors->first('superficie_escritura', '<span class=text-danger>:message</span>')}}
 					</td>
 
 					<th class="bg-primary">{{Form::label('superficie_vendible', 'Superficie Vendible')}}</th>
 					<td>
-						{{Form::number('superficie_vendible', $row->superficie_vendible, ['id'=>'superficie_vendible','class'=>'form-control clsNumeric', 'step'=>'0.0001', 'min'=>'0.0000', 'max'=>'9999999999.9999'])}}
+						{{Form::number('superficie_vendible', $row->superficie_vendible, ['id'=>'superficie_vendible','class'=>'form-control clsNumeric', 'step'=>'0.0001', 'min'=>'0.0000', 'max'=>'999999999.9999'])}}
 						{{$errors->first('superficie_vendible', '<span class=text-danger>:message</span>')}}
 					</td>
 				</tr>
@@ -412,7 +299,7 @@
 
 					<div class="col-md-4">
 						{{Form::label('medida', 'Medidas (Anterior)')}}
-						{{Form::text('medida', $row->medida, ['id'=>'medida', 'class'=>'form-control', 'disabled'=>'disabled'])}}
+						{{Form::text('medida', $row->medida, ['id'=>'medida', 'class'=>'form-control', 'disabled'=>'disabled', 'maxlength' => '50'])}}
 						<hr>
 					</div>
 

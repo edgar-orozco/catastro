@@ -392,16 +392,16 @@
 				<div class="row">
 					<div class="col-md-6">
 						<label for="precio_venta">Precio de Venta:</label>
-						<input type="number" class="form-control clsNumeric" name="precio_venta" id="precio_venta" min="0.00" max="999999999999999.99" step="0.01" required />
+						<input type="number" class="form-control clsNumeric" name="precio_venta" id="precio_venta" min="0.00" max="9999999999999.99" step="0.01" required />
 					</div>
 					<div class="col-md-6">
 						<label for="superficie_terreno_aemanalisis">Superficie del Terreno:</label>
-						<input type="number" class="form-control clsNumeric" name="superficie_terreno_aemanalisis" id="superficie_terreno_aemanalisis" min="0.00" max="999999999999999.99" step="0.01" required />
+						<input type="number" class="form-control clsNumeric" name="superficie_terreno_aemanalisis" id="superficie_terreno_aemanalisis" min="0.00" max="9999999999999.99" step="0.01" required />
 					</div>
 					
 					<div class="col-md-6">
 						<label for="superficie_construccion_aemanalisis">Superficie de la Construcción:</label>
-						<input type="number" class="form-control clsNumeric" name="superficie_construccion_aemanalisis" id="superficie_construccion_aemanalisis" min="0.00" max="999999999999999.99" step="0.01" required />
+						<input type="number" class="form-control clsNumeric" name="superficie_construccion_aemanalisis" id="superficie_construccion_aemanalisis" min="0.00" max="9999999999999.99" step="0.01" required />
 					</div>
 					<div class="col-md-6">
 						<label for="valor_unitario_m2_aemanalisis">Valor Unitario ($/m&sup2;):</label>
@@ -418,7 +418,7 @@
 					</div>
 					<div class="col-md-3">
 						<label for="factor_zona">Factor Zona:</label>
-						<input type="number" class="form-control clsNumeric" name="factor_zona" id="factor_zona" min="0.00" max="9999999999.99" step="0.01" required />
+						<input type="number" class="form-control clsNumeric" name="factor_zona" id="factor_zona" min="0.00" max="9999999.99" step="0.01" required />
 					</div>
 					<div class="col-md-3">
 						<label for="idfactorubicacion_aemanalisis">Ubicación:</label>
@@ -430,7 +430,7 @@
 					</div>
 					<div class="col-md-3">
 						<label for="factor_ubicacion">Factor Ubicación</label>
-						<input type="number" class="form-control clsNumeric" name="factor_ubicacion" id="factor_ubicacion" min="0.00" max="9999999999.99" step="0.01" required />
+						<input type="number" class="form-control clsNumeric" name="factor_ubicacion" id="factor_ubicacion" min="0.00" max="9999999.99" step="0.01" required />
 					</div>
 
 					<div class="col-md-6">
@@ -439,7 +439,7 @@
 					</div>
 					<div class="col-md-6">
 						<label for="factor_edad">Factor Edad:</label>
-						<input type="number" class="form-control integer3" name="factor_edad" id="factor_edad" min="0.00" max="9999999999.99" step="0.01" required />
+						<input type="number" class="form-control integer3" name="factor_edad" id="factor_edad" min="0.00" max="9999999.99" step="0.01" required />
 					</div>
 
 					<div class="col-md-3">
@@ -452,11 +452,11 @@
 					</div>
 					<div class="col-md-3">
 						<label for="factor_conservacion">Factor Conservación:</label>
-						<input type="number" class="form-control clsNumeric" name="factor_conservacion" id="factor_conservacion" min="0.00" max="9999999999.99" step="0.01" required />
+						<input type="number" class="form-control clsNumeric" name="factor_conservacion" id="factor_conservacion" min="0.00" max="9999999.99" step="0.01" required />
 					</div>
 					<div class="col-md-6">
 						<label for="factor_negociacion">Negociación:</label>
-						<input type="number" class="form-control clsNumeric" name="factor_negociacion" id="factor_negociacion" min="0.00" max="9999999999.99" step="0.01" required />
+						<input type="number" class="form-control clsNumeric" name="factor_negociacion" id="factor_negociacion" min="0.00" max="9999999.99" step="0.01" required />
 					</div>
 
 					<div class="col-md-6">
