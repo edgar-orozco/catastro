@@ -17,7 +17,7 @@ class folios_FoliosController extends BaseController {
 		$inputs = Input::all();
 
 		$reglas = [
-		'numero_oficio'	=>	'required|integer',
+		'no_oficio'	=>	'required|integer',
 		'cantidad_rusticos'	=>	'required|min:0|integer',
 		'cantidad_urbanos'	=>	'required|min:0|integer',
 		'fecha_solicitud'	=>	'required|date',
@@ -39,16 +39,26 @@ class folios_FoliosController extends BaseController {
 		{
 			return Redirect::back()->withErrors($validar)->withInput(Input::All());
 		} else {
-		
+
 			//Extraigo solo el año del campo fecha solicitud.
 
 			$year = explode('-',$inputs['fecha_solicitud']);
 
 			$year = $year[2];
 
+			$year2 = date('Y');
+
 			$nuevosfolios = new FoliosHistorial; 
 			$folioscomprados = new FoliosComprados;
-			$foliocatastro = Input::get('numero_oficio');
+			$foliocatastro = Input::get('no_oficio');
+
+			$consulta = FoliosHistorial::whereRaw("EXTRACT(YEAR FROM fecha_solicitud) = ". $year2)->where('no_oficio', $foliocatastro)->get();
+
+			if($consulta->count()>0)
+			{
+				return Redirect::back()->withErrors(['no_folios'=>'El numero de oficio ya existe!'])->withInput(Input::All());
+			}
+
 			$vu=Input::get('cantidad_urbanos');
 			$vr=Input::get('cantidad_rusticos');
 
