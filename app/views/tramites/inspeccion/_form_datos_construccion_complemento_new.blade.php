@@ -366,6 +366,7 @@
                        class="editable sup-albercas"
                        data-type="text"
                        data-pk="sup-alberca"
+                       data-value="{{$consultaMani->superficie_alberca}}"
                        data-name="sup_albercas"
                        data-title="Click para ingresar un valor"></a>
                 </td>
@@ -401,7 +402,7 @@
 <div class="col-md-6">
     <div class="form-group">
         {{Form::label('observaciones','OBSERVACIONES')}}
-        {{Form::textarea('observaciones', null, ['class' => 'form-control'])}}
+        {{Form::textarea('observacion', $consultaMani->observacion, ['class' => 'form-control'])}}
         {{$errors->first('observaciones', '<span class=text-danger>:message</span>')}}
     </div>
 </div>
