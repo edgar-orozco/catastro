@@ -5,7 +5,7 @@ class ManifestacionConstruccion extends Eloquent
     protected $table = 'manifestaciones_construcciones';
     protected $guarded = ['id'];
     protected $fillable = 	[
-    							'sup_construccion', 'tipo_construccon_id',
+    							'sup_construccion', 'tipo_construccion_id',
     							'techo_id',	'muro_id',
     							'piso_id','puerta_id',
     							'ventana_id', 'hidraulicas',
