@@ -36,6 +36,11 @@
                 <span class="input-group-addon">m<sup>2</sup></span>
             </div>
 
+            {{Form::label($instancia.'[tipo_predio]','Tipo Predio')}}
+            <div class="input-group">
+                {{Form::select($instancia.'[tipo_predio]', [null => '', 'U'=>'Urbano', 'R'=>'Rustica marica'], $consultaMani->tipo_predio , ['class'=>'form-control select2 select-manifestacion-tipo_predio'] )}}
+            </div>
+
             <span class="solo-rusticos">
                 {{Form::label($instancia.'rustico[vias_comunicacion_id]','Vías de comunicación')}}
                 {{Form::select($instancia.'rustico[vias_comunicacion_id]', [null => '']+$viasComunicacion, null, ['class'=>'form-control select2 select-manifestacion-vias_comunicacion_id'])}}
