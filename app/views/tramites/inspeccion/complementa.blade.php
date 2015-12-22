@@ -4,7 +4,7 @@
 Se toma parte del archivo /ofvirtual/notario/manifestacion/_form.blade elaborado por Edgar Orozco
 -->
 @section('content')
-{{Form::Open(['ID'=>'formulario', 'route'=>'tramites.inspeccion.resultado.store'])}}
+{{Form::Open(['ID'=>'formulario', 'route'=>'tramites.inspeccion.resultado.store', 'files' => true])}}
     {{Form::hidden('cuenta', $cuenta)}}
     {{Form::hidden('clave', $clave)}}
     {{Form::hidden('manifestacion_id', $manifestacion_id)}}
@@ -15,11 +15,11 @@ Se toma parte del archivo /ofvirtual/notario/manifestacion/_form.blade elaborado
 	<fieldset><legend>Datos de la construcción</legend>
 	    @include('tramites.inspeccion._form_datos_construccion_complemento_new',['instancia'=>'manifestacion'])
 	</fieldset>
-    {{Form::submit('Guardar',['class'=>'btn btn-info'])}}
-{{Form::close()}}
-        <fieldset><legend>Carga de imagenes</legend>
+    <fieldset><legend>Carga de imagenes</legend>
         @include('tramites.inspeccion._form_load_images')
     </fieldset>
+    {{Form::submit('Guardar',['class'=>'btn btn-info'])}}
+{{Form::close()}}
 @stop
 
 @section('javascript')
@@ -56,7 +56,7 @@ Se toma parte del archivo /ofvirtual/notario/manifestacion/_form.blade elaborado
         var edosConstruccion = {{json_encode((array)$edosConstruccion)}};
         var tiposConstruccion = {{json_encode((array)$tiposConstruccion)}};
         var setEditables = null;
-        var registrosConstrucciones = {construcciones:{},sup_albercas:0,sup_total:0, eliminar:{}};
+        var registrosConstrucciones = {construcciones:{},sup_total:0, eliminar:{}};
 
         var actualiza = function(response, valor){
             var pk = $(this).data('pk');
@@ -77,7 +77,7 @@ Se toma parte del archivo /ofvirtual/notario/manifestacion/_form.blade elaborado
             }
             else
             {
-                registrosConstrucciones.sup_albercas = valor;
+                eval('registrosConstrucciones.' + 'sup_albercas' + '= valor' );
             }
 
             $('#construcciones').val(JSON.stringify(registrosConstrucciones));
@@ -450,17 +450,8 @@ Se toma parte del archivo /ofvirtual/notario/manifestacion/_form.blade elaborado
 
     <script>
 
-    $("#input-700").fileinput({
-        uploadUrl: "http://localhost/file-upload-single/1", // server upload action
-        uploadAsync: true,
-        maxFileCount: 5
-    });
-
-
-    $('#file').on('fileloaded', function(event, file, previewId, index, reader) 
-    {
-            
-
+    $("#input-1").fileinput({
+        uploadAsync: true
     });
 
 
