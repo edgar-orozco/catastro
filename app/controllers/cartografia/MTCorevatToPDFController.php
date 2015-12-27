@@ -114,6 +114,7 @@ class MTCorevatToPDFController extends BaseController {
         $pdf = new MTCorevatFPDF('L','mm','Letter');
         $pdf->mapURL = public_path() . $_POST["mapURL"];
         $pdf->escala = $_POST["escala"];
+        $pdf->localidades = $_POST["localidades"];
         $pdf->rangos = explode(',',$_POST["rangos"]);
         $pdf->colores = explode(',',$_POST["colores"]);
 
@@ -225,6 +226,26 @@ class MTCorevatToPDFController extends BaseController {
         $pdf->SetFillColor(255,255,255);
         $pdf->Cell(65, 6, $pdf->escala, '', 1, 'C', 1);
 
+        $line = 90;
+        $pdf->SetFillColor(224, 224, 224);
+        $line = $pdf->getY()+4;
+        $pdf->RoundedRect(207, $line, 67, 8, 1, '12', 'FD');
+        $pdf->Ln(0);
+        $pdf->SetY($line + 1);
+        $pdf->SetX(207);
+        $pdf->SetFont('Arial', 'B', 10);
+        $pdf->Cell(67, 6, 'LOCALIDADES', '', 1, 'C', 0);
+        $pdf->SetFont('Arial', '', 8);
+
+        $pdf->RoundedRect(207, $line+8, 67, 27, 1, '34', ''); 
+        $loc = explode('|',$pdf->localidades);   
+        $pdf->SetFillColor(255,255,255);
+        for($i=0;$i<count( $loc ); $i++){
+            $pdf->SetY( $pdf->getY() + 3 );
+            $pdf->SetX(208);
+            $pdf->Write(6, substr( utf8_decode($loc[$i]),0,50 ) );
+        }
+
         $pdf->Output();
 
     }
@@ -287,7 +308,6 @@ class MTCorevatToPDFController extends BaseController {
             if ($pos === false) {
                 $this->localidades .= $this->localidades == "" ? $locs : "|".$locs;
             }
-            $this->localidades .= $locs;
         }        
 
         return $arr1;
@@ -360,21 +380,24 @@ class MTCorevatToPDFController extends BaseController {
 
     function getLocalidad($clave_catas,$mun){
 
-        $localidad = predios::join('municipios', function($join){
-                                $join->on('municipios.entidad','=','predios.entidad');
-                                $join->on('municipios.municipio', '=', 'predios.municipio');
+        $localidad = predios::leftjoin('municipios', function($join){
+                                    $join->on('municipios.entidad','=','predios.entidad')
+                                         ->on('municipios.municipio', '=', 'predios.municipio');
                             })
-                            ->join('entidades','predios.entidad','=','entidades.entidad')
-                            ->where('predios.clave_catas', '=',$clave_catas)
-                            ->where('predios.municipio','=',$mun)
-                            ->select('entidades.nom_ent', 'municipios.nombre_municipio')
-                            ->get();
-        return count($localidad);
+                            ->leftjoin('entidades', function($join){
+                                    $join->on('entidades.entidad','=','predios.entidad');
+                            })
+                            ->leftjoin('localidades', function($join){
+                                    $join->on('localidades.entidad','=','predios.entidad')
+                                         ->on('localidades.municipio','=','predios.municipio');
+                            })
+                            ->where('predios.clave_catas', '=', $clave_catas)
+                            ->select('entidades.nom_ent','municipios.nombre_municipio','localidades.nombre')
+                            ->first();
+
+        return $localidad->nombre.', '.strtoupper($localidad->nombre_municipio);
 
     }
-
-
- 
 
 
 
