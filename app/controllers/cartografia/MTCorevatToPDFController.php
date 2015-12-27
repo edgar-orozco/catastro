@@ -193,7 +193,7 @@ class MTCorevatToPDFController extends BaseController {
 
         $pdf->RoundedRect(207, $line + 8, 67, ( 10 * count( $pdf->rangos ) ), 1, '', '');    
         $pdf->SetFillColor(255,255,255);
-        for($i=0;$i<count( $pdf->rangos ); $i++){
+        foreach ($pdf->rangos as $i => $value) {
             $pdf->SetY( $pdf->getY() + 4 );
             $pdf->Ln(0);
             $pdf->SetX(208);
@@ -240,7 +240,7 @@ class MTCorevatToPDFController extends BaseController {
         $pdf->RoundedRect(207, $line+8, 67, 27, 1, '34', ''); 
         $loc = explode('|',$pdf->localidades);   
         $pdf->SetFillColor(255,255,255);
-        for($i=0;$i<count( $loc ); $i++){
+        foreach ($loc as $i => $value) {
             $pdf->SetY( $pdf->getY() + 3 );
             $pdf->SetX(208);
             $pdf->Write(6, substr( utf8_decode($loc[$i]),0,50 ) );
