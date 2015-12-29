@@ -125,7 +125,7 @@ class Cajas_CajasController extends \BaseController {
 					'0'=>	[
 								'id' => '1',
 								'no_orden' => '00001',
-								'nombre' => 'Molestar catastral',
+								'nombre' => 'Don Molestar',
 								'monto' => '356.00',
 								'municipio' => 'centro',
 								'status' => '1'
@@ -133,7 +133,7 @@ class Cajas_CajasController extends \BaseController {
 					'1'=>	[
 								'id' => '2',
 								'no_orden' => '00002',
-								'nombre' => 'Catastro acatarro',
+								'nombre' => 'Enrique segoviano',
 								'monto' => '234.00',
 								'municipio' => 'Centla',
 								'status' => '0'								
