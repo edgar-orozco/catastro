@@ -1,6 +1,9 @@
 <?php
-
+use Symfony\Component\Process\Process;
+use Symfony\Component\Process\Exception\ProcessFailedException;
 class tramites_SolicitarInspeccionController extends \BaseController {
+
+
 
 protected $manifestacion;
 
@@ -378,5 +381,97 @@ public function store(){
 return View::make('tramites.inspeccion._form_datos_guardados', compact ('update_manifestacion','construc','manifestacion','copropietarios','propietario','domicilio','persona'));
 
 
+}
+
+public function cartografia(){
+
+   // $borrar=unlink();
+    //$b= shell_exec($borrar);
+    //dd($borrar);
+         //$clave = '001-0048-000007';
+    //obtenemos la clave catastral
+    $clave_catas=Input::get('clave');
+    //explodeamos la clave
+    $new_clave=explode('-', $clave_catas);
+    //se crea la clave_catas para la consulta la tabla predios
+    $clave=$new_clave[2]."-".$new_clave[3]."-".$new_clave[4];
+    //echo $arch1= sprintf("documentos/predios/%s.dbf",$clave);
+    
+    //$b= shell_exec($borrar);
+    //dd($borrar);
+
+    $base=  Config::get('database.connections.pgsql.database'); //Esto es importante porque el nombre de la base de datos cambia en el servidor de produccion
+    //Esta es la ruta relativa a public, es decir, va a poner los archivos en /var/www/html/public/documentos/
+    //Obvio hay que ver un mejor directorio para esto que el de "documentos" pero para el ejemplo es suficiente.
+    $salida = 'ResultadoCartografia/predios/'.$clave;
+    //checa que hace y como se usa la funcion sprintf de php es muy util para estos casos de escapes de comillas y formato de cadenas
+    $query = sprintf("select * from predios WHERE clave_catas = '%s'", $clave);
+    $cmd = sprintf('pgsql2shp -f %s -u postgres -h localhost -g geom %s "%s"', $salida, $base, $query);
+    echo $cmd;
+    //Checa que hace y como se usa la funcion shell_exec, su diferencia con exec, system, passthru y escapeshellcmd
+    $sal = shell_exec($cmd);
+    //vemos que cosa resulta de la ejecución
+    //dd($sal);
+    //ruta para el archivo de predios con extencion .dbf  
+    $arch1= sprintf("ResultadoCartografia/predios/%s.dbf",$clave);
+    //ruta para el archivo de predios con extencion .shp
+    $arch2= sprintf("ResultadoCartografia/predios/%s.shp",$clave);
+    //ruta para el archivo de predios con extencion .prj
+    $arch3= sprintf("ResultadoCartografia/predios/%s.prj",$clave);
+    //ruta para el archivo de predios con extencion .shx
+    $arch4= sprintf("ResultadoCartografia/predios/%s.shx",$clave);
+    
+        //se crea el archivo .zip
+        $zip = new ZipArchive();
+        //parametros para el nombre
+        $municipio=$new_clave[1];
+        $zona=$new_clave[2];
+        $manzana=$new_clave[3];
+        $sufijo = date("dmyHis");
+        //se crea el nombre del archivo
+        $filename= sprintf("D-%s-%s-%s-%s.zip",$municipio,$zona,$manzana,$sufijo);
+       //dd($filename);
+       // $filename = ".zip";
+
+        if ($zip->open($filename, ZipArchive::CREATE)!==TRUE) {
+        exit("cannot open <$filename>\n");
+            }
+          
+        $zip->addFile($arch1);
+        $zip->addFile($arch2);
+        $zip->addFile($arch3);
+        $zip->addFile($arch4);
+        //$zip->addFromString("testfilephp.txt" . time(), "#1 Esto es una cadena de prueba añadida como  testfilephp.txt.\n");
+        //$zip->addFromString("testfilephp2.txt" . time(), "#2 Esto es una cadena de prueba añadida como testfilephp2.txt.\n");
+
+        echo "numficheros: " . $zip->numFiles . "\n";
+        echo "estado:" . $zip->status . "\n";
+        $zip->close();
+
+        //se borran los archivos creados  .dbf .shp .prj .shx
+        $borrar1=unlink($arch1);
+        $borrar2=unlink($arch2);
+        $borrar3=unlink($arch3);
+        $borrar4=unlink($arch4);
+        //dd($zip);
+
+        header("Content-type: application/zip");
+
+    header("Content-Disposition: attachment; filename=".$filename."");
+
+    header("Cache-Control: no-cache, must-revalidate");
+
+    header("Expires: 0");
+
+    readfile($filename);
+
+
+
+        //($new_calve[3]);
+       //exec('pgsql2shp -f "/var/www/htm/catastro" -u postgres -g geom catastro-dev "select * from predios where clave_catas='001-0048-000007'"');
+      // dd($process);
+        $cuenta=Input::get('cuenta');
+        $tramite_id=Input::get('tramite_id');
+        $tipo_predio=Input::get('tipo_predio');
 }
 }
