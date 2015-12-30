@@ -1,4 +1,5 @@
-@extends('layouts.hooktramite')
+<!-- @extends('layouts.hooktramite') -->
+@extends('layouts.default')
 
 @section('content')
 
