@@ -416,14 +416,22 @@ public function cartografia(){
     echo $cmd;
     //Checa que hace y como se usa la funcion shell_exec, su diferencia con exec, system, passthru y escapeshellcmd
     $sal = shell_exec($cmd);
-
+    //genera archivos geograficos para construcciones
     $salida_const = 'ResultadoCartografia/construcciones/'.$clave;
     $construcciones = sprintf("select * from construcciones WHERE clave_catas = '%s'", $clave);
     $cmd_construcciones = sprintf('pgsql2shp -f %s -u postgres -h localhost -g geom %s "%s"', $salida_const, $base, $construcciones);
     //dd($cmd_construcciones);
     //Checa que hace y como se usa la funcion shell_exec, su diferencia con exec, system, passthru y escapeshellcmd
-    $sal = shell_exec($cmd_construcciones);
+    $sal_const = shell_exec($cmd_construcciones);
     
+    //genera archivos geograficos para manzanas
+    /*$salida_manzana = 'ResultadoCartografia/manzana/'.$clave;
+    $manzana = sprintf("select * from manzanas WHERE = '%s'", $clave);
+    $cmd_construcciones = sprintf('pgsql2shp -f %s -u postgres -h localhost -g geom %s "%s"', $salida_manzana, $base, $manzana);
+    //dd($cmd_construcciones);
+    //Checa que hace y como se usa la funcion shell_exec, su diferencia con exec, system, passthru y escapeshellcmd
+    $sal_const = shell_exec($cmd_construcciones);
+   */ 
     //creamos rutas de archivos para predios 
     //dd($sal);
     //ruta para el archivo de predios con extencion .dbf  
