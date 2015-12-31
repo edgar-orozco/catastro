@@ -3,12 +3,12 @@ class CreaDirectorioPrediosCartografiaSeeder extends Seeder {
     public function run()
     {
 
-       $dir = '/complementarios/predios';
-        if ( !is_dir(public_path() . $dir)) 
-        {
-            File::makeDirectory(public_path() . $dir, $mode = 0777, true, true);
-        }
+      
 
+        $carpeta = '/ResultadoCartografia/predios';
+if (!file_exists(public_path() . $carpeta)) {
+    mkdir(public_path() .$carpeta, 0777, true);
+}
      
     }
 }
