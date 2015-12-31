@@ -385,6 +385,8 @@ return View::make('tramites.inspeccion._form_datos_guardados', compact ('update_
 
 public function cartografia(){
 
+       
+
    // $borrar=unlink();
     //$b= shell_exec($borrar);
     //dd($borrar);
@@ -449,10 +451,10 @@ public function cartografia(){
         $zip->close();
 
         //se borran los archivos creados  .dbf .shp .prj .shx
-        $borrar1=unlink($arch1);
-        $borrar2=unlink($arch2);
-        $borrar3=unlink($arch3);
-        $borrar4=unlink($arch4);
+        //$borrar1=unlink($arch1);
+        //$borrar2=unlink($arch2);
+        //$borrar3=unlink($arch3);
+        //$borrar4=unlink($arch4);
         //dd($zip);
 
         header("Content-type: application/zip");
