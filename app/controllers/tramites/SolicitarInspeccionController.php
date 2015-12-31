@@ -385,7 +385,11 @@ return View::make('tramites.inspeccion._form_datos_guardados', compact ('update_
 
 public function cartografia(){
 
-       
+   // $dir = '/ResultadoCartografia/predios';
+    //    if ( !is_dir(public_path() . $dir)) 
+     //   {
+     //       File::makeDirectory(public_path() . $dir, $mode = 0777, true, true);
+     //   }   
 
    // $borrar=unlink();
     //$b= shell_exec($borrar);
@@ -407,12 +411,20 @@ public function cartografia(){
     //Obvio hay que ver un mejor directorio para esto que el de "documentos" pero para el ejemplo es suficiente.
     $salida = 'ResultadoCartografia/predios/'.$clave;
     //checa que hace y como se usa la funcion sprintf de php es muy util para estos casos de escapes de comillas y formato de cadenas
-    $query = sprintf("select * from predios WHERE clave_catas = '%s'", $clave);
-    $cmd = sprintf('pgsql2shp -f %s -u postgres -h localhost -g geom %s "%s"', $salida, $base, $query);
+    $predios = sprintf("select * from predios WHERE clave_catas = '%s'", $clave);
+    $cmd = sprintf('pgsql2shp -f %s -u postgres -h localhost -g geom %s "%s"', $salida, $base, $predios);
     echo $cmd;
     //Checa que hace y como se usa la funcion shell_exec, su diferencia con exec, system, passthru y escapeshellcmd
     $sal = shell_exec($cmd);
-    //vemos que cosa resulta de la ejecución
+
+    $salida_const = 'ResultadoCartografia/construcciones/'.$clave;
+    $construcciones = sprintf("select * from construcciones WHERE clave_catas = '%s'", $clave);
+    $cmd_construcciones = sprintf('pgsql2shp -f %s -u postgres -h localhost -g geom %s "%s"', $salida_const, $base, $construcciones);
+    //dd($cmd_construcciones);
+    //Checa que hace y como se usa la funcion shell_exec, su diferencia con exec, system, passthru y escapeshellcmd
+    $sal = shell_exec($cmd_construcciones);
+    
+    //creamos rutas de archivos para predios 
     //dd($sal);
     //ruta para el archivo de predios con extencion .dbf  
     $arch1= sprintf("ResultadoCartografia/predios/%s.dbf",$clave);
@@ -422,6 +434,17 @@ public function cartografia(){
     $arch3= sprintf("ResultadoCartografia/predios/%s.prj",$clave);
     //ruta para el archivo de predios con extencion .shx
     $arch4= sprintf("ResultadoCartografia/predios/%s.shx",$clave);
+
+    //creamos rutas de archivos para consturcciones
+    //dd($sal);
+    //ruta para el archivo de consturcciones con extencion .dbf  
+    $const1= sprintf("ResultadoCartografia/construcciones/%s.dbf",$clave);
+    //ruta para el archivo de consturcciones con extencion .shp
+    $const2= sprintf("ResultadoCartografia/construcciones/%s.shp",$clave);
+    //ruta para el archivo de consturcciones con extencion .prj
+    $const3= sprintf("ResultadoCartografia/construcciones/%s.prj",$clave);
+    //ruta para el archivo de consturcciones con extencion .shx
+    $const4= sprintf("ResultadoCartografia/construcciones/%s.shx",$clave);
     
         //se crea el archivo .zip
         $zip = new ZipArchive();
@@ -430,7 +453,7 @@ public function cartografia(){
         $zona=$new_clave[2];
         $manzana=$new_clave[3];
         $sufijo = date("dmyHis");
-        //se crea el nombre del archivo
+        //se crea el nombre del archivo formato D-municipio-zona-manzana-fecha
         $filename= sprintf("D-%s-%s-%s-%s.zip",$municipio,$zona,$manzana,$sufijo);
        //dd($filename);
        // $filename = ".zip";
@@ -438,11 +461,17 @@ public function cartografia(){
         if ($zip->open($filename, ZipArchive::CREATE)!==TRUE) {
         exit("cannot open <$filename>\n");
             }
-          
+        //gregamos archivos de predios al .zip          
         $zip->addFile($arch1);
         $zip->addFile($arch2);
         $zip->addFile($arch3);
         $zip->addFile($arch4);
+        //agrregamos archivos de construcciones al .zip
+        $zip->addFile($const1);
+        $zip->addFile($const2);
+        $zip->addFile($const3);
+        $zip->addFile($const4);
+
         //$zip->addFromString("testfilephp.txt" . time(), "#1 Esto es una cadena de prueba añadida como  testfilephp.txt.\n");
         //$zip->addFromString("testfilephp2.txt" . time(), "#2 Esto es una cadena de prueba añadida como testfilephp2.txt.\n");
 
