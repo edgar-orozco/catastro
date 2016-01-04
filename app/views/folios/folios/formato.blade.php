@@ -7,7 +7,7 @@
 	<body>
 		<img src="css/images/folios/EncabezadoDC.jpg" WIDTH=500 HEIGHT=91 >
 
-		<p align="right">SPF/SI/DGCyEF/DC/{{$folios_historial->no_oficio}}/{{'20'.$year}}
+		<p align="right">AUTORIZACIÓN: SPF/SI/DGCyEF/DC/{{$folios_historial->no_oficio}}/{{'20'.$year}}
 		<br>
 
 		Villahermosa, Tab., 
@@ -125,7 +125,7 @@
 			</tr>
 		</table>
 		<br>
-		Cabe hacer mención que la vigencia de éstos folios es hasta el día 31 de diciembre del 2015
+		Cabe hacer mención que la vigencia de éstos folios es hasta el día 31 de diciembre del <?php echo date('Y');?>
 		
 		<br>
 		<p align="justify">
@@ -151,7 +151,7 @@
 				<td width="200" >
 					Av. Adolfo Ruiz Cortinez s/n<br>
 					Col. Casa Blanca, C.P.86060<br>
-					Tel. 3-58-03-30 y 3-58-03-54<br>
+					Tel. 3-58-03-30 Ext. 7260<br>
 					Villahermosa, Tabasco, México<br>
 					<b>www.spf.tabasco.gob.mx</b>
 				</td>
