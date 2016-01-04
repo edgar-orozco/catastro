@@ -509,20 +509,56 @@ public function cartografia(){
         $zip->close();
 
         //se borran los archivos creados  .dbf .shp .prj .shx para predios
+        if(file_exists($arch1))
+            {
         $borrar1=unlink($arch1);
+            }
+        if(file_exists($arch2))
+            {
         $borrar2=unlink($arch2);
+            }
+        if(file_exists($arch3))
+            {
         $borrar3=unlink($arch3);
+            }
+        if(file_exists($arch4))
+            {
         $borrar4=unlink($arch4);
+            }
         //se borran los archivos creados  .dbf .shp .prj .shx para construccion
-        $borrar1=unlink($const1);
-        $borrar2=unlink($const2);
-        $borrar3=unlink($const3);
-        $borrar4=unlink($const4);
+        if(file_exists($const1))
+            {
+                $borrar1=unlink($const1);
+            }
+        if(file_exists($const2))
+            {
+                $borrar2=unlink($const2);
+            }
+        if(file_exists($const3))
+            {
+                $borrar3=unlink($const3);
+            }
+        if(file_exists($const4))
+            {
+                $borrar4=unlink($const4);
+            }
         //se borran los archivos creados  .dbf .shp .prj .shx para manzana
-        $borrar1=unlink($manzana1);
-        $borrar2=unlink($manzana2);
-        $borrar3=unlink($manzana3);
-        $borrar4=unlink($manzana4);
+        if(file_exists($manzana1))
+            {
+                $borrar1=unlink($manzana1);
+            }
+        if(file_exists($manzana2))
+            {
+                $borrar2=unlink($manzana2);
+            }
+        if(file_exists($manzana3))
+            {
+                $borrar3=unlink($manzana3);
+            }
+        if(file_exists($manzana4))
+            {
+                $borrar4=unlink($manzana4);
+            }
 
         //return 'holaaaaaa';
         //dd($zip);
