@@ -413,7 +413,7 @@ public function cartografia(){
     //checa que hace y como se usa la funcion sprintf de php es muy util para estos casos de escapes de comillas y formato de cadenas
     $predios = sprintf("select * from predios WHERE clave_catas = '%s'", $clave);
     $cmd = sprintf('pgsql2shp -f %s -u postgres -h localhost -g geom %s "%s"', $salida, $base, $predios);
-    echo $cmd;
+    //echo $cmd;
     //Checa que hace y como se usa la funcion shell_exec, su diferencia con exec, system, passthru y escapeshellcmd
     $sal = shell_exec($cmd);
     //genera archivos geograficos para construcciones
@@ -478,7 +478,7 @@ public function cartografia(){
         $manzana=$new_clave[3];
         $sufijo = date("dmyHis");
         //se crea el nombre del archivo formato D-municipio-zona-manzana-fecha
-        $filename= sprintf("D-%s-%s-%s-%s.zip",$municipio,$zona,$manzana,$sufijo);
+        $filename= sprintf("ResultadoCartografia/D-%s-%s-%s-%s.zip",$municipio,$zona,$manzana,$sufijo);
        //dd($filename);
        // $filename = ".zip";
 
@@ -504,26 +504,34 @@ public function cartografia(){
         //$zip->addFromString("testfilephp.txt" . time(), "#1 Esto es una cadena de prueba añadida como  testfilephp.txt.\n");
         //$zip->addFromString("testfilephp2.txt" . time(), "#2 Esto es una cadena de prueba añadida como testfilephp2.txt.\n");
 
-        echo "numficheros: " . $zip->numFiles . "\n";
-        echo "estado:" . $zip->status . "\n";
+        //echo "numficheros: " . $zip->numFiles . "\n";
+        //echo "estado:" . $zip->status . "\n";
         $zip->close();
 
-        //se borran los archivos creados  .dbf .shp .prj .shx
-        //$borrar1=unlink($arch1);
-        //$borrar2=unlink($arch2);
-        //$borrar3=unlink($arch3);
-        //$borrar4=unlink($arch4);
+        //se borran los archivos creados  .dbf .shp .prj .shx para predios
+        $borrar1=unlink($arch1);
+        $borrar2=unlink($arch2);
+        $borrar3=unlink($arch3);
+        $borrar4=unlink($arch4);
+        //se borran los archivos creados  .dbf .shp .prj .shx para construccion
+        $borrar1=unlink($const1);
+        $borrar2=unlink($const2);
+        $borrar3=unlink($const3);
+        $borrar4=unlink($const4);
+        //se borran los archivos creados  .dbf .shp .prj .shx para manzana
+        $borrar1=unlink($manzana1);
+        $borrar2=unlink($manzana2);
+        $borrar3=unlink($manzana3);
+        $borrar4=unlink($manzana4);
+
+        //return 'holaaaaaa';
         //dd($zip);
-
+        
         header("Content-type: application/zip");
-
-    header("Content-Disposition: attachment; filename=".$filename."");
-
-    header("Cache-Control: no-cache, must-revalidate");
-
-    header("Expires: 0");
-
-    readfile($filename);
+        header("Content-Disposition: attachment; filename=".$filename."");
+        header("Cache-Control: no-cache, must-revalidate");
+        header("Expires: 0");
+        readfile($filename);
 
 
 
