@@ -21,9 +21,10 @@ Route::group(array('before'=>'Folios'),  function (){
 			Route::post('/entregafoliose/rusticos/{xid}', 'folios_EntregaFoliosController@post_foliose');
 
 			//REPORTE PERITO
-			Route::get('/reporteperito', 'folios_FoliosController@reporteperito');			
-			Route::get('/formatoreporteperito', 'folios_FoliosController@formatoreporteperito');
-			Route::get('/formatoreporteperito2', 'folios_FoliosController@formatoreporteperito2');
+			Route::get('/reporteperito', 'folios_FoliosController@reporteperito');
+			Route::get('/reporteperito/{year}' , 'folios_FoliosController@reporteperitoyear');			
+			Route::get('/formatoreporteperito/{year?}', 'folios_FoliosController@formatoreporteperito');
+			Route::get('/formatoreporteperito2/{year?}', 'folios_FoliosController@formatoreporteperito2');
 
 			Route::get('/folios/lineaCaptura', 'folios_LineaCapturaController@index');
 			Route::post('/folios/lineaCaptura', 'folios_LineaCapturaController@ObtenerValoresWS');
@@ -103,7 +104,7 @@ Route::group(array('before'=>'Folios usuario'),  function (){
 			//Folios Emitidos
             Route::get('/foliosemitidos', 'folios_FoliosController@foliosemitidos');
 			Route::get('formato/{id}', 'folios_FoliosController@formato');
-			Route::get('eliminarFolio/{id}', 'folios_FoliosController@eliminarFolios');
+			Route::get('eliminarFolio/{id}/{year}', 'folios_FoliosController@eliminarFolios');
                         //Entrega Folios Estatal
 			Route::get('/entregafoliosestatal', 'folios_EntregaFoliosController@entregafoliosestatal');
 			Route::get('/entregafoliose/detalles/{id}', 'folios_EntregaFoliosController@detalles');

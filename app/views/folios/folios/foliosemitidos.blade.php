@@ -54,7 +54,6 @@
                 $fecha['11'] = "Noviembre";
                 $fecha['12'] = "Diciembre";
                 ?>
-
                 <tr>
                 <?php $datos_perito = Perito::where('id', $folios->perito_id)->first();?>
 
@@ -67,7 +66,7 @@
                     <td align="center">{{$folios->id_usuario}}</td>
                     <td align="center">
                         <a href="formato/{{$folios->id}}" target="_blank" class="btn btn-actionForm01 btn-info" title="Reimprimir"><i class="glyphicon glyphicon-print"></i></a>
-                        <a href="eliminarFolio/{{$folios->no_oficio}}" class="eliminar btn btn-actionForm01 btn-danger" title="Eliminar"><i class="glyphicon glyphicon-trash"></i></a>
+                        <a href="eliminarFolio/{{$folios->no_oficio}}/{{$fechaBD['year']}}" class="eliminar btn btn-actionForm01 btn-danger" title="Eliminar"><i class="glyphicon glyphicon-trash"></i></a>
                     </td>
 
                 </tr>

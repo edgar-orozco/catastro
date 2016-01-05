@@ -263,11 +263,13 @@ class folios_FoliosController extends BaseController {
 		return $response;
 	}
 
-	public function eliminarFolios ($id){ //elimina los folios generados
+	public function eliminarFolios ($id, $year){ //elimina los folios generados
 		
-		$eliminar_folio = FoliosComprados::where('no_oficio_historial', '=', $id);
+		$eliminar_folio = FoliosComprados::where('no_oficio_historial', '=', $id)
+										->whereRaw("EXTRACT(YEAR FROM fecha_autorizacion) = ". $year);
 		$eliminar_folio->delete();
-		$eliminar_folio = FoliosHistorial::where('no_oficio', '=', $id);
+		$eliminar_folio = FoliosHistorial::where('no_oficio', '=', $id)
+										->whereRaw("EXTRACT(YEAR FROM fecha_oficio) = ". $year);
 		$eliminar_folio->delete();
 		return Redirect::back();
 	}
@@ -293,16 +295,18 @@ class folios_FoliosController extends BaseController {
 
 		$entrega_estatal=FoliosComprados::where('entrega_estatal', 1)->count();
 
+		$selectYear = ['' => '--seleccione un año--'] + FoliosHistorial::distinct()->select(DB::raw("date_part('year', fecha_solicitud) as year"))->orderBy('year', 'DESC')->lists('year', 'year');
+
 
 	
-		return View::make('folios.folios.reporteperito')
+		return View::make('folios.folios.reporteperito', ['selectYear'=>$selectYear])
 							->withFolios_historial($folios_historial)
 							->withFolios_totales($folios_totales)
 							->withEntrega_estatal($entrega_estatal)
 							->withConf($conf);		
 	}
 
-	public function formatoreporteperito(){
+		public function reporteperitoyear($YEAR){
 
 		$conf=FoliosConf::all()->first();
 
@@ -310,6 +314,39 @@ class folios_FoliosController extends BaseController {
 											DB::raw('Max(folio_urbano_final) as folio_urbano_final'),
 											DB::raw('Max(folio_rustico_final) as folio_rustico_final'))
 											->distinct()
+											->whereRaw("EXTRACT(YEAR FROM fecha_solicitud) = ". $YEAR)
+											->groupBy('perito_id')
+											->orderBy('perito_id')
+											->get();
+		$folios_totales=FoliosHistorial::select(
+											DB::raw('Sum(cantidad_urbanos) as folios_urbanos'),
+											DB::raw('Sum(cantidad_rusticos) as folios_rusticos'),
+											DB::raw('Sum(total_urbano) as total_urbano'),
+											DB::raw('Sum(total_rustico) as total_rustico'),
+											DB::raw('Sum(total) as total'))
+											->whereRaw("EXTRACT(YEAR FROM fecha_solicitud) = ". $YEAR)
+											->get();
+
+		$entrega_estatal=FoliosComprados::where('entrega_estatal', 1)->count();
+
+		$selectYear = ['' => '--seleccione un año--'] + FoliosHistorial::distinct()->select(DB::raw("date_part('year', fecha_solicitud) as year"))->orderBy('year', 'DESC')->lists('year', 'year');
+	
+		return View::make('folios.folios.reporteperito', ['selectYear' => $selectYear , 'year'=>$YEAR])
+							->withFolios_historial($folios_historial)
+							->withFolios_totales($folios_totales)
+							->withEntrega_estatal($entrega_estatal)
+							->withConf($conf);		
+	}
+
+	public function formatoreporteperito($YEAR){
+
+		$conf=FoliosConf::all()->first();
+
+		$folios_historial=FoliosHistorial::select('perito_id',
+											DB::raw('Max(folio_urbano_final) as folio_urbano_final'),
+											DB::raw('Max(folio_rustico_final) as folio_rustico_final'))
+											->distinct()
+											->whereRaw("EXTRACT(YEAR FROM fecha_solicitud) = ". $YEAR)
 											->groupBy('perito_id')
 											->orderBy('perito_id')
 											->get();
@@ -320,6 +357,7 @@ class folios_FoliosController extends BaseController {
 											DB::raw('Sum(total_urbano) as total_urbano'),
 											DB::raw('Sum(total_rustico) as total_rustico'),
 											DB::raw('Sum(total) as total'))
+											->whereRaw("EXTRACT(YEAR FROM fecha_solicitud) = ". $YEAR)
 											->get();
 
 		$vista= View::make('folios.folios.formatoreporteperito')->withFolios_historial($folios_historial)->withFolios_totales($folios_totales)->withConf($conf);	
@@ -332,12 +370,12 @@ class folios_FoliosController extends BaseController {
 		
 	}
 
-	public function formatoreporteperito2()
+	public function formatoreporteperito2($YEAR)
 	{
 		$peritos = Perito::orderBy('corevat', 'ASC')->get();
 
 		$vista= View::make('folios.folios.formatoreporteperito2')->withPeritos($peritos);	
-
+		return $vista;
 		$pdf = PDF::load($vista)->show();
 		//load(variable, tamaño de hoja, orientacion landscape)
 		$response = Response::make($pdf, 200);
