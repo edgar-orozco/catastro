@@ -263,13 +263,15 @@ class folios_FoliosController extends BaseController {
 		return $response;
 	}
 
-	public function eliminarFolios ($id, $year){ //elimina los folios generados
+	public function eliminarFolios ($id, $year, $perito_id){ //elimina los folios generados
 		
 		$eliminar_folio = FoliosComprados::where('no_oficio_historial', '=', $id)
+										->where('perito_id', $perito_id)
 										->whereRaw("EXTRACT(YEAR FROM fecha_autorizacion) = ". $year);
 		$eliminar_folio->delete();
 		$eliminar_folio = FoliosHistorial::where('no_oficio', '=', $id)
-										->whereRaw("EXTRACT(YEAR FROM fecha_oficio) = ". $year);
+										->whereRaw("EXTRACT(YEAR FROM fecha_oficio) = ". $year)
+										->where('perito_id', $perito_id);
 		$eliminar_folio->delete();
 		return Redirect::back();
 	}
