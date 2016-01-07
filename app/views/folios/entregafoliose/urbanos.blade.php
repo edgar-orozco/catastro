@@ -78,7 +78,7 @@
 
 		$('#year').on('change', function()
 			{
-				$( "#foliosM" ).submit();
+				$( "#foliosEU" ).submit();
 			});
 
 		$("#todos").change(function(){
