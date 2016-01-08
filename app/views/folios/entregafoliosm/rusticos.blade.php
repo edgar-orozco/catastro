@@ -138,8 +138,10 @@
 		e.preventDefault();
 		count = 0;
 		page = $(this).attr('href').split('page=')[1];
-		id = $(location).attr('href');
-		id = id.split('/')[5].split('?')[0];
+		href = $(location).attr('href');
+        id = href.split('/')[5].split('?')[0];
+        year = href.split('/')[5].split('?')[1].split('=')[1];
+        console.log(year);
 
 		$('.checkbox').each(function() 
 		{ //loop through each checkbox
@@ -155,7 +157,7 @@
         	return false;
         }
 
-		$.get('/entregafoliosmunicipal/tablaAjax/?page='+page+'&id='+ id + '&tipo_folio=R', function(data)
+		$.get('/entregafoliosmunicipal/tablaAjax/?page='+page+'&id='+ id + '&tipo_folio=R'+'&year='+ year, function(data)
 		{
 			$('#tablaAjax').html(data);
 		});

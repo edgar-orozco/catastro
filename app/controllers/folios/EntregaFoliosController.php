@@ -95,8 +95,9 @@ class folios_EntregaFoliosController extends BaseController {
         $tipo_folio = Input::get('tipo_folio');
         $perito = Perito::find($id);
         $paginate = Input::get('pagina', '15');
+        $year = Input::get('year', date('Y'));
 
-        $fr = FoliosComprados::getEntregaM($id, $tipo_folio, null, $paginate);
+        $fr = FoliosComprados::getEntregaM($id, $tipo_folio, $year, $paginate);
 
         if($tipo_folio=="U")
         {
@@ -264,8 +265,9 @@ class folios_EntregaFoliosController extends BaseController {
         $tipo_folio = Input::get('tipo_folio');
         $perito = Perito::find($id);
         $paginate = Input::get('pagina', '15');
+        $year = Input::get('year', date('Y'));
 
-        $fr = FoliosComprados::getEntregaM($id, $tipo_folio, null, $paginate);
+        $fr = FoliosComprados::getEntregaM($id, $tipo_folio, $year, $paginate);
 
         if($tipo_folio=="U")
         {

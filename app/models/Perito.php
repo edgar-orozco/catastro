@@ -19,7 +19,7 @@ class Perito extends Eloquent {
      * @return object
      */
 
-	public function sumFoliosE($tabla, $tipo = null, $total = null)
+	public function sumFoliosE($tabla, $tipo = null, $total = null, $year = null)
 		{
 			if($tabla == 'comprados')
 			{
@@ -33,6 +33,11 @@ class Perito extends Eloquent {
 			else if($tabla == 'historial')
 			{
 				$entregaU = FoliosHistorial::selectRaw('Sum(cantidad_urbanos) AS urbanos, Sum(cantidad_rusticos) AS rusticos');
+			}
+
+			if($year)
+			{
+				$entregaU->whereRaw("EXTRACT(YEAR FROM fecha_solicitud) = ". $year);
 			}
 
 			
@@ -54,7 +59,7 @@ class Perito extends Eloquent {
      * @return String
      */
 
-	public function ultimaFechaE()
+	public function ultimaFechaE($year=null)
 	{
 
 		$mes = array();
@@ -77,7 +82,8 @@ class Perito extends Eloquent {
 		$date->select(
 			DB::raw('EXTRACT(YEAR FROM MAX(fecha_entrega_e)) as anio'),
 			DB::raw('EXTRACT(MONTH FROM MAX(fecha_entrega_e)) as mes'),
-			DB::raw('EXTRACT(DAY FROM MAX(fecha_entrega_e)) as dia'));
+			DB::raw('EXTRACT(DAY FROM MAX(fecha_entrega_e)) as dia'))
+			->whereRaw("EXTRACT(YEAR FROM fecha_solicitud) = ". $year);
 
 		if($date->get()[0]->anio)
 		{
