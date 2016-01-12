@@ -26,7 +26,7 @@ Bienvenido :: @parent
             <span class="input-group-addon">
                 <span class="glyphicon glyphicon-search"></span>
             </span>
-            {{ Form::text('clave', null, array('class' => 'form-control focus  ', 'placeholder'=>'Clave Ó Cuenta Catastral', 'autofocus'=> 'autofocus', 'required')) }}
+            {{ Form::text('clave', null, array('class' => 'form-control focus  ', 'placeholder'=>'Clave 000-0000-000000', 'autofocus'=> 'autofocus', 'required')) }}
         </div>
         <br/>
         <br/>

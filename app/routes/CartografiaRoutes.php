@@ -100,4 +100,5 @@ Route::post('storepercepcionservicio', 'PercepcionServicioController@store');
 /*
 * Generación del Plano Acotado
 */
-Route::get("cartografia/planoacotado/{cve_cat}/","PlanoAcotadoController@index");
+Route::get("cartografia/planoacotado/menu","PlanoAcotadoController@menuplano");
+Route::get("cartografia/planoacotado/{cve_cat?}/","PlanoAcotadoController@index");

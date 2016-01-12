@@ -7,6 +7,7 @@ class PlanoAcotadoController extends BaseController {
 
 
     public function index($id = null) {
+        if($id == null) $id = Input::get('cve_cat');
         $ent = substr($id, 0, 2);
         $mun = substr($id, 3, 3);
         $clave_catas = substr($id, 7, 15);
@@ -96,7 +97,11 @@ class PlanoAcotadoController extends BaseController {
             
             $planoacotado[$i]=$vertice;
         }
-        
+        if(!$planoacotado)
+        {
+            Session::flash('mensaje', "No se encuentra la clave o la cuenta catastral");
+            return Redirect::back();
+        }
         //Cálcula la superficie del predio 
         $planoacotado[0]->calculate_superficie($planoacotado);
         $planoacotado[0]->calculate_perimetro($planoacotado);
@@ -311,6 +316,12 @@ class PlanoAcotadoController extends BaseController {
         $mapURL=$image->saveWebImage();
          
         return substr($mapURL, 1, strlen($mapURL));
+    }
+
+    public function menuplano()
+    {
+        $municipios = Municipio::orderBy('nombre_municipio', 'ASC')->lists('nombre_municipio', 'municipio');
+        return View::make('cartografia.form-planoAcotados', compact('municipios'));
     }
     
 }

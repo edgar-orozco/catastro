@@ -173,6 +173,11 @@ WHERE (p.clave_catas = '$cve'  OR f.cuenta = '$cve') ");
             $clac = $clavec->clave_catas;
         }
 //        dd($clac);
+        if(!$predios)
+        {
+            Session::flash('mensaje', 'No se encontro el predio');
+            return Redirect::back();
+        }
         $localidad = DB::SELECT("SELECT nombrec, ubicacion, id_ubicacion_fiscal FROM datospredio WHERE clave = '27-008-" . $clac . "'");
         $lat = DB::SELECT("SELECT ST_AsLatLonText(st_centroid(geom), 'D°M\''S.SSS\"C') AS lat_long FROM predios WHERE clave_catas = '$clave_catas' AND municipio = '$mun'");
     

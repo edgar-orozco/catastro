@@ -51,6 +51,11 @@
          {{ Form::open(array('url' => 'storepercepcionservicio', 'method' => 'POST')) }}
          {{ Form::hidden('id_tramite', '3') }}
          <div class="modal-body">
+	         @if(Session::has('mensaje'))
+
+	    		<h2>{{ Session::get('mensaje') }}</h2>
+
+			@endif
             <div class="row">
 				
 

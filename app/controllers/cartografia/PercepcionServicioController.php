@@ -43,6 +43,7 @@ class PercepcionServicioController extends \BaseController {
 
 		
 		PercepcionServicio::create($input);
+		Session::flash('mensaje', 'Gracias por su comentario =).');
 		return Redirect::route('percepcionservicio');
 		}
 

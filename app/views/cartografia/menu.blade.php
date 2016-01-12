@@ -44,6 +44,13 @@
                 </a>
             </li>
 
+            <li>
+                <a href="{{URL::to('/cartografia/planoacotado/menu')}}">
+                    <i class="glyphicon glyphicon-list"></i>&nbsp;
+                    Generar Plano Acotado
+                </a>
+            </li>
+
         </ul>
 
     </li>
