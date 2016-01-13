@@ -50,6 +50,14 @@
                     Generar Plano Acotado
                 </a>
             </li>
+            <li role="separator" class="divider"></li>
+
+            <li>
+                <a href="{{URL::to('/percepcionservicio')}}">
+                    <i class="glyphicon glyphicon-question-sign"></i>&nbsp;
+                    Persepción Servicio
+                </a>
+            </li>
 
         </ul>
 
