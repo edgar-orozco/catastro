@@ -31,7 +31,6 @@
     <div class="panel-body">
         {{Form::open(['id' => 'foliosMR', 'method' => 'GET'])}}
         {{Form::select('year', $selectYear, null,  ['id' => 'year', 'class' => 'form-control input-sm', 'aria-controls' => 'emitidos-table'])}}
-        {{Form::select('estadoF', ['x'=>'-- Seleccione estado de Folio --', '0'=>'Vigente', '1'=>'Usado'], 'x',  ['id' => 'estadoF', 'class' => 'form-control input-sm', 'aria-controls' => 'emitidos-table'])}}
         {{Form::close()}}
             <div class="row">
                 <div class="col-md-3">
@@ -154,7 +153,7 @@
         page = $(this).attr('href').split('page=')[1];
         href = $(location).attr('href');
         id = href.split('/')[5].split('?')[0];
-        year = href.split('/')[5].split('?')[1].split('=')[1];
+        year = $("input[name='year']").val();
         console.log(year);
 
         $('.checkbox').each(function() 
