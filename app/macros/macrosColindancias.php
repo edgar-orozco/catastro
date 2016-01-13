@@ -21,7 +21,7 @@ Form::macro('colindancias', function ($llave, $JsonColindancias) {
             '</div>' .
             '<div class="form-group">' .
                   Form::label($llave . '[1][superficie]', 'Superficie :') .
-                  Form::text($llave . '[1][superficie]', null, ['class' => 'form-control') .
+                  Form::text($llave . '[1][superficie]', null, ['class' => 'form-control']) .
             '</div>' .
             '<div class="form-group">' .
                  Form::label($llave . '[1][colindancia]', 'Colindancia :') .
