@@ -86,6 +86,51 @@
     {{ HTML::style('css/bootstrap-editable.css') }}
 
     <script>
+            $("body").on('focusout','#enajenante-curp',function()
+                {
+                    $(this).val($(this).val().toUpperCase());
+                });
+            $("body").on('focusout','#enajenante-rfc',function()
+                {
+                    $(this).val($(this).val().toUpperCase());
+                });
+            $("body").on('focusout','#enajenante-nombres',function()
+                {
+                    $(this).val($(this).val().toUpperCase());
+                });
+            $("body").on('focusout','#enajenante-apellido_paterno',function()
+                {
+                    $(this).val($(this).val().toUpperCase());
+                });
+            $("body").on('focusout','#enajenante-apellido_materno',function()
+                {
+                    $(this).val($(this).val().toUpperCase());
+                });
+            ///////////////////////////////////////////////DATOS VENDEDOR
+
+             $("body").on('focusout','#adquiriente-curp',function()
+                {
+                    $(this).val($(this).val().toUpperCase());
+                });
+            $("body").on('focusout','#adquiriente-rfc',function()
+                {
+                    $(this).val($(this).val().toUpperCase());
+                });
+            $("body").on('focusout','#adquiriente-nombres',function()
+                {
+                    $(this).val($(this).val().toUpperCase());
+                });
+            $("body").on('focusout','#adquiriente-apellido_paterno',function()
+                {
+                    $(this).val($(this).val().toUpperCase());
+                });
+            $("body").on('focusout','#adquiriente-apellido_materno',function()
+                {
+                    $(this).val($(this).val().toUpperCase());
+                });
+    </script>
+
+    <script>
         //Fuentes de datos para selects del xeditable
         var techos = {{json_encode((array)$techos)}};
         var pisos = {{json_encode((array)$pisos)}};

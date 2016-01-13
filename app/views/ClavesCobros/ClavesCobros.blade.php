@@ -11,7 +11,7 @@
     </h3>
     <h4>Crear, modificar, asignar Claves.</h4>
 </div>
-{{ Form::open(array('url' => 'agregarclave', 'method' => 'GET')) }}
+{{ Form::open(array('url' => 'agregarclave', 'method' => 'post')) }}
 
 <div class="row">
 
@@ -26,6 +26,6 @@
 <br>
  <div class="row">
         @include('ClavesCobros._list')
-    </div>
+        </div>
 
 @stop

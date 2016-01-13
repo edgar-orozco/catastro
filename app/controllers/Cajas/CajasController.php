@@ -9,7 +9,8 @@ class Cajas_CajasController extends \BaseController {
 	 */
 	public function index()
 	{
-		return View::make('cajas.apertura_caja');
+		//return View::make('cajas.apertura_caja');
+                return View::make('cajas.listado');
 	}
 
 
