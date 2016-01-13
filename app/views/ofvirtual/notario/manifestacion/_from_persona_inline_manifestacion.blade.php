@@ -33,7 +33,7 @@
                 'placeholder'=>'RFC',
                 'minlength'=> '12',
                 'maxlength'=> '13',
-                'pattern' => '([A-Za-z]{4})([0-9]{6})([A-Za-z0-9]{3})',
+                'pattern' => '([A-Za-z]{4})([0-9]{6})',
                 'title' => 'El RFC ingresado no tiene el formato esperado, verifique nuevamente el RFC ingresado',
                 'data-instancia'=>$instancia
                 ]
