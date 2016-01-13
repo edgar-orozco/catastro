@@ -1,3 +1,5 @@
+	
+		{{Form::hidden('year', $year)}}
 		<table class="table datatable" id="rustico-table">
 			<thead>
 				<tr>

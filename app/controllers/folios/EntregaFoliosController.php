@@ -233,6 +233,7 @@ class folios_EntregaFoliosController extends BaseController {
 		$fu = FoliosComprados::getEntregaM($id,'U',$YEAR,$paginate);
 		return View::make('folios.entregafoliosm.urbanos', ['selectYear' => $selectYear])
 		->withFu($fu)
+		->withYear($YEAR)
 		->withPerito($perito);
 	}
 
@@ -256,6 +257,7 @@ class folios_EntregaFoliosController extends BaseController {
 		$fr = FoliosComprados::getEntregaM($id,'R',$YEAR,$paginate);
 		return View::make('folios.entregafoliosm.rusticos', ['selectYear' => $selectYear])
 		->withFr($fr)
+		->withYear($YEAR)
 		->withPerito($perito);
 	}
 
@@ -274,6 +276,7 @@ class folios_EntregaFoliosController extends BaseController {
 	        return View::make('folios.entregafoliosm.tablaAjaxU')
 	        ->withFu($fr)
 	        ->withPerito($perito)
+	        ->withYear($year)
 	        ->render();
         }
         else if($tipo_folio=="R")
@@ -281,6 +284,7 @@ class folios_EntregaFoliosController extends BaseController {
 	        return View::make('folios.entregafoliosm.tablaAjax')
 	        ->withFr($fr)
 	        ->withPerito($perito)
+	        ->withYear($year)
 	        ->render();
 	    } 
     }
@@ -343,6 +347,7 @@ class folios_EntregaFoliosController extends BaseController {
 				$folio = FoliosComprados::where('tipo_folio', 'U')
 				->where('numero_folio', $inputs['urbanos'][$a])
 				->where('perito_id', $id)
+				->whereRaw("EXTRACT(YEAR FROM fecha_autorizacion) = ". $inputs['year'])
 				->first();
 
 				$f = FoliosComprados::find($folio->id);
@@ -360,6 +365,7 @@ class folios_EntregaFoliosController extends BaseController {
 				$folio = FoliosComprados::where('tipo_folio', 'R')
 				->where('numero_folio', $inputs['rusticos'][$a])
 				->where('perito_id', $id)
+				->whereRaw("EXTRACT(YEAR FROM fecha_autorizacion) = ". $inputs['year'])
 				->first();
 
 				$f = FoliosComprados::find($folio->id);
@@ -370,18 +376,20 @@ class folios_EntregaFoliosController extends BaseController {
 			}
 		}
 
-		$fr = FoliosComprados::getEntregaM($id, $tipo_folio, null, $paginate);
+		$fr = FoliosComprados::getEntregaM($id, $tipo_folio, $inputs['year'], $paginate);
 
 		if($tipo_folio=="U")
         {
 	        return View::make('folios.entregafoliosm.tablaAjaxU')
 	        ->withFu($fr)
+	        ->withYear($inputs['year'])
 	        ->render();
         }
         else if($tipo_folio=="R")
         {
 	        return View::make('folios.entregafoliosm.tablaAjax')
 		        ->withFr($fr)
+		        ->withYear($inputs['year'])
 		        ->render();
         }
 
