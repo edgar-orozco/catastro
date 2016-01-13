@@ -216,14 +216,11 @@ class folios_EntregaFoliosController extends BaseController {
 
 	public function get_urbanosm($id){ //muestra todos los folios Urbanos del perito especificado
 		$paginate = Input::get('pagina', '15');
-		if(Input::get('year'))
-		{
-			$YEAR = Input::get('year');
-		}
-		else
-		{
-			$YEAR = date('Y');
-		}
+		
+		$YEAR = Input::get('year', 2015);
+
+
+
 
 		$selectYear = ['' => '--seleccione un año--'] + FoliosComprados::distinct()->select(DB::raw("date_part('year', fecha_autorizacion) as year"))->orderBy('year', 'DESC')->lists('year', 'year');
 		
@@ -240,14 +237,8 @@ class folios_EntregaFoliosController extends BaseController {
 	public function get_rusticosm($id){ //muestra todos los folios Rusticos del perito especificado
 
 		$paginate = Input::get('pagina', '15');
-		if(Input::get('year'))
-		{
-			$YEAR = Input::get('year');
-		}
-		else
-		{
-			$YEAR = date('Y');
-		}
+		
+		$YEAR = Input::get('year', 2015);
 
 		$selectYear = ['' => '--seleccione un año--'] + FoliosComprados::distinct()->select(DB::raw("date_part('year', fecha_autorizacion) as year"))->orderBy('year', 'DESC')->lists('year', 'year');
 		
@@ -267,7 +258,7 @@ class folios_EntregaFoliosController extends BaseController {
         $tipo_folio = Input::get('tipo_folio');
         $perito = Perito::find($id);
         $paginate = Input::get('pagina', '15');
-        $year = Input::get('year', date('Y'));
+        $year = Input::get('year', 2015);
 
         $fr = FoliosComprados::getEntregaM($id, $tipo_folio, $year, $paginate);
 
