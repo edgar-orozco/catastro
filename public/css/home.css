@@ -29,6 +29,9 @@
 .main-container .options-cont .main-option.op03 {
     border-bottom:10px solid #A7222F;
 }
+.main-container .options-cont .main-option.op04 {
+    border-bottom:10px solid #C4D600;
+}
 .main-container .options-cont .main-option .desc{
     position: absolute;
     width: 100%;
