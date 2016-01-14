@@ -68,12 +68,10 @@
             <a href="{{URL::to('/cajas/apertura')}}" class="main-option op04">
                 <img src="css/images/home/opc04.jpg" alt="SERVICIOS CATASTRALES"/>
                 <div class="desc">
-                    PAGOS SERVICIOS CATASTRALES
+                    PAGO DE SERVICIOS CATASTRALES
                 </div>
             </a>
-        </div>
-        
-        
+        </div>      
         
     </div>
     <h1>SELECCIONA TU MUNICIPIO</h1>
