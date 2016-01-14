@@ -15,10 +15,10 @@
         {{ HTML::style('css/header.css') }}
         {{ HTML::style('css/footer.css') }}
         <!-- JQuery -->
-        {{ HTML::script('js/jquery/jquery.min.js') }}
+        {{ HTML::script('../js/jquery/jquery.min.js') }}
 
         <!-- JS Bootstrap -->
-        {{ HTML::script('js/bootstrap.min.js') }}
+        {{ HTML::script('../js/bootstrap.min.js') }}
         <style>
             /*            .panel{
                             max-width: 600px;
