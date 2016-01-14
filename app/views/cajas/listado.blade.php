@@ -38,7 +38,7 @@
                 background-color:gray;
                 color:white;
             }
-            .accordion
+/*            .accordion
             {
                 padding-left: 10px;
                 padding-right: 10px;
@@ -61,7 +61,7 @@
                 color:#FFF;
                 text-decoration:none;
                 text-transform:uppercase;
-            }
+            }*/
             h5
             {
                 padding: 15px;
