@@ -415,7 +415,7 @@ class ManifestacionCatastralController extends \BaseController
         $listaNotarias = [];
         foreach($oNotarias as $notaria){
             $listaNotarias[$notaria->id_notaria] = $notaria->nombre." ".
-              $notaria->mpio['nombre_municipio'].", ".$notaria->estado['nom_ent']." ".
+              $notaria->mpio['nombre_municipio'].", ".
               $notaria->notario->nombres." ".$notaria->notario->apellido_paterno. " ".$notaria->notario->apellido_materno;
         }
 
