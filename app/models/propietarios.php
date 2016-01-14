@@ -11,5 +11,9 @@ class propietarios extends Eloquent
     public function propietario() {
         return $this->hasOne('personas', 'id_p', 'id_propietario');
     }
+
+    public function domicilio () {
+    	return $this->hasOne('Domicilio', 'id', 'id_dom');
+    }
 }
 

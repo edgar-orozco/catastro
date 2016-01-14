@@ -5,31 +5,32 @@
     </div>
 <div class="panel-body">
         <!--<div class="row">-->
-        <div class="col-md-4">
-          {{Form::label('estatus_fiscal','Estatus Fiscal:')}}
-          {{Form::text('estatus_fiscal', null, ['class' => 'form-control'] )}}
+      <div class="col-md-4">
+        {{Form::label('valor_terreno','Valor del Terreno :')}}
+        {{$valuacion->valor_ajustado_terreno}}
       </div>
-        <div class="col-md-4">
-          {{Form::label('valor_terreno','Valor del Terreno :')}}
-          {{Form::text('valor_terreno', null, ['class' => 'form-control'] )}}
+      <div class="col-md-4">
+        {{Form::label('valor_construccion','Valor de Construción:')}}
+        {{$valuacion->valor_ajustado_construccion}}
       </div>
-        <div class="col-md-4">
-          {{Form::label('valor_construccion','Valor de Construción:')}}
-          {{Form::text('valor_construccion', null, ['class' => 'form-control'] )}}
+      <div class="col-md-4">
+        {{Form::label('valor_catastral','Valor Catastral:')}}
+        {{$valuacion->valor_catastral}}
       </div>
+      <div class="col-md-4">
+        {{Form::label('fecha_revaluacion','Fecha revaluación:')}}
+        <?php $fecha=strtotime($valuacion->created_at); echo date("d/m/Y",$fecha) ?>
+      </div>
+      <div class="col-md-4">
+        {{Form::label('impuesto_predial','Impuesto Predial:')}}
+        {{Form::text('impuesto_predial', null, ['class' => 'form-control'] )}}
+      </div>
+      <div class="col-md-4">
+        {{Form::label('estatus_fiscal','Estatus Fiscal:')}}
+        {{Form::text('estatus_fiscal', null, ['class' => 'form-control'] )}}
+      </div>
+      
 
-      <div class="col-md-4">
-          {{Form::label('valor_catastral','Valor Catastral:')}}
-          {{Form::text('valor_catastral', null, ['class' => 'form-control'] )}}
-        </div>
-      <div class="col-md-4">
-          {{Form::label('impuesto_predial','Impuesto Predial:')}}
-          {{Form::text('impuesto_predial', null, ['class' => 'form-control'] )}}
-        </div>
-      <div class="col-md-4">
-          {{Form::label('fecha_revaluacion','Fecha revaluación:')}}
-           {{Form::input('text', 'fecha_revaluacion', null, ['class'=>'form-control fecha' ] )}}
-        </div>
 
 </div>
 </div>

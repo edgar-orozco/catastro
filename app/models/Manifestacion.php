@@ -28,7 +28,6 @@ class Manifestacion extends Eloquent
     {
         return $this->belongsTo('personas', 'adquiriente_id', 'id_p');
     }
-
     public function enajenante()
     {
         return $this->belongsTo('personas', 'enajenante_id', 'id_p');
@@ -87,7 +86,14 @@ class Manifestacion extends Eloquent
     {
         return $this->hasMany('ManifestacionServicio','manifestacion_id', 'id');
     }
-
+    public function Propietario()
+    {
+        return $this->belongsTo('propietarios', 'propietario_id', 'id_propietarios');
+    }
+    public function SERVICIO () 
+    {
+        return $this->hasMany('ServicioPublico', 'manifestacion_predio_id', 'id');
+    }
 
     public static function boot()
     {

@@ -2,20 +2,27 @@
     <div class="panel-heading"></div>
     <div class="panel-body">
         <div class="col-md-4">
-            {{Form::label('tramite_id','Tipo de Predio')}}
-            {{Form::select('tramite_id',$tipoPredio, null,['tabindex'=>'1','class'=>'form-control','autofocus'=> 'autofocus', 'required' => 'required', 'tb-focus' => 'focusForm', 'ng-blur' => 'focusForm = false'])}}
+            {{Form::label('tramite_id','Tipo de Predio')}}<br>
+            <?php 
+                if($predio->tipo_predio == "U"){
+                    echo "URBANO";
+                }
+                if($predio->tipo_predio == "R"){
+                    echo "RÚSTICO";
+                }
+            ?>
             {{$errors->first('tramite_id', '<span class=text-danger>:message</span>')}}
         </div>
 
         <div class="col-md-4">
-            {{Form::label('cuenta','Cuenta')}}
-            {{Form::text('cuenta', null, ['placeholder'=>'Cuenta','tabindex'=>'2','class'=>'form-control', 'autofocus'=> 'autofocus', 'required' => 'required', 'tb-focus' => 'focusForm', 'ng-blur' => 'focusForm = false'] )}}
+            {{Form::label('cuenta','Cuenta')}}<br>
+            {{$valuacion->cuenta}}
             {{$errors->first('Cuenta', '<span class=text-danger>:message</span>')}}
         </div>
 
         <div class="col-md-4">
-            {{Form::label('clave','Clave Catastral')}}
-            {{Form::text('clave', null, ['placeholder'=>'Clave Catastral','tabindex'=>'2','class'=>'form-control', 'autofocus'=> 'autofocus', 'required' => 'required', 'tb-focus' => 'focusForm', 'ng-blur' => 'focusForm = false'] )}}
+            {{Form::label('clave','Clave Catastral')}}<br>
+            {{$valuacion->clave}}
             {{$errors->first('clave', '<span class=text-danger>:message</span>')}}
         </div>
     </div>
@@ -53,6 +60,7 @@
         <div class="col-md-12">
             {{Form::label('calle','Calle')}}
             {{Form::text('calle', null, ['placeholder'=>'Calle','tabindex'=>'2','class'=>'form-control', 'autofocus'=> 'autofocus', 'required' => 'required', 'tb-focus' => 'focusForm', 'ng-blur' => 'focusForm = false'] )}}
+            {{$predio -> notaria}}            
             {{$errors->first('calle', '<span class=text-danger>:message</span>')}}
         </div>
         <div class="col-md-12">
@@ -92,18 +100,46 @@
     <div class="panel-heading"></div>
     <div class="panel-body">
         <div class="col-md-4">
-            {{Form::label('superficie','Superficie')}}
-            {{Form::text('superficie', null, ['placeholder'=>'Superficie','tabindex'=>'2','class'=>'form-control', 'autofocus'=> 'autofocus', 'required' => 'required', 'tb-focus' => 'focusForm', 'ng-blur' => 'focusForm = false'] )}}
+            {{Form::label('superficie','Superficie')}}<br>
+            {{$predio->sup_terreno}} m<sup>2</sup>
             {{$errors->first('superficie', '<span class=text-danger>:message</span>')}}
         </div>
         <div class="col-md-8">
-            {{Form::label('poblacion','Población')}}
-            {{Form::text('poblacion', null, ['placeholder'=>'Población','tabindex'=>'2','class'=>'form-control', 'autofocus'=> 'autofocus', 'required' => 'required', 'tb-focus' => 'focusForm', 'ng-blur' => 'focusForm = false'] )}}
+            {{Form::label('poblacion','Uso del Predio')}}<br>
+            <?php 
+                if($valuacion->ValuacionTerreno->usosuelo_id == 1) {
+                    echo "SIN CONSTRUCCIÓN (BALDÍOS)";
+                }
+                if($valuacion->ValuacionTerreno->usosuelo_id == 2) {
+                    echo "RESTAURANTES";
+                }
+                if($valuacion->ValuacionTerreno->usosuelo_id == 3) {
+                    echo "ESTACIONAMIENTO";
+                }
+                if($valuacion->ValuacionTerreno->usosuelo_id == 4) {
+                    echo "CINES";
+                }
+                if($valuacion->ValuacionTerreno->usosuelo_id == 5) {
+                    echo "CLUBES";
+                }
+                if($valuacion->ValuacionTerreno->usosuelo_id == 6) {
+                    echo "PASTIZALES";
+                }
+                if($valuacion->ValuacionTerreno->usosuelo_id == 7) {
+                    echo "DEPARTAMENTO EN CONDOMINIO";
+                }
+                if($valuacion->ValuacionTerreno->usosuelo_id == 8) {
+                    echo "OFICINAS DE SERVICIOS";
+                }
+                if($valuacion->ValuacionTerreno->usosuelo_id == 9) {
+                    echo "CASA HABITACIÓN";
+                }
+            ?>
             {{$errors->first('poblacion', '<span class=text-danger>:message</span>')}}
         </div>
         <div class="col-md-4">
-            {{Form::label('valor','Valor de Calle')}}
-            {{Form::text('valor', null, ['placeholder'=>'Valor de Calle','tabindex'=>'2','class'=>'form-control', 'autofocus'=> 'autofocus', 'required' => 'required', 'tb-focus' => 'focusForm', 'ng-blur' => 'focusForm = false'] )}}
+            {{Form::label('valor','Valor de Calle')}}<br>
+            {{$valuacion->ValuacionTerreno->valor_calle}}
             {{$errors->first('valor', '<span class=text-danger>:message</span>')}}
         </div>
         <div class="col-md-8">
