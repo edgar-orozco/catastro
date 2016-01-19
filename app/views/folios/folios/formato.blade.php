@@ -3,6 +3,11 @@
 	<head>
 		<title>Folio Emitido</title>
 		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+		<style type="text/css">
+		#advertencia {
+			font-size: 18px;
+		}
+		</style>
 	</head>
 	<body>
 		<img src="css/images/folios/EncabezadoDC.jpg" WIDTH=500 HEIGHT=91 >
@@ -125,7 +130,7 @@
 			</tr>
 		</table>
 		<br>
-		Cabe hacer mención que la vigencia de éstos folios es hasta el día 31 de diciembre del <?php echo date('Y');?>
+		<p id="advertencia"><b>Cabe hacer mención que la vigencia de éstos folios es hasta el día 31 de diciembre del <?php echo date('Y');?>.</b></p>
 		
 		<br>
 		<p align="justify">
