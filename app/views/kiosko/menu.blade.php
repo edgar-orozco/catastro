@@ -14,5 +14,11 @@
                 Trámites y Precios
             </a>
         </li>
+        <li class="@if(Request::is('kiosko/consulta-boleta-predial')) active @endif">
+            <a href="{{URL::to('kiosko/consulta-boleta-predial')}}" target="_blank">
+                <i class="glyphicon glyphicon-list-alt"></i>&nbsp;
+                Cálculo Predial
+            </a>
+        </li>
     </ul>
 @endif
