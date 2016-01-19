@@ -21,7 +21,7 @@
           
             
             <td align="center">
-              {{ $content->nombre }}
+              {{ $content->nombre.' '.$content->paterno.' '.$content->materno }}
 
             </td>
   
