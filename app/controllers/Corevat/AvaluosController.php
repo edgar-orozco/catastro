@@ -355,7 +355,7 @@ class corevat_AvaluosController extends \BaseController {
 			$errors[] = '¡La Superficie de Construcción esta incompleta!';
 		}
 		//Select de folio
-		$folio = ['' => '--Seleccione una opcion--']+$this->FoliosComprados->where('perito_id',93)->where('num_avaluo',null)->lists('numero_folio','id');
+		$folio = ['' => '--Seleccione una opcion--']+$this->FoliosComprados->where('perito_id',Auth::id())->where('num_avaluo',null)->lists('numero_folio','id');
 		
 		return View::make('Corevat.Avaluos.avaluos', compact('opt', 'idavaluo', 'title', 'rowAvaluo', 'errors', 'folio'));
 	}
