@@ -16,6 +16,12 @@
 	@endif
 
 	<div class="col-md-12">&nbsp;</div>
+	@if(count($errors) <= 0)
+	<div class="col-md-6 Form-actions">
+		{{Form::label('num_avaluo','Selecdciona Avaluo')}}
+		{{Form::select('num_avaluo',$folio, null,['tabindex'=>'1','class'=>'form-control', 'autofocus'=> 'autofocus', 'required' => 'required', 'tb-focus' => 'focusForm', 'ng-blur' => 'focusForm = false'])}}
+	</div>
+	@endif
 
 	<div class="col-md-6 form-actions">
 		<a href="{{URL::route('indexAvaluos')}}" class="btn btn-coveratSecondary" role="button"><i class="glyphicon glyphicon-arrow-left"></i> Regresar</a>

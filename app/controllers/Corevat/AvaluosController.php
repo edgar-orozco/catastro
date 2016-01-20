@@ -6,10 +6,12 @@ class corevat_AvaluosController extends \BaseController {
 
 	protected $avaluo;
 	protected $idavaluo;
+	protected $foliosComprados;
 
-	public function __construct(Avaluos $avaluo) {
+	public function __construct(Avaluos $avaluo, FoliosComprados $foliosComprados) {
 		$this->avaluo = $avaluo;
 		$this->idavaluo = $avaluo->idavaluo;
+		$this->FoliosComprados =$foliosComprados;
 	}
 
 	/**
@@ -352,9 +354,10 @@ class corevat_AvaluosController extends \BaseController {
 		} else if ( !AefConstrucciones::validSuperficie($idavaluo) ) {
 			$errors[] = '¡La Superficie de Construcción esta incompleta!';
 		}
-
-		return View::make('Corevat.Avaluos.avaluos', compact('opt', 'idavaluo', 'title', 'rowAvaluo', 'errors'));
-
+		//Select de folio
+		$folio = ['' => '--Seleccione una opcion--']+$this->FoliosComprados->where('perito_id',93)->where('num_avaluo',null)->lists('numero_folio','id');
+		
+		return View::make('Corevat.Avaluos.avaluos', compact('opt', 'idavaluo', 'title', 'rowAvaluo', 'errors', 'folio'));
 	}
 
 	/**
@@ -363,9 +366,17 @@ class corevat_AvaluosController extends \BaseController {
 	 * @return Response
 	 */
 	public function registrarAvaluoExe($id) {
+		$inputs = Input::All();
+
 		$rowAvaluo = Avaluos::find($id);
 		$rowAvaluo->estatus = true;
 		$rowAvaluo->save();
+		
+		$folio=$rowAvaluo->foliocoretemp;
+		$n = FoliosComprados::find($inputs["num_avaluo"]);
+		$n->num_avaluo = $folio;
+		$n->save();
+
 		$response = array();
 		$response['success'] = true;
 		$response['message'] = '¡El avalúo quedo registrado!';
