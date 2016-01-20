@@ -5,8 +5,11 @@
 		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 		<style type="text/css">
 		#advertencia {
-			font-size: 18px;
+			font-size: 16px;
 		}
+
+
+
 		</style>
 	</head>
 	<body>
@@ -47,7 +50,7 @@
 
 		 
 		</p>
-		<br><br>
+		<br>
 		<B>{{$datos_perito->nombre}} <br>
 		PERITO VALUADOR  {{$datos_perito->corevat}}<br>
 		P R E S E N T E</B><br>
@@ -132,13 +135,13 @@
 		<br>
 		<p id="advertencia"><b>Cabe hacer mención que la vigencia de éstos folios es hasta el día 31 de diciembre del <?php echo date('Y');?>.</b></p>
 		
-		<br>
+
 		<p align="justify">
 			De igual manera informo a usted, que con fundamento en el Art. 30 de la Ley de Valuacion y al Art. 25 de su Reglamento, tiene obligación de proporcionar a la Comisión la información y documentación que se le sea requerida en ejercicio de dichas facultades, motivo por el cual, mensualmente los primeros seis días hábiles de cada mes, deberán remitir a la Comisión, copia de los avalúos realizados y el informe o relación del uso o destino de cada uno de los folios autorizados.
 		</p>
 		Sin otro particular, aprovecho la ocasión para enviarle un cordial saludo.
 		<br><br><br>
-		<p align="center">
+		<p align="center" id="director">
 			<B>A T E N T A M E N T E<br>
 			
 			EL DIRECTOR DE CATASTRO<br><br><br><br>
