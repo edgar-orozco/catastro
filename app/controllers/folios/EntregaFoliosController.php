@@ -61,6 +61,7 @@ class folios_EntregaFoliosController extends BaseController {
 		$fu = FoliosComprados::getEntregaM($id,'U',$YEAR,$paginate);
 		return View::make('folios.entregafoliose.urbanos', ['selectYear' => $selectYear])
 		->withFu($fu)
+		->withYear($YEAR)
 		->withPerito($perito);
 	}
 
@@ -86,6 +87,7 @@ class folios_EntregaFoliosController extends BaseController {
 		$fr = FoliosComprados::getEntregaM($id,'R',$YEAR,$paginate);
 		return View::make('folios.entregafoliose.rusticos', ['selectYear' => $selectYear])
 		->withFr($fr)
+		->withYear($YEAR)
 		->withPerito($perito);
 	}
 
@@ -111,6 +113,7 @@ class folios_EntregaFoliosController extends BaseController {
 	        return View::make('folios.entregafoliose.tablaAjax')
 	        ->withFr($fr)
 	        ->withPerito($perito)
+	        ->withYear($year)
 	        ->render();
 	    }
 
@@ -129,6 +132,7 @@ class folios_EntregaFoliosController extends BaseController {
 				$folio = FoliosComprados::where('tipo_folio', 'U')
 				->where('numero_folio', $inputs['urbanos'][$a])
 				->where('perito_id', $id)
+				->whereRaw("EXTRACT(YEAR FROM fecha_autorizacion) = ". $inputs['year'])
 				->first();
 
 				$f = FoliosComprados::find($folio->id);
@@ -149,6 +153,7 @@ class folios_EntregaFoliosController extends BaseController {
 				$folio = FoliosComprados::where('tipo_folio', 'R')
 				->where('numero_folio', $inputs['rusticos'][$a])
 				->where('perito_id', $id)
+				->whereRaw("EXTRACT(YEAR FROM fecha_autorizacion) = ". $inputs['year'])
 				->first();
 
 				$f = FoliosComprados::find($folio->id);
@@ -166,12 +171,14 @@ class folios_EntregaFoliosController extends BaseController {
         {
 	        return View::make('folios.entregafoliose.tablaAjaxU')
 	        ->withFu($fr)
+	        ->withYear($inputs['year'])
 	        ->render();
         }
         else if($tipo_folio=="R")
         {
 	        return View::make('folios.entregafoliose.tablaAjax')
 		        ->withFr($fr)
+		        ->withYear($inputs['year'])
 		        ->render();
         }
 	}

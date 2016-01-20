@@ -144,7 +144,7 @@
 		page = $(this).attr('href').split('page=')[1];
 		href = $(location).attr('href');
 		id = href.split('/')[5].split('?')[0];
-		year = href.split('/')[5].split('?')[1].split('=')[1];
+		year = $("input[name='year']").val();
 		console.log(year);
 		$('.checkbox').each(function() 
 		{ //loop through each checkbox
