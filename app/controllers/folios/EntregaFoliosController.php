@@ -106,6 +106,7 @@ class folios_EntregaFoliosController extends BaseController {
 	        return View::make('folios.entregafoliose.tablaAjaxU')
 	        ->withFu($fr)
 	        ->withPerito($perito)
+	        ->withYear($year)
 	        ->render();
         }
         else if($tipo_folio=="R")
